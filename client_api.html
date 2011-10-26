@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Client API &mdash; Jubatus 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.1.0 documentation" href="index.html" />
+    <link rel="up" title="References" href="references.html" />
+    <link rel="next" title="Data Conversion" href="fv_convert.html" />
+    <link rel="prev" title="Jubatus Framework Processes" href="processes.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fv_convert.html" title="Data Conversion"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="processes.html" title="Jubatus Framework Processes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="references.html" accesskey="U">References</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Client API</a><ul>
+<li><a class="reference internal" href="#basic-structs">basic structs</a><ul>
+<li><a class="reference internal" href="#jubatus-converter-config">jubatus::converter_config</a></li>
+<li><a class="reference internal" href="#jubatus-classifier-config-data">jubatus::classifier::config_data</a></li>
+<li><a class="reference internal" href="#jubatus-classifier-estimate-result">jubatus::classifier::estimate_result</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jubatus-client-classifier">jubatus::client::classifier</a><ul>
+<li><a class="reference internal" href="#constructor">constructor</a></li>
+<li><a class="reference internal" href="#methods">methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="processes.html"
+                        title="previous chapter">Jubatus Framework Processes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fv_convert.html"
+                        title="next chapter">Data Conversion</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/client_api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="client-api">
+<h1><a class="toc-backref" href="#id1">Client API</a><a class="headerlink" href="#client-api" title="Permalink to this headline">¶</a></h1>
+<p>jubaclassifierは、MessagePack形式で指定されたデータを送出できるクライアントであれば、
+実装言語を問わず利用することが出来る。2011年10月現在、C++/Pythonによるリファレンス実装が用意されている。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#client-api" id="id1">Client API</a><ul>
+<li><a class="reference internal" href="#basic-structs" id="id2">basic structs</a><ul>
+<li><a class="reference internal" href="#jubatus-converter-config" id="id3">jubatus::converter_config</a></li>
+<li><a class="reference internal" href="#jubatus-classifier-config-data" id="id4">jubatus::classifier::config_data</a></li>
+<li><a class="reference internal" href="#jubatus-classifier-estimate-result" id="id5">jubatus::classifier::estimate_result</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jubatus-client-classifier" id="id6">jubatus::client::classifier</a><ul>
+<li><a class="reference internal" href="#constructor" id="id7">constructor</a></li>
+<li><a class="reference internal" href="#methods" id="id8">methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="basic-structs">
+<h2><a class="toc-backref" href="#id2">basic structs</a><a class="headerlink" href="#basic-structs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jubatus-converter-config">
+<h3><a class="toc-backref" href="#id3">jubatus::converter_config</a><a class="headerlink" href="#jubatus-converter-config" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">param_t</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">converter_config</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">string_filter_types</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">filter_rule</span><span class="o">&gt;</span> <span class="n">string_filter_rules</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">num_filter_types</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">filter_rule</span><span class="o">&gt;</span> <span class="n">num_filter_rules</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">string_types</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string_rule</span><span class="o">&gt;</span> <span class="n">string_rules</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">num_types</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">num_rule</span><span class="o">&gt;</span> <span class="n">num_rules</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">converter_config</span></tt> を構成する <tt class="docutils literal"><span class="pre">filter_rule</span></tt> などのメンバについては <a class="reference internal" href="fv_convert.html#conversion"><em>Data Conversion</em></a> を参照のこと。</p>
+</div>
+<div class="section" id="jubatus-classifier-config-data">
+<h3><a class="toc-backref" href="#id4">jubatus::classifier::config_data</a><a class="headerlink" href="#jubatus-classifier-config-data" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">method</span><span class="p">;</span>
+  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="jubatus-classifier-estimate-result">
+<h3><a class="toc-backref" href="#id5">jubatus::classifier::estimate_result</a><a class="headerlink" href="#jubatus-classifier-estimate-result" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">estimate_result</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">label_</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">prob_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">estimate_result</span><span class="o">&gt;</span> <span class="n">estimate_results</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="jubatus-client-classifier">
+<h2><a class="toc-backref" href="#id6">jubatus::client::classifier</a><a class="headerlink" href="#jubatus-client-classifier" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructor">
+<h3><a class="toc-backref" href="#id7">constructor</a><a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="classifier__stringCR.stringCR.double">
+ <tt class="descname">classifier</tt><big>(</big>const string&amp; <em>hosts</em>, const string&amp; <em>name</em>, double <em>timeout</em><big>)</big><a class="headerlink" href="#classifier__stringCR.stringCR.double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubakeeperのサーバ、ポートを指定。書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> :  ZooKeeperクラスタがclassifierを一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">timeout</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+</ul>
+</div>
+<div class="section" id="methods">
+<h3><a class="toc-backref" href="#id8">methods</a><a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="classifier::save__stringCR.stringCR">
+void <tt class="descclassname">classifier::</tt><tt class="descname">save</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#classifier::save__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。</p>
+<dl class="function">
+<dt id="classifier::load__stringCR.stringCR">
+void <tt class="descclassname">classifier::</tt><tt class="descname">load</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#classifier::load__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。</p>
+<dl class="function">
+<dt id="classifier::set_config__config_dataCR">
+void <tt class="descclassname">classifier::</tt><tt class="descname">set_config</tt><big>(</big>const config_data&amp; <em>config</em><big>)</big><a class="headerlink" href="#classifier::set_config__config_dataCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>すべての</strong> サーバーのコンフィグを更新する。</p>
+<dl class="function">
+<dt id="classifier::get_config">
+config_data <tt class="descclassname">classifier::</tt><tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#classifier::get_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>コンフィグを取得する。</p>
+<dl class="function">
+<dt id="classifier::train__std::vector:std::pair:ss.datum::CR">
+void <tt class="descclassname">classifier::</tt><tt class="descname">train</tt><big>(</big>const std::vector&lt;std::pair&lt;std::string, datum&gt;&gt;&amp; <em>data</em><big>)</big><a class="headerlink" href="#classifier::train__std::vector:std::pair:ss.datum::CR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>ランダムにひとつ選んだサーバーで学習を行う。 <tt class="docutils literal"><span class="pre">std::pair&lt;std::string,</span> <span class="pre">datum&gt;</span></tt> は、あるdatumとそれに対するラベルの組み合わせである。これをvectorとして、一度で複数のdatumとラベルの組を学習させる。</p>
+<dl class="function">
+<dt id="classifier::classify__std::vector:datum:CR">
+std::vector&lt;estimate_results&gt; <tt class="descclassname">classifier::</tt><tt class="descname">classify</tt><big>(</big>const std::vector&lt;datum&gt;&amp; <em>data</em><big>)</big><a class="headerlink" href="#classifier::classify__std::vector:datum:CR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultsは、vectorのオフセットで1:1に対応している。 <tt class="docutils literal"><span class="pre">estimate_results</span></tt> は信頼度つきのラベル候補を列挙したものとなる。</p>
+<dl class="function">
+<dt id="classifier::get_status">
+std::map&lt;std::pair&lt;std::string, int&gt;, std::map&lt;std::string, std::string&gt;&gt; <tt class="descclassname">classifier::</tt><tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#classifier::get_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>すべての</strong> サーバーの状態を取得する。
+各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fv_convert.html" title="Data Conversion"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="processes.html" title="Jubatus Framework Processes"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+    </div>
+  </body>
+</html>

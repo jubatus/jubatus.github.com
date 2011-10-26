@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview and Scenario &mdash; Jubatus 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.1.0 documentation" href="index.html" />
+    <link rel="up" title="Getting Started" href="gettingstarted.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="Getting Started" href="gettingstarted.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="references.html" title="References"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gettingstarted.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="gettingstarted.html" accesskey="U">Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Overview and Scenario</a><ul>
+<li><a class="reference internal" href="#prequisites">Prequisites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup-a-single-process-jubatus-server">Setup a single process Jubatus Server</a><ul>
+<li><a class="reference internal" href="#building-and-installing-jubatus">building and installing Jubatus</a></li>
+<li><a class="reference internal" href="#installing-python-client-for-jubatus">installing Python client for Jubatus</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sending-query-to-a-jubatus-server">Sending query to a Jubatus server</a><ul>
+<li><a class="reference internal" href="#prepairing-dataset">Prepairing dataset</a></li>
+<li><a class="reference internal" href="#set-configure">Set configure</a></li>
+<li><a class="reference internal" href="#train-classify">Train/Classify</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup-jubatus-server-with-multiple-processes">Setup Jubatus Server with multiple processes</a><ul>
+<li><a class="reference internal" href="#setup-zookeeper">Setup ZooKeeper</a></li>
+<li><a class="reference internal" href="#jubakeeper">jubakeeper</a></li>
+<li><a class="reference internal" href="#running-two-processes-as-one-classifier-instance">Running two processes as one classifier instance</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup-jubatus-in-cluster">Setup Jubatus in cluster</a><ul>
+<li><a class="reference internal" href="#jubavisor-process-management-with-zookeeper">Jubavisor(Process Management with zookeeper)</a></li>
+<li><a class="reference internal" href="#client-for-multi-process-jubatus-server">Client for multi process Jubatus Server</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gettingstarted.html"
+                        title="previous chapter">Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="references.html"
+                        title="next chapter">References</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tutorial.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <p>This tutorial introduces the basic usage of the Jubatus framework.</p>
+<div class="section" id="overview-and-scenario">
+<h1>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial made up of following four sections:</p>
+<ul class="simple">
+<li>Setup a single process Jubatus Server<ul>
+<li>install Jubatus</li>
+</ul>
+</li>
+<li>How to use Jubatus<ul>
+<li>Prepairing dataset</li>
+<li>Set configure</li>
+<li>Train/Classify</li>
+</ul>
+</li>
+<li>Setup multi process Jubatus Server<ul>
+<li>Setup ZooKeeper</li>
+<li>jubakeeper</li>
+<li>run two process with local_mixture</li>
+</ul>
+</li>
+<li>Setup Jubatus in cluster<ul>
+<li>jubavisor(Process Management with zookeeper)</li>
+<li>Processes Management with zookeeper</li>
+<li>Client for multi process Jubatus Server</li>
+</ul>
+</li>
+</ul>
+<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> を利用します。
+News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
+News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
+このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。</p>
+<div class="section" id="prequisites">
+<h2>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial requires following softwares installed:</p>
+<ul class="simple">
+<li>Linux 2.6 +</li>
+<li>gcc 4.0 +</li>
+<li>pkg-config</li>
+<li>python 2.6+ and <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a></li>
+<li><a class="reference external" href="http://msgpack.org">libmsgpack</a></li>
+<li><a class="reference external" href="http://github.com/pfi/pficommon">pficommon</a> - must be configured with msgpack enabled.</li>
+<li><a class="reference external" href="http://code.google.com/p/re2/">re2</a></li>
+<li><a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> / <a class="reference external" href="http://mecab.sourceforge.net/">MeCab</a> (optional)</li>
+<li><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> server and C client (optional, for multiple processes)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="setup-a-single-process-jubatus-server">
+<h1>Setup a single process Jubatus Server<a class="headerlink" href="#setup-a-single-process-jubatus-server" title="Permalink to this headline">¶</a></h1>
+<p>ここでは、JubatusをCentOS 5.2にインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。</p>
+<div class="section" id="building-and-installing-jubatus">
+<h2>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h2>
+<p>上記を事前にインストールした上で、Jubatusをbuild, installしてください。</p>
+<div class="highlight-python"><pre>$ git clone git@github.com:jubatus/jubatus.git
+$ cd jubatus
+$ ./waf configure
+$ ./waf build
+# ./waf install
+$ jubaclassifier --name tutorial</pre>
+</div>
+<p>これで、1プロセス構成でのセットアップと起動が完了しました。</p>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> オプションは、複数のJubatusプロセスを利用する際に使います。
+詳しくは、 <a class="reference internal" href="#multiprocess"><em>Setup Jubatus Server with multiple processes</em></a> を参照してください。</p>
+<p>JubatusはデフォルトでMessagePack RPCサーバとして9199ポートで待ち受けます。
+他のサービスなどが同じポートを利用している場合は、オプションを利用して、他のポートを利用してください。
+例えば、RPCサーバを9181番で待ち受ける場合は、</p>
+<div class="highlight-python"><pre>$ jubaclassfier --rpc-port=9181 --name=tutorial</pre>
+</div>
+<p>になります。</p>
+</div>
+<div class="section" id="installing-python-client-for-jubatus">
+<h2>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h2>
+<p>Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.</p>
+<div class="highlight-python"><pre>$ git clone git@github.com:jubatus/jubatus-python.git
+$ cd jubatus-python
+$ python setup.py build
+# python setup.py install</pre>
+</div>
+<p>Check your python installation by running tests:</p>
+<div class="highlight-python"><pre>$ python setup.py test</pre>
+</div>
+</div>
+</div>
+<div class="section" id="sending-query-to-a-jubatus-server">
+<h1>Sending query to a Jubatus server<a class="headerlink" href="#sending-query-to-a-jubatus-server" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prepairing-dataset">
+<h2>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h2>
+<p>20news-bydate.tar.gzを展開すると、</p>
+<div class="highlight-python"><pre>-20news-bydate-train
+  alt.atheism
+    49960
+    51060
+    ...
+  comp.graphics
+  comp.os.ms-windows.misc
+  comp.sys.ibm.pc.hardware
+  comp.sys.mac.hardware
+  comp.windows.x
+  misc.forsale
+  rec.autos
+  rec.motorcycles
+  rec.sport.baseball
+  rec.sport.hockey
+  sci.crypt
+  sci.electronics
+  sci.med
+  sci.space
+  soc.religion.christian
+  talk.politics.guns
+  talk.politics.mideast
+  talk.politics.misc
+  talk.religion.misc</pre>
+</div>
+<p>のファイル群が展開されます。数値49960がファイル名で、newsgroup名がalt.atheismになります。
+例えば、20news-bydate-train/rec.motorcycles/104435の中身は、</p>
+<div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
+Subject: Re: BMW MOA members read this!
+Organization: Cornell Univ. CS Dept, Ithaca NY 14853
+Lines: 19
+
+In article &lt;C5Joz9.HLn@cup.hp.com&gt; Chris Steinbroner &lt;hesh@cup.hp.com&gt; writes:
+&gt;Wm. L. Ranck (ranck@joesbar.cc.vt.edu) wrote:
+&gt;: As a new BMW owner I was thinking about signing up for the MOA, but
+&gt;: right now it is beginning to look suspiciously like throwing money
+&gt;: down a rathole.
+&gt;
+&gt;[...] i'm going to
+&gt;let my current membership lapse when it's
+&gt;up for renewal.
+&gt;
+&gt;-- hesh
+
+In my case that's not for another 3+ years, so I'd appreciate any
+hints on what will keep the organization in business that long.  (And
+preferably longer, of course, and worth being part of.)
+
+-- David Karr (karr@cs.cornell.edu)</pre>
+</div>
+<p>のようなテキストファイルです。
+これらのテキストファイルを学習データとして利用します。</p>
+</div>
+<div class="section" id="set-configure">
+<h2>Set configure<a class="headerlink" href="#set-configure" title="Permalink to this headline">¶</a></h2>
+<p>jubaclassifierは、method, converterのオプションを外部からのqueryで指定することによって、動作を指定することが出来ます。オプションのプロトタイプは、以下のとおりです。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+           <span class="s">&#39;converter&#39;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+               <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+               <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+               <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+               <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+               <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+               <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+               <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
+               <span class="p">},</span>
+           <span class="s">&#39;method&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+           <span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">'method'</span></tt> は、以下のアルゴリズムのうちいずれかを指定することが出来ます。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">perceptron</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">CW</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AROW</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">NHERD</span></tt></li>
+</ul>
+<p>今回は、 <tt class="docutils literal"><span class="pre">PA</span></tt> を選択します。</p>
+<p><tt class="docutils literal"><span class="pre">'converter'</span></tt> は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します。</p>
+<p>今回は、自然言語のテキストです。
+英語など多くの言語は、&lt;space&gt;, &lt;Return&gt;で単語に分割出来るので、単語化して特徴ベクトルにすることにしましょう。
+また、HTMLタグなどは、内容を分類するのにノイズになりそうなので、&#8221;&lt;&gt;&#8221;で囲まれた部分を除去することにしましょう。</p>
+<p>こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことが出来ます。
+今回のルールをPythonオブジェクトで表現すると、以下のようになります。</p>
+<div class="highlight-python"><pre>config = {
+          'converter': {
+            "string_filter_types": {
+            "detag": { "method": "regexp", "pattern": "&lt;[^&gt;]*&gt;", "replace": "" }
+             },
+ 　          "string_filter_rules":
+               [
+              { "key": "message", "type": "detag", "suffix": "-detagged" }
+               ],
+              'num_filter_types': {},
+              'num_filter_rules': [],
+              'string_types': {},
+              'string_rules': [
+                  {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
+                  ],
+              'num_types': {},
+              'num_rules': []
+              },
+          'method': 'PA'
+          }</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">get_config</span></tt> に対してRPC呼び出しを行うと、現在指定されているオプションが返ってきます。</p>
+</div>
+<div class="section" id="train-classify">
+<h2>Train/Classify<a class="headerlink" href="#train-classify" title="Permalink to this headline">¶</a></h2>
+<p>学習器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> というAPIを利用します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">train_dat</span> <span class="o">=</span> <span class="p">[</span>
+           <span class="p">(</span>
+             <span class="s">&quot;comp.windows.x&quot;</span><span class="p">,</span>
+             <span class="p">[</span>
+              <span class="p">[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;some messages about windows...&quot;</span><span class="p">],</span>
+              <span class="p">[</span><span class="s">&quot;from&quot;</span> <span class="p">,</span> <span class="s">&quot;hoge@n.tt&quot;</span><span class="p">]</span>
+             <span class="p">]</span>
+           <span class="p">),</span>
+           <span class="p">(</span>
+             <span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span>
+             <span class="p">[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy a new mac book air...&quot;</span><span class="p">,]</span>
+           <span class="p">)</span>
+         <span class="p">]</span>
+</pre></div>
+</div>
+<p>推定させる場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> というAPIを利用します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">classify_dat</span> <span class="o">=</span> <span class="p">[[</span>
+       <span class="p">[</span><span class="s">&quot;some messages about windows...&quot;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s">&quot;I bought a new mac book air...&quot;</span><span class="p">],</span>
+     <span class="p">]]</span>
+</pre></div>
+</div>
+<p>その結果は、以下のような値が得られます。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span>
+     <span class="p">[</span><span class="s">&quot;alt.atheism&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
+     <span class="o">...</span>
+     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">2.0973217487300002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
+<span class="p">]]</span>
+</pre></div>
+</div>
+<p>それぞれのラベルごとの確率が出るので、この中で一番大きい値を提示すればおそらくそれは正しい分類でしょう。
+JubatusはMessagePack-RPCを利用できるあらゆる言語から利用することが出来ます。最後に、pythonのコードを示します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">jubatus</span>
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span><span class="p">,</span> <span class="n">OptionValueError</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&#39;-s&#39;</span><span class="p">,</span> <span class="s">&#39;--server_list&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
+                 <span class="n">dest</span><span class="o">=</span><span class="s">&#39;server_list&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;localhost:9199&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&#39;-n&#39;</span><span class="p">,</span> <span class="s">&#39;--name&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
+                 <span class="n">dest</span><span class="o">=</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&#39;-a&#39;</span><span class="p">,</span> <span class="s">&#39;--algo&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
+                 <span class="n">dest</span><span class="o">=</span><span class="s">&#39;algo&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;PA&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">get_most_likely</span><span class="p">(</span><span class="n">estm</span><span class="p">):</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">estm</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">prob</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">prob</span> <span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ans</span>
+            <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">prob</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">options</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server_list</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;converter&#39;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+               <span class="p">},</span>
+              <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span>
+                 <span class="p">[</span>
+                <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+                 <span class="p">],</span>
+                <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s">&#39;key&#39;</span><span class="p">:</span> <span class="s">&#39;message-detagged&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+                    <span class="p">],</span>
+                <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
+                <span class="p">},</span>
+            <span class="s">&#39;method&#39;</span><span class="p">:</span> <span class="n">options</span><span class="o">.</span><span class="n">algo</span><span class="p">,</span>
+            <span class="p">}</span>
+
+    <span class="n">classifier</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;train.dat&#39;</span><span class="p">):</span>
+        <span class="n">label</span><span class="p">,</span> <span class="nb">file</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
+            <span class="p">[(</span> <span class="n">label</span> <span class="p">,</span>  <span class="p">([[</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="n">dat</span><span class="p">]],</span> <span class="p">)</span> <span class="p">,)]</span>
+        <span class="p">)</span>
+        <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;test.dat&#39;</span><span class="p">):</span>
+        <span class="n">label</span><span class="p">,</span> <span class="nb">file</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span>
+            <span class="p">[([[</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="n">dat</span><span class="p">]],</span> <span class="p">)]</span>
+           <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ans</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">estm</span> <span class="o">=</span> <span class="n">get_most_likely</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">label</span> <span class="o">==</span> <span class="n">estm</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;OK&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;NG&quot;</span>
+            <span class="k">print</span> <span class="n">result</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span> <span class="o">+</span> <span class="n">label</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">estm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">estm</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>このPythonスクリプトは、次のようにして利用します。</p>
+<div class="highlight-python"><pre>$ python tutorial.py -s localhost:9199 -n tutorial2</pre>
+</div>
+<p>以上で、下記の構成でJubatusを実行しました。</p>
+<div class="figure">
+<img alt="single client, single server" src="_images/single_single.png" style="width: 70%;" />
+</div>
+</div>
+</div>
+<div class="section" id="setup-jubatus-server-with-multiple-processes">
+<span id="multiprocess"></span><h1>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h1>
+<p>Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を強調させることで、分散処理を行うことが出来ます。</p>
+<div class="section" id="setup-zookeeper">
+<h2>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>$ cd /path/to/zookeeper
+$ bin/zkServer.sh start
+JMX enabled by default
+Using config: /zookeeper-3.3.3/bin/../conf/zoo.cfg
+Starting zookeeper ...
+STARTED
+...</pre>
+</div>
+<p>以後、zoo.cfgでの指定によりローカルマシンのポート2181で起動していることを想定します。</p>
+</div>
+<div class="section" id="jubakeeper">
+<h2>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h2>
+<p>jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
+jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。</p>
+<div class="highlight-python"><pre>$ jubakeeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
+</div>
+<p>これにより、jubakeeperは、9198ポートでRPCを待ち受けます。
+jubakeeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。</p>
+</div>
+<div class="section" id="running-two-processes-as-one-classifier-instance">
+<h2>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h2>
+<p>3並列でクライアントからのリクエストを受け付けたい場合は、jubaclassifierを3つ起動します。
+<tt class="docutils literal"><span class="pre">--name</span></tt> で同じ名前を指定することにより、3つのプロセスがひとつのインスタンスとして強調動作します。
+同じマシン内で複数プロセスを起動する場合は、プロセスごとにポートを変えなければならないことに注意してください。</p>
+<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;
+$ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;
+$ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;</pre>
+</div>
+<p>zookeeperのクライアントを用いて、たしかに二つのサーバプロセスが起動していることを確認することも出来ます。</p>
+<div class="highlight-python"><pre>$ cd /path/to/zookeeper
+$ bin/zkCli.sh -server localhost:2181
+[zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/tutorial2/nodes
+[XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]</pre>
+</div>
+<p>以上で、下記の構成でJubatusを実行しました。</p>
+<div class="figure">
+<img alt="single client, multi servers" src="_images/single_multi.png" style="width: 70%;" />
+</div>
+</div>
+</div>
+<div class="section" id="setup-jubatus-in-cluster">
+<h1>Setup Jubatus in cluster<a class="headerlink" href="#setup-jubatus-in-cluster" title="Permalink to this headline">¶</a></h1>
+<p>Jubatusは各種プロセスを一括管理するための仕組みを備えています。</p>
+<p>今、それぞれのサーバに対して、以下の表に対応したプロセスを起動させることを考えます。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">IP address</th>
+<th class="head">processes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>192.168.0.1</td>
+<td>操作端末</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.10</td>
+<td>classifier - 1</td>
+</tr>
+<tr class="row-even"><td>192.168.0.20</td>
+<td>classifier - 2</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.30</td>
+<td>classifier - 3</td>
+</tr>
+<tr class="row-even"><td>192.168.0.100</td>
+<td>jubakeeper/zookeeper - 1</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.200</td>
+<td>jubakeeper/zookeeper - 2</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><pre>[192.168.0.100]$ bin/zkServer.sh start
+[192.168.0.200]$ bin/zkServer.sh start</pre>
+</div>
+<p>zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成する設定を書いてください。
+そして、クライアントから利用するためにjubakeeperを用意しておきます。jubakeeperはデフォルトで9198番ポートを利用します。</p>
+<div class="highlight-python"><pre>[192.168.0.100]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
+[192.168.0.200]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
+</div>
+<div class="section" id="jubavisor-process-management-with-zookeeper">
+<h2>Jubavisor(Process Management with zookeeper)<a class="headerlink" href="#jubavisor-process-management-with-zookeeper" title="Permalink to this headline">¶</a></h2>
+<p>jubavisorは、マシンごとに一プロセスずつ存在するagentで、Jubatusctrlからの司令を受けて同サーバ内のプロセスを管理します。
+このプロセスは、予めマシンごとに起動しておく必要があります。jubavisorはデフォルトで9199番ポートを利用します。</p>
+<div class="highlight-python"><pre>[192.168.0.10 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
+[192.168.0.20 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
+[192.168.0.30 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d</pre>
+</div>
+<p>jubavisorは、一台のサーバ内の複数プロセスのポートを調整して指定されたプロセスを指定された名前空間で起動し、zookeeperに登録します。
+ここまで出来れば、後は操作端末から、自由にプロセスを管理することが出来ます。
+Let&#8217;s provisioning!!</p>
+<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
+[192.168.0.1  ]$ jubactl --name=tutorial2 --zookeeper=192.168.0.100:2181,192.168.0.200:2181 --type=classifier -c status
+active jubakeeper members:
+ 192.168.0.100_9198
+ 192.168.0.200_9198
+active jubavisor members:
+ 192.168.0.10_9199
+ 192.168.0.20_9199
+ 192.168.0.30_9199
+active tutorial2 members:
+ 192.168.0.10_9180
+ 192.168.0.20_9180
+ 192.168.0.30_9180</pre>
+</div>
+<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c stop --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181</pre>
+</div>
+</div>
+<div class="section" id="client-for-multi-process-jubatus-server">
+<h2>Client for multi process Jubatus Server<a class="headerlink" href="#client-for-multi-process-jubatus-server" title="Permalink to this headline">¶</a></h2>
+<p>最後に、複数クライアント、複数サーバ環境でtutorialを実行しましょう。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">IP address</th>
+<th class="head">processes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>192.168.0.1</td>
+<td>操作端末</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.2</td>
+<td>client - 1</td>
+</tr>
+<tr class="row-even"><td>192.168.0.3</td>
+<td>client - 2</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.3</td>
+<td>client - 3</td>
+</tr>
+<tr class="row-even"><td>192.168.0.10</td>
+<td>classifier - 1</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.20</td>
+<td>classifier - 2</td>
+</tr>
+<tr class="row-even"><td>192.168.0.30</td>
+<td>classifier - 3</td>
+</tr>
+<tr class="row-odd"><td>192.168.0.100</td>
+<td>jubakeeper/zookeeper - 1</td>
+</tr>
+<tr class="row-even"><td>192.168.0.200</td>
+<td>jubakeeper/zookeeper - 2</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial3 -z 192.168.0.100:2181,192.168.0.200:2181
+[192.168.0.2  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
+[192.168.0.3  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198</pre>
+</div>
+<p>以上で、下記の構成でJubatusを実行しました。</p>
+<div class="figure">
+<img alt="multi clients, multi servers" src="_images/multi_multi.png" style="width: 70%;" />
+</div>
+<p>以上でチュートリアルは終わりです。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="references.html" title="References"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gettingstarted.html" title="Getting Started"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="gettingstarted.html" >Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+    </div>
+  </body>
+</html>
