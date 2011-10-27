@@ -326,7 +326,7 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
  
  if __name__ == '__main__':
      options, remainder = parse_args()
-     classifier = jubatus.Classifier(options.server_list, options.name, False)
+     classifier = jubatus.Classifier(options.server_list, options.name)
  
      config = {
              'converter': {
@@ -377,7 +377,13 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
              print result + "," + label + ", " + estm[0] + ", " + str(estm[1])
 
 
-このPythonスクリプトは、次のようにして利用します。
+``train.dat``, ``test.dat`` というファイルを作り、
+
+::
+
+  ラベル名,ファイルパス
+
+と各行に書き込み、次のようにして利用します。
 
 ::
 

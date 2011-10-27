@@ -464,7 +464,7 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
-    <span class="n">classifier</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server_list</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server_list</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
     <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s">&#39;converter&#39;</span><span class="p">:</span> <span class="p">{</span>
@@ -515,7 +515,10 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
             <span class="k">print</span> <span class="n">result</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span> <span class="o">+</span> <span class="n">label</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">estm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">estm</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>このPythonスクリプトは、次のようにして利用します。</p>
+<p><tt class="docutils literal"><span class="pre">train.dat</span></tt>, <tt class="docutils literal"><span class="pre">test.dat</span></tt> というファイルを作り、</p>
+<div class="highlight-python"><pre>ラベル名,ファイルパス</pre>
+</div>
+<p>と各行に書き込み、次のようにして利用します。</p>
 <div class="highlight-python"><pre>$ python tutorial.py -s localhost:9199 -n tutorial2</pre>
 </div>
 <p>以上で、下記の構成でJubatusを実行しました。</p>
