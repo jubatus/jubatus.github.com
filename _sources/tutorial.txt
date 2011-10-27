@@ -45,6 +45,7 @@ This tutorial requires following softwares installed:
 - `libmsgpack <http://msgpack.org>`_
 - `pficommon <http://github.com/pfi/pficommon>`_ - must be configured with msgpack enabled.
 - `re2 <http://code.google.com/p/re2/>`_
+- `google-glog <http://code.google.com/p/google-glog/>`_
 - `ux-trie <http://code.google.com/p/ux-trie/>`_ / `MeCab <http://mecab.sourceforge.net/>`_ (optional)
 - `ZooKeeper <http://zookeeper.apache.org/>`_ server and C client (optional, for multiple processes)
 
