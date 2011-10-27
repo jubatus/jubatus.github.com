@@ -19,6 +19,7 @@ This document is made up of following parts:
 
    gettingstarted
    references
+   misc
 
 Other resources
 ===============
