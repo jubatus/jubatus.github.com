@@ -11,7 +11,7 @@ Publications
  - `"How Jubatus works in Distributed environment" <http://www.slideshare.net/JubatusOfficial/jubatus-workshop>`_ by Kota UENISHI
  - "Jubatus' application and handson" by Satoshi ODA
  - "Estimating nergy consumption using Jubatus" by Shinta NAKAYAMA
- - "pficommon and MessagePack-RPC" by Hideyuki TANAKA
+ - `"pficommon and MessagePack-RPC" <_static/tanakh/presen.html>`_ by Hideyuki TANAKA
 
 - 岡野原，他 "大規模分散リアルタイム学習支える技術と今後の展望"， WebDB forum 2011, Tokyo.
 
