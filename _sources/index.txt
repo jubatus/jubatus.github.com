@@ -6,7 +6,7 @@
 Jubatus : Distributed Online Machine Learning Framework
 =======================================================
 
-The Jubatus library is a online machine learning framework which runs in distributed environment. Jubatus library includes these functions:
+The Jubatus library is a online machine learning framework which runs in distributed environment. Jubatus library includes these functionalities:
 
 - multi-class/binary classification,
 - pre-proccessing data(for natural language), and
