@@ -53,7 +53,7 @@ This tutorial requires following softwares installed:
 Setup a single process Jubatus Server
 =====================================
 
-ここでは、JubatusをCentOS 5.2にインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。
+ここでは、Jubatusをインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。
 
 building and installing Jubatus
 --------------------------------
