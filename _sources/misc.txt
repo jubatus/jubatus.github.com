@@ -24,6 +24,10 @@ Publications
 FAQ
 ---
 
+- When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of `EADDRINUSE`)
+
+ - sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1
+
 - mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?
 
  - check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
