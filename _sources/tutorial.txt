@@ -1,7 +1,10 @@
+Tutorial - classifier
+=========================
+
 This tutorial introduces the basic usage of the Jubatus framework.
 
 Overview and Scenario
-=======================
+------------------------
 This tutorial made up of following four sections:
 
 - Setup a single process Jubatus Server
@@ -62,7 +65,7 @@ building and installing Jubatus
 
 ::
 
-  $ git clone git@github.com:jubatus/jubatus.git
+  $ git clone git://github.com/jubatus/jubatus.git
   $ cd jubatus
   $ ./waf configure
   $ ./waf build
@@ -80,7 +83,7 @@ JubatusはデフォルトでMessagePack RPCサーバとして9199ポートで待
 
 ::
 
-  $ jubaclassfier --rpc-port=9181 --name=tutorial
+  $ jubaclassifier --rpc-port=9181 --name=tutorial
 
 になります。
 
@@ -91,8 +94,8 @@ Python client of Jubatus requires `msgpack-python <http://pypi.python.org/pypi/m
 
 ::
 
-  $ git clone git@github.com:jubatus/jubatus-python.git
-  $ cd jubatus-python
+  $ git clone git://github.com/jubatus/jubatus-python-client.git
+  $ cd jubatus-python-client
   $ python setup.py build
   # python setup.py install
 
@@ -285,7 +288,7 @@ Train/Classify
         ["talk.religion.misc", -0.092822007834899994]
    ]]
    
-それぞれのラベルごとの確率が出るので、この中で一番大きい値を提示すればおそらくそれは正しい分類でしょう。
+それぞれのラベルごとの値が出るので、この中で一番大きい値を提示すればおそらくそれは正しい分類でしょう。
 JubatusはMessagePack-RPCを利用できるあらゆる言語から利用することが出来ます。最後に、pythonのコードを示します。
 
 
@@ -323,9 +326,9 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
      return result
  
  
- 
  if __name__ == '__main__':
      options, remainder = parse_args()
+ 
      classifier = jubatus.Classifier(options.server_list, options.name)
  
      config = {
@@ -346,14 +349,15 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
                  'num_types': {},
                  'num_rules': []
                  },
-             'method': options.algo,
+             'method': options.algo
              }
  
-     classifier.set_config(config)
+     print classifier.set_config(config)
      
      print classifier.get_config()
  
-     print classifier.clear()
+     print classifier.get_status()
+ 
      for line in open('train.dat'):
          label, file = line[:-1].split(',')
          dat = open(file).read()
@@ -362,12 +366,21 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
          )
          print classifier.get_status()
  
+     print classifier.save("tutorial")
+ 
+     print classifier.load("tutorial")
+ 
+     print classifier.set_config(config)
+ 
+     print classifier.get_config()
+ 
      for line in open('test.dat'):
          label, file = line[:-1].split(',')
          dat = open(file).read()        
          ans = classifier.classify(
              [([["message", dat]], )]
             )
+ #        print ans
          if ans != None:
              estm = get_most_likely(ans[0])
              if (label == estm[0]):
@@ -375,6 +388,8 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
              else:
                  result = "NG"
              print result + "," + label + ", " + estm[0] + ", " + str(estm[1])
+
+
 
 
 ``train.dat``, ``test.dat`` というファイルを作り、
@@ -389,6 +404,13 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
 
    $ python tutorial.py -s localhost:9199 -n tutorial2
 
+ソースコードや設定ファイルは、
+
+::
+
+   $ git clone git://github.com/jubatus/jubatus-tutorial-python.git
+
+から入手することが出来ます。
 
 
 以上で、下記の構成でJubatusを実行しました。

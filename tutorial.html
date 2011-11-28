@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview and Scenario &mdash; Jubatus 0.1.0 documentation</title>
+    <title>Tutorial - classifier &mdash; Jubatus 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -101,7 +101,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Overview and Scenario</a><ul>
+<li><a class="reference internal" href="#">Tutorial - classifier</a><ul>
+<li><a class="reference internal" href="#overview-and-scenario">Overview and Scenario</a></li>
 <li><a class="reference internal" href="#prequisites">Prequisites</a></li>
 </ul>
 </li>
@@ -192,9 +193,11 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <p>This tutorial introduces the basic usage of the Jubatus framework.</p>
+  <div class="section" id="tutorial-classifier">
+<h1>Tutorial - classifier<a class="headerlink" href="#tutorial-classifier" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial introduces the basic usage of the Jubatus framework.</p>
 <div class="section" id="overview-and-scenario">
-<h1>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h1>
+<h2>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial made up of following four sections:</p>
 <ul class="simple">
 <li>Setup a single process Jubatus Server<ul>
@@ -224,6 +227,7 @@ new TWTR.Widget({
 News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
 このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。</p>
+</div>
 <div class="section" id="prequisites">
 <h2>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial requires following softwares installed:</p>
@@ -247,7 +251,7 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 <div class="section" id="building-and-installing-jubatus">
 <h2>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h2>
 <p>上記を事前にインストールした上で、Jubatusをbuild, installしてください。</p>
-<div class="highlight-python"><pre>$ git clone git@github.com:jubatus/jubatus.git
+<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus.git
 $ cd jubatus
 $ ./waf configure
 $ ./waf build
@@ -260,15 +264,15 @@ $ jubaclassifier --name tutorial</pre>
 <p>JubatusはデフォルトでMessagePack RPCサーバとして9199ポートで待ち受けます。
 他のサービスなどが同じポートを利用している場合は、オプションを利用して、他のポートを利用してください。
 例えば、RPCサーバを9181番で待ち受ける場合は、</p>
-<div class="highlight-python"><pre>$ jubaclassfier --rpc-port=9181 --name=tutorial</pre>
+<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9181 --name=tutorial</pre>
 </div>
 <p>になります。</p>
 </div>
 <div class="section" id="installing-python-client-for-jubatus">
 <h2>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h2>
 <p>Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.</p>
-<div class="highlight-python"><pre>$ git clone git@github.com:jubatus/jubatus-python.git
-$ cd jubatus-python
+<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus-python-client.git
+$ cd jubatus-python-client
 $ python setup.py build
 # python setup.py install</pre>
 </div>
@@ -427,7 +431,7 @@ preferably longer, of course, and worth being part of.)
 <span class="p">]]</span>
 </pre></div>
 </div>
-<p>それぞれのラベルごとの確率が出るので、この中で一番大きい値を提示すればおそらくそれは正しい分類でしょう。
+<p>それぞれのラベルごとの値が出るので、この中で一番大きい値を提示すればおそらくそれは正しい分類でしょう。
 JubatusはMessagePack-RPCを利用できるあらゆる言語から利用することが出来ます。最後に、pythonのコードを示します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
@@ -461,9 +465,9 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
     <span class="k">return</span> <span class="n">result</span>
 
 
-
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">options</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server_list</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
     <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -484,14 +488,15 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
                 <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
                 <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
                 <span class="p">},</span>
-            <span class="s">&#39;method&#39;</span><span class="p">:</span> <span class="n">options</span><span class="o">.</span><span class="n">algo</span><span class="p">,</span>
+            <span class="s">&#39;method&#39;</span><span class="p">:</span> <span class="n">options</span><span class="o">.</span><span class="n">algo</span>
             <span class="p">}</span>
 
-    <span class="n">classifier</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
     <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
 
-    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;train.dat&#39;</span><span class="p">):</span>
         <span class="n">label</span><span class="p">,</span> <span class="nb">file</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
         <span class="n">dat</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -500,12 +505,21 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
         <span class="p">)</span>
         <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
 
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;tutorial&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;tutorial&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="n">classifier</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;test.dat&#39;</span><span class="p">):</span>
         <span class="n">label</span><span class="p">,</span> <span class="nb">file</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
         <span class="n">dat</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">ans</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span>
             <span class="p">[([[</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="n">dat</span><span class="p">]],</span> <span class="p">)]</span>
            <span class="p">)</span>
+<span class="c">#        print ans</span>
         <span class="k">if</span> <span class="n">ans</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">estm</span> <span class="o">=</span> <span class="n">get_most_likely</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">label</span> <span class="o">==</span> <span class="n">estm</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -521,6 +535,10 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
 <p>と各行に書き込み、次のようにして利用します。</p>
 <div class="highlight-python"><pre>$ python tutorial.py -s localhost:9199 -n tutorial2</pre>
 </div>
+<p>ソースコードや設定ファイルは、</p>
+<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus-tutorial-python.git</pre>
+</div>
+<p>から入手することが出来ます。</p>
 <p>以上で、下記の構成でJubatusを実行しました。</p>
 <div class="figure">
 <img alt="single client, single server" src="_images/single_single.png" style="width: 70%;" />
