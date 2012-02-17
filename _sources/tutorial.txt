@@ -1,33 +1,11 @@
-Tutorial - classifier
-=========================
+Tutorial
+========
 
-This tutorial introduces the basic usage of the Jubatus framework.
+
 
 Overview and Scenario
-------------------------
+----------------------
 This tutorial made up of following four sections:
-
-- Setup a single process Jubatus Server
-
-  - install Jubatus
-
-- How to use Jubatus
-
-  - Prepairing dataset
-  - Set configure
-  - Train/Classify
-
-- Setup multi process Jubatus Server
-
-  - Setup ZooKeeper
-  - jubakeeper
-  - run two process with local_mixture
-
-- Setup Jubatus in cluster
-  
-  - jubavisor(Process Management with zookeeper)
-  - Processes Management with zookeeper
-  - Client for multi process Jubatus Server
 
 
 このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 `News20(20news-bydate.tar.gz) <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ を利用します。
@@ -37,7 +15,7 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 
 
 Prequisites
------------
+~~~~~~~~~~~
 
 This tutorial requires following softwares installed:
 
@@ -54,18 +32,18 @@ This tutorial requires following softwares installed:
 
 
 Setup a single process Jubatus Server
-=====================================
+------------------------------------=
 
 ここでは、Jubatusをインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。
 
 building and installing Jubatus
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 上記を事前にインストールした上で、Jubatusをbuild, installしてください。
 
 ::
 
-  $ git clone git://github.com/jubatus/jubatus.git
+  $ git clone git://github.com:jubatus/jubatus.git
   $ cd jubatus
   $ ./waf configure
   $ ./waf build
@@ -88,7 +66,7 @@ JubatusはデフォルトでMessagePack RPCサーバとして9199ポートで待
 になります。
 
 installing Python client for Jubatus
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python client of Jubatus requires `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_.
 
@@ -109,13 +87,13 @@ Check your python installation by running tests:
 .. TODO: check "Expert Python Programming" and do in a pythonic way
 
 Sending query to a Jubatus server
-=================================
+--------------------------------=
 
 .. Jubatus communicates with its clients in `MessagePack-RPC <http://msgpack.org>`_ protocol.
 
 
 Prepairing dataset
-------------------
+~~~~~~~~~~~~~~~~~~
 
 
 20news-bydate.tar.gzを展開すると、
@@ -181,7 +159,7 @@ Prepairing dataset
 これらのテキストファイルを学習データとして利用します。
 
 Set configure
--------------
+~~~~~~~~~~~~~
 jubaclassifierは、method, converterのオプションを外部からのqueryで指定することによって、動作を指定することが出来ます。オプションのプロトタイプは、以下のとおりです。
 
 .. code-block:: python
@@ -246,7 +224,7 @@ jubaclassifierは、method, converterのオプションを外部からのquery�
 
 
 Train/Classify
---------------
+~~~~~~~~~~~~~~
 学習器に学習させる場合は、 ``train`` というAPIを利用します。
 
 .. code-block:: python
@@ -424,12 +402,12 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
 .. _multiprocess:
 
 Setup Jubatus Server with multiple processes
-============================================
+--------------------------------------------
 
 Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を強調させることで、分散処理を行うことが出来ます。
 
 Setup ZooKeeper
----------------
+~~~~~~~~~~~~~~~
 
 ::
 
@@ -445,7 +423,7 @@ Setup ZooKeeper
 
 
 jubakeeper
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
 jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
 
@@ -459,7 +437,7 @@ jubakeeperを介した場合、起動しているサーバを意識すること�
 
 
 Running two processes as one classifier instance
-------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 3並列でクライアントからのリクエストを受け付けたい場合は、jubaclassifierを3つ起動します。
 ``--name`` で同じ名前を指定することにより、3つのプロセスがひとつのインスタンスとして強調動作します。
@@ -492,7 +470,7 @@ zookeeperのクライアントを用いて、たしかに二つのサーバプ�
 
 
 Setup Jubatus in cluster
-========================
+------------------------
 
 .. 複数台のマシンにログインしてJubatusを起動して設定していくのは、大変面倒です。
 
@@ -528,7 +506,7 @@ zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成す
 
 
 Jubavisor(Process Management with zookeeper)
---------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 jubavisorは、マシンごとに一プロセスずつ存在するagentで、Jubatusctrlからの司令を受けて同サーバ内のプロセスを管理します。
 このプロセスは、予めマシンごとに起動しておく必要があります。jubavisorはデフォルトで9199番ポートを利用します。
@@ -570,7 +548,7 @@ Let's provisioning!!
 
 
 Client for multi process Jubatus Server
----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 最後に、複数クライアント、複数サーバ環境でtutorialを実行しましょう。
 

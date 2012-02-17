@@ -1,0 +1,44 @@
+Programming API
+===============
+
+jubaclassifier, jubaregression, jubarecommender, jubastatは、MessagePack形式で指定されたデータを送出できるクライアントであれば、実装言語を問わず利用することが出来る。
+2012年1月現在、C++/Pythonによるクライアントジェネレータが用意されている。
+
+.. 本項では、C++の表記法を使ってAPIを解説する。
+.. 他の言語も同様に実装されているので適当に読み替えて欲しい。
+
+basic structs
+-------------
+
+jubatus::converter_config
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: cpp
+
+   typedef std::map<std::string, std::string> param_t;
+
+   struct converter_config {
+     std::map<std::string, param_t> string_filter_types;
+     std::vector<filter_rule> string_filter_rules;
+
+     std::map<std::string, param_t> num_filter_types;
+     std::vector<filter_rule> num_filter_rules;
+
+     std::map<std::string, param_t> string_types;
+     std::vector<string_rule> string_rules;
+
+     std::map<std::string, param_t> num_types;
+     std::vector<num_rule> num_rules;
+   };
+
+``converter_config`` を構成する ``filter_rule`` などのメンバについては :ref:`conversion` を参照のこと。
+
+.. toctree::
+   :maxdepth: 2
+
+   api_classifier
+   api_regression
+   api_recommender
+   api_stat
+
+

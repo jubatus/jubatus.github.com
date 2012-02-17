@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>jubatus::client::recommender &mdash; Jubatus 0.2.0-beta documentation</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.0-beta',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.2.0-beta documentation" href="index.html" />
+    <link rel="up" title="Programming API" href="api.html" />
+    <link rel="next" title="jubatus::client::stat" href="api_stat.html" />
+    <link rel="prev" title="jubatus::client::regression" href="api_regression.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api_stat.html" title="jubatus::client::stat"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api_regression.html" title="jubatus::client::regression"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Programming API</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">jubatus::client::recommender</a><ul>
+<li><a class="reference internal" href="#id1">手法説明</a><ul>
+<li><a class="reference internal" href="#id2">データ表現</a></li>
+<li><a class="reference internal" href="#id3">類似度の計算方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">システム概要</a><ul>
+<li><a class="reference internal" href="#id5">レコメンダ</a><ul>
+<li><a class="reference internal" href="#inverted-index">inverted_index</a></li>
+<li><a class="reference internal" href="#lsh">lsh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">ストレージ</a><ul>
+<li><a class="reference internal" href="#inverted-index-storage">inverted_index_storage</a></li>
+<li><a class="reference internal" href="#bit-index-stroage">bit_index_stroage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">データの分散方式</a></li>
+<li><a class="reference internal" href="#jubatus-recommender-config-data">jubatus::recommender::config_data</a></li>
+<li><a class="reference internal" href="#jubatus-recommend-estimate-result">jubatus::recommend::estimate_result</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api_regression.html"
+                        title="previous chapter">jubatus::client::regression</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api_stat.html"
+                        title="next chapter">jubatus::client::stat</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api_recommender.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubatus-client-recommender">
+<h1>jubatus::client::recommender<a class="headerlink" href="#jubatus-client-recommender" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>手法説明<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>レコメンダは，類似するデータを推薦したり，データ中の未知の属性を推定することによって推薦するためのモジュールである．</p>
+<p>類似データの推薦操作であるsimilar_rowは，行をクエリとし，その行と類似する行を返す．
+未知属性の推薦操作であるcomplete_rowは，行をクエリとし，その行の属性値を類似する行の情報を用いて推定する．</p>
+<div class="section" id="id2">
+<h3>データ表現<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>データはrowとcolumnからなる行列で表現される．各データはuniqueなidで紐付けられたrowデータで表される．各rowデータは，column名とそれに紐付く浮動小数点値からなる．但し，全てのcolumn値は指定されていなくても良い．row名，column名はあらかじめ全て指定されていなくても良い．</p>
+</div>
+<div class="section" id="id3">
+<h3>類似度の計算方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>rowデータはベクトルで表現され，ベクトル間の類似度はcos類似度，またはJaccard係数で計算される．</p>
+<p>列ベクトル <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>x</mi><mo>,</mo><mi>y</mi></mrow></math> が与えられたとする．この時，cos類似度は <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>cos</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>=</mo><msup><mi>x</mi><mi>T</mi></msup><mi>y</mi><mo>/</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>|</mo><mi>y</mi><mo>|</mo></mrow></math> と定義される，但し <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>|</mo><mi>x</mi><mo>|</mo></mrow></math> はベクトル <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>x</mi></mrow></math> のノルムである．</p>
+<p>Jaccard係数は <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>J</mi><mi>a</mi><mi>c</mi><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>=</mo><mo>|</mo><mo>∩</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>|</mo><mo>/</mo><mo>|</mo><mo>∪</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>|</mo></mrow></math> として計算される，但し， <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>∩</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>=</mo><munder><mo>∑</mo><mi>i</mi></munder><mo>min</mo><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>)</mo><mo>,</mo><mo>∪</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>=</mo><munder><mo>∑</mo><mi>i</mi></munder><mo>max</mo><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>)</mo></mrow></math> である．</p>
+<p>なお，登録されていない空の値は <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mn>0</mn></mrow></math> として扱われる．</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>システム概要<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>レコメンダはレコメンドの挙動をサポートするレコメンダとストレージから構成される．</p>
+<div class="section" id="id5">
+<h3>レコメンダ<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="inverted-index">
+<h4>inverted_index<a class="headerlink" href="#inverted-index" title="Permalink to this headline">¶</a></h4>
+<p>転置インデクスを利用したレコメンダである．転置インデクスは各特徴ID毎にそれが発火した特徴データ集合を格納する．これにより類似度に影響がある特徴ID，データだけを列挙できるようになるので，クエリが疎である場合に高速化をはかることができる</p>
+</div>
+<div class="section" id="lsh">
+<h4>lsh<a class="headerlink" href="#lsh" title="Permalink to this headline">¶</a></h4>
+<p>局所近傍ハッシュ（Locality Sensitive Hash, LSH)を利用したレコメンダである．各データ毎にそのデータを表すビット列を計算して，ビット列を格納する．データ間のcos類似度は，ビット間のハミング距離から求められる類似度によって計算できる．</p>
+<p>ベクトル <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>x</mi></mrow></math> に対し, <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>k</mi></mrow></math> 個のランダムなベクトル <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>{</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mo>}</mo>
+<mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>⋯</mo><mi>k</mi></mrow></msub></mrow></math> との内積をとり， <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>i</mi></mrow></math> 番目のベクトルとの内積値が正であれば， <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><msub><mi>b</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow></math> , そうでなければ <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><msub><mi>b</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></mrow></math> となるようなビットベクトルを作成する．このように作成されたビットベクトルを <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>l</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></math> とする．また，２つのビットベクトル間 <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>a</mi><mo>,</mo><mi>b</mi></mrow></math> で一致したビット数を <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>m</mi><mi>a</mi><mi>t</mi><mi>c</mi><mi>h</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></mrow></math> とする時，
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>cos</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>=</mo><mi>E</mi><mo>(</mo><mi>m</mi><mi>a</mi><mi>t</mi><mi>c</mi><mi>h</mi><mo>(</mo><mi>l</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>,</mo><mi>l</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>y</mi><mo>)</mo><mo>)</mo><mo>)</mo></mrow></math> が成り立つ，但し，期待値はランダムなベクトル生成に関してとるとする．</p>
+<p>これにより，任意のベクトル間のcos類似度計算は，それらのベクトルから生成されたビットベクトル間のビット一致数により近似できる．元々のベクトルに比べ，ビットベクトルは小さくまた固定長であるため通信容量を大幅に削減することができる他，類似度計算を高速に実現することができる．</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>ストレージ<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="inverted-index-storage">
+<h4>inverted_index_storage<a class="headerlink" href="#inverted-index-storage" title="Permalink to this headline">¶</a></h4>
+<p>転置インデクスを格納するインデクスである．inverted_indexで利用される．文字列生成のオーバーヘッドを削減するために内部では，カラムID文字列は整数IDに内部で変換され保存される．</p>
+</div>
+<div class="section" id="bit-index-stroage">
+<h4>bit_index_stroage<a class="headerlink" href="#bit-index-stroage" title="Permalink to this headline">¶</a></h4>
+<p>ビット列からなるデータ集合を格納するインデクスである．lshとmin_hashで利用される．ビット間の類似度計算部分はビット操作によって実現され高速である．</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>データの分散方式<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>recommenderでは全ての情報をストレージに格納する．</p>
+<p>各データは，そのrow IDに従い，コンシステントハッシング(CHT)を用いて同じIDは必ず同じサーバーに振り分けられるようになっており，IDを含む全ての操作は同じサーバーで処理される．</p>
+<p>各ストレージでは，サーバー固有である差分情報と，全サーバーで共有する部分に分けて情報を保持する．前者をdiff，後者をmixedとして以降表す．一般にmixedは全サーバーの情報を保持しているので，diffと比べて大きい．</p>
+<p>update_row操作ではdiffのみを更新する．similar_row, complete_row操作では,diffとmixedの両方を参照して操作を行う.もし,diffに情報があるrowであれば，diffの方が情報が新しいのでdiffの情報を採用する．あるIDに関する情報はCHTを利用することで同じサーバーに必ず集められる．</p>
+<p>mix操作時には各サーバーからdiffをあつめ,それらを合わせた上で，各サーバーに配り直し,mixedに更新として適用する.そしてdiffを空に初期化する操作を施す．diffを集め始めてから，各サーバーに配り直されるまでの間に各サーバーに施された変更は全て破棄される．この破棄分をバッファを２つ持つなどして対応することは今後の課題である．</p>
+<p>inverted_index_storageではdiff, mixedは転置ファイルとなっており，bit_index_storageでは各row毎にbit列を保持する.</p>
+</div>
+<div class="section" id="jubatus-recommender-config-data">
+<h2>jubatus::recommender::config_data<a class="headerlink" href="#jubatus-recommender-config-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">similarity_name</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">anchor_finder_name</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">anchor_builder_name</span><span class="p">;</span>
+  <span class="n">size_t</span> <span class="n">all_anchor_num</span><span class="p">;</span>
+  <span class="n">size_t</span> <span class="n">anchor_num_per_data</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="jubatus-recommend-estimate-result">
+<h2>jubatus::recommend::estimate_result<a class="headerlink" href="#jubatus-recommend-estimate-result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">similar_result</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">datum</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">rows</span><span class="p">;</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="recommender__stringCR.stringCR.double">
+ <tt class="descname">recommender</tt><big>(</big>const string&amp; <em>hosts</em>, const string&amp; <em>name</em>, double <em>timeout</em><big>)</big><a class="headerlink" href="#recommender__stringCR.stringCR.double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubakeeperのサーバ、ポートを指定。書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> :  ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">timeout</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+</ul>
+<dl class="function">
+<dt id="recommender::save__stringCR.stringCR">
+void <tt class="descclassname">recommender::</tt><tt class="descname">save</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#recommender::save__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。</p>
+<dl class="function">
+<dt id="recommender::load__stringCR.stringCR">
+void <tt class="descclassname">recommender::</tt><tt class="descname">load</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#recommender::load__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。</p>
+<dl class="function">
+<dt id="recommender::set_config__config_dataCR">
+void <tt class="descclassname">recommender::</tt><tt class="descname">set_config</tt><big>(</big>const config_data&amp; <em>config</em><big>)</big><a class="headerlink" href="#recommender::set_config__config_dataCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>すべての</strong> サーバーのコンフィグを更新する。</p>
+<dl class="function">
+<dt id="recommender::get_config">
+config_data <tt class="descclassname">recommender::</tt><tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#recommender::get_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>コンフィグを取得する。</p>
+<dl class="function">
+<dt id="client::get_status">
+std::map&lt;std::pair&lt;std::string, int&gt;, std::map&lt;std::string, std::string&gt;&gt; <tt class="descclassname">client::</tt><tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#client::get_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>すべての</strong> サーバーの状態を取得する。
+各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
+<dl class="function">
+<dt>
+<tt class="descname">void update_row(const jubatus::recommender::rows&amp; dat);</tt></dt>
+<dd><p>rowデータをdataを利用して差分更新する．同じ特徴番号がある場合は上書き更新する．新しいrow idが指定された場合は，新しいrowエントリを作成する．更新操作は同じサーバーであれば即次反映され，異なるサーバーであれば，mix後に反映される．</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<tt class="descname">void clear_row(const std::vector&lt;std::string&gt;&amp; ids);</tt></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<tt class="descname">void build();</tt></dt>
+<dd></dd></dl>
+
+<p>recommenderをbuildする。build() is only for standalone mode</p>
+<dl class="function">
+<dt>
+<tt class="descname">datum complete_row_from_id(const std::string&amp; id);</tt></dt>
+<dd></dd></dl>
+
+<p>指定したidのrowの中で欠けている値を予測して返す。</p>
+<dl class="function">
+<dt>
+<tt class="descname">datum complete_row_from_data(const datum&amp; dat);</tt></dt>
+<dd></dd></dl>
+
+<p>指定したdatumで構成されるrowの中で欠けている値を予測して返す。</p>
+<dl class="function">
+<dt>
+<tt class="descname">jubatus::recommender::similar_result similar_row_from_id(const std::string&amp; id, size_t ret_num);</tt></dt>
+<dd></dd></dl>
+
+<p>指定したidに近いrowを返す。</p>
+<dl class="function">
+<dt>
+<tt class="descname">jubatus::recommender::similar_result similar_row_from_data(const datum&amp; dat, size_t ret_num);</tt></dt>
+<dd></dd></dl>
+
+<p>指定したdatumで構成されるrowに近いrowを返す。</p>
+<dl class="function">
+<dt>
+<tt class="descname">datum decode_row(const std::string&amp; id);</tt></dt>
+<dd></dd></dl>
+
+<p>&lt;FIXME&gt;</p>
+<dl class="function">
+<dt>
+<tt class="descname">jubatus::recommender::rows get_all_rows();</tt></dt>
+<dd></dd></dl>
+
+<p>すべてのrowを返す。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api_stat.html" title="jubatus::client::stat"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api_regression.html" title="jubatus::client::regression"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Programming API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

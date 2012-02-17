@@ -1,0 +1,188 @@
+jubatus::client::recommender
+===============================
+
+手法説明
+~~~~~~~~
+
+レコメンダは，類似するデータを推薦したり，データ中の未知の属性を推定することによって推薦するためのモジュールである．
+
+類似データの推薦操作であるsimilar_rowは，行をクエリとし，その行と類似する行を返す．
+未知属性の推薦操作であるcomplete_rowは，行をクエリとし，その行の属性値を類似する行の情報を用いて推定する．
+
+データ表現
+^^^^^^^^^^
+
+データはrowとcolumnからなる行列で表現される．各データはuniqueなidで紐付けられたrowデータで表される．各rowデータは，column名とそれに紐付く浮動小数点値からなる．但し，全てのcolumn値は指定されていなくても良い．row名，column名はあらかじめ全て指定されていなくても良い．
+
+類似度の計算方法
+^^^^^^^^^^^^^^^^
+
+rowデータはベクトルで表現され，ベクトル間の類似度はcos類似度，またはJaccard係数で計算される．
+
+列ベクトル :math:`x, y` が与えられたとする．この時，cos類似度は :math:`\cos(x, y) = x^T y / |x||y|` と定義される，但し :math:`|x|` はベクトル :math:`x` のノルムである．
+
+Jaccard係数は :math:`Jac(x, y) = |\cap(x, y)| / |\cup(x, y)|` として計算される，但し， :math:`\cap(x, y) = \sum_i \min(x_i, y_i), \cup(x, y) = \sum_i \max(x_i, y_i)` である．
+
+なお，登録されていない空の値は :math:`0` として扱われる．
+
+システム概要
+~~~~~~~~~~~~
+
+レコメンダはレコメンドの挙動をサポートするレコメンダとストレージから構成される．
+
+レコメンダ
+^^^^^^^^^^
+
+inverted_index
+--------------
+
+転置インデクスを利用したレコメンダである．転置インデクスは各特徴ID毎にそれが発火した特徴データ集合を格納する．これにより類似度に影響がある特徴ID，データだけを列挙できるようになるので，クエリが疎である場合に高速化をはかることができる
+
+lsh
+---
+
+局所近傍ハッシュ（Locality Sensitive Hash, LSH)を利用したレコメンダである．各データ毎にそのデータを表すビット列を計算して，ビット列を格納する．データ間のcos類似度は，ビット間のハミング距離から求められる類似度によって計算できる．
+  
+ベクトル :math:`x` に対し, :math:`k` 個のランダムなベクトル :math:`\{a_i\}_{i=1 \cdots k}` との内積をとり， :math:`i` 番目のベクトルとの内積値が正であれば， :math:`b_i = 1` , そうでなければ :math:`b_i=0` となるようなビットベクトルを作成する．このように作成されたビットベクトルを :math:`lsh(x)` とする．また，２つのビットベクトル間 :math:`a, b` で一致したビット数を :math:`match(a, b)` とする時，
+:math:`\cos(x, y) = E(match(lsh(x), lsh(y)))` が成り立つ，但し，期待値はランダムなベクトル生成に関してとるとする．
+  
+これにより，任意のベクトル間のcos類似度計算は，それらのベクトルから生成されたビットベクトル間のビット一致数により近似できる．元々のベクトルに比べ，ビットベクトルは小さくまた固定長であるため通信容量を大幅に削減することができる他，類似度計算を高速に実現することができる．
+
+ストレージ
+^^^^^^^^^^
+
+inverted_index_storage
+----------------------
+
+転置インデクスを格納するインデクスである．inverted_indexで利用される．文字列生成のオーバーヘッドを削減するために内部では，カラムID文字列は整数IDに内部で変換され保存される．
+
+bit_index_stroage
+-----------------
+
+ビット列からなるデータ集合を格納するインデクスである．lshとmin_hashで利用される．ビット間の類似度計算部分はビット操作によって実現され高速である．
+
+
+データの分散方式
+~~~~~~~~~~~~~~~~
+
+recommenderでは全ての情報をストレージに格納する．
+
+各データは，そのrow IDに従い，コンシステントハッシング(CHT)を用いて同じIDは必ず同じサーバーに振り分けられるようになっており，IDを含む全ての操作は同じサーバーで処理される．
+
+各ストレージでは，サーバー固有である差分情報と，全サーバーで共有する部分に分けて情報を保持する．前者をdiff，後者をmixedとして以降表す．一般にmixedは全サーバーの情報を保持しているので，diffと比べて大きい．
+
+update_row操作ではdiffのみを更新する．similar_row, complete_row操作では,diffとmixedの両方を参照して操作を行う.もし,diffに情報があるrowであれば，diffの方が情報が新しいのでdiffの情報を採用する．あるIDに関する情報はCHTを利用することで同じサーバーに必ず集められる．
+
+mix操作時には各サーバーからdiffをあつめ,それらを合わせた上で，各サーバーに配り直し,mixedに更新として適用する.そしてdiffを空に初期化する操作を施す．diffを集め始めてから，各サーバーに配り直されるまでの間に各サーバーに施された変更は全て破棄される．この破棄分をバッファを２つ持つなどして対応することは今後の課題である．
+
+inverted_index_storageではdiff, mixedは転置ファイルとなっており，bit_index_storageでは各row毎にbit列を保持する.
+
+
+typedef
+--------
+
+jubatus::recommender::config_data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c++
+
+   struct config_data {
+     jubatus::converter_config converter;
+     std::string similarity_name;
+     std::string anchor_finder_name;
+     std::string anchor_builder_name;
+     size_t all_anchor_num;
+     size_t anchor_num_per_data;
+   };
+
+
+
+jubatus::recommend::estimate_result
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c++
+
+    typedef std::vector<std::pair<std::string, float> > similar_result;
+    typedef std::vector<std::pair<std::string, datum> > rows;
+
+
+
+constructor
+-----------------
+
+.. cpp:function:: recommender(const string& hosts, const string& name, double timeout)
+
+- ``hosts`` : jubakeeperのサーバ、ポートを指定。書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。
+- ``name`` :  ZooKeeperクラスタが学習器を一意に識別する値
+- ``timeout`` : 通信時のタイムアウトまでの時間を指定
+
+
+common methods
+-----------------
+
+.. cpp:function:: void recommender::save(const string& type, const string& id)
+
+typeとidを指定して **すべての** サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。
+
+
+.. cpp:function:: void recommender::load(const string& type, const string& id)
+
+typeとidを指定して **すべての** サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。
+
+
+.. cpp:function:: void recommender::set_config(const config_data& config)
+
+**すべての** サーバーのコンフィグを更新する。
+
+
+.. cpp:function:: config_data recommender::get_config()
+
+コンフィグを取得する。
+
+.. cpp:function:: std::map<std::pair<std::string, int>, std::map<std::string, std::string> > client::get_status()
+
+**すべての** サーバーの状態を取得する。
+各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。
+
+
+
+regression methods
+---------------------
+
+.. cpp:function:: void update_row(const jubatus::recommender::rows& dat);
+
+   rowデータをdataを利用して差分更新する．同じ特徴番号がある場合は上書き更新する．新しいrow idが指定された場合は，新しいrowエントリを作成する．更新操作は同じサーバーであれば即次反映され，異なるサーバーであれば，mix後に反映される．
+
+.. cpp:function:: void clear_row(const std::vector<std::string>& ids);
+
+
+
+.. cpp:function:: void build(); 
+
+recommenderをbuildする。build() is only for standalone mode
+
+.. cpp:function:: datum complete_row_from_id(const std::string& id);
+
+指定したidのrowの中で欠けている値を予測して返す。
+
+.. cpp:function:: datum complete_row_from_data(const datum& dat);
+
+指定したdatumで構成されるrowの中で欠けている値を予測して返す。
+
+.. cpp:function:: jubatus::recommender::similar_result similar_row_from_id(const std::string& id, size_t ret_num);
+
+指定したidに近いrowを返す。
+
+.. cpp:function:: jubatus::recommender::similar_result similar_row_from_data(const datum& dat, size_t ret_num);
+
+指定したdatumで構成されるrowに近いrowを返す。
+
+.. cpp:function:: datum decode_row(const std::string& id);
+
+<FIXME>
+
+.. cpp:function:: jubatus::recommender::rows get_all_rows();
+
+すべてのrowを返す。
+
+

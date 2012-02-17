@@ -1,5 +1,5 @@
-Jubatus Framework Processes
-===========================
+Command Lines
+=============
 
 Process composition
 ----------------------------
@@ -40,9 +40,7 @@ online machine learning algorithms
 jubaclassifier
 ~~~~~~~~~~~~~~~~~~~
 
-.. program:: jubaclassifier
-
-Classifier本体です。
+.. program:: jubaclassifier, jubarecommender, jubastat, jubaregression
 
 .. option:: -p, --rpc-port
 
@@ -56,15 +54,6 @@ Classifier本体です。
 
    RPCのsession timeout秒([= 10])
 
-.. option::  -S, --storage
-
-   学習モデルをどこで保持するか
-
-   =================== ======================================================================
-   local               スタンドアローンでの動作
-   local_mixture       複数サーバーでのClassifierの協調動作
-   =================== ======================================================================
-
 .. option::  -z, --zookeeper
 
    zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 ``--storage`` オプションにlocal以外を指定した場合は必須。
@@ -76,10 +65,22 @@ Classifier本体です。
    ``--storage`` でlocal_mixtureを指定した場合、 ``--name`` で指定したnameが同じインスタンス同士がパラメタをmixする。
    '/' 等、znodeに利用できない文字を含んではならない。
 
-.. option::  -d, --tmpdir
+.. option::  -d, --tmpdir([=/tmp])
 
    ``save`` APIを発行されたときに、学習モデルを保管する場所。
    ``load`` APIを発行されたときには、この場所から学習モデルをロードする。デフォルトは ``/tmp`` である。
+
+.. option::  -j, --join
+
+   Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won't work.
+
+.. option:: -s, --interval_sec([=16])
+
+   Interval time of one of ''mix'' trigger in seconds.
+
+.. option:: -i, --interval_count([=512])
+
+   Another ''mix'' trigger: By default, in each 512 update requests (in single server) mix is tried to be invoked.
 
 .. option::  -?, --help
 
@@ -89,9 +90,9 @@ process management
 ---------------------
 
 jubavisor
-~~~~~~~~~~~
+~~~~~~~~~
 
-jubactlから指示を受けつけて、jubaclassifierを適切な場所で適切なオプションで起動する。
+(TODO: update to the latest spec.) jubactlから指示を受けつけて、jubaclassifierを適切な場所で適切なオプションで起動する。
 
 .. program:: jubavisor
 
@@ -105,14 +106,19 @@ jubactlから指示を受けつけて、jubaclassifierを適切な場所で適�
    書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。スペースを間にはさんではいけない。
 
 
-jubakeeper
-~~~~~~~~~~~~
+Jubatus Keepers
+~~~~~~~~~~~~~~~
 
-.. program:: jubakeeper
+
+.. program:: jubaclassifier_keeper, jubaregression_keeper, jubastat_keeper, jubarecommender_keeper
 
 .. option:: -p, --rpc-port
 
    RPC用の待受ポート番号([= 9198])
+
+.. option:: -c, --thread([=16])
+
+   Number of threads that accepts requests from clients.
 
 .. option::  -z, --zookeeper
 
@@ -123,7 +129,7 @@ jubakeeper
 jubactl
 ~~~~~~~~~
 
-jubavisorに指示を送る。
+(TODO: update to latest) jubavisorに指示を送る。
 
 .. program:: jubactl
 

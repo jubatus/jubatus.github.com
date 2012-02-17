@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial - classifier &mdash; Jubatus 0.1.0 documentation</title>
+    <title>Tutorial &mdash; Jubatus 0.2.0-beta documentation</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.0',
+        VERSION:     '0.2.0-beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -42,10 +42,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.1.0 documentation" href="index.html" />
-    <link rel="up" title="Getting Started" href="gettingstarted.html" />
-    <link rel="next" title="References" href="references.html" />
-    <link rel="prev" title="Getting Started" href="gettingstarted.html" /> 
+    <link rel="top" title="Jubatus 0.2.0-beta documentation" href="index.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="prev" title="QuickStart" href="quickstart.html" /> 
 
 <!--
 
@@ -84,13 +83,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="references.html" title="References"
+          <a href="documentation.html" title="Documentation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="gettingstarted.html" title="Getting Started"
+          <a href="quickstart.html" title="QuickStart"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
-          <li><a href="gettingstarted.html" accesskey="U">Getting Started</a> &raquo;</li> 
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -101,17 +99,11 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Tutorial - classifier</a><ul>
-<li><a class="reference internal" href="#overview-and-scenario">Overview and Scenario</a></li>
+<li><a class="reference internal" href="#">Tutorial</a><ul>
+<li><a class="reference internal" href="#overview-and-scenario">Overview and Scenario</a><ul>
 <li><a class="reference internal" href="#prequisites">Prequisites</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#setup-a-single-process-jubatus-server">Setup a single process Jubatus Server</a><ul>
 <li><a class="reference internal" href="#building-and-installing-jubatus">building and installing Jubatus</a></li>
 <li><a class="reference internal" href="#installing-python-client-for-jubatus">installing Python client for Jubatus</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#sending-query-to-a-jubatus-server">Sending query to a Jubatus server</a><ul>
 <li><a class="reference internal" href="#prepairing-dataset">Prepairing dataset</a></li>
 <li><a class="reference internal" href="#set-configure">Set configure</a></li>
 <li><a class="reference internal" href="#train-classify">Train/Classify</a></li>
@@ -129,13 +121,15 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="gettingstarted.html"
-                        title="previous chapter">Getting Started</a></p>
+  <p class="topless"><a href="quickstart.html"
+                        title="previous chapter">QuickStart</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="references.html"
-                        title="next chapter">References</a></p>
+  <p class="topless"><a href="documentation.html"
+                        title="next chapter">Documentation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/tutorial.txt"
@@ -193,43 +187,17 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="tutorial-classifier">
-<h1>Tutorial - classifier<a class="headerlink" href="#tutorial-classifier" title="Permalink to this headline">¶</a></h1>
-<p>This tutorial introduces the basic usage of the Jubatus framework.</p>
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview-and-scenario">
 <h2>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial made up of following four sections:</p>
-<ul class="simple">
-<li>Setup a single process Jubatus Server<ul>
-<li>install Jubatus</li>
-</ul>
-</li>
-<li>How to use Jubatus<ul>
-<li>Prepairing dataset</li>
-<li>Set configure</li>
-<li>Train/Classify</li>
-</ul>
-</li>
-<li>Setup multi process Jubatus Server<ul>
-<li>Setup ZooKeeper</li>
-<li>jubakeeper</li>
-<li>run two process with local_mixture</li>
-</ul>
-</li>
-<li>Setup Jubatus in cluster<ul>
-<li>jubavisor(Process Management with zookeeper)</li>
-<li>Processes Management with zookeeper</li>
-<li>Client for multi process Jubatus Server</li>
-</ul>
-</li>
-</ul>
 <p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> を利用します。
 News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
 このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。</p>
-</div>
 <div class="section" id="prequisites">
-<h2>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h2>
+<h3>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h3>
 <p>This tutorial requires following softwares installed:</p>
 <ul class="simple">
 <li>Linux 2.6 +</li>
@@ -243,15 +211,14 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 <li><a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> / <a class="reference external" href="http://mecab.sourceforge.net/">MeCab</a> (optional)</li>
 <li><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> server and C client (optional, for multiple processes)</li>
 </ul>
-</div>
-</div>
-<div class="section" id="setup-a-single-process-jubatus-server">
-<h1>Setup a single process Jubatus Server<a class="headerlink" href="#setup-a-single-process-jubatus-server" title="Permalink to this headline">¶</a></h1>
+<p>Setup a single process Jubatus Server
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;=</p>
 <p>ここでは、Jubatusをインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。</p>
+</div>
 <div class="section" id="building-and-installing-jubatus">
-<h2>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h2>
+<h3>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h3>
 <p>上記を事前にインストールした上で、Jubatusをbuild, installしてください。</p>
-<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus.git
+<div class="highlight-python"><pre>$ git clone git://github.com:jubatus/jubatus.git
 $ cd jubatus
 $ ./waf configure
 $ ./waf build
@@ -269,7 +236,7 @@ $ jubaclassifier --name tutorial</pre>
 <p>になります。</p>
 </div>
 <div class="section" id="installing-python-client-for-jubatus">
-<h2>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h2>
+<h3>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h3>
 <p>Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.</p>
 <div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus-python-client.git
 $ cd jubatus-python-client
@@ -279,12 +246,11 @@ $ python setup.py build
 <p>Check your python installation by running tests:</p>
 <div class="highlight-python"><pre>$ python setup.py test</pre>
 </div>
+<p>Sending query to a Jubatus server
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;=</p>
 </div>
-</div>
-<div class="section" id="sending-query-to-a-jubatus-server">
-<h1>Sending query to a Jubatus server<a class="headerlink" href="#sending-query-to-a-jubatus-server" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="prepairing-dataset">
-<h2>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h2>
+<h3>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h3>
 <p>20news-bydate.tar.gzを展開すると、</p>
 <div class="highlight-python"><pre>-20news-bydate-train
   alt.atheism
@@ -340,7 +306,7 @@ preferably longer, of course, and worth being part of.)
 これらのテキストファイルを学習データとして利用します。</p>
 </div>
 <div class="section" id="set-configure">
-<h2>Set configure<a class="headerlink" href="#set-configure" title="Permalink to this headline">¶</a></h2>
+<h3>Set configure<a class="headerlink" href="#set-configure" title="Permalink to this headline">¶</a></h3>
 <p>jubaclassifierは、method, converterのオプションを外部からのqueryで指定することによって、動作を指定することが出来ます。オプションのプロトタイプは、以下のとおりです。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
            <span class="s">&#39;converter&#39;</span><span class="p">:</span> <span class="p">{</span>
@@ -396,7 +362,7 @@ preferably longer, of course, and worth being part of.)
 <p><tt class="docutils literal"><span class="pre">get_config</span></tt> に対してRPC呼び出しを行うと、現在指定されているオプションが返ってきます。</p>
 </div>
 <div class="section" id="train-classify">
-<h2>Train/Classify<a class="headerlink" href="#train-classify" title="Permalink to this headline">¶</a></h2>
+<h3>Train/Classify<a class="headerlink" href="#train-classify" title="Permalink to this headline">¶</a></h3>
 <p>学習器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> というAPIを利用します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">train_dat</span> <span class="o">=</span> <span class="p">[</span>
            <span class="p">(</span>
@@ -546,10 +512,10 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
 </div>
 </div>
 <div class="section" id="setup-jubatus-server-with-multiple-processes">
-<span id="multiprocess"></span><h1>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h1>
+<span id="multiprocess"></span><h2>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h2>
 <p>Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を強調させることで、分散処理を行うことが出来ます。</p>
 <div class="section" id="setup-zookeeper">
-<h2>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h2>
+<h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><pre>$ cd /path/to/zookeeper
 $ bin/zkServer.sh start
 JMX enabled by default
@@ -561,7 +527,7 @@ STARTED
 <p>以後、zoo.cfgでの指定によりローカルマシンのポート2181で起動していることを想定します。</p>
 </div>
 <div class="section" id="jubakeeper">
-<h2>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h2>
+<h3>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
 <p>jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
 jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。</p>
 <div class="highlight-python"><pre>$ jubakeeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
@@ -570,7 +536,7 @@ jubakeeperは、ZooKeeperを参照して、クライアントからのリクエ�
 jubakeeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。</p>
 </div>
 <div class="section" id="running-two-processes-as-one-classifier-instance">
-<h2>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h2>
+<h3>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h3>
 <p>3並列でクライアントからのリクエストを受け付けたい場合は、jubaclassifierを3つ起動します。
 <tt class="docutils literal"><span class="pre">--name</span></tt> で同じ名前を指定することにより、3つのプロセスがひとつのインスタンスとして強調動作します。
 同じマシン内で複数プロセスを起動する場合は、プロセスごとにポートを変えなければならないことに注意してください。</p>
@@ -591,7 +557,7 @@ $ bin/zkCli.sh -server localhost:2181
 </div>
 </div>
 <div class="section" id="setup-jubatus-in-cluster">
-<h1>Setup Jubatus in cluster<a class="headerlink" href="#setup-jubatus-in-cluster" title="Permalink to this headline">¶</a></h1>
+<h2>Setup Jubatus in cluster<a class="headerlink" href="#setup-jubatus-in-cluster" title="Permalink to this headline">¶</a></h2>
 <p>Jubatusは各種プロセスを一括管理するための仕組みを備えています。</p>
 <p>今、それぞれのサーバに対して、以下の表に対応したプロセスを起動させることを考えます。</p>
 <table border="1" class="docutils">
@@ -634,7 +600,7 @@ $ bin/zkCli.sh -server localhost:2181
 [192.168.0.200]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
 </div>
 <div class="section" id="jubavisor-process-management-with-zookeeper">
-<h2>Jubavisor(Process Management with zookeeper)<a class="headerlink" href="#jubavisor-process-management-with-zookeeper" title="Permalink to this headline">¶</a></h2>
+<h3>Jubavisor(Process Management with zookeeper)<a class="headerlink" href="#jubavisor-process-management-with-zookeeper" title="Permalink to this headline">¶</a></h3>
 <p>jubavisorは、マシンごとに一プロセスずつ存在するagentで、Jubatusctrlからの司令を受けて同サーバ内のプロセスを管理します。
 このプロセスは、予めマシンごとに起動しておく必要があります。jubavisorはデフォルトで9199番ポートを利用します。</p>
 <div class="highlight-python"><pre>[192.168.0.10 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
@@ -662,7 +628,7 @@ active tutorial2 members:
 </div>
 </div>
 <div class="section" id="client-for-multi-process-jubatus-server">
-<h2>Client for multi process Jubatus Server<a class="headerlink" href="#client-for-multi-process-jubatus-server" title="Permalink to this headline">¶</a></h2>
+<h3>Client for multi process Jubatus Server<a class="headerlink" href="#client-for-multi-process-jubatus-server" title="Permalink to this headline">¶</a></h3>
 <p>最後に、複数クライアント、複数サーバ環境でtutorialを実行しましょう。</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -715,6 +681,7 @@ active tutorial2 members:
 <p>以上でチュートリアルは終わりです。</p>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -729,13 +696,12 @@ active tutorial2 members:
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="references.html" title="References"
+          <a href="documentation.html" title="Documentation"
              >next</a> |</li>
         <li class="right" >
-          <a href="gettingstarted.html" title="Getting Started"
+          <a href="quickstart.html" title="QuickStart"
              >previous</a> |</li>
-        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
-          <li><a href="gettingstarted.html" >Getting Started</a> &raquo;</li> 
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

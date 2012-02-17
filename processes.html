@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Jubatus Framework Processes &mdash; Jubatus 0.1.0 documentation</title>
+    <title>Command Lines &mdash; Jubatus 0.2.0-beta documentation</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.0',
+        VERSION:     '0.2.0-beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -42,9 +42,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.1.0 documentation" href="index.html" />
+    <link rel="top" title="Jubatus 0.2.0-beta documentation" href="index.html" />
     <link rel="up" title="References" href="references.html" />
-    <link rel="next" title="Client API" href="client_api.html" />
+    <link rel="next" title="Programming API" href="api.html" />
     <link rel="prev" title="References" href="references.html" /> 
 
 <!--
@@ -84,12 +84,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="client_api.html" title="Client API"
+          <a href="api.html" title="Programming API"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="references.html" title="References"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li>
           <li><a href="references.html" accesskey="U">References</a> &raquo;</li> 
       </ul>
     </div>
@@ -101,7 +101,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Jubatus Framework Processes</a><ul>
+<li><a class="reference internal" href="#">Command Lines</a><ul>
 <li><a class="reference internal" href="#process-composition">Process composition</a></li>
 <li><a class="reference internal" href="#online-machine-learning-algorithms">online machine learning algorithms</a><ul>
 <li><a class="reference internal" href="#jubaclassifier">jubaclassifier</a></li>
@@ -109,7 +109,7 @@
 </li>
 <li><a class="reference internal" href="#process-management">process management</a><ul>
 <li><a class="reference internal" href="#jubavisor">jubavisor</a></li>
-<li><a class="reference internal" href="#jubakeeper">jubakeeper</a></li>
+<li><a class="reference internal" href="#jubatus-keepers">Jubatus Keepers</a></li>
 <li><a class="reference internal" href="#jubactl">jubactl</a></li>
 </ul>
 </li>
@@ -125,8 +125,8 @@
   <p class="topless"><a href="references.html"
                         title="previous chapter">References</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="client_api.html"
-                        title="next chapter">Client API</a></p>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">Programming API</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/processes.txt"
@@ -184,8 +184,8 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="jubatus-framework-processes">
-<h1>Jubatus Framework Processes<a class="headerlink" href="#jubatus-framework-processes" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="command-lines">
+<h1>Command Lines<a class="headerlink" href="#command-lines" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="process-composition">
 <h2>Process composition<a class="headerlink" href="#process-composition" title="Permalink to this headline">¶</a></h2>
 <p>jubatusは、クライアントサーバ型のプロセス構成をしている。
@@ -210,70 +210,67 @@ jubakeeperはZooKeeperを利用して、死活監視及び、負荷分散を行�
 <h2>online machine learning algorithms<a class="headerlink" href="#online-machine-learning-algorithms" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jubaclassifier">
 <h3>jubaclassifier<a class="headerlink" href="#jubaclassifier" title="Permalink to this headline">¶</a></h3>
-<p>Classifier本体です。</p>
 <dl class="option">
-<dt id="cmdoption-jubaclassifier-p">
-<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-p" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-p">
+<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>RPC用の待受ポート番号([= 9198])</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaclassifier-c">
-<tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-c" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-c">
+<tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>RPCが同時に処理するスレッド数([= 2])</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaclassifier-t">
-<tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-t" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-t">
+<tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>RPCのsession timeout秒([= 10])</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaclassifier-S">
-<tt class="descname">-S</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--storage</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-S" title="Permalink to this definition">¶</a></dt>
-<dd><p>学習モデルをどこで保持するか</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="21%" />
-<col width="79%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>local</td>
-<td>スタンドアローンでの動作</td>
-</tr>
-<tr class="row-even"><td>local_mixture</td>
-<td>複数サーバーでのClassifierの協調動作</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubaclassifier-z">
-<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-z" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-z">
+<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 <tt class="docutils literal"><span class="pre">--storage</span></tt> オプションにlocal以外を指定した場合は必須。
 書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。スペースを間にはさんではいけない。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaclassifier-n">
-<tt class="descname">-n</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-n" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-n">
+<tt class="descname">-n</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-n" title="Permalink to this definition">¶</a></dt>
 <dd><p><tt class="docutils literal"><span class="pre">--zookeeper</span></tt> で指定した ZooKeeper クラスタ内でユニークなインスタンス名。
 <tt class="docutils literal"><span class="pre">--storage</span></tt> でlocal_mixtureを指定した場合、 <tt class="docutils literal"><span class="pre">--name</span></tt> で指定したnameが同じインスタンス同士がパラメタをmixする。
 &#8216;/&#8217; 等、znodeに利用できない文字を含んではならない。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaclassifier-d">
-<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--tmpdir</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier-d" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-d">
+<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--tmpdir</tt><tt class="descclassname">([=/tmp])</tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-d" title="Permalink to this definition">¶</a></dt>
 <dd><p><tt class="docutils literal"><span class="pre">save</span></tt> APIを発行されたときに、学習モデルを保管する場所。
 <tt class="docutils literal"><span class="pre">load</span></tt> APIを発行されたときには、この場所から学習モデルをロードする。デフォルトは <tt class="docutils literal"><span class="pre">/tmp</span></tt> である。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaclassifier--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier--help" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-j">
+<tt class="descname">-j</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--join</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won&#8217;t work.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-s">
+<tt class="descname">-s</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname">([=16])</tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interval time of one of &#8216;&#8217;mix&#8217;&#8217; trigger in seconds.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-i">
+<tt class="descname">-i</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname">([=512])</tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Another &#8216;&#8217;mix&#8217;&#8217; trigger: By default, in each 512 update requests (in single server) mix is tried to be invoked.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression--help">
+<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier,-jubarecommender,-jubastat,-jubaregression--help" title="Permalink to this definition">¶</a></dt>
 <dd><p>オプションの一覧を表示</p>
 </dd></dl>
 
@@ -283,7 +280,7 @@ jubakeeperはZooKeeperを利用して、死活監視及び、負荷分散を行�
 <h2>process management<a class="headerlink" href="#process-management" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jubavisor">
 <h3>jubavisor<a class="headerlink" href="#jubavisor" title="Permalink to this headline">¶</a></h3>
-<p>jubactlから指示を受けつけて、jubaclassifierを適切な場所で適切なオプションで起動する。</p>
+<p>(TODO: update to the latest spec.) jubactlから指示を受けつけて、jubaclassifierを適切な場所で適切なオプションで起動する。</p>
 <dl class="option">
 <dt id="cmdoption-jubavisor-p">
 <tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubavisor-p" title="Permalink to this definition">¶</a></dt>
@@ -298,17 +295,23 @@ jubakeeperはZooKeeperを利用して、死活監視及び、負荷分散を行�
 </dd></dl>
 
 </div>
-<div class="section" id="jubakeeper">
-<h3>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="jubatus-keepers">
+<h3>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
-<dt id="cmdoption-jubakeeper-p">
-<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubakeeper-p" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier_keeper,-jubaregression_keeper,-jubastat_keeper,-jubarecommender_keeper-p">
+<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier_keeper,-jubaregression_keeper,-jubastat_keeper,-jubarecommender_keeper-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>RPC用の待受ポート番号([= 9198])</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubakeeper-z">
-<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubakeeper-z" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaclassifier_keeper,-jubaregression_keeper,-jubastat_keeper,-jubarecommender_keeper-c">
+<tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname">([=16])</tt><a class="headerlink" href="#cmdoption-jubaclassifier_keeper,-jubaregression_keeper,-jubastat_keeper,-jubarecommender_keeper-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads that accepts requests from clients.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubaclassifier_keeper,-jubaregression_keeper,-jubastat_keeper,-jubarecommender_keeper-z">
+<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaclassifier_keeper,-jubaregression_keeper,-jubastat_keeper,-jubarecommender_keeper-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 <tt class="docutils literal"><span class="pre">--storage</span></tt> オプションにlocal以外を指定した場合は必須。
 書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。スペースを間にはさんではいけない。</p>
 </dd></dl>
@@ -316,7 +319,7 @@ jubakeeperはZooKeeperを利用して、死活監視及び、負荷分散を行�
 </div>
 <div class="section" id="jubactl">
 <h3>jubactl<a class="headerlink" href="#jubactl" title="Permalink to this headline">¶</a></h3>
-<p>jubavisorに指示を送る。</p>
+<p>(TODO: update to latest) jubavisorに指示を送る。</p>
 <dl class="option">
 <dt id="cmdoption-jubactl-c">
 <tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--cmd</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-c" title="Permalink to this definition">¶</a></dt>
@@ -451,12 +454,12 @@ converter_configが意図したとおりに動作しているかどうかを確�
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="client_api.html" title="Client API"
+          <a href="api.html" title="Programming API"
              >next</a> |</li>
         <li class="right" >
           <a href="references.html" title="References"
              >previous</a> |</li>
-        <li><a href="index.html">Jubatus 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li> 
       </ul>
     </div>
