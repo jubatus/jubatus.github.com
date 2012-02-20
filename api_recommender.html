@@ -122,8 +122,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#id7">データの分散方式</a></li>
-<li><a class="reference internal" href="#jubatus-recommender-config-data">jubatus::recommender::config_data</a></li>
-<li><a class="reference internal" href="#jubatus-recommend-estimate-result">jubatus::recommend::estimate_result</a></li>
+<li><a class="reference internal" href="#jubatus-config-data">jubatus::config_data</a></li>
 </ul>
 </li>
 </ul>
@@ -253,7 +252,7 @@ new TWTR.Widget({
 </div>
 <div class="section" id="bit-index-stroage">
 <h4>bit_index_stroage<a class="headerlink" href="#bit-index-stroage" title="Permalink to this headline">¶</a></h4>
-<p>ビット列からなるデータ集合を格納するインデクスである．lshとmin_hashで利用される．ビット間の類似度計算部分はビット操作によって実現され高速である．</p>
+<p>ビット列からなるデータ集合を格納するインデクスである．lshで利用される．ビット間の類似度計算部分はビット操作によって実現され高速である．</p>
 </div>
 </div>
 </div>
@@ -265,24 +264,17 @@ new TWTR.Widget({
 <p>update_row操作ではdiffのみを更新する．similar_row, complete_row操作では,diffとmixedの両方を参照して操作を行う.もし,diffに情報があるrowであれば，diffの方が情報が新しいのでdiffの情報を採用する．あるIDに関する情報はCHTを利用することで同じサーバーに必ず集められる．</p>
 <p>mix操作時には各サーバーからdiffをあつめ,それらを合わせた上で，各サーバーに配り直し,mixedに更新として適用する.そしてdiffを空に初期化する操作を施す．diffを集め始めてから，各サーバーに配り直されるまでの間に各サーバーに施された変更は全て破棄される．この破棄分をバッファを２つ持つなどして対応することは今後の課題である．</p>
 <p>inverted_index_storageではdiff, mixedは転置ファイルとなっており，bit_index_storageでは各row毎にbit列を保持する.</p>
-</div>
-<div class="section" id="jubatus-recommender-config-data">
-<h2>jubatus::recommender::config_data<a class="headerlink" href="#jubatus-recommender-config-data" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
-  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">similarity_name</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">anchor_finder_name</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">anchor_builder_name</span><span class="p">;</span>
-  <span class="n">size_t</span> <span class="n">all_anchor_num</span><span class="p">;</span>
-  <span class="n">size_t</span> <span class="n">anchor_num_per_data</span><span class="p">;</span>
-<span class="p">};</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&gt;</span> <span class="n">param_t</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">float</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">similar_result</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="jubatus-recommend-estimate-result">
-<h2>jubatus::recommend::estimate_result<a class="headerlink" href="#jubatus-recommend-estimate-result" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">similar_result</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">datum</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">rows</span><span class="p">;</span>
+<div class="section" id="jubatus-config-data">
+<h2>jubatus::config_data<a class="headerlink" href="#jubatus-config-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">method</span><span class="p">;</span>
+  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <dl class="function">
@@ -328,54 +320,48 @@ std::map&lt;std::pair&lt;std::string, int&gt;, std::map&lt;std::string, std::str
 各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
 <dl class="function">
 <dt>
-<tt class="descname">void update_row(const jubatus::recommender::rows&amp; dat);</tt></dt>
+<tt class="descname">void update_row(std::string name, std::string id, const jubatus::datum&amp; dat);</tt></dt>
 <dd><p>rowデータをdataを利用して差分更新する．同じ特徴番号がある場合は上書き更新する．新しいrow idが指定された場合は，新しいrowエントリを作成する．更新操作は同じサーバーであれば即次反映され，異なるサーバーであれば，mix後に反映される．</p>
 </dd></dl>
 
 <dl class="function">
 <dt>
-<tt class="descname">void clear_row(const std::vector&lt;std::string&gt;&amp; ids);</tt></dt>
+<tt class="descname">void clear_row(std::string name, std::string id, std::string);</tt></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt>
-<tt class="descname">void build();</tt></dt>
-<dd></dd></dl>
-
-<p>recommenderをbuildする。build() is only for standalone mode</p>
-<dl class="function">
-<dt>
-<tt class="descname">datum complete_row_from_id(const std::string&amp; id);</tt></dt>
+<tt class="descname">datum complete_row_from_id(std::string name, std::string, const std::string&amp; id);</tt></dt>
 <dd></dd></dl>
 
 <p>指定したidのrowの中で欠けている値を予測して返す。</p>
 <dl class="function">
 <dt>
-<tt class="descname">datum complete_row_from_data(const datum&amp; dat);</tt></dt>
+<tt class="descname">datum complete_row_from_data(std::string name, const datum&amp; dat);</tt></dt>
 <dd></dd></dl>
 
 <p>指定したdatumで構成されるrowの中で欠けている値を予測して返す。</p>
 <dl class="function">
 <dt>
-<tt class="descname">jubatus::recommender::similar_result similar_row_from_id(const std::string&amp; id, size_t ret_num);</tt></dt>
+<tt class="descname">jubatus::similar_result similar_row_from_id(std::string name, const std::string&amp; id, size_t ret_num);</tt></dt>
 <dd></dd></dl>
 
 <p>指定したidに近いrowを返す。</p>
 <dl class="function">
 <dt>
-<tt class="descname">jubatus::recommender::similar_result similar_row_from_data(const datum&amp; dat, size_t ret_num);</tt></dt>
+<tt class="descname">jubatus::similar_result similar_row_from_data(std::string name, std::pair&lt;datum, size_t&gt; ret_num);</tt></dt>
 <dd></dd></dl>
 
 <p>指定したdatumで構成されるrowに近いrowを返す。</p>
 <dl class="function">
 <dt>
-<tt class="descname">datum decode_row(const std::string&amp; id);</tt></dt>
+<tt class="descname">datum decode_row(std::string name, const std::string&amp; id, int);</tt></dt>
 <dd></dd></dl>
 
 <p>&lt;FIXME&gt;</p>
 <dl class="function">
 <dt>
-<tt class="descname">jubatus::recommender::rows get_all_rows();</tt></dt>
+<tt class="descname">jubatus::recommender::rows get_all_rows(std::string name, int);</tt></dt>
 <dd></dd></dl>
 
 <p>すべてのrowを返す。</p>

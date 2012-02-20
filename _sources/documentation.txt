@@ -1,8 +1,6 @@
 Documentation
 =============
 
-hohoho
-
 .. toctree::
    :maxdepth: 2
 
