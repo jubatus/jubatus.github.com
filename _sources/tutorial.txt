@@ -43,7 +43,7 @@ building and installing Jubatus
 
 ::
 
-  $ git clone git://github.com:jubatus/jubatus.git
+  $ git clone git://github.com/jubatus/jubatus.git
   $ cd jubatus
   $ ./waf configure
   $ ./waf build
