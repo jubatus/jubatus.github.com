@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial &mdash; Jubatus  documentation</title>
+    <title>Tutorial &mdash; Jubatus 0.2.0-beta documentation</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '',
+        VERSION:     '0.2.0-beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus  documentation" href="index.html" />
+    <link rel="top" title="Jubatus 0.2.0-beta documentation" href="index.html" />
     <link rel="next" title="Documentation" href="documentation.html" />
     <link rel="prev" title="QuickStart" href="quickstart.html" /> 
 
@@ -88,7 +88,7 @@
         <li class="right" >
           <a href="quickstart.html" title="QuickStart"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Jubatus  documentation</a> &raquo;</li> 
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,14 +102,8 @@
 <li><a class="reference internal" href="#">Tutorial</a><ul>
 <li><a class="reference internal" href="#overview-and-scenario">Overview and Scenario</a><ul>
 <li><a class="reference internal" href="#prequisites">Prequisites</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#setup-a-single-process-jubatus-server">Setup a single process Jubatus Server</a><ul>
 <li><a class="reference internal" href="#building-and-installing-jubatus">building and installing Jubatus</a></li>
 <li><a class="reference internal" href="#installing-python-client-for-jubatus">installing Python client for Jubatus</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#sending-query-to-a-jubatus-server">Sending query to a Jubatus server</a><ul>
 <li><a class="reference internal" href="#prepairing-dataset">Prepairing dataset</a></li>
 <li><a class="reference internal" href="#set-configure">Set configure</a></li>
 <li><a class="reference internal" href="#train-classify">Train/Classify</a></li>
@@ -197,29 +191,36 @@ new TWTR.Widget({
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview-and-scenario">
 <h2>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial made up of following four sections:</p>
 <p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> を利用します。
 News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
 このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。</p>
 <div class="section" id="prequisites">
 <h3>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h3>
+<p>This tutorial requires following softwares installed:</p>
 <ul class="simple">
+<li>Linux 2.6 +</li>
+<li>gcc 4.0 +</li>
+<li>pkg-config</li>
+<li>python 2.6+ and <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a></li>
+<li><a class="reference external" href="http://msgpack.org">libmsgpack</a></li>
 <li><a class="reference external" href="http://github.com/pfi/pficommon">pficommon</a> - must be configured with msgpack enabled.</li>
+<li><a class="reference external" href="http://code.google.com/p/re2/">re2</a></li>
+<li><a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a></li>
+<li><a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> / <a class="reference external" href="http://mecab.sourceforge.net/">MeCab</a> (optional)</li>
+<li><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> server and C client (optional, for multiple processes)</li>
 </ul>
+<p>Setup a single process Jubatus Server
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;=</p>
+<p>ここでは、Jubatusをインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。</p>
 </div>
-</div>
-<div class="section" id="setup-a-single-process-jubatus-server">
-<h2>Setup a single process Jubatus Server<a class="headerlink" href="#setup-a-single-process-jubatus-server" title="Permalink to this headline">¶</a></h2>
-<p>ここでは、Jubatusをインストールするための手順を示します。</p>
 <div class="section" id="building-and-installing-jubatus">
 <h3>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h3>
-<p>Before <a class="reference internal" href="quickstart.html#quickstart"><em>QuickStart</em></a> , Jubatus requires <a class="reference external" href="http://code.google.com/p/re2/">re2</a> and
-<a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a>  and  <a class="reference external" href="http://mecab.sourceforge.net/">MeCab</a> is
-required in this tutorial. These libraries are all optional.</p>
-<blockquote>
-<div>上記を事前にインストールした上で、Jubatusをbuild, installしてください。</div></blockquote>
-<div class="highlight-python"><pre>$ cd path/to/jubatus
-$ ./waf configure --enable-mecab --enable-ux
+<p>上記を事前にインストールした上で、Jubatusをbuild, installしてください。</p>
+<div class="highlight-python"><pre>$ git clone git://github.com:jubatus/jubatus.git
+$ cd jubatus
+$ ./waf configure
 $ ./waf build
 # ./waf install
 $ jubaclassifier --name tutorial</pre>
@@ -236,8 +237,7 @@ $ jubaclassifier --name tutorial</pre>
 </div>
 <div class="section" id="installing-python-client-for-jubatus">
 <h3>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h3>
-<p>(TODO: deprecated, need updates to Client generation)
-Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.</p>
+<p>Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.</p>
 <div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus-python-client.git
 $ cd jubatus-python-client
 $ python setup.py build
@@ -246,10 +246,9 @@ $ python setup.py build
 <p>Check your python installation by running tests:</p>
 <div class="highlight-python"><pre>$ python setup.py test</pre>
 </div>
+<p>Sending query to a Jubatus server
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;=</p>
 </div>
-</div>
-<div class="section" id="sending-query-to-a-jubatus-server">
-<h2>Sending query to a Jubatus server<a class="headerlink" href="#sending-query-to-a-jubatus-server" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="prepairing-dataset">
 <h3>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h3>
 <p>20news-bydate.tar.gzを展開すると、</p>
@@ -514,8 +513,6 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
 </div>
 <div class="section" id="setup-jubatus-server-with-multiple-processes">
 <span id="multiprocess"></span><h2>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h2>
-<p>Jubatus requires <a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> server and C client for multiple processes.
-These are all optional when running in standalone mode.</p>
 <p>Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を強調させることで、分散処理を行うことが出来ます。</p>
 <div class="section" id="setup-zookeeper">
 <h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
@@ -704,7 +701,7 @@ active tutorial2 members:
         <li class="right" >
           <a href="quickstart.html" title="QuickStart"
              >previous</a> |</li>
-        <li><a href="index.html">Jubatus  documentation</a> &raquo;</li> 
+        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

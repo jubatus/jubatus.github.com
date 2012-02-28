@@ -1,5 +1,5 @@
 jubatus::client::recommender
-============================
+===============================
 
 手法説明
 ~~~~~~~~
@@ -59,7 +59,7 @@ inverted_index_storage
 bit_index_stroage
 -----------------
 
-ビット列からなるデータ集合を格納するインデクスである．lshで利用される．ビット間の類似度計算部分はビット操作によって実現され高速である．
+ビット列からなるデータ集合を格納するインデクスである．lshとmin_hashで利用される．ビット間の類似度計算部分はビット操作によって実現され高速である．
 
 
 データの分散方式
@@ -81,21 +81,30 @@ inverted_index_storageではdiff, mixedは転置ファイルとなっており�
 typedef
 --------
 
-.. code-block:: c++
-
-   typedef std::map<std::string, std::string > param_t;
-   typedef std::vector<std::pair<std::string, float > > similar_result;
-
-
-jubatus::config_data
-~~~~~~~~~~~~~~~~~~~~
+jubatus::recommender::config_data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: c++
 
    struct config_data {
-     std::string method;
      jubatus::converter_config converter;
+     std::string similarity_name;
+     std::string anchor_finder_name;
+     std::string anchor_builder_name;
+     size_t all_anchor_num;
+     size_t anchor_num_per_data;
    };
+
+
+
+jubatus::recommend::estimate_result
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c++
+
+    typedef std::vector<std::pair<std::string, float> > similar_result;
+    typedef std::vector<std::pair<std::string, datum> > rows;
+
 
 
 constructor
@@ -137,37 +146,42 @@ typeとidを指定して **すべての** サーバのローカルディスク�
 
 
 
-recommender methods
--------------------
+regression methods
+---------------------
 
-.. cpp:function:: void update_row(std::string name, std::string id, const jubatus::datum& dat);
+.. cpp:function:: void update_row(const jubatus::recommender::rows& dat);
 
    rowデータをdataを利用して差分更新する．同じ特徴番号がある場合は上書き更新する．新しいrow idが指定された場合は，新しいrowエントリを作成する．更新操作は同じサーバーであれば即次反映され，異なるサーバーであれば，mix後に反映される．
 
-.. cpp:function:: void clear_row(std::string name, std::string id, std::string);
+.. cpp:function:: void clear_row(const std::vector<std::string>& ids);
 
 
-.. cpp:function:: datum complete_row_from_id(std::string name, std::string, const std::string& id);
+
+.. cpp:function:: void build(); 
+
+recommenderをbuildする。build() is only for standalone mode
+
+.. cpp:function:: datum complete_row_from_id(const std::string& id);
 
 指定したidのrowの中で欠けている値を予測して返す。
 
-.. cpp:function:: datum complete_row_from_data(std::string name, const datum& dat);
+.. cpp:function:: datum complete_row_from_data(const datum& dat);
 
 指定したdatumで構成されるrowの中で欠けている値を予測して返す。
 
-.. cpp:function:: jubatus::similar_result similar_row_from_id(std::string name, const std::string& id, size_t ret_num);
+.. cpp:function:: jubatus::recommender::similar_result similar_row_from_id(const std::string& id, size_t ret_num);
 
 指定したidに近いrowを返す。
 
-.. cpp:function:: jubatus::similar_result similar_row_from_data(std::string name, std::pair<datum, size_t> ret_num);
+.. cpp:function:: jubatus::recommender::similar_result similar_row_from_data(const datum& dat, size_t ret_num);
 
 指定したdatumで構成されるrowに近いrowを返す。
 
-.. cpp:function:: datum decode_row(std::string name, const std::string& id, int);
+.. cpp:function:: datum decode_row(const std::string& id);
 
 <FIXME>
 
-.. cpp:function:: jubatus::recommender::rows get_all_rows(std::string name, int);
+.. cpp:function:: jubatus::recommender::rows get_all_rows();
 
 すべてのrowを返す。
 

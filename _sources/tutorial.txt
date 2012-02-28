@@ -5,6 +5,8 @@ Tutorial
 
 Overview and Scenario
 ----------------------
+This tutorial made up of following four sections:
+
 
 このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 `News20(20news-bydate.tar.gz) <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ を利用します。
 News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
@@ -15,26 +17,35 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 Prequisites
 ~~~~~~~~~~~
 
+This tutorial requires following softwares installed:
+
+- Linux 2.6 +
+- gcc 4.0 +
+- pkg-config
+- python 2.6+ and `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_
+- `libmsgpack <http://msgpack.org>`_
 - `pficommon <http://github.com/pfi/pficommon>`_ - must be configured with msgpack enabled.
+- `re2 <http://code.google.com/p/re2/>`_
+- `google-glog <http://code.google.com/p/google-glog/>`_
+- `ux-trie <http://code.google.com/p/ux-trie/>`_ / `MeCab <http://mecab.sourceforge.net/>`_ (optional)
+- `ZooKeeper <http://zookeeper.apache.org/>`_ server and C client (optional, for multiple processes)
+
 
 Setup a single process Jubatus Server
--------------------------------------
+------------------------------------=
 
-ここでは、Jubatusをインストールするための手順を示します。 
+ここでは、Jubatusをインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。
 
 building and installing Jubatus
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before :ref:`quickstart` , Jubatus requires `re2 <http://code.google.com/p/re2/>`_ and
-`ux-trie <http://code.google.com/p/ux-trie/>`_  and  `MeCab <http://mecab.sourceforge.net/>`_ is
-required in this tutorial. These libraries are all optional.
-
- 上記を事前にインストールした上で、Jubatusをbuild, installしてください。
+上記を事前にインストールした上で、Jubatusをbuild, installしてください。
 
 ::
 
-  $ cd path/to/jubatus
-  $ ./waf configure --enable-mecab --enable-ux
+  $ git clone git://github.com:jubatus/jubatus.git
+  $ cd jubatus
+  $ ./waf configure
   $ ./waf build
   # ./waf install
   $ jubaclassifier --name tutorial
@@ -57,7 +68,6 @@ JubatusはデフォルトでMessagePack RPCサーバとして9199ポートで待
 installing Python client for Jubatus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-(TODO: deprecated, need updates to Client generation)
 Python client of Jubatus requires `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_.
 
 ::
@@ -77,7 +87,7 @@ Check your python installation by running tests:
 .. TODO: check "Expert Python Programming" and do in a pythonic way
 
 Sending query to a Jubatus server
----------------------------------
+--------------------------------=
 
 .. Jubatus communicates with its clients in `MessagePack-RPC <http://msgpack.org>`_ protocol.
 
@@ -388,13 +398,11 @@ JubatusはMessagePack-RPCを利用できるあらゆる言語から利用する�
    :alt: single client, single server
 
 
+
 .. _multiprocess:
 
 Setup Jubatus Server with multiple processes
 --------------------------------------------
-
-Jubatus requires `ZooKeeper <http://zookeeper.apache.org/>`_ server and C client for multiple processes.
-These are all optional when running in standalone mode.
 
 Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を強調させることで、分散処理を行うことが出来ます。
 

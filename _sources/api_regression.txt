@@ -1,5 +1,5 @@
 jubatus::client::regression
-===========================
+===============================
 
 手法説明
 ~~~~~~~~
@@ -43,8 +43,8 @@ Iterative Parameter Mixture
 typedef
 --------
 
-jubatus::config_data
-~~~~~~~~~~~~~~~~~~~~
+jubatus::regression::config_data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: c++
 
@@ -55,13 +55,15 @@ jubatus::config_data
 
 
 
-jubatus::estimate_result
-~~~~~~~~~~~~~~~~~~~~~~~~
+jubatus::regression::estimate_result
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: c++
 
    typedef float estimate_rusult;
    typedef std::vector<estimate_result> estimate_results;
+
+
 
 
 constructor
@@ -75,7 +77,7 @@ constructor
 
 
 common methods
---------------
+-----------------
 
 .. cpp:function:: void regression::save(const string& type, const string& id)
 
@@ -104,7 +106,7 @@ typeとidを指定して **すべての** サーバのローカルディスク�
 
 
 regression methods
-------------------
+---------------------
 
 .. cpp:function:: void regression::train(const std::vector<std::pair<float, datum> >& data)
 
@@ -115,3 +117,4 @@ regression methods
 
 ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultは、vectorのオフセットで1:1に対応している。 ``estimate_result`` 
 は回帰の結果を返す。
+
