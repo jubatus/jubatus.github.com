@@ -24,7 +24,6 @@ TOC
    quickstart
    tutorial
    documentation
-   blog/index
    references
    howtocontribute
    misc
@@ -32,6 +31,7 @@ TOC
 Other resources
 ===============
 
+- `Jubatus Blog <http://blog.jubat.us>`_
 - `@JubatusOfficial: Keep up on latest news <http://twitter.com/JubatusOfficial>`_
 - `Discussions and news about Jubatus on Google Groups <http://groups.google.com/group/jubatus>`_
 - `Fork me on GitHub <http://github.com/jubatus>`_
