@@ -103,7 +103,6 @@
   <ul>
 <li><a class="reference internal" href="#">Server generation using code generator</a><ul>
 <li><a class="reference internal" href="#generator">generator</a></li>
-<li><a class="reference internal" href="#idl">IDL</a></li>
 <li><a class="reference internal" href="#server">server</a></li>
 <li><a class="reference internal" href="#keeper">keeper</a></li>
 <li><a class="reference internal" href="#future-works">Future works</a><ul>
@@ -181,7 +180,6 @@ new TWTR.Widget({
             
   <div class="section" id="server-generation-using-code-generator">
 <h1>Server generation using code generator<a class="headerlink" href="#server-generation-using-code-generator" title="Permalink to this headline">¶</a></h1>
-<p>(TODO: translate to English)</p>
 <p>Jubatusは機械学習などのアルゴリズムをプラグイン化し，容易に追加できることを目的にしているが，公開されている実装に対してrecommenderを追加しようとした場合，それぞれのRPCインターフェースをクライアントのヘッダと実装，Jubakeeperのヘッダと実装，サーバー本体のヘッダと実装の6箇所に定義する必要があった．さらにpficommonのMPRPC_GEN, MPRPC_PROC等，サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった．
 このような設計では，新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず，APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており，機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい．さらに，C++のマクロおよびテンプレートを多用しているため，コンパイルエラーが複雑なものとなり，Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた．</p>
 <p>結果として，</p>
@@ -194,72 +192,55 @@ new TWTR.Widget({
 <p>という手順で一連のシステムを作成することができることを確認した．実際にRPC定義をするのは，7箇所から3箇所に削減された．これを用いて，recommender, classifier, regression, statが構成出来ることを確認した．</p>
 <div class="section" id="generator">
 <h2>generator<a class="headerlink" href="#generator" title="Permalink to this headline">¶</a></h2>
-<p>C++文法のサブセットによりインターフェースを定義する．以下のC++文法を利用する．</p>
+<p><a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MsgPack-IDL</a> によりインターフェースを定義する．
+ただし，そのままJubatusのコードを生成するためにはRPCサービスの各メソッドにアノテーションをつける必要がある．
+これはコードジェネレータでは解釈されるが，MsgPack-IDLではコメントとして無視されるため，同じファイルで各種クライアントも生成できる．</p>
 <ul class="simple">
-<li>struct宣言
-- RPCによりやりとりされるデータ型を定義する．msgpack-idlで利用可能な型である必要がある．</li>
-<li>class宣言
-- アノテーションつきクラスメソッドの宣言<ul>
-<li>アノテーションでは，リクエストのルーティングを宣言することができる．必ず &#8220;//&#64;&#8221; から始まり， &#8220;cht&#8221;, &#8220;broadcast&#8221;, &#8220;random&#8221; のいずれかを表す．それぞれ，Consistent Hashingによるリクエストの分散，全サーバーへリクエストをブロードキャスト，ランダムに選択されたいずれかのサーバーへリクエストを送信，を表す．これによって，典型的だと思われる機械学習の分散方式をカバーすることができる．</li>
+<li>アノテーションつきクラスメソッドの宣言<ul>
+<li>一番目のアノテーションでは，リクエストのルーティングを宣言することができる．必ず &#8220;#&#64;&#8221; から始まり， &#8220;cht&#8221;, &#8220;broadcast&#8221;, &#8220;random&#8221; のいずれかを表す．それぞれ，Consistent Hashingによるリクエストの分散，全サーバーへリクエストをブロードキャスト，ランダムに選択されたいずれかのサーバーへリクエストを送信，を表す．これによって，典型的だと思われる機械学習の分散方式をカバーすることができる．<ul>
 <li>chtアノテーションがあるメソッドは，第一引数がchtのキーとなるstring, 第二引数をユーザ利用の引数としなければならない．</li>
 <li>broadcast, randomアノテーションがあるメソッドは，必ずひとつの引数とひとつの返り値をもたなければならない．void型は利用できない．引数や返り値が必要ない場合は，意味のないintなどを指定しておくこと．</li>
-<li>これらの型は，msgpack-idlで定義可能な型に対応するC++の型でなければならない．すなわち，int, string, tuple, list, map等である．</li>
 </ul>
 </li>
-<li>constメソッド<ul>
-<li>C++のconstメソッド風の表記をすることにより，サーバー側でのロック粒度が変更できる．具体的には，constがついているとリードロックとなり，ついていないとライトロックとなる．従って，サーバー側でデータに更新がない場合はconstをつけておくことによってスループットの改善が期待できる．</li>
+<li>二番目のアノテーションでは，リクエストのread/writeを宣言することができる．analysisにするとサーバー側でreadロックされることになり，複数のスレッドからの同時アクセスが可能となる．updateにするとサーバー側でwriteロックされることになり，安全にデータを更新することができる．</li>
+<li>三番目のアノテーションでは，API呼び出しの結果のアグリゲーションを定義することができる．利用可能なアグリゲータはソースのsrc/framework/aggregators.hppに掲載されている．</li>
 </ul>
 </li>
 </ul>
-<p>このコマンドは，1つのファイルを読み込み，一連のコードを生成する．以下にサンプルの宣言を示す．</p>
-<div class="highlight-cpp"><div class="highlight"><pre> <span class="k">struct</span> <span class="n">somemsgtype</span> <span class="p">{</span>
-   <span class="n">string</span> <span class="n">key</span><span class="p">;</span>
-   <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
-   <span class="kt">int</span> <span class="n">version</span><span class="p">;</span>
- <span class="p">};</span>
+<div class="highlight-java"><pre> message somemsgtype {
+   1: string key;
+   2: string value;
+   3: int version;
+ };
 
-<span class="k">class</span> <span class="nc">kvs</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="c1">//@cht</span>
-  <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">value</span><span class="p">);</span>
-  <span class="c1">//@cht</span>
-  <span class="n">somemsgtype</span> <span class="n">get</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
-  <span class="c1">//@cht</span>
-  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
-  <span class="c1">//@broadcast</span>
-  <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-  <span class="c1">//@random</span>
-  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
+service kvs {
+
+  #@cht #@update #@all_and
+  int put(string key, string value);
+
+  #@cht #@analysis #@random
+  somemsgtype get(string key, int v);
+
+  #@cht #@update #@all_and
+  int del(string key, int v);
+
+  #@broadcast #@update #@all_and
+  int clear(int);
+
+  #@broadcase #@analysis #@merge
+  map&lt;string, string&gt; get_status(int);
+};</pre>
 </div>
-<p>名前空間，メソッドの実装，静的メソッド等の他のC++の機能は利用できない．generatorのビルドにはOCamlおよびOMakeが必要である．このファイルをkvs.hppとすると，</p>
-<div class="highlight-python"><pre>jubatus $ cd contrib/generator
+<p>generatorのビルドにはOCamlおよびOMakeが必要である．このファイルをkvs.idlとすると，</p>
+<div class="highlight-python"><pre>jubatus $ cd tools/generator
 jubatus $ omake
-jubatus $ ./jenerator kvs.hpp
+jubatus $ ./jenerator path/to/kvs.idl -o .
 jubatus $ ls kvs*
-kvs.hpp kvs.idl kvs_impl.cpp kvs_keeper.cpp</pre>
+kvs_impl.cpp kvs_keeper.cpp</pre>
 </div>
-<p>これによって，4つのファイルが生成される．
-このとき，ジェネレータはsave/loadというAPIを自動で追加する．これは，jubatus_serv&lt;M, Diff&gt;のM-&gt;saveを呼び出す．これによって，ユーザはsave/loadに関するサーバーの実装を書かなくてよくなり，機械学習のデータMのsave/load（シリアライゼーション）を実装するだけでよい．</p>
-</div>
-<div class="section" id="idl">
-<h2>IDL<a class="headerlink" href="#idl" title="Permalink to this headline">¶</a></h2>
-<p>開発中の <a class="reference external" href="http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl">msgpack-idl</a> を利用する．公式にはリリースされていないため，自分でビルドする必要がある．また，ghc7とcabalが必要である．</p>
-<div class="highlight-python"><pre>$ git clone git://github.com/tanakh/Peggy.git
-$ cd Peggy
-$ cabal install
-$ cd ..
-$ git clone git://github.com/msgpack/msgpack-haskell
-$ cd msgpack-haskell/msgpack-idl
-$ cabal install
-$ mpidl cpp kvs.idl -o . -p -n jubatus
-...
-$ ls
-kvs_types.hpp kvs_client.hpp kvs_server.hpp</pre>
-</div>
-<p>これによって，pficommonを使って動作する共通宣言，クライアント，サーバーを生成することができる．</p>
-<p>IDLのコードジェネレータを用いて，他の言語でクライアントコードを生成することによって，複数言語のサポートを容易に行うことができるようになる．</p>
+<p>通常は2つのファイルが生成される．-tオプションをつければ，サーバー実装の雛形となるC++のソースファイルが生成される．</p>
+<p>このとき，ジェネレータはsave/loadというAPIを自動で追加する．</p>
+<p>TODO: how to implement mix</p>
 </div>
 <div class="section" id="server">
 <h2>server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
@@ -329,7 +310,6 @@ bool <tt class="descclassname">my_kvs::</tt><tt class="descname">load</tt><big>(
 <p>現状のpficommonのI/Oアーキテクチャでは，スレッド数と同数の同時接続しか維持できない．従ってコネクションの接続と切断の繰り返しが必要になり，特にJubakeeperでボトルネックとなる．仮にJubakeeperでコネクションのキャッシュ機構を用意した場合，サーバー側での同時接続数に限界がくると同時にTCPコネクションのライフサイクルが複雑になる．代替案として</p>
 <ol class="arabic simple">
 <li>acceptベースのMsgpack-RPCサーバーではなく，epollなどの非同期I/Oを用いたサーバーを利用または作成する．公式のMsgpackサーバーは非同期I/Oの機能を持っているがメンテナンスがされてないこともあり利用しにくい．pficommonのMPRPCサーバーを改造するという選択肢がある．</li>
-<li>Jubatusのメッセージングアーキテクチャを根本から見直す．ブロードキャスト，ランダム，RR，CHTなどの複数のプロトコルとZooKeeperの死活監視を統合したメッセージング機構を実装しなおす．</li>
 </ol>
 </div>
 <div class="section" id="api">

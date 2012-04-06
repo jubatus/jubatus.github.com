@@ -22,11 +22,13 @@ TOC
    :maxdepth: 2
 
    quickstart
-   tutorial
    documentation
    references
    howtocontribute
    misc
+
+..   tutorial
+
 
 Other resources
 ===============

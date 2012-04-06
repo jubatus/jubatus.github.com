@@ -7,9 +7,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Client generation using IDL generator &mdash; Jubatus 0.2.0-beta documentation</title>
-    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Jubatus 0.2.0 をリリースしました &mdash; Jubatus 0.2.0-beta documentation</title>
+    <link rel="stylesheet" href="../../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,21 +31,18 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    '../../',
         VERSION:     '0.2.0-beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.2.0-beta documentation" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Data Conversion" href="fv_convert.html" />
-    <link rel="prev" title="Documentation" href="documentation.html" /> 
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.2.0-beta documentation" href="../../index.html" /> 
 
 <!--
 
@@ -81,33 +78,20 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="fv_convert.html" title="Data Conversion"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="documentation.html" title="Documentation"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="index.html">
+		<a href="../../index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="documentation.html"
-                        title="previous chapter">Documentation</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="fv_convert.html"
-                        title="next chapter">Data Conversion</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/idl.txt"
+    <li><a href="../../_sources/blog/2012/02-17-12-03-release0.2.0.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -162,16 +146,57 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="client-generation-using-idl-generator">
-<h1>Client generation using IDL generator<a class="headerlink" href="#client-generation-using-idl-generator" title="Permalink to this headline">¶</a></h1>
-<p>開発中の <a class="reference external" href="http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl">msgpack-idl</a> を利用する．公式にはリリースされていないため，自分でビルドする必要がある．また，ghc7とcabalが必要である．</p>
-<div class="highlight-python"><pre>$ cabal install msgpack-idl
-$ mpidl cpp kvs.idl -o . -p
-...
-$ ls
-kvs_types.hpp kvs_client.hpp kvs_server.hpp</pre>
-</div>
-<p>IDLのコードジェネレータを用いて，他の言語でクライアントコードを生成することによって，複数言語のサポートを容易に行うことができるようになる．</p>
+  <div class="section" id="jubatus-0-2-0">
+<h1>Jubatus 0.2.0 をリリースしました<a class="headerlink" href="#jubatus-0-2-0" title="Permalink to this headline">¶</a></h1>
+<p>on 2012/02/17 12:03 by kuenishi</p>
+<p>本日、Jubatus 0.2.0をリリースしました。これにあわせて、Webサイト（ <a class="reference external" href="http://jubat.us">http://jubat.us</a> ）もいくつかコンテンツを追加しました。VCSはGitHub, BTSは当面はGitHub issuesを利用していきたいと思っています。</p>
+<p>昨年の0.1.0のリリース以来、いくつかPull Requestをいただいたりしてはいたものの、開発チームの活動をパブリックにしにくい状況が続いておりました。本日のリリースでおよその機能が揃い、分散処理フレームワークと機械学習アルゴリズムの最低限の分離をすることができました。これによって、下回りの改善と機械学習の実装を同期しなくてよくなり、タイミングを合わせることのオーバーヘッドがなくなり、開発のスピードアップをしていきます。</p>
+<p>半年も間が開いてしまいましたが、このリリースからはオープンな開発をしていきたいと思っています。まだまだやることは沢山ありますので、今後ともよろしくおねがいします！</p>
+<p>We are happy to announce new version of Jubatus 0.2.0. Many thanks to contributors, users, those who have been interested in Jubatus, and development team. The release note for 0.2.0 follows:</p>
+<p>New Features</p>
+<ul class="simple">
+<li>recommender</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>support fast similar item search, real-time update, distributed data management</li>
+<li>inverted index : exact result, fast search</li>
+<li>locality sensitive hash : approximate result, fast search, small working space</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>regression</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>online SVR using passive agressive algorithm</li>
+<li>as fast as current classifier</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>stat</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>a Key(string)-Value(queue&lt;double&gt;)</li>
+<li>O(1) cost of getting sum, standard deviation, max, min, statistic moments for each queue</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>server framework</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>less-tightly coupled distributed processing framework with each ML implementation</li>
+<li>idl &amp; code generator - make it easy to write own jubatus system</li>
+<li>removed public release of client libraries (so easy to generate!)</li>
+<li>multiple mix - mutiple data objects can be mixed in one jubatus system</li>
+</ul>
+</div></blockquote>
+<p>Bugfix</p>
+<ul class="simple">
+<li>duplicate key entry in fv_converter breaks the parameter</li>
+</ul>
 </div>
 
 
@@ -184,16 +209,9 @@ kvs_types.hpp kvs_client.hpp kvs_server.hpp</pre>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="fv_convert.html" title="Data Conversion"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="documentation.html" title="Documentation"
-             >previous</a> |</li>
-        <li><a href="index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">Jubatus 0.2.0-beta documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
