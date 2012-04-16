@@ -5,7 +5,7 @@ For prerequisites, Jubatus requires `MessagePack <http://msgpack.org>`_ , `pfico
 
 ::
 
-  $ sudo aptitude install libmsgpack-dev
+  $ sudo aptitude install libmsgpack-dev libevent-dev libgoogle-glog-dev
   $ git clone git://github.com/pfi/pficommon.git
   $ cd pficommon
   $ ./waf configure
