@@ -206,63 +206,88 @@ new TWTR.Widget({
 <div class="section" id="constructor">
 <h2>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="classifier__stringCR.stringCR.double">
- <tt class="descname">classifier</tt><big>(</big>const string&amp; <em>hosts</em>, const string&amp; <em>name</em>, double <em>timeout</em><big>)</big><a class="headerlink" href="#classifier__stringCR.stringCR.double" title="Permalink to this definition">¶</a></dt>
+<dt id="classifier__ssCR.uint64_t.double">
+ <tt class="descname">classifier</tt><big>(</big>const std::string&amp; <em>host</em>, uint64_t <em>port</em>, double <em>timeout_sec</em><big>)</big><a class="headerlink" href="#classifier__ssCR.uint64_t.double" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubakeeperのサーバ、ポートを指定。書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。</li>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> :  ZooKeeperクラスタが学習器を一意に識別する値</li>
-<li><tt class="docutils literal"><span class="pre">timeout</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubaclassifier or jubakeeperのサーバIPアドレス(ipv4)を指定</li>
+<li><tt class="docutils literal"><span class="pre">port</span></tt> :  jubaclassifier or jubakeeperのサーバのポートを指定</li>
+<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
 </ul>
 </div>
 <div class="section" id="common-methods">
 <h2>common methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="classifier::save__stringCR.stringCR">
-void <tt class="descclassname">classifier::</tt><tt class="descname">save</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#classifier::save__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dt id="save__ss.ss">
+bool <tt class="descname">save</tt><big>(</big>std::string <em>name</em>, std::string <em>arg1</em><big>)</big><a class="headerlink" href="#save__ss.ss" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : 保存するファイル名を指定</li>
+</ul>
+<p><strong>すべての</strong> サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。</p>
 <dl class="function">
-<dt id="classifier::load__stringCR.stringCR">
-void <tt class="descclassname">classifier::</tt><tt class="descname">load</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#classifier::load__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dt id="load__ss.ss">
+bool <tt class="descname">load</tt><big>(</big>std::string <em>name</em>, std::string <em>arg1</em><big>)</big><a class="headerlink" href="#load__ss.ss" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : 保存するファイル名を指定</li>
+</ul>
+<p><strong>すべての</strong> サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。</p>
 <dl class="function">
-<dt id="classifier::set_config__config_dataCR">
-void <tt class="descclassname">classifier::</tt><tt class="descname">set_config</tt><big>(</big>const config_data&amp; <em>config</em><big>)</big><a class="headerlink" href="#classifier::set_config__config_dataCR" title="Permalink to this definition">¶</a></dt>
+<dt id="set_config__ss.config_data">
+bool <tt class="descname">set_config</tt><big>(</big>std::string <em>name</em>, config_data <em>c</em><big>)</big><a class="headerlink" href="#set_config__ss.config_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">c</span></tt> : config_data</li>
+</ul>
 <p><strong>すべての</strong> サーバーのコンフィグを更新する。</p>
 <dl class="function">
-<dt id="classifier::get_config">
-config_data <tt class="descclassname">classifier::</tt><tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#classifier::get_config" title="Permalink to this definition">¶</a></dt>
+<dt id="get_config__ss">
+config_data <tt class="descname">get_config</tt><big>(</big>std::string <em>name</em><big>)</big><a class="headerlink" href="#get_config__ss" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+</ul>
 <p>コンフィグを取得する。</p>
 <dl class="function">
-<dt id="client::get_status">
-std::map&lt;std::pair&lt;std::string, int&gt;, std::map&lt;std::string, std::string&gt;&gt; <tt class="descclassname">client::</tt><tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#client::get_status" title="Permalink to this definition">¶</a></dt>
+<dt id="get_status__ss">
+std::map&lt;std::string, std::map&lt;std::string, std::string&gt;&gt; <tt class="descname">get_status</tt><big>(</big>std::string <em>name</em><big>)</big><a class="headerlink" href="#get_status__ss" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p><strong>すべての</strong> サーバーの状態を取得する。
-各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+</ul>
+<p><strong>すべての</strong> サーバーの状態を取得する。各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
 </div>
 <div class="section" id="classifier-methods">
 <h2>classifier methods<a class="headerlink" href="#classifier-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="classifier::train__std::vector:std::pair:ss.datum::CR">
-void <tt class="descclassname">classifier::</tt><tt class="descname">train</tt><big>(</big>const std::vector&lt;std::pair&lt;std::string, datum&gt;&gt;&amp; <em>data</em><big>)</big><a class="headerlink" href="#classifier::train__std::vector:std::pair:ss.datum::CR" title="Permalink to this definition">¶</a></dt>
+<dt id="train__ss.std::vector:std::pair:ss.datum::">
+int32_t <tt class="descname">train</tt><big>(</big>std::string <em>name</em>, std::vector&lt;std::pair&lt;std::string, datum&gt;&gt; <em>data</em><big>)</big><a class="headerlink" href="#train__ss.std::vector:std::pair:ss.datum::" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : あるdatumとそれに対するラベルのpairのvector</li>
+</ul>
 <p>ランダムにひとつ選んだサーバーで学習を行う。 <tt class="docutils literal"><span class="pre">std::pair&lt;std::string,</span> <span class="pre">datum&gt;</span></tt> は、あるdatumとそれに対するラベルの組み合わせである。これをvectorとして、一度で複数のdatumとラベルの組を学習させる。</p>
 <dl class="function">
-<dt id="classifier::classify__std::vector:datum:CR">
-std::vector&lt;estimate_results&gt; <tt class="descclassname">classifier::</tt><tt class="descname">classify</tt><big>(</big>const std::vector&lt;datum&gt;&amp; <em>data</em><big>)</big><a class="headerlink" href="#classifier::classify__std::vector:datum:CR" title="Permalink to this definition">¶</a></dt>
+<dt id="classify__ss.std::vector:datum:">
+std::vector&lt;std::vector&lt;estimate_result&gt;&gt; <tt class="descname">classify</tt><big>(</big>std::string <em>name</em>, std::vector&lt;datum&gt; <em>data</em><big>)</big><a class="headerlink" href="#classify__ss.std::vector:datum:" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : 分類したいdatumのvector</li>
+</ul>
 <p>ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultsは、vectorのオフセットで1:1に対応している。 <tt class="docutils literal"><span class="pre">estimate_results</span></tt> は信頼度つきのラベル候補を列挙したものとなる。</p>
 </div>
 </div>

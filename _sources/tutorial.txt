@@ -72,10 +72,7 @@ Python client of Jubatus requires `msgpack-python <http://pypi.python.org/pypi/m
 
 ::
 
-  $ git clone git://github.com/jubatus/jubatus-python-client.git
-  $ cd jubatus-python-client
-  $ python setup.py build
-  # python setup.py install
+  $ pip install jubatus=0.2.1
 
 Check your python installation by running tests:
 
