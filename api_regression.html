@@ -112,7 +112,6 @@
 <li><a class="reference internal" href="#jubatus-regression-config-data">jubatus::regression::config_data</a></li>
 <li><a class="reference internal" href="#jubatus-regression-estimate-result">jubatus::regression::estimate_result</a><ul>
 <li><a class="reference internal" href="#constructor">constructor</a></li>
-<li><a class="reference internal" href="#common-methods">common methods</a></li>
 <li><a class="reference internal" href="#regression-methods">regression methods</a></li>
 </ul>
 </li>
@@ -278,65 +277,38 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <math xmlns
 <div class="section" id="constructor">
 <h3>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="regression__stringCR.stringCR.double">
- <tt class="descname">regression</tt><big>(</big>const string&amp; <em>hosts</em>, const string&amp; <em>name</em>, double <em>timeout</em><big>)</big><a class="headerlink" href="#regression__stringCR.stringCR.double" title="Permalink to this definition">¶</a></dt>
+<dt id="regression__ssCR.uint64_t.double">
+ <tt class="descname">regression</tt><big>(</big>const std::string&amp; <em>host</em>, uint64_t <em>port</em>, double <em>timeout_sec</em><big>)</big><a class="headerlink" href="#regression__ssCR.uint64_t.double" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubakeeperのサーバ、ポートを指定。書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。</li>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> :  ZooKeeperクラスタが学習器を一意に識別する値</li>
-<li><tt class="docutils literal"><span class="pre">timeout</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubaregression or jubakeeperのサーバIPアドレス(ipv4)を指定</li>
+<li><tt class="docutils literal"><span class="pre">port</span></tt> :  jubaregression or jubakeeperのサーバのポートを指定</li>
+<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
 </ul>
-</div>
-<div class="section" id="common-methods">
-<h3>common methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
-<dt id="regression::save__stringCR.stringCR">
-void <tt class="descclassname">regression::</tt><tt class="descname">save</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#regression::save__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。</p>
-<dl class="function">
-<dt id="regression::load__stringCR.stringCR">
-void <tt class="descclassname">regression::</tt><tt class="descname">load</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#regression::load__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。</p>
-<dl class="function">
-<dt id="regression::set_config__config_dataCR">
-void <tt class="descclassname">regression::</tt><tt class="descname">set_config</tt><big>(</big>const config_data&amp; <em>config</em><big>)</big><a class="headerlink" href="#regression::set_config__config_dataCR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>すべての</strong> サーバーのコンフィグを更新する。</p>
-<dl class="function">
-<dt id="regression::get_config">
-config_data <tt class="descclassname">regression::</tt><tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#regression::get_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>コンフィグを取得する。</p>
-<dl class="function">
-<dt id="client::get_status">
-std::map&lt;std::pair&lt;std::string, int&gt;, std::map&lt;std::string, std::string&gt;&gt; <tt class="descclassname">client::</tt><tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#client::get_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>すべての</strong> サーバーの状態を取得する。
-各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
 </div>
 <div class="section" id="regression-methods">
 <h3>regression methods<a class="headerlink" href="#regression-methods" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="regression::train__std::vector:std::pair:float.datum::CR">
-void <tt class="descclassname">regression::</tt><tt class="descname">train</tt><big>(</big>const std::vector&lt;std::pair&lt;float, datum&gt;&gt;&amp; <em>data</em><big>)</big><a class="headerlink" href="#regression::train__std::vector:std::pair:float.datum::CR" title="Permalink to this definition">¶</a></dt>
+<dt id="train__ss.std::vector:std::pair:float.datum::">
+int32_t <tt class="descname">train</tt><big>(</big>std::string <em>arg0</em>, std::vector&lt;std::pair&lt;float, datum&gt;&gt; <em>arg1</em><big>)</big><a class="headerlink" href="#train__ss.std::vector:std::pair:float.datum::" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">arg0</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : あるdatumとそれに対する値のpairのvector</li>
+</ul>
 <p>ランダムにひとつ選んだサーバーで学習を行う。 <tt class="docutils literal"><span class="pre">std::pair&lt;float,</span> <span class="pre">datum&gt;</span></tt> は、あるdatumとそれに対する値の組み合わせである。これをvectorとして、一度で複数のdatumと値の組を学習させる。</p>
 <dl class="function">
-<dt id="regression::estimate__std::vector:datum:CR">
-std::vector&lt;regression::estimate_result&gt; <tt class="descclassname">regression::</tt><tt class="descname">estimate</tt><big>(</big>const std::vector&lt;datum&gt;&amp; <em>data</em><big>)</big><a class="headerlink" href="#regression::estimate__std::vector:datum:CR" title="Permalink to this definition">¶</a></dt>
+<dt id="estimate__ss.std::vector:datum:">
+std::vector&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>std::string <em>arg0</em>, std::vector&lt;datum&gt; <em>arg1</em><big>)</big><a class="headerlink" href="#estimate__ss.std::vector:datum:" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultは、vectorのオフセットで1:1に対応している。 <tt class="docutils literal"><span class="pre">estimate_result</span></tt>
-は回帰の結果を返す。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">arg0</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : あるdatumのvector</li>
+</ul>
+<p>ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultは、vectorのオフセットで1:1に対応している。 <tt class="docutils literal"><span class="pre">estimate_result</span></tt> は回帰の結果を返す。</p>
 </div>
 </div>
 </div>

@@ -44,48 +44,6 @@ constructor
 - ``timeout_sec`` : 通信時のタイムアウトまでの時間を指定
 
 
-common methods
------------------
-
-.. cpp:function:: bool save(std::string name, std::string arg1)
-
-- ``name`` : ZooKeeperクラスタが学習器を一意に識別する値
-- ``arg1`` : 保存するファイル名を指定
-
-**すべての** サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。
-
-
-.. cpp:function:: bool load(std::string name, std::string arg1)
-
-- ``name`` : ZooKeeperクラスタが学習器を一意に識別する値
-- ``arg1`` : 保存するファイル名を指定
-
-**すべての** サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。
-
-.. cpp:function:: bool set_config(std::string name, config_data c)
-
-- ``name`` : ZooKeeperクラスタが学習器を一意に識別する値
-- ``c`` : config_data
-
-**すべての** サーバーのコンフィグを更新する。
-
-
-.. cpp:function:: config_data get_config(std::string name)
-
-- ``name`` : ZooKeeperクラスタが学習器を一意に識別する値
-
-コンフィグを取得する。
-
-
-.. cpp:function:: std::map<std::string, std::map<std::string, std::string > > get_status(std::string name)
-
-- ``name`` : ZooKeeperクラスタが学習器を一意に識別する値
-
-**すべての** サーバーの状態を取得する。各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。
-
-
-
-
 classifier methods
 ---------------------
 

@@ -103,9 +103,11 @@
   <ul>
 <li><a class="reference internal" href="#">Programming API</a><ul>
 <li><a class="reference internal" href="#basic-structs">basic structs</a><ul>
-<li><a class="reference internal" href="#jubatus-converter-config">jubatus::converter_config</a><ul>
+<li><a class="reference internal" href="#jubatus-converter-config">jubatus::converter_config</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#common-methods">common methods</a></li>
+<li><a class="reference internal" href="#machine-learning-functions">Machine learning functions</a><ul>
 </ul>
 </li>
 </ul>
@@ -177,8 +179,8 @@ new TWTR.Widget({
             
   <div class="section" id="programming-api">
 <h1>Programming API<a class="headerlink" href="#programming-api" title="Permalink to this headline">¶</a></h1>
-<p>jubaclassifier, jubaregression, jubarecommender, jubastatは、MessagePack形式で指定されたデータを送出できるクライアントであれば、実装言語を問わず利用することが出来る。
-2012年1月現在、C++/Pythonによるクライアントジェネレータが用意されている。</p>
+<p>jubaclassifier, jubaregression, jubarecommender and jubastat have a MessagePack-RPC Interface for user&#8217;s clients. You can implement your client-side logics with any programing languages if messagepack-idl supports it.
+There exists C++/Python client as of Aplil 2012.</p>
 <div class="section" id="basic-structs">
 <h2>basic structs<a class="headerlink" href="#basic-structs" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jubatus-converter-config">
@@ -200,13 +202,132 @@ new TWTR.Widget({
 <span class="p">};</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">converter_config</span></tt> を構成する <tt class="docutils literal"><span class="pre">filter_rule</span></tt> などのメンバについては <a class="reference internal" href="fv_convert.html#conversion"><em>Data Conversion</em></a> を参照のこと。</p>
+<p>See <a class="reference internal" href="fv_convert.html#conversion"><em>Data Conversion</em></a> to know in detail converter_config</p>
+</div>
+</div>
+<div class="section" id="common-methods">
+<h2>common methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="save__ss.ss">
+bool <tt class="descname">save</tt><big>(</big>std::string <em>name</em>, std::string <em>arg1</em><big>)</big><a class="headerlink" href="#save__ss.ss" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a learning module in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : filename</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>True if this function saves files successfully at all servers.</li>
+</ul>
+</div></blockquote>
+<p>Storing learing models to local disk at <strong>ALL</strong> servers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="load__ss.ss">
+bool <tt class="descname">load</tt><big>(</big>std::string <em>name</em>, std::string <em>arg1</em><big>)</big><a class="headerlink" href="#load__ss.ss" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a learning module in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : filename</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>True if this function loads files successfully at all servers</li>
+</ul>
+</div></blockquote>
+<p>Restoreing learning models from local disk at <strong>ALL</strong> servers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="set_config__ss.config_data">
+bool <tt class="descname">set_config</tt><big>(</big>std::string <em>name</em>, config_data <em>c</em><big>)</big><a class="headerlink" href="#set_config__ss.config_data" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a learning module in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">c</span></tt> : config_data</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>True if this function sets config_data successfully at all servers.</li>
+</ul>
+<p>Updating server config at <strong>ALL</strong> servers.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_config__ss">
+config_data <tt class="descname">get_config</tt><big>(</big>std::string <em>name</em><big>)</big><a class="headerlink" href="#get_config__ss" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a learning module in zookeeper quorum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>config_data</li>
+</ul>
+</div></blockquote>
+<p>Getting server config from a server chosen randomly.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_status__ss">
+std::map&lt;std::string, std::map&lt;std::string, std::string&gt;&gt; <tt class="descname">get_status</tt><big>(</big>std::string <em>name</em><big>)</big><a class="headerlink" href="#get_status__ss" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a learning module in zookeeper quorum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Internal state for each servers.</li>
+</ul>
+</div></blockquote>
+<p>Getting server status from <strong>ALL</strong> servers. Each server is represented by a pair of host name and port.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="machine-learning-functions">
+<h2>Machine learning functions<a class="headerlink" href="#machine-learning-functions" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api_classifier.html">jubatus::client::classifier</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_classifier.html#typedef">typedef</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_classifier.html#constructor">constructor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_classifier.html#common-methods">common methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_classifier.html#classifier-methods">classifier methods</a></li>
 </ul>
 </li>
@@ -232,7 +353,6 @@ new TWTR.Widget({
 </ul>
 </li>
 </ul>
-</div>
 </div>
 </div>
 </div>
