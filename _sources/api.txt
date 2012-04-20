@@ -40,7 +40,7 @@ common methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a learning module in zookeeper quorum
+  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
   - ``arg1`` : filename
 
  - Returns:
@@ -54,7 +54,7 @@ common methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a learning module in zookeeper quorum
+  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
   - ``arg1`` : filename
 
  - Returns:
@@ -68,7 +68,7 @@ common methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a learning module in zookeeper quorum
+  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
   - ``c`` : config_data
 
  - Returns:
@@ -82,7 +82,7 @@ common methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a learning module in zookeeper quorum
+  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
 
  - Returns:
 
@@ -94,7 +94,7 @@ common methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a learning module in zookeeper quorum
+  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
 
  - Returns:
 

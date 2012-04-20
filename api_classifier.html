@@ -207,36 +207,77 @@ new TWTR.Widget({
 <dl class="function">
 <dt id="classifier__ssCR.uint64_t.double">
  <tt class="descname">classifier</tt><big>(</big>const std::string&amp; <em>host</em>, uint64_t <em>port</em>, double <em>timeout_sec</em><big>)</big><a class="headerlink" href="#classifier__ssCR.uint64_t.double" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubaclassifier or jubakeeperのサーバIPアドレス(ipv4)を指定</li>
-<li><tt class="docutils literal"><span class="pre">port</span></tt> :  jubaclassifier or jubakeeperのサーバのポートを指定</li>
-<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+<dd><ul class="simple">
+<li>Parameters:</li>
 </ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : IP address (ipv4) of jubaclassifier or jubakeeper</li>
+<li><tt class="docutils literal"><span class="pre">port</span></tt> :  Port number of jubaclassifier or jubakeeper</li>
+<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : Connection timeout for RPC</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>new classifier object</li>
+</ul>
+</div></blockquote>
+<p>Constructor of classifier</p>
+</dd></dl>
+
 </div>
 <div class="section" id="classifier-methods">
 <h2>classifier methods<a class="headerlink" href="#classifier-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="train__ss.std::vector:std::pair:ss.datum::">
 int32_t <tt class="descname">train</tt><big>(</big>std::string <em>name</em>, std::vector&lt;std::pair&lt;std::string, datum&gt;&gt; <em>data</em><big>)</big><a class="headerlink" href="#train__ss.std::vector:std::pair:ss.datum::" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : あるdatumとそれに対するラベルのpairのvector</li>
+<dd><ul class="simple">
+<li>Parameters:</li>
 </ul>
-<p>ランダムにひとつ選んだサーバーで学習を行う。 <tt class="docutils literal"><span class="pre">std::pair&lt;std::string,</span> <span class="pre">datum&gt;</span></tt> は、あるdatumとそれに対するラベルの組み合わせである。これをvectorとして、一度で複数のdatumとラベルの組を学習させる。</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : vector of pair of label and datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Zero if this function updates models successfully.</li>
+</ul>
+</div></blockquote>
+<p>Training model at a server chosen randomly. <tt class="docutils literal"><span class="pre">std::pair&lt;std::string,</span> <span class="pre">datum&gt;</span></tt> is a pair of datum and it&#8217;s label.
+This function is designed to allow bulk update with vector of pair of label and datum.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="classify__ss.std::vector:datum:">
 std::vector&lt;std::vector&lt;estimate_result&gt;&gt; <tt class="descname">classify</tt><big>(</big>std::string <em>name</em>, std::vector&lt;datum&gt; <em>data</em><big>)</big><a class="headerlink" href="#classify__ss.std::vector:datum:" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : 分類したいdatumのvector</li>
+<dd><ul class="simple">
+<li>Parameters:</li>
 </ul>
-<p>ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultsは、vectorのオフセットで1:1に対応している。 <tt class="docutils literal"><span class="pre">estimate_results</span></tt> は信頼度つきのラベル候補を列挙したものとなる。</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : vector of datum for classifiy</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Vector of estimate_results</li>
+</ul>
+</div></blockquote>
+<p>Estimating a result at a server choosen randomly. <tt class="docutils literal"><span class="pre">estimate_results</span></tt> is a vector of pair of label and it&#8217;s reliablity value.</p>
+</dd></dl>
+
 </div>
 </div>
 
