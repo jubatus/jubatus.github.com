@@ -103,18 +103,13 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">jubatus::client::regression</a><ul>
-<li><a class="reference internal" href="#id1">手法説明</a><ul>
-<li><a class="reference internal" href="#passive-aggressive">Passive Aggressive</a></li>
-<li><a class="reference internal" href="#iterative-parameter-mixture">Iterative Parameter Mixture</a></li>
-<li><a class="reference internal" href="#typedef">typedef</a></li>
+<li><a class="reference internal" href="#typedef">typedef</a><ul>
+<li><a class="reference internal" href="#jubatus-regression-config-data">jubatus::regression::config_data</a></li>
+<li><a class="reference internal" href="#jubatus-regression-estimate-result">jubatus::regression::estimate_result</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jubatus-regression-config-data">jubatus::regression::config_data</a></li>
-<li><a class="reference internal" href="#jubatus-regression-estimate-result">jubatus::regression::estimate_result</a><ul>
 <li><a class="reference internal" href="#constructor">constructor</a></li>
 <li><a class="reference internal" href="#regression-methods">regression methods</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -184,83 +179,10 @@ new TWTR.Widget({
             
   <div class="section" id="jubatus-client-regression">
 <h1>jubatus::client::regression<a class="headerlink" href="#jubatus-client-regression" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>手法説明<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>回帰問題は，入力 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>x</mi></mrow></math> に対応する特徴ベクトル <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>ϕ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>∈</mo><msup><mi>R</mi><mi>m</mi></msup></mrow></math> に対して，実数値の出力 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>y</mi><mo>∈</mo><mi>R</mi></mrow></math> を当てる問題である．
-今回実装したのは，線形回帰モデルである．
-線形回帰モデルでは，パラメータ <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>w</mi><mo>∈</mo><msup><mi>R</mi><mi>m</mi></msup></mrow></math> を利用して，入力 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>x</mi></mrow></math> に対して <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mi>y</mi></mrow><mo>^</mo></mover><mo>=</mo><msup><mi>w</mi><mi>T</mi></msup><mi>ϕ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>∈</mo><mi>R</mi></mrow></math> で予測する．</p>
-<p>学習時には，分類問題同様，正解データセット <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>{</mo><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>)</mo><mo>}</mo></mrow></math> を利用して，正解データに対して正しく予測できるように重みベクトルを推定する．
-典型的には1800年代に，予測値と実測値との自乗和を最小化させる最小二乗法が提案されている．
-この方法はバッチ処理になるため，今回の調査ではオンライン学習させる方法を利用した．</p>
-<div class="section" id="passive-aggressive">
-<h3>Passive Aggressive<a class="headerlink" href="#passive-aggressive" title="Permalink to this headline">¶</a></h3>
-<p>Passive Aggressive (PA)  <a class="reference internal" href="#crammer06">[Crammer06]</a> は，Support Vector Regression (SVR) のオンライン版であり，同名の分類器を回帰問題に適用したアルゴリズムである．
-PA は， (1) 現在の学習データが与えられた許容範囲 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>e</mi><mi>p</mi><mi>s</mi><mi>i</mi><mi>l</mi><mi>o</mi><mi>n</mi></mrow></math> 以下で予測する． (2) 分類問題の PA 同様，できる限り現在のパラメータと近い点を選ぶ，という二つの条件を満たすパラメータに更新する．
-すなわち， <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>ϵ</mi></mrow></math> -intensive hinge loss <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>ℓ</mo><mo>(</mo><mi>w</mi><mo>;</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>)</mo><mo>=</mo><mo>max</mo><mo>(</mo><mn>0</mn><mo>,</mo><mo>|</mo><msup><mi>w</mi><mi>T</mi></msup><mi>x</mi><mo>-</mo><mi>y</mi><mo>|</mo><mo>-</mo><mi>ϵ</mi><mo>)</mo></mrow></math> に対して，パラメータを
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><msub><mi>w</mi>
-<mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>w</mi>
-<mrow><mi>t</mi></mrow></msub><mo>+</mo><mo>{</mo><mtext>sign</mtext><mo>(</mo><mi>y</mi><mo>-</mo><msup><mi>w</mi><mi>T</mi></msup><mi>x</mi><mo>)</mo><mo>ℓ</mo><mo>/</mo><mo>|</mo><mi>x</mi><msup><mo>|</mo><mn>2</mn></msup><mo>}</mo><mi>x</mi></mrow></math> で逐次更新する．</p>
-<p>さらに，大きく更新しすぎるのを防ぐために， PA-I 同様のコストを追加する．
-オリジナルの PA-I では， <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>ℓ</mo><mo>/</mo><mo>|</mo><mi>x</mi><msup><mo>|</mo><mn>2</mn></msup></mrow></math> の代わりに <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>min</mo><mo>(</mo><mi>C</mi><mo>,</mo><mo>ℓ</mo><mo>/</mo><mo>|</mo><mi>x</mi><msup><mo>|</mo><mn>2</mn></msup><mo>)</mo></mrow></math> で更新するが，回帰問題では <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>ℓ</mo></mrow></math> と <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>x</mi></mrow></math> のスケールに対して <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>C</mi></mrow></math> の調整が難しい．
-そこで，  <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>ℓ</mo></mrow></math> の標準偏差 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>σ</mi></mrow></math> をオンラインで計測し， <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>C</mi></mrow></math> の値を調整する．
-まず，予測値 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><msup><mi>w</mi><mi>T</mi></msup><mi>x</mi></mrow></math> と 実測値 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>y</mi></mrow></math> との差， <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>e</mi><mo>=</mo><mi>y</mi><mo>-</mo><msup><mi>w</mi><mi>T</mi></msup><mi>x</mi></mrow></math> とする．
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>e</mi></mrow></math> の平均と二乗の平均の予測値を， <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><msub><mi>s</mi>
-<mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>α</mi><msub><mi>s</mi>
-<mrow><mi>t</mi></mrow></msub><mo>+</mo><mo>(</mo><mn>1</mn><mo>-</mo><mi>α</mi><mo>)</mo><mi>e</mi></mrow></math> と <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><msub><mi>q</mi>
-<mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>α</mi><msub><mi>q</mi>
-<mrow><mi>t</mi></mrow></msub><mo>+</mo><mo>(</mo><mn>1</mn><mo>-</mo><mi>α</mi><mo>)</mo><msup><mi>e</mi><mn>2</mn></msup></mrow></math> で更新する．
-時刻 <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>t</mi></mrow></math> での標準偏差を <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><msub><mi>σ</mi><mi>t</mi></msub><mo>=</mo><msqrt>
-<mrow><msub><mi>q</mi><mi>t</mi></msub><mo>-</mo><msubsup><mi>s</mi><mi>t</mi><mn>2</mn></msubsup></mrow></msqrt></mrow></math> で予測する．
-実際の更新幅は， <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>{</mo><mtext>sign</mtext><mo>(</mo><mi>y</mi><mo>-</mo><msup><mi>w</mi><mi>T</mi></msup><mi>x</mi><mo>)</mo><mo>min</mo><mo>(</mo><mi>C</mi><mi>σ</mi><mo>,</mo><mo>ℓ</mo><mo>)</mo><mo>/</mo><mo>|</mo><mi>x</mi><msup><mo>|</mo><mn>2</mn></msup><mo>}</mo><mi>x</mi></mrow></math> となる．</p>
-<table class="docutils citation" frame="void" id="crammer06" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[Crammer06]</a></td><td>Koby Crammer, Ofer Dekel, Joseph Keshet, Shai Shalev-Shwartz, Yoram Singer, Online Passive-Aggressive Algorithms. Journal of Machine Learning Research, 2006.</td></tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="iterative-parameter-mixture">
-<h3>Iterative Parameter Mixture<a class="headerlink" href="#iterative-parameter-mixture" title="Permalink to this headline">¶</a></h3>
-<p>分類問題同様，重みベクトルは Iterative Parameter Mixture [McDonald10] [Mann09] で混ぜ合わせる．
-これは，各マシンが単独で学習アルゴリズムを動かし，一定時間，あるいは決められた条件ごとに，すべてのマシンの重みを集めて，それらの平均を計算する．
-平均ベクトルは再度全てのサーバーに配られて，それを初期値と思って学習を再開する．</p>
-<p>もともと分類問題向けのモデル共有方法であるが，線形回帰モデルではモデルパラメータが同じ形をしているので，同様に分散学習させることができる可能性が高い．</p>
-</div>
 <div class="section" id="typedef">
-<h3>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
+<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jubatus-regression-config-data">
-<h2>jubatus::regression::config_data<a class="headerlink" href="#jubatus-regression-config-data" title="Permalink to this headline">¶</a></h2>
+<h3>jubatus::regression::config_data<a class="headerlink" href="#jubatus-regression-config-data" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">method</span><span class="p">;</span>
   <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
@@ -269,47 +191,89 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <math xmlns
 </div>
 </div>
 <div class="section" id="jubatus-regression-estimate-result">
-<h2>jubatus::regression::estimate_result<a class="headerlink" href="#jubatus-regression-estimate-result" title="Permalink to this headline">¶</a></h2>
+<h3>jubatus::regression::estimate_result<a class="headerlink" href="#jubatus-regression-estimate-result" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">typedef</span> <span class="kt">float</span> <span class="n">estimate_rusult</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">estimate_result</span><span class="o">&gt;</span> <span class="n">estimate_results</span><span class="p">;</span>
 </pre></div>
 </div>
+</div>
+</div>
 <div class="section" id="constructor">
-<h3>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<h2>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="regression__ssCR.uint64_t.double">
  <tt class="descname">regression</tt><big>(</big>const std::string&amp; <em>host</em>, uint64_t <em>port</em>, double <em>timeout_sec</em><big>)</big><a class="headerlink" href="#regression__ssCR.uint64_t.double" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubaregression or jubakeeperのサーバIPアドレス(ipv4)を指定</li>
-<li><tt class="docutils literal"><span class="pre">port</span></tt> :  jubaregression or jubakeeperのサーバのポートを指定</li>
-<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+<dd><ul class="simple">
+<li>Parameters:</li>
 </ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : IP address (ipv4) of jubaclassifier or jubakeeper</li>
+<li><tt class="docutils literal"><span class="pre">port</span></tt> :  Port number of jubaclassifier or jubakeeper</li>
+<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : Connection timeout for RPC</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>new regression object</li>
+</ul>
+</div></blockquote>
+<p>Constructor of regression</p>
+</dd></dl>
+
 </div>
 <div class="section" id="regression-methods">
-<h3>regression methods<a class="headerlink" href="#regression-methods" title="Permalink to this headline">¶</a></h3>
+<h2>regression methods<a class="headerlink" href="#regression-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="train__ss.std::vector:std::pair:float.datum::">
 int32_t <tt class="descname">train</tt><big>(</big>std::string <em>arg0</em>, std::vector&lt;std::pair&lt;float, datum&gt;&gt; <em>arg1</em><big>)</big><a class="headerlink" href="#train__ss.std::vector:std::pair:float.datum::" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">arg0</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
-<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : あるdatumとそれに対する値のpairのvector</li>
+<dd><ul class="simple">
+<li>Parameters:</li>
 </ul>
-<p>ランダムにひとつ選んだサーバーで学習を行う。 <tt class="docutils literal"><span class="pre">std::pair&lt;float,</span> <span class="pre">datum&gt;</span></tt> は、あるdatumとそれに対する値の組み合わせである。これをvectorとして、一度で複数のdatumと値の組を学習させる。</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">arg0</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : vector of pair of label and datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Zero if this function updates models successfully.</li>
+</ul>
+</div></blockquote>
+<p>Training model at a server chosen randomly. <tt class="docutils literal"><span class="pre">std::pair&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a pair of datum and it&#8217;s value.
+This function is designed to allow bulk update with vector of pair of value and datum.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="estimate__ss.std::vector:datum:">
 std::vector&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>std::string <em>arg0</em>, std::vector&lt;datum&gt; <em>arg1</em><big>)</big><a class="headerlink" href="#estimate__ss.std::vector:datum:" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">arg0</span></tt> : ZooKeeperクラスタが学習器を一意に識別する値</li>
-<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : あるdatumのvector</li>
+<dd><ul class="simple">
+<li>Parameters:</li>
 </ul>
-<p>ランダムにひとつ選んだサーバーで学習を行う。 複数のdatumを一度に渡すことができる。引数のdatumと戻り値のestimate_resultは、vectorのオフセットで1:1に対応している。 <tt class="docutils literal"><span class="pre">estimate_result</span></tt> は回帰の結果を返す。</p>
-</div>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">arg0</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">arg1</span></tt> : vector of datum for classifiy</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Vector of estimate_results</li>
+</ul>
+</div></blockquote>
+<p>Estimating a result at a server choosen randomly. <tt class="docutils literal"><span class="pre">estimate</span></tt> is a vector of estimated value.</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -340,5 +304,10 @@ std::vector&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>std::stri
         &copy; Copyright 2011, PFI&amp;NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/you">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" />
+      </a>
   </body>
 </html>

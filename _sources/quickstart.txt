@@ -18,7 +18,7 @@ Minimal install
 
 ::
 
-  $ git clone git://github.com:jubatus/jubatus.git
+  $ git clone git://github.com/jubatus/jubatus.git
   $ cd jubatus
   $ ./waf configure --disable-re2
   $ ./waf build
