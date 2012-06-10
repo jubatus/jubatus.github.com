@@ -7,7 +7,7 @@ typedef
 --------
 
 jubatus::recommender::config_data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: c++
 

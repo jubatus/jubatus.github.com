@@ -5,13 +5,7 @@ Tutorial
 
 Overview and Scenario
 ----------------------
-This tutorial made up of following four sections:
-
-
-このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 `News20(20news-bydate.tar.gz) <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ を利用します。
-News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
-News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
-このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。
+This tutorial uses `News20(20news-bydate.tar.gz) <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and users post thier message on a suitable newsgroup. News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%). The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.
 
 
 Prequisites
@@ -22,24 +16,26 @@ This tutorial requires following softwares installed:
 - Linux 2.6 +
 - gcc 4.0 +
 - pkg-config
-- python 2.6+ and `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_
+- python 2.7+ and `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_
 - `libmsgpack <http://msgpack.org>`_
 - `pficommon <http://github.com/pfi/pficommon>`_ - must be configured with msgpack enabled.
+- `libevent 2.0.X <http://libevent.org/>`_ 
 - `re2 <http://code.google.com/p/re2/>`_
 - `google-glog <http://code.google.com/p/google-glog/>`_
 - `ux-trie <http://code.google.com/p/ux-trie/>`_ / `MeCab <http://mecab.sourceforge.net/>`_ (optional)
 - `ZooKeeper <http://zookeeper.apache.org/>`_ server and C client (optional, for multiple processes)
 
+`These scripts <https://github.com/odasatoshi/jubatus-installer>`_ maybe the help your installation.
 
 Setup a single process Jubatus Server
-------------------------------------=
+-----------------------------------------
 
-ここでは、Jubatusをインストールするための手順を示します。 他のdisutributionを利用する場合は、適時読み替えてください。
+In this section, We show how to install the Jubatus.
 
 building and installing Jubatus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-上記を事前にインストールした上で、Jubatusをbuild, installしてください。
+You need to install the above library dependencies before building and installing jubatus.
 
 ::
 
@@ -49,42 +45,43 @@ building and installing Jubatus
   $ ./waf build
   # ./waf install
   $ jubaclassifier --name tutorial
+  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.2.2 RPC server at 10.0.2.15:9199 with timeout: 10
 
-これで、1プロセス構成でのセットアップと起動が完了しました。
 
-``--name`` オプションは、複数のJubatusプロセスを利用する際に使います。
-詳しくは、 :ref:`multiprocess` を参照してください。
+Setup and starting a single process jubatus has been completed.
 
-JubatusはデフォルトでMessagePack RPCサーバとして9199ポートで待ち受けます。
-他のサービスなどが同じポートを利用している場合は、オプションを利用して、他のポートを利用してください。
-例えば、RPCサーバを9181番で待ち受ける場合は、
+``--name`` option is a string value to uniquely identifies a task in zookeeper quorum. 
+
+Jubatus listens on port 9199 as MessagePack RPC server by default. If other services uses the same port, Please use another ports using rcp-port option. If you want to listen RPC port at 9181, 
 
 ::
 
   $ jubaclassifier --rpc-port=9181 --name=tutorial
 
-になります。
 
 installing Python client for Jubatus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python client of Jubatus requires `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_.
+"pip" command will resolve this dependencies automatically.
 
 ::
 
-  $ pip install jubatus=0.2.1
-
-Check your python installation by running tests:
-
-::
-
-  $ python setup.py test
-
+  $ pip install jubatus
+  $ pip install msgpack-rpc-python
 
 .. TODO: check "Expert Python Programming" and do in a pythonic way
 
-Sending query to a Jubatus server
---------------------------------=
+Quick Start
+----------------------------------
+
+::
+
+  $ git clone git://github.com/jubatus/jubatus-tutorial-python.git
+  $ cd jubatus-tutorial-python
+  $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
+  $ tar -xvzf 20news-bydate.tar.gz
+  $ python tutorial.py
 
 .. Jubatus communicates with its clients in `MessagePack-RPC <http://msgpack.org>`_ protocol.
 
@@ -93,7 +90,7 @@ Prepairing dataset
 ~~~~~~~~~~~~~~~~~~
 
 
-20news-bydate.tar.gzを展開すると、
+Expanding 20news-bydate.tar.gz, 
 
 ::
 
@@ -122,8 +119,8 @@ Prepairing dataset
     talk.politics.misc
     talk.religion.misc
 
-のファイル群が展開されます。数値49960がファイル名で、newsgroup名がalt.atheismになります。
-例えば、20news-bydate-train/rec.motorcycles/104435の中身は、
+"49960" is a file name and "alt.atheism" is a newsgroup name.
+For example, "20news-bydate-train/rec.motorcycles/104435" contains
 
  
 ::
@@ -151,31 +148,26 @@ Prepairing dataset
  
  -- David Karr (karr@cs.cornell.edu)
 
+Jubatus uses this text as the training data
 
-のようなテキストファイルです。
-これらのテキストファイルを学習データとして利用します。
 
 Set configure
 ~~~~~~~~~~~~~
-jubaclassifierは、method, converterのオプションを外部からのqueryで指定することによって、動作を指定することが出来ます。オプションのプロトタイプは、以下のとおりです。
+You can change a behavior of jubaclassifier using method and converter options. Prototype of these options are as follows.
 
 .. code-block:: python
 
- config = {
-            'converter': {
-                'string_filter_types': {},
-                'string_filter_rules': [],
-                'num_filter_types': {},
-                'num_filter_rules': [],
-                'string_types': {},
-                'string_rules': [],
-                'num_types': {},
-                'num_rules': []
-                },
-            'method': ''
-            }
+ config = jubatus.classifier.types.config_data(algorithm, converter)
+ converter = jubatus.classifier.types.converter_config(str_fil_types,
+                                                       str_fil_rules,
+                                                       num_fil_types, 
+                                                       num_fil_rules,
+                                                       str_type,
+                                                       str_rules,
+                                                       num_type,
+                                                       num_rules)
 
-``'method'`` は、以下のアルゴリズムのうちいずれかを指定することが出来ます。
+You can choose one of the following algorithm as ``'method'`` 
 
 - ``perceptron``
 - ``PA``, ``PA1``, ``PA2``
@@ -183,41 +175,26 @@ jubaclassifierは、method, converterのオプションを外部からのquery�
 - ``AROW``
 - ``NHERD``
 
-今回は、 ``PA`` を選択します。
+Now, we choose ``PA`` .
 
-``'converter'`` は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します。
+``'converter'`` decides how to convert feature vector from input data.
 
-今回は、自然言語のテキストです。
-英語など多くの言語は、<space>, <Return>で単語に分割出来るので、単語化して特徴ベクトルにすることにしましょう。
-また、HTMLタグなどは、内容を分類するのにノイズになりそうなので、"<>"で囲まれた部分を除去することにしましょう。
+In this tutorial, input data is the text of natural language.
+Many languages ​​such as English, <space>　and <Return> can be split into words. Jubatus supports this feature such as standard.
+HTML tags are noisy to classify the contents so we will remove the part that is enclosed in "<>".
 
-こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことが出来ます。
-今回のルールをPythonオブジェクトで表現すると、以下のようになります。
+These rules expressed as follows in Python objects.
 
 .. code-block:: python
 
-  config = {
-            'converter': {
-              "string_filter_types": {
-              "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
-               },
-   　          "string_filter_rules":
-                 [
-                { "key": "message", "type": "detag", "suffix": "-detagged" }
-                 ],
-                'num_filter_types': {},
-                'num_filter_rules': [],
-                'string_types': {},
-                'string_rules': [
-                    {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
-                    ],
-                'num_types': {},
-                'num_rules': []
-                },
-            'method': 'PA'
-            }
-
-``get_config`` に対してRPC呼び出しを行うと、現在指定されているオプションが返ってきます。
+    str_fil_types = {"detag": {"method": "regexp", "pattern": "<[^>]*>", "replace": "" }}
+    str_fil_rules = [types.filter_rule("message", "detag", "-detagged")]
+    num_fil_types = {}
+    num_fil_rules = []
+    str_type= {}
+    str_rules = [types.string_rule("message-detagged","space","bin","bin")]
+    num_type = {}
+    num_rules = []
 
 
 Train/Classify
@@ -267,127 +244,6 @@ Train/Classify
 JubatusはMessagePack-RPCを利用できるあらゆる言語から利用することが出来ます。最後に、pythonのコードを示します。
 
 
-.. code-block:: python
-
- #!/usr/bin/env python
- # -*- coding: utf-8 -*-
- 
- import sys
- import jubatus
- 
- def parse_args():
-     from optparse import OptionParser, OptionValueError
-     p = OptionParser()
-     p.add_option('-s', '--server_list', action='store',
-                  dest='server_list', type='string', default='localhost:9199')
-     p.add_option('-n', '--name', action='store',
-                  dest='name', type='string', default='test')
-     p.add_option('-a', '--algo', action='store',
-                  dest='algo', type='string', default="PA")
-     return p.parse_args()
- 
- def get_most_likely(estm):
-     ans = None
-     prob = None
-     result = {}
-     result[0] = ''
-     result[1] = 0
-     for res in estm:
-         if prob == None or res[1] > prob :
-             ans = res[0]
-             prob = res[1]
-             result[0] = ans
-             result[1] = prob
-     return result
- 
- 
- if __name__ == '__main__':
-     options, remainder = parse_args()
- 
-     classifier = jubatus.Classifier(options.server_list, options.name)
- 
-     config = {
-             'converter': {
-               "string_filter_types": {
-               "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
-                },
-               "string_filter_rules":
-                  [
-                 { "key": "message", "type": "detag", "suffix": "-detagged" }
-                  ],
-                 'num_filter_types': {},
-                 'num_filter_rules': [],
-                 'string_types': {},
-                 'string_rules': [
-                     {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
-                     ],
-                 'num_types': {},
-                 'num_rules': []
-                 },
-             'method': options.algo
-             }
- 
-     print classifier.set_config(config)
-     
-     print classifier.get_config()
- 
-     print classifier.get_status()
- 
-     for line in open('train.dat'):
-         label, file = line[:-1].split(',')
-         dat = open(file).read()
-         classifier.train(
-             [( label ,  ([["message", dat]], ) ,)]
-         )
-         print classifier.get_status()
- 
-     print classifier.save("tutorial")
- 
-     print classifier.load("tutorial")
- 
-     print classifier.set_config(config)
- 
-     print classifier.get_config()
- 
-     for line in open('test.dat'):
-         label, file = line[:-1].split(',')
-         dat = open(file).read()        
-         ans = classifier.classify(
-             [([["message", dat]], )]
-            )
- #        print ans
-         if ans != None:
-             estm = get_most_likely(ans[0])
-             if (label == estm[0]):
-                 result = "OK"
-             else:
-                 result = "NG"
-             print result + "," + label + ", " + estm[0] + ", " + str(estm[1])
-
-
-
-
-``train.dat``, ``test.dat`` というファイルを作り、
-
-::
-
-  ラベル名,ファイルパス
-
-と各行に書き込み、次のようにして利用します。
-
-::
-
-   $ python tutorial.py -s localhost:9199 -n tutorial2
-
-ソースコードや設定ファイルは、
-
-::
-
-   $ git clone git://github.com/jubatus/jubatus-tutorial-python.git
-
-から入手することが出来ます。
-
-
 以上で、下記の構成でJubatusを実行しました。
 
 .. figure:: _static/single_single.png
@@ -422,15 +278,15 @@ Setup ZooKeeper
 jubakeeper
 ~~~~~~~~~~~~~~~~~~~~~~~~
 jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
-jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
+jubaclassifier_keeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
 
 
 ::
 
-    $ jubakeeper --zookeeper=localhost:2181 --rpc-port=9198
+    $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
 
-これにより、jubakeeperは、9198ポートでRPCを待ち受けます。
-jubakeeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。
+これにより、jubaclassifier_keeperは、9198ポートでRPCを待ち受けます。
+jubaclassifier_keeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。
 
 
 Running two processes as one classifier instance
@@ -483,8 +339,8 @@ IP address     processes
 192.168.0.10   classifier - 1
 192.168.0.20   classifier - 2
 192.168.0.30   classifier - 3
-192.168.0.100  jubakeeper/zookeeper - 1
-192.168.0.200  jubakeeper/zookeeper - 2
+192.168.0.100  jubaclassifier_keeper/zookeeper - 1
+192.168.0.200  jubaclassifier_keeper/zookeeper - 2
 =============  ==================
 
 ::
@@ -493,7 +349,7 @@ IP address     processes
     [192.168.0.200]$ bin/zkServer.sh start
 
 zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成する設定を書いてください。
-そして、クライアントから利用するためにjubakeeperを用意しておきます。jubakeeperはデフォルトで9198番ポートを利用します。
+そして、クライアントから利用するためにjubaclassifier_keeperを用意しておきます。jubaclassifier_keeperはデフォルトで9198番ポートを利用します。
 
 ::
 
@@ -547,6 +403,7 @@ Let's provisioning!!
 Client for multi process Jubatus Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+In last section, 
 最後に、複数クライアント、複数サーバ環境でtutorialを実行しましょう。
 
 =============  ==================
@@ -559,8 +416,8 @@ IP address     processes
 192.168.0.10   classifier - 1
 192.168.0.20   classifier - 2
 192.168.0.30   classifier - 3
-192.168.0.100  jubakeeper/zookeeper - 1
-192.168.0.200  jubakeeper/zookeeper - 2
+192.168.0.100  jubaclassifier_keeper/zookeeper - 1
+192.168.0.200  jubaclassifier_keeper/zookeeper - 2
 =============  ==================
 
 
@@ -571,11 +428,11 @@ IP address     processes
     [192.168.0.3  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
 
 
-以上で、下記の構成でJubatusを実行しました。
+Jubatus is available in the following configuration by the above command.
 
 .. figure:: _static/multi_multi.png
    :width: 70 %
    :alt: multi clients, multi servers
 
 
-以上でチュートリアルは終わりです。
+Jubatus tutorial is now complete.
