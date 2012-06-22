@@ -24,6 +24,7 @@ TOC
    documentation
    references
    howtocontribute
+   idl_support
    misc
 
 ..   tutorial

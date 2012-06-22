@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Jubatus : Distributed Online Machine Learning Framework &mdash; Jubatus 0.2.3 documentation</title>
+    <title>IDL Support Status (2012 June) &mdash; Jubatus 0.2.3 documentation</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -42,8 +42,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.2.3 documentation" href="#" />
-    <link rel="next" title="QuickStart" href="quickstart.html" /> 
+    <link rel="top" title="Jubatus 0.2.3 documentation" href="index.html" />
+    <link rel="next" title="Miscellaneous" href="misc.html" />
+    <link rel="prev" title="How to Contribute to Jubatus" href="howtocontribute.html" /> 
 
 <!--
 
@@ -82,34 +83,38 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="quickstart.html" title="QuickStart"
+          <a href="misc.html" title="Miscellaneous"
              accesskey="N">next</a> |</li>
-        <li><a href="#">Jubatus 0.2.3 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="#">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Jubatus : Distributed Online Machine Learning Framework</a><ul>
-<li><a class="reference internal" href="#toc">TOC</a><ul>
+<li><a class="reference internal" href="#">IDL Support Status (2012 June)</a><ul>
+<li><a class="reference internal" href="#conditions">Conditions</a></li>
+<li><a class="reference internal" href="#all-clients-are-available">All Clients Are Available</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#other-resources">Other resources</a></li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="howtocontribute.html"
+                        title="previous chapter">How to Contribute to Jubatus</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="quickstart.html"
-                        title="next chapter">QuickStart</a></p>
+  <p class="topless"><a href="misc.html"
+                        title="next chapter">Miscellaneous</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
+    <li><a href="_sources/idl_support.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -164,68 +169,73 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="jubatus-distributed-online-machine-learning-framework">
-<h1>Jubatus : Distributed Online Machine Learning Framework<a class="headerlink" href="#jubatus-distributed-online-machine-learning-framework" title="Permalink to this headline">¶</a></h1>
-<p>Jubatus is a distributed processing framework and streaming machine learning library. Jubatus library includes these functionalities:</p>
+  <div class="section" id="idl-support-status-2012-june">
+<h1>IDL Support Status (2012 June)<a class="headerlink" href="#idl-support-status-2012-june" title="Permalink to this headline">¶</a></h1>
+<p>Currently, Jubatus supports four machine learning services (Classifier, Regression, Recommender, Stat). As we mentioned in <a class="reference internal" href="howtogetclients.html#how-to-get-clients"><em>How to Get Clients</em></a> , clients of these services are generated from msgpack-idl. The followings are support status of msgpack-idl.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="18%" />
+<col width="20%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&nbsp;</td>
+<td>Classifier</td>
+<td>Regression</td>
+<td>Recommender</td>
+<td>Stat</td>
+</tr>
+<tr class="row-even"><td>C++</td>
+<td>ok</td>
+<td>ok</td>
+<td>needs fix</td>
+<td>ok</td>
+</tr>
+<tr class="row-odd"><td>Java</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+</tr>
+<tr class="row-even"><td>Python</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+</tr>
+<tr class="row-odd"><td>Ruby</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+</tr>
+</tbody>
+</table>
 <ul class="simple">
-<li>online multi-class/binary classification,</li>
-<li>online linear regression,</li>
-<li>online recommendation with inverted index or LSH (locality sensitive hash),</li>
-<li>fv_converter: pre-proccessing data(for natural language), and</li>
-<li>framework for online machine learning with fault tolerance.</li>
-</ul>
-<div class="section" id="toc">
-<h2>TOC<a class="headerlink" href="#toc" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#minimal-install">Minimal install</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#c-client">C++ client</a></li>
+<li>ok：We can use automatically generated clients.</li>
+<li>needs fix：We need to make some minor changes manually from automatically generated clients in order to interact with server.<ul>
+<li>We appreciate you if you gave us patchs to msgpack-idl.</li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html">Data Conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugin.html">Plugin Develpment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html">How to Get Clients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html">Server generation using code generator</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="processes.html">Command Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html">Programming API</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="howtocontribute.html">How to Contribute to Jubatus</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="howtocontribute.html#repositories">Repositories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howtocontribute.html#things-left-to-do">Things left to do</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="idl_support.html">IDL Support Status (2012 June)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="idl_support.html#conditions">Conditions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="idl_support.html#all-clients-are-available">All Clients Are Available</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">Miscellaneous</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="misc.html#publications">Publications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misc.html#faq">FAQ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misc.html#contributions-thanks-a-lot">Contributions (Thanks a lot!)</a></li>
-</ul>
-</li>
+<div class="section" id="conditions">
+<h2>Conditions<a class="headerlink" href="#conditions" title="Permalink to this headline">¶</a></h2>
+<p>We tested these clients in the following condition</p>
+<ul class="simple">
+<li>Jubatus : Jubatus 0.2.3 (More specifically, we use <a class="reference external" href="https://github.com/jubatus/jubatus/commit/780f016ec8ba0bcd02afb23fdfeb098de469ba78">this commit</a> )</li>
+<li>Server : Built-in servers in repository</li>
+<li>Client : Generated client from IDL</li>
+<li>IDL : Built-in IDL in repository</li>
 </ul>
 </div>
+<div class="section" id="all-clients-are-available">
+<h2>All Clients Are Available<a class="headerlink" href="#all-clients-are-available" title="Permalink to this headline">¶</a></h2>
+<p>We provide clients of all existing service in four languages mentioned above.
+Clients are available of from <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">this download page</a> .
+All clients except C++ recommender client and all Java clients are automatically generated clients from IDL. The remaining clients are generated from IDL and manually editted.</p>
 </div>
-</div>
-<div class="section" id="other-resources">
-<h1>Other resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference external" href="http://blog.jubat.us">Jubatus Blog</a></li>
-<li><a class="reference external" href="http://twitter.com/JubatusOfficial">&#64;JubatusOfficial: Keep up on latest news</a></li>
-<li><a class="reference external" href="http://groups.google.com/group/jubatus">Discussions and news about Jubatus on Google Groups</a></li>
-<li><a class="reference external" href="http://github.com/jubatus">Fork me on GitHub</a></li>
-</ul>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-</ul>
 </div>
 
 
@@ -241,9 +251,12 @@ new TWTR.Widget({
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="quickstart.html" title="QuickStart"
+          <a href="misc.html" title="Miscellaneous"
              >next</a> |</li>
-        <li><a href="#">Jubatus 0.2.3 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
