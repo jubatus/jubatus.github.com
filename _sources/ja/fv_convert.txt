@@ -1,0 +1,474 @@
+
+Data Conversion
+==================
+
+一般的に機械学習処理を行う場合、テキストなどの生の非定形データを直接扱うことはできない。
+こうしたデータは事前に特徴抽出というステップを経て、俗に特徴ベクトルと呼ばれる形式に変換される。
+特徴ベクトルの中身は、文字列をキー、数値型を値とするkey-value型としてよい。
+この変換を行うことで、自然言語のデータ、画像データ、音声データなどの非定型の生データを統一的に扱うことができる。
+Jubatusのデータ変換エンジンは、この特徴抽出処理を簡単な設定ファイルを書くことで柔軟にカスタマイズすることを可能にする。
+
+データ変換は2段階に行われる。
+まず、フィルター処理によって、データを整形する。
+この処理は、例えばHTMLテキストのタグを除去したり、学習にとって不要であることが予めわかっている記号列などを取り除く。
+その次に、特徴抽出処理によって、非定形データから特徴を抽出する。
+
+一連の処理は、最もシンプルな設定によって多くの場合はうまく動くことが予想される。
+以下に最もシンプルな設定を記載する。
+この設定を利用すると、文字列データは全てスペース文字で分割してそれぞれの単語を特徴量とし、数値データはその値をそれぞれ特徴量として利用する。
+実際にアプリケーションを書くときに、より高い精度の学習結果を求める場合は、設定をチューニングすることで望ましい結果を得られる可能性がある。
+
+.. code-block:: python
+
+ {
+   "string_filter_types": {},
+   "string_filter_rules": [],
+   "num_filter_types": {},
+   "num_filter_rules": [],
+   "string_types": {},
+   "string_rules":
+     [ { "key": "*", "type": "space",
+       "sample_weight": "bin", "global_weight": "bin" }
+     ],
+   "num_types": {},
+   "num_rules": [
+     { "key": "*",  "type": "num" }
+   ]
+ }
+
+datum
+-------
+
+Jubatusで利用できるデータ形式は、datumと呼ばれる非常にシンプルなkey-valueデータ形式である。
+datumには2つのkey-valueが存在する。
+一つはキーも値も文字列の文字列データ (string_values) である。
+もう一方は、キーは同様に文字列だが、値は数値の数値データ (num_values) である。
+前者には名前、テキスト、職業など、任意のテキストデータを入れることができる。
+後者には年齢、年収、アクセス回数など、任意の数値データを入れることができる。
+この2つのデータから、機械学習を行う際に必要となる特徴量を抽出するのが、このデータ変換モジュールである。
+また、効率を重視して、それぞれのkey-valueは、各言語のmap型や辞書型を利用せず、keyとvalueのペアの配列で表現される。
+以下に例を示す。
+
+.. code-block:: python
+
+  ( [ ("user/id", "ippy"),
+      ("user/name", "Loren Ipsum"),
+      ("message", "<H>Hello World</H>") ],
+    [ ("user/age", 29) ,
+      ("user/income", 100000) ] )
+
+
+例えばC++から利用する場合、datumは ``std::vector<std::pair<std::string, std::string> >`` と、 ``std::vector<std::pair<std::stirng, double> >`` の2つの要素からなっている。
+ここでは、 ``std::pair<T,U>`` をPython風のタプルで、 ``std::vector<T>`` をPython風のリストで表している。
+
+
+filter
+---------
+
+Jubatusはフィルターという機能を用いて、datum中のkey-valueペアを変換して、別の要素として追加することができる。
+例えば、元のデータがHTMLで書かれていたとしよう。
+この中のタグ文字列（<a> など）は、学習時には邪魔になることがおおく、そのため予めフィルタリングして使いたいことがある。
+あるいは、メール本文の引用（>から始まる行）を削除したいこともあるだろう。
+こうした時に利用するのが、filter機能である。
+
+例として、"message"内の文字列からHTMLタグを取り除く。
+まず、「HTMLタグを取り除く」というルールを定義し、それを ``key = "message"`` に適用する。
+これは、以下のようなconfigで表現される。
+
+.. code-block:: js
+
+      "string_filter_types": {
+        "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+      },
+      "string_filter_rules":
+      [
+        { "key": "message", "type": "detag", "suffix": "-detagged" }
+      ]
+
+まず、"string_filter_types"でフィルターを定義する。
+"detag"という名前のフィルターに対して、"regexp"という手法で、"<[^>]*>"を""に置き換える、というフィルターを定義する。
+次に、実際にdatumのどの要素にどう適用するのか書いたのが"string_filter_rules"である。
+ここでは、"message"という名前の"key"の要素に対して、先で定義した"detag"フィルターを適用し、"message"に"-detagged"を付与したkey、すなわち"message-detagged"に結果を格納することを示している。
+
+また、"age"を数え年に変換(+1歳に)するには、
+
+.. code-block:: js
+
+      "num_filter_types": {
+        "add_1": { "method": "add", "value": "1" }
+      },
+      "num_filter_rules": [
+        { "key": "user/age", "type": "add_1", "suffix": "_kazoe" }
+      ]
+
+とする。この挙動も先と同じで、"user/age"に1加えた結果が"user/age_kazoe"に格納される。
+
+これらのfilterを通すことにより
+
+.. code-block:: python
+
+
+  ( [ ("user/id", "ippy"),
+      ("user/name", "Loren Ipsum"),
+      ("message", "<H>Hello World</H>"),
+      ("message-detagged", "Hello World") ],
+    [ ("user/age", 29),
+      ("user/age_kazoe", 30) ,
+      ("user/income", 100000) ] )
+
+
+が得られる。
+
+それぞれの要素について、詳細に説明する。
+
+string_filter_types
+~~~~~~~~~~~~~~~~~~~
+
+<フィルター名>: <引数>　からなる辞書を指定する。
+フィルター名は文字列、引数は文字列から文字列への辞書である。
+引数には必ず"method"を指定する。
+残りの引数に関しては、"method"の内容に応じて必要な引数が異なる。
+指定できる"method"の値と、それぞれに対応した引数は以下のとおりである。
+
+.. describe:: regexp
+
+ 正規表現にマッチした部分を、指定した文字列に変換する。このフィルターは--disable-re2付きでコンパイルすると利用できない。
+
+  :pattern:  マッチさせる正規表現を指定する。re2を利用するため、利用できる表現はre2のマニュアルを参照する。
+  :replace:  置き換え後の文字列を指定する。                                                                
+
+ HTMLのすべてのタグを消すには、例えば以下のようなtypeを宣言すればよいだろう。
+
+ .. code-block:: js
+
+      "string_filter_types": {
+        "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+      },
+
+
+.. describe:: dynamic
+
+ プラグインを利用する。詳細は後述する。
+
+  :path:      プラグインの場所をフルパスで指定する。
+  :function:  プラグインの呼び出し関数を指定する。
+
+
+
+string_filter_rules
+~~~~~~~~~~~~~~~~~~~
+
+フィルターの適用規則を指定する。
+規則は複数からなり、順番に条件を満たすかどうかチェックされて、実行される。
+各規則は"key", "type", "suffix"の要素からなる辞書を指定する。
+
+ :key:       datumの各要素のどのkeyとマッチさせるかを指定する。詳細は後述。
+ :type:      利用するフィルター名を指定する。これはstring_filter_typesの項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。
+ :suffix:    変換後の結果を格納するkeyのサフィックスを指定する。例えばsuffixに"-detagged"が指定され、"name"という名前のkeyに規則が適用された場合、結果は"name-detagged"という名前のkeyに格納される。
+
+
+
+"key"の要素は以下の内のいずれかのフォーマットで指定する。
+但し、datumの全要素に対して、すべての規則が適用されるかチェックされる。
+したがって、複数の規則がマッチした場合は両方の規則が適用されて、複数のフィルター済みの値が追加されることに注意する。
+なお、"key"に関しては移行でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。
+
+ :"\*" or "":   全ての要素にマッチする。"key"にこれが指定されると必ず適用されることになる。
+ :"XXX\*":      末尾に\*をつけると、その前のみをプレフィックスとして使用する。つまり、"XXX"で始まるkeyのみにマッチする。
+ :"\*XXX":      先頭に\*をつけると、その後のみをサフィックスとして使用する。つまり、"XXX"で終わるkeyのみにマッチする。
+ :"/XXX/":      2つのスラッシュ(/)で囲うと、その間の表現を正規表現とみなして、正規表現でマッチする。--disable-re2付きでコンパイルすると利用できない。
+ :その他:       以上のいずれでもない場合は、与えられた文字列と一致するkeyのみにマッチする。
+
+
+
+
+num_filter_types
+~~~~~~~~~~~~~~~~
+
+string_filter_typesと同様、<フィルター名>: <引数>　からなる辞書を指定する。
+利用の仕方はstring_filter_typesとほぼ同じである。
+フィルター名は文字列、引数は文字列から文字列への辞書である。
+引数には必ず"method"を指定し、残りの引数は"method"の値に応じて必要なものが異なる。
+指定できる"method"の値と、それぞれに対応した引数は以下のとおりである。
+
+.. describe:: add
+
+ 元の値に指定した値を足す。
+
+  :value:  足す値の文字列表現を指定する。例えば3足すのであれば、"3"と指定する。数値型として指定してはならない。
+
+
+
+.. describe:: dynamic
+
+ プラグインを利用する。詳細は後述する。
+
+  :path:      プラグインの場所をフルパスで指定する。
+  :function:  プラグインの呼び出し関数を指定する。
+
+
+num_filter_rules
+~~~~~~~~~~~~~~~~
+
+こちらも、string_filter_rules同様、フィルターの適用規則を指定する。
+規則は複数からなり、各規則は"key", "type", "suffix"の要素からなる辞書を指定する。
+
+ :key:       datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。
+ :type:      利用するフィルター名を指定する。これはstring_filter_typesの項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。
+ :suffix:    変換後の結果を格納するkeyのサフィックスを指定する。
+
+
+"key"の指定の仕方は、string_filter_rulesを参照のこと。
+
+.. _construct:
+
+feature exctraction (from string)
+---------------------------------
+
+文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。
+以下に、設定の例を示す。
+この例では、"user/name"の値はそのまま特徴量として使用し、"message"は文字2グラムを特徴量とし、"message-detagged"はスペース文字で分割した単語を特徴量とする。
+
+.. code-block:: js
+
+      "string_types": {
+          "bigram":  { "method": "ngram", "char_num": "2" }
+      },
+      "string_rules":
+      [
+        { "key": "user/name", "type": "str",
+          "sample_weight": "bin", "global_weight": "bin" },
+        { "key": "message", "type": "bigram",
+          "sample_weight": "tf",  "global_weight": "bin" },
+        { "key": "message-detagged", "type": "space",
+          "sample_weight": "bin",  "global_weight": "bin" }
+      ]
+
+
+string_types
+~~~~~~~~~~~~
+
+string_typesで文字列特徴抽出器を定義します。主に、パスなどの引数を指定しなければならない特徴抽出器は、一度string_typesで指定してから利用しなければならない。
+string_filter_typesなどと同様、<抽出器名>: <引数>　からなる辞書を指定する。
+引数は文字列から文字列への辞書で、必ず"method"を指定する必要がある。
+それ以外に必要な引数は"method"に応じて異なる。
+指定できる"method"の値と、それぞれに対応した引数は以下のとおりである。
+
+.. describe:: ngram
+ 
+ 隣接するN文字を特徴量として利用する。こうした特徴量は文字N-gram特徴と呼ばれる。
+
+  :char_num:  利用する文字数の文字列表現を指定する。文字数は0より大きい必要がある。
+
+
+ 例として、連続する2文字およぼ3文字を特徴として利用する、bigramとtrigramを定義する方法を記す。
+
+ .. code-block:: js
+
+      "string_types": {
+          "bigram":  { "method": "ngram", "char_num": "2" },
+          "trigram":  { "method": "ngram", "char_num": "3" }
+      },
+
+.. describe:: dynamic
+
+ プラグインを利用する。詳細は後述する。
+
+  :path:      プラグインの場所をフルパスで指定する。
+  :function:  プラグインの呼び出し関数を指定する。
+
+
+string_rules
+~~~~~~~~~~~~
+
+文字列特徴の抽出規則を指定する。
+string_filter_rulesなどと同様、複数の規則を羅列する。
+各規則は、"key", "type", "sample_weight", "global_weight"からなる辞書で指定する。
+文字列データの場合、与えられた文字列から特徴量を抽出し、そこに対して重みを設定する必要がある。
+重みの設定の仕方を決めるのが、"sample_weight"と"global_weight"の2つのパラメータである。
+実際に利用する重みは、2つの重みの積を重み付けとして利用する。
+
+ :key:            datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照。
+ :type:
+
+   利用する抽出器名を指定する。これはstring_typesの項で作った抽出器名を指定する。また、以下の抽出器はデフォルトで利用できる。
+
+    :str:     文字列分割を行わず、指定された文字列そのものを特徴として利用する。
+    :space:   スペース文字で分割を行い、分割された部分文字列を特徴として利用する。
+
+ :sample_weight:
+
+   各key-value毎の重み設定の仕方を指定する。これはkey-value一つに対して決定される重みである。
+
+    :bin:     重みを常に1とする。
+    :tf:      与えられた文字列中で出現する回数で重み付けをする。例えば5回"hello"が出現したら、重みを5にする、などである。
+    :log_tf:  tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回"hello"が出現したら、重みはlog(5 + 1)にする、などである。
+
+ :global_weight:
+
+   今までの通算データをから算出される、大域的な重み付けを指定する。
+
+    :bin:     重みを常に1とする。
+    :idf:     文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする、などである。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。
+
+
+sample_weightとglobal_weightは、ともにbinにしておいても通常のケースでは正しく動作する。
+また、例えば分類問題など重み自体を学習するケースでは、ともにbinにしておいても自動的に調整される。
+
+feature extraction (from number)
+--------------------------------
+
+数値型に対しても、文字列型同様変換ルールを記述する。
+また、数値型に関しても、ユーザー定義の変換器を定義することができる。
+
+.. code-block:: js
+
+      "num_types":
+      {},
+      "num_rules":
+      [
+        { "key": "user/age", "type": "num" },
+        { "key": "user/income", "type": "log" },
+        { "key": "user/age_kazoe", "type": "num" }
+      ]}
+
+
+num_types
+~~~~~~~~~
+
+num_typesで数値データに対しる特徴抽出器を定義する。
+string_typesなどと同様、<抽出器名>: <引数>　からなる辞書を指定する。
+引数は文字列から文字列への辞書で、必ず"method"を指定する必要がある。
+それ以外に必要な引数は"method"に応じて異なる。
+指定できる"method"の値と、それぞれに対応した引数は以下のとおりである。
+
+.. describe:: dynamic
+
+ プラグインを利用する。詳細は後述する。
+
+  :path:      プラグインの場所をフルパスで指定する。
+  :function:  プラグインの呼び出し関数を指定する。
+
+
+num_rules
+~~~~~~~~~
+
+数値特徴の抽出規則を指定する。
+string_rulesなどと同様、複数の規則を羅列する。
+各規則は、"key", "type"からなる辞書で指定する。
+重みの付け方や特徴名の指定の仕方もそれぞれの"type"ごとに異なる。
+
+ :key:
+
+   datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。
+
+ :type:
+
+   利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。
+
+    :num: 与えられた数値をそのまま重みに利用する。
+    :log: 与えられた数値の対数を重みに利用する。但し、数値が1以下の場合は0とする。
+    :str: 与えられた数値を文字列として扱う。これは、例えばIDなど、数値自体の大きさに意味のないデータに対して利用する。重みは1とする。
+
+ :suffix:    変換後の結果を格納するkeyのサフィックスを指定する。
+
+.. _conversion_plugin:
+
+plugin
+----------------
+
+以上のフィルターと抽出器は、それぞれプラグインを作ったり、利用することができる。
+プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
+プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。
+
+各フィルターと抽出器のいずれの場合も、プラグインの指定の仕方は同じである。
+XXX_typesで、フィルターや抽出器を指定する際のパラメータで、"method"に"dynamic"を、"path"に.soファイルへのフルパスを、"function"に各プラグイン固有の呼び出し関数名を指定する。
+また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。
+
+Jubatusでは最初から以下の2つの文字列特徴量のプラグインが存在する。
+ただし、それぞれコンパイルオプションで指定しないとコンパイルされないので注意すること。
+
+.. describe:: libmecab_splitter.so
+
+ string_typesで指定できる。
+ MeCabを利用して、与えられば文書を単語分割し、各単語を特徴量として利用する。--enable-mecabオプション付きでコンパイルすると、/usr/local/lib以下に作成される。
+
+  :function:   "create"を指定する。
+  :arg:        MeCabエンジンに渡す引数を指定する。この指定がないと、何もMeCabのデフォルト設定で動作する。引数の指定の仕方は、MeCabのマニュアルを参照する。
+
+ .. code-block:: js
+
+      "string_types":
+      { "mecab": { "method": "dynamic",
+                   "path": "/usr/local/lib/libmecab_splitter.so",
+                   "function": "create",
+                   "arg": "-d /path/to/mecab/dic" } },
+
+
+.. describe:: libux_splitter.so
+
+ string_typesで指定できる。ux-trieを利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。--enable-uxオプション付きでコンパイルすると、/usr/local/lib以下に作成される。
+
+  :function:   "create"を指定する。
+  :dict_path:  1行1キーワードで書かれた辞書ファイルの場所を、フルパスで指定する。
+
+ .. code-block:: js
+
+      "string_types":
+      { "ux": { "method": "dynamic",
+                "path": "/usr/local/lib/libmecab_splitter.so",
+                "function": "create",
+                "dict_path": "/path/to/keyword/dic" } },
+
+
+
+.. describe:: libre2_splitter.so
+
+ string_typesで指定できる。re2を利用して、与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。正規表現マッチは連続的に行われ、マッチした  箇所全てを特徴として使う。--disable-re2を指定 **しない** と、/usr/local/lib以下に作成される。
+  
+  
+  :function:  "create"を指定する。
+  :pattern:    マッチさせる正規表現を指定する。
+  :group:      キーワードとして取り出すグループを指定する。0ならマッチした全体で、1以上の値を指定すると () で取り出したグループだけをキーワードとする。省略すると0として扱う。
+
+
+ 最も簡単な例として、以下では日付表現を全て取り出す。
+
+ .. code-block:: js
+
+      "string_types":
+      { "date": { "method": "dynamic",
+                  "path": "/usr/local/lib/libre2_splitter.so",
+                  "function": "create",
+                  "pattern": "[0-9]{4}/[0-9]{2}/[0-9]{2}" } },
+
+ パターンの一部だけを利用するときは、 "group" 引数を利用する。たとえば、以下の様な設定で年齢が取れるだろう。
+
+ .. code-block:: js
+
+      "string_types":
+      { "age": { "method": "dynamic",
+                 "path": "/usr/local/lib/libre2_splitter.so",
+                 "function": "create",
+                 "pattern": "([0-9]+)(歳|才)",
+                 "group": "1" } },
+
+
+overview of data conversion
+---------------------------
+
+大まかな処理の流れは以下のようになっている。
+datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
+文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、string_rulesによって文字列データからの特徴量が抽出される。
+数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、num_rulesによって数値データからの特徴量が抽出される。
+フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。
+
+.. figure:: ../_static/convert_flow.png
+   :width: 90 %
+   :alt: feature vector converter
+
+   図: 変換エンジンの構成
+
+
