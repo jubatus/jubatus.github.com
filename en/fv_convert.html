@@ -1,0 +1,718 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Data Conversion &mdash; Jubatus 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.3.0 documentation" href="../index.html" />
+    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="next" title="Plugin Develpment" href="plugin.html" />
+    <link rel="prev" title="Documentation" href="documentation.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plugin.html" title="Plugin Develpment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="documentation.html" title="Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
+          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Data Conversion</a><ul>
+<li><a class="reference internal" href="#datum">datum</a></li>
+<li><a class="reference internal" href="#filter">Filter</a><ul>
+<li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
+<li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
+<li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
+<li><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#feature-exctraction-from-string">Feature Exctraction (From String)</a><ul>
+<li><a class="reference internal" href="#string-types">string_types</a></li>
+<li><a class="reference internal" href="#string-rules">string_rules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#feature-extraction-from-number">Feature Extraction (From Number)</a><ul>
+<li><a class="reference internal" href="#num-types">num_types</a></li>
+<li><a class="reference internal" href="#num-rules">num_rules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#overview-of-data-conversion">Overview of Data Conversion</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="documentation.html"
+                        title="previous chapter">Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plugin.html"
+                        title="next chapter">Plugin Develpment</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/en/fv_convert.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="data-conversion">
+<span id="conversion"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="Permalink to this headline">¶</a></h1>
+<p>Generally speaking, we don&#8217;t use unstructured data such as text directly when we do some machine-learing tasks.
+Such data are converted to &#8220;feature vector&#8221; by being process called feature extraction in advance to the tasks.
+We use key-value type as feature vector in which key is string and value is numeric type.
+Through this process, we can handle unstructured raw data such as natural language, picture and voice in a unfied way.
+Data-conversion engine in Jubatuse enables us to customize this feature-extraction process flexibly only by creating easy configuration files.</p>
+<p>Data-conversion is executed in two steps.
+First, we sanitize data with filtering.
+This filtering includes removing html tag and some symbols which we know are unnecessary.
+Next, we extract features from sanitized data by feature-extraction process.</p>
+<p>We can expect a series of process works well by the easiest configuration in most cases.
+The followings are one of the easiest configuration.
+In this configuration, we use each word separated by spaces a feature for string data. For numric data, we use the value itself a feature.
+It is probable that doing some tuning this configuration to obtain training model with high precision and desirable result.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span>
+    <span class="p">[</span> <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span>
+      <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span>  <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;num&quot;</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="datum">
+<h2>datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
+<p>It is very simple key-value called &#8220;datum&#8221; that we can use as a data type in Jubatus.
+datum has two key-value&#8217;s.
+One is &#8220;string_values&#8221;, whose key and value are both string data.
+The other is &#8220;num_values&#8221;, whose key is string data as string_values is, but value is numeric data.
+We can store in string_values arbitrary text data such as name, text, profession etc.
+And we can store in num_values arbitrary numeric data such as age, income, the number of access etc.
+It this data-conversion module that extract features which are used in machine learning task.
+For reason of efficiency, each key-value is represented not as map type nor dictionary type, but as pair of key and value.
+The followings are example of datum.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span> <span class="p">],</span>
+  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span> <span class="p">,</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>For example, datum consists of <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> and  <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> in C++. <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> (resp.  <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt>) is to C++ what tuple (resp. vector) is to Python.</p>
+</div>
+<div class="section" id="filter">
+<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
+<p>Jubatus has filtering system of feature vector. This enables us to create additional key-value elements by converting existing key-value elements in datum and insert additional key-value elements elements by filter
+For example, let us suppose we have original data as HTML.
+Tags (such as &lt;a&gt;) in the data are in the way of training in many cases. Therefore, we want to filter and get rid of them in advance.
+In another example, we may remove citations of e-mail (i.e. rows starts with &#8220;&gt;&#8221;).
+We can make use of the filtering system in such cases.
+As an example of usage, we remove HTML tags from strings whose key is &#8220;message&#8221;.
+We do it in two step. First, we define rule which states &#8220;remove HTML tags&#8221;. Second, we apply this rule to  <tt class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></tt>
+This procedure is represented by the following configuration.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span>
+<span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>As a first step, we define a filter in &#8220;string_filter_types&#8221;. We name this filter &#8220;detag&#8221;
+In &#8220;detag&#8221;, we define a filter which apply a method named &#8220;regexp&#8221;, which replaces &#8220;&lt;[^&gt;]*&gt;&#8221; with &#8220;&#8221;.
+Next, we define to which elements in datum and how we apply this filter. We write it in &#8220;string_filter_rules&#8221;.
+The example above indicates that we apply &#8220;detag&#8221; filter (defined earlier) to the value whose key is &#8220;message&#8221; and that we store the resultant to &#8220;message-detagged&#8221; key (original key &#8220;message&#8221; + suffix &#8220;-detagged&#8221;)</p>
+<p>In the another example, we can add one to &#8220;age&#8221; by the following configuration. (In Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or east asian age reckoning)</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;add_1&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;_kazoe&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The procedure is the same as the previous example. Value in &#8220;user/age&#8221; added by 1 is stored in &#8220;usr/age_kazoe&#8221;.
+By applying these two filter, we obtain the following datum.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span> <span class="p">],</span>
+  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="p">,</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Next section is devoted to more precise explanations of each filter.</p>
+<div class="section" id="string-filter-types">
+<h3>string_filter_types<a class="headerlink" href="#string-filter-types" title="Permalink to this headline">¶</a></h3>
+<p>Specifies a dictionary that consists of &lt;filter name&gt;:&lt;argument&gt;
+&lt;filter name&gt; is string and &lt;argument&gt; is a dictionary whose key and value are both string
+&lt;argument&gt; must contain key named &#8220;method&#8221;.
+The others keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">regexp</tt></dt>
+<dd><p>This filter converts substrings that specified regular expression matches to specified string. It is not available if compiled with &#8211;disable-re2.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">pattern:</th><td class="field-body">Specifies regular expression to match. This filter uses re2. For available expressions, please refer to documents of re2.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">replace:</th><td class="field-body">Specifies string with which we replace</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">dynamic</tt></dt>
+<dd><p>Use plugin. See below for further detail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies full path of plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies function to be called in plugin</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="string-filter-rules">
+<h3>string_filter_rules<a class="headerlink" href="#string-filter-rules" title="Permalink to this headline">¶</a></h3>
+<p>Specifies rules how to apply filters.
+Rules are checked in order. If a datum is matched to some rule, the corresponding filters is applied.
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+<p>&#8220;key&#8221; is specified in one of the following formats.
+For each key in datum, &#8220;all&#8221; rules checked to be applicable.
+It means that if a single key matches n rules, every corresponding filter is applied to the original key. Then, n keys are added to datum.
+Every &#8220;key&#8221; in the document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
+</div>
+<div class="section" id="num-filter-types">
+<h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="Permalink to this headline">¶</a></h3>
+<p>Specifies dictionary consists of &lt;filter name&gt;:&lt;argument&gt;, same as &#8220;string_filter_types&#8221;.
+We can use it almost in the same way as &#8220;string_filter_types&#8221;.
+&lt;filter name&gt; is string and &lt;argument&gt; is a dictionary whose key and value are both string
+&lt;argument&gt; must contain key named &#8220;method&#8221;.
+The others keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">add</tt></dt>
+<dd><p>Add specified value to the original value.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">Specifies value added. For example, if we add 3 to the original value, we use &#8220;3&#8221;. Note that it is not numeric but a string.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">dynamic</tt></dt>
+<dd><p>Use plugin. See below for further detail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies full path of plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies function to be called in plugin</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="num-filter-rules">
+<h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="Permalink to this headline">¶</a></h3>
+<p>Like &#8220;string_filter_rules&#8221;, it specifies rules how to apply filters.
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type:</th><td class="field-body">Specidies the name of filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filter is available if we don&#8217;t define filter in &#8220;string_filter_types&#8221;.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body">Specifies suffix of key where the result of filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and filter is applied to &#8220;name&#8221; key in datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Format of &#8220;key&#8221; is written in &#8220;string_filter_rules&#8221; section.</p>
+</div>
+</div>
+<div class="section" id="feature-exctraction-from-string">
+<span id="construct"></span><h2>Feature Exctraction (From String)<a class="headerlink" href="#feature-exctraction-from-string" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we explain mechanism of feature extractio from string. We also explain how to apply these extraction rules.
+The followings are an example of the configuration.
+In this configuration, we use as features &#8220;user/name&#8221; itself, every 2-gram of &#8220;message&#8221; and every word in &#8220;message-detagged&#8221; separated by spaces.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span>
+<span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;bigram&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span>  <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span>  <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="string-types">
+<h3>string_types<a class="headerlink" href="#string-types" title="Permalink to this headline">¶</a></h3>
+<p>Feature extractors of string are defined in &#8220;string_types&#8221;.
+Some feature extractors must be defined in &#8220;string_types&#8221;. An exapmle of such extractors is one which requires arguments such as path.
+As &#8220;string_filter_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;
+&lt;argument&gt; is a dictionary whose key and value are both string and must contain key named &#8220;method&#8221;.
+The others keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">ngram</tt></dt>
+<dd><p>Use contiguous N characters as a feature. Such a feature is called a N-gram feature.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">char_num:</th><td class="field-body">Specifies N or length of substring. N must be positive integer. &#8220;char_num&#8221; must be specified with string type (e.g. &#8220;2&#8221;), not numeric type (e.g. 2).</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">dynamic</tt></dt>
+<dd><p>Use plugin. See below for further detail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies full path of plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies function to be called in plugin</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="string-rules">
+<h3>string_rules<a class="headerlink" href="#string-rules" title="Permalink to this headline">¶</a></h3>
+<p>Specifies how to extract string features.
+As &#8220;string_filter_rules&#8221;, it consists of multiple rules.
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221;, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
+These rules specifies how we extract rules from given strings and its weight used in calculating score.
+Weight is calculated with two parameters, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
+In concrete, weight is the product of these two weights.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. Extractor is either one defined in &#8220;string_types&#8221; or one of pre-defined extractors. The followings are pre-defined extractors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">str:</th><td class="field-body">Use given string itself as a feature without separating it.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">space:</th><td class="field-body">Separate given string by space and use a set of substrings as features.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">Specifies weight of each feature. Note that as term frequency is, &#8220;sample_weight&#8221; is uniquely defined if feature and datum are specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">bin:</th><td class="field-body">sample_weight is 1 for all features and all datum.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">tf:</th><td class="field-body">sample_weight is frequency of the feature in given string (Term Frequency). For example, if &#8220;hello&#8221; is appeared five times, its sample_weight for this string is 5.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">log_tf:</th><td class="field-body">sample_weight is the logarithm of tf added by 1. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight is log(5+1).</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">Specifies global weight calculated from data inputted so far.</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">bin:</th><td class="field-body">global_weight is 1 for all features.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">idf:</th><td class="field-body">global_weight is the inverse of logarithm of normalized document frequency (Inverse Document Frequency). For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature is frequently appear, the greater its idf is.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>In most of machine learning tasks, it works well even if we use &#8220;bin&#8221; in both sample_weight and global_weight.
+In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight. Classification is an example of a such task.</p>
+</div>
+</div>
+<div class="section" id="feature-extraction-from-number">
+<h2>Feature Extraction (From Number)<a class="headerlink" href="#feature-extraction-from-number" title="Permalink to this headline">¶</a></h2>
+<p>As with strings, feature extraction rules are also described for numeric type.
+We can make user-defined extractor for numric type, too.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span>
+<span class="p">{},</span>
+<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span>
+<span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;log&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">}</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+<div class="section" id="num-types">
+<h3>num_types<a class="headerlink" href="#num-types" title="Permalink to this headline">¶</a></h3>
+<p>Feature extractors for numeric data are defined in &#8220;num_types&#8221;.
+As with &#8220;string_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+&lt;argument&gt; is a dictionary whose key and value are both string and must contain key named &#8220;method&#8221;.
+The others keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">dynamic</tt></dt>
+<dd><p>Use plugin. See below for further detail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies full path of plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies function to be called in plugin</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="num-rules">
+<h3>num_rules<a class="headerlink" href="#num-rules" title="Permalink to this headline">¶</a></h3>
+<p>Specifies how to extract numeric features.
+As &#8220;string_rules&#8221;, it consists of multiple rules.
+Each rule is a dictionary whose keys are &#8220;key&#8221; and &#8220;type&#8221;.
+It depends on &#8220;type&#8221; how to specify weight and name features.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. Extractor is either one defined in &#8220;num_types&#8221; or one of pre-defined extractors. The followings are pre-defined extractors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">num:</th><td class="field-body">Use given number itself as weight.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">log:</th><td class="field-body">Use logarithm of given number as weight. If the number is not positive, weight is 0.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">str:</th><td class="field-body">Use given number as a string. This extractor is used when the value of the number is not important (e.g. ID). Weight is set to be 1.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">Specifies suffix of key which stores the result of extraction.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="plugins">
+<span id="conversion-plugin"></span><h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p>We can make plugins of filters and extractors and use them in fv_converter.
+A plugin is a single dynamic library file (.so file).
+We will explain how to make plugins later. In this section, we will describe how to use plugins.
+How to specify plugin is same in both filters and extractors.
+In XXX_types (XXX is either string or num), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, full path to .so file in &#8220;path&#8221; and the name of funcion defined in plugin in &#8220;function&#8221;.
+Argument of the function is specified by other parameters.</p>
+<p>In Jubatus we can make use of two pre-defined plugin which aims to extraction of features from string from the outset.
+Note that plugins are not available unless specified in compile options of Jubatus.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">libmecab_splitter.so</tt></dt>
+<dd></dd></dl>
+
+<p>We can specify this plugin in &#8220;string_types&#8221;.
+Separate given document into words by Mecab and use each word as a feature. This plugin is created in /usr/local/lib if Jubatus is compiled with &#8211;enable-mecab option.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specifies argument given to MeCab engine. &#8220;arg&#8221; is not specified, Mecab works with default configuration. Please refer to document of MeCab about how to specify arguments.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="describe">
+<dt>
+<tt class="descname">libux_splitter.so</tt></dt>
+<dd></dd></dl>
+
+<p>We can specify this plugin in &#8220;string_types&#8221;.
+Extract keywords from given document by way of dictionary matching with ux-trie and use each keyword as a feature. Mathing is a simple longest matching. Note that it is fast but precision may be low.</p>
+<blockquote>
+<div>This plugin is created in /usr/local/lib if Jubatus is compiled with &#8211;enable-ux option.</div></blockquote>
+<dl class="describe">
+<dt>
+<tt class="descname">libre2_splitter.so</tt></dt>
+<dd><p>We can specify this plugin in &#8220;string_types&#8221;.
+Extract keywords from given document by way of regular expression matching with re2 and use each keyword as a feature. Matching is executed continuously, that is, every match is used as a feature.
+This plugin is created in /usr/local/lib if Jubatus is <strong>NOT</strong> compiled with &#8211;disable-re2 option.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">pattern:</th><td class="field-body">Specifies mathing pattrn.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">group:</th><td class="field-body">Specifies group to be extracted as a keyword. If this value is 0, whole match is used as a keyword. If value is positive integer, only specified group extracted with () is used. Default value is 0. &#8220;group&#8221; must be specified with string type (e.g. &#8220;2&#8221;), not numeric type (e.g. 2).</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="overview-of-data-conversion">
+<h2>Overview of Data Conversion<a class="headerlink" href="#overview-of-data-conversion" title="Permalink to this headline">¶</a></h2>
+<p>The following is the overview of data conversion.
+As datum is consists of string data and numeric data, there are flows of processing for each type of data.
+For string data, first &#8220;string_filter_rules&#8221; is applied and filtered data are added to datum.
+Then, features are extracted from string data with &#8220;string_rules&#8221;.
+For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to datum.
+Then, features are extracted from string data with &#8220;num_rules&#8221;.
+As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; ans &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
+<div class="figure">
+<img alt="feature vector converter" src="../_images/convert_flow.png" style="width: 90%;" />
+<p class="caption">Figure : System of Conversion Engine</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="plugin.html" title="Plugin Develpment"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="documentation.html" title="Documentation"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
+          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

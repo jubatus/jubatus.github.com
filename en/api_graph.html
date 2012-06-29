@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>jubatus::client::graph &mdash; Jubatus 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.3.0 documentation" href="../index.html" />
+    <link rel="up" title="Client API" href="api.html" />
+    <link rel="next" title="How to Contribute to Jubatus" href="howtocontribute.html" />
+    <link rel="prev" title="jubatus::client::stat" href="api_stat.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api_stat.html" title="jubatus::client::stat"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">jubatus::client::graph</a><ul>
+<li><a class="reference internal" href="#typedef">typedef</a></li>
+<li><a class="reference internal" href="#how-preset-query-matches-to-a-property">How preset query matches to a property</a></li>
+<li><a class="reference internal" href="#graph-methods">graph methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api_stat.html"
+                        title="previous chapter">jubatus::client::stat</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="howtocontribute.html"
+                        title="next chapter">How to Contribute to Jubatus</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/en/api_graph.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubatus-client-graph">
+<h1>jubatus::client::graph<a class="headerlink" href="#jubatus-client-graph" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> for original and detailed spec.</p>
+<div class="section" id="typedef">
+<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">centrality_type</span> <span class="o">=</span> <span class="kt">int</span>
+<span class="n">type</span> <span class="n">node_id</span> <span class="o">=</span> <span class="n">string</span>
+<span class="n">type</span> <span class="n">edge_id_t</span> <span class="o">=</span> <span class="n">ulong</span>
+
+<span class="n">type</span> <span class="n">property</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
+
+<span class="n">message</span> <span class="n">node_info</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">property</span> <span class="n">p</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">edge_id_t</span><span class="o">&gt;</span>  <span class="n">in_edges</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">edge_id_t</span><span class="o">&gt;</span>  <span class="n">out_edges</span>
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">preset_query</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">edge_query</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">node_query</span>
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">edge_info</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">property</span> <span class="n">p</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">src</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">tgt</span>
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">shortest_path_req</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">src</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">tgt</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">uint</span> <span class="n">max_hop</span>
+  <span class="mi">3</span><span class="o">:</span> <span class="n">preset_query</span> <span class="n">q</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-preset-query-matches-to-a-property">
+<h2>How preset query matches to a property<a class="headerlink" href="#how-preset-query-matches-to-a-property" title="Permalink to this headline">¶</a></h2>
+<p>To be filled</p>
+</div>
+<div class="section" id="graph-methods">
+<h2>graph methods<a class="headerlink" href="#graph-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">string create_node(0: string name)</tt></dt>
+<dd></dd></dl>
+
+<p>Creates a node on the graph named <tt class="docutils literal"><span class="pre">name</span></tt>. This API broadcasts the request to the whole cluster.
+Returns a node id as string.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int remove_node(0: string name, 1: string nid)</tt></dt>
+<dd></dd></dl>
+
+<p>Removes a node from the cluster.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int update_node(0: string name, 1: string nid, 2: property p)</tt></dt>
+<dd></dd></dl>
+
+<p>Updates the property of the node.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
+<dd></dd></dl>
+
+<p>Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>. The link has direction.
+Multiple links with same direction can be created on each pair of nodes.
+Also, a property <tt class="docutils literal"><span class="pre">ei.p</span></tt> can be associated to each link: see <tt class="docutils literal"><span class="pre">edge_info</span></tt>.</p>
+<p>Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as integer.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)</tt></dt>
+<dd></dd></dl>
+
+<p>Updates an existing edge with a new property. Property is overwritten.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
+<dd></dd></dl>
+
+<p>Removes an edge.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double centrality(0: string name, 1: string nid, 2: centrality_type ct, 3: preset_query q)</tt></dt>
+<dd></dd></dl>
+
+<p>Calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">q</span></tt> .
+Currently there&#8217;s only PageRank centrality.</p>
+<p>Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality
+and the computed value if there&#8217;re updates not mixed.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">bool add_centrality_query(0: string name, 1: preset_query q)</tt></dt>
+<dd></dd></dl>
+
+<p>Sets a preset query to the graph for centrality calculation.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">bool add_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
+<dd></dd></dl>
+
+<p>Sets a preset query to the graph for shortest path calculation.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">bool remove_centrality_query(0: string name, 1: preset_query q)</tt></dt>
+<dd></dd></dl>
+
+<p>Removes a preset query from the graph for centrality calculation.
+The query is compared with exact key-value whole match with another one.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">bool remove_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
+<dd></dd></dl>
+
+<p>Removes a preset query from the graph for shortest path calculation.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">list&lt;node_id&gt;  shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
+<dd></dd></dl>
+
+<p>Calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt>
+that matches the preset query.</p>
+<p>Path-index tree is computed when mix runs, thus there may be a gap between the exact path
+and the computed path if there&#8217;re updates not mixed.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int update_index(0: string name)</tt></dt>
+<dd></dd></dl>
+
+<p>Run mix locally. <strong>Do not use in distributed mode</strong>.</p>
+<p>In a standalone mode, mix is not automatically called thus users must call this API by thierselves.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">int clear(0: string name)</tt></dt>
+<dd></dd></dl>
+
+<p>Clears the whole data in a cluster.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">node_info get_node(0: string name, 1: string nid)</tt></dt>
+<dd></dd></dl>
+
+<p>Gets the <tt class="docutils literal"><span class="pre">node_info</span></tt> of a node, which includes property, ids of incoming edge and outgoing edge.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
+<dd></dd></dl>
+
+<p>Gets the <tt class="docutils literal"><span class="pre">edge_info</span></tt> of an edge, which includes property, source node and target node.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api_stat.html" title="jubatus::client::stat"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Client API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>
