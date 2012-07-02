@@ -183,7 +183,7 @@ new TWTR.Widget({
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview-and-scenario">
 <h2>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h2>
-<p>This tutorial uses <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and they post thier message on a suitable newsgroup.News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.</p>
+<p>This tutorial uses <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and users post thier message on a suitable newsgroup. News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%). The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.</p>
 <div class="section" id="prequisites">
 <h3>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h3>
 <p>This tutorial requires following softwares installed:</p>
@@ -219,9 +219,7 @@ jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclas
 </div>
 <p>Setup and starting a single process jubatus has been completed.</p>
 <p><tt class="docutils literal"><span class="pre">--name</span></tt> option is a string value to uniquely identifies a task in zookeeper quorum.</p>
-<p>Jubatus listens on port 9199 as MessagePack RPC server by default.
-If other services uses the same port, Please use another ports using rcp-port option.
-If you want to listen RPC port at 9181,</p>
+<p>Jubatus listens on port 9199 as MessagePack RPC server by default. If other services uses the same port, Please use another ports using rcp-port option. If you want to listen RPC port at 9181,</p>
 <div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9181 --name=tutorial</pre>
 </div>
 </div>
@@ -324,8 +322,7 @@ preferably longer, of course, and worth being part of.)
 <p>In this tutorial, input data is the text of natural language.
 Many languages ​​such as English, &lt;space&gt;　and &lt;Return&gt; can be split into words. Jubatus supports this feature such as standard.
 HTML tags are noisy to classify the contents so we will remove the part that is enclosed in &#8220;&lt;&gt;&#8221;.</p>
-<p>こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことが出来ます。
-今回のルールをPythonオブジェクトで表現すると、以下のようになります。</p>
+<p>These rules expressed as follows in Python objects.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">str_fil_types</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}}</span>
 <span class="n">str_fil_rules</span> <span class="o">=</span> <span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">filter_rule</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;-detagged&quot;</span><span class="p">)]</span>
 <span class="n">num_fil_types</span> <span class="o">=</span> <span class="p">{}</span>
@@ -336,7 +333,6 @@ HTML tags are noisy to classify the contents so we will remove the part that is 
 <span class="n">num_rules</span> <span class="o">=</span> <span class="p">[]</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">get_config</span></tt> に対してRPC呼び出しを行うと、現在指定されているオプションが返ってきます。</p>
 </div>
 <div class="section" id="train-classify">
 <h3>Train/Classify<a class="headerlink" href="#train-classify" title="Permalink to this headline">¶</a></h3>
@@ -400,11 +396,11 @@ STARTED
 <div class="section" id="jubakeeper">
 <h3>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
 <p>jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
-jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。</p>
-<div class="highlight-python"><pre>$ jubakeeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
+jubaclassifier_keeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。</p>
+<div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
 </div>
-<p>これにより、jubakeeperは、9198ポートでRPCを待ち受けます。
-jubakeeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。</p>
+<p>これにより、jubaclassifier_keeperは、9198ポートでRPCを待ち受けます。
+jubaclassifier_keeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。</p>
 </div>
 <div class="section" id="running-two-processes-as-one-classifier-instance">
 <h3>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h3>
@@ -433,8 +429,8 @@ $ bin/zkCli.sh -server localhost:2181
 <p>今、それぞれのサーバに対して、以下の表に対応したプロセスを起動させることを考えます。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="35%" />
-<col width="65%" />
+<col width="27%" />
+<col width="73%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">IP address</th>
@@ -455,10 +451,10 @@ $ bin/zkCli.sh -server localhost:2181
 <td>classifier - 3</td>
 </tr>
 <tr class="row-even"><td>192.168.0.100</td>
-<td>jubakeeper/zookeeper - 1</td>
+<td>jubaclassifier_keeper/zookeeper - 1</td>
 </tr>
 <tr class="row-odd"><td>192.168.0.200</td>
-<td>jubakeeper/zookeeper - 2</td>
+<td>jubaclassifier_keeper/zookeeper - 2</td>
 </tr>
 </tbody>
 </table>
@@ -466,7 +462,7 @@ $ bin/zkCli.sh -server localhost:2181
 [192.168.0.200]$ bin/zkServer.sh start</pre>
 </div>
 <p>zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成する設定を書いてください。
-そして、クライアントから利用するためにjubakeeperを用意しておきます。jubakeeperはデフォルトで9198番ポートを利用します。</p>
+そして、クライアントから利用するためにjubaclassifier_keeperを用意しておきます。jubaclassifier_keeperはデフォルトで9198番ポートを利用します。</p>
 <div class="highlight-python"><pre>[192.168.0.100]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
 [192.168.0.200]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
 </div>

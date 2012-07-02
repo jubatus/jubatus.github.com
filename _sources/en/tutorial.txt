@@ -243,11 +243,9 @@ The return values are as follows.
 
 You have executed the classifier feature of jubatus under this configuration.
 
-.. figure:: _static/single_single.png
+.. figure:: ../_static/single_single.png
    :width: 70 %
    :alt: single client, single server
-
-
 
 .. _multiprocess:
 
@@ -308,7 +306,7 @@ You can also verify that three server processes are started using a zookeeper cl
 
 You have executed the classifier feature of jubatus under this configuration.
 
-.. figure:: _static/single_multi.png
+.. figure:: ../_static/single_multi.png
    :width: 70 %
    :alt: single client, multi servers
 
@@ -326,7 +324,7 @@ In this tutorial, you will execute some process on each servers like the followi
 =============  ==================
 IP address     processes
 =============  ==================
-192.168.0.1    操作端末
+192.168.0.1    Terminal
 192.168.0.10   classifier - 1
 192.168.0.20   classifier - 2
 192.168.0.30   classifier - 3
@@ -420,7 +418,7 @@ IP address     processes
 
 Jubatus is available in the following configuration by the above command.
 
-.. figure:: _static/multi_multi.png
+.. figure:: ../_static/multi_multi.png
    :width: 70 %
    :alt: multi clients, multi servers
 

@@ -5,7 +5,7 @@ Tutorial
 
 Overview and Scenario
 ----------------------
-This tutorial uses `News20(20news-bydate.tar.gz) <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and they post thier message on a suitable newsgroup.News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.
+This tutorial uses `News20(20news-bydate.tar.gz) <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and users post thier message on a suitable newsgroup. News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%). The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.
 
 
 Prequisites
@@ -52,9 +52,7 @@ Setup and starting a single process jubatus has been completed.
 
 ``--name`` option is a string value to uniquely identifies a task in zookeeper quorum. 
 
-Jubatus listens on port 9199 as MessagePack RPC server by default.
-If other services uses the same port, Please use another ports using rcp-port option.
-If you want to listen RPC port at 9181, 
+Jubatus listens on port 9199 as MessagePack RPC server by default. If other services uses the same port, Please use another ports using rcp-port option. If you want to listen RPC port at 9181, 
 
 ::
 
@@ -185,8 +183,7 @@ In this tutorial, input data is the text of natural language.
 Many languages ​​such as English, <space>　and <Return> can be split into words. Jubatus supports this feature such as standard.
 HTML tags are noisy to classify the contents so we will remove the part that is enclosed in "<>".
 
-こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことが出来ます。
-今回のルールをPythonオブジェクトで表現すると、以下のようになります。
+These rules expressed as follows in Python objects.
 
 .. code-block:: python
 
@@ -198,8 +195,6 @@ HTML tags are noisy to classify the contents so we will remove the part that is 
     str_rules = [types.string_rule("message-detagged","space","bin","bin")]
     num_type = {}
     num_rules = []
-
-``get_config`` に対してRPC呼び出しを行うと、現在指定されているオプションが返ってきます。
 
 
 Train/Classify
@@ -283,15 +278,15 @@ Setup ZooKeeper
 jubakeeper
 ~~~~~~~~~~~~~~~~~~~~~~~~
 jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
-jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
+jubaclassifier_keeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
 
 
 ::
 
-    $ jubakeeper --zookeeper=localhost:2181 --rpc-port=9198
+    $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
 
-これにより、jubakeeperは、9198ポートでRPCを待ち受けます。
-jubakeeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。
+これにより、jubaclassifier_keeperは、9198ポートでRPCを待ち受けます。
+jubaclassifier_keeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。
 
 
 Running two processes as one classifier instance
@@ -344,8 +339,8 @@ IP address     processes
 192.168.0.10   classifier - 1
 192.168.0.20   classifier - 2
 192.168.0.30   classifier - 3
-192.168.0.100  jubakeeper/zookeeper - 1
-192.168.0.200  jubakeeper/zookeeper - 2
+192.168.0.100  jubaclassifier_keeper/zookeeper - 1
+192.168.0.200  jubaclassifier_keeper/zookeeper - 2
 =============  ==================
 
 ::
@@ -354,7 +349,7 @@ IP address     processes
     [192.168.0.200]$ bin/zkServer.sh start
 
 zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成する設定を書いてください。
-そして、クライアントから利用するためにjubakeeperを用意しておきます。jubakeeperはデフォルトで9198番ポートを利用します。
+そして、クライアントから利用するためにjubaclassifier_keeperを用意しておきます。jubaclassifier_keeperはデフォルトで9198番ポートを利用します。
 
 ::
 
