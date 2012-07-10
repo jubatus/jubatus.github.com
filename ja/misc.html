@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Develpment &mdash; Jubatus 0.3.0 documentation</title>
+    <title>Miscellaneous &mdash; Jubatus 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -91,15 +91,17 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Plugin Develpment</a><ul>
-<li><a class="reference internal" href="#plugin-for-data-conversion">plugin for data conversion</a></li>
+<li><a class="reference internal" href="#">Miscellaneous</a><ul>
+<li><a class="reference internal" href="#publications">Publications</a></li>
+<li><a class="reference internal" href="#faq">FAQ</a></li>
+<li><a class="reference internal" href="#contributions-thanks-a-lot">Contributions (Thanks a lot!)</a></li>
 </ul>
 </li>
 </ul>
 
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/plugin.txt"
+    <li><a href="../_sources/ja/misc.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -154,50 +156,75 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="plugin-develpment">
-<h1>Plugin Develpment<a class="headerlink" href="#plugin-develpment" title="Permalink to this headline">¶</a></h1>
-<p id="plugin">Jubatusはユーザーがプラグインを開発することで、様々な拡張ができるようになっている。
-特に、データ変換エンジンではユーザーが任意の変換ロジックを組み込めるように、各モジュール用のプラグインを作ることができる。
-プラグインはC++を利用して作成する。
-このページでは、プラグイン開発の方法を説明する。</p>
-<div class="section" id="plugin-for-data-conversion">
-<h2>plugin for data conversion<a class="headerlink" href="#plugin-for-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>大まかなプラグインの開発方法は以下のとおりである。
-まず、/usr/local/include/jubatus/plugin.hppをインクルードするところから始まる。
-次に、プラグインの雛形となるクラスを継承し、任意の特徴抽出モジュール、フィルターモジュールを作成する。
-最後に、これを外から見えるように、extern &#8220;C&#8221;で囲った領域に、インスタンス生成の関数を作成する。
-この関数の中で、先ほど作成した自前クラスをnewで生成し、そのポインタを返すようにする。
-最後に作った関数の名前が、プラグインを利用するときに指定する&#8221;function&#8221;引数の中身である。</p>
-<p>例としてstring_types用のプラグインの作り方を示す。
-この場合、ひな形はjubatus::word_splitterクラスである。
-word_splitterクラスは文字列を受け取って、文字列を分割したあとの分割点を返すsplitというメンバ関数のみからなる。
-以下に例を示す。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/plugin.hpp&gt;</span>
-<span class="cp">#include &lt;map&gt;</span>
-
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">my_splitter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">word_splitter</span> <span class="p">{</span>
- <span class="k">public</span><span class="o">:</span>
-   <span class="kt">void</span> <span class="n">split</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">,</span>
-              <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">size_t</span><span class="p">,</span> <span class="n">size_t</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">ret_boundaries</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// do somehting</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="p">{</span>
-  <span class="n">my_splitter</span><span class="o">*</span> <span class="n">create</span><span class="p">(</span><span class="k">const</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">params</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">my_splitter</span><span class="p">();</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+  <div class="section" id="miscellaneous">
+<h1>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="publications">
+<h2>Publications<a class="headerlink" href="#publications" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>2011/11/7 <a class="reference external" href="http://www.zusaar.com/event/165003">Jubatus Workshop Tokyo</a> (All slide are in Japanese)</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://www.slideshare.net/JubatusOfficial/overview-and-roadmap">&#8220;An overview and roadmap of Jubatus&#8221;</a> by Daisuke OKANOHARA</li>
+<li><a class="reference external" href="http://www.slideshare.net/JubatusOfficial/jubatus-10066854">&#8220;Feature extraction and liniar classifiers of Jubatus&#8221;</a> by Yuya UNNO</li>
+<li><a class="reference external" href="http://www.slideshare.net/JubatusOfficial/jubatus-workshop">&#8220;How Jubatus works in Distributed environment&#8221;</a> by Kota UENISHI</li>
+<li>&#8220;Jubatus&#8217; application and handson&#8221; by Satoshi ODA</li>
+<li>&#8220;Estimating nergy consumption using Jubatus&#8221; by Shinta NAKAYAMA</li>
+<li><a class="reference external" href="../_static/tanakh/presen.html">&#8220;pficommon and MessagePack-RPC&#8221;</a> by Hideyuki TANAKA</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>岡野原，他 &#8220;大規模分散リアルタイム学習支える技術と今後の展望&#8221;， WebDB forum 2011, Tokyo.</li>
+<li>2011/10/26 Press Relase</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>PFI ( <a class="reference external" href="http://preferred.jp/2011/10/jubatus-english.html">PFI_EN</a> / <a class="reference external" href="http://preferred.jp/2011/10/jubatus.html">PFI_JA</a> )</li>
+<li>NTT ( <a class="reference external" href="http://www.ntt.co.jp/news2011/1110e/111026a.html">NTT_EN</a> / <a class="reference external" href="http://www.ntt.co.jp/news2011/1110/111026a.html">NTT_JA</a> )</li>
+<li><a class="reference external" href="http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease">Press Release Slides (in Japanese)</a></li>
+</ul>
+</div></blockquote>
 </div>
-<p>上記のファイルをコンパイルし、libjubaconverter.soとリンクすると.soファイルが完成する。
-できた.soファイルは、プラグインとして利用できる。
-プラグインとして利用する方法は、 <a class="reference internal" href="../en/fv_convert.html#conversion"><em>Data Conversion</em></a> <a class="reference internal" href="../en/fv_convert.html#conversion-plugin"><em>Plugins</em></a> を参照のこと。</p>
-<p>その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。
-より具体的なソースに関しては、src/server/fv_converter中のtest_*.cppを参照して、同様の方法でプラグインを作成できる。
-それぞれが各モジュールプラグインのサンプルになっている。</p>
+<div class="section" id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>When using python client, &#8220;got socket.error: [Errno 99] Cannot assign requested address&#8221; (or kind of <cite>EADDRINUSE</cite>)</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>How does &#8216;jubatus&#8217; read?</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Please do not run &#8216;say&#8217; command in MacOS.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="contributions-thanks-a-lot">
+<h2>Contributions (Thanks a lot!)<a class="headerlink" href="#contributions-thanks-a-lot" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://d.hatena.ne.jp/hjym_u/20111107/1320647557">MacPorts</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/katsyoshi/20111107/1320678982">Homebrew</a></li>
+<li>0.1.0</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://github.com/pfi/jubatus-ruby-client">Ruby Client</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/oxalis-gps/20111101/1320112193">PHP Client</a> ( <a class="reference external" href="https://github.com/oxalis-gps/jubatus-php-client">github repo</a> )</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 

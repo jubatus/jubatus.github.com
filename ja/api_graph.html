@@ -42,10 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.0 documentation" href="../index.html" />
-    <link rel="up" title="Client API" href="api.html" />
-    <link rel="next" title="How to Contribute to Jubatus" href="howtocontribute.html" />
-    <link rel="prev" title="jubatus::client::stat" href="api_stat.html" /> 
+    <link rel="top" title="Jubatus 0.3.0 documentation" href="../index.html" /> 
 
 <!--
 
@@ -83,15 +80,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="api_stat.html" title="jubatus::client::stat"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
-          <li><a href="references.html" >References</a> &raquo;</li>
-          <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
+        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -110,15 +99,9 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="api_stat.html"
-                        title="previous chapter">jubatus::client::stat</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="howtocontribute.html"
-                        title="next chapter">How to Contribute to Jubatus</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/api_graph.txt"
+    <li><a href="../_sources/ja/api_graph.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -175,7 +158,8 @@ new TWTR.Widget({
             
   <div class="section" id="jubatus-client-graph">
 <h1>jubatus::client::graph<a class="headerlink" href="#jubatus-client-graph" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> for original and detailed spec.</p>
+<p>詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> を参照してください。
+.. See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> for original and detailed spec.</p>
 <div class="section" id="typedef">
 <h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">centrality_type</span> <span class="o">=</span> <span class="kt">int</span>
@@ -212,21 +196,7 @@ new TWTR.Widget({
 </div>
 <div class="section" id="how-preset-query-matches-to-a-property">
 <h2>How preset query matches to a property<a class="headerlink" href="#how-preset-query-matches-to-a-property" title="Permalink to this headline">¶</a></h2>
-<p>Properties and Queries are both represented as key-value pair like
-<tt class="docutils literal"><span class="pre">{</span> <span class="pre">'key'</span> <span class="pre">:</span> <span class="pre">'value',</span> <span class="pre">'key2'</span> <span class="pre">:</span> <span class="pre">'value2',</span> <span class="pre">...</span> <span class="pre">}</span></tt>.
-The condition when a query matches to a property is: all keys in a query MUST exist in a property and the corresponding value which belongs to the query and the property MUST match excactly. The ordering of each key-value in property/query does not matter.</p>
-<p>This case matches:</p>
-<div class="highlight-python"><pre>query:    { 'key' : 'value' }
-property: { 'key' : 'value', 'foo' : 'bar' }</pre>
-</div>
-<p>This case does not match &#8211; same key but different value:</p>
-<div class="highlight-python"><pre>query:    { 'key' : 'wrong' }
-property: { 'key' : 'value', 'foo' : 'bar' }</pre>
-</div>
-<p>This case does not match &#8211; property <tt class="docutils literal"><span class="pre">spam</span></tt> does not exist:</p>
-<div class="highlight-python"><pre>query:    { 'key' : 'value', 'spam': 'ham' }
-property: { 'key' : 'value', 'foo' : 'bar' }</pre>
-</div>
+<p>To be filled</p>
 </div>
 <div class="section" id="graph-methods">
 <h2>graph methods<a class="headerlink" href="#graph-methods" title="Permalink to this headline">¶</a></h2>
@@ -235,109 +205,125 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 <tt class="descname">string create_node(0: string name)</tt></dt>
 <dd></dd></dl>
 
-<p>Creates a node on the graph named <tt class="docutils literal"><span class="pre">name</span></tt>. This API broadcasts the request to the whole cluster.
-Returns a node id as string.</p>
+<p>グラフ内にノードを一つ追加し、nodeのidをstring形式で返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_node(0: string name, 1: string nid)</tt></dt>
 <dd></dd></dl>
 
-<p>Removes a node from the cluster.</p>
+<p>nodeのidをグラフ内から削除する。
+..Removes a node from the cluster.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int update_node(0: string name, 1: string nid, 2: property p)</tt></dt>
 <dd></dd></dl>
 
-<p>Updates the property of the node.</p>
+<p>nodeのidで指定されたノードの属性を更新する。
+..Updates the property of the node.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
 <dd></dd></dl>
 
-<p>Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>. The link has direction.
-Multiple links with same direction can be created on each pair of nodes.
-Also, a property <tt class="docutils literal"><span class="pre">ei.p</span></tt> can be associated to each link: see <tt class="docutils literal"><span class="pre">edge_info</span></tt>.</p>
-<p>Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as integer.</p>
+<p><tt class="docutils literal"><span class="pre">ei.src</span></tt> から <tt class="docutils literal"><span class="pre">ei.tgt</span></tt> に向けた枝を張り、interger形式のedge_idを返す。この枝には方向があり、複数張ることも出来る。
+<tt class="docutils literal"><span class="pre">ei.p</span></tt> で指定される属性はそれぞれの枝に適用される。</p>
+<p>..Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>. The link has direction.
+..Multiple links with same direction can be created on each pair of nodes.
+..Also, a property <tt class="docutils literal"><span class="pre">ei.p</span></tt> can be associated to each link: see <tt class="docutils literal"><span class="pre">edge_info</span></tt>.</p>
+<p>..Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as integer.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)</tt></dt>
 <dd></dd></dl>
 
-<p>Updates an existing edge with a new property. Property is replaced.</p>
+<p><tt class="docutils literal"><span class="pre">edge_id</span></tt> で指定した枝の属性を更新する。属性は上書きされる。
+..Updates an existing edge with a new property. Property is overwritten.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
 <dd></dd></dl>
 
-<p>Removes an edge.</p>
+<p>指定した枝を取り除く。
+.. Removes an edge.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double centrality(0: string name, 1: string nid, 2: centrality_type ct, 3: preset_query q)</tt></dt>
 <dd></dd></dl>
 
-<p>Calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">q</span></tt> .
-Currently there&#8217;s only PageRank centrality.</p>
-<p>Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality
-and the computed value if there&#8217;re updates not mixed.</p>
+<p>あらかじめadd_centrality_queryで指定しているクエリー <tt class="docutils literal"><span class="pre">q</span></tt> に関するnode id <tt class="docutils literal"><span class="pre">nid</span></tt> の中心性を求める。
+..Calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">q</span></tt> .
+..Currently there&#8217;s only PageRank centrality.
+中心性は、mixの度に徐々に計算されるため、その時点では正確な値ではないかもしれない。
+..Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality
+..and the computed value if there&#8217;re updates not mixed.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_centrality_query(0: string name, 1: preset_query q)</tt></dt>
 <dd></dd></dl>
 
-<p>Sets a preset query to the graph for centrality calculation.</p>
+<p>中心性の算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を新たに登録する。
+.. Sets a preset query to the graph for centrality calculation.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
 <dd></dd></dl>
 
-<p>Sets a preset query to the graph for shortest path calculation.</p>
+<p>最短パスの算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を新たに登録する。
+..Sets a preset query to the graph for shortest path calculation.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_centrality_query(0: string name, 1: preset_query q)</tt></dt>
 <dd></dd></dl>
 
-<p>Removes a preset query from the graph for centrality calculation.
-The query is compared with exact key-value whole match with another one.</p>
+<p>中心性の算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を削除する。</p>
+<p>..Removes a preset query from the graph for centrality calculation.
+..The query is compared with exact key-value whole match with another one.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
 <dd></dd></dl>
 
-<p>Removes a preset query from the graph for shortest path calculation.</p>
+<p>最短パスの算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を削除する。
+..Removes a preset query from the graph for shortest path calculation.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">list&lt;node_id&gt;  shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
 <dd></dd></dl>
 
-<p>Calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt>
-that matches the preset query.</p>
-<p>Path-index tree may have a gap between the exact path
-and the computed path when in a distributed setup.</p>
+<p><tt class="docutils literal"><span class="pre">r.src</span></tt> から <tt class="docutils literal"><span class="pre">r.tgt</span></tt> への最短パスを <tt class="docutils literal"><span class="pre">node_id</span></tt> のリストで返す。
+Path-index Treeはmixの度に更新されるためこの最短パスは、必ずしも最短であるとは限らない。
+..Path-index tree is computed when mix runs, thus there may be a gap between the exact path
+..and the computed path if there&#8217;re updates not mixed.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int update_index(0: string name)</tt></dt>
 <dd></dd></dl>
 
-<p>Run mix locally. <strong>Do not use in distributed mode</strong>.</p>
-<p>In a standalone mode, mix is not automatically called thus users must call this API by thierselves.</p>
+<p>mixをローカルで実行する。 <strong>この関数は分散環境で利用してはならない。</strong>
+..Run mix locally. <strong>Do not use in distributed mode</strong>.
+スタンドアローン環境では、mixは自動的に呼ばれないため、適切なタイミングで呼び続ける必要がある。
+..In a standalone mode, mix is not automatically called thus users must call this API by thierselves.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int clear(0: string name)</tt></dt>
 <dd></dd></dl>
 
-<p>Clears the whole data in a cluster.</p>
+<p>すべてのデータを削除する。
+..Clears the whole data in a cluster.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">node_info get_node(0: string name, 1: string nid)</tt></dt>
 <dd></dd></dl>
 
-<p>Gets the <tt class="docutils literal"><span class="pre">node_info</span></tt> of a node, which includes property, ids of incoming edge and outgoing edge.</p>
+<p>指定したノードの <tt class="docutils literal"><span class="pre">node_info</span></tt> を取得する。
+..Gets the <tt class="docutils literal"><span class="pre">node_info</span></tt> of a node, which includes property, ids of incoming edge and outgoing edge.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
 <dd></dd></dl>
 
-<p>Gets the <tt class="docutils literal"><span class="pre">edge_info</span></tt> of an edge, which includes property, source node and target node.</p>
+<p>指定したエッジの <tt class="docutils literal"><span class="pre">edge_info</span></tt> を取得する。
+..Gets the <tt class="docutils literal"><span class="pre">edge_info</span></tt> of an edge, which includes property, source node and target node.</p>
 </div>
 </div>
 
@@ -353,15 +339,7 @@ and the computed path when in a distributed setup.</p>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="api_stat.html" title="jubatus::client::stat"
-             >previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
-          <li><a href="references.html" >References</a> &raquo;</li>
-          <li><a href="api.html" >Client API</a> &raquo;</li> 
+        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

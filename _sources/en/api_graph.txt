@@ -42,7 +42,34 @@ typedef
 How preset query matches to a property
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To be filled
+Properties and Queries are both represented as key-value pair like
+``{ 'key' : 'value', 'key2' : 'value2', ... }``.
+The condition when a query matches to a property is: all keys in a query MUST exist in a property and the corresponding value which belongs to the query and the property MUST match excactly. The ordering of each key-value in property/query does not matter.
+
+This case matches:
+
+::
+
+   query:    { 'key' : 'value' }
+   property: { 'key' : 'value', 'foo' : 'bar' }
+
+
+This case does not match -- same key but different value:
+
+::
+
+   query:    { 'key' : 'wrong' }
+   property: { 'key' : 'value', 'foo' : 'bar' }
+
+
+This case does not match -- property ``spam`` does not exist:
+
+::
+
+   query:    { 'key' : 'value', 'spam': 'ham' }
+   property: { 'key' : 'value', 'foo' : 'bar' }
+
+
 
 graph methods
 ~~~~~~~~~~~~~
@@ -70,7 +97,7 @@ Returns ``edge_id`` as integer.
 
 .. describe:: int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)
 
-Updates an existing edge with a new property. Property is overwritten.
+Updates an existing edge with a new property. Property is replaced.
 
 .. describe:: int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)
 
@@ -106,8 +133,8 @@ Removes a preset query from the graph for shortest path calculation.
 Calculates (from the precomputed data) a shortest path from ``r.src`` to ``r.tgt``
 that matches the preset query.
 
-Path-index tree is computed when mix runs, thus there may be a gap between the exact path
-and the computed path if there're updates not mixed.
+Path-index tree may have a gap between the exact path
+and the computed path when in a distributed setup.
 
 
 .. describe:: int update_index(0: string name)

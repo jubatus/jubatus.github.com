@@ -198,8 +198,8 @@ The following picture describes how to run programs used by management process.
    figure: relationship of processes 
 
 
-debug tools
--------------
+tools
+-----
 
 jubaconv
 ~~~~~~~~~~~
@@ -225,3 +225,25 @@ We can utilize this in order to check if converter_config works correctly.
     Specifies converter_config.
 
 
+.. _jenerator:
+
+jenerator
+~~~~~~~~~
+
+jenerator is a converter to create a jubakeeper and basic server template from extended msgpack-idl format. jenerator takes first argument as an IDL filename to process, rest is for options.
+
+.. program:: jenerator <filename>
+
+.. option:: -t
+
+    Generates server template.
+
+.. option:: -i
+
+    Generates the code as internal library to merged in Jubatus repository.
+    If the generated code is separated from Jubatus repository and assumed
+    Jubatus is installed, or you don't know well, *DO NOT* use this option.
+
+.. option:: -o path
+
+    (*NOT IMPLEMENTED*) Directory to output the generate source code files.

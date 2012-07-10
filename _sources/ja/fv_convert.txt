@@ -1,3 +1,4 @@
+.. _conversionja:
 
 Data Conversion
 ==================
@@ -220,7 +221,7 @@ num_filter_rules
 
 "key"の指定の仕方は、string_filter_rulesを参照のこと。
 
-.. _construct:
+.. _constructja:
 
 feature exctraction (from string)
 ---------------------------------
@@ -372,7 +373,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 
  :suffix:    変換後の結果を格納するkeyのサフィックスを指定する。
 
-.. _conversion_plugin:
+.. _conversion_pluginja:
 
 plugin
 ----------------
@@ -470,5 +471,4 @@ datumは文字列データと数値データの2つがあるため、それぞ�
    :alt: feature vector converter
 
    図: 変換エンジンの構成
-
 

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Develpment &mdash; Jubatus 0.3.0 documentation</title>
+    <title>jubatus::client::stat &mdash; Jubatus 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -91,15 +91,16 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Plugin Develpment</a><ul>
-<li><a class="reference internal" href="#plugin-for-data-conversion">plugin for data conversion</a></li>
+<li><a class="reference internal" href="#">jubatus::client::stat</a><ul>
+<li><a class="reference internal" href="#typedef">typedef</a></li>
+<li><a class="reference internal" href="#stat-methods">stat methods</a></li>
 </ul>
 </li>
 </ul>
 
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/plugin.txt"
+    <li><a href="../_sources/ja/api_stat.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -154,50 +155,67 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="plugin-develpment">
-<h1>Plugin Develpment<a class="headerlink" href="#plugin-develpment" title="Permalink to this headline">¶</a></h1>
-<p id="plugin">Jubatusはユーザーがプラグインを開発することで、様々な拡張ができるようになっている。
-特に、データ変換エンジンではユーザーが任意の変換ロジックを組み込めるように、各モジュール用のプラグインを作ることができる。
-プラグインはC++を利用して作成する。
-このページでは、プラグイン開発の方法を説明する。</p>
-<div class="section" id="plugin-for-data-conversion">
-<h2>plugin for data conversion<a class="headerlink" href="#plugin-for-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>大まかなプラグインの開発方法は以下のとおりである。
-まず、/usr/local/include/jubatus/plugin.hppをインクルードするところから始まる。
-次に、プラグインの雛形となるクラスを継承し、任意の特徴抽出モジュール、フィルターモジュールを作成する。
-最後に、これを外から見えるように、extern &#8220;C&#8221;で囲った領域に、インスタンス生成の関数を作成する。
-この関数の中で、先ほど作成した自前クラスをnewで生成し、そのポインタを返すようにする。
-最後に作った関数の名前が、プラグインを利用するときに指定する&#8221;function&#8221;引数の中身である。</p>
-<p>例としてstring_types用のプラグインの作り方を示す。
-この場合、ひな形はjubatus::word_splitterクラスである。
-word_splitterクラスは文字列を受け取って、文字列を分割したあとの分割点を返すsplitというメンバ関数のみからなる。
-以下に例を示す。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/plugin.hpp&gt;</span>
-<span class="cp">#include &lt;map&gt;</span>
+  <div class="section" id="jubatus-client-stat">
+<h1>jubatus::client::stat<a class="headerlink" href="#jubatus-client-stat" title="Permalink to this headline">¶</a></h1>
+<p>..See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> for original and detailed spec.
+詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> を参照してください。</p>
+<div class="section" id="typedef">
+<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">jubatus::stat::config_data</tt></dt>
+<dd></dd></dl>
 
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">my_splitter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">word_splitter</span> <span class="p">{</span>
- <span class="k">public</span><span class="o">:</span>
-   <span class="kt">void</span> <span class="n">split</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">,</span>
-              <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">size_t</span><span class="p">,</span> <span class="n">size_t</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">ret_boundaries</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// do somehting</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="p">{</span>
-  <span class="n">my_splitter</span><span class="o">*</span> <span class="n">create</span><span class="p">(</span><span class="k">const</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">params</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">my_splitter</span><span class="p">();</span>
-  <span class="p">}</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">window_size</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>上記のファイルをコンパイルし、libjubaconverter.soとリンクすると.soファイルが完成する。
-できた.soファイルは、プラグインとして利用できる。
-プラグインとして利用する方法は、 <a class="reference internal" href="../en/fv_convert.html#conversion"><em>Data Conversion</em></a> <a class="reference internal" href="../en/fv_convert.html#conversion-plugin"><em>Plugins</em></a> を参照のこと。</p>
-<p>その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。
-より具体的なソースに関しては、src/server/fv_converter中のtest_*.cppを参照して、同様の方法でプラグインを作成できる。
-それぞれが各モジュールプラグインのサンプルになっている。</p>
+</div>
+<div class="section" id="stat-methods">
+<h2>stat methods<a class="headerlink" href="#stat-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">bool push(0: string name, 1: string key, 2: double val)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> の値 <tt class="docutils literal"><span class="pre">val</span></tt> を与える。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double sum(0: string name, 1: string key)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の合計値を返す。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double stddev(0: string name, 1: string key)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の標準偏差を返す。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double max(0: string name, 1: string key)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最大値を返す。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double min(0: string name, 1: string key)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最小値を返す。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double entropy(0: string name, 1: string key)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値のエントロピーを返す。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">double moment(0: string name, 1: string key, 2: int n, 3: double c)</tt></dt>
+<dd></dd></dl>
+
+<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の <tt class="docutils literal"><span class="pre">c</span></tt> を中心とした <tt class="docutils literal"><span class="pre">n</span></tt> 次のモーメントを返す。</p>
 </div>
 </div>
 

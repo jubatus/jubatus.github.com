@@ -88,6 +88,8 @@ Two files will be generated.
 If we add -t option, we can generate additionally C++ source file which is template of implementation of server.
 At that time generator will automatically add APIs named save/load.
 
+See :ref:`jenerator` for furthur information.
+
 TODO: how to implement mix
 
 

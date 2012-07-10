@@ -97,7 +97,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#setup-a-single-process-jubatus-server">Setup a single process Jubatus Server</a><ul>
-<li><a class="reference internal" href="#building-and-installing-jubatus">building and installing Jubatus</a></li>
 <li><a class="reference internal" href="#installing-python-client-for-jubatus">installing Python client for Jubatus</a></li>
 </ul>
 </li>
@@ -183,10 +182,13 @@ new TWTR.Widget({
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview-and-scenario">
 <h2>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h2>
-<p>This tutorial uses <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and they post thier message on a suitable newsgroup.News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.</p>
+<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な、 <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> を利用します。
+News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
+News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
+このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。</p>
 <div class="section" id="prequisites">
 <h3>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h3>
-<p>This tutorial requires following softwares installed:</p>
+<p>このチュートリアルは、以下のソフトウェアがインストールされていることを前提としています。</p>
 <ul class="simple">
 <li>Linux 2.6 +</li>
 <li>gcc 4.0 +</li>
@@ -200,37 +202,24 @@ new TWTR.Widget({
 <li><a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> / <a class="reference external" href="http://mecab.sourceforge.net/">MeCab</a> (optional)</li>
 <li><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> server and C client (optional, for multiple processes)</li>
 </ul>
-<p><a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">These scripts</a> maybe the help your installation.</p>
+<p><a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">インストーラ</a> を利用できるかもしれません。</p>
 </div>
 </div>
 <div class="section" id="setup-a-single-process-jubatus-server">
 <h2>Setup a single process Jubatus Server<a class="headerlink" href="#setup-a-single-process-jubatus-server" title="Permalink to this headline">¶</a></h2>
-<p>In this section, We show how to install the Jubatus.</p>
-<div class="section" id="building-and-installing-jubatus">
-<h3>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h3>
-<p>You need to install the above library dependencies before building and installing jubatus.</p>
-<div class="highlight-python"><pre>$ git clone git://github.com:jubatus/jubatus.git
-$ cd jubatus
-$ ./waf configure
-$ ./waf build
-# ./waf install
-$ jubaclassifier --name tutorial
-jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.2.2 RPC server at 10.0.2.15:9199 with timeout: 10</pre>
-</div>
-<p>Setup and starting a single process jubatus has been completed.</p>
-<p><tt class="docutils literal"><span class="pre">--name</span></tt> option is a string value to uniquely identifies a task in zookeeper quorum.</p>
-<p>Jubatus listens on port 9199 as MessagePack RPC server by default.
-If other services uses the same port, Please use another ports using rcp-port option.
-If you want to listen RPC port at 9181,</p>
+<blockquote>
+<div>$ jubaclassifier &#8211;name tutorial
+jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.2.2 RPC server at 10.0.2.15:9199 with timeout: 10</div></blockquote>
+<p>無事に起動したら、スタンドアローンにおけるclassifierの起動は環境です。
+<tt class="docutils literal"><span class="pre">--name</span></tt> オプションは分散環境でタスクを特定するために利用するので、ここでは実は不要です。</p>
+<p>Jubatusは、9199番ポートを利用して待ち受けます。他のポートを利用したい場合、例えば9181番の場合は、以下のようにします。</p>
 <div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9181 --name=tutorial</pre>
-</div>
 </div>
 <div class="section" id="installing-python-client-for-jubatus">
 <h3>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h3>
-<p>Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.
-&#8220;pip&#8221; command will resolve this dependencies automatically.</p>
-<div class="highlight-python"><pre>$ pip install jubatus
-$ pip install msgpack-rpc-python</pre>
+<p>JubatusのPythonクライアントは <a class="reference external" href="http://pypi.python.org/pypi/msgpack-rpc-python/">msgpack-rpc-python</a> を使います。</p>
+<div class="highlight-python"><pre>$ pip install msgpack-rpc-python
+$ pip install jubatus</pre>
 </div>
 </div>
 </div>
@@ -244,7 +233,7 @@ $ python tutorial.py</pre>
 </div>
 <div class="section" id="prepairing-dataset">
 <h3>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h3>
-<p>Expanding 20news-bydate.tar.gz,</p>
+<p>20news-bydate.tar.gzを展開すると</p>
 <div class="highlight-python"><pre>-20news-bydate-train
   alt.atheism
     49960
@@ -270,8 +259,8 @@ $ python tutorial.py</pre>
   talk.politics.misc
   talk.religion.misc</pre>
 </div>
-<p>&#8220;49960&#8221; is a file name and &#8220;alt.atheism&#8221; is a newsgroup name.
-For example, &#8220;20news-bydate-train/rec.motorcycles/104435&#8221; contains</p>
+<p>のファイル群が展開されます。数値49960がファイル名で、newsgroup名がalt.atheismになります。
+例えば、20news-bydate-train/rec.motorcycles/104435の中身は、</p>
 <div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
@@ -295,11 +284,12 @@ preferably longer, of course, and worth being part of.)
 
 -- David Karr (karr@cs.cornell.edu)</pre>
 </div>
-<p>Jubatus uses this text as the training data</p>
+<p>のようなテキストファイルです。
+これらのテキストファイルを学習データとして利用します。</p>
 </div>
 <div class="section" id="set-configure">
 <h3>Set configure<a class="headerlink" href="#set-configure" title="Permalink to this headline">¶</a></h3>
-<p>You can change a behavior of jubaclassifier using method and converter options. Prototype of these options are as follows.</p>
+<p>jubaclassifierは、method, converterのオプションを外部からのqueryで指定することによって、動作を指定することが出来ます。オプションのプロトタイプは、以下のとおりです。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">config</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">converter</span><span class="p">)</span>
 <span class="n">converter</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">converter_config</span><span class="p">(</span><span class="n">str_fil_types</span><span class="p">,</span>
                                                       <span class="n">str_fil_rules</span><span class="p">,</span>
@@ -311,7 +301,7 @@ preferably longer, of course, and worth being part of.)
                                                       <span class="n">num_rules</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You can choose one of the following algorithm as <tt class="docutils literal"><span class="pre">'method'</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">'method'</span></tt> は、以下のアルゴリズムのうちいずれかを指定することが出来ます。</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">perceptron</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt></li>
@@ -319,11 +309,11 @@ preferably longer, of course, and worth being part of.)
 <li><tt class="docutils literal"><span class="pre">AROW</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">NHERD</span></tt></li>
 </ul>
-<p>Now, we choose <tt class="docutils literal"><span class="pre">PA</span></tt> .</p>
-<p><tt class="docutils literal"><span class="pre">'converter'</span></tt> decides how to convert feature vector from input data.</p>
-<p>In this tutorial, input data is the text of natural language.
-Many languages ​​such as English, &lt;space&gt;　and &lt;Return&gt; can be split into words. Jubatus supports this feature such as standard.
-HTML tags are noisy to classify the contents so we will remove the part that is enclosed in &#8220;&lt;&gt;&#8221;.</p>
+<p>今回は、 <tt class="docutils literal"><span class="pre">PA</span></tt> を選択します。</p>
+<p><tt class="docutils literal"><span class="pre">'converter'</span></tt> は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します。</p>
+<p>今回は、自然言語のテキストです。
+英語など多くの言語は、&lt;space&gt;, &lt;Return&gt;で単語に分割出来るので、単語化して特徴ベクトルにすることにしましょう。
+また、HTMLタグなどは、内容を分類するのにノイズになりそうなので、&#8221;&lt;&gt;&#8221;で囲まれた部分を除去することにしましょう。</p>
 <p>こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことが出来ます。
 今回のルールをPythonオブジェクトで表現すると、以下のようになります。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">str_fil_types</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}}</span>
@@ -336,7 +326,7 @@ HTML tags are noisy to classify the contents so we will remove the part that is 
 <span class="n">num_rules</span> <span class="o">=</span> <span class="p">[]</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">get_config</span></tt> に対してRPC呼び出しを行うと、現在指定されているオプションが返ってきます。</p>
+<p><tt class="docutils literal"><span class="pre">get_config</span></tt> を呼ぶと、現在指定されているオプションが返ってきます。</p>
 </div>
 <div class="section" id="train-classify">
 <h3>Train/Classify<a class="headerlink" href="#train-classify" title="Permalink to this headline">¶</a></h3>
@@ -363,27 +353,25 @@ HTML tags are noisy to classify the contents so we will remove the part that is 
      <span class="p">]]</span>
 </pre></div>
 </div>
-<p>その結果は、以下のような値が得られます。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span>
-     <span class="p">[</span><span class="s">&quot;alt.atheism&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
-     <span class="o">...</span>
-     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">2.0973217487300002</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
-<span class="p">]]</span>
+<p>その結果、以下のような値が得られます。</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="p">[[</span>
+      <span class="p">[</span><span class="s">&quot;alt.atheism&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
+      <span class="o">...</span>
+<span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">2.0973217487300002</span><span class="p">],</span>
+<span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
+<span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
+      <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
+ <span class="p">]]</span>
 </pre></div>
 </div>
-<p>それぞれのラベルごとの値が出るので、この中で一番大きい値を提示すればおそらくそれは正しい分類でしょう。
-JubatusはMessagePack-RPCを利用できるあらゆる言語から利用することが出来ます。最後に、pythonのコードを示します。</p>
-<p>以上で、下記の構成でJubatusを実行しました。</p>
+<p>以下の環境で動作しました。</p>
 <div class="figure">
 <img alt="single client, single server" src="../_images/single_single1.png" style="width: 70%;" />
 </div>
 </div>
 </div>
 <div class="section" id="setup-jubatus-server-with-multiple-processes">
-<span id="multiprocess"></span><h2>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h2>
+<span id="multi-multiprocess"></span><h2>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h2>
 <p>Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を強調させることで、分散処理を行うことが出来ます。</p>
 <div class="section" id="setup-zookeeper">
 <h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
@@ -395,16 +383,16 @@ Starting zookeeper ...
 STARTED
 ...</pre>
 </div>
-<p>以後、zoo.cfgでの指定によりローカルマシンのポート2181で起動していることを想定します。</p>
+<p>以後、zoo.cfgでの指定によりローカルマシンのポート2181で起動していることを仮定します。</p>
 </div>
 <div class="section" id="jubakeeper">
 <h3>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
 <p>jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
 jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。</p>
-<div class="highlight-python"><pre>$ jubakeeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
+<div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
 </div>
-<p>これにより、jubakeeperは、9198ポートでRPCを待ち受けます。
-jubakeeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。</p>
+<p>これにより、jubaclassifier_keeperは、9198ポートでRPCを待ち受けます。
+jubaclassifier_keeperを介した場合、起動しているサーバを意識することなくスケールアウトするように実装されています。</p>
 </div>
 <div class="section" id="running-two-processes-as-one-classifier-instance">
 <h3>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h3>
@@ -415,7 +403,7 @@ jubakeeperを介した場合、起動しているサーバを意識すること�
 $ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;
 $ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;</pre>
 </div>
-<p>zookeeperのクライアントを用いて、たしかに二つのサーバプロセスが起動していることを確認することも出来ます。</p>
+<p>zookeeperのクライアントを用いて、たしかに3つのサーバプロセスが起動していることを確認することも出来ます。</p>
 <div class="highlight-python"><pre>$ cd /path/to/zookeeper
 $ bin/zkCli.sh -server localhost:2181
 [zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/tutorial2/nodes
@@ -429,12 +417,12 @@ $ bin/zkCli.sh -server localhost:2181
 </div>
 <div class="section" id="setup-jubatus-in-cluster">
 <h2>Setup Jubatus in cluster<a class="headerlink" href="#setup-jubatus-in-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Jubatusは各種プロセスを一括管理するための仕組みを備えています。</p>
-<p>今、それぞれのサーバに対して、以下の表に対応したプロセスを起動させることを考えます。</p>
+<p>Jubatusは各種プロセスを一括管理するための仕組みを備えています。
+今、それぞれのサーバに対して、以下の表に対応したプロセスを起動させることを考えます。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="35%" />
-<col width="65%" />
+<col width="27%" />
+<col width="73%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">IP address</th>
@@ -455,32 +443,31 @@ $ bin/zkCli.sh -server localhost:2181
 <td>classifier - 3</td>
 </tr>
 <tr class="row-even"><td>192.168.0.100</td>
-<td>jubakeeper/zookeeper - 1</td>
+<td>jubaclassifier_keeper/zookeeper - 1</td>
 </tr>
 <tr class="row-odd"><td>192.168.0.200</td>
-<td>jubakeeper/zookeeper - 2</td>
+<td>jubaclassifier_keeper/zookeeper - 2</td>
 </tr>
 </tbody>
 </table>
+<p>Start zookeeper,</p>
 <div class="highlight-python"><pre>[192.168.0.100]$ bin/zkServer.sh start
 [192.168.0.200]$ bin/zkServer.sh start</pre>
 </div>
 <p>zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成する設定を書いてください。
-そして、クライアントから利用するためにjubakeeperを用意しておきます。jubakeeperはデフォルトで9198番ポートを利用します。</p>
+そして、クライアントから利用するためにjubaclassifier_keeperを用意しておきます。jubaclassifier_keeperはデフォルトで9199番ポートを利用します。</p>
 <div class="highlight-python"><pre>[192.168.0.100]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
 [192.168.0.200]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
 </div>
 <div class="section" id="jubavisor-process-management-with-zookeeper">
 <h3>Jubavisor(Process Management with zookeeper)<a class="headerlink" href="#jubavisor-process-management-with-zookeeper" title="Permalink to this headline">¶</a></h3>
-<p>jubavisorは、マシンごとに一プロセスずつ存在するagentで、Jubatusctrlからの司令を受けて同サーバ内のプロセスを管理します。
-このプロセスは、予めマシンごとに起動しておく必要があります。jubavisorはデフォルトで9199番ポートを利用します。</p>
+<p>ubavisorは、マシンごとに一プロセスずつ存在するagentで、Jubatusctrlからの司令を受けて同サーバ内のプロセスを管理します。
+このプロセスは、予めマシンごとに起動しておく必要があります。jubavisorはデフォルトで9198番ポートを利用します。</p>
 <div class="highlight-python"><pre>[192.168.0.10 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
 [192.168.0.20 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
 [192.168.0.30 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d</pre>
 </div>
-<p>jubavisorは、一台のサーバ内の複数プロセスのポートを調整して指定されたプロセスを指定された名前空間で起動し、zookeeperに登録します。
-ここまで出来れば、後は操作端末から、自由にプロセスを管理することが出来ます。
-Let&#8217;s provisioning!!</p>
+<p>Let&#8217;s provisioning!!</p>
 <div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
 [192.168.0.1  ]$ jubactl --name=tutorial2 --zookeeper=192.168.0.100:2181,192.168.0.200:2181 --type=classifier -c status
 active jubakeeper members:
@@ -500,8 +487,7 @@ active tutorial2 members:
 </div>
 <div class="section" id="client-for-multi-process-jubatus-server">
 <h3>Client for multi process Jubatus Server<a class="headerlink" href="#client-for-multi-process-jubatus-server" title="Permalink to this headline">¶</a></h3>
-<p>In last section,
-最後に、複数クライアント、複数サーバ環境でtutorialを実行しましょう。</p>
+<p>最後に、複数クライアント、複数サーバ環境でtutorialを実行しましょう。</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="27%" />
@@ -546,11 +532,10 @@ active tutorial2 members:
 [192.168.0.2  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
 [192.168.0.3  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198</pre>
 </div>
-<p>Jubatus is available in the following configuration by the above command.</p>
 <div class="figure">
 <img alt="multi clients, multi servers" src="../_images/multi_multi1.png" style="width: 70%;" />
 </div>
-<p>Jubatus tutorial is now complete.</p>
+<p>Jubatus チュートリアルは以上です。</p>
 </div>
 </div>
 </div>
