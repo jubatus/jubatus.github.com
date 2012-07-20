@@ -19,6 +19,8 @@ typedef
 
    }
 
+``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
+
 
 
 regression methods

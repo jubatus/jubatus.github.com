@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>jubatus::client::stat &mdash; Jubatus 0.2.3 documentation</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.2.3 documentation" href="index.html" />
+    <link rel="up" title="Programming API" href="api.html" />
+    <link rel="next" title="How to Contribute to Jubatus" href="howtocontribute.html" />
+    <link rel="prev" title="jubatus::client::recommender" href="api_recommender.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api_recommender.html" title="jubatus::client::recommender"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Programming API</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">jubatus::client::stat</a><ul>
+<li><a class="reference internal" href="#typedef">typedef</a><ul>
+<li><a class="reference internal" href="#jubatus-stat-config-data">jubatus::stat::config_data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#constructor">constructor</a></li>
+<li><a class="reference internal" href="#common-methods">common methods</a></li>
+<li><a class="reference internal" href="#stat-methods">stat methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api_recommender.html"
+                        title="previous chapter">jubatus::client::recommender</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="howtocontribute.html"
+                        title="next chapter">How to Contribute to Jubatus</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api_stat.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubatus-client-stat">
+<h1>jubatus::client::stat<a class="headerlink" href="#jubatus-client-stat" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="typedef">
+<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jubatus-stat-config-data">
+<h3>jubatus::stat::config_data<a class="headerlink" href="#jubatus-stat-config-data" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
+  <span class="o">&lt;</span><span class="n">FIXME</span><span class="o">&gt;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="constructor">
+<h2>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="stat__stringCR.stringCR.double">
+ <tt class="descname">stat</tt><big>(</big>const string&amp; <em>hosts</em>, const string&amp; <em>name</em>, double <em>timeout</em><big>)</big><a class="headerlink" href="#stat__stringCR.stringCR.double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : jubakeeperのサーバ、ポートを指定。書式は、 <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> の形式に従うこと。</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> :  ZooKeeperクラスタが学習器を一意に識別する値</li>
+<li><tt class="docutils literal"><span class="pre">timeout</span></tt> : 通信時のタイムアウトまでの時間を指定</li>
+</ul>
+</div>
+<div class="section" id="common-methods">
+<h2>common methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="stat::save__stringCR.stringCR">
+void <tt class="descclassname">stat::</tt><tt class="descname">save</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#stat::save__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクに、それぞれのサーバが学習したモデルを保存する。</p>
+<dl class="function">
+<dt id="stat::load__stringCR.stringCR">
+void <tt class="descclassname">stat::</tt><tt class="descname">load</tt><big>(</big>const string&amp; <em>type</em>, const string&amp; <em>id</em><big>)</big><a class="headerlink" href="#stat::load__stringCR.stringCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>typeとidを指定して <strong>すべての</strong> サーバのローカルディスクから、それぞれのサーバが学習したモデルをロードする。</p>
+<dl class="function">
+<dt id="stat::set_config__config_dataCR">
+void <tt class="descclassname">stat::</tt><tt class="descname">set_config</tt><big>(</big>const config_data&amp; <em>config</em><big>)</big><a class="headerlink" href="#stat::set_config__config_dataCR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>すべての</strong> サーバーのコンフィグを更新する。</p>
+<dl class="function">
+<dt id="stat::get_config">
+config_data <tt class="descclassname">stat::</tt><tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#stat::get_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>コンフィグを取得する。</p>
+<dl class="function">
+<dt id="client::get_status">
+std::map&lt;std::pair&lt;std::string, int&gt;, std::map&lt;std::string, std::string&gt;&gt; <tt class="descclassname">client::</tt><tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#client::get_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>すべての</strong> サーバーの状態を取得する。
+各サーバーは、ホスト名とポートのペアで表される。それぞれのサーバーに関して、内部状態を文字列から文字列へのマップで状態を返す。</p>
+</div>
+<div class="section" id="stat-methods">
+<h2>stat methods<a class="headerlink" href="#stat-methods" title="Permalink to this headline">¶</a></h2>
+<p>&lt;FILLME&gt;</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="howtocontribute.html" title="How to Contribute to Jubatus"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api_recommender.html" title="jubatus::client::recommender"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Programming API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

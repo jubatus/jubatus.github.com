@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>jubatus::client::graph &mdash; Jubatus 0.3.0 documentation</title>
+    <title>jubatus::client::graph &mdash; Jubatus 0.3.1 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.0 documentation" href="../index.html" />
+    <link rel="top" title="Jubatus 0.3.1 documentation" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="How to Contribute to Jubatus" href="howtocontribute.html" />
     <link rel="prev" title="jubatus::client::stat" href="api_stat.html" /> 
@@ -89,7 +89,7 @@
         <li class="right" >
           <a href="api_stat.html" title="jubatus::client::stat"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus 0.3.1 documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
@@ -179,15 +179,14 @@ new TWTR.Widget({
 <div class="section" id="typedef">
 <h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">centrality_type</span> <span class="o">=</span> <span class="kt">int</span>
-<span class="n">type</span> <span class="n">node_id</span> <span class="o">=</span> <span class="n">string</span>
 <span class="n">type</span> <span class="n">edge_id_t</span> <span class="o">=</span> <span class="n">ulong</span>
 
 <span class="n">type</span> <span class="n">property</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
 
 <span class="n">message</span> <span class="n">node_info</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">property</span> <span class="n">p</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">edge_id_t</span><span class="o">&gt;</span>  <span class="n">in_edges</span>
-  <span class="mi">2</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">edge_id_t</span><span class="o">&gt;</span>  <span class="n">out_edges</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">ulong</span><span class="o">&gt;</span>  <span class="n">in_edges</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">ulong</span><span class="o">&gt;</span>  <span class="n">out_edges</span>
 <span class="p">}</span>
 
 <span class="n">message</span> <span class="n">preset_query</span> <span class="p">{</span>
@@ -197,13 +196,13 @@ new TWTR.Widget({
 
 <span class="n">message</span> <span class="n">edge_info</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">property</span> <span class="n">p</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">src</span>
-  <span class="mi">2</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">tgt</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">src</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">string</span> <span class="n">tgt</span>
 <span class="p">}</span>
 
 <span class="n">message</span> <span class="n">shortest_path_req</span> <span class="p">{</span>
-  <span class="mi">0</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">src</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="n">node_id</span> <span class="n">tgt</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">src</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">tgt</span>
   <span class="mi">2</span><span class="o">:</span> <span class="n">uint</span> <span class="n">max_hop</span>
   <span class="mi">3</span><span class="o">:</span> <span class="n">preset_query</span> <span class="n">q</span>
 <span class="p">}</span>
@@ -251,22 +250,22 @@ Returns a node id as string.</p>
 <p>Updates the property of the node.</p>
 <dl class="describe">
 <dt>
-<tt class="descname">int create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
+<tt class="descname">ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
 <dd></dd></dl>
 
 <p>Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>. The link has direction.
 Multiple links with same direction can be created on each pair of nodes.
 Also, a property <tt class="docutils literal"><span class="pre">ei.p</span></tt> can be associated to each link: see <tt class="docutils literal"><span class="pre">edge_info</span></tt>.</p>
-<p>Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as integer.</p>
+<p>Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as long unsigned integer.</p>
 <dl class="describe">
 <dt>
-<tt class="descname">int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)</tt></dt>
+<tt class="descname">int update_edge(0: string name, 1: string nid, 2: ulong eid, 3: edge_info ei)</tt></dt>
 <dd></dd></dl>
 
 <p>Updates an existing edge with a new property. Property is replaced.</p>
 <dl class="describe">
 <dt>
-<tt class="descname">int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
+<tt class="descname">int remove_edge(0: string name, 1: string nid, 2: ulong eid)</tt></dt>
 <dd></dd></dl>
 
 <p>Removes an edge.</p>
@@ -306,11 +305,11 @@ The query is compared with exact key-value whole match with another one.</p>
 <p>Removes a preset query from the graph for shortest path calculation.</p>
 <dl class="describe">
 <dt>
-<tt class="descname">list&lt;node_id&gt;  shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
+<tt class="descname">list&lt;string&gt;  shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
 <dd></dd></dl>
 
 <p>Calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt>
-that matches the preset query.</p>
+that matches the preset query. The return value is a list of node IDs.</p>
 <p>Path-index tree may have a gap between the exact path
 and the computed path when in a distributed setup.</p>
 <dl class="describe">
@@ -334,7 +333,7 @@ and the computed path when in a distributed setup.</p>
 <p>Gets the <tt class="docutils literal"><span class="pre">node_info</span></tt> of a node, which includes property, ids of incoming edge and outgoing edge.</p>
 <dl class="describe">
 <dt>
-<tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
+<tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: ulong eid)</tt></dt>
 <dd></dd></dl>
 
 <p>Gets the <tt class="docutils literal"><span class="pre">edge_info</span></tt> of an edge, which includes property, source node and target node.</p>
@@ -359,7 +358,7 @@ and the computed path when in a distributed setup.</p>
         <li class="right" >
           <a href="api_stat.html" title="jubatus::client::stat"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus 0.3.1 documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>

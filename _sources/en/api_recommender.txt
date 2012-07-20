@@ -6,7 +6,7 @@ See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/r
 typedef
 ~~~~~~~
 
-.. describe:: jubatus::recommender::config_data
+.. describe:: jubatus::config_data
 
 .. code-block:: c++
 
@@ -14,9 +14,12 @@ typedef
 
      0: string method
      
-     1: converter_config converter;
+     1: string converter
 
    }
+
+``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
+
 
 
 recommender methods

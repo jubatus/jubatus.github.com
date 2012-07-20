@@ -3,17 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Jubatus : Distributed Online Machine Learning Framework
+Jubatus : オンライン機械学習向け分散処理フレームワーウ
 =======================================================
 
-Jubatus はオンライン機械学習向け分散処理フレームワークです。
+Jubatus は以下の特徴をもったオンライン機械学習向け分散処理フレームワークです。
 
 - オンライン多値分類
 - オンライン線形回帰
 - オンライン推薦（近傍探索）
 - オンライングラフマイニング
 - 特徴ベクトル変換
-- フォルトトレランスなオンライン機械学習
+- フォルトトレラントな分散処理
 
 
 TOC

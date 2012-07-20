@@ -9,15 +9,14 @@ typedef
 .. code-block:: c++
 
   type centrality_type = int
-  type node_id = string
   type edge_id_t = ulong
 
   type property = map<string, string> 
 
   message node_info {
     0: property p
-    1: list<edge_id_t>  in_edges
-    2: list<edge_id_t>  out_edges
+    1: list<ulong>  in_edges
+    2: list<ulong>  out_edges
   }
 
   message preset_query {
@@ -27,13 +26,13 @@ typedef
 
   message edge_info {
     0: property p
-    1: node_id src
-    2: node_id tgt
+    1: string src
+    2: string tgt
   }
 
   message shortest_path_req {
-    0: node_id src
-    1: node_id tgt
+    0: string src
+    1: string tgt
     2: uint max_hop
     3: preset_query q
   }
@@ -87,19 +86,19 @@ Removes a node from the cluster.
 
 Updates the property of the node.
 
-.. describe:: int create_edge(0: string name, 1: string nid, 2: edge_info ei)
+.. describe:: ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)
 
 Creates a link from ``ei.src`` to ``ei.tgt``. The link has direction.
 Multiple links with same direction can be created on each pair of nodes.
 Also, a property ``ei.p`` can be associated to each link: see ``edge_info``.
 
-Returns ``edge_id`` as integer.
+Returns ``edge_id`` as long unsigned integer.
 
-.. describe:: int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)
+.. describe:: int update_edge(0: string name, 1: string nid, 2: ulong eid, 3: edge_info ei)
 
 Updates an existing edge with a new property. Property is replaced.
 
-.. describe:: int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)
+.. describe:: int remove_edge(0: string name, 1: string nid, 2: ulong eid)
 
 Removes an edge.
 
@@ -128,10 +127,10 @@ The query is compared with exact key-value whole match with another one.
 
 Removes a preset query from the graph for shortest path calculation.
 
-.. describe:: list<node_id>  shortest_path(0: string name, 1: shortest_path_req r)
+.. describe:: list<string>  shortest_path(0: string name, 1: shortest_path_req r)
 
 Calculates (from the precomputed data) a shortest path from ``r.src`` to ``r.tgt``
-that matches the preset query.
+that matches the preset query. The return value is a list of node IDs.
 
 Path-index tree may have a gap between the exact path
 and the computed path when in a distributed setup.
@@ -151,6 +150,6 @@ Clears the whole data in a cluster.
 
 Gets the ``node_info`` of a node, which includes property, ids of incoming edge and outgoing edge.
 
-.. describe:: edge_info get_edge(0: string name, 1: string nid, 2: edge_id_t e)
+.. describe:: edge_info get_edge(0: string name, 1: string nid, 2: ulong eid)
 
 Gets the ``edge_info`` of an edge, which includes property, source node and target node.

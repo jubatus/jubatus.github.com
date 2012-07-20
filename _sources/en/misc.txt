@@ -25,6 +25,20 @@ Publications
 FAQ
 ---
 
+- Failed in ``./waf configre`` with ...
+
+::
+
+  ...
+  line 298, in load_tool
+       __import__(d)
+     File "/Users/oliner/tmp/jubatus/unittest_gtest.py", line 8
+       C1 = b'#XXX'
+                ^
+  SyntaxError: invalid syntax
+
+This error occurs when old python. Use python 2.7 or later.
+
 - When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of `EADDRINUSE`)
 
  - sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1

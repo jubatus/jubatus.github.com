@@ -6,20 +6,29 @@ See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/c
 types
 ~~~~~
 
+.. describe:: jubatus::config_data
+
 .. code-block:: c++
 
    message config_data {
-     string method;
-     jubatus::converter_config converter;
-   };
 
+     0: string method
+     
+     1: string converter
+
+   }
+
+``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
 
 .. code-block:: c++
 
    message estimate_result {
-     std::string label_;
-     double prob_;
-   };
+
+     0: string label
+
+     1: double prob
+
+   }
 
 
 

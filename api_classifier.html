@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>jubatus::client::classifier &mdash; Jubatus 0.2.3 documentation</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.2.3 documentation" href="index.html" />
+    <link rel="up" title="Programming API" href="api.html" />
+    <link rel="next" title="jubatus::client::regression" href="api_regression.html" />
+    <link rel="prev" title="Programming API" href="api.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api_regression.html" title="jubatus::client::regression"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Programming API"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Programming API</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">jubatus::client::classifier</a><ul>
+<li><a class="reference internal" href="#typedef">typedef</a><ul>
+<li><a class="reference internal" href="#jubatus-classifier-config-data">jubatus::classifier::config_data</a></li>
+<li><a class="reference internal" href="#jubatus-classifier-estimate-result">jubatus::classifier::estimate_result</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#constructor">constructor</a></li>
+<li><a class="reference internal" href="#classifier-methods">classifier methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="previous chapter">Programming API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api_regression.html"
+                        title="next chapter">jubatus::client::regression</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api_classifier.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubatus-client-classifier">
+<h1>jubatus::client::classifier<a class="headerlink" href="#jubatus-client-classifier" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="typedef">
+<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jubatus-classifier-config-data">
+<h3>jubatus::classifier::config_data<a class="headerlink" href="#jubatus-classifier-config-data" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">method</span><span class="p">;</span>
+  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="jubatus-classifier-estimate-result">
+<h3>jubatus::classifier::estimate_result<a class="headerlink" href="#jubatus-classifier-estimate-result" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">estimate_result</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">label_</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">prob_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">estimate_result</span><span class="o">&gt;</span> <span class="n">estimate_results</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="constructor">
+<h2>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="classifier__ssCR.uint64_t.double">
+ <tt class="descname">classifier</tt><big>(</big>const std::string&amp; <em>host</em>, uint64_t <em>port</em>, double <em>timeout_sec</em><big>)</big><a class="headerlink" href="#classifier__ssCR.uint64_t.double" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hosts</span></tt> : IP address (ipv4) of jubaclassifier or jubakeeper</li>
+<li><tt class="docutils literal"><span class="pre">port</span></tt> :  Port number of jubaclassifier or jubakeeper</li>
+<li><tt class="docutils literal"><span class="pre">timeout_sec</span></tt> : Connection timeout for RPC</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>new classifier object</li>
+</ul>
+</div></blockquote>
+<p>Constructor of classifier</p>
+</dd></dl>
+
+</div>
+<div class="section" id="classifier-methods">
+<h2>classifier methods<a class="headerlink" href="#classifier-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="train__ss.std::vector:std::pair:ss.datum::">
+int32_t <tt class="descname">train</tt><big>(</big>std::string <em>name</em>, std::vector&lt;std::pair&lt;std::string, datum&gt;&gt; <em>data</em><big>)</big><a class="headerlink" href="#train__ss.std::vector:std::pair:ss.datum::" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : vector of pair of label and datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Zero if this function updates models successfully.</li>
+</ul>
+</div></blockquote>
+<p>Training model at a server chosen randomly. <tt class="docutils literal"><span class="pre">std::pair&lt;std::string,</span> <span class="pre">datum&gt;</span></tt> is a pair of datum and it&#8217;s label.
+This function is designed to allow bulk update with vector of pair of label and datum.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="classify__ss.std::vector:datum:">
+std::vector&lt;std::vector&lt;estimate_result&gt;&gt; <tt class="descname">classify</tt><big>(</big>std::string <em>name</em>, std::vector&lt;datum&gt; <em>data</em><big>)</big><a class="headerlink" href="#classify__ss.std::vector:datum:" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : vector of datum for classifiy</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Vector of estimate_results</li>
+</ul>
+</div></blockquote>
+<p>Estimating a result at a server choosen randomly. <tt class="docutils literal"><span class="pre">estimate_results</span></tt> is a vector of pair of label and it&#8217;s reliablity value.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api_regression.html" title="jubatus::client::regression"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Programming API"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Programming API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

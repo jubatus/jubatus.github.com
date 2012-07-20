@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Server generation using code generator &mdash; Jubatus 0.2.3 documentation</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.2.3 documentation" href="index.html" />
+    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="Plugin Develpment" href="plugin.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="references.html" title="References"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="plugin.html" title="Plugin Develpment"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li>
+          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Server generation using code generator</a><ul>
+<li><a class="reference internal" href="#generator">generator</a></li>
+<li><a class="reference internal" href="#server">server</a></li>
+<li><a class="reference internal" href="#keeper">keeper</a></li>
+<li><a class="reference internal" href="#future-works">Future works</a><ul>
+<li><a class="reference internal" href="#id1">同時接続数の限界</a></li>
+<li><a class="reference internal" href="#api">ブロードキャストAPIの問題</a></li>
+<li><a class="reference internal" href="#id2">インターフェースと処理記述</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plugin.html"
+                        title="previous chapter">Plugin Develpment</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="references.html"
+                        title="next chapter">References</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/server.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="server-generation-using-code-generator">
+<h1>Server generation using code generator<a class="headerlink" href="#server-generation-using-code-generator" title="Permalink to this headline">¶</a></h1>
+<p>Jubatusは機械学習などのアルゴリズムをプラグイン化し，容易に追加できることを目的にしているが，公開されている実装に対してrecommenderを追加しようとした場合，それぞれのRPCインターフェースをクライアントのヘッダと実装，Jubakeeperのヘッダと実装，サーバー本体のヘッダと実装の6箇所に定義する必要があった．さらにpficommonのMPRPC_GEN, MPRPC_PROC等，サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった．
+このような設計では，新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず，APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており，機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい．さらに，C++のマクロおよびテンプレートを多用しているため，コンパイルエラーが複雑なものとなり，Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた．</p>
+<p>結果として，</p>
+<ol class="arabic simple">
+<li>サーバーが持つべきRPCインターフェースを定義する</li>
+<li>ジェネレータによりIDL, サーバー，Jubakeeperのコードを生成</li>
+<li>RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体，および必要に応じてmix操作を作成</li>
+<li>msgpack-idlを用いてクライアントを生成</li>
+</ol>
+<p>という手順で一連のシステムを作成することができることを確認した．実際にRPC定義をするのは，7箇所から3箇所に削減された．これを用いて，recommender, classifier, regression, statが構成出来ることを確認した．</p>
+<div class="section" id="generator">
+<h2>generator<a class="headerlink" href="#generator" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MsgPack-IDL</a> によりインターフェースを定義する．
+ただし，そのままJubatusのコードを生成するためにはRPCサービスの各メソッドにアノテーションをつける必要がある．
+これはコードジェネレータでは解釈されるが，MsgPack-IDLではコメントとして無視されるため，同じファイルで各種クライアントも生成できる．</p>
+<ul class="simple">
+<li>アノテーションつきクラスメソッドの宣言<ul>
+<li>一番目のアノテーションでは，リクエストのルーティングを宣言することができる．必ず &#8220;#&#64;&#8221; から始まり， &#8220;cht&#8221;, &#8220;broadcast&#8221;, &#8220;random&#8221; のいずれかを表す．それぞれ，Consistent Hashingによるリクエストの分散，全サーバーへリクエストをブロードキャスト，ランダムに選択されたいずれかのサーバーへリクエストを送信，を表す．これによって，典型的だと思われる機械学習の分散方式をカバーすることができる．<ul>
+<li>chtアノテーションがあるメソッドは，第一引数がchtのキーとなるstring, 第二引数をユーザ利用の引数としなければならない．</li>
+<li>broadcast, randomアノテーションがあるメソッドは，必ずひとつの引数とひとつの返り値をもたなければならない．void型は利用できない．引数や返り値が必要ない場合は，意味のないintなどを指定しておくこと．</li>
+</ul>
+</li>
+<li>二番目のアノテーションでは，リクエストのread/writeを宣言することができる．analysisにするとサーバー側でreadロックされることになり，複数のスレッドからの同時アクセスが可能となる．updateにするとサーバー側でwriteロックされることになり，安全にデータを更新することができる．</li>
+<li>三番目のアノテーションでは，API呼び出しの結果のアグリゲーションを定義することができる．利用可能なアグリゲータはソースのsrc/framework/aggregators.hppに掲載されている．</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-java"><pre> message somemsgtype {
+   1: string key;
+   2: string value;
+   3: int version;
+ };
+
+service kvs {
+
+  #@cht #@update #@all_and
+  int put(string key, string value);
+
+  #@cht #@analysis #@random
+  somemsgtype get(string key, int v);
+
+  #@cht #@update #@all_and
+  int del(string key, int v);
+
+  #@broadcast #@update #@all_and
+  int clear(int);
+
+  #@broadcase #@analysis #@merge
+  map&lt;string, string&gt; get_status(int);
+};</pre>
+</div>
+<p>generatorのビルドにはOCamlおよびOMakeが必要である．このファイルをkvs.idlとすると，</p>
+<div class="highlight-python"><pre>jubatus $ cd tools/generator
+jubatus $ omake
+jubatus $ ./jenerator path/to/kvs.idl -o .
+jubatus $ ls kvs*
+kvs_impl.cpp kvs_keeper.cpp</pre>
+</div>
+<p>通常は2つのファイルが生成される．-tオプションをつければ，サーバー実装の雛形となるC++のソースファイルが生成される．</p>
+<p>このとき，ジェネレータはsave/loadというAPIを自動で追加する．</p>
+<p>TODO: how to implement mix</p>
+</div>
+<div class="section" id="server">
+<h2>server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
+<p>msgpack-idlが生成するpficommonのmprpc向けヘッダは，CRTPによりクラス名を渡すことにより，RPC定義のファンクタをサーバーに登録する．ジェネレータが生成するkvs_impl.cppは，そのkvs_server.hppを利用してサーバーを構成する．ジェネレータはkvs_impl.cppの中でkvs_servというクラスを指定する．ユーザは同じ名前空間でこれを宣言・実装することによって，サーバー側の実装をフレームワークに組み込むことができる．
+このとき，サーバーは自動的にget_diff, put_diffというAPIをサーバーに追加する．これにより，サーバーでは，Mにget_diff, put_diffおよびreduceを実装するだけで分散環境でのmixを利用できる．以下に例を示す．</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">namespace</span> <span class="n">jubatus</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">server</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">kvs_serv</span> <span class="o">:</span> <span class="n">jubatus_serv</span><span class="o">&lt;</span><span class="n">my_kvs</span><span class="p">,</span> <span class="n">diff_t</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">kvs_serv</span><span class="p">(</span><span class="k">const</span> <span class="n">server_argv</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">kvs_serv</span><span class="p">();</span>
+
+  <span class="k">static</span> <span class="n">diffv</span> <span class="n">get_diff</span><span class="p">(</span><span class="k">const</span> <span class="n">my_kvs</span><span class="o">*</span><span class="p">);</span>
+  <span class="k">static</span> <span class="kt">int</span> <span class="n">put_diff</span><span class="p">(</span><span class="n">my_kvs</span><span class="o">*</span><span class="p">,</span> <span class="n">diff_t</span><span class="p">);</span>
+  <span class="k">static</span> <span class="kt">int</span> <span class="n">reduce</span><span class="p">(</span><span class="k">const</span> <span class="n">my_kvs</span><span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="n">diff_t</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">diff_t</span><span class="o">&amp;</span><span class="p">);</span>
+
+  <span class="n">pfi</span><span class="o">::</span><span class="n">lang</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">my_kvs</span><span class="o">&gt;</span> <span class="n">make_model</span><span class="p">();</span>
+  <span class="kt">void</span> <span class="n">after_laod</span><span class="p">();</span>
+
+  <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">value</span><span class="p">);</span>
+  <span class="n">somemsgtype</span> <span class="n">get</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="p">}}</span>
+</pre></div>
+</div>
+<p>ユーザーは，make_model()を実装し，M(my_kvs)の初期化処理を定義しなければならない．
+また，after_load()を実装し，初期化後のサーバーの状態を変更することができる．例えば，classifierであれば，ここで
+set_mixerを実行することにより，mixのアルゴリズムを変更することができる．
+get_diff, put_diff, reduceはjubatus_serv&lt;M,Diff&gt;::set_mixer()を用いてファンクタを設定することにより利用できる．</p>
+<p>この例ではMをmy_kvsとしている．my_kvsが実装していなければならないAPIは以下のとおりである．</p>
+<dl class="function">
+<dt id="my_kvs::save__X">
+bool <tt class="descclassname">my_kvs::</tt><tt class="descname">save</tt><big>(</big><em>ostream&amp;</em><big>)</big><a class="headerlink" href="#my_kvs::save__X" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="my_kvs::load__X">
+bool <tt class="descclassname">my_kvs::</tt><tt class="descname">load</tt><big>(</big><em>istream&amp;</em><big>)</big><a class="headerlink" href="#my_kvs::load__X" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>kvs_impl.cppの中ではmain関数も実装されており，ユーザはmainを実装する必要はない．コマンドライン引数の仕様は統一されており，-?で参照することができる．</p>
+</div>
+<div class="section" id="keeper">
+<h2>keeper<a class="headerlink" href="#keeper" title="Permalink to this headline">¶</a></h2>
+<p>ユーザーはkeeperに関して何らかの実装をする必要はなく，ただコンパイルすればよい．ジェネレータがkvs_keeper.cppを生成するので，それをコンパイルすればkeeperとなる．実体はmain関数の実装があるだけで，broadcast, random, chtのルーティング，および更新処理と読込処理を指定して各RPCのプロキシとなるファンクタを登録する．</p>
+<ul class="simple">
+<li>broadcast<ul>
+<li>全サーバーにリクエストを送信する．MPRPCが同期呼び出しであるため，全てのRPC呼び出しがシリアルに実行されるため，処理時間はサーバーの台数分だけかかる．</li>
+</ul>
+</li>
+<li>random<ul>
+<li>全サーバーの中から，ランダムにサーバーを選択しリクエストを送信する．</li>
+</ul>
+</li>
+<li>cht<ul>
+<li>キーを指定することによって，Consistent Hashingを用いて同じキーは同じサーバーに必ず送信されることを保証する．現在は冗長化のために，2台にリクエストを送信している．MPRPCが同期呼び出しであるため，2回のRPC呼び出しがシリアルに実行される．</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="future-works">
+<h2>Future works<a class="headerlink" href="#future-works" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>同時接続数の限界<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>現状のpficommonのI/Oアーキテクチャでは，スレッド数と同数の同時接続しか維持できない．従ってコネクションの接続と切断の繰り返しが必要になり，特にJubakeeperでボトルネックとなる．仮にJubakeeperでコネクションのキャッシュ機構を用意した場合，サーバー側での同時接続数に限界がくると同時にTCPコネクションのライフサイクルが複雑になる．代替案として</p>
+<ol class="arabic simple">
+<li>acceptベースのMsgpack-RPCサーバーではなく，epollなどの非同期I/Oを用いたサーバーを利用または作成する．公式のMsgpackサーバーは非同期I/Oの機能を持っているがメンテナンスがされてないこともあり利用しにくい．pficommonのMPRPCサーバーを改造するという選択肢がある．</li>
+</ol>
+</div>
+<div class="section" id="api">
+<h3>ブロードキャストAPIの問題<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h3>
+<p>全サーバーに対してRPCを実行するタイプのAPIでの実際のブロードキャストは，現在Jubakeeperが行なっている．しかし，ブロードキャスト型のRPCでは，各サーバーから得られた結果のまとめ方（アグリゲート）がAPIによって要件が異なるため，単純に全員に送信するだけでは要求を満たせない場合がある．たとえば，classifierなどのset_configは全サーバーでの実行結果が <cite>全て成功</cite> になるまで繰り返す必要がある（成功するか，サーバーが停止するかのどちらかでなければならない）一方で，get_statusのような状態取得APIを考えた場合には， <cite>成功した返り値どうしをひとつのmapに結合する</cite> といった動作が必要になる．これらの記述は，いまのジェネレータでは上手く読み出すことができない．</p>
+</div>
+<div class="section" id="id2">
+<h3>インターフェースと処理記述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>複数の機械学習を結合したり，特徴量変換と学習器本体を分離するためには，C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない．現状のジェネレータでは学習器のインターフェースしか記述することができない．アルゴリズム自体も抽象化された言語上で試行錯誤し，機械学習を実装するユーザが一台のマシン上でも，複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を，検討する必要がある．</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="references.html" title="References"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="plugin.html" title="Plugin Develpment"
+             >previous</a> |</li>
+        <li><a href="index.html">Jubatus 0.2.3 documentation</a> &raquo;</li>
+          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>
