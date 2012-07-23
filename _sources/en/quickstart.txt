@@ -75,3 +75,22 @@ By including header,
 
 Non-C++ users have to generate client library by using msgpack-idl.
 See client generation (TODO: link).
+
+Other clients
+-------------
+
+Other clients are all distributed under MIT License.
+
+Python
+~~~~~~
+
+::
+
+  $ pip install jubatus
+
+Ruby
+~~~~
+
+::
+
+  $ gem install jubatus

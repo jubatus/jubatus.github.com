@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Jubatus : オンライン機械学習向け分散処理フレームワーウ
+Jubatus : オンライン機械学習向け分散処理フレームワーク
 =======================================================
 
 Jubatus は以下の特徴をもったオンライン機械学習向け分散処理フレームワークです。
