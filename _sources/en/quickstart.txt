@@ -51,6 +51,20 @@ Minimal install
   # ./waf install
 
 
+Yum Repository for RHEL 6
+-------------------------
+
+For Red Hat Enterprise Linux 6 (x86_64) and its clones, Yum repository is available.
+
+::
+
+  $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
+  $ sudo yum install jubatus
+
+
+Running servers
+---------------
+
 To start default classifier server in standalone mode,
 
 ::

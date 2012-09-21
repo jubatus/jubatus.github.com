@@ -50,6 +50,20 @@ Minimal install
   $ ./waf build
   # ./waf install
 
+Yum Repository for RHEL 6
+-------------------------
+
+Red Hat Enterprise Linux 6 (x86_64) およびクローンでは、Yum リポジトリからインストールを行うことができます。
+
+::
+
+  $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
+  $ sudo yum install jubatus
+
+
+Running servers
+---------------
+
 classifierを標準の設定でスタンドアローンモードで起動するには、
 
 ::
