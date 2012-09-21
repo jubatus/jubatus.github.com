@@ -1,3 +1,23 @@
+Download Jubatus
+================
+
+latest jubatus release
+-----------------------
+jubatus の最新バージョンは 0.3.2です.　Jubatusは LGPL v2.1の元に配布されています。
+
+
+`Download <https://github.com/jubatus/jubatus/zipball/master>`_
+
+or
+
+::
+
+  $ git clone git://github.com/jubatus/jubatus.git
+
+Jubatus のクライアントは すべて MIT License のもとに配布されています.
+
+`Download clients <https://github.com/downloads/jubatus/jubatus/jubatus_client.0.3.1.2012-07-20.tar.gz>`_
+ 
 QuickStart
 ==========
 
@@ -57,3 +77,91 @@ graphを標準の設定でスタンドアローンモードで起動するには
   $ jubagraph
 
 クライアントを利用して、実際の処理を行うには :doc:`tutorial` を参照して下さい。
+
+C++ client
+----------
+
+C++を利用してクライアントを使うためには、ヘッダーをインクルードして以下のように書きます。
+
+.. code-block:: cpp
+
+  #include <jubatus/client/classifier_client.hpp>
+  using namespace jubatus;
+  using namespace jubatus::client;
+
+  void foo(){
+    classifier cli("localhost", 9199, 3.0);
+    config_data c;
+    c.method = "PA";    
+    cli.set_config("", c);
+
+    // ...
+  }
+
+
+それ以外の言語では、msgpack-idlを利用して生成されたクライアントを使います。
+
+Other clients
+-------------
+
+これらのクライアントは、MIT Licenseの下に配布されています。
+
+Python
+~~~~~~
+
+::
+
+  $ pip install jubatus
+
+Ruby
+~~~~
+
+::
+
+  $ gem install jubatus
+
+.. _requirements:
+
+Detailed System Requirements
+----------------------------
+
+Jubatusは、公式には64bitカーネルで動作するUbuntu LTS 12.04とRedhat Enterprise Linux 6.2をサポートしています。
+開発チームは、x64アーキテクチャのマシンを利用しています。この他の依存ライブラリは以下のとおりです。
+
+============ ========== ========================
+software     version    misc
+============ ========== ========================
+gcc          >= 4.4
+
+libevent     >= 1.4
+
+google-glog  >= 3.2
+
+python       >= 2.6     WAFで利用
+
+msgpack      >= 0.5.7
+
+pficommon    >= 1.3.1.0 msgpackが有効
+
+pkg-config   >= 0.26
+
+mecab        >= 0.98    optional
+
+re2          -          optional
+
+ux-trie      -          optional
+
+zookeeper    >= 3.4     optional
+============ ========== ========================
+
+その他の環境
+~~~~~~~~~~~~~~~~~~
+
+- MacOSX ではllvm-gcc を使ってスタンドアローンモードで動作しています。しかし一部のコンパイラでは動作していません。
+- Debian/GNU Linux は動作しています。
+- Arch Linux スタンドアローンモードで動作しています。
+- FreeBSD は動作していません。pficommon を修正する必要があります。
+- CentOS 5.x はやめておいたほうがいいです。
+- CentOS 6.x のことはよく分かりません。
+- 他の *BSD systems や Solarisでの動作報告をお待ちしています。
+

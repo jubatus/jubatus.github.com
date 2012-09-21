@@ -13,19 +13,15 @@ Prequisites
 
 This tutorial requires following softwares installed:
 
-- Linux 2.6 +
-- gcc 4.0 +
-- pkg-config
-- python 2.7+ and `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_
-- `libmsgpack <http://msgpack.org>`_
-- `pficommon <http://github.com/pfi/pficommon>`_ - must be configured with msgpack enabled.
-- `libevent 2.0.X <http://libevent.org/>`_ 
-- `re2 <http://code.google.com/p/re2/>`_
-- `google-glog <http://code.google.com/p/google-glog/>`_
-- `ux-trie <http://code.google.com/p/ux-trie/>`_ / `MeCab <http://mecab.sourceforge.net/>`_ (optional)
+- Linux, gcc, pkg-config, python 2.7, `msgpack <http://msgpack.org>`_, `libevent 2.0.X <http://libevent.org/>`_ , 
+- `pficommon <http://github.com/pfi/pficommon>`_ - must be configured with msgpack enabled,
+- `re2 <http://code.google.com/p/re2/>`_ , `google-glog <http://code.google.com/p/google-glog/>`_ , 
+
+- `msgpack-python <http://pypi.python.org/pypi/msgpack-python/>`_ ,
+- `ux-trie <http://code.google.com/p/ux-trie/>`_ / `MeCab <http://mecab.sourceforge.net/>`_ (optional), and
 - `ZooKeeper <http://zookeeper.apache.org/>`_ server and C client (optional, for multiple processes)
 
-`These scripts <https://github.com/odasatoshi/jubatus-installer>`_ maybe the help your installation.
+See :ref:`requirements` for detailed and proper prequisites. `These scripts <https://github.com/odasatoshi/jubatus-installer>`_ maybe the help your installation.
 
 Setup a single process Jubatus Server
 -----------------------------------------
