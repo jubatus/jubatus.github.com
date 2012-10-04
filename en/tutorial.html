@@ -117,7 +117,7 @@
 </li>
 <li><a class="reference internal" href="#setup-jubatus-server-with-multiple-processes">Setup Jubatus Server with multiple processes</a><ul>
 <li><a class="reference internal" href="#setup-zookeeper">Setup ZooKeeper</a></li>
-<li><a class="reference internal" href="#jubakeeper">jubakeeper</a></li>
+<li><a class="reference internal" href="#jubaclassifier-keeper">jubaclassifier_keeper</a></li>
 <li><a class="reference internal" href="#running-two-processes-as-one-classifier-instance">Running two processes as one classifier instance</a></li>
 </ul>
 </li>
@@ -224,7 +224,7 @@ $ ./waf configure
 $ ./waf build
 # ./waf install
 $ jubaclassifier --name tutorial
-jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.2.2 RPC server at 10.0.2.15:9199 with timeout: 10</pre>
+jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.3.2 RPC server at 10.0.2.15:9199 with timeout: 10</pre>
 </div>
 <p>Setup and starting a single process jubatus has been completed.</p>
 <p><tt class="docutils literal"><span class="pre">--name</span></tt> option is a string value to uniquely identifies a task in zookeeper quorum.</p>
@@ -249,6 +249,7 @@ $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
 $ tar -xvzf 20news-bydate.tar.gz
 $ python tutorial.py</pre>
 </div>
+<p>Jubatus communicates with its clients in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol.</p>
 <div class="section" id="prepairing-dataset">
 <h3>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h3>
 <p>Expanding 20news-bydate.tar.gz,</p>
@@ -307,15 +308,17 @@ preferably longer, of course, and worth being part of.)
 <div class="section" id="set-configure">
 <h3>Set configure<a class="headerlink" href="#set-configure" title="Permalink to this headline">¶</a></h3>
 <p>You can change a behavior of jubaclassifier using method and converter options. Prototype of these options are as follows.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">config</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">converter</span><span class="p">)</span>
-<span class="n">converter</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">converter_config</span><span class="p">(</span><span class="n">str_fil_types</span><span class="p">,</span>
-                                                      <span class="n">str_fil_rules</span><span class="p">,</span>
-                                                      <span class="n">num_fil_types</span><span class="p">,</span>
-                                                      <span class="n">num_fil_rules</span><span class="p">,</span>
-                                                      <span class="n">str_type</span><span class="p">,</span>
-                                                      <span class="n">str_rules</span><span class="p">,</span>
-                                                      <span class="n">num_type</span><span class="p">,</span>
-                                                      <span class="n">num_rules</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:[],</span>
+          <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
+         <span class="p">}</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">algo</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">converter</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>You can choose one of the following algorithm as <tt class="docutils literal"><span class="pre">'method'</span></tt></p>
@@ -329,17 +332,26 @@ preferably longer, of course, and worth being part of.)
 <p>Now, we choose <tt class="docutils literal"><span class="pre">PA</span></tt> .</p>
 <p><tt class="docutils literal"><span class="pre">'converter'</span></tt> decides how to convert feature vector from input data.</p>
 <p>In this tutorial, input data is the text of natural language.
-Many languages ​​such as English, &lt;space&gt;　and &lt;Return&gt; can be split into words. Jubatus supports this feature such as standard.
+Many languages such as English, &lt;space&gt;　and &lt;Return&gt; can be split into words. Jubatus supports this feature such as standard.
 HTML tags are noisy to classify the contents so we will remove the part that is enclosed in &#8220;&lt;&gt;&#8221;.</p>
-<p>These rules expressed as follows in Python objects.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">str_fil_types</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}}</span>
-<span class="n">str_fil_rules</span> <span class="o">=</span> <span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">filter_rule</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;-detagged&quot;</span><span class="p">)]</span>
-<span class="n">num_fil_types</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">num_fil_rules</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">str_type</span><span class="o">=</span> <span class="p">{}</span>
-<span class="n">str_rules</span> <span class="o">=</span> <span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">string_rule</span><span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span><span class="s">&quot;space&quot;</span><span class="p">,</span><span class="s">&quot;bin&quot;</span><span class="p">,</span><span class="s">&quot;bin&quot;</span><span class="p">)]</span>
-<span class="n">num_type</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">num_rules</span> <span class="o">=</span> <span class="p">[]</span>
+<p>These rules expressed as follows in JSON.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+         <span class="p">},</span>
+        <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:</span>
+           <span class="p">[</span>
+          <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+           <span class="p">],</span>
+          <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span><span class="s">&#39;key&#39;</span><span class="p">:</span> <span class="s">&#39;message-detagged&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+              <span class="p">],</span>
+          <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+          <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
+          <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -400,9 +412,9 @@ STARTED
 </div>
 <p>We assume that Zookeeper process will be running on localhost:2181 by specifying in the zoo.cfg.</p>
 </div>
-<div class="section" id="jubakeeper">
-<h3>jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
-<p>jubakeeper is a RPC requests proxy process. it use zookeeper processes.</p>
+<div class="section" id="jubaclassifier-keeper">
+<h3>jubaclassifier_keeper<a class="headerlink" href="#jubaclassifier-keeper" title="Permalink to this headline">¶</a></h3>
+<p>jubaclassifier_keeper is a RPC requests proxy process for jubaclassifier. it use zookeeper processes.</p>
 <div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
 </div>
 <p>jubaclassifier_keeper started at 9198 port.
@@ -411,14 +423,14 @@ Client does not need to aware of Servers. They will be scale out automatically.<
 <div class="section" id="running-two-processes-as-one-classifier-instance">
 <h3>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h3>
 <p>If you set same name using <tt class="docutils literal"><span class="pre">--name</span></tt> options, processes collaborate with one another. If you want to start multiple processes in the same machine, please note that you must change the port on a each process.</p>
-<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;
-$ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;
-$ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &amp;</pre>
+<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial2 --zookeeper=localhost:2181 &amp;
+$ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 &amp;
+$ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 &amp;</pre>
 </div>
 <p>You can also verify that three server processes are started using a zookeeper client.</p>
 <div class="highlight-python"><pre>$ cd /path/to/zookeeper
 $ bin/zkCli.sh -server localhost:2181
-[zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/tutorial2/nodes
+[zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/classifier/tutorial2/nodes
 [XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]</pre>
 </div>
 <p>You have executed the classifier feature of jubatus under this configuration.</p>
@@ -446,13 +458,13 @@ In this tutorial, you will execute some process on each servers like the followi
 <td>Terminal</td>
 </tr>
 <tr class="row-odd"><td>192.168.0.10</td>
-<td>classifier - 1</td>
+<td>jubaclassifier - 1</td>
 </tr>
 <tr class="row-even"><td>192.168.0.20</td>
-<td>classifier - 2</td>
+<td>jubaclassifier - 2</td>
 </tr>
 <tr class="row-odd"><td>192.168.0.30</td>
-<td>classifier - 3</td>
+<td>jubaclassifier - 3</td>
 </tr>
 <tr class="row-even"><td>192.168.0.100</td>
 <td>jubaclassifier_keeper/zookeeper - 1</td>
@@ -467,8 +479,8 @@ In this tutorial, you will execute some process on each servers like the followi
 [192.168.0.200]$ bin/zkServer.sh start</pre>
 </div>
 <p>And start jubaclassifier_keeper process. jubaclassifier_keeper uses 9198 port by default.</p>
-<div class="highlight-python"><pre>[192.168.0.100]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
-[192.168.0.200]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
+<div class="highlight-python"><pre>[192.168.0.100]$ jubaclassifier_keeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
+[192.168.0.200]$ jubaclassifier_keeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
 </div>
 <div class="section" id="jubavisor-process-management-with-zookeeper">
 <h3>Jubavisor(Process Management with zookeeper)<a class="headerlink" href="#jubavisor-process-management-with-zookeeper" title="Permalink to this headline">¶</a></h3>
@@ -479,9 +491,9 @@ Jubavisor will manage juba* processes in the same server from receiving the comm
 [192.168.0.30 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d</pre>
 </div>
 <p>Let&#8217;s provisioning!!</p>
-<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
+<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --server=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
 [192.168.0.1  ]$ jubactl --name=tutorial2 --zookeeper=192.168.0.100:2181,192.168.0.200:2181 --type=classifier -c status
-active jubakeeper members:
+active jubaclassifier_keeper members:
  192.168.0.100_9198
  192.168.0.200_9198
 active jubavisor members:
@@ -493,7 +505,7 @@ active tutorial2 members:
  192.168.0.20_9180
  192.168.0.30_9180</pre>
 </div>
-<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c stop --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181</pre>
+<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c stop --server=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181</pre>
 </div>
 </div>
 <div class="section" id="client-for-multi-process-jubatus-server">
@@ -511,7 +523,7 @@ active tutorial2 members:
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>192.168.0.1</td>
-<td>操作端末</td>
+<td>terminal</td>
 </tr>
 <tr class="row-odd"><td>192.168.0.2</td>
 <td>client - 1</td>
@@ -539,7 +551,7 @@ active tutorial2 members:
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial3 -z 192.168.0.100:2181,192.168.0.200:2181
+<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --server=classifier --name=tutorial3 -z 192.168.0.100:2181,192.168.0.200:2181
 [192.168.0.2  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
 [192.168.0.3  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198</pre>
 </div>

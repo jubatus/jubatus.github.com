@@ -134,6 +134,29 @@ Ruby
 
   $ gem install jubatus
 
+Java
+~~~~
+
+Maven を利用している場合、pom.xmlに以下を追加します。
+
+.. code-block:: xml
+
+   <repositories>
+     <repository>
+       <id>jubat.us</id>
+       <name>Jubatus Repository for Maven</name>
+       <url>http://download.jubat.us/maven</url>
+     </repository>
+   </repositories>
+
+   <dependencies>
+     <dependency>
+       <groupId>us.jubat</groupId>
+       <artifactId>jubatus</artifactId>
+       <version>x.x.x</version>
+     </dependency>
+   </dependencies>
+
 .. _requirements:
 
 Detailed System Requirements

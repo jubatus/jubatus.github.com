@@ -47,7 +47,7 @@ jubaclassifier
 
 .. option:: -p, --rpc-port
 
-   Port number for RPC([= 9198])
+   Port number for RPC([= 9199])
   
 .. option:: -c, --thread
 
@@ -118,7 +118,7 @@ Jubatus Keepers
 
 .. option:: -p, --rpc-port
 
-   Port number for RPC([= 9198])
+   Port number for RPC([= 9199])
 
 .. option:: -c, --thread([=16])
 

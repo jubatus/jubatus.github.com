@@ -34,7 +34,7 @@ Setup a single process Jubatus Server
 -----------------------------------------
 
   $ jubaclassifier --name tutorial
-  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.2.2 RPC server at 10.0.2.15:9199 with timeout: 10
+  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier0.3.2 RPC server at 10.0.2.15:9199 with timeout: 10
 
 無事に起動したら、スタンドアローンにおけるclassifierの起動は環境です。
 ``--name`` オプションは分散環境でタスクを特定するために利用するので、ここでは実は不要です。
@@ -143,15 +143,17 @@ jubaclassifierは、method, converterのオプションを外部からのquery�
 
 .. code-block:: python
 
- config = jubatus.classifier.types.config_data(algorithm, converter)
- converter = jubatus.classifier.types.converter_config(str_fil_types,
-                                                       str_fil_rules,
-                                                       num_fil_types, 
-                                                       num_fil_rules,
-                                                       str_type,
-                                                       str_rules,
-                                                       num_type,
-                                                       num_rules)
+  converter = {
+            'string_filter_types': {},
+            'string_filter_rules':[],
+            'num_filter_types': {},
+            'num_filter_rules': [],
+            'string_types': {},
+            'string_rules': [],
+            'num_types': {},
+            'num_rules': []
+           }
+  config = types.config_data(options.algo, json.dumps(converter))
 
 ``'method'`` は、以下のアルゴリズムのうちいずれかを指定することが出来ます。
 
@@ -170,18 +172,27 @@ jubaclassifierは、method, converterのオプションを外部からのquery�
 また、HTMLタグなどは、内容を分類するのにノイズになりそうなので、"<>"で囲まれた部分を除去することにしましょう。
 
 こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことが出来ます。
-今回のルールをPythonオブジェクトで表現すると、以下のようになります。
+今回のルールをJSONで表現すると、以下のようになります。
 
 .. code-block:: python
 
-    str_fil_types = {"detag": {"method": "regexp", "pattern": "<[^>]*>", "replace": "" }}
-    str_fil_rules = [types.filter_rule("message", "detag", "-detagged")]
-    num_fil_types = {}
-    num_fil_rules = []
-    str_type= {}
-    str_rules = [types.string_rule("message-detagged","space","bin","bin")]
-    num_type = {}
-    num_rules = []
+    converter = {
+            'string_filter_types': {
+            "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+             },
+            'string_filter_rules':
+               [
+              { "key": "message", "type": "detag", "suffix": "-detagged" }
+               ],
+              'num_filter_types': {},
+              'num_filter_rules': [],
+              'string_types': {},
+              'string_rules': [
+                  {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
+                  ],
+              'num_types': {},
+              'num_rules': []
+              }
 
 ``get_config`` を呼ぶと、現在指定されているオプションが返ってきます。
 
@@ -260,10 +271,10 @@ Setup ZooKeeper
 以後、zoo.cfgでの指定によりローカルマシンのポート2181で起動していることを仮定します。
 
 
-jubakeeper
+jubaclassifier_keeper
 ~~~~~~~~~~~~~~~~~~~~~~~~
-jubakeeperは、Jubatus内でクライアントからサーバ群へアクセスするためのインターフェースとなるプロセスです。
-jubakeeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
+jubaclassifier_keeperは、Jubatus内でクライアントからjubaclassifierサーバ群へアクセスするためのプロキシとなるプロセスです。
+jubaclassifier_keeperは、ZooKeeperを参照して、クライアントからのリクエストをclassifierへ仲介します。
 
 
 ::
@@ -283,9 +294,9 @@ Running two processes as one classifier instance
 
 ::
 
-    $ jubaclassifier --rpc-port=9180 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &
-    $ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &
-    $ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 --storage=local_mixture &
+    $ jubaclassifier --rpc-port=9180 --name=tutorial2 --zookeeper=localhost:2181 &
+    $ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 &
+    $ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 &
 
 zookeeperのクライアントを用いて、たしかに3つのサーバプロセスが起動していることを確認することも出来ます。
 
@@ -293,7 +304,7 @@ zookeeperのクライアントを用いて、たしかに3つのサーバプロ�
 
     $ cd /path/to/zookeeper
     $ bin/zkCli.sh -server localhost:2181
-    [zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/tutorial2/nodes 
+    [zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/classifier/tutorial2/nodes 
     [XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]
 
 
@@ -338,8 +349,8 @@ zookeeperをそれぞれで立ち上げます。zoo.confには二台で構成す
 
 ::
 
-    [192.168.0.100]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
-    [192.168.0.200]$ jubakeeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
+    [192.168.0.100]$ jubaclassifier_keeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
+    [192.168.0.200]$ jubaclassifier_keeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
 
 
 
@@ -362,9 +373,9 @@ Let's provisioning!!
 
 ::
 
-    [192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
-    [192.168.0.1  ]$ jubactl --name=tutorial2 --zookeeper=192.168.0.100:2181,192.168.0.200:2181 --type=classifier -c status
-    active jubakeeper members:
+    [192.168.0.1  ]$ jubactl -c start --server=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
+    [192.168.0.1  ]$ jubactl --name=tutorial2 --zookeeper=192.168.0.100:2181,192.168.0.200:2181 --server=classifier -c status
+    active jubaclassifier_keeper members:
      192.168.0.100_9198
      192.168.0.200_9198
     active jubavisor members:
@@ -378,7 +389,7 @@ Let's provisioning!!
 
 ::
 
-    [192.168.0.1  ]$ jubactl -c stop --type=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
+    [192.168.0.1  ]$ jubactl -c stop --server=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
     
 
 
@@ -405,7 +416,7 @@ IP address     processes
 
 ::
 
-    [192.168.0.1  ]$ jubactl -c start --type=classifier --name=tutorial3 -z 192.168.0.100:2181,192.168.0.200:2181
+    [192.168.0.1  ]$ jubactl -c start --server=classifier --name=tutorial3 -z 192.168.0.100:2181,192.168.0.200:2181
     [192.168.0.2  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
     [192.168.0.3  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
 

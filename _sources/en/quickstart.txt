@@ -72,6 +72,7 @@ To start default classifier server in standalone mode,
   $ jubaclassifier
 
 Thus classifier server started listening port 9919.
+
 To start default regression server,
 
 ::
@@ -128,6 +129,29 @@ Ruby
 ::
 
   $ gem install jubatus
+
+Java
+~~~~
+
+If your project uses Maven, please add these lines to your pom.xml.
+
+.. code-block:: xml
+
+   <repositories>
+     <repository>
+       <id>jubat.us</id>
+       <name>Jubatus Repository for Maven</name>
+       <url>http://download.jubat.us/maven</url>
+     </repository>
+   </repositories>
+
+   <dependencies>
+     <dependency>
+       <groupId>us.jubat</groupId>
+       <artifactId>jubatus</artifactId>
+       <version>x.x.x</version>
+     </dependency>
+   </dependencies>
 
 .. _requirements:
 
