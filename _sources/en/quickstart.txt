@@ -16,7 +16,7 @@ or
 
 Jubatus clients are distributed under MIT License.
 
-`Download clients <https://github.com/downloads/jubatus/jubatus/jubatus_client.0.3.1.2012-07-20.tar.gz>`_
+`Download clients <https://github.com/downloads/jubatus/jubatus/jubatus_client.0.3.2.2012-10-05.tar.gz>`_
  
 QuickStart
 ==========
