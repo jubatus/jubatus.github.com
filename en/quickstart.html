@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Download Jubatus &mdash; Jubatus 0.3.2 documentation</title>
+    <title>Download Jubatus &mdash; Jubatus 0.3.3 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.2 documentation" href="../index.html" />
+    <link rel="top" title="Jubatus 0.3.3 documentation" href="../index.html" />
     <link rel="next" title="Overview" href="overview.html" />
     <link rel="prev" title="Jubatus : Distributed Online Machine Learning Framework" href="../index.html" /> 
 
@@ -88,7 +88,7 @@
         <li class="right" >
           <a href="../index.html" title="Jubatus : Distributed Online Machine Learning Framework"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Jubatus 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -105,6 +105,7 @@
 </li>
 <li><a class="reference internal" href="#quickstart">QuickStart</a><ul>
 <li><a class="reference internal" href="#minimal-install">Minimal install</a></li>
+<li><a class="reference internal" href="#apt-repository">Apt Repository</a></li>
 <li><a class="reference internal" href="#yum-repository-for-rhel-6">Yum Repository for RHEL 6</a></li>
 <li><a class="reference internal" href="#running-servers">Running servers</a></li>
 <li><a class="reference internal" href="#c-client">C++ client</a></li>
@@ -189,7 +190,7 @@ new TWTR.Widget({
 <h1>Download Jubatus<a class="headerlink" href="#download-jubatus" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="latest-jubatus-release">
 <h2>latest jubatus release<a class="headerlink" href="#latest-jubatus-release" title="Permalink to this headline">¶</a></h2>
-<p>The current version of jubatus is 0.3.2. Jubatus is distributed under LGPL v2.1.</p>
+<p>The current version of jubatus is 0.3.3. Jubatus is distributed under LGPL v2.1.</p>
 <p><a class="reference external" href="https://github.com/jubatus/jubatus/zipball/master">Download</a></p>
 <p>or</p>
 <div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus.git</pre>
@@ -200,7 +201,7 @@ new TWTR.Widget({
 </div>
 <div class="section" id="quickstart">
 <h1>QuickStart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<p>For prerequisites, Jubatus requires <a class="reference external" href="http://msgpack.org">MessagePack</a> , <a class="reference external" href="http://pfi.github.com/pficommon">pficommon</a> , libevent-dev  and google-glog for minimal installation. For example in Ubuntu Server 12.04 LTS with 64bit kernel,</p>
+<p>For prerequisites, Jubatus requires <a class="reference external" href="http://msgpack.org">MessagePack</a> , <a class="reference external" href="http://pfi.github.com/pficommon">pficommon</a> , libevent-dev and google-glog for minimal installation. For example in Ubuntu Server 12.04 LTS with 64bit kernel,</p>
 <div class="highlight-python"><pre>$ sudo aptitude install build-essential git-core
 $ sudo aptitude install libmsgpack-dev libevent-dev
 $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
@@ -224,6 +225,28 @@ $ ./waf build
 # ./waf install</pre>
 </div>
 </div>
+<div class="section" id="apt-repository">
+<h2>Apt Repository<a class="headerlink" href="#apt-repository" title="Permalink to this headline">¶</a></h2>
+<p>For Ubuntu and Debian systems (x86_64), Apt repository is available.</p>
+<p>Write the following line to <cite>/etc/apt/sources.list.d/jubatus.list</cite> to register Jubatus Apt repository.</p>
+<div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
+</div>
+<p>Now install the Jubatus.</p>
+<div class="highlight-python"><pre>$ sudo apt-get update
+$ sudo apt-get install jubatus</pre>
+</div>
+<p>Currently our package is not GPG-signed.
+Bypass the warning by answering <cite>y</cite> to the prompt:</p>
+<div class="highlight-python"><pre>Install these packages without verification [y/N]? y</pre>
+</div>
+<p>Now Jubatus is installed in <cite>/opt/jubatus</cite>.
+Before using Jubatus, load the environment variable from <cite>profile</cite> script.</p>
+<div class="highlight-python"><pre>$ source /opt/jubatus/profile</pre>
+</div>
+<p>If you&#8217;re using csh or tcsh, use this instead:</p>
+<div class="highlight-python"><pre>$ source /opt/jubatus/profile.csh</pre>
+</div>
+</div>
 <div class="section" id="yum-repository-for-rhel-6">
 <h2>Yum Repository for RHEL 6<a class="headerlink" href="#yum-repository-for-rhel-6" title="Permalink to this headline">¶</a></h2>
 <p>For Red Hat Enterprise Linux 6 (x86_64) and its clones, Yum repository is available.</p>
@@ -243,6 +266,10 @@ $ sudo yum install jubatus</pre>
 <p>To start recommender server, just run</p>
 <div class="highlight-python"><pre>$ jubarecommender</pre>
 </div>
+<p>To start grap server, just run</p>
+<div class="highlight-python"><pre>$ jubagraph</pre>
+</div>
+<p>If you use the client, See <a class="reference internal" href="tutorial.html"><em>Tutorial</em></a>.</p>
 </div>
 <div class="section" id="c-client">
 <h2>C++ client<a class="headerlink" href="#c-client" title="Permalink to this headline">¶</a></h2>
@@ -263,7 +290,7 @@ By including header,</p>
 </pre></div>
 </div>
 <p>Non-C++ users have to generate client library by using msgpack-idl.
-See client generation (TODO: link).</p>
+See <a class="reference internal" href="howtogetclients.html"><em>How to Get Clients</em></a>.</p>
 </div>
 <div class="section" id="other-clients">
 <h2>Other clients<a class="headerlink" href="#other-clients" title="Permalink to this headline">¶</a></h2>
@@ -302,7 +329,7 @@ See client generation (TODO: link).</p>
 </div>
 <div class="section" id="detailed-system-requirements">
 <span id="requirements"></span><h2>Detailed System Requirements<a class="headerlink" href="#detailed-system-requirements" title="Permalink to this headline">¶</a></h2>
-<p>Jubatus is publicly supported with Ubuntu LTS 12.04 and Redhat Enterprise Linux 6.2 running on 64bit kernel. And development team are using Intel CPU. Other requirements as follows:</p>
+<p>Jubatus is publicly supported with Ubuntu LTS 12.04 and Red Hat Enterprise Linux 6.2 running on 64bit kernel. And development team are using Intel CPU. Other requirements as follows:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="26%" />
@@ -345,7 +372,7 @@ See client generation (TODO: link).</p>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>mecab</td>
-<td>&gt;= 0.98</td>
+<td>&gt;= 0.99</td>
 <td>optional</td>
 </tr>
 <tr class="row-even"><td>re2</td>
@@ -371,12 +398,12 @@ See client generation (TODO: link).</p>
 <div class="section" id="other-environments">
 <h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>MacOSX runs standalone mode even by using llvm-gcc, but not working in some compilers</li>
-<li>Debian/GNU Linux runs all mode (I use)</li>
-<li>Arch Linux runs standalone mode</li>
-<li>FreeBSD does not run, needs some fixed on pficommon</li>
-<li>CentOS 5.x is strongly discouraged</li>
-<li>We do not know anything about CentOS 6.x</li>
+<li>MacOSX runs standalone mode even by using llvm-gcc, but not working in some compilers.</li>
+<li>Debian/GNU Linux runs all mode (I use).</li>
+<li>Arch Linux runs standalone mode.</li>
+<li>FreeBSD does not run, needs some fixed on pficommon.</li>
+<li>CentOS 5.x is strongly discouraged.</li>
+<li>We do not know anything about CentOS 6.x.</li>
 <li>We are waiting for report in other <a href="#id1"><span class="problematic" id="id2">*</span></a>BSD systems and in Solaris.</li>
 </ul>
 </div>
@@ -401,7 +428,7 @@ See client generation (TODO: link).</p>
         <li class="right" >
           <a href="../index.html" title="Jubatus : Distributed Online Machine Learning Framework"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Jubatus 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -28,7 +28,7 @@ Conditions
 We tested these clients in the following condition
 
 
-- Jubatus : Jubatus 0.3.2
+- Jubatus : Jubatus 0.3.3
 
 - Server : Built-in servers in repository
 

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Download Jubatus &mdash; Jubatus 0.3.2 documentation</title>
+    <title>Download Jubatus &mdash; Jubatus 0.3.3 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.2 documentation" href="../index.html" /> 
+    <link rel="top" title="Jubatus 0.3.3 documentation" href="../index.html" /> 
 
 <!--
 
@@ -80,7 +80,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">Jubatus 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Jubatus 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -97,6 +97,7 @@
 </li>
 <li><a class="reference internal" href="#quickstart">QuickStart</a><ul>
 <li><a class="reference internal" href="#minimal-install">Minimal install</a></li>
+<li><a class="reference internal" href="#apt-repository">Apt Repository</a></li>
 <li><a class="reference internal" href="#yum-repository-for-rhel-6">Yum Repository for RHEL 6</a></li>
 <li><a class="reference internal" href="#running-servers">Running servers</a></li>
 <li><a class="reference internal" href="#c-client">C++ client</a></li>
@@ -175,18 +176,18 @@ new TWTR.Widget({
 <h1>Download Jubatus<a class="headerlink" href="#download-jubatus" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="latest-jubatus-release">
 <h2>latest jubatus release<a class="headerlink" href="#latest-jubatus-release" title="Permalink to this headline">¶</a></h2>
-<p>jubatus の最新バージョンは 0.3.2です.　Jubatusは LGPL v2.1の元に配布されています。</p>
+<p>jubatus の最新バージョンは 0.3.3 です。Jubatus は LGPL v2.1 の元に配布されています。</p>
 <p><a class="reference external" href="https://github.com/jubatus/jubatus/zipball/master">Download</a></p>
 <p>or</p>
 <div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus.git</pre>
 </div>
-<p>Jubatus のクライアントは すべて MIT License のもとに配布されています.</p>
+<p>Jubatus のクライアントは すべて MIT License のもとに配布されています。</p>
 <p><a class="reference external" href="https://github.com/downloads/jubatus/jubatus/jubatus_client.0.3.2.2012-10-05.tar.gz">Download clients</a></p>
 </div>
 </div>
 <div class="section" id="quickstart">
 <h1>QuickStart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<p>Jubatusは、最小限のインストールを行うために、 <a class="reference external" href="http://msgpack.org">MessagePack</a> , <a class="reference external" href="http://pfi.github.com/pficommon">pficommon</a> , libevent-dev  and google-glog が必要です。例えば Ubuntu Server 12.04 LTS では、</p>
+<p>Jubatus は、最小限のインストールを行うために、 <a class="reference external" href="http://msgpack.org">MessagePack</a> , <a class="reference external" href="http://pfi.github.com/pficommon">pficommon</a> , libevent-dev, google-glog が必要です。例えば Ubuntu Server 12.04 LTS では、</p>
 <div class="highlight-python"><pre>$ sudo aptitude install build-essential git-core
 $ sudo aptitude install libmsgpack-dev libevent-dev
 $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
@@ -210,6 +211,28 @@ $ ./waf build
 # ./waf install</pre>
 </div>
 </div>
+<div class="section" id="apt-repository">
+<h2>Apt Repository<a class="headerlink" href="#apt-repository" title="Permalink to this headline">¶</a></h2>
+<p>Ubuntu / Debian システム (x86_64) では、Apt リポジトリからインストールを行うことができます。</p>
+<p>以下の内容で <cite>/etc/apt/sources.list.d/jubatus.list</cite> というファイルを作成すると、Jubatus Apt リポジトリがシステムに登録されます。</p>
+<div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
+</div>
+<p>Jubatus をインストールします。</p>
+<div class="highlight-python"><pre>$ sudo apt-get update
+$ sudo apt-get install jubatus</pre>
+</div>
+<p>現在配布しているパッケージは GPG 署名が行われていないません。
+警告が表示された場合は、 <cite>y</cite> を入力してください:</p>
+<div class="highlight-python"><pre>Install these packages without verification [y/N]? y</pre>
+</div>
+<p>これで Jubatus が <cite>/opt/jubatus</cite> にインストールされました。
+Jubatus を使い始める前に、環境変数を <cite>profile</cite> スクリプトから読み込んでください。</p>
+<div class="highlight-python"><pre>$ source /opt/jubatus/profile</pre>
+</div>
+<p>csh または tcsh をお使いの場合はこちらをご利用ください:</p>
+<div class="highlight-python"><pre>$ source /opt/jubatus/profile.csh</pre>
+</div>
+</div>
 <div class="section" id="yum-repository-for-rhel-6">
 <h2>Yum Repository for RHEL 6<a class="headerlink" href="#yum-repository-for-rhel-6" title="Permalink to this headline">¶</a></h2>
 <p>Red Hat Enterprise Linux 6 (x86_64) およびクローンでは、Yum リポジトリからインストールを行うことができます。</p>
@@ -219,17 +242,17 @@ $ sudo yum install jubatus</pre>
 </div>
 <div class="section" id="running-servers">
 <h2>Running servers<a class="headerlink" href="#running-servers" title="Permalink to this headline">¶</a></h2>
-<p>classifierを標準の設定でスタンドアローンモードで起動するには、</p>
+<p>classifier を標準の設定でスタンドアローンモードで起動するには、</p>
 <div class="highlight-python"><pre>$ jubaclassifier</pre>
 </div>
 <p>これによりclassifierサーバは9199ポートで起動しました。</p>
-<p>regressionを標準の設定でスタンドアローンモードで起動するには、</p>
+<p>regression を標準の設定でスタンドアローンモードで起動するには、</p>
 <div class="highlight-python"><pre>$ jubaregression</pre>
 </div>
-<p>recommenderを標準の設定でスタンドアローンモードで起動するには、</p>
+<p>recommender を標準の設定でスタンドアローンモードで起動するには、</p>
 <div class="highlight-python"><pre>$ jubarecommender</pre>
 </div>
-<p>graphを標準の設定でスタンドアローンモードで起動するには、</p>
+<p>graph を標準の設定でスタンドアローンモードで起動するには、</p>
 <div class="highlight-python"><pre>$ jubagraph</pre>
 </div>
 <p>クライアントを利用して、実際の処理を行うには <a class="reference internal" href="tutorial.html"><em>Tutorial</em></a> を参照して下さい。</p>
@@ -251,11 +274,12 @@ $ sudo yum install jubatus</pre>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>それ以外の言語では、msgpack-idlを利用して生成されたクライアントを使います。</p>
+<p>それ以外の言語では、msgpack-idl を利用して生成されたクライアントを使います。
+クライアント生成方法は <a class="reference internal" href="howtogetclients.html"><em>How to Get Clients</em></a> を参照して下さい。</p>
 </div>
 <div class="section" id="other-clients">
 <h2>Other clients<a class="headerlink" href="#other-clients" title="Permalink to this headline">¶</a></h2>
-<p>これらのクライアントは、MIT Licenseの下に配布されています。</p>
+<p>これらのクライアントは、MIT License の下に配布されています。</p>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><pre>$ pip install jubatus</pre>
@@ -268,7 +292,7 @@ $ sudo yum install jubatus</pre>
 </div>
 <div class="section" id="java">
 <h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
-<p>Maven を利用している場合、pom.xmlに以下を追加します。</p>
+<p>Maven を利用している場合、pom.xml に以下を追加します。</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;repositories&gt;</span>
   <span class="nt">&lt;repository&gt;</span>
     <span class="nt">&lt;id&gt;</span>jubat.us<span class="nt">&lt;/id&gt;</span>
@@ -290,7 +314,7 @@ $ sudo yum install jubatus</pre>
 </div>
 <div class="section" id="detailed-system-requirements">
 <span id="requirements"></span><h2>Detailed System Requirements<a class="headerlink" href="#detailed-system-requirements" title="Permalink to this headline">¶</a></h2>
-<p>Jubatusは、公式には64bitカーネルで動作するUbuntu LTS 12.04とRedhat Enterprise Linux 6.2をサポートしています。
+<p>Jubatus は、公式には 64bitカーネル で動作する Ubuntu LTS 12.04 と Red Hat Enterprise Linux 6.2 をサポートしています。
 開発チームは、x64アーキテクチャのマシンを利用しています。この他の依存ライブラリは以下のとおりです。</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -334,7 +358,7 @@ $ sudo yum install jubatus</pre>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>mecab</td>
-<td>&gt;= 0.98</td>
+<td>&gt;= 0.99</td>
 <td>optional</td>
 </tr>
 <tr class="row-even"><td>re2</td>
@@ -360,7 +384,7 @@ $ sudo yum install jubatus</pre>
 <div class="section" id="id1">
 <h3>その他の環境<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>MacOSX ではllvm-gcc を使ってスタンドアローンモードで動作しています。しかし一部のコンパイラでは動作していません。</li>
+<li>MacOSX では llvm-gcc を使ってスタンドアローンモードで動作しています。しかし一部のコンパイラでは動作していません。</li>
 <li>Debian/GNU Linux は動作しています。</li>
 <li>Arch Linux スタンドアローンモードで動作しています。</li>
 <li>FreeBSD は動作していません。pficommon を修正する必要があります。</li>
@@ -384,7 +408,7 @@ $ sudo yum install jubatus</pre>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">Jubatus 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Jubatus 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

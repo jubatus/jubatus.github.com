@@ -23,7 +23,7 @@ IDL Support Status (2012 Oct.)
 以下の環境でテストを行なっています。
 
 
-- Jubatus : Jubatus 0.3.2
+- Jubatus : Jubatus 0.3.3
 
 - Server : 上記レポジトリで生成されたサーバ
 

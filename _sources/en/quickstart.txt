@@ -3,7 +3,7 @@ Download Jubatus
 
 latest jubatus release
 -----------------------
-The current version of jubatus is 0.3.2. Jubatus is distributed under LGPL v2.1.
+The current version of jubatus is 0.3.3. Jubatus is distributed under LGPL v2.1.
 
 
 `Download <https://github.com/jubatus/jubatus/zipball/master>`_
@@ -21,7 +21,7 @@ Jubatus clients are distributed under MIT License.
 QuickStart
 ==========
 
-For prerequisites, Jubatus requires `MessagePack <http://msgpack.org>`_ , `pficommon <http://pfi.github.com/pficommon>`_ , libevent-dev  and google-glog for minimal installation. For example in Ubuntu Server 12.04 LTS with 64bit kernel,
+For prerequisites, Jubatus requires `MessagePack <http://msgpack.org>`_ , `pficommon <http://pfi.github.com/pficommon>`_ , libevent-dev and google-glog for minimal installation. For example in Ubuntu Server 12.04 LTS with 64bit kernel,
 
 ::
 
@@ -50,6 +50,43 @@ Minimal install
   $ ./waf build
   # ./waf install
 
+Apt Repository
+--------------
+
+For Ubuntu and Debian systems (x86_64), Apt repository is available.
+
+Write the following line to `/etc/apt/sources.list.d/jubatus.list` to register Jubatus Apt repository.
+
+::
+
+  deb http://download.jubat.us/apt binary/
+
+Now install the Jubatus.
+
+::
+
+  $ sudo apt-get update
+  $ sudo apt-get install jubatus
+
+Currently our package is not GPG-signed.
+Bypass the warning by answering `y` to the prompt:
+
+::
+
+  Install these packages without verification [y/N]? y
+
+Now Jubatus is installed in `/opt/jubatus`.
+Before using Jubatus, load the environment variable from `profile` script.
+
+::
+
+  $ source /opt/jubatus/profile
+
+If you're using csh or tcsh, use this instead:
+
+::
+
+  $ source /opt/jubatus/profile.csh
 
 Yum Repository for RHEL 6
 -------------------------
@@ -85,6 +122,14 @@ To start recommender server, just run
 
   $ jubarecommender
 
+To start grap server, just run
+
+::
+
+  $ jubagraph
+
+If you use the client, See :doc:`tutorial`.
+
 C++ client
 ----------
 
@@ -101,7 +146,7 @@ By including header,
   void foo(){
     classifier cli("localhost", 9199, 3.0);
     config_data c;
-    c.method = "PA";    
+    c.method = "PA";
     cli.set_config("", c);
 
     // ...
@@ -109,7 +154,7 @@ By including header,
 
 
 Non-C++ users have to generate client library by using msgpack-idl.
-See client generation (TODO: link).
+See :doc:`howtogetclients`.
 
 Other clients
 -------------
@@ -158,7 +203,7 @@ If your project uses Maven, please add these lines to your pom.xml.
 Detailed System Requirements
 ----------------------------
 
-Jubatus is publicly supported with Ubuntu LTS 12.04 and Redhat Enterprise Linux 6.2 running on 64bit kernel. And development team are using Intel CPU. Other requirements as follows:
+Jubatus is publicly supported with Ubuntu LTS 12.04 and Red Hat Enterprise Linux 6.2 running on 64bit kernel. And development team are using Intel CPU. Other requirements as follows:
 
 
 ============ ========== ========================
@@ -178,7 +223,7 @@ pficommon    >= 1.3.1.0 must be msgpack enabled
 
 pkg-config   >= 0.26
 
-mecab        >= 0.98    optional
+mecab        >= 0.99    optional
 
 re2          -          optional
 
@@ -190,10 +235,10 @@ zookeeper    >= 3.4     optional
 Other Environments
 ~~~~~~~~~~~~~~~~~~
 
-- MacOSX runs standalone mode even by using llvm-gcc, but not working in some compilers
-- Debian/GNU Linux runs all mode (I use)
-- Arch Linux runs standalone mode
-- FreeBSD does not run, needs some fixed on pficommon
-- CentOS 5.x is strongly discouraged
-- We do not know anything about CentOS 6.x
+- MacOSX runs standalone mode even by using llvm-gcc, but not working in some compilers.
+- Debian/GNU Linux runs all mode (I use).
+- Arch Linux runs standalone mode.
+- FreeBSD does not run, needs some fixed on pficommon.
+- CentOS 5.x is strongly discouraged.
+- We do not know anything about CentOS 6.x.
 - We are waiting for report in other *BSD systems and in Solaris.
