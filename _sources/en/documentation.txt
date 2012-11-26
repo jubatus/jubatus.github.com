@@ -8,4 +8,5 @@ Documentation
    plugin
    howtogetclients
    server
+   admin
 

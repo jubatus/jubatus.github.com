@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IDL Support Status (2012 Nov.) &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Administrator’s Guide &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -91,15 +91,24 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">IDL Support Status (2012 Nov.)</a><ul>
-<li><a class="reference internal" href="#all-clients-are-available">All Clients Are Available</a></li>
+<li><a class="reference internal" href="#">Administrator&#8217;s Guide</a><ul>
+<li><a class="reference internal" href="#recommended-process-configuration">Recommended process configuration</a><ul>
+<li><a class="reference internal" href="#jubakeeper">Jubakeeper</a></li>
+<li><a class="reference internal" href="#jubaserver">Jubaserver</a></li>
+<li><a class="reference internal" href="#zookeeper">ZooKeeper</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#managing-clusters">Managing Clusters</a></li>
+<li><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#save-and-load">Save and Load</a></li>
 </ul>
 </li>
 </ul>
 
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/idl_support.txt"
+    <li><a href="../_sources/ja/admin.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -154,71 +163,56 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="idl-support-status-2012-nov">
-<h1>IDL Support Status (2012 Nov.)<a class="headerlink" href="#idl-support-status-2012-nov" title="Permalink to this headline">¶</a></h1>
-<p>2012年10月現在、Jubatusは、 機械学習タスク (Classifier, Regression, Recommender, Stat, Graph) をサポートしています。 <a class="reference internal" href="../en/howtogetclients.html#how-to-get-clients"><em>How to Get Clients</em></a> で紹介している通り、クライアントコードは、 msgpack-idlで生成されています。以下はそのサポート状況です。</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="15%" />
-<col width="15%" />
-<col width="16%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
-<td>Classifier</td>
-<td>Regression</td>
-<td>Recommender</td>
-<td>Stat</td>
-<td>Graph</td>
-</tr>
-<tr class="row-even"><td>C++</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-</tr>
-<tr class="row-odd"><td>Java</td>
-<td>needs fix</td>
-<td>needs fix</td>
-<td>needs fix</td>
-<td>needs fix</td>
-<td>needs fix</td>
-</tr>
-<tr class="row-even"><td>Python</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-</tr>
-<tr class="row-odd"><td>Ruby</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>needs fix</td>
-</tr>
-</tbody>
-</table>
-<ul class="simple">
-<li>ok：生成したそのままを利用できます。</li>
-<li>needs fix：自動生成したコードから少し変更が必要です。</li>
-</ul>
-<p>以下の環境でテストを行なっています。</p>
-<ul class="simple">
-<li>Jubatus : Jubatus 0.3.4</li>
-<li>Server : 上記レポジトリで生成されたサーバ</li>
-<li>Client : IDLによって生成されたコード</li>
-<li>IDL : 上記レポジトリのIDLファイル</li>
-</ul>
-<div class="section" id="all-clients-are-available">
-<h2>All Clients Are Available<a class="headerlink" href="#all-clients-are-available" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://github.com/jubatus/jubatus/downloads">download page</a> からダウンロードされるクライアントは、C++, Java, Python, Rubyの4つの言語に対して、正しく動作することを確認しています。</p>
-<p>Javaクライアントは、手動で正しく動くように修正され、それ以外のすべてのクライアントは、自動生成されています。</p>
+  <div class="section" id="administrator-s-guide">
+<h1>Administrator&#8217;s Guide<a class="headerlink" href="#administrator-s-guide" title="Permalink to this headline">¶</a></h1>
+<p>このページでは、Jubatus の管理者と運用者向けの説明を行います。</p>
+<div class="section" id="recommended-process-configuration">
+<h2>Recommended process configuration<a class="headerlink" href="#recommended-process-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Jubatus を高い信頼性のもとで提供するためには、分散環境で動作させる必要があります。
+また、高いパフォーマンスを維持するためには、Jubatus および Jubatus に関連するプロセス配置構成に気をつける必要があります。</p>
+<p>われわれが推奨するプロセス配置構成は以下の通りです。</p>
+<div class="figure">
+<img alt="process configuration" src="../_images/process_configuration1.png" style="width: 90%;" />
+</div>
+<div class="section" id="jubakeeper">
+<h3>Jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
+<p>運用の容易さ、アプリケーションの実装の容易さから、クライアントアプリケーションと 1:1 の構成とし、クライアントアプリケーションとともにスケールする運用を推奨します。</p>
+<p>クライアントアプリケーションから Jubakeeper へ通信できない場合(プロセスがダウンしている など)に対しては、提供するサービスに応じて信頼性を保証する方法を検討する必要があります。例えば、以下のようなことが考えられます。</p>
+<ol class="arabic simple">
+<li>Jubakeeper プロセスを監視し、Jubakeeper と通信できない場合は、クライアントアプリケーションへのアクセスを遮断する。</li>
+<li>別の Jubakeeper との通信へ切り替える。</li>
+</ol>
+</div>
+<div class="section" id="jubaserver">
+<h3>Jubaserver<a class="headerlink" href="#jubaserver" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> で同じ名前を指定することで、複数のサーバプロセスが協調動作します。Jubatus は、サーバプロセスが 1つ でも動作している限り、利用可能です。</p>
+<p>上の図では、マシンの <tt class="docutils literal"><span class="pre">N</span></tt> 台 に障害が発生した場合でも、すべてのインスタンスが利用可能なよう、 <tt class="docutils literal"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">1</span></tt> 台 のマシンに分散してプロセスを配置しています。</p>
+<p>Jubatus はすべてのデータをメモリ上で処理するという特徴があります。マシンのリソース(特にメモリ)が不足しないよう、サーバプロセスの配置には注意する必要があります。</p>
+</div>
+<div class="section" id="zookeeper">
+<h3>ZooKeeper<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h3>
+<p>Jubatus を分散環境で動作させる際、ZooKeeper が利用できない状況は致命的です。ZooKeeper を高い信頼性で動作させるために、以下のことを注意します。詳細は <a class="reference external" href="http://zookeeper.apache.org/doc/current/">ZooKeeperのドキュメント</a> を参照して下さい。</p>
+<ol class="arabic simple">
+<li>奇数台のマシンによるクラスタ構成(アンサンブル)で運用します。</li>
+<li>ZooKeeper のパフォーマンスが低下し、Jubatus の動作が不安定になることを避けるため、ZooKeeper 専用のマシンを用意することを推奨します。</li>
+</ol>
+</div>
+</div>
+<div class="section" id="managing-clusters">
+<h2>Managing Clusters<a class="headerlink" href="#managing-clusters" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="save-and-load">
+<h2>Save and Load<a class="headerlink" href="#save-and-load" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
 </div>
 </div>
 

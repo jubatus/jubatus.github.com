@@ -3,7 +3,7 @@ Download Jubatus
 
 latest jubatus release
 -----------------------
-jubatus の最新バージョンは 0.3.3 です。Jubatus は LGPL v2.1 の元に配布されています。
+jubatus の最新バージョンは 0.3.4 です。Jubatus は LGPL v2.1 の元に配布されています。
 
 
 `Download <https://github.com/jubatus/jubatus/zipball/master>`_

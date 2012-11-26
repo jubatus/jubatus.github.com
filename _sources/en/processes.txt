@@ -73,6 +73,11 @@ jubaclassifier
    ``save`` Location where training model is saved when "save" API is published. Default value is ``/tmp`` .
    ``load`` Location from where training model is loaded when "load" API is publised. Default value is ``/tmp`` .
 
+.. option::  -l, --logdir
+
+   Location of logfiles.
+   If this option is not specified, log messages output to stderr.
+
 .. option::  -j, --join
 
    Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won't work.
@@ -128,6 +133,11 @@ Jubatus Keepers
 
    Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless ``--storage`` option is local.
    Format of this option must be  ``ipaddress:port,hostname:port,...`` . No spaces between values are allowed.
+
+.. option::  -l, --logdir
+
+   Location of logfiles.
+   If this option is not specified, log messages output to stderr.
 
 
 jubactl

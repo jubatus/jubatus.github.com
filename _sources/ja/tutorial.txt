@@ -36,7 +36,7 @@ Setup a single process Jubatus Server
 ::
 
   $ jubaclassifier --name tutorial
-  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier 0.3.3 RPC server at 10.0.2.15:9199 with timeout: 10
+  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier 0.3.4 RPC server at 10.0.2.15:9199
 
 無事に起動したら、スタンドアローンにおけるclassifierの起動は環境です。
 ``--name`` オプションは分散環境でタスクを特定するために利用するので、ここでは実は不要です。

@@ -70,6 +70,10 @@ jubaclassifier
    ``save`` APIを発行されたときに、学習モデルを保管する場所。
    ``load`` APIを発行されたときには、この場所から学習モデルをロードする。デフォルトは ``/tmp`` である。
 
+.. option::  -l, --logdir
+
+   ログファイルの出力場所。指定しない場合は、標準エラーに出力される。
+
 .. option::  -j, --join
 
    Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won't work.
@@ -124,6 +128,10 @@ Jubatus Keepers
 
    zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 ``--storage`` オプションにlocal以外を指定した場合は必須。
    書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。スペースを間にはさんではいけない。
+
+.. option::  -l, --logdir
+
+   ログファイルの出力場所。指定しない場合は、標準エラーに出力される。
 
 
 jubactl

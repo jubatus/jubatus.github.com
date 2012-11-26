@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>jubatus::client::stat &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Administrator’s Guide &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -43,9 +43,9 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
-    <link rel="up" title="Client API" href="api.html" />
-    <link rel="next" title="jubatus::client::graph" href="api_graph.html" />
-    <link rel="prev" title="jubatus::client::recommender" href="api_recommender.html" /> 
+    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="Server Generation Using Code Generator" href="server.html" /> 
 
 <!--
 
@@ -84,14 +84,13 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api_graph.html" title="jubatus::client::graph"
+          <a href="references.html" title="References"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="api_recommender.html" title="jubatus::client::recommender"
+          <a href="server.html" title="Server Generation Using Code Generator"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
-          <li><a href="references.html" >References</a> &raquo;</li>
-          <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,22 +101,30 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">jubatus::client::stat</a><ul>
-<li><a class="reference internal" href="#typedef">typedef</a></li>
-<li><a class="reference internal" href="#stat-methods">stat methods</a></li>
+<li><a class="reference internal" href="#">Administrator&#8217;s Guide</a><ul>
+<li><a class="reference internal" href="#recommended-process-configuration">Recommended process configuration</a><ul>
+<li><a class="reference internal" href="#jubakeeper">Jubakeeper</a></li>
+<li><a class="reference internal" href="#jubaserver">Jubaserver</a></li>
+<li><a class="reference internal" href="#zookeeper">ZooKeeper</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#managing-clusters">Managing Clusters</a></li>
+<li><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#save-and-load">Save and Load</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="api_recommender.html"
-                        title="previous chapter">jubatus::client::recommender</a></p>
+  <p class="topless"><a href="server.html"
+                        title="previous chapter">Server Generation Using Code Generator</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="api_graph.html"
-                        title="next chapter">jubatus::client::graph</a></p>
+  <p class="topless"><a href="references.html"
+                        title="next chapter">References</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/api_stat.txt"
+    <li><a href="../_sources/en/admin.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -172,61 +179,57 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="jubatus-client-stat">
-<h1>jubatus::client::stat<a class="headerlink" href="#jubatus-client-stat" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> for original and detailed spec.</p>
-<div class="section" id="typedef">
-<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
-<dl class="describe">
-<dt>
-<tt class="descname">jubatus::stat::config_data</tt></dt>
-<dd></dd></dl>
-
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
-  <span class="mi">0</span><span class="o">:</span> <span class="kt">int</span> <span class="n">window_size</span>
-
-<span class="p">}</span>
-</pre></div>
+  <div class="section" id="administrator-s-guide">
+<h1>Administrator&#8217;s Guide<a class="headerlink" href="#administrator-s-guide" title="Permalink to this headline">¶</a></h1>
+<p>This section is a guide for system administrators.</p>
+<div class="section" id="recommended-process-configuration">
+<h2>Recommended process configuration<a class="headerlink" href="#recommended-process-configuration" title="Permalink to this headline">¶</a></h2>
+<p>For reliable Jubatus service, you should run Jubatus on distributed environment.
+Additionally, to ensure high performance, you should carefully plan the process configuration of Jubatus servers and processes that Jubatus depends on.</p>
+<p>This is the process configuration that we recommend.</p>
+<div class="figure">
+<img alt="process configuration" src="../_images/process_configuration.png" style="width: 90%;" />
+</div>
+<div class="section" id="jubakeeper">
+<h3>Jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
+<p>To keep operation and implementation of the client application simple, we recommend assigning one Jubakeeper for each instance of the application.</p>
+<p>For case that the client application can not connect to Jubakeeper (ex. Jubakeeper is downed), it is necessary to consider the reliability depending on the services provided. For example, like the following:</p>
+<ol class="arabic simple">
+<li>Monitor the processes. If the client application can not connect to Jubakeeper, blocks the access to the client application.</li>
+<li>Switch to another Jubakeeper.</li>
+</ol>
+</div>
+<div class="section" id="jubaserver">
+<h3>Jubaserver<a class="headerlink" href="#jubaserver" title="Permalink to this headline">¶</a></h3>
+<p>If you set same name using <tt class="docutils literal"><span class="pre">--name</span></tt> options, processes collaborate with one another. As long as one of processes is running, Jubatus is available.</p>
+<p>In the figure above, processes is distributed on <tt class="docutils literal"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">1</span></tt> machines. Even when a failure occurs in <tt class="docutils literal"><span class="pre">N</span></tt> of machines, all of instances available.</p>
+<p>Jubatus processes all data in memory. In order to prevent the lack of resourses (specially memory), you should pay to attention to the placement of the process.</p>
+</div>
+<div class="section" id="zookeeper">
+<h3>ZooKeeper<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h3>
+<p>When running Jubatus on distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:</p>
+<ol class="arabic simple">
+<li>Deploy ZooKeeper in a cluster (an ensemble) using an odd number of machines.</li>
+<li>To avoid degradation of performance and stability, deploy ZooKeeper on a dedicated machine.</li>
+</ol>
+<p>For details, See <a class="reference external" href="http://zookeeper.apache.org/doc/current/">the documentation of ZooKeeper</a> .</p>
 </div>
 </div>
-<div class="section" id="stat-methods">
-<h2>stat methods<a class="headerlink" href="#stat-methods" title="Permalink to this headline">¶</a></h2>
-<dl class="describe">
-<dt>
-<tt class="descname">bool push(0: string name, 1: string key, 2: double val)</tt></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">double sum(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">double stddev(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">double max(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">double min(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">double entropy(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">double moment(0: string name, 1: string key, 2: int n, 3: double c)</tt></dt>
-<dd></dd></dl>
-
+<div class="section" id="managing-clusters">
+<h2>Managing Clusters<a class="headerlink" href="#managing-clusters" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="save-and-load">
+<h2>Save and Load<a class="headerlink" href="#save-and-load" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
 </div>
 </div>
 
@@ -243,14 +246,13 @@ new TWTR.Widget({
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="api_graph.html" title="jubatus::client::graph"
+          <a href="references.html" title="References"
              >next</a> |</li>
         <li class="right" >
-          <a href="api_recommender.html" title="jubatus::client::recommender"
+          <a href="server.html" title="Server Generation Using Code Generator"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
-          <li><a href="references.html" >References</a> &raquo;</li>
-          <li><a href="api.html" >Client API</a> &raquo;</li> 
+          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

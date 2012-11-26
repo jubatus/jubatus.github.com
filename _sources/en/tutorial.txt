@@ -41,7 +41,7 @@ You need to install the above library dependencies before building and installin
   $ ./waf build
   # ./waf install
   $ jubaclassifier --name tutorial
-  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier 0.3.3 RPC server at 10.0.2.15:9199 with timeout: 10
+  jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier 0.3.4 RPC server at 10.0.2.15:9199
 
 
 Setup and starting a single process jubatus has been completed.
