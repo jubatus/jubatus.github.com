@@ -1,10 +1,14 @@
 Client API
 ==========
 
-jubaclassifier, jubaregression, jubarecommender, jubastat, jubagraph は、クライアント向けにMessagePack-RPCをインターフェイスを持っています。そのため、クライアント側の実装は、言語に依存せず好きな言語を利用することができます。
+各 Jubatus サーバは、クライアント向けに MessagePack-RPC をインターフェイスを持っています。
+クライアント側の実装は、MessagePack-IDL でサポートされているお好きな言語を利用することができます。
+現在、C++ / Python / Ruby / Java のクライアントが公式に提供されています。
 
-すべてのMessagePack-IDLフォーマットファイルは、`repository <https://github.com/jubatus/jubatus/tree/master/src/server>`_  に記載されており、クライアントはIDLファイルより、自動生成されます。本節では、それぞれの機械学習・分析機能のインターフェイスを紹介します。
-MessagePack-IDL形式は、とてもシンプルなので、それぞれの言語でどのように実装するべきかは容易に類推できるかと思います。
+インタフェースは MessagePack-IDL フォーマットで記述されたファイル (.idl のファイル拡張子を持つ) によって表記されており、 `リポジトリ <https://github.com/jubatus/jubatus/tree/master/src/server>`_  で参照可能です。クライアントはこれらの IDL ファイルから自動生成されています。
+
+本節では、各サーバのインタフェースを MessagePack-IDL 表記で記述します。
+MessagePack-IDL 形式はとてもシンプルなため、各言語でどのようにインタフェースを使用するべきかは容易に推測することができます。
 
 .. toctree::
    :maxdepth: 2
@@ -15,9 +19,4 @@ MessagePack-IDL形式は、とてもシンプルなので、それぞれの言�
    api_recommender
    api_stat
    api_graph
-
-
-
-
-
 
