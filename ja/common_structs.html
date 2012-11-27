@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Common structs and interfaces &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Common Data Structures and Methods &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -91,11 +91,11 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Common structs and interfaces</a><ul>
-<li><a class="reference internal" href="#jubatus-converter-config">jubatus::converter_config</a></li>
+<li><a class="reference internal" href="#">Common Data Structures and Methods</a><ul>
+<li><a class="reference internal" href="#datum">Datum</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#common-methods">common methods</a></li>
 </ul>
 
   <h3>This Page</h3>
@@ -155,48 +155,32 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="common-structs-and-interfaces">
-<h1>Common structs and interfaces<a class="headerlink" href="#common-structs-and-interfaces" title="Permalink to this headline">¶</a></h1>
-<p>以下の構造体と共通APIは、classifier, regression, recommender, graphで有効です。
-statは共通APIのうちsave, load, get_statusのみサポートしています。</p>
-<div class="section" id="jubatus-converter-config">
-<h2>jubatus::converter_config<a class="headerlink" href="#jubatus-converter-config" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="common-data-structures-and-methods">
+<h1>Common Data Structures and Methods<a class="headerlink" href="#common-data-structures-and-methods" title="Permalink to this headline">¶</a></h1>
+<p>以下のデータ構造とメソッドは各サーバで利用できます。
+ただし、 <tt class="docutils literal"><span class="pre">graph</span></tt> では <tt class="docutils literal"><span class="pre">get_config</span></tt> と <tt class="docutils literal"><span class="pre">set_config</span></tt> は利用できません。</p>
+<div class="section" id="datum">
+<h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::converter_config</tt></dt>
-<dd></dd></dl>
+<tt class="descname">jubatus::datum</tt></dt>
+<dd><p>Jubatus で機械学習の対象となるデータを表すクラス。詳細は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照してください。</p>
+</dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span>  <span class="n">param_t</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
-
-<span class="n">message</span> <span class="n">converter_config</span> <span class="p">{</span>
-  <span class="mi">0</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">string_filter_types</span>
-
-  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">filter_rule</span><span class="o">&gt;</span> <span class="n">string_filter_rules</span>
-
-  <span class="mi">2</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">num_filter_types</span>
-
-  <span class="mi">3</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">filter_rule</span><span class="o">&gt;</span> <span class="n">num_filter_rules</span>
-
-  <span class="mi">4</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">string_types</span>
-
-  <span class="mi">5</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">string_rule</span><span class="o">&gt;</span> <span class="n">string_rules</span>
-
-  <span class="mi">6</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">num_types</span>
-
-  <span class="mi">7</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">num_rule</span><span class="o">&gt;</span> <span class="n">num_rules</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">datum</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">string_values</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">num_values</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>converter_configの詳細は、 <a class="reference internal" href="../en/fv_convert.html#conversion"><em>Data Conversion</em></a> を参照してください。</p>
 </div>
-</div>
-<div class="section" id="common-methods">
-<h1>common methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
 <tt class="descname">bool save(0: string name, 1: string id)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -205,7 +189,7 @@ statは共通APIのうちsave, load, get_statusのみサポートしています
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Returns:</li>
+<li>戻り値:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -219,7 +203,7 @@ statは共通APIのうちsave, load, get_statusのみサポートしています
 <dt>
 <tt class="descname">bool load(0: string name, 1: string id)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -228,21 +212,21 @@ statは共通APIのうちsave, load, get_statusのみサポートしています
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Returns:</li>
+<li>戻り値:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>すべてのサーバで読みだした成功したらTrue</li>
+<li>すべてのサーバで読み出しに成功したらTrue</li>
 </ul>
 </div></blockquote>
-<p><strong>すべて</strong> のサーバで学習モデルをローカルディスクから読み出す。</p>
+<p><strong>すべて</strong> のサーバで、保存された学習モデルをローカルディスクから読み出す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool set_config(0: string name, 1: config_data c)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -250,14 +234,22 @@ statは共通APIのうちsave, load, get_statusのみサポートしています
 <li><tt class="docutils literal"><span class="pre">c</span></tt> : config_data</li>
 </ul>
 </div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>すべてのサーバで設定に成功したらTrue</li>
+</ul>
+</div></blockquote>
+<p><strong>すべての</strong> サーバの設定を更新する。</p>
 </dd></dl>
 
-<p><strong>すべての</strong> サーバのconfigを更新する。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">config_data get_config(0: string name)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -265,21 +257,21 @@ statは共通APIのうちsave, load, get_statusのみサポートしています
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Returns:</li>
+<li>戻り値:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>config_data</li>
+<li><tt class="docutils literal"><span class="pre">set_config</span></tt> で設定した設定情報</li>
 </ul>
 </div></blockquote>
+<p>ランダムに選んだサーバの設定を取得する。</p>
 </dd></dl>
 
-<p>ランダムに選んだサーバのconfigを取得する。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">map&lt;string, map&lt;string, string &gt; &gt; get_status(string name)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -287,16 +279,17 @@ statは共通APIのうちsave, load, get_statusのみサポートしています
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Returns:</li>
+<li>戻り値:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>それぞれのサーバの内部状態.</li>
+<li>それぞれのサーバの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</li>
 </ul>
 </div></blockquote>
+<p><strong>すべての</strong> サーバの内部状態を取得する。サーバはホスト名、ポート番号で識別する。</p>
 </dd></dl>
 
-<p><strong>すべての</strong> サーバの内部状態を取得する。サーバはホスト名、ポート番号で識別する。</p>
+</div>
 </div>
 
 

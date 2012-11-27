@@ -1,10 +1,10 @@
-jubatus::client::graph
-----------------------
+Graph
+-----
 
 See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl>`_ for original and detailed spec.
 
-typedef
-~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 .. code-block:: c++
 
@@ -38,7 +38,7 @@ typedef
   }
 
 
-How preset query matches to a property
+Usage of Properties and Preset Queries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Properties and Queries are both represented as key-value pair like
@@ -70,8 +70,8 @@ This case does not match -- property ``spam`` does not exist:
 
 
 
-graph methods
-~~~~~~~~~~~~~
+Methods
+~~~~~~~
 
 .. describe:: string create_node(0: string name)
 

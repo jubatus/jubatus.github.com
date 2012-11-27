@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>jubatus::client::classifier &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Classifier &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -91,9 +91,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">jubatus::client::classifier</a><ul>
-<li><a class="reference internal" href="#types">types</a></li>
-<li><a class="reference internal" href="#classifier-methods">classifier methods</a></li>
+<li><a class="reference internal" href="#">Classifier</a><ul>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
 </ul>
@@ -155,70 +155,80 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="jubatus-client-classifier">
-<h1>jubatus::client::classifier<a class="headerlink" href="#jubatus-client-classifier" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="types">
-<h2>types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-  <span class="n">string</span> <span class="n">method</span><span class="p">;</span>
-  <span class="n">jubatus</span><span class="o">::</span><span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">estimate_result</span> <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">label_</span><span class="p">;</span>
-  <span class="kt">double</span> <span class="n">prob_</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="classifier-methods">
-<h2>classifier methods<a class="headerlink" href="#classifier-methods" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="classifier">
+<h1>Classifier<a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h1>
+<p>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl">IDL 定義</a> を参照してください。</p>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">train(0: string name, 1: list&lt;tuple&lt;string, datum&gt; &gt; data)</tt></dt>
+<tt class="descname">jubatus::config_data</tt></dt>
+<dd></dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">converter</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">converter</span></tt> は <tt class="docutils literal"><span class="pre">datum</span></tt> に対する特徴抽出方法を記述した JSON 文字列です。詳細は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照してください。</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">estimate_result</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">label</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">prob</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">int train(0: string name, 1: list&lt;tuple&lt;string, datum&gt; &gt; data)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">data</span></tt> : labelとdatumで構成される組のリスト</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Returns:</li>
+<li>戻り値:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>成功すると0が返る</li>
+<li>モデルの更新に成功した場合は 0</li>
 </ul>
 </div></blockquote>
-<p>ランダムに一台選んだサーバで学習し、モデルを更新する。 <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> は、datumとそのlabelの組である。
-この関数は <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> をリスト形式で、まとめて同時に受け付けることが出来る。</p>
+<p>学習しモデルを更新する。 <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> は、datumとそのlabelの組である。
+この関数は <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">list&lt;list&lt;estimate_result&gt; &gt; classify(0: string name, 1: list&lt;datum&gt; data)</tt></dt>
 <dd><ul class="simple">
-<li>Parameters:</li>
+<li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : datumのリスト</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : 分類するdatumのリスト</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Returns:</li>
+<li>戻り値:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">estimate_results</span></tt> のリスト</li>
 </ul>
 </div></blockquote>
-<p>ランダムに選んだサーバで結果を推定する。``estimate_results`` は、labelとその信頼性の値の組のリストが、入れられたdatumの順番にリストで入っている。</p>
+<p>与えられた <tt class="docutils literal"><span class="pre">data</span></tt> から、ラベルを推定する。
+<tt class="docutils literal"><span class="pre">estimate_results</span></tt> は、labelとその確からしさの値 (<tt class="docutils literal"><span class="pre">prob</span></tt>) の組のリストが、入れられたdatumの順番にリストで入っている。
+確からしさの値は [0,1] の範囲であり、高い値はより信頼性が高いことを意味する。
+この関数は、 <tt class="docutils literal"><span class="pre">datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
 </div>

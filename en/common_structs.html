@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Common structs and interfaces &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Common Data Structures and Methods &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -44,7 +44,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
-    <link rel="next" title="jubatus::client::classifier" href="api_classifier.html" />
+    <link rel="next" title="Classifier" href="api_classifier.html" />
     <link rel="prev" title="Client API" href="api.html" /> 
 
 <!--
@@ -84,7 +84,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api_classifier.html" title="jubatus::client::classifier"
+          <a href="api_classifier.html" title="Classifier"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="api.html" title="Client API"
@@ -102,11 +102,11 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Common structs and interfaces</a><ul>
-<li><a class="reference internal" href="#jubatus-converter-config">jubatus::converter_config</a></li>
+<li><a class="reference internal" href="#">Common Data Structures and Methods</a><ul>
+<li><a class="reference internal" href="#datum">Datum</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#common-methods">common methods</a></li>
 </ul>
 
   <h4>Previous topic</h4>
@@ -114,7 +114,7 @@
                         title="previous chapter">Client API</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="api_classifier.html"
-                        title="next chapter">jubatus::client::classifier</a></p>
+                        title="next chapter">Classifier</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/en/common_structs.txt"
@@ -172,43 +172,27 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="common-structs-and-interfaces">
-<h1>Common structs and interfaces<a class="headerlink" href="#common-structs-and-interfaces" title="Permalink to this headline">¶</a></h1>
-<p>These structs and interfaces are available in classifier, regression and recommender.
-save, load and get_status are available in stat.</p>
-<div class="section" id="jubatus-converter-config">
-<h2>jubatus::converter_config<a class="headerlink" href="#jubatus-converter-config" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="common-data-structures-and-methods">
+<h1>Common Data Structures and Methods<a class="headerlink" href="#common-data-structures-and-methods" title="Permalink to this headline">¶</a></h1>
+<p>These data structures and methods are available in each server.
+Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> and <tt class="docutils literal"><span class="pre">set_config</span></tt> are not supported on <tt class="docutils literal"><span class="pre">graph</span></tt>.</p>
+<div class="section" id="datum">
+<h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::converter_config</tt></dt>
-<dd></dd></dl>
+<tt class="descname">jubatus::datum</tt></dt>
+<dd><p>Class that represents the data used for machine learning in Jubatus. See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
+</dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span>  <span class="n">param_t</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
-
-<span class="n">message</span> <span class="n">converter_config</span> <span class="p">{</span>
-  <span class="mi">0</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">string_filter_types</span>
-
-  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">filter_rule</span><span class="o">&gt;</span> <span class="n">string_filter_rules</span>
-
-  <span class="mi">2</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">num_filter_types</span>
-
-  <span class="mi">3</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">filter_rule</span><span class="o">&gt;</span> <span class="n">num_filter_rules</span>
-
-  <span class="mi">4</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">string_types</span>
-
-  <span class="mi">5</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">string_rule</span><span class="o">&gt;</span> <span class="n">string_rules</span>
-
-  <span class="mi">6</span><span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">param_t</span><span class="o">&gt;</span> <span class="n">num_types</span>
-
-  <span class="mi">7</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">num_rule</span><span class="o">&gt;</span> <span class="n">num_rules</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">datum</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">string_values</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">num_values</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="fv_convert.html#conversion"><em>Data Conversion</em></a> to know in detail converter_config</p>
 </div>
-</div>
-<div class="section" id="common-methods">
-<h1>common methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
 <tt class="descname">bool save(0: string name, 1: string id)</tt></dt>
@@ -218,7 +202,7 @@ save, load and get_status are available in stat.</p>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : filename</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : file name to save</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -226,10 +210,10 @@ save, load and get_status are available in stat.</p>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>True if this function saves files successfully at all servers.</li>
+<li>True if this function saves files successfully at all servers</li>
 </ul>
 </div></blockquote>
-<p>Storing learing models to local disk at <strong>ALL</strong> servers.</p>
+<p>Store the learing model to the local disk at <strong>ALL</strong> servers.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -241,7 +225,7 @@ save, load and get_status are available in stat.</p>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : filename</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : file name to load</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -252,7 +236,7 @@ save, load and get_status are available in stat.</p>
 <li>True if this function loads files successfully at all servers</li>
 </ul>
 </div></blockquote>
-<p>Restoreing learning models from local disk at <strong>ALL</strong> servers.</p>
+<p>Restore the saved model from local disk at <strong>ALL</strong> servers.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -267,9 +251,17 @@ save, load and get_status are available in stat.</p>
 <li><tt class="docutils literal"><span class="pre">c</span></tt> : config_data</li>
 </ul>
 </div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>True if this function successfully updated configuration at all servers</li>
+</ul>
+</div></blockquote>
+<p>Updates server configuration at <strong>ALL</strong> servers.</p>
 </dd></dl>
 
-<p>Updates server config at <strong>ALL</strong> servers.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">config_data get_config(0: string name)</tt></dt>
@@ -286,10 +278,10 @@ save, load and get_status are available in stat.</p>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>config_data</li>
+<li>server configuration set by <tt class="docutils literal"><span class="pre">set_config</span></tt></li>
 </ul>
 </div></blockquote>
-<p>Getting server config from a server chosen randomly.</p>
+<p>Returns server configuration from a server chosen randomly.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -308,12 +300,13 @@ save, load and get_status are available in stat.</p>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Internal state for each servers.</li>
+<li>Internal state for each servers. The key of most outer map is in format of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</li>
 </ul>
 </div></blockquote>
-<p>Getting server status from <strong>ALL</strong> servers. Each server is represented by a pair of host name and port.</p>
+<p>Returns server status from <strong>ALL</strong> servers. Each server is represented by a pair of host name and port.</p>
 </dd></dl>
 
+</div>
 </div>
 
 
@@ -329,7 +322,7 @@ save, load and get_status are available in stat.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="api_classifier.html" title="jubatus::client::classifier"
+          <a href="api_classifier.html" title="Classifier"
              >next</a> |</li>
         <li class="right" >
           <a href="api.html" title="Client API"

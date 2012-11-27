@@ -1,50 +1,37 @@
 
-Common structs and interfaces
------------------------------
+Common Data Structures and Methods
+----------------------------------
 
-以下の構造体と共通APIは、classifier, regression, recommender, graphで有効です。
-statは共通APIのうちsave, load, get_statusのみサポートしています。
+以下のデータ構造とメソッドは各サーバで利用できます。
+ただし、 ``graph`` では ``get_config`` と ``set_config`` は利用できません。
 
-jubatus::converter_config
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. describe:: jubatus::converter_config
+Datum
+~~~~~
+
+.. describe:: jubatus::datum
+
+ Jubatus で機械学習の対象となるデータを表すクラス。詳細は :doc:`fv_convert` を参照してください。
 
 .. code-block:: c++
 
-   type  param_t = map<string, string>
-
-   message converter_config {
-     0: map<string, param_t> string_filter_types
-
-     1: list<filter_rule> string_filter_rules
-
-     2: map<string, param_t> num_filter_types
-
-     3: list<filter_rule> num_filter_rules
-
-     4: map<string, param_t> string_types
-
-     5: list<string_rule> string_rules
-
-     6: map<string, param_t> num_types
-
-     7: list<num_rule> num_rules
+   message datum {
+     0: list<tuple<string, string> > string_values
+     1: list<tuple<string, double> > num_values
    }
 
-converter_configの詳細は、 :ref:`conversion` を参照してください。
 
-common methods
---------------
+Methods
+~~~~~~~
 
 .. describe:: bool save(0: string name, 1: string id)
 
- - Parameters:
+ - 引数:
 
   - ``name`` : タスクを識別するユニークな名前
   - ``id`` : 保存されるファイル名
 
- - Returns:
+ - 戻り値:
 
   - すべてのサーバで保存が成功したらTrue
 
@@ -53,47 +40,54 @@ common methods
 
 .. describe:: bool load(0: string name, 1: string id)
 
- - Parameters:
+ - 引数:
 
   - ``name`` : タスクを識別するユニークな名前
   - ``id`` : 読み出すファイル名
 
- - Returns:
+ - 戻り値:
 
-  - すべてのサーバで読みだした成功したらTrue
+  - すべてのサーバで読み出しに成功したらTrue
 
- **すべて** のサーバで学習モデルをローカルディスクから読み出す。
+ **すべて** のサーバで、保存された学習モデルをローカルディスクから読み出す。
+
 
 .. describe:: bool set_config(0: string name, 1: config_data c)
 
- - Parameters:
+ - 引数:
 
   - ``name`` : タスクを識別するユニークな名前
   - ``c`` : config_data
 
-**すべての** サーバのconfigを更新する。
+ - 戻り値:
+
+  - すべてのサーバで設定に成功したらTrue
+
+ **すべての** サーバの設定を更新する。
+
 
 .. describe:: config_data get_config(0: string name)
 
- - Parameters:
+ - 引数:
 
   - ``name`` : タスクを識別するユニークな名前
 
- - Returns:
+ - 戻り値:
 
-  - config_data
+  - ``set_config`` で設定した設定情報
 
-ランダムに選んだサーバのconfigを取得する。
+ ランダムに選んだサーバの設定を取得する。
+
 
 .. describe:: map<string, map<string, string > > get_status(string name)
 
- - Parameters:
+ - 引数:
 
   - ``name`` : タスクを識別するユニークな名前
 
- - Returns:
+ - 戻り値:
 
-  - それぞれのサーバの内部状態.
+  - それぞれのサーバの内部状態。最上位の map のキーは ``ホスト名_ポート番号`` 形式である。
 
-**すべての** サーバの内部状態を取得する。サーバはホスト名、ポート番号で識別する。
+ **すべての** サーバの内部状態を取得する。サーバはホスト名、ポート番号で識別する。
 

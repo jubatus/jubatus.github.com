@@ -1,12 +1,12 @@
-jubatus::client::recommender
-----------------------------
+Recommender
+-----------
 
 ..See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl>`_ for original and detailed spec.
 詳細は `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl>`_ を参照してください。
 
 
-typedef
-~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 .. describe:: jubatus::recommender::config_data
 
@@ -20,9 +20,8 @@ typedef
 
    }
 
-
-recommender methods
-~~~~~~~~~~~~~~~~~~~
+Methods
+~~~~~~~
 
 .. describe:: bool clear_row(string name, string id)
 

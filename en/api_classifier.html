@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>jubatus::client::classifier &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Classifier &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -44,8 +44,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
-    <link rel="next" title="jubatus::client::regression" href="api_regression.html" />
-    <link rel="prev" title="Common structs and interfaces" href="common_structs.html" /> 
+    <link rel="next" title="Regression" href="api_regression.html" />
+    <link rel="prev" title="Common Data Structures and Methods" href="common_structs.html" /> 
 
 <!--
 
@@ -84,10 +84,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api_regression.html" title="jubatus::client::regression"
+          <a href="api_regression.html" title="Regression"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="common_structs.html" title="Common structs and interfaces"
+          <a href="common_structs.html" title="Common Data Structures and Methods"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -102,19 +102,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">jubatus::client::classifier</a><ul>
-<li><a class="reference internal" href="#types">types</a></li>
-<li><a class="reference internal" href="#classifier-methods">classifier methods</a></li>
+<li><a class="reference internal" href="#">Classifier</a><ul>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="common_structs.html"
-                        title="previous chapter">Common structs and interfaces</a></p>
+                        title="previous chapter">Common Data Structures and Methods</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="api_regression.html"
-                        title="next chapter">jubatus::client::regression</a></p>
+                        title="next chapter">Regression</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/en/api_classifier.txt"
@@ -172,47 +172,41 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="jubatus-client-classifier">
-<h1>jubatus::client::classifier<a class="headerlink" href="#jubatus-client-classifier" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl">IDL definition</a> for original and detailed spec.</p>
-<div class="section" id="types">
-<h2>types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="classifier">
+<h1>Classifier<a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl">IDL definition</a> for detailed specification.</p>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
 <tt class="descname">jubatus::config_data</tt></dt>
 <dd></dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-
   <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">converter</span>
-
 <span class="p">}</span>
 </pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">converter</span></tt> is a string of JSON format that describes configuration of feature extranction of <tt class="docutils literal"><span class="pre">datum</span></tt> . See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">estimate_result</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">label</span>
-
   <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">prob</span>
-
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="classifier-methods">
-<h2>classifier methods<a class="headerlink" href="#classifier-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">train(0: string name, 1: list&lt;tuple&lt;string, datum&gt; &gt; data)</tt></dt>
+<tt class="descname">int train(0: string name, 1: list&lt;tuple&lt;string, datum&gt; &gt; data)</tt></dt>
 <dd><ul class="simple">
 <li>Parameters:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">data</span></tt> : list of tuple of label and datum</li>
 </ul>
 </div></blockquote>
@@ -221,11 +215,11 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Zero if this function updates models successfully.</li>
+<li>Zero if the model is updated successfully</li>
 </ul>
 </div></blockquote>
-<p>Training model at a server chosen randomly. <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and it&#8217;s label.
-This function is designed to allow bulk update with list of tuple of label and datum.</p>
+<p>Train and update the model. <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its label.
+This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -236,7 +230,7 @@ This function is designed to allow bulk update with list of tuple of label and d
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">data</span></tt> : list of datum for classifiy</li>
 </ul>
 </div></blockquote>
@@ -248,7 +242,10 @@ This function is designed to allow bulk update with list of tuple of label and d
 <li>List of estimate_results</li>
 </ul>
 </div></blockquote>
-<p>Estimating a result at a server choosen randomly. <tt class="docutils literal"><span class="pre">estimate_results</span></tt> is a list of tuple of label and it&#8217;s reliablity value.</p>
+<p>Estimating the label from given <tt class="docutils literal"><span class="pre">data</span></tt>.
+<tt class="docutils literal"><span class="pre">estimate_results</span></tt> is a list of tuple of label and its probability value (<tt class="docutils literal"><span class="pre">prob</span></tt>), in order of given datum.
+Probability value is in range of [0,1] and higher value means more confident.
+This function is designed to allow bulk classification with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
 </dd></dl>
 
 </div>
@@ -267,10 +264,10 @@ This function is designed to allow bulk update with list of tuple of label and d
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="api_regression.html" title="jubatus::client::regression"
+          <a href="api_regression.html" title="Regression"
              >next</a> |</li>
         <li class="right" >
-          <a href="common_structs.html" title="Common structs and interfaces"
+          <a href="common_structs.html" title="Common Data Structures and Methods"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>

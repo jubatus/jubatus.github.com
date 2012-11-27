@@ -1,10 +1,10 @@
-jubatus::client::regression
----------------------------
+Regression
+----------
 
 See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl>`_ for original and detailed spec.
 
-typedef
-~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 .. describe:: jubatus::regression::config_data
 
@@ -22,9 +22,8 @@ typedef
 ``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
 
 
-
-regression methods
-~~~~~~~~~~~~~~~~~~
+Methods
+~~~~~~~
 
 .. describe:: int train(0: string name, list<tuple<float, datum> > train_data)
 

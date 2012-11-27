@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>jubatus::client::graph &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Graph &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="How to Contribute to Jubatus" href="howtocontribute.html" />
-    <link rel="prev" title="jubatus::client::stat" href="api_stat.html" /> 
+    <link rel="prev" title="Stat" href="api_stat.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="howtocontribute.html" title="How to Contribute to Jubatus"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="api_stat.html" title="jubatus::client::stat"
+          <a href="api_stat.html" title="Stat"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -102,17 +102,17 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">jubatus::client::graph</a><ul>
-<li><a class="reference internal" href="#typedef">typedef</a></li>
-<li><a class="reference internal" href="#how-preset-query-matches-to-a-property">How preset query matches to a property</a></li>
-<li><a class="reference internal" href="#graph-methods">graph methods</a></li>
+<li><a class="reference internal" href="#">Graph</a><ul>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#usage-of-properties-and-preset-queries">Usage of Properties and Preset Queries</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="api_stat.html"
-                        title="previous chapter">jubatus::client::stat</a></p>
+                        title="previous chapter">Stat</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="howtocontribute.html"
                         title="next chapter">How to Contribute to Jubatus</a></p>
@@ -173,11 +173,11 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="jubatus-client-graph">
-<h1>jubatus::client::graph<a class="headerlink" href="#jubatus-client-graph" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="graph">
+<h1>Graph<a class="headerlink" href="#graph" title="Permalink to this headline">¶</a></h1>
 <p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> for original and detailed spec.</p>
-<div class="section" id="typedef">
-<h2>typedef<a class="headerlink" href="#typedef" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">centrality_type</span> <span class="o">=</span> <span class="kt">int</span>
 <span class="n">type</span> <span class="n">edge_id_t</span> <span class="o">=</span> <span class="n">ulong</span>
 
@@ -209,8 +209,8 @@ new TWTR.Widget({
 </pre></div>
 </div>
 </div>
-<div class="section" id="how-preset-query-matches-to-a-property">
-<h2>How preset query matches to a property<a class="headerlink" href="#how-preset-query-matches-to-a-property" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="usage-of-properties-and-preset-queries">
+<h2>Usage of Properties and Preset Queries<a class="headerlink" href="#usage-of-properties-and-preset-queries" title="Permalink to this headline">¶</a></h2>
 <p>Properties and Queries are both represented as key-value pair like
 <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'key'</span> <span class="pre">:</span> <span class="pre">'value',</span> <span class="pre">'key2'</span> <span class="pre">:</span> <span class="pre">'value2',</span> <span class="pre">...</span> <span class="pre">}</span></tt>.
 The condition when a query matches to a property is: all keys in a query MUST exist in a property and the corresponding value which belongs to the query and the property MUST match excactly. The ordering of each key-value in property/query does not matter.</p>
@@ -227,8 +227,8 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
 </div>
-<div class="section" id="graph-methods">
-<h2>graph methods<a class="headerlink" href="#graph-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
 <tt class="descname">string create_node(0: string name)</tt></dt>
@@ -356,7 +356,7 @@ and the computed path when in a distributed setup.</p>
           <a href="howtocontribute.html" title="How to Contribute to Jubatus"
              >next</a> |</li>
         <li class="right" >
-          <a href="api_stat.html" title="jubatus::client::stat"
+          <a href="api_stat.html" title="Stat"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>

@@ -1,10 +1,10 @@
-jubatus::client::recommender
-----------------------------
+Recommender
+-----------
 
 See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl>`_ for original and detailed spec.
 
-typedef
-~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 .. describe:: jubatus::config_data
 
@@ -20,10 +20,8 @@ typedef
 
 ``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
 
-
-
-recommender methods
-~~~~~~~~~~~~~~~~~~~
+Methods
+~~~~~~~
 
 .. describe:: bool clear_row(string name, string id)
 

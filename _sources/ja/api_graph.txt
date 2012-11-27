@@ -1,11 +1,11 @@
-jubatus::client::graph
-----------------------
+Graph
+-----
 
 詳細は `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl>`_ を参照してください。
 .. See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl>`_ for original and detailed spec.
 
-typedef
-~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 .. code-block:: c++
 
@@ -39,14 +39,13 @@ typedef
     3: preset_query q
   }
 
-
-How preset query matches to a property
+Usage of Properties and Preset Queries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To be filled
 
-graph methods
-~~~~~~~~~~~~~
+Methods
+~~~~~~~
 
 .. describe:: string create_node(0: string name)
 

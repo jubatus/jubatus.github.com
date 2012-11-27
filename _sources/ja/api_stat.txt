@@ -1,11 +1,11 @@
-jubatus::client::stat
----------------------
+Stat
+----
 
 ..See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl>`_ for original and detailed spec.
 詳細は `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl>`_ を参照してください。
 
-typedef
-~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 .. describe:: jubatus::stat::config_data
 
@@ -16,8 +16,8 @@ typedef
    }
 
 
-stat methods
-~~~~~~~~~~~~
+Methods
+~~~~~~~
 
 .. describe:: bool push(0: string name, 1: string key, 2: double val)
 

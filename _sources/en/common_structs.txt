@@ -1,54 +1,39 @@
 
-Common structs and interfaces
------------------------------
+Common Data Structures and Methods
+----------------------------------
 
-These structs and interfaces are available in classifier, regression and recommender.
-save, load and get_status are available in stat.
+These data structures and methods are available in each server.
+Note that ``get_config`` and ``set_config`` are not supported on ``graph``.
 
-jubatus::converter_config
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Datum
+~~~~~
 
-.. describe:: jubatus::converter_config
+.. describe:: jubatus::datum
+
+ Class that represents the data used for machine learning in Jubatus. See :doc:`fv_convert` for details.
 
 .. code-block:: c++
 
-   type  param_t = map<string, string>
-
-   message converter_config {
-     0: map<string, param_t> string_filter_types
-
-     1: list<filter_rule> string_filter_rules
-
-     2: map<string, param_t> num_filter_types
-
-     3: list<filter_rule> num_filter_rules
-
-     4: map<string, param_t> string_types
-
-     5: list<string_rule> string_rules
-
-     6: map<string, param_t> num_types
-
-     7: list<num_rule> num_rules
+   message datum {
+     0: list<tuple<string, string> > string_values
+     1: list<tuple<string, double> > num_values
    }
 
-See :ref:`conversion` to know in detail converter_config
-
-common methods
---------------
+Methods
+~~~~~~~
 
 .. describe:: bool save(0: string name, 1: string id)
 
  - Parameters:
 
   - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
-  - ``id`` : filename
+  - ``id`` : file name to save
 
  - Returns:
 
-  - True if this function saves files successfully at all servers.
+  - True if this function saves files successfully at all servers
 
- Storing learing models to local disk at **ALL** servers.
+ Store the learing model to the local disk at **ALL** servers.
 
 
 .. describe:: bool load(0: string name, 1: string id)
@@ -56,13 +41,13 @@ common methods
  - Parameters:
 
   - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
-  - ``id`` : filename
+  - ``id`` : file name to load
 
  - Returns:
 
   - True if this function loads files successfully at all servers
 
- Restoreing learning models from local disk at **ALL** servers.
+ Restore the saved model from local disk at **ALL** servers.
 
 
 .. describe:: bool set_config(0: string name, 1: config_data c)
@@ -72,7 +57,11 @@ common methods
   - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
   - ``c`` : config_data
 
-Updates server config at **ALL** servers.
+ - Returns:
+
+  - True if this function successfully updated configuration at all servers
+
+ Updates server configuration at **ALL** servers.
 
 
 .. describe:: config_data get_config(0: string name)
@@ -83,9 +72,9 @@ Updates server config at **ALL** servers.
 
  - Returns:
 
-  - config_data
+  - server configuration set by ``set_config``
 
- Getting server config from a server chosen randomly.
+ Returns server configuration from a server chosen randomly.
 
 .. describe:: map<string, map<string, string > > get_status(string name)
 
@@ -95,7 +84,7 @@ Updates server config at **ALL** servers.
 
  - Returns:
 
-  - Internal state for each servers.
+  - Internal state for each servers. The key of most outer map is in format of ``hostname_portnumber``.
 
- Getting server status from **ALL** servers. Each server is represented by a pair of host name and port.
+ Returns server status from **ALL** servers. Each server is represented by a pair of host name and port.
 
