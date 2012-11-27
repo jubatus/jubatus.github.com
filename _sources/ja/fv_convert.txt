@@ -439,7 +439,7 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
       "string_types": {
         "date": {
           "method": "dynamic",
-          "path": "/usr/local/lib/libre2_splitter.so",
+          "path": "/usr/local/lib/jubatus/plugin/libre2_splitter.so",
           "function": "create",
           "pattern": "[0-9]{4}/[0-9]{2}/[0-9]{2}"
         }
@@ -452,7 +452,7 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
       "string_types": {
         "age": {
           "method": "dynamic",
-          "path": "/usr/local/lib/libre2_splitter.so",
+          "path": "/usr/local/lib/jubatus/plugin/libre2_splitter.so",
           "function": "create",
           "pattern": "(age|Age)([ :=])([0-9]+)",
           "group": "3"

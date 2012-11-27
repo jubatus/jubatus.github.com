@@ -426,7 +426,7 @@ Note that some plugins are not available depending on your compile options.
  We can specify this plugin in "string_types".
  Extract keywords from given document by way of regular expression matching with re2 and use each keyword as a feature.
  Matching is executed continuously, that is, every match is used as a feature.
- This plugin is created in /usr/local/lib if Jubatus is **NOT** compiled with --disable-re2 option.
+ This plugin is available only when **NOT** compiled with `--disable-re2`.
 
   :function:  Specifies "create".
   :pattern:   Specifies mathing pattrn.
@@ -439,7 +439,7 @@ Note that some plugins are not available depending on your compile options.
       "string_types": {
         "date": {
           "method": "dynamic",
-          "path": "/usr/local/lib/libre2_splitter.so",
+          "path": "/usr/local/lib/jubatus/plugin/libre2_splitter.so",
           "function": "create",
           "pattern": "[0-9]{4}/[0-9]{2}/[0-9]{2}"
         }
