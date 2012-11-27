@@ -1,23 +1,16 @@
-.. Jubatus documentation master file, created by
-   sphinx-quickstart on Wed Mar 30 16:47:02 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Jubatus : オンライン機械学習向け分散処理フレームワーク
 =======================================================
 
-Jubatus は以下の特徴をもったオンライン機械学習向け分散処理フレームワークです。
+Jubatus は以下の特徴を持ったオンライン機械学習向け分散処理フレームワークです。
 
-- オンライン多値分類
-- オンライン線形回帰
-- オンライン推薦（近傍探索）
-- オンライングラフマイニング
-- 特徴ベクトル変換
-- フォルトトレラントな分散処理
+- オンライン機械学習ライブラリ: 多値分類、線形回帰、推薦（近傍探索）、グラフマイニング
+- 特徴ベクトル変換 (fv_converter): データの前処理と特徴抽出
+- フォルトトレラントな分散機械学習のためのフレームワーク
 
+See :doc:`../index` for English documentation.
 
-TOC
----
+Table of Contents
+-----------------
 
 .. toctree::
    :maxdepth: 3
@@ -32,17 +25,12 @@ TOC
    misc
 
 
-
-Other resources
+Other Resources
 ===============
 
 - `Jubatus Blog <http://blog.jubat.us>`_
-- `@JubatusOfficial: Keep up on latest news <http://twitter.com/JubatusOfficial>`_
-- `Discussions and news about Jubatus on Google Groups <http://groups.google.com/group/jubatus>`_
+- `@JubatusOfficial: 最新のニュース <http://twitter.com/JubatusOfficial>`_
+- `Google Groups: ディスカッションとアナウンス <http://groups.google.com/group/jubatus>`_
 - `Fork me on GitHub <http://github.com/jubatus>`_
 
-
 * :ref:`genindex`
-
-.. * :ref:`modindex`
-.. * :ref:`search`
