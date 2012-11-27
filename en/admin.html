@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Administrator’s Guide &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Administration Guide &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -101,10 +101,10 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Administrator&#8217;s Guide</a><ul>
-<li><a class="reference internal" href="#recommended-process-configuration">Recommended process configuration</a><ul>
-<li><a class="reference internal" href="#jubakeeper">Jubakeeper</a></li>
-<li><a class="reference internal" href="#jubaserver">Jubaserver</a></li>
+<li><a class="reference internal" href="#">Administration Guide</a><ul>
+<li><a class="reference internal" href="#recommended-process-configuration">Recommended Process Configuration</a><ul>
+<li><a class="reference internal" href="#jubatus-keepers">Jubatus Keepers</a></li>
+<li><a class="reference internal" href="#jubatus-servers">Jubatus Servers</a></li>
 <li><a class="reference internal" href="#zookeeper">ZooKeeper</a></li>
 </ul>
 </li>
@@ -179,35 +179,35 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="administrator-s-guide">
-<h1>Administrator&#8217;s Guide<a class="headerlink" href="#administrator-s-guide" title="Permalink to this headline">¶</a></h1>
-<p>This section is a guide for system administrators.</p>
+  <div class="section" id="administration-guide">
+<h1>Administration Guide<a class="headerlink" href="#administration-guide" title="Permalink to this headline">¶</a></h1>
+<p>This page describes how to administer a Jubatus cluster.</p>
 <div class="section" id="recommended-process-configuration">
-<h2>Recommended process configuration<a class="headerlink" href="#recommended-process-configuration" title="Permalink to this headline">¶</a></h2>
-<p>For reliable Jubatus service, you should run Jubatus on distributed environment.
+<h2>Recommended Process Configuration<a class="headerlink" href="#recommended-process-configuration" title="Permalink to this headline">¶</a></h2>
+<p>For reliable Jubatus service, you should run Jubatus in a distributed environment.
 Additionally, to ensure high performance, you should carefully plan the process configuration of Jubatus servers and processes that Jubatus depends on.</p>
 <p>This is the process configuration that we recommend.</p>
 <div class="figure">
 <img alt="process configuration" src="../_images/process_configuration.png" style="width: 90%;" />
 </div>
-<div class="section" id="jubakeeper">
-<h3>Jubakeeper<a class="headerlink" href="#jubakeeper" title="Permalink to this headline">¶</a></h3>
-<p>To keep operation and implementation of the client application simple, we recommend assigning one Jubakeeper for each instance of the application.</p>
-<p>For case that the client application can not connect to Jubakeeper (ex. Jubakeeper is downed), it is necessary to consider the reliability depending on the services provided. For example, like the following:</p>
+<div class="section" id="jubatus-keepers">
+<h3>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="Permalink to this headline">¶</a></h3>
+<p>To keep operation and implementation of the client application simple, we recommend assigning one keeper for each instance of the application.</p>
+<p>In case that the client application cannot connect to the keeper (e.g.,the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:</p>
 <ol class="arabic simple">
-<li>Monitor the processes. If the client application can not connect to Jubakeeper, blocks the access to the client application.</li>
-<li>Switch to another Jubakeeper.</li>
+<li>Monitor the keeper processes. When the keeper goes down, block the access to the application from users.</li>
+<li>Switch over to another keeper.</li>
 </ol>
 </div>
-<div class="section" id="jubaserver">
-<h3>Jubaserver<a class="headerlink" href="#jubaserver" title="Permalink to this headline">¶</a></h3>
-<p>If you set same name using <tt class="docutils literal"><span class="pre">--name</span></tt> options, processes collaborate with one another. As long as one of processes is running, Jubatus is available.</p>
-<p>In the figure above, processes is distributed on <tt class="docutils literal"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">1</span></tt> machines. Even when a failure occurs in <tt class="docutils literal"><span class="pre">N</span></tt> of machines, all of instances available.</p>
+<div class="section" id="jubatus-servers">
+<h3>Jubatus Servers<a class="headerlink" href="#jubatus-servers" title="Permalink to this headline">¶</a></h3>
+<p>If you set the same name using <tt class="docutils literal"><span class="pre">--name</span></tt> option, processes collaborate with one another. As long as one of processes is running, Jubatus service is available.</p>
+<p>In the figure above, processes is distributed on <tt class="docutils literal"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">1</span></tt> machines. Even when a failure occurs in <tt class="docutils literal"><span class="pre">N</span></tt> of machines, all of instances are available.</p>
 <p>Jubatus processes all data in memory. In order to prevent the lack of resourses (specially memory), you should pay to attention to the placement of the process.</p>
 </div>
 <div class="section" id="zookeeper">
 <h3>ZooKeeper<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h3>
-<p>When running Jubatus on distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:</p>
+<p>When running Jubatus in a distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:</p>
 <ol class="arabic simple">
 <li>Deploy ZooKeeper in a cluster (an ensemble) using an odd number of machines.</li>
 <li>To avoid degradation of performance and stability, deploy ZooKeeper on a dedicated machine.</li>

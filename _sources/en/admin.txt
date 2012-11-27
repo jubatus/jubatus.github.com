@@ -1,14 +1,14 @@
 
-Administrator's Guide
-=====================
+Administration Guide
+====================
 
-This section is a guide for system administrators.
+This page describes how to administer a Jubatus cluster.
 
 
-Recommended process configuration
+Recommended Process Configuration
 ---------------------------------
 
-For reliable Jubatus service, you should run Jubatus on distributed environment.
+For reliable Jubatus service, you should run Jubatus in a distributed environment.
 Additionally, to ensure high performance, you should carefully plan the process configuration of Jubatus servers and processes that Jubatus depends on.
 
 This is the process configuration that we recommend.
@@ -17,29 +17,29 @@ This is the process configuration that we recommend.
    :width: 90 %
    :alt: process configuration
 
-Jubakeeper
-~~~~~~~~~~
+Jubatus Keepers
+~~~~~~~~~~~~~~~
 
-To keep operation and implementation of the client application simple, we recommend assigning one Jubakeeper for each instance of the application.
+To keep operation and implementation of the client application simple, we recommend assigning one keeper for each instance of the application.
 
-For case that the client application can not connect to Jubakeeper (ex. Jubakeeper is downed), it is necessary to consider the reliability depending on the services provided. For example, like the following:
+In case that the client application cannot connect to the keeper (e.g.,the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:
 
-#. Monitor the processes. If the client application can not connect to Jubakeeper, blocks the access to the client application.
-#. Switch to another Jubakeeper.
+#. Monitor the keeper processes. When the keeper goes down, block the access to the application from users.
+#. Switch over to another keeper.
 
-Jubaserver
-~~~~~~~~~~
+Jubatus Servers
+~~~~~~~~~~~~~~~
 
-If you set same name using ``--name`` options, processes collaborate with one another. As long as one of processes is running, Jubatus is available.
+If you set the same name using ``--name`` option, processes collaborate with one another. As long as one of processes is running, Jubatus service is available.
 
-In the figure above, processes is distributed on ``N + 1`` machines. Even when a failure occurs in ``N`` of machines, all of instances available.
+In the figure above, processes is distributed on ``N + 1`` machines. Even when a failure occurs in ``N`` of machines, all of instances are available.
 
 Jubatus processes all data in memory. In order to prevent the lack of resourses (specially memory), you should pay to attention to the placement of the process.
 
 ZooKeeper
 ~~~~~~~~~
 
-When running Jubatus on distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:
+When running Jubatus in a distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:
 
 #. Deploy ZooKeeper in a cluster (an ensemble) using an odd number of machines.
 #. To avoid degradation of performance and stability, deploy ZooKeeper on a dedicated machine.
