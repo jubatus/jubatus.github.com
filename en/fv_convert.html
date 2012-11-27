@@ -102,7 +102,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Data Conversion</a><ul>
-<li><a class="reference internal" href="#datum">datum</a></li>
+<li><a class="reference internal" href="#datum">Datum</a></li>
 <li><a class="reference internal" href="#filter">Filter</a><ul>
 <li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
 <li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
@@ -110,18 +110,18 @@
 <li><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#feature-exctraction-from-string">Feature Exctraction (From String)</a><ul>
+<li><a class="reference internal" href="#feature-extraction-from-strings">Feature Extraction from Strings</a><ul>
 <li><a class="reference internal" href="#string-types">string_types</a></li>
 <li><a class="reference internal" href="#string-rules">string_rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#feature-extraction-from-number">Feature Extraction (From Number)</a><ul>
+<li><a class="reference internal" href="#feature-extraction-from-numbers">Feature Extraction from Numbers</a><ul>
 <li><a class="reference internal" href="#num-types">num_types</a></li>
 <li><a class="reference internal" href="#num-rules">num_rules</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#plugins">Plugins</a></li>
-<li><a class="reference internal" href="#overview-of-data-conversion">Overview of Data Conversion</a></li>
+<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
 </ul>
 </li>
 </ul>
@@ -202,8 +202,7 @@ This filtering includes removing HTML tags and symbols which we know are unneces
 Next, we extract features from sanitized data by feature-extraction process.</p>
 <p>We can expect a series of process works well by the easiest configuration in most cases.
 The followings is one of the easiest configuration.
-In this configuration, we use each word separated by spaces a feature for string data.
-For numric data, we use the value itself a feature.
+In this configuration, we use each word separated by spaces a feature for string data. For numric data, we use the value itself a feature.
 It is probable that doing some tuning this configuration to obtain training model with high precision and desirable result.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
@@ -211,10 +210,9 @@ It is probable that doing some tuning this configuration to obtain training mode
   <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
   <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span>
-    <span class="p">[</span> <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span>
-      <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span> <span class="p">}</span>
-    <span class="p">],</span>
+  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span> <span class="p">}</span>
+  <span class="p">],</span>
   <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span>  <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;num&quot;</span> <span class="p">}</span>
@@ -223,7 +221,7 @@ It is probable that doing some tuning this configuration to obtain training mode
 </pre></div>
 </div>
 <div class="section" id="datum">
-<h2>datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
+<h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
 <p>It is very simple key-value called &#8220;datum&#8221; that we can use as a data type in Jubatus.
 datum has two key-value&#8217;s.
 One is &#8220;string_values&#8221;, whose key and value are both string data.
@@ -233,11 +231,17 @@ And we can store in num_values arbitrary numeric data such as age, income, the n
 The data-conversion module extracts features which are used in machine learning tasks from these two types of data.
 Each key-value is represented not as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span> <span class="p">],</span>
-  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span> <span class="p">,</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span> <span class="p">,</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+  <span class="p">]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>For example, a datum consists of <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> and  <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> in C++.
@@ -245,35 +249,27 @@ The following is an example of a datum.</p>
 </div>
 <div class="section" id="filter">
 <h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
-<p>Jubatus has filtering system of raw data.
-This enables us to create additional key-value elements by converting existing key-value elements in a datum and to insert additional key-value elements by the filter.
+<p>Jubatus has filtering system of raw data. This enables us to create additional key-value elements by converting existing key-value elements in a datum and to insert additional key-value elements by the filter.
 For example, let us suppose we have an original text as an HTML.
-Tags, such as &lt;a&gt;, in the data are in the way of training in many cases.
-Therefore, we want to filter and get rid of them in advance.
-In another example, we may remove citations in e-mails (i.e. rows starts with &#8220;&gt;&#8221;).
-We can make use of the filtering system in such cases.
-As an example of usage, we remove HTML tags from strings whose key is &#8220;message&#8221;.
-We do it in two steps.
-First, we define a rule which states &#8220;remove HTML tags&#8221;.
-Second, we apply this rule to data where <tt class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></tt>.
+Tags, such as &lt;a&gt;, in the data are in the way of training in many cases. Therefore, we want to filter and get rid of them in advance.
+In another example, we may remove quotes in e-mails (i.e. lines starts with &#8220;&gt;&#8221;).
+We can make use of the filtering system in such cases.</p>
+<p>As an example of usage, we remove HTML tags from strings whose key is &#8220;message&#8221;. We do it in two steps.
+First, we define a rule which states &#8220;remove HTML tags&#8221;. Second, we apply this rule to data where <tt class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></tt>.
 This procedure is represented by the following configuration.</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
-<span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span>
-<span class="p">[</span>
+<span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
   <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>As a first step, we define a filter in &#8220;string_filter_types&#8221;.
-We name this filter &#8220;detag&#8221;.
+<p>As a first step, we define a filter in &#8220;string_filter_types&#8221;. We name this filter &#8220;detag&#8221;.
 In &#8220;detag&#8221;, we define a filter which applys a method named &#8220;regexp&#8221;, which replaces &#8220;&lt;[^&gt;]*&gt;&#8221; with &#8220;&#8221;.
-Next, we define to which elements in datum and how we apply this filter.
-We write it in &#8220;string_filter_rules&#8221;.
+Next, we define to which elements in datum and how we apply this filter. We write it in &#8220;string_filter_rules&#8221;.
 The example above indicates that we apply the &#8220;detag&#8221; filter defined earlier to the value whose key is &#8220;message&#8221;, and that we store the resultant to &#8220;message-detagged&#8221; key, that is generated from the original key &#8220;message&#8221; and a suffix &#8220;-detagged&#8221;.</p>
-<p>In another example, we can add one to &#8220;age&#8221; by the following configuration.
-In Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or east asian age reckoning.</p>
+<p>In another example, we can add one to &#8220;age&#8221; by the following configuration (in Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or east asian age reckoning).</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
@@ -282,16 +278,21 @@ In Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or east as
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>The procedure is the same as the previous example.
-A value in &#8220;user/age&#8221; added by one is stored in &#8220;usr/age_kazoe&#8221;.
-By applying these two filters, we obtain the following datum.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
+<p>The procedure is the same as the previous example. A value in &#8220;user/age&#8221; added by one is stored in &#8220;usr/age_kazoe&#8221;.</p>
+<p>By applying these two filters, we obtain the datum like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span> <span class="p">],</span>
-  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="p">,</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+  <span class="p">]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Next section is devoted to more precise explanations of each filter.</p>
@@ -313,11 +314,17 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">pattern:</th><td class="field-body">Specifies a regular expression to match. This filter uses re2. For available expressions, please refer to documents of re2.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">replace:</th><td class="field-body">Specifies a string with which we replace.</td>
+<tr class="field-even field"><th class="field-name">replace:</th><td class="field-body">Specifies a string to replace with.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
+<p>For example, in order to remove all HTML tags, we should define such a string_filter_type.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="describe">
@@ -329,7 +336,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a full path of a plugin.</td>
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a path to the plugin.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin. It depends on the plugin.</td>
 </tr>
@@ -346,19 +353,49 @@ The rules are checked in order.
 If a datum is matched to a rule, the corresponding filter is applied and a converted value is stored to the datum.
 Application is called recursively, that is, rest of filters are applied to the original values and the converted values.
 Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. We describe it in datail later.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type:</th><td class="field-body">Specidies the name of the filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filters are available by default.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 <p>&#8220;key&#8221; is specified in one of the following formats.
 For each key in a datum, all rules checked to be applicable.
 It means that if a single key matches n rules, every corresponding filters are applied to the original key. Then, new n keys are added to the datum.
-Every &#8220;key&#8221;s in this document are in the same format.
-Similarly, it happens that multiple rules are applied to a single key.</p>
+Every &#8220;key&#8221;s in this document are in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">&#8220;*&#8221; or &#8220;&#8221;:</th><td class="field-body">Matches all keys in a datum. That is, this rule is applied to every keys in the datum.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&#8220;XXX*&#8221;:</th><td class="field-body">Matches keys whose prefixes are &#8220;XXX&#8221;.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&#8220;*XXX&#8221;:</th><td class="field-body">Matches keys whose suffixes are &#8220;XXX&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&#8220;/XXX/&#8221;:</th><td class="field-body">&#8220;XXX&#8221; is interpreted as a regular expression. Matches keys that the expression matches. It is unavailable if compiled with &#8211;disable-re2.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">otherwise:</th><td class="field-body">If the key is none of the above, it matches to keys that are identical to the given string.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </div>
 <div class="section" id="num-filter-types">
 <h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="Permalink to this headline">¶</a></h3>
 <p>Specifies a dictionary consists of &lt;filter name&gt;:&lt;argument&gt;, same as &#8220;string_filter_types&#8221;.
 We can use it almost in the same way as &#8220;string_filter_types&#8221;.
 &lt;filter name&gt; is a string and &lt;argument&gt; is a dictionary whose keys and values are both strings.
-&lt;argument&gt; must contains a key named &#8220;method&#8221;.
-The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+&lt;argument&gt; must contains a key named &#8220;method&#8221;. The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
 The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
 <dl class="describe">
 <dt>
@@ -416,23 +453,18 @@ Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; a
 <p>Format of &#8220;key&#8221; is written in &#8220;string_filter_rules&#8221; section.</p>
 </div>
 </div>
-<div class="section" id="feature-exctraction-from-string">
-<span id="construct"></span><h2>Feature Exctraction (From String)<a class="headerlink" href="#feature-exctraction-from-string" title="Permalink to this headline">¶</a></h2>
-<p>In this section, we explain mechanism of the feature extractio from strings.
-We also explain how to apply these extraction rules.
+<div class="section" id="feature-extraction-from-strings">
+<span id="construct"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we explain mechanism of the feature extraction from strings. We also explain how to apply these extraction rules.
 The following is an example of a configuration.
 In this configuration, we use as features &#8220;user/name&#8221; itself, every 2-grams of &#8220;message&#8221;, and every word in &#8220;message-detagged&#8221; separated by spaces.</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
+  <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
-<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span>
-<span class="p">[</span>
-  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;bigram&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span>  <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span>  <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/name&quot;</span><span class="p">,</span>        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>    <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>          <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;bigram&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span>  <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span>  <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -458,6 +490,13 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 </tbody>
 </table>
 </div></blockquote>
+<p>The following configuration specifies bigram (2-gram) and trigram (3-gram).</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">},</span>
+  <span class="s2">&quot;trigram&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="describe">
@@ -469,9 +508,9 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a full path of a plugin.</td>
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a path to a plugin.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin</td>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin.</td>
 </tr>
 </tbody>
 </table>
@@ -539,22 +578,21 @@ In concrete, the weight is the product of these two weights.</p>
 </tbody>
 </table>
 </div></blockquote>
-<p>In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight.
-Classification is an example of a such task.</p>
+<p>In most of machine learning tasks, it works well even if we use &#8220;bin&#8221; in both sample_weight and global_weight.
+In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight. Classification is an example of a such task.</p>
 </div>
 </div>
-<div class="section" id="feature-extraction-from-number">
-<h2>Feature Extraction (From Number)<a class="headerlink" href="#feature-extraction-from-number" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="feature-extraction-from-numbers">
+<h2>Feature Extraction from Numbers<a class="headerlink" href="#feature-extraction-from-numbers" title="Permalink to this headline">¶</a></h2>
 <p>As with strings, feature extraction rules are also described for numeric types.
 We can make user-defined extractors for numric types, too.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span>
-<span class="p">{},</span>
-<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span>
-<span class="p">[</span>
-  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;log&quot;</span> <span class="p">},</span>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age&quot;</span><span class="p">,</span>       <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/income&quot;</span><span class="p">,</span>    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;log&quot;</span> <span class="p">},</span>
   <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">}</span>
-<span class="p">]}</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 <div class="section" id="num-types">
@@ -573,9 +611,9 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a full path of a plugin.</td>
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a path to a plugin.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin</td>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin.</td>
 </tr>
 </tbody>
 </table>
@@ -598,7 +636,8 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. The extractor is either one defined in &#8220;num_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -610,6 +649,7 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </tr>
 </tbody>
 </table>
+</div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">Specifies a suffix of a key which stores a result of the extraction.</p>
@@ -622,33 +662,43 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </div>
 <div class="section" id="plugins">
 <span id="conversion-plugin"></span><h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
-<p>We can make plugins of filters and extractors and use them in fv_converter.
+<p>We can use plugins of filters and extractors in fv_converter.
 A plugin is a single dynamic library file (.so file).
-We will explain how to make plugins later.
-In this section, we will describe how to use plugins.
-How to specify plugin is same in both filters and extractors.
-In XXX_types (XXX is either string or num), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a full path to a .so file in &#8220;path&#8221; and the name of funcion defined in the plugin in &#8220;function&#8221;.
+We will explain how to make plugins later. In this section, we will describe how to use plugins.</p>
+<p>How to specify plugin is same in both filters and extractors.
+In CLASS_types (CLASS is either <cite>string</cite> or <cite>num</cite>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of funcion defined in the plugin in &#8220;function&#8221;.
+Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (<cite>$PREFIX/lib/jubatus/plugin</cite> or <cite>$PREFIX/lib/jubatus/plugin</cite> in most cases).
 Argument of the function is specified by other parameters.</p>
 <p>In Jubatus we can make use of two pre-defined plugins which aim to extraction of features from strings.
-Note that the plugins are not available unless specified in compile options of Jubatus.</p>
+Note that some plugins are not available depending on your compile options.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">libmecab_splitter.so</tt></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Separate given Japanese document into Japanese words by MeCab and use each word as a feature.
-This plugin is created in /usr/local/lib if Jubatus is compiled with &#8211;enable-mecab option.</p>
+Separate given Japanese document into words by MeCab and use each word as a feature.
+This plugin is available only when compiled with <cite>&#8211;enable-mecab</cite>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify &#8220;create&#8221;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specifies argument given to MeCab engine. &#8220;arg&#8221; is not specified, Mecab works with default configuration. Please refer to document of MeCab about how to specify arguments.</td>
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine. &#8220;arg&#8221; is not specified, Mecab works with default configuration. Please refer to document of MeCab about how to specify arguments.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;mecab&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libmecab_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /path/to/mecab/dic&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="describe">
@@ -656,9 +706,30 @@ This plugin is created in /usr/local/lib if Jubatus is compiled with &#8211;enab
 <tt class="descname">libux_splitter.so</tt></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
 Extract keywords from given document by way of dictionary matching with ux-trie and use each keyword as a feature.
-Matching is a simple longest matching.
-Note that it is fast but precision may be low.
-This plugin is created in /usr/local/lib if Jubatus is compiled with &#8211;enable-ux option.</p>
+Matching is a simple longest matching. Note that it is fast but precision may be low.
+This plugin is available only when compiled with <cite>&#8211;enable-ux</cite>.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">Specifies a full path of a dictionary file. The dictonary file consists of keywords, one keyword for one line.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;ux&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libux_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="describe">
@@ -682,11 +753,34 @@ This plugin is created in /usr/local/lib if Jubatus is <strong>NOT</strong> comp
 </tbody>
 </table>
 </div></blockquote>
+<p>The following is simplest example in which we extract every representation of date.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/libre2_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;[0-9]{4}/[0-9]{2}/[0-9]{2}&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we use only a part of the matches, we make use of &#8220;group&#8221; argument. For example, representation of age may be extracted with such a configuration.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/libre2_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;group&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
-<div class="section" id="overview-of-data-conversion">
-<h2>Overview of Data Conversion<a class="headerlink" href="#overview-of-data-conversion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flow-of-data-conversion">
+<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
 <p>The following is the overview of data conversion.
 As datum consists of string data and numeric data, there are flows of processing for each type of data.
 For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
