@@ -1,35 +1,36 @@
 
-How to Contribute to Jubatus
-============================
+How to Contribute
+=================
 
-First of all please subsribe to the `mailing list <http://groups.google.com/group/jubatus>`_ to reach developers' and users' community. Currently we don't separate dev ML and user ML because Jubatus has just started now. Please,
+We Welcome Your Contribution
+----------------------------
 
-- Give us a feedback or tell us how do you use Jubatus in your environment via the `mailing list <http://groups.google.com/group/jubatus>`_ .
-- Submit a bugreport to `github issues <https://github.com/jubatus/jubatus/issues>`_ .
-- Improve documentation or Suggest new feature by sending `pull request <https://github.com/jubatus/website/pulls>`_ .
-- Fix `bugs <https://github.com/jubatus/jubatus/issues>`_ .
+みなさまのコントリビューションをお待ちしています!
 
+コントリビューションの方法は様々です。
+
+  - バグリポートを `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ に投稿してください。
+  - フィードバック (コメント、発生した問題、機能の要望など) や、あなたの環境で Jubatus をどのように使っているかを `メーリングリスト <http://groups.google.com/group/jubatus>`_ で教えてください。
+  - ドキュメントの改善: `website リポジトリ <https://github.com/jubatus/website>`_ に `pull-request <https://github.com/jubatus/website/pulls>`_ を送ってください。
+  - `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ にあるバグを修正したり、新しい機能をフレームワークに実装してください。
+
+Participate in the Mailing List
+-------------------------------
+
+ユーザと開発者のためのコミュニティとして、 `Google Groups <http://groups.google.com/group/jubatus>`_ にメーリングリストを用意しています。
+他のユーザや開発者と直接やり取りをすることができます。
 
 Repositories
 ------------
 
 - `Jubatus <http://github.com/jubatus/jubatus>`_
 
- - Jubatus software including classifier, recommender, stat, recommender and server framework.
- - branches - Committers use `git-flow <https://github.com/nvie/gitflow>`_ under `A successful Git branching model <http://nvie.com/posts/a-successful-git-branching-model/>`_ .
+ - Jubatus フレームワーク
+ - ブランチ - `A successful Git branching model <http://nvie.com/posts/a-successful-git-branching-model/>`_ に基づいて `git-flow <https://github.com/nvie/gitflow>`_ を使用しています。
 
-  - develop - Development branch. Latest features are pushed here.
-  - master  - Release branch.
+  - master  - リリース用ブランチ。
+  - develop - 開発用ブランチ。最新機能はここで公開されています。pull-request はこのブランチに送ってください。
 
 - `Website <http://github.com/jubatus/website>`_
 
- - `Sphinx <http://sphinx.pocoo.org/>`_ source of website (this site). Every contribution such as typo fix, English grammer fix will be welcomed.
-
-
-
-Things left to do
------------------
-
-Checkout tickets on GitHub issues and eliminate things undone!
-
-- Milestones
+ - このサイトの `Sphinx <http://sphinx.pocoo.org/>`_ ソースです。typo の修正や表現の誤りなどの修正も歓迎します。
