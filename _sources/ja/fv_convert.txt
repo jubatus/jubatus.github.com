@@ -1,4 +1,4 @@
-.. _conversionja:
+.. _conversion-ja:
 
 Data Conversion
 ===============
@@ -220,7 +220,7 @@ num_filter_rules
 
 "key"の指定の仕方は、string_filter_rulesを参照のこと。
 
-.. _constructja:
+.. _construct-ja:
 
 Feature Extraction from Strings
 -------------------------------
@@ -363,7 +363,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 
    変換後の結果を格納するkeyのサフィックスを指定する。
 
-.. _conversion_pluginja:
+.. _conversion_plugin-ja:
 
 Plugins
 -------

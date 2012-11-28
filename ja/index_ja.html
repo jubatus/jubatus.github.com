@@ -92,6 +92,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Jubatus : オンライン機械学習向け分散処理フレームワーク</a><ul>
+<li><a class="reference internal" href="#get-jubatus">Get Jubatus</a></li>
 <li><a class="reference internal" href="#table-of-contents">Table of Contents</a><ul>
 </ul>
 </li>
@@ -162,32 +163,43 @@ new TWTR.Widget({
 <p>Jubatus は以下の特徴を持ったオンライン機械学習向け分散処理フレームワークです。</p>
 <ul class="simple">
 <li>オンライン機械学習ライブラリ: 多値分類、線形回帰、推薦（近傍探索）、グラフマイニング</li>
-<li>特徴ベクトル変換 (fv_converter): データの前処理と特徴抽出</li>
+<li>特徴ベクトル変換器 (fv_converter): データの前処理と特徴抽出</li>
 <li>フォルトトレラントな分散機械学習のためのフレームワーク</li>
 </ul>
 <p>See <a class="reference internal" href="../index.html"><em>Jubatus : Distributed Online Machine Learning Framework</em></a> for English documentation.</p>
+<div class="section" id="get-jubatus">
+<h2>Get Jubatus<a class="headerlink" href="#get-jubatus" title="Permalink to this headline">¶</a></h2>
+<p>Jubatus の最新バージョンは 0.3.4 です。Jubatus は LGPL v2.1 の下で配布されています。</p>
+<ul class="simple">
+<li>ダウンロード: <a class="reference external" href="https://github.com/jubatus/jubatus/tarball/master">TAR</a> / <a class="reference external" href="https://github.com/jubatus/jubatus/zipball/master">ZIP</a></li>
+<li>Git: <a class="reference external" href="https://github.com/jubatus/jubatus.git">https://github.com/jubatus/jubatus.git</a></li>
+</ul>
+</div>
 <div class="section" id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Download Jubatus</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#latest-jubatus-release">latest jubatus release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#install-jubatus">Install Jubatus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#yum-repository-rhel">Yum Repository (RHEL)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#apt-repository-ubuntu">Apt Repository (Ubuntu)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#quickstart">QuickStart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#minimal-install">Minimal install</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#apt-repository">Apt Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#yum-repository-for-rhel-6">Yum Repository for RHEL 6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-servers">Running servers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#c-client">C++ client</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#other-clients">Other clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#install-jubatus-client-libraries">Install Jubatus Client Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#c">C++</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#python">Python</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#ruby">Ruby</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#java">Java</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#detailed-system-requirements">Detailed System Requirements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#id1">その他の環境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#try-tutorial">Try Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#write-your-application">Write Your Application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#building-jubatus-from-source">Building Jubatus from Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#ubuntu-12-04">Ubuntu 12.04</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#other-environments">Other Environments</a></li>
 </ul>
 </li>
 </ul>
@@ -200,29 +212,27 @@ new TWTR.Widget({
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#overview-and-scenario">Overview and Scenario</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#prequisites">Prequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#scenario">Scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#standalone-mode">Standalone Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#run-tutorial">Run Tutorial</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#setup-a-single-process-jubatus-server">Setup a single process Jubatus Server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#installing-python-client-for-jubatus">installing Python client for Jubatus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#tutorial-in-detail">Tutorial in Detail</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#dataset">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#server-configuration">Server Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#use-of-classifier-api-train-classify">Use of Classifier API: Train &amp; Classify</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#quick-start">Quick Start</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#prepairing-dataset">Prepairing dataset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#set-configure">Set configure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#train-classify">Train/Classify</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#setup-jubatus-server-with-multiple-processes">Setup Jubatus Server with multiple processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#cluster-mode">Cluster Mode</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorial.html#setup-zookeeper">Setup ZooKeeper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#jubaclassifier-keeper">jubaclassifier_keeper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#running-two-processes-as-one-classifier-instance">Running two processes as one classifier instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#jubatus-keeper">Jubatus Keeper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#join-jubatus-servers-to-cluster">Join Jubatus Servers to Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#id2">Run Tutorial</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#setup-jubatus-in-cluster">Setup Jubatus in cluster</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#jubavisor-process-management-with-zookeeper">Jubavisor(Process Management with zookeeper)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#client-for-multi-process-jubatus-server">Client for multi process Jubatus Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#cluster-management-in-jubatus">Cluster Management in Jubatus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#zookeepers-jubatus-keepers">ZooKeepers &amp; Jubatus Keepers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#jubavisor-process-management-agent">Jubavisor: Process Management Agent</a></li>
 </ul>
 </li>
 </ul>
@@ -306,9 +316,10 @@ new TWTR.Widget({
 <h1>Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><a class="reference external" href="http://blog.jubat.us">Jubatus Blog</a></li>
-<li><a class="reference external" href="http://twitter.com/JubatusOfficial">&#64;JubatusOfficial: 最新のニュース</a></li>
-<li><a class="reference external" href="http://groups.google.com/group/jubatus">Google Groups: ディスカッションとアナウンス</a></li>
+<li><a class="reference external" href="http://twitter.com/JubatusOfficial">Twitter: &#64;JubatusOfficial</a> - 最新ニュース</li>
+<li><a class="reference external" href="http://groups.google.com/group/jubatus">Google Groups</a> - ディスカッションとアナウンス</li>
 <li><a class="reference external" href="http://github.com/jubatus">Fork me on GitHub</a></li>
+<li><a class="reference external" href="http://ci.jubat.us/">継続的インテグレーション (Jenkins)</a></li>
 </ul>
 <ul class="simple">
 <li><a class="reference internal" href="../genindex.html"><em>Index</em></a></li>

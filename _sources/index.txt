@@ -4,11 +4,18 @@ Jubatus : Distributed Online Machine Learning Framework
 Jubatus is a distributed processing framework and streaming machine learning library. Jubatus includes these functionalities:
 
 - Online Machine Learning Library: Classification, Regression, Recommendation, Graph Mining
-- Feature Vector Conversion (fv_converter): Data Preprocess and Feature Extraction
+- Feature Vector Converter (fv_converter): Data Preprocess and Feature Extraction
 - Framework for Distributed Online Machine Learning with Fault Tolerance
 
 See :doc:`ja/index_ja` for Japanese documentation.
 
+Get Jubatus
+-----------
+
+The latest version of Jubatus is |release|. Jubatus is distributed under LGPL v2.1.
+
+* Download: `TAR <https://github.com/jubatus/jubatus/tarball/master>`_ / `ZIP <https://github.com/jubatus/jubatus/zipball/master>`_
+* Git: `https://github.com/jubatus/jubatus.git <https://github.com/jubatus/jubatus.git>`_
 
 Table of Contents
 -----------------
@@ -30,8 +37,9 @@ Other Resources
 ===============
 
 - `Jubatus Blog <http://blog.jubat.us>`_
-- `@JubatusOfficial: Keep up with the latest news from us <http://twitter.com/JubatusOfficial>`_
-- `Google Groups: Discussions and Announcements <http://groups.google.com/group/jubatus>`_
+- `Twitter: @JubatusOfficial <http://twitter.com/JubatusOfficial>`_ - Follow me and keep up with the latest news!
+- `Google Groups <http://groups.google.com/group/jubatus>`_ - Discussions and Announcements
 - `Fork me on GitHub <http://github.com/jubatus>`_
+- `Continuous Integration (Jenkins) <http://ci.jubat.us/>`_
 
 * :ref:`genindex`

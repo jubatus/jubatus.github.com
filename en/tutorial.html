@@ -100,30 +100,27 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Tutorial</a><ul>
-<li><a class="reference internal" href="#overview-and-scenario">Overview and Scenario</a><ul>
-<li><a class="reference internal" href="#prequisites">Prequisites</a></li>
+<li><a class="reference internal" href="#scenario">Scenario</a></li>
+<li><a class="reference internal" href="#standalone-mode">Standalone Mode</a><ul>
+<li><a class="reference internal" href="#run-tutorial">Run Tutorial</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#setup-a-single-process-jubatus-server">Setup a single process Jubatus Server</a><ul>
-<li><a class="reference internal" href="#building-and-installing-jubatus">building and installing Jubatus</a></li>
-<li><a class="reference internal" href="#installing-python-client-for-jubatus">installing Python client for Jubatus</a></li>
+<li><a class="reference internal" href="#tutorial-in-detail">Tutorial in Detail</a><ul>
+<li><a class="reference internal" href="#dataset">Dataset</a></li>
+<li><a class="reference internal" href="#server-configuration">Server Configuration</a></li>
+<li><a class="reference internal" href="#use-of-classifier-api-train-classify">Use of Classifier API: Train &amp; Classify</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#quick-start">Quick Start</a><ul>
-<li><a class="reference internal" href="#prepairing-dataset">Prepairing dataset</a></li>
-<li><a class="reference internal" href="#set-configure">Set configure</a></li>
-<li><a class="reference internal" href="#train-classify">Train/Classify</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#setup-jubatus-server-with-multiple-processes">Setup Jubatus Server with multiple processes</a><ul>
+<li><a class="reference internal" href="#cluster-mode">Cluster Mode</a><ul>
 <li><a class="reference internal" href="#setup-zookeeper">Setup ZooKeeper</a></li>
-<li><a class="reference internal" href="#jubaclassifier-keeper">jubaclassifier_keeper</a></li>
-<li><a class="reference internal" href="#running-two-processes-as-one-classifier-instance">Running two processes as one classifier instance</a></li>
+<li><a class="reference internal" href="#jubatus-keeper">Jubatus Keeper</a></li>
+<li><a class="reference internal" href="#join-jubatus-servers-to-cluster">Join Jubatus Servers to Cluster</a></li>
+<li><a class="reference internal" href="#id1">Run Tutorial</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#setup-jubatus-in-cluster">Setup Jubatus in cluster</a><ul>
-<li><a class="reference internal" href="#jubavisor-process-management-with-zookeeper">Jubavisor(Process Management with zookeeper)</a></li>
-<li><a class="reference internal" href="#client-for-multi-process-jubatus-server">Client for multi process Jubatus Server</a></li>
+<li><a class="reference internal" href="#cluster-management-in-jubatus">Cluster Management in Jubatus</a><ul>
+<li><a class="reference internal" href="#zookeepers-jubatus-keepers">ZooKeepers &amp; Jubatus Keepers</a></li>
+<li><a class="reference internal" href="#jubavisor-process-management-agent">Jubavisor: Process Management Agent</a></li>
 </ul>
 </li>
 </ul>
@@ -195,91 +192,91 @@ new TWTR.Widget({
             
   <div class="section" id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="overview-and-scenario">
-<h2>Overview and Scenario<a class="headerlink" href="#overview-and-scenario" title="Permalink to this headline">¶</a></h2>
-<p>This tutorial uses <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20(20news-bydate.tar.gz)</a> data set which is a popular for experiments in text classiication.　News20 has 20 different newsgroups and users post thier message on a suitable newsgroup. News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%). The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post 20news-bydate-test.</p>
-<div class="section" id="prequisites">
-<h3>Prequisites<a class="headerlink" href="#prequisites" title="Permalink to this headline">¶</a></h3>
-<p>This tutorial requires following softwares installed:</p>
-<ul class="simple">
-<li>Linux, gcc, pkg-config, python 2.7, <a class="reference external" href="http://msgpack.org">msgpack</a>, <a class="reference external" href="http://libevent.org/">libevent 2.0.X</a> ,</li>
-<li><a class="reference external" href="http://github.com/pfi/pficommon">pficommon</a> - must be configured with msgpack enabled,</li>
-<li><a class="reference external" href="http://code.google.com/p/re2/">re2</a> , <a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a> ,</li>
-<li><a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a> ,</li>
-<li><a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> / <a class="reference external" href="http://mecab.sourceforge.net/">MeCab</a> (optional), and</li>
-<li><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> server and C client (optional, for multiple processes)</li>
-</ul>
-<p>See <a class="reference internal" href="../ja/quickstart.html#requirements"><em>Detailed System Requirements</em></a> for detailed and proper prequisites. <a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">These scripts</a> maybe the help your installation.</p>
+<p>Before trying the tutorial, you need to install Jubatus and Jubatus Python client. See <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> for instructions.</p>
+<div class="section" id="scenario">
+<h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial uses <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20</a> dataset (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) which is a popular for experiments in text classiication.
+News20 has 20 different newsgroups and users post thier message on a suitable newsgroup.
+News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).</p>
+<p>The goal of this tutorial is to learn model from 20news-bydate-train and to guess the newsgroup to post from 20news-bydate-test.</p>
 </div>
+<div class="section" id="standalone-mode">
+<h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this headline">¶</a></h2>
+<p>Simply run <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> program that provides classification feature.</p>
+<div class="highlight-python"><pre>$ jubaclassifier
+I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 RPC server at 192.168.1.2:9199
+  pid            : 4200
+  user           : jubatus
+  mode           : standalone mode
+  timeout        : 10
+  thread         : 2
+  tmpdir         : /tmp
+  logdir         :
+  zookeeper      :
+  name           :
+  join           : false
+  interval sec   : 16
+  interval count : 512</pre>
 </div>
-<div class="section" id="setup-a-single-process-jubatus-server">
-<h2>Setup a single process Jubatus Server<a class="headerlink" href="#setup-a-single-process-jubatus-server" title="Permalink to this headline">¶</a></h2>
-<p>In this section, We show how to install the Jubatus.</p>
-<div class="section" id="building-and-installing-jubatus">
-<h3>building and installing Jubatus<a class="headerlink" href="#building-and-installing-jubatus" title="Permalink to this headline">¶</a></h3>
-<p>You need to install the above library dependencies before building and installing jubatus.</p>
-<div class="highlight-python"><pre>$ git clone git://github.com:jubatus/jubatus.git
-$ cd jubatus
-$ ./waf configure
-$ ./waf build
-# ./waf install
-$ jubaclassifier --name tutorial
-jubaclassifier I0514 07:45:30.165102 30546 server_util.cpp:84] starting jubaclassifier 0.3.4 RPC server at 10.0.2.15:9199</pre>
+<p>Jubatus classification service is now started.
+Jubatus servers listens on TCP port 9199 by default.
+If you would like to use other port, you can specify it using <tt class="docutils literal"><span class="pre">--rcp-port</span></tt> option.
+For example, to use port 19199:</p>
+<div class="highlight-python"><pre>$ jubaclassifier --rpc-port 19199</pre>
 </div>
-<p>Setup and starting a single process jubatus has been completed.</p>
-<p><tt class="docutils literal"><span class="pre">--name</span></tt> option is a string value to uniquely identifies a task in zookeeper quorum.</p>
-<p>Jubatus listens on port 9199 as MessagePack RPC server by default. If other services uses the same port, Please use another ports using rcp-port option. If you want to listen RPC port at 9181,</p>
-<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9181 --name=tutorial</pre>
+<p>Jubatus and Jubatus clients communicate with each other in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol over the TCP/IP network.</p>
+<div class="figure">
+<img alt="single client, single server" src="../_images/single_single.png" style="width: 70%;" />
 </div>
-</div>
-<div class="section" id="installing-python-client-for-jubatus">
-<h3>installing Python client for Jubatus<a class="headerlink" href="#installing-python-client-for-jubatus" title="Permalink to this headline">¶</a></h3>
-<p>Python client of Jubatus requires <a class="reference external" href="http://pypi.python.org/pypi/msgpack-python/">msgpack-python</a>.
-&#8220;pip&#8221; command will resolve this dependencies automatically.</p>
-<div class="highlight-python"><pre>$ pip install jubatus
-$ pip install msgpack-rpc-python</pre>
-</div>
-</div>
-</div>
-<div class="section" id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus-tutorial-python.git
+<div class="section" id="run-tutorial">
+<h3>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h3>
+<p>Download the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial program</a> and the dataset.</p>
+<div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
-$ tar -xvzf 20news-bydate.tar.gz
-$ python tutorial.py</pre>
+$ tar xvzf 20news-bydate.tar.gz</pre>
 </div>
-<p>Jubatus communicates with its clients in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol.</p>
-<div class="section" id="prepairing-dataset">
-<h3>Prepairing dataset<a class="headerlink" href="#prepairing-dataset" title="Permalink to this headline">¶</a></h3>
-<p>Expanding 20news-bydate.tar.gz,</p>
-<div class="highlight-python"><pre>-20news-bydate-train
-  alt.atheism
-    49960
-    51060
-    ...
-  comp.graphics
-  comp.os.ms-windows.misc
-  comp.sys.ibm.pc.hardware
-  comp.sys.mac.hardware
-  comp.windows.x
-  misc.forsale
-  rec.autos
-  rec.motorcycles
-  rec.sport.baseball
-  rec.sport.hockey
-  sci.crypt
-  sci.electronics
-  sci.med
-  sci.space
-  soc.religion.christian
-  talk.politics.guns
-  talk.politics.mideast
-  talk.politics.misc
-  talk.religion.misc</pre>
+<p>Then, run the program.</p>
+<div class="highlight-python"><pre>$ python tutorial.py</pre>
 </div>
-<p>&#8220;49960&#8221; is a file name and &#8220;alt.atheism&#8221; is a newsgroup name.
-For example, &#8220;20news-bydate-train/rec.motorcycles/104435&#8221; contains</p>
+<p>Now you&#8217;ll see the result of classification!
+Read below for more detailed description.</p>
+</div>
+</div>
+<div class="section" id="tutorial-in-detail">
+<h2>Tutorial in Detail<a class="headerlink" href="#tutorial-in-detail" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
+<p>After expanding <cite>20news-bydate.tar.gz</cite>, you see files like this:</p>
+<div class="highlight-python"><pre>20news-bydate-train
+|-- alt.atheism
+|   |-- 49960
+|   |-- 51060
+|   |-- 51119
+|   |-- 51120
+:   :     :
+|-- comp.graphics
+|-- comp.os.ms-windows.misc
+|-- comp.sys.ibm.pc.hardware
+|-- comp.sys.mac.hardware
+|-- comp.windows.x
+|-- misc.forsale
+|-- rec.autos
+|-- rec.motorcycles
+|-- rec.sport.baseball
+|-- rec.sport.hockey
+|-- sci.crypt
+|-- sci.electronics
+|-- sci.med
+|-- sci.space
+|-- soc.religion.christian
+|-- talk.politics.guns
+|-- talk.politics.mideast
+|-- talk.politics.misc
+`-- talk.religion.misc</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">49960</span></tt> is one of messages and <tt class="docutils literal"><span class="pre">alt.atheism</span></tt> is one of newsgroups the message is posted.
+For example, <tt class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></tt> contains:</p>
 <div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
@@ -303,11 +300,13 @@ preferably longer, of course, and worth being part of.)
 
 -- David Karr (karr@cs.cornell.edu)</pre>
 </div>
-<p>Jubatus uses this text as the training data</p>
+<p>In this tutorial, we use these text as the training data.</p>
 </div>
-<div class="section" id="set-configure">
-<h3>Set configure<a class="headerlink" href="#set-configure" title="Permalink to this headline">¶</a></h3>
-<p>You can change a behavior of jubaclassifier using method and converter options. Prototype of these options are as follows.</p>
+<div class="section" id="server-configuration">
+<h3>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h3>
+<p>You can setup a behavior of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using <tt class="docutils literal"><span class="pre">set_config</span></tt> RPC method.
+There are two configurable parameter: <tt class="docutils literal"><span class="pre">method</span></tt> and <tt class="docutils literal"><span class="pre">converter</span></tt>.
+Examle of these parameters are as follows.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
           <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
           <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:[],</span>
@@ -321,7 +320,7 @@ preferably longer, of course, and worth being part of.)
 <span class="n">config</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">algo</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">converter</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>You can choose one of the following algorithm as <tt class="docutils literal"><span class="pre">'method'</span></tt></p>
+<p>You can choose one of the following algorithm as <tt class="docutils literal"><span class="pre">method</span></tt>:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">perceptron</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt></li>
@@ -329,12 +328,14 @@ preferably longer, of course, and worth being part of.)
 <li><tt class="docutils literal"><span class="pre">AROW</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">NHERD</span></tt></li>
 </ul>
-<p>Now, we choose <tt class="docutils literal"><span class="pre">PA</span></tt> .</p>
-<p><tt class="docutils literal"><span class="pre">'converter'</span></tt> decides how to convert feature vector from input data.</p>
+<p>We use <tt class="docutils literal"><span class="pre">PA</span></tt> in this tutorial.</p>
+<p><tt class="docutils literal"><span class="pre">converter</span></tt> decides how to extract feature vector from input data (see <a class="reference internal" href="fv_convert.html#conversion"><em>Data Conversion</em></a> for details).</p>
 <p>In this tutorial, input data is the text of natural language.
-Many languages such as English, &lt;space&gt;　and &lt;Return&gt; can be split into words. Jubatus supports this feature such as standard.
+Many languages such as English, &lt;space&gt; and &lt;return&gt; can be split into words.
+Jubatus supports this feature by default.
 HTML tags are noisy to classify the contents so we will remove the part that is enclosed in &#8220;&lt;&gt;&#8221;.</p>
-<p>These rules expressed as follows in JSON.</p>
+<p>Using this feature, you can apply multiple rules such as natural language process and weighting of values.
+These rules expressed as follows in JSON.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
@@ -354,212 +355,190 @@ HTML tags are noisy to classify the contents so we will remove the part that is 
           <span class="p">}</span>
 </pre></div>
 </div>
+<p><tt class="docutils literal"><span class="pre">get_config</span></tt> will return the configuration currently set in the server.</p>
 </div>
-<div class="section" id="train-classify">
-<h3>Train/Classify<a class="headerlink" href="#train-classify" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="use-of-classifier-api-train-classify">
+<h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
 <p>Call <tt class="docutils literal"><span class="pre">train</span></tt> API to update models.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">train_dat</span> <span class="o">=</span> <span class="p">[</span>
-           <span class="p">(</span>
-             <span class="s">&quot;comp.windows.x&quot;</span><span class="p">,</span>
-             <span class="p">[</span>
-              <span class="p">[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;some messages about windows...&quot;</span><span class="p">],</span>
-              <span class="p">[</span><span class="s">&quot;from&quot;</span> <span class="p">,</span> <span class="s">&quot;hoge@n.tt&quot;</span><span class="p">]</span>
-             <span class="p">]</span>
-           <span class="p">),</span>
-           <span class="p">(</span>
-             <span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span>
-             <span class="p">[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy a new mac book air...&quot;</span><span class="p">,]</span>
-           <span class="p">)</span>
-         <span class="p">]</span>
+              <span class="p">(</span>
+                <span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span>
+                <span class="p">[[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy a new mac book air...&quot;</span><span class="p">],</span> <span class="p">[]]</span>
+              <span class="p">)</span>
+            <span class="p">]</span>
 </pre></div>
 </div>
-<p>Call <tt class="docutils literal"><span class="pre">classify</span></tt> API to analyze with models.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">classify_dat</span> <span class="o">=</span> <span class="p">[[</span>
-       <span class="p">[</span><span class="s">&quot;some messages about windows...&quot;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s">&quot;I bought a new mac book air...&quot;</span><span class="p">],</span>
-     <span class="p">]]</span>
+<p>Call <tt class="docutils literal"><span class="pre">classify</span></tt> RPC method to analyze (in this case, let Jubatus classify the given data) with models.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">classify_dat</span> <span class="o">=</span> <span class="p">[</span>
+                 <span class="p">[[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I bought a new mac book air...&quot;</span><span class="p">],</span> <span class="p">[]]</span>
+               <span class="p">]</span>
 </pre></div>
 </div>
-<p>The return values are as follows.</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="p">[[</span>
-      <span class="p">[</span><span class="s">&quot;alt.atheism&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
-      <span class="o">...</span>
-<span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">2.0973217487300002</span><span class="p">],</span>
-<span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
-<span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
-      <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
- <span class="p">]]</span>
+<p>The return format of <tt class="docutils literal"><span class="pre">classify</span></tt> method is as follows.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span>
+     <span class="p">[</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
+     <span class="o">...</span>
+     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">2.0973217487300002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
+<span class="p">]]</span>
 </pre></div>
 </div>
-<p>You have executed the classifier feature of jubatus under this configuration.</p>
-<div class="figure">
-<img alt="single client, single server" src="../_images/single_single.png" style="width: 70%;" />
 </div>
 </div>
-</div>
-<div class="section" id="setup-jubatus-server-with-multiple-processes">
-<span id="multiprocess"></span><h2>Setup Jubatus Server with multiple processes<a class="headerlink" href="#setup-jubatus-server-with-multiple-processes" title="Permalink to this headline">¶</a></h2>
-<p>You can execute jubatus over distributed environment using Zookeeper.</p>
-<div class="section" id="setup-zookeeper">
-<h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><pre>$ cd /path/to/zookeeper
-$ bin/zkServer.sh start
-JMX enabled by default
-Using config: /zookeeper-3.3.3/bin/../conf/zoo.cfg
-Starting zookeeper ...
-STARTED
-...</pre>
-</div>
-<p>We assume that Zookeeper process will be running on localhost:2181 by specifying in the zoo.cfg.</p>
-</div>
-<div class="section" id="jubaclassifier-keeper">
-<h3>jubaclassifier_keeper<a class="headerlink" href="#jubaclassifier-keeper" title="Permalink to this headline">¶</a></h3>
-<p>jubaclassifier_keeper is a RPC requests proxy process for jubaclassifier. it use zookeeper processes.</p>
-<div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
-</div>
-<p>jubaclassifier_keeper started at 9198 port.
-Client does not need to aware of Servers. They will be scale out automatically.</p>
-</div>
-<div class="section" id="running-two-processes-as-one-classifier-instance">
-<h3>Running two processes as one classifier instance<a class="headerlink" href="#running-two-processes-as-one-classifier-instance" title="Permalink to this headline">¶</a></h3>
-<p>If you set same name using <tt class="docutils literal"><span class="pre">--name</span></tt> options, processes collaborate with one another. If you want to start multiple processes in the same machine, please note that you must change the port on a each process.</p>
-<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial2 --zookeeper=localhost:2181 &amp;
-$ jubaclassifier --rpc-port=9181 --name=tutorial2 --zookeeper=localhost:2181 &amp;
-$ jubaclassifier --rpc-port=9182 --name=tutorial2 --zookeeper=localhost:2181 &amp;</pre>
-</div>
-<p>You can also verify that three server processes are started using a zookeeper client.</p>
-<div class="highlight-python"><pre>$ cd /path/to/zookeeper
-$ bin/zkCli.sh -server localhost:2181
-[zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/classifier/tutorial2/nodes
-[XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]</pre>
-</div>
-<p>You have executed the classifier feature of jubatus under this configuration.</p>
+<div class="section" id="cluster-mode">
+<h2>Cluster Mode<a class="headerlink" href="#cluster-mode" title="Permalink to this headline">¶</a></h2>
+<p>You can run Jubatus in a distributed environment using ZooKeeper and Jubatus keepers.</p>
 <div class="figure">
 <img alt="single client, multi servers" src="../_images/single_multi.png" style="width: 70%;" />
 </div>
+<div class="section" id="setup-zookeeper">
+<h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
+Jubatus in cluster mode uses ZooKeeper to manage Jubatus servers and keepers in cluster environment.</p>
+<p>Run ZooKeeper server like this:</p>
+<div class="highlight-python"><pre>$ /path/to/zookeeper/bin/zkServer.sh start
+JMX enabled by default
+Using config: /path/to/zookeeper/bin/../conf/zoo.cfg
+Starting zookeeper ...
+STARTED</pre>
+</div>
+<p>Here we assume that ZooKeeper is running on localhost:2181. You can change it in the <tt class="docutils literal"><span class="pre">zoo.cfg</span></tt> file.</p>
+</div>
+<div class="section" id="jubatus-keeper">
+<h3>Jubatus Keeper<a class="headerlink" href="#jubatus-keeper" title="Permalink to this headline">¶</a></h3>
+<p>Jubatus keepers proxy RPC requests from clients to servers.
+In distributed environment, make RPC requests from clients to keepers, not directly to servers.</p>
+<p>Jubatus keepers are provided for each Jubatus servers.
+For the classifier, <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> is the corresponding keeper.</p>
+<div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
+</div>
+<p>Now <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> started listening on TCP 9198 port.</p>
+</div>
+<div class="section" id="join-jubatus-servers-to-cluster">
+<h3>Join Jubatus Servers to Cluster<a class="headerlink" href="#join-jubatus-servers-to-cluster" title="Permalink to this headline">¶</a></h3>
+<p>To start Jubatus servers in cluster mode, give <tt class="docutils literal"><span class="pre">--name</span></tt> and <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> option when executing servers.
+Server processes started with same name belongs to the same cluster and they collaborate with one another.</p>
+<p>If you want to start multiple server processes on the same machine, please note that you must change the port for each processes.</p>
+<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial --zookeeper=localhost:2181 &amp;
+$ jubaclassifier --rpc-port=9181 --name=tutorial --zookeeper=localhost:2181 &amp;
+$ jubaclassifier --rpc-port=9182 --name=tutorial --zookeeper=localhost:2181 &amp;</pre>
+</div>
+<p>When Jubatus servers are started in cluster mode, they create a node in ZooKeeper system.
+You can verify that three server processes are registered to ZooKeeper system by using ZooKeeper client.</p>
+<div class="highlight-python"><pre>$ /path/to/zookeeper/bin/zkCli.sh -server localhost:2181
+[zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/classifier/tutorial/nodes
+[XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]</pre>
 </div>
 </div>
-<div class="section" id="setup-jubatus-in-cluster">
-<h2>Setup Jubatus in cluster<a class="headerlink" href="#setup-jubatus-in-cluster" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Run Tutorial<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Run the tutorial program again, but this time we use options to specify port to connect to keepers instead of servers.
+In cluster mode, you also need to specify the cluster name when making RPC request to keepers.</p>
+<div class="highlight-python"><pre>$ python tutorial.py --server_port=9198 --name=tutorial</pre>
+</div>
+<p>Note that you can use the same client code for both standalone mode and distributed mode.</p>
+</div>
+</div>
+<div class="section" id="cluster-management-in-jubatus">
+<h2>Cluster Management in Jubatus<a class="headerlink" href="#cluster-management-in-jubatus" title="Permalink to this headline">¶</a></h2>
 <p>Jubatus has a mechanism to centrally manage various processes.
 In this tutorial, you will execute some process on each servers like the following table.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="27%" />
-<col width="73%" />
+<col width="25%" />
+<col width="75%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">IP address</th>
-<th class="head">processes</th>
+<tr class="row-odd"><th class="head">IP Address</th>
+<th class="head">Processes</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>192.168.0.1</td>
 <td>Terminal</td>
 </tr>
-<tr class="row-odd"><td>192.168.0.10</td>
+<tr class="row-odd"><td>192.168.0.11</td>
 <td>jubaclassifier - 1</td>
 </tr>
-<tr class="row-even"><td>192.168.0.20</td>
+<tr class="row-even"><td>192.168.0.12</td>
 <td>jubaclassifier - 2</td>
 </tr>
-<tr class="row-odd"><td>192.168.0.30</td>
+<tr class="row-odd"><td>192.168.0.13</td>
 <td>jubaclassifier - 3</td>
 </tr>
-<tr class="row-even"><td>192.168.0.100</td>
-<td>jubaclassifier_keeper/zookeeper - 1</td>
+<tr class="row-even"><td>192.168.0.101</td>
+<td>jubaclassifier_keeper/client - 1</td>
 </tr>
-<tr class="row-odd"><td>192.168.0.200</td>
-<td>jubaclassifier_keeper/zookeeper - 2</td>
+<tr class="row-odd"><td>192.168.0.102</td>
+<td>jubaclassifier_keeper/client - 2</td>
 </tr>
-</tbody>
-</table>
-<p>Start zookeeper,</p>
-<div class="highlight-python"><pre>[192.168.0.100]$ bin/zkServer.sh start
-[192.168.0.200]$ bin/zkServer.sh start</pre>
-</div>
-<p>And start jubaclassifier_keeper process. jubaclassifier_keeper uses 9198 port by default.</p>
-<div class="highlight-python"><pre>[192.168.0.100]$ jubaclassifier_keeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d
-[192.168.0.200]$ jubaclassifier_keeper --zookeeper=192.168.0.100:2181,192.168.0.200:2181 -d</pre>
-</div>
-<div class="section" id="jubavisor-process-management-with-zookeeper">
-<h3>Jubavisor(Process Management with zookeeper)<a class="headerlink" href="#jubavisor-process-management-with-zookeeper" title="Permalink to this headline">¶</a></h3>
-<p>Jubavisor is an agent process.
-Jubavisor will manage juba* processes in the same server from receiving the commander of Jubactl. jubavisor uses 9199 port by default.</p>
-<div class="highlight-python"><pre>[192.168.0.10 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
-[192.168.0.20 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d
-[192.168.0.30 ]$ jubavisor -z 192.168.0.100:2181,192.168.0.200:2181 -d</pre>
-</div>
-<p>Let&#8217;s provisioning!!</p>
-<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --server=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181
-[192.168.0.1  ]$ jubactl --name=tutorial2 --zookeeper=192.168.0.100:2181,192.168.0.200:2181 --type=classifier -c status
-active jubaclassifier_keeper members:
- 192.168.0.100_9198
- 192.168.0.200_9198
-active jubavisor members:
- 192.168.0.10_9199
- 192.168.0.20_9199
- 192.168.0.30_9199
-active tutorial2 members:
- 192.168.0.10_9180
- 192.168.0.20_9180
- 192.168.0.30_9180</pre>
-</div>
-<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c stop --server=classifier --name=tutorial2 -z 192.168.0.100:2181,192.168.0.200:2181</pre>
-</div>
-</div>
-<div class="section" id="client-for-multi-process-jubatus-server">
-<h3>Client for multi process Jubatus Server<a class="headerlink" href="#client-for-multi-process-jubatus-server" title="Permalink to this headline">¶</a></h3>
-<p>In last section, you will execute tutorial over multi client and multi servers environment.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="27%" />
-<col width="73%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">IP address</th>
-<th class="head">processes</th>
+<tr class="row-even"><td>192.168.0.103</td>
+<td>jubaclassifier_keeper/client - 3</td>
 </tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>192.168.0.1</td>
-<td>terminal</td>
+<tr class="row-odd"><td>192.168.0.211</td>
+<td>ZooKeeper - 1</td>
 </tr>
-<tr class="row-odd"><td>192.168.0.2</td>
-<td>client - 1</td>
+<tr class="row-even"><td>192.168.0.212</td>
+<td>ZooKeeper - 2</td>
 </tr>
-<tr class="row-even"><td>192.168.0.3</td>
-<td>client - 2</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.3</td>
-<td>client - 3</td>
-</tr>
-<tr class="row-even"><td>192.168.0.10</td>
-<td>classifier - 1</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.20</td>
-<td>classifier - 2</td>
-</tr>
-<tr class="row-even"><td>192.168.0.30</td>
-<td>classifier - 3</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.100</td>
-<td>jubaclassifier_keeper/zookeeper - 1</td>
-</tr>
-<tr class="row-even"><td>192.168.0.200</td>
-<td>jubaclassifier_keeper/zookeeper - 2</td>
+<tr class="row-odd"><td>192.168.0.213</td>
+<td>ZooKeeper - 3</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><pre>[192.168.0.1  ]$ jubactl -c start --server=classifier --name=tutorial3 -z 192.168.0.100:2181,192.168.0.200:2181
-[192.168.0.2  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198
-[192.168.0.3  ]$ python tutorial.py --name=tutorial3 -s 192.168.0.100:9198,192.168.0.200:9198</pre>
-</div>
-<p>Jubatus is available in the following configuration by the above command.</p>
+<p>For the best practices, see <a class="reference internal" href="admin.html"><em>Administration Guide</em></a>.</p>
 <div class="figure">
 <img alt="multi clients, multi servers" src="../_images/multi_multi.png" style="width: 70%;" />
 </div>
-<p>Jubatus tutorial is now complete.</p>
+<div class="section" id="zookeepers-jubatus-keepers">
+<h3>ZooKeepers &amp; Jubatus Keepers<a class="headerlink" href="#zookeepers-jubatus-keepers" title="Permalink to this headline">¶</a></h3>
+<p>Start ZooKeeper servers (make sure you configure an ensemble between them).</p>
+<div class="highlight-python"><pre>[192.168.0.211]$ bin/zkServer.sh start
+[192.168.0.212]$ bin/zkServer.sh start
+[192.168.0.213]$ bin/zkServer.sh start</pre>
+</div>
+<p>Start <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> processes. <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> uses TCP 9199 port by default.</p>
+<div class="highlight-python"><pre>[192.168.0.101]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+[192.168.0.102]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+[192.168.0.103]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
+</div>
+</div>
+<div class="section" id="jubavisor-process-management-agent">
+<h3>Jubavisor: Process Management Agent<a class="headerlink" href="#jubavisor-process-management-agent" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> is an agent process that manages server processes.</p>
+<p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> can manage each Jubatus server processes by receiving RPC requests from <tt class="docutils literal"><span class="pre">jubactl</span></tt>, a controller command.
+<tt class="docutils literal"><span class="pre">jubavisor</span></tt> uses TCP 9198 port by default.</p>
+<div class="highlight-python"><pre>[192.168.0.11]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
+[192.168.0.22]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
+[192.168.0.33]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon</pre>
+</div>
+<p>Now send commands from <tt class="docutils literal"><span class="pre">jubactl</span></tt> to <tt class="docutils literal"><span class="pre">jubavisor</span></tt>.</p>
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+[192.168.0.1]$ jubactl -c status --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+active jubaclassifier_keeper members:
+ 192.168.0.101_9199
+ 192.168.0.102_9199
+ 192.168.0.103_9199
+active jubavisor members:
+ 192.168.0.11_9198
+ 192.168.0.12_9198
+ 192.168.0.13_9198
+active tutorial members:
+ 192.168.0.11_9199
+ 192.168.0.12_9199
+ 192.168.0.13_9199</pre>
+</div>
+<p>From members list, you can see the server is running.
+Now run clients simultaneously, from multiple hosts.</p>
+<div class="highlight-python"><pre>[192.168.0.101]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
+[192.168.0.102]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
+[192.168.0.103]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199</pre>
+</div>
+<p>You can also stop instance of Jubatus server from <tt class="docutils literal"><span class="pre">jubactl</span></tt>.</p>
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
+</div>
 </div>
 </div>
 </div>

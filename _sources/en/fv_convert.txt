@@ -377,7 +377,7 @@ In CLASS_types (CLASS is either `string` or `num`), we should specify "dynamic" 
 Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (`$PREFIX/lib/jubatus/plugin` or `$PREFIX/lib/jubatus/plugin` in most cases).
 Argument of the function is specified by other parameters.
 
-In Jubatus we can make use of two pre-defined plugins which aim to extraction of features from strings.
+In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
 Note that some plugins are not available depending on your compile options.
 
 .. describe:: libmecab_splitter.so
