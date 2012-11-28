@@ -187,25 +187,25 @@ new TWTR.Widget({
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
 <div class="highlight-python"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm</pre>
 </div>
-<p><cite>jubatus</cite> と <cite>jubatus-client</cite> のパッケージをインストールします。</p>
+<p><tt class="docutils literal"><span class="pre">jubatus</span></tt> と <tt class="docutils literal"><span class="pre">jubatus-client</span></tt> のパッケージをインストールします。</p>
 <div class="highlight-python"><pre>$ sudo yum install jubatus jubatus-client</pre>
 </div>
 </div>
 <div class="section" id="apt-repository-ubuntu">
 <h3>Apt Repository (Ubuntu)<a class="headerlink" href="#apt-repository-ubuntu" title="Permalink to this headline">¶</a></h3>
-<p>以下の行を <cite>/etc/apt/sources.list.d/jubatus.list</cite> に記述して、Jubatus の Apt リポジトリをシステムに登録します。</p>
+<p>以下の行を <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></tt> に記述して、Jubatus の Apt リポジトリをシステムに登録します。</p>
 <div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
 </div>
-<p><cite>jubatus</cite> のパッケージをインストールします。</p>
+<p><tt class="docutils literal"><span class="pre">jubatus</span></tt> のパッケージをインストールします。</p>
 <div class="highlight-python"><pre>$ sudo apt-get update
 $ sudo apt-get install jubatus</pre>
 </div>
 <p>現在、パッケージには GPG 署名が行われていません。
-以下の警告メッセージが表示された場合は、 <cite>y</cite> を入力してください。</p>
+以下の警告メッセージが表示された場合は、 <tt class="docutils literal"><span class="pre">y</span></tt> を入力してください。</p>
 <div class="highlight-python"><pre>Install these packages without verification [y/N]? y</pre>
 </div>
-<p>これで、Jubatus が <cite>/opt/jubatus</cite> にインストールされました。</p>
-<p>Jubatus を使う前に、毎回 <cite>profile</cite> スクリプトから環境変数を読み込む必要があります。</p>
+<p>これで、Jubatus が <tt class="docutils literal"><span class="pre">/opt/jubatus</span></tt> にインストールされました。</p>
+<p>Jubatus を使う前に、毎回 <tt class="docutils literal"><span class="pre">profile</span></tt> スクリプトから環境変数を読み込む必要があります。</p>
 <div class="highlight-python"><pre>$ source /opt/jubatus/profile</pre>
 </div>
 <p>csh または tcsh をお使いの場合は、こちらを使用してください。</p>
@@ -223,7 +223,7 @@ $ sudo apt-get install jubatus</pre>
 <p>パッケージ管理システムを使わずに Jubatus クライアントを使用したい場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">GitHub の Downloads セクション</a> からダウンロードすることができます。</p>
 <div class="section" id="c">
 <h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
-<p>クライアントは Jubatus フレームワークに含まれている (<cite>$PREFIX/include/jubatus/client/*_client.hpp</cite>) ため、インストールは不要です。</p>
+<p>クライアントは Jubatus フレームワークに含まれている (<tt class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></tt>) ため、インストールは不要です。</p>
 <p>コンパイラや開発用のヘッダがインストールされていない場合は、以下の手順でセットアップを行ってください。
 RHEL では、以下のコマンドを実行します。</p>
 <div class="highlight-python"><pre>$ sudo yum groupinstall "Development tools" "Additional Development"</pre>
@@ -238,7 +238,7 @@ RHEL では、以下のコマンドを実行します。</p>
 <div class="highlight-python"><pre>$ sudo pip install jubatus
 $ sudo pip install msgpack-rpc-python</pre>
 </div>
-<p><cite>pip</cite> コマンドがインストールされていない場合は、以下の手順でインストールしてください。</p>
+<p><tt class="docutils literal"><span class="pre">pip</span></tt> コマンドがインストールされていない場合は、以下の手順でインストールしてください。</p>
 <div class="highlight-python"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
 $ sudo python ez_setup.py
 $ sudo easy_install pip</pre>
@@ -253,7 +253,7 @@ $ sudo easy_install pip</pre>
 <div class="section" id="java">
 <h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
 <p>クライアントは Jubatus の Maven リポジトリで配布されています。
-以下の記述をあなたのプロジェクトの <cite>pom.xml</cite> に追加してください。</p>
+以下の記述をあなたのプロジェクトの <tt class="docutils literal"><span class="pre">pom.xml</span></tt> に追加してください。</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;repositories&gt;</span>
   <span class="nt">&lt;repository&gt;</span>
     <span class="nt">&lt;id&gt;</span>jubat.us<span class="nt">&lt;/id&gt;</span>
@@ -298,7 +298,7 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 <a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
 <div class="section" id="requirements">
 <span id="requirements-ja"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>Jubatus をソースからビルドするには、 <cite>gcc</cite> (バージョン 4.4 以降), <cite>pkg-config</cite> (バージョン 0.26 以降) および <cite>python</cite> (バージョン 2.6 以降,  <cite>waf</cite> で使用される) が必要です。
+<p>Jubatus をソースからビルドするには、 <tt class="docutils literal"><span class="pre">gcc</span></tt> (バージョン 4.4 以降), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (バージョン 0.26 以降) および <tt class="docutils literal"><span class="pre">python</span></tt> (バージョン 2.6 以降,  <tt class="docutils literal"><span class="pre">waf</span></tt> で使用される) が必要です。
 加えて、以下のライブラリも必要になります。</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -398,7 +398,7 @@ $ ./waf configure --disable-re2
 $ ./waf build
 $ sudo ./waf install</pre>
 </div>
-<p>この例は最低限の例のため (どのようなオプションが利用可能かは <cite>./waf configure &#8211;help</cite> をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。</p>
+<p>この例は最低限の例のため (どのようなオプションが利用可能かは <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。</p>
 </div>
 <div class="section" id="other-environments">
 <h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>

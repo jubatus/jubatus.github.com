@@ -20,7 +20,7 @@ Run the following command to register Jubatus Yum repository to the system.
 
   $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
 
-Now install the `jubatus` and `jubatus-client` package.
+Now install the ``jubatus`` and ``jubatus-client`` package.
 
 ::
 
@@ -29,13 +29,13 @@ Now install the `jubatus` and `jubatus-client` package.
 Apt Repository (Ubuntu)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Write the following line to `/etc/apt/sources.list.d/jubatus.list` to register Jubatus Apt repository to the system.
+Write the following line to ``/etc/apt/sources.list.d/jubatus.list`` to register Jubatus Apt repository to the system.
 
 ::
 
   deb http://download.jubat.us/apt binary/
 
-Now install the `jubatus` package.
+Now install the ``jubatus`` package.
 
 ::
 
@@ -43,15 +43,15 @@ Now install the `jubatus` package.
   $ sudo apt-get install jubatus
 
 Currently our package is not GPG-signed.
-Bypass the warning by answering `y` to the prompt when asked:
+Bypass the warning by answering ``y`` to the prompt when asked:
 
 ::
 
   Install these packages without verification [y/N]? y
 
-Now Jubatus is installed in `/opt/jubatus`.
+Now Jubatus is installed in ``/opt/jubatus``.
 
-Each time before using Jubatus, you need to load the environment variable from `profile` script.
+Each time before using Jubatus, you need to load the environment variable from ``profile`` script.
 
 ::
 
@@ -80,7 +80,7 @@ If you want to download client libraries without using package management system
 C++
 ~~~
 
-The client is included in the Jubatus framework (`$PREFIX/include/jubatus/client/*_client.hpp`) and no additional setup is required.
+The client is included in the Jubatus framework (``$PREFIX/include/jubatus/client/*_client.hpp``) and no additional setup is required.
 
 If you don't have compilers and/or development headers installed, you will need to setup them.
 For RHEL systems, type:
@@ -105,7 +105,7 @@ The client (requires Python 2.7 or later) is available in `PyPI <http://pypi.pyt
   $ sudo pip install jubatus
   $ sudo pip install msgpack-rpc-python
 
-If you don't have `pip` command, run the following command:
+If you don't have ``pip`` command, run the following command:
 
 ::
 
@@ -126,7 +126,7 @@ Java
 ~~~~
 
 The client is available in our Maven repository.
-Please add these lines to `pom.xml` of your project.
+Please add these lines to ``pom.xml`` of your project.
 
 .. code-block:: xml
 
@@ -181,7 +181,7 @@ We recommend using binary packages whenever possible, but you can of course buil
 Requirements
 ------------
 
-We need `gcc` (version 4.4 or later), `pkg-config` (version 0.26 or later) and `python` (version 2.6 or later, used in `waf`) to build Jubatus from source.
+We need ``gcc`` (version 4.4 or later), ``pkg-config`` (version 0.26 or later) and ``python`` (version 2.6 or later, used in ``waf``) to build Jubatus from source.
 In addition, following libraries are required.
 
 ============ ========== ======== ======================================================
@@ -240,7 +240,7 @@ Now build Jubatus.
   $ ./waf build
   $ sudo ./waf install
 
-As this is a minimal build (see `./waf configure --help` for other options available), some features like clustering and feature extraction plugins are not available.
+As this is a minimal build (see ``./waf configure --help`` for other options available), some features like clustering and feature extraction plugins are not available.
 
 Other Environments
 ~~~~~~~~~~~~~~~~~~

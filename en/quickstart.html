@@ -201,25 +201,25 @@ For other systems, see <a class="reference internal" href="#build-from-source"><
 <p>Run the following command to register Jubatus Yum repository to the system.</p>
 <div class="highlight-python"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm</pre>
 </div>
-<p>Now install the <cite>jubatus</cite> and <cite>jubatus-client</cite> package.</p>
+<p>Now install the <tt class="docutils literal"><span class="pre">jubatus</span></tt> and <tt class="docutils literal"><span class="pre">jubatus-client</span></tt> package.</p>
 <div class="highlight-python"><pre>$ sudo yum install jubatus jubatus-client</pre>
 </div>
 </div>
 <div class="section" id="apt-repository-ubuntu">
 <h3>Apt Repository (Ubuntu)<a class="headerlink" href="#apt-repository-ubuntu" title="Permalink to this headline">¶</a></h3>
-<p>Write the following line to <cite>/etc/apt/sources.list.d/jubatus.list</cite> to register Jubatus Apt repository to the system.</p>
+<p>Write the following line to <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></tt> to register Jubatus Apt repository to the system.</p>
 <div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
 </div>
-<p>Now install the <cite>jubatus</cite> package.</p>
+<p>Now install the <tt class="docutils literal"><span class="pre">jubatus</span></tt> package.</p>
 <div class="highlight-python"><pre>$ sudo apt-get update
 $ sudo apt-get install jubatus</pre>
 </div>
 <p>Currently our package is not GPG-signed.
-Bypass the warning by answering <cite>y</cite> to the prompt when asked:</p>
+Bypass the warning by answering <tt class="docutils literal"><span class="pre">y</span></tt> to the prompt when asked:</p>
 <div class="highlight-python"><pre>Install these packages without verification [y/N]? y</pre>
 </div>
-<p>Now Jubatus is installed in <cite>/opt/jubatus</cite>.</p>
-<p>Each time before using Jubatus, you need to load the environment variable from <cite>profile</cite> script.</p>
+<p>Now Jubatus is installed in <tt class="docutils literal"><span class="pre">/opt/jubatus</span></tt>.</p>
+<p>Each time before using Jubatus, you need to load the environment variable from <tt class="docutils literal"><span class="pre">profile</span></tt> script.</p>
 <div class="highlight-python"><pre>$ source /opt/jubatus/profile</pre>
 </div>
 <p>If you&#8217;re using csh or tcsh, use this instead:</p>
@@ -237,7 +237,7 @@ Client libraries are distributed under MIT License.</p>
 <p>If you want to download client libraries without using package management system, you can find them in <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">Downloads section of GitHub</a>.</p>
 <div class="section" id="c">
 <h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
-<p>The client is included in the Jubatus framework (<cite>$PREFIX/include/jubatus/client/*_client.hpp</cite>) and no additional setup is required.</p>
+<p>The client is included in the Jubatus framework (<tt class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></tt>) and no additional setup is required.</p>
 <p>If you don&#8217;t have compilers and/or development headers installed, you will need to setup them.
 For RHEL systems, type:</p>
 <div class="highlight-python"><pre>$ sudo yum groupinstall "Development tools" "Additional Development"</pre>
@@ -252,7 +252,7 @@ For RHEL systems, type:</p>
 <div class="highlight-python"><pre>$ sudo pip install jubatus
 $ sudo pip install msgpack-rpc-python</pre>
 </div>
-<p>If you don&#8217;t have <cite>pip</cite> command, run the following command:</p>
+<p>If you don&#8217;t have <tt class="docutils literal"><span class="pre">pip</span></tt> command, run the following command:</p>
 <div class="highlight-python"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
 $ sudo python ez_setup.py
 $ sudo easy_install pip</pre>
@@ -267,7 +267,7 @@ $ sudo easy_install pip</pre>
 <div class="section" id="java">
 <h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
 <p>The client is available in our Maven repository.
-Please add these lines to <cite>pom.xml</cite> of your project.</p>
+Please add these lines to <tt class="docutils literal"><span class="pre">pom.xml</span></tt> of your project.</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;repositories&gt;</span>
   <span class="nt">&lt;repository&gt;</span>
     <span class="nt">&lt;id&gt;</span>jubat.us<span class="nt">&lt;/id&gt;</span>
@@ -312,7 +312,7 @@ See the <a class="reference internal" href="api.html"><em>Client API</em></a> fo
 <a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> may help your installation.</p>
 <div class="section" id="requirements">
 <span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>We need <cite>gcc</cite> (version 4.4 or later), <cite>pkg-config</cite> (version 0.26 or later) and <cite>python</cite> (version 2.6 or later, used in <cite>waf</cite>) to build Jubatus from source.
+<p>We need <tt class="docutils literal"><span class="pre">gcc</span></tt> (version 4.4 or later), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (version 0.26 or later) and <tt class="docutils literal"><span class="pre">python</span></tt> (version 2.6 or later, used in <tt class="docutils literal"><span class="pre">waf</span></tt>) to build Jubatus from source.
 In addition, following libraries are required.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -412,7 +412,7 @@ $ ./waf configure --disable-re2
 $ ./waf build
 $ sudo ./waf install</pre>
 </div>
-<p>As this is a minimal build (see <cite>./waf configure &#8211;help</cite> for other options available), some features like clustering and feature extraction plugins are not available.</p>
+<p>As this is a minimal build (see <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> for other options available), some features like clustering and feature extraction plugins are not available.</p>
 </div>
 <div class="section" id="other-environments">
 <h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>

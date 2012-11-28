@@ -20,7 +20,7 @@ Yum Repository (RHEL)
 
   $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
 
-`jubatus` と `jubatus-client` のパッケージをインストールします。
+``jubatus`` と ``jubatus-client`` のパッケージをインストールします。
 
 ::
 
@@ -29,13 +29,13 @@ Yum Repository (RHEL)
 Apt Repository (Ubuntu)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-以下の行を `/etc/apt/sources.list.d/jubatus.list` に記述して、Jubatus の Apt リポジトリをシステムに登録します。
+以下の行を ``/etc/apt/sources.list.d/jubatus.list`` に記述して、Jubatus の Apt リポジトリをシステムに登録します。
 
 ::
 
   deb http://download.jubat.us/apt binary/
 
-`jubatus` のパッケージをインストールします。
+``jubatus`` のパッケージをインストールします。
 
 ::
 
@@ -43,15 +43,15 @@ Apt Repository (Ubuntu)
   $ sudo apt-get install jubatus
 
 現在、パッケージには GPG 署名が行われていません。
-以下の警告メッセージが表示された場合は、 `y` を入力してください。
+以下の警告メッセージが表示された場合は、 ``y`` を入力してください。
 
 ::
 
   Install these packages without verification [y/N]? y
 
-これで、Jubatus が `/opt/jubatus` にインストールされました。
+これで、Jubatus が ``/opt/jubatus`` にインストールされました。
 
-Jubatus を使う前に、毎回 `profile` スクリプトから環境変数を読み込む必要があります。
+Jubatus を使う前に、毎回 ``profile`` スクリプトから環境変数を読み込む必要があります。
 
 ::
 
@@ -80,7 +80,7 @@ Jubatus と Jubatus クライアントのバージョンは異なることがあ
 C++
 ~~~
 
-クライアントは Jubatus フレームワークに含まれている (`$PREFIX/include/jubatus/client/*_client.hpp`) ため、インストールは不要です。
+クライアントは Jubatus フレームワークに含まれている (``$PREFIX/include/jubatus/client/*_client.hpp``) ため、インストールは不要です。
 
 コンパイラや開発用のヘッダがインストールされていない場合は、以下の手順でセットアップを行ってください。
 RHEL では、以下のコマンドを実行します。
@@ -105,7 +105,7 @@ Python
   $ sudo pip install jubatus
   $ sudo pip install msgpack-rpc-python
 
-`pip` コマンドがインストールされていない場合は、以下の手順でインストールしてください。
+``pip`` コマンドがインストールされていない場合は、以下の手順でインストールしてください。
 
 ::
 
@@ -126,7 +126,7 @@ Java
 ~~~~
 
 クライアントは Jubatus の Maven リポジトリで配布されています。
-以下の記述をあなたのプロジェクトの `pom.xml` に追加してください。
+以下の記述をあなたのプロジェクトの ``pom.xml`` に追加してください。
 
 .. code-block:: xml
 
@@ -181,7 +181,7 @@ Jubatus をソースからビルドすることは可能ですが、可能な場
 Requirements
 ------------
 
-Jubatus をソースからビルドするには、 `gcc` (バージョン 4.4 以降), `pkg-config` (バージョン 0.26 以降) および `python` (バージョン 2.6 以降,  `waf` で使用される) が必要です。
+Jubatus をソースからビルドするには、 ``gcc`` (バージョン 4.4 以降), ``pkg-config`` (バージョン 0.26 以降) および ``python`` (バージョン 2.6 以降,  ``waf`` で使用される) が必要です。
 加えて、以下のライブラリも必要になります。
 
 ============ ========== ======== ======================================================
@@ -241,7 +241,7 @@ Jubatus のビルドを行います。
   $ ./waf build
   $ sudo ./waf install
 
-この例は最低限の例のため (どのようなオプションが利用可能かは `./waf configure --help` をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。
+この例は最低限の例のため (どのようなオプションが利用可能かは ``./waf configure --help`` をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。
 
 Other Environments
 ~~~~~~~~~~~~~~~~~~
