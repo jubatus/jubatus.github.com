@@ -5,9 +5,7 @@ How to Contribute
 We Welcome Your Contribution
 ----------------------------
 
-みなさまのコントリビューションをお待ちしています!
-
-コントリビューションの方法は様々です。
+以下のようなコントリビューションをお待ちしています!
 
   - バグリポートを `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ に投稿してください。
   - フィードバック (コメント、発生した問題、機能の要望など) や、あなたの環境で Jubatus をどのように使っているかを `メーリングリスト <http://groups.google.com/group/jubatus>`_ で教えてください。

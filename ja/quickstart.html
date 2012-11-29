@@ -220,7 +220,7 @@ $ sudo apt-get install jubatus</pre>
 クライアントライブラリは MIT License の下で配布されています。</p>
 <p><a class="reference internal" href="tutorial.html"><em>Tutorial</em></a> を試す場合は、Python クライアントだけをインストールすれば十分です。</p>
 <p>Jubatus と Jubatus クライアントのバージョンは異なることがあります。これは、Jubatus の API が変更されない場合はクライアント側のアップデートが不要なためです。</p>
-<p>パッケージ管理システムを使わずに Jubatus クライアントを使用したい場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">GitHub の Downloads セクション</a> からダウンロードすることができます。</p>
+<p>パッケージ管理システムを使わずに Jubatus クライアントを使用したい場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">GitHub の Downloads セクション</a> から tarball をダウンロードすることができます。</p>
 <div class="section" id="c">
 <h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
 <p>クライアントは Jubatus フレームワークに含まれている (<tt class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></tt>) ため、インストールは不要です。</p>
@@ -285,8 +285,8 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 <p>C++ または Java でクライアントを開発する場合は、以下のスケルトンプロジェクトを使用すると便利です。</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="https://github.com/jubatus/jubatus-cpp-skelton">Jubatus C++ Skelton</a></li>
-<li><a class="reference external" href="https://github.com/jubatus/jubatus-java-skelton">Jubatus Java Skelton</a>: Eclipse プロジェクトのテンプレート</li>
+<li><a class="reference external" href="https://github.com/jubatus/jubatus-cpp-skelton">C++ クライアント開発用スケルトン</a></li>
+<li><a class="reference external" href="https://github.com/jubatus/jubatus-java-skelton">Java クライアント開発用スケルトン</a> (Eclipse プロジェクトのテンプレート)</li>
 </ul>
 </div></blockquote>
 <p>Python をお使いの方は、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルのリポジトリ</a> をご覧ください。</p>
@@ -294,8 +294,8 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 </div>
 <div class="section" id="building-jubatus-from-source">
 <span id="build-from-source-ja"></span><h1>Building Jubatus from Source<a class="headerlink" href="#building-jubatus-from-source" title="Permalink to this headline">¶</a></h1>
-<p>Jubatus をソースからビルドすることは可能ですが、可能な場合はバイナリパッケージを使用することを推奨します。
-<a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
+<p>Jubatus をソースからビルドすることは可能ですが、できる限りバイナリパッケージを使用することを推奨します。
+ソースからビルドする場合は、 <a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
 <div class="section" id="requirements">
 <span id="requirements-ja"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>Jubatus をソースからビルドするには、 <tt class="docutils literal"><span class="pre">gcc</span></tt> (バージョン 4.4 以降), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (バージョン 0.26 以降) および <tt class="docutils literal"><span class="pre">python</span></tt> (バージョン 2.6 以降,  <tt class="docutils literal"><span class="pre">waf</span></tt> で使用される) が必要です。
@@ -338,7 +338,7 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 <tr class="row-even"><td>mecab</td>
 <td>&gt;= 0.99</td>
 <td>&nbsp;</td>
-<td><cite>&#8211;enable-mecab</cite> ありでビルドされた場合のみ。</td>
+<td><tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> ありでビルドされた場合のみ。</td>
 </tr>
 <tr class="row-odd"><td>re2</td>
 <td><ul class="first last simple">
@@ -346,7 +346,7 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 </ul>
 </td>
 <td>&nbsp;</td>
-<td><cite>&#8211;disable-re2</cite> <em>なし</em> でビルドされた場合のみ。</td>
+<td><tt class="docutils literal"><span class="pre">--disable-re2</span></tt> <em>なし</em> でビルドされた場合のみ。</td>
 </tr>
 <tr class="row-even"><td>ux-trie</td>
 <td><ul class="first last simple">
@@ -354,19 +354,19 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 </ul>
 </td>
 <td>&nbsp;</td>
-<td><cite>&#8211;enable-ux</cite> ありでビルドされた場合のみ。</td>
+<td><tt class="docutils literal"><span class="pre">--enable-ux</span></tt> ありでビルドされた場合のみ。</td>
 </tr>
 <tr class="row-odd"><td>zookeeper</td>
 <td>&gt;= 3.3</td>
 <td>&nbsp;</td>
-<td><cite>&#8211;enable-zookeeper</cite> ありでビルドされた場合のみ。
+<td><tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt> ありでビルドされた場合のみ。
 C クライアントライブラリが必要です。</td>
 </tr>
 </tbody>
 </table>
 <p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
-バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます。</p>
-<p><a class="reference external" href="http://msgpack.org/">msgpack</a>,
+バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます:
+<a class="reference external" href="http://msgpack.org/">msgpack</a>,
 <a class="reference external" href="https://github.com/pfi/pficommon">pficommon</a>,
 <a class="reference external" href="http://libevent.org/">libevent</a>,
 <a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a>,
@@ -398,7 +398,7 @@ $ ./waf configure --disable-re2
 $ ./waf build
 $ sudo ./waf install</pre>
 </div>
-<p>この例は最低限の例のため (どのようなオプションが利用可能かは <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。</p>
+<p>この例は最小限の設定でビルドしているため (どのようなオプションが利用可能かは <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。</p>
 </div>
 <div class="section" id="other-environments">
 <h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>

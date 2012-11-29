@@ -204,10 +204,10 @@ I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 R
   interval sec   : 16
   interval count : 512</pre>
 </div>
-<p>Jubatus の分類器開始しました。
+<p>Jubatus の分類器が起動しました。
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
 その他のポートを使用したい場合は、 <tt class="docutils literal"><span class="pre">--rcp-port</span></tt> オプションで指定することができます。
-例えば、19199 バンを使用するには、次のようにします。</p>
+例えば、19199 番ポートを使用するには、次のようにします。</p>
 <div class="highlight-python"><pre>$ jubaclassifier --rpc-port 19199</pre>
 </div>
 <p>Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> プロトコルを使用して通信します。</p>
@@ -341,11 +341,11 @@ Jubatus はこの機能をデフォルトで備えています。
           <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">get_config</span></tt> を呼ぶと、現在指定されているオプションが返ってきます。</p>
+<p><tt class="docutils literal"><span class="pre">get_config</span></tt> を呼ぶと、現在指定されている設定値が返却されます。</p>
 </div>
 <div class="section" id="use-of-classifier-api-train-classify">
 <h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
-<p>学習器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> というAPIを利用します。</p>
+<p>分類器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> という API (RPC メソッド) を利用します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">train_dat</span> <span class="o">=</span> <span class="p">[</span>
               <span class="p">(</span>
                 <span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span>
@@ -354,7 +354,7 @@ Jubatus はこの機能をデフォルトで備えています。
             <span class="p">]</span>
 </pre></div>
 </div>
-<p>推定 (ここでは、Jubatus に与えられたデータから分類) を行う場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> というAPIを利用します。</p>
+<p>推定 (ここでは、Jubatus に与えられたデータから分類) を行う場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> という API を利用します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">classify_dat</span> <span class="o">=</span> <span class="p">[</span>
                  <span class="p">[[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I bought a new mac book air...&quot;</span><span class="p">],</span> <span class="p">[]]</span>
                <span class="p">]</span>
@@ -420,7 +420,7 @@ ZooKeeper のクライアントを用いて、3 つのプロセスが ZooKeeper 
 </div>
 <div class="section" id="id2">
 <h3>Run Tutorial<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>チュートリアルプログラムを再び実行します。ただし、今回はサーバではなく Keeper に接続するため、ポートをオプションとして指定します。
+<p>チュートリアルプログラムを再び実行します。ただし、今回はサーバではなく Keeper に接続するため、ポート番号をオプションとして指定します。
 また、分散環境では、RPC リクエストを Keeper へ送る際にクラスタ名を指定する必要があります。</p>
 <div class="highlight-python"><pre>$ python tutorial.py --server_port=9198 --name=tutorial</pre>
 </div>

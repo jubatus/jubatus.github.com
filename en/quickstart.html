@@ -234,7 +234,7 @@ You need to setup the client library for each language to use Jubatus from clien
 Client libraries are distributed under MIT License.</p>
 <p>If you&#8217;re going to try <a class="reference internal" href="tutorial.html"><em>Tutorial</em></a>, just install Python client and go ahead.</p>
 <p>Version of Jubatus and Jubatus clients may be different, as clients are not updated when there are no API changes to Jubatus.</p>
-<p>If you want to download client libraries without using package management system, you can find them in <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">Downloads section of GitHub</a>.</p>
+<p>If you want to download client libraries without using package management system, you can find a tarball in <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">Downloads section of GitHub</a>.</p>
 <div class="section" id="c">
 <h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
 <p>The client is included in the Jubatus framework (<tt class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></tt>) and no additional setup is required.</p>
@@ -299,8 +299,8 @@ See the <a class="reference internal" href="api.html"><em>Client API</em></a> fo
 <p>For C++ and Java users, skelton projects are available:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="https://github.com/jubatus/jubatus-cpp-skelton">Jubatus C++ Skelton</a></li>
-<li><a class="reference external" href="https://github.com/jubatus/jubatus-java-skelton">Jubatus Java Skelton</a>: Template of Eclipse project</li>
+<li><a class="reference external" href="https://github.com/jubatus/jubatus-cpp-skelton">C++ Client Development Skelton</a></li>
+<li><a class="reference external" href="https://github.com/jubatus/jubatus-java-skelton">Java Client Development Skelton</a> (Eclipse project template)</li>
 </ul>
 </div></blockquote>
 <p>For Python users, see the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial repository</a>.</p>
@@ -309,7 +309,7 @@ See the <a class="reference internal" href="api.html"><em>Client API</em></a> fo
 <div class="section" id="building-jubatus-from-source">
 <span id="build-from-source"></span><h1>Building Jubatus from Source<a class="headerlink" href="#building-jubatus-from-source" title="Permalink to this headline">¶</a></h1>
 <p>We recommend using binary packages whenever possible, but you can of course build Jubatus from source.
-<a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> may help your installation.</p>
+<a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> may help your installation from source.</p>
 <div class="section" id="requirements">
 <span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>We need <tt class="docutils literal"><span class="pre">gcc</span></tt> (version 4.4 or later), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (version 0.26 or later) and <tt class="docutils literal"><span class="pre">python</span></tt> (version 2.6 or later, used in <tt class="docutils literal"><span class="pre">waf</span></tt>) to build Jubatus from source.
@@ -352,7 +352,7 @@ In addition, following libraries are required.</p>
 <tr class="row-even"><td>mecab</td>
 <td>&gt;= 0.99</td>
 <td>&nbsp;</td>
-<td>Required when configured with <cite>&#8211;enable-mecab</cite>.</td>
+<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-mecab</span></tt>.</td>
 </tr>
 <tr class="row-odd"><td>re2</td>
 <td><ul class="first last simple">
@@ -360,7 +360,7 @@ In addition, following libraries are required.</p>
 </ul>
 </td>
 <td>&nbsp;</td>
-<td>Required when configured <em>without</em> <cite>&#8211;disable-re2</cite></td>
+<td>Required when configured <em>without</em> <tt class="docutils literal"><span class="pre">--disable-re2</span></tt></td>
 </tr>
 <tr class="row-even"><td>ux-trie</td>
 <td><ul class="first last simple">
@@ -368,18 +368,18 @@ In addition, following libraries are required.</p>
 </ul>
 </td>
 <td>&nbsp;</td>
-<td>Required when configured with <cite>&#8211;enable-ux</cite>.</td>
+<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-ux</span></tt>.</td>
 </tr>
 <tr class="row-odd"><td>zookeeper</td>
 <td>&gt;= 3.3</td>
 <td>&nbsp;</td>
-<td>Required when configured with <cite>&#8211;enable-zookeeper</cite>.
+<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt>.
 C client libraries must be installed.</td>
 </tr>
 </tbody>
 </table>
 <p>Depending on your distribution, some libraries may be available as a binary package.
-When binary packages are not available, you also need these libraries from source; download them from each website:
+When binary packages are not available, you also need to build these libraries from source; download them from each website:
 <a class="reference external" href="http://msgpack.org/">msgpack</a>,
 <a class="reference external" href="https://github.com/pfi/pficommon">pficommon</a>,
 <a class="reference external" href="http://libevent.org/">libevent</a>,
@@ -412,7 +412,7 @@ $ ./waf configure --disable-re2
 $ ./waf build
 $ sudo ./waf install</pre>
 </div>
-<p>As this is a minimal build (see <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> for other options available), some features like clustering and feature extraction plugins are not available.</p>
+<p>As this is is a minimal configuration (see <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> for other configuration options available), some features like clustering and feature extraction plugins are not available.</p>
 </div>
 <div class="section" id="other-environments">
 <h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>

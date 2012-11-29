@@ -138,7 +138,7 @@ The followings are available values of "method" and keys that must be specified.
 
 .. describe:: regexp
 
- This filter converts substrings that a specified regular expression matches to a specified string. It is unavailable if compiled with `--disable-re2`.
+ This filter converts substrings that a specified regular expression matches to a specified string. It is unavailable if compiled with ``--disable-re2``.
 
   :pattern:  Specifies a regular expression to match. This filter uses re2. For available expressions, please refer to documents of re2.
   :replace:  Specifies a string to replace with.
@@ -373,8 +373,8 @@ A plugin is a single dynamic library file (.so file).
 We will explain how to make plugins later. In this section, we will describe how to use plugins.
 
 How to specify plugin is same in both filters and extractors.
-In CLASS_types (CLASS is either `string` or `num`), we should specify "dynamic" in "method", a path to a .so file in "path" and the name of funcion defined in the plugin in "function".
-Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (`$PREFIX/lib/jubatus/plugin` or `$PREFIX/lib/jubatus/plugin` in most cases).
+In CLASS_types (CLASS is either ``string`` or ``num``), we should specify "dynamic" in "method", a path to a .so file in "path" and the name of funcion defined in the plugin in "function".
+Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib/jubatus/plugin`` in most cases).
 Argument of the function is specified by other parameters.
 
 In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
@@ -384,7 +384,7 @@ Note that some plugins are not available depending on your compile options.
 
  We can specify this plugin in "string_types".
  Separate given Japanese document into words by MeCab and use each word as a feature.
- This plugin is available only when compiled with `--enable-mecab`.
+ This plugin is available only when compiled with ``--enable-mecab``.
 
   :function:   Specify "create".
   :arg:        Specify arguments to MeCab engine. "arg" is not specified, Mecab works with default configuration. Please refer to document of MeCab about how to specify arguments.
@@ -405,7 +405,7 @@ Note that some plugins are not available depending on your compile options.
  We can specify this plugin in "string_types".
  Extract keywords from given document by way of dictionary matching with ux-trie and use each keyword as a feature.
  Matching is a simple longest matching. Note that it is fast but precision may be low. 
- This plugin is available only when compiled with `--enable-ux`.
+ This plugin is available only when compiled with ``--enable-ux``.
 
   :function:   Specifies "create".
   :dict_path:  Specifies a full path of a dictionary file. The dictonary file consists of keywords, one keyword for one line.
@@ -426,7 +426,7 @@ Note that some plugins are not available depending on your compile options.
  We can specify this plugin in "string_types".
  Extract keywords from given document by way of regular expression matching with re2 and use each keyword as a feature.
  Matching is executed continuously, that is, every match is used as a feature.
- This plugin is available only when **NOT** compiled with `--disable-re2`.
+ This plugin is available only when **NOT** compiled with ``--disable-re2``.
 
   :function:  Specifies "create".
   :pattern:   Specifies mathing pattrn.

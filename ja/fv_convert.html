@@ -290,7 +290,7 @@ datumには2つのkey-valueが存在する。
 <dl class="describe">
 <dt>
 <tt class="descname">regexp</tt></dt>
-<dd><p>正規表現にマッチした部分を、指定した文字列に変換する。このフィルターは <cite>&#8211;disable-re2</cite> 付きでコンパイルすると利用できない。</p>
+<dd><p>正規表現にマッチした部分を、指定した文字列に変換する。このフィルターは <tt class="docutils literal"><span class="pre">--disable-re2</span></tt> 付きでコンパイルすると利用できない。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -650,8 +650,8 @@ string_rulesなどと同様、複数の規則を羅列する。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
 <p>各フィルターと抽出器のいずれの場合も、プラグインの指定の仕方は同じである。
-CLASS_types (CLASS は <cite>string</cite> または <cite>num</cite>) で、フィルターや抽出器を指定する際のパラメータで、&#8221;method&#8221;に&#8221;dynamic&#8221;を、&#8221;path&#8221;に.soファイルへのパスを、&#8221;function&#8221;に各プラグイン固有の呼び出し関数名を指定する。
-プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は <cite>$PREFIX/lib/jubatus/plugin</cite> または <cite>$PREFIX/lib64/jubatus/plugin</cite>) に格納されているプラグインについては basename で指定することもできる。
+CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</span></tt> または <tt class="docutils literal"><span class="pre">num</span></tt>) で、フィルターや抽出器を指定する際のパラメータで、&#8221;method&#8221;に&#8221;dynamic&#8221;を、&#8221;path&#8221;に.soファイルへのパスを、&#8221;function&#8221;に各プラグイン固有の呼び出し関数名を指定する。
+プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> または <tt class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></tt>) に格納されているプラグインについては basename で指定することもできる。
 また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。</p>
 <p>Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグインが提供されている。
 ただし、コンパイルオプションによっては一部のプラグインがビルドされないため、注意すること。</p>
@@ -660,7 +660,7 @@ CLASS_types (CLASS は <cite>string</cite> または <cite>num</cite>) で、フ
 <tt class="descname">libmecab_splitter.so</tt></dt>
 <dd><p>string_typesで指定できる。
 MeCabを利用して文書を単語分割し、各単語を特徴量として利用する。
-<cite>&#8211;enable-mecab</cite> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -691,7 +691,7 @@ MeCabを利用して文書を単語分割し、各単語を特徴量として利
 <dd><p>string_typesで指定できる。
 ux-trieを利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
 単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
-<cite>&#8211;enable-ux</cite> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<tt class="docutils literal"><span class="pre">--enable-ux</span></tt> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -722,7 +722,7 @@ ux-trieを利用して、与えられた文書から最長一致で辞書マッ�
 <dd><p>string_typesで指定できる。
 re2を利用して、与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。
 正規表現マッチは連続的に行われ、マッチした  箇所全てを特徴として使う。
-<cite>&#8211;disable-re2</cite> オプションを <strong>指定せずに</strong> でコンパイルした場合のみ利用可能である。</p>
+<tt class="docutils literal"><span class="pre">--disable-re2</span></tt> オプションを <strong>指定せずに</strong> でコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

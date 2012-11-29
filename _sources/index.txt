@@ -14,8 +14,8 @@ Get Jubatus
 
 The latest version of Jubatus is |release|. Jubatus is distributed under LGPL v2.1.
 
-* Download: `TAR <https://github.com/jubatus/jubatus/tarball/master>`_ / `ZIP <https://github.com/jubatus/jubatus/zipball/master>`_
-* Git: `https://github.com/jubatus/jubatus.git <https://github.com/jubatus/jubatus.git>`_
+* Download Source: `TAR <https://github.com/jubatus/jubatus/tarball/master>`_ / `ZIP <https://github.com/jubatus/jubatus/zipball/master>`_ / `Git <https://github.com/jubatus/jubatus.git>`_
+* Binary Packages: see :doc:`en/quickstart`
 
 Table of Contents
 -----------------
@@ -29,7 +29,7 @@ Table of Contents
    en/documentation
    en/references
    en/howtocontribute
-   en/idl_support.rst
+   en/idl_support
    en/misc
 
 

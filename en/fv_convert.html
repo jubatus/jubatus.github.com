@@ -306,7 +306,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <dl class="describe">
 <dt>
 <tt class="descname">regexp</tt></dt>
-<dd><p>This filter converts substrings that a specified regular expression matches to a specified string. It is unavailable if compiled with <cite>&#8211;disable-re2</cite>.</p>
+<dd><p>This filter converts substrings that a specified regular expression matches to a specified string. It is unavailable if compiled with <tt class="docutils literal"><span class="pre">--disable-re2</span></tt>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -666,8 +666,8 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 A plugin is a single dynamic library file (.so file).
 We will explain how to make plugins later. In this section, we will describe how to use plugins.</p>
 <p>How to specify plugin is same in both filters and extractors.
-In CLASS_types (CLASS is either <cite>string</cite> or <cite>num</cite>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of funcion defined in the plugin in &#8220;function&#8221;.
-Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (<cite>$PREFIX/lib/jubatus/plugin</cite> or <cite>$PREFIX/lib/jubatus/plugin</cite> in most cases).
+In CLASS_types (CLASS is either <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">num</span></tt>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of funcion defined in the plugin in &#8220;function&#8221;.
+Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (<tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> or <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> in most cases).
 Argument of the function is specified by other parameters.</p>
 <p>In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
 Note that some plugins are not available depending on your compile options.</p>
@@ -676,7 +676,7 @@ Note that some plugins are not available depending on your compile options.</p>
 <tt class="descname">libmecab_splitter.so</tt></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
 Separate given Japanese document into words by MeCab and use each word as a feature.
-This plugin is available only when compiled with <cite>&#8211;enable-mecab</cite>.</p>
+This plugin is available only when compiled with <tt class="docutils literal"><span class="pre">--enable-mecab</span></tt>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -707,7 +707,7 @@ This plugin is available only when compiled with <cite>&#8211;enable-mecab</cite
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
 Extract keywords from given document by way of dictionary matching with ux-trie and use each keyword as a feature.
 Matching is a simple longest matching. Note that it is fast but precision may be low.
-This plugin is available only when compiled with <cite>&#8211;enable-ux</cite>.</p>
+This plugin is available only when compiled with <tt class="docutils literal"><span class="pre">--enable-ux</span></tt>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -738,7 +738,7 @@ This plugin is available only when compiled with <cite>&#8211;enable-ux</cite>.<
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
 Extract keywords from given document by way of regular expression matching with re2 and use each keyword as a feature.
 Matching is executed continuously, that is, every match is used as a feature.
-This plugin is available only when <strong>NOT</strong> compiled with <cite>&#8211;disable-re2</cite>.</p>
+This plugin is available only when <strong>NOT</strong> compiled with <tt class="docutils literal"><span class="pre">--disable-re2</span></tt>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

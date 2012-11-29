@@ -219,8 +219,8 @@ I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 R
   interval count : 512</pre>
 </div>
 <p>Jubatus classification service is now started.
-Jubatus servers listens on TCP port 9199 by default.
-If you would like to use other port, you can specify it using <tt class="docutils literal"><span class="pre">--rcp-port</span></tt> option.
+Jubatus servers listen on TCP port 9199 by default.
+If you would like to use another port, specify it using <tt class="docutils literal"><span class="pre">--rcp-port</span></tt> option.
 For example, to use port 19199:</p>
 <div class="highlight-python"><pre>$ jubaclassifier --rpc-port 19199</pre>
 </div>
@@ -247,7 +247,7 @@ Read below for more detailed description.</p>
 <h2>Tutorial in Detail<a class="headerlink" href="#tutorial-in-detail" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="dataset">
 <h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
-<p>After expanding <cite>20news-bydate.tar.gz</cite>, you see files like this:</p>
+<p>After expanding <tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>, you see files like this:</p>
 <div class="highlight-python"><pre>20news-bydate-train
 |-- alt.atheism
 |   |-- 49960
@@ -304,7 +304,7 @@ preferably longer, of course, and worth being part of.)
 </div>
 <div class="section" id="server-configuration">
 <h3>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h3>
-<p>You can setup a behavior of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using <tt class="docutils literal"><span class="pre">set_config</span></tt> RPC method.
+<p>You can setup a behavior of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using <tt class="docutils literal"><span class="pre">set_config</span></tt> API.
 There are two configurable parameter: <tt class="docutils literal"><span class="pre">method</span></tt> and <tt class="docutils literal"><span class="pre">converter</span></tt>.
 Examle of these parameters are as follows.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
@@ -359,7 +359,7 @@ These rules expressed as follows in JSON.</p>
 </div>
 <div class="section" id="use-of-classifier-api-train-classify">
 <h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
-<p>Call <tt class="docutils literal"><span class="pre">train</span></tt> API to update models.</p>
+<p>Call <tt class="docutils literal"><span class="pre">train</span></tt> API (RPC method) to update models in the classifier.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">train_dat</span> <span class="o">=</span> <span class="p">[</span>
               <span class="p">(</span>
                 <span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span>
@@ -368,7 +368,7 @@ These rules expressed as follows in JSON.</p>
             <span class="p">]</span>
 </pre></div>
 </div>
-<p>Call <tt class="docutils literal"><span class="pre">classify</span></tt> RPC method to analyze (in this case, let Jubatus classify the given data) with models.</p>
+<p>Call <tt class="docutils literal"><span class="pre">classify</span></tt> API to analyze (in this case, let Jubatus classify the given data) with models.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">classify_dat</span> <span class="o">=</span> <span class="p">[</span>
                  <span class="p">[[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I bought a new mac book air...&quot;</span><span class="p">],</span> <span class="p">[]]</span>
                <span class="p">]</span>

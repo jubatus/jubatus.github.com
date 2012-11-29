@@ -39,7 +39,7 @@ FAQ
 
 This error occurs when old python. Use python 2.7 or later.
 
-- When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of `EADDRINUSE`)
+- When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of ``EADDRINUSE``)
 
  - sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1
 

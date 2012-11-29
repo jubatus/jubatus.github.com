@@ -38,8 +38,8 @@ Simply run ``jubaclassifier`` program that provides classification feature.
     interval count : 512
 
 Jubatus classification service is now started.
-Jubatus servers listens on TCP port 9199 by default.
-If you would like to use other port, you can specify it using ``--rcp-port`` option.
+Jubatus servers listen on TCP port 9199 by default.
+If you would like to use another port, specify it using ``--rcp-port`` option.
 For example, to use port 19199:
 
 ::
@@ -80,7 +80,7 @@ Tutorial in Detail
 Dataset
 ~~~~~~~
 
-After expanding `20news-bydate.tar.gz`, you see files like this:
+After expanding ``20news-bydate.tar.gz``, you see files like this:
 
 ::
 
@@ -144,7 +144,7 @@ In this tutorial, we use these text as the training data.
 Server Configuration
 ~~~~~~~~~~~~~~~~~~~~
 
-You can setup a behavior of ``jubaclassifier`` using ``set_config`` RPC method.
+You can setup a behavior of ``jubaclassifier`` using ``set_config`` API.
 There are two configurable parameter: ``method`` and ``converter``.
 Examle of these parameters are as follows.
 
@@ -207,7 +207,7 @@ These rules expressed as follows in JSON.
 Use of Classifier API: Train & Classify
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Call ``train`` API to update models.
+Call ``train`` API (RPC method) to update models in the classifier.
 
 .. code-block:: python
 
@@ -218,7 +218,7 @@ Call ``train`` API to update models.
                 )
               ]
 
-Call ``classify`` RPC method to analyze (in this case, let Jubatus classify the given data) with models.
+Call ``classify`` API to analyze (in this case, let Jubatus classify the given data) with models.
 
 .. code-block:: python
 
