@@ -161,8 +161,12 @@ new TWTR.Widget({
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>サーバの設定を表す。
+<tt class="docutils literal"><span class="pre">method</span></tt> は分類に使用するアルゴリズムである。
+現在、 <tt class="docutils literal"><span class="pre">perceptron</span></tt>, <tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt>, <tt class="docutils literal"><span class="pre">CW</span></tt>, <tt class="docutils literal"><span class="pre">AROW</span></tt> または <tt class="docutils literal"><span class="pre">NHERD</span></tt> のいずれかが指定可能である。
+<tt class="docutils literal"><span class="pre">converter</span></tt> は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> で説明されている JSON 形式の文字列である。</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
@@ -170,7 +174,14 @@ new TWTR.Widget({
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">converter</span></tt> は <tt class="docutils literal"><span class="pre">datum</span></tt> に対する特徴抽出方法を記述した JSON 文字列です。詳細は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照してください。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">estimate_result</tt></dt>
+<dd><p>分類の結果を表す。
+<tt class="docutils literal"><span class="pre">label</span></tt> は推定されたラベル、 <tt class="docutils literal"><span class="pre">prob</span></tt> はそのラベルに対する確からしさの値である。
+<tt class="docutils literal"><span class="pre">prob</span></tt> の値が大きいほど、より推定されたラベルの信頼性が高いことを意味する。</p>
+</dd></dl>
+
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">estimate_result</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">label</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">prob</span>
@@ -197,11 +208,11 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>モデルの更新に成功した場合は 0</li>
+<li>モデルの更新に成功した場合 0</li>
 </ul>
 </div></blockquote>
 <p>学習しモデルを更新する。 <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> は、datumとそのlabelの組である。
-この関数は <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
+この API は <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -221,13 +232,11 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">estimate_results</span></tt> のリスト</li>
+<li>estimate_result のリストのリスト (入れられたdatumの順に並ぶ)</li>
 </ul>
 </div></blockquote>
 <p>与えられた <tt class="docutils literal"><span class="pre">data</span></tt> から、ラベルを推定する。
-<tt class="docutils literal"><span class="pre">estimate_results</span></tt> は、labelとその確からしさの値 (<tt class="docutils literal"><span class="pre">prob</span></tt>) の組のリストが、入れられたdatumの順番にリストで入っている。
-確からしさの値は [0,1] の範囲であり、高い値はより信頼性が高いことを意味する。
-この関数は、 <tt class="docutils literal"><span class="pre">datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
+この API は、 <tt class="docutils literal"><span class="pre">datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク分類)。</p>
 </dd></dl>
 
 </div>

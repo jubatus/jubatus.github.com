@@ -173,24 +173,24 @@ new TWTR.Widget({
             
   <div class="section" id="regression">
 <h1>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl">IDL definition</a> for original and detailed spec.</p>
+<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl">IDL definition</a> for detailed specification.</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::regression::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>Represents a configuration of the server.
+<tt class="docutils literal"><span class="pre">method</span></tt> is an algorithm used for regression.
+Currently, only <tt class="docutils literal"><span class="pre">PA</span></tt> can be specified.
+<tt class="docutils literal"><span class="pre">converter</span></tt> is a string in JSON format described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-
-  <span class="mi">1</span><span class="o">:</span> <span class="n">converter_config</span> <span class="n">converter</span>
-
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">config</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">converter</span></tt> is a string of JSON format that describes configuration of feature extranction of <tt class="docutils literal"><span class="pre">datum</span></tt> . See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
@@ -202,8 +202,8 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
-<li><tt class="docutils literal"><span class="pre">train_data</span></tt> : list of pair of label and datum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">train_data</span></tt> : list of tuple of label and datum</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -211,11 +211,11 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Zero if this function updates models successfully.</li>
+<li>Zero if this function updates models successfully</li>
 </ul>
 </div></blockquote>
-<p>Training model at a server chosen randomly. <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and it&#8217;s value.
-This function is designed to allow bulk update with list of tuple of value and datum.</p>
+<p>Train and update the model. <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its value.
+This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -226,8 +226,8 @@ This function is designed to allow bulk update with list of tuple of value and d
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : vector of datum for classifiy</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : list of datum to estimate</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -235,10 +235,11 @@ This function is designed to allow bulk update with list of tuple of value and d
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Vector of estimate_results</li>
+<li>List of estimated values, in order of given datum</li>
 </ul>
 </div></blockquote>
-<p>Estimating a result at a server choosen randomly. <tt class="docutils literal"><span class="pre">estimate</span></tt> is a vector of estimated value.</p>
+<p>Estimate the value from given <tt class="docutils literal"><span class="pre">data</span></tt>.
+This API is designed to allow bulk estimation with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
 </dd></dl>
 
 </div>

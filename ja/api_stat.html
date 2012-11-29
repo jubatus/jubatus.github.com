@@ -156,65 +156,67 @@ new TWTR.Widget({
             
   <div class="section" id="stat">
 <h1>Stat<a class="headerlink" href="#stat" title="Permalink to this headline">¶</a></h1>
-<p>..See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> for original and detailed spec.
-詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> を参照してください。</p>
+<p>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL 定義</a> を参照してください。</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::stat::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>サーバの設定を表す。
+<tt class="docutils literal"><span class="pre">window_size</span></tt> は保持する値の数である。</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">window_size</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="kt">int</span> <span class="n">window_size</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別するクラスタ内でユニークな名前である。スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool push(0: string name, 1: string key, 2: double val)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> の値 <tt class="docutils literal"><span class="pre">val</span></tt> を与える。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> の値 <tt class="docutils literal"><span class="pre">val</span></tt> を与える。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double sum(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の合計値を返す。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の合計値を返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double stddev(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の標準偏差を返す。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の標準偏差を返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double max(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最大値を返す。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最大値を返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double min(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最小値を返す。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最小値を返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double entropy(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値のエントロピーを返す。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値のエントロピーを返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double moment(0: string name, 1: string key, 2: int n, 3: double c)</tt></dt>
-<dd></dd></dl>
+<dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の <tt class="docutils literal"><span class="pre">c</span></tt> を中心とした <tt class="docutils literal"><span class="pre">n</span></tt> 次のモーメントを返す。</p>
+</dd></dl>
 
-<p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の <tt class="docutils literal"><span class="pre">c</span></tt> を中心とした <tt class="docutils literal"><span class="pre">n</span></tt> 次のモーメントを返す。</p>
 </div>
 </div>
 

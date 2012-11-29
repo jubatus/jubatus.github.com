@@ -1,6 +1,6 @@
 
-Administration Guide
-====================
+Cluster Administration Guide
+============================
 
 This page describes how to administer a Jubatus cluster.
 

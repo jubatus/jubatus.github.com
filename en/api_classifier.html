@@ -178,16 +178,27 @@ new TWTR.Widget({
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>Represents a configuration of the server.
+<tt class="docutils literal"><span class="pre">method</span></tt> is an algorithm used for classification.
+Currently, one of <tt class="docutils literal"><span class="pre">perceptron</span></tt>, <tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt>, <tt class="docutils literal"><span class="pre">CW</span></tt>, <tt class="docutils literal"><span class="pre">AROW</span></tt> or <tt class="docutils literal"><span class="pre">NHERD</span></tt> can be specified.
+<tt class="docutils literal"><span class="pre">config</span></tt> is a string in JSON format described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">converter</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">config</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">converter</span></tt> is a string of JSON format that describes configuration of feature extranction of <tt class="docutils literal"><span class="pre">datum</span></tt> . See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">estimate_result</tt></dt>
+<dd><p>Represents a result of classification.
+<tt class="docutils literal"><span class="pre">label</span></tt> is a estimated label and <tt class="docutils literal"><span class="pre">prob</span></tt> is a probability value for the <tt class="docutils literal"><span class="pre">label</span></tt>.
+Higher <tt class="docutils literal"><span class="pre">prob</span></tt> value means that the estimated label is more confident.</p>
+</dd></dl>
+
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">estimate_result</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">label</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">prob</span>
@@ -218,7 +229,7 @@ new TWTR.Widget({
 </ul>
 </div></blockquote>
 <p>Train and update the model. <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its label.
-This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt>.</p>
+This API is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -230,7 +241,7 @@ This function is designed to allow bulk update with list of <tt class="docutils 
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : list of datum for classifiy</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : list of datum to classifiy</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -238,13 +249,11 @@ This function is designed to allow bulk update with list of <tt class="docutils 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>List of estimate_results</li>
+<li>List of list of <tt class="docutils literal"><span class="pre">estimate_result</span></tt>, in order of given datum</li>
 </ul>
 </div></blockquote>
 <p>Estimating the label from given <tt class="docutils literal"><span class="pre">data</span></tt>.
-<tt class="docutils literal"><span class="pre">estimate_results</span></tt> is a list of tuple of label and its probability value (<tt class="docutils literal"><span class="pre">prob</span></tt>), in order of given datum.
-Probability value is in range of [0,1] and higher value means more confident.
-This function is designed to allow bulk classification with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
+This API is designed to allow bulk classification with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
 </dd></dl>
 
 </div>

@@ -174,32 +174,88 @@ new TWTR.Widget({
             
   <div class="section" id="graph">
 <h1>Graph<a class="headerlink" href="#graph" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> for original and detailed spec.</p>
+<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl">IDL definition</a> for detailed specification..</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">centrality_type</tt></dt>
+<dd><p>Represents a type of centrality.
+Currently, only <tt class="docutils literal"><span class="pre">0</span></tt> (PageRank) can be specified.</p>
+</dd></dl>
+
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">centrality_type</span> <span class="o">=</span> <span class="kt">int</span>
-<span class="n">type</span> <span class="n">edge_id_t</span> <span class="o">=</span> <span class="n">ulong</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">edge_id_t</tt></dt>
+<dd><p>Represents an ID for an edge.</p>
+</dd></dl>
 
-<span class="n">type</span> <span class="n">property</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">edge_id_t</span> <span class="o">=</span> <span class="n">ulong</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">property</tt></dt>
+<dd><p>Represents key-value properties for a node or an edge.</p>
+</dd></dl>
 
-<span class="n">message</span> <span class="n">node_info</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">property</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">node_info</tt></dt>
+<dd><p>Represents information for a node.
+<tt class="docutils literal"><span class="pre">in_edges</span></tt> is a list of ID of incoming edges.
+<tt class="docutils literal"><span class="pre">out_edges</span></tt> is a list of ID of outgoing edges.</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">node_info</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">property</span> <span class="n">p</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">ulong</span><span class="o">&gt;</span>  <span class="n">in_edges</span>
   <span class="mi">2</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">ulong</span><span class="o">&gt;</span>  <span class="n">out_edges</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">preset_query</tt></dt>
+<dd><p>Represents a preset query.
+See the description below for details.</p>
+</dd></dl>
 
-<span class="n">message</span> <span class="n">preset_query</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">preset_query</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">edge_query</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">node_query</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">edge_info</tt></dt>
+<dd><p>Represents information for an edge.
+<tt class="docutils literal"><span class="pre">src</span></tt> is an ID of the source node that the edge connects.
+<tt class="docutils literal"><span class="pre">tgt</span></tt> is an ID of the target node that the edge connects.</p>
+</dd></dl>
 
-<span class="n">message</span> <span class="n">edge_info</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">edge_info</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">property</span> <span class="n">p</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">src</span>
   <span class="mi">2</span><span class="o">:</span> <span class="n">string</span> <span class="n">tgt</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">shortest_path_req</tt></dt>
+<dd><p>Represents a shortest path request information.
+See the description of <tt class="docutils literal"><span class="pre">shortest_path</span></tt> method for details.</p>
+</dd></dl>
 
-<span class="n">message</span> <span class="n">shortest_path_req</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">shortest_path_req</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">src</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">tgt</span>
   <span class="mi">2</span><span class="o">:</span> <span class="n">uint</span> <span class="n">max_hop</span>
@@ -217,125 +273,132 @@ The condition when a query matches to a property is: all keys in a query MUST ex
 <div class="highlight-python"><pre>query:    { 'key' : 'value' }
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
-<p>This case does not match &#8211; same key but different value:</p>
+<p>This case does not match &#8211; same <tt class="docutils literal"><span class="pre">key</span></tt> but different value:</p>
 <div class="highlight-python"><pre>query:    { 'key' : 'wrong' }
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
-<p>This case does not match &#8211; property <tt class="docutils literal"><span class="pre">spam</span></tt> does not exist:</p>
+<p>This case does not match &#8211; key <tt class="docutils literal"><span class="pre">spam</span></tt> does not exist in <tt class="docutils literal"><span class="pre">property</span></tt>:</p>
 <div class="highlight-python"><pre>query:    { 'key' : 'value', 'spam': 'ham' }
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="describe">
 <dt>
 <tt class="descname">string create_node(0: string name)</tt></dt>
-<dd></dd></dl>
-
-<p>Creates a node on the graph named <tt class="docutils literal"><span class="pre">name</span></tt>. This API broadcasts the request to the whole cluster.
+<dd><p>Creates a node on the graph named <tt class="docutils literal"><span class="pre">name</span></tt>.
 Returns a node id as string.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_node(0: string name, 1: string nid)</tt></dt>
-<dd></dd></dl>
+<dd><p>Removes a node from the graph.</p>
+</dd></dl>
 
-<p>Removes a node from the cluster.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int update_node(0: string name, 1: string nid, 2: property p)</tt></dt>
-<dd></dd></dl>
+<dd><p>Updates the property of the node.</p>
+</dd></dl>
 
-<p>Updates the property of the node.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
-<dd></dd></dl>
-
-<p>Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>. The link has direction.
+<dd><p>Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>.
+The link has direction.
 Multiple links with same direction can be created on each pair of nodes.
 Also, a property <tt class="docutils literal"><span class="pre">ei.p</span></tt> can be associated to each link: see <tt class="docutils literal"><span class="pre">edge_info</span></tt>.</p>
-<p>Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as long unsigned integer.</p>
+<p>Returns <tt class="docutils literal"><span class="pre">edge_id</span></tt> as long unsigned integer.
+<tt class="docutils literal"><span class="pre">nid</span></tt> must be the same value as <tt class="docutils literal"><span class="pre">ei.src</span></tt>.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">int update_edge(0: string name, 1: string nid, 2: ulong eid, 3: edge_info ei)</tt></dt>
-<dd></dd></dl>
+<dd><p>Updates an existing edge with a new property.
+Property is replaced.
+<tt class="docutils literal"><span class="pre">nid</span></tt> must be the same value as <tt class="docutils literal"><span class="pre">ei.src</span></tt>.</p>
+</dd></dl>
 
-<p>Updates an existing edge with a new property. Property is replaced.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_edge(0: string name, 1: string nid, 2: ulong eid)</tt></dt>
-<dd></dd></dl>
+<dd><p>Removes an edge.
+<tt class="docutils literal"><span class="pre">nid</span></tt> must be an ID for the source node of the edge <tt class="docutils literal"><span class="pre">eid</span></tt>.</p>
+</dd></dl>
 
-<p>Removes an edge.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">double centrality(0: string name, 1: string nid, 2: centrality_type ct, 3: preset_query q)</tt></dt>
-<dd></dd></dl>
-
-<p>Calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">q</span></tt> .
+<dd><p>For query <tt class="docutils literal"><span class="pre">q</span></tt> that was registered with <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt>, calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">q</span></tt>.
 Currently there&#8217;s only PageRank centrality.</p>
-<p>Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality
-and the computed value if there&#8217;re updates not mixed.</p>
+<p>Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality and the computed value if there&#8217;re updates not mixed.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_centrality_query(0: string name, 1: preset_query q)</tt></dt>
-<dd></dd></dl>
+<dd><p>Sets a preset query to the graph for centrality calculation.</p>
+</dd></dl>
 
-<p>Sets a preset query to the graph for centrality calculation.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
-<dd></dd></dl>
+<dd><p>Sets a preset query to the graph for shortest path calculation.</p>
+</dd></dl>
 
-<p>Sets a preset query to the graph for shortest path calculation.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_centrality_query(0: string name, 1: preset_query q)</tt></dt>
-<dd></dd></dl>
+<dd><p>Removes a preset query from the graph for centrality calculation.</p>
+</dd></dl>
 
-<p>Removes a preset query from the graph for centrality calculation.
-The query is compared with exact key-value whole match with another one.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
-<dd></dd></dl>
+<dd><p>Removes a preset query from the graph for shortest path calculation.</p>
+</dd></dl>
 
-<p>Removes a preset query from the graph for shortest path calculation.</p>
 <dl class="describe">
 <dt>
-<tt class="descname">list&lt;string&gt;  shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
-<dd></dd></dl>
+<tt class="descname">list&lt;string&gt; shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
+<dd><p>For query <tt class="docutils literal"><span class="pre">r.q</span></tt> that was registered with <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt>, calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt> that matches the preset query.
+The return value is a list of node IDs.
+If the shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.dst</span></tt> cannot be found within <tt class="docutils literal"><span class="pre">r.max_hop</span></tt> hops, the result will be truncated.</p>
+<p>Path-index tree may have a gap between the exact path and the computed path when in a distributed setup.</p>
+</dd></dl>
 
-<p>Calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt>
-that matches the preset query. The return value is a list of node IDs.</p>
-<p>Path-index tree may have a gap between the exact path
-and the computed path when in a distributed setup.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int update_index(0: string name)</tt></dt>
-<dd></dd></dl>
+<dd><p>Run mix locally. <strong>Do not use in distributed mode</strong>.</p>
+<p>Some functions like <tt class="docutils literal"><span class="pre">centrality</span></tt> and <tt class="docutils literal"><span class="pre">shortest_path</span></tt> uses an index that is updated in the MIX operation.
+In a standalone mode, mix is not automatically called thus users must call this API by themselves.</p>
+</dd></dl>
 
-<p>Run mix locally. <strong>Do not use in distributed mode</strong>.</p>
-<p>In a standalone mode, mix is not automatically called thus users must call this API by thierselves.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int clear(0: string name)</tt></dt>
-<dd></dd></dl>
+<dd><p>Clears the whole data in a cluster.</p>
+</dd></dl>
 
-<p>Clears the whole data in a cluster.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">node_info get_node(0: string name, 1: string nid)</tt></dt>
-<dd></dd></dl>
+<dd><p>Gets the <tt class="docutils literal"><span class="pre">node_info</span></tt> for a node.</p>
+</dd></dl>
 
-<p>Gets the <tt class="docutils literal"><span class="pre">node_info</span></tt> of a node, which includes property, ids of incoming edge and outgoing edge.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: ulong eid)</tt></dt>
-<dd></dd></dl>
+<dd><p>Gets the <tt class="docutils literal"><span class="pre">edge_info</span></tt> of an edge, which includes property, source node and target node.
+<tt class="docutils literal"><span class="pre">nid</span></tt> is an ID for the source node of the edge <tt class="docutils literal"><span class="pre">eid</span></tt>.</p>
+</dd></dl>
 
-<p>Gets the <tt class="docutils literal"><span class="pre">edge_info</span></tt> of an edge, which includes property, source node and target node.</p>
 </div>
 </div>
 

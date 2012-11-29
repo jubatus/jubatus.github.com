@@ -3,11 +3,15 @@ Classifier
 
 詳細な仕様は `IDL 定義 <https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl>`_ を参照してください。
 
-
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. describe:: jubatus::config_data
+.. describe:: config_data
+
+ サーバの設定を表す。
+ ``method`` は分類に使用するアルゴリズムである。
+ 現在、 ``perceptron``, ``PA``, ``PA1``, ``PA2``, ``CW``, ``AROW`` または ``NHERD`` のいずれかが指定可能である。
+ ``converter`` は :doc:`fv_convert` で説明されている JSON 形式の文字列である。
 
 .. code-block:: c++
 
@@ -16,7 +20,11 @@ Data Structures
      1: string converter
    }
 
-``converter`` は ``datum`` に対する特徴抽出方法を記述した JSON 文字列です。詳細は :doc:`fv_convert` を参照してください。
+.. describe:: estimate_result
+
+ 分類の結果を表す。
+ ``label`` は推定されたラベル、 ``prob`` はそのラベルに対する確からしさの値である。
+ ``prob`` の値が大きいほど、より推定されたラベルの信頼性が高いことを意味する。
 
 .. code-block:: c++
 
@@ -24,7 +32,6 @@ Data Structures
      0: string label
      1: double prob
    }
-
 
 Methods
 ~~~~~~~
@@ -38,11 +45,10 @@ Methods
 
  - 戻り値:
 
-  - モデルの更新に成功した場合は 0
+  - モデルの更新に成功した場合 0
 
  学習しモデルを更新する。 ``tuple<string, datum>`` は、datumとそのlabelの組である。
- この関数は ``tuple<string, datum>`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
-
+ この API は ``tuple<string, datum>`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
 
 .. describe:: list<list<estimate_result> > classify(0: string name, 1: list<datum> data)
 
@@ -53,9 +59,7 @@ Methods
 
  - 戻り値:
 
-  - ``estimate_results`` のリスト
+  - estimate_result のリストのリスト (入れられたdatumの順に並ぶ)
 
  与えられた ``data`` から、ラベルを推定する。
- ``estimate_results`` は、labelとその確からしさの値 (``prob``) の組のリストが、入れられたdatumの順番にリストで入っている。
- 確からしさの値は [0,1] の範囲であり、高い値はより信頼性が高いことを意味する。
- この関数は、 ``datum`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
+ この API は、 ``datum`` をリスト形式でまとめて同時に受け付けることができる (バルク分類)。

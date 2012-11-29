@@ -1,26 +1,24 @@
 Regression
 ----------
 
-See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl>`_ for original and detailed spec.
+See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl>`_ for detailed specification.
 
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. describe:: jubatus::regression::config_data
+.. describe:: config_data
 
+ Represents a configuration of the server.
+ ``method`` is an algorithm used for regression.
+ Currently, only ``PA`` can be specified.
+ ``converter`` is a string in JSON format described in :doc:`fv_convert`.
 
 .. code-block:: c++
 
    message config_data {
-
      0: string method
-
-     1: converter_config converter
-
+     1: string config
    }
-
-``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
-
 
 Methods
 ~~~~~~~
@@ -29,27 +27,26 @@ Methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
-  - ``train_data`` : list of pair of label and datum
+  - ``name`` : a string value to uniquely identifies a task in cluster
+  - ``train_data`` : list of tuple of label and datum
 
  - Returns:
 
-  - Zero if this function updates models successfully.
+  - Zero if this function updates models successfully
 
- Training model at a server chosen randomly. ``tuple<float, datum>`` is a tuple of datum and it's value. 
- This function is designed to allow bulk update with list of tuple of value and datum.
-
+ Train and update the model. ``tuple<float, datum>`` is a tuple of datum and its value. 
+ This function is designed to allow bulk update with list of ``tuple<float, datum>``.
 
 .. describe:: list<float> estimate(0: string name, 1: list<datum> data)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
-  - ``data`` : vector of datum for classifiy
+  - ``name`` : a string value to uniquely identifies a task in cluster
+  - ``data`` : list of datum to estimate
 
  - Returns:
 
-  - Vector of estimate_results
+  - List of estimated values, in order of given datum
 
- Estimating a result at a server choosen randomly. ``estimate`` is a vector of estimated value.
-
+ Estimate the value from given ``data``.
+ This API is designed to allow bulk estimation with list of ``datum``.

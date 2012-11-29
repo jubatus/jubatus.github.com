@@ -1,125 +1,185 @@
 Recommender
 -----------
 
-See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl>`_ for original and detailed spec.
+See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl>`_ for detailed specification.
 
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. describe:: jubatus::config_data
+.. describe:: config_data
+
+ Represents a configuration of the server.
+ ``method`` is an algorithm used for recommendation.
+ Currently, one of ``inverted_index``, ``minhash`` or ``lsh`` can be specified.
+ ``config`` is a string in JSON format described in :doc:`fv_convert`.
 
 .. code-block:: c++
 
    message config_data {
-
      0: string method
-     
      1: string converter
-
    }
 
-``converter`` is a string of JSON format that describes configuration of feature extranction of ``datum`` . See :doc:`fv_convert` for details.
+.. describe:: similar_result
+
+ Represents a result of similarity methods.
+ It is a list of tuple of string and float.
+ The string value is a row ID and the float value is a similarity for the ID.
+ Higher similarity value means that they are more similar to each other.
+
+.. code-block:: c++
+
+   type similar_result = list<tuple<string, float> >
 
 Methods
 ~~~~~~~
 
 .. describe:: bool clear_row(string name, string id)
 
-- Parameters:
+ - Parameters:
 
-  - ``ids`` : a list of ids to be cleared. Each id specifies a row in a recommendation table.
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``id`` : row ID to be cleared
 
-Clear rows specified by ``ids`` . 
+ - Returns:
 
+  - True when the row was cleared successfully
+
+ Clear the given row ``id`` from the recommendation table.
 
 .. describe:: bool update_row(string name, string id, datum d)
 
-- Parameters:
+ - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in Zookeeper quorum
-  - ``id`` : a string value to uniquely identifies a row in a recommendation table
-  - ``d`` : vector of datum
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``id`` : row ID
+  - ``d`` : datum for the row
 
-- Returns:
+ - Returns:
 
-  - True if this function updates models successfully.
+  - True if this function updates models successfully
 
-Differential update of row data using row data. If row whose id is  ``id`` exists, row is overwritten. Otherwise, new row entry will be created. If the server that manages ``id`` row and that operation is received is same, update operation is reflected instantly. Otherwise, update operation is reflected after mix.
-
-..  rowデータをdataを利用して差分更新する．同じ特徴番号がある場合は上書き更新する．新しいrow idが指定された場合は，新しいrowエントリを作成する．更新操作は同じサーバーであれば即次反映され，異なるサーバーであれば，mix後に反映される．
+ Differencial update the row whose id is ``id`` with given ``d``.
+ If the ``id`` row already exists, the row is overwritten with the given ``d``.
+ Otherwise, new row entry will be created.
+ If the server that manages ``id`` row and the server that received this RPC request are same, this operation is reflected instantly;.
+ If not, update operation is reflected after MIX.
 
 .. describe:: bool clear(0: string name)
 
+ - Parameters:
+
+  - ``name`` : string value to uniquely identifies a task in cluster
+
+ - Returns:
+
+  - True when the model was cleared successfully
+
+ Completely clear the model.
 
 .. describe:: datum complete_row_from_id(0: string name, 1: string id)
 
-- Parameters:
+ - Parameters:
 
-  - ``id`` : a string value to uniquely identifies a row in a recommendation table
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``id`` : row ID
 
-- Returns:
+ - Returns:
 
-  - datum stored in ``id`` row with missing value completed by predicted value.
+  - datum stored in ``id`` row with missing value completed by predicted value
 
-Return row specified by ``id`` with missing value completed by predicted value.
+ Return the datum for the given row ID, with missing value completed by predicted value.
 
-.. 指定したidのrowの中で欠けている値を予測して返す。
+.. describe:: datum complete_row_from_data(0: string name, 1: datum d)
 
-.. describe:: datum complete_row_from_data(0: string name, 1: datum dat)
+ - Parameters:
 
-- Parameters:
-
+  - ``name`` : string value to uniquely identifies a task in cluster
   - ``dat`` : original datum to be completed (possibly some values are missing).
 
-- Returns:
+ - Returns:
 
-  - row constructed from inputted datum with missing value completed by predicted value.
+  - datum constructed from the given datum with missing value completed by predicted value
 
-.. 指定したdatumで構成されるrowの中で欠けている値を予測して返す。
+ Return the datum constructed from the given datum, with missing value completed by predicted value.
 
 .. describe:: similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)
 
-- Parameters:
+ - Parameters:
 
-  - ``id`` : a string value to uniquely identifies a row in a recommendation table
-  - ``size`` : number of rows to be returned.
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``id`` : row ID
+  - ``size`` : number of rows to be returned
 
-- Returns:
+ - Returns:
 
-  - similar_result of ``id`` .
+  - rows that are most similar to the row ``id``
 
-Returns ``ret_num`` rows which are most similar to row specified by ``id`` .
-The meaning of similar_result is described in typedef of similar_result.
-    
-.. 指定したidに近いrowを返す。
+ Return ``size`` rows (at maximum) which are most similar to the given row ID.
 
 .. describe:: similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)
 
-- Parameters:
+ - Parameters:
 
-  - ``dat`` : original datum to be completed (possibly some values are missing).
-  - ``ret_num``` : number of rows to be returned.
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``dat`` : original datum to be completed (possibly some values are missing)
+  - ``size`` : number of rows to be returned
 
-- Returns:
+ - Returns:
 
-  - similar_result of the row constructed from ``dat`` .
+  - rows that most have a similar datum to ``dat``
 
-Return ``ret_num`` rows which are most similar to row constructed from inputted datum.
-The meaning of similar_result is described in typedef of similar_result.
-
-.. 指定したdatumで構成されるrowに近いrowを返す。
+ Return ``size`` rows (at maximum) that most have similar datum to given datum.
 
 .. describe:: datum decode_row(0: string name, 1: string id)
 
+ - Parameters:
+
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``id`` : row ID
+
+ - Returns:
+
+  - datum for the given row ``id``.
+
+ Return the datum in the row ID.
+ Note that irreversibly converted datum (processed by ``fv_converter``) will not be returned.
 
 .. describe:: list<string> get_all_rows(0:string name)
 
-- Returns:
+ - Parameters:
 
-  - list of all rows
+  - ``name`` : string value to uniquely identifies a task in cluster
 
-Return list of all rows.
+ - Returns:
+
+  - list of all row IDs
+
+ Return the list of all row IDs.
 
 .. describe:: float similarity(0: string name, 1: datum lhs, 2: datum rhs)
 
+ - Parameters:
+
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``lhs`` : datum
+  - ``rhs`` : another datum
+
+ - Returns:
+
+  - similarity between ``lhs`` and ``rhs``
+
+ Return the similarity between two datum.
+
 .. describe:: float l2norm(0: string name, 1: datum d)
+
+ - Parameters:
+
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``d`` : datum
+
+ - Returns:
+
+  - L2 norm for the given ``d``
+
+ Return the value of L2 norm for the datum.

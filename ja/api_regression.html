@@ -156,21 +156,21 @@ new TWTR.Widget({
             
   <div class="section" id="regression">
 <h1>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h1>
-<p>..See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl">IDL definition</a> for original and detailed spec.
-詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl">IDL definition</a> を参照してください。</p>
+<p>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl">IDL 定義</a> を参照してください。</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::regression::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>サーバの設定を表す。
+<tt class="docutils literal"><span class="pre">method</span></tt> は回帰に使用するアルゴリズムである。
+現在は <tt class="docutils literal"><span class="pre">PA</span></tt> のみが指定可能である。
+<tt class="docutils literal"><span class="pre">converter</span></tt> は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> で説明されている JSON 形式の文字列である。</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-
-  <span class="mi">1</span><span class="o">:</span> <span class="n">converter_config</span> <span class="n">converter</span>
-
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">config</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -185,7 +185,7 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">train_data</span></tt> : floatとdatumで構成される組のリスト</li>
 </ul>
 </div></blockquote>
@@ -194,11 +194,11 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>成功すると0が返る</li>
+<li>モデルの更新に成功した場合 0</li>
 </ul>
 </div></blockquote>
-<p>ランダムに一台選んだサーバで学習し、モデルを更新する。 <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> は、datumとその値の組である。
-この関数は <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> をリスト形式で、まとめて同時に受け付けることが出来る。</p>
+<p>学習し、モデルを更新する。 <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> は、datumとその値の組である。
+この関数は <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -209,8 +209,8 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : datumのリスト</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : 推定するdatumのリスト</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -218,10 +218,12 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Vector of estimate_results</li>
+<li>推定値のリスト (入れられたdatumの順に並ぶ)</li>
 </ul>
 </div></blockquote>
-<p>ランダムに選んだサーバで結果を推定する。``estimate_results`` は、予想値のリストが、入れられたdatumの順番に入っている。</p>
+<p>与えられた <tt class="docutils literal"><span class="pre">data</span></tt> から結果を推定する。
+この関数は <tt class="docutils literal"><span class="pre">datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク推定)。
+<tt class="docutils literal"><span class="pre">estimate_results</span></tt> は、予想値のリストが、入れられたdatumの順番に入っている。</p>
 </dd></dl>
 
 </div>

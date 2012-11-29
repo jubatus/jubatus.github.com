@@ -1,6 +1,6 @@
 
-Administration Guide
-====================
+Cluster Administration Guide
+============================
 
 このページでは、分散環境における Jubatus の運用方法を説明します。
 

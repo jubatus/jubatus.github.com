@@ -156,22 +156,34 @@ new TWTR.Widget({
             
   <div class="section" id="recommender">
 <h1>Recommender<a class="headerlink" href="#recommender" title="Permalink to this headline">¶</a></h1>
-<p>..See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL definition</a> for original and detailed spec.
-詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL definition</a> を参照してください。</p>
+<p>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL 定義</a> を参照してください。</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::recommender::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>サーバの設定を表す。
+<tt class="docutils literal"><span class="pre">method</span></tt> は推薦に使用するアルゴリズムである。
+現在、 <tt class="docutils literal"><span class="pre">inverted_index</span></tt>, <tt class="docutils literal"><span class="pre">minhash</span></tt> または <tt class="docutils literal"><span class="pre">lsh</span></tt> のいずれかが指定可能である。
+<tt class="docutils literal"><span class="pre">converter</span></tt> は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> で説明されている JSON 形式の文字列である。</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-
-  <span class="mi">1</span><span class="o">:</span> <span class="n">converter_config</span> <span class="n">converter</span><span class="p">;</span>
-
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">converter</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">similar_result</tt></dt>
+<dd><p>近傍性の結果を表す。
+string と float のタプルのリストである。
+string の値は行 ID であり、float の値はその ID に対応する近傍性である。
+近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">similar_result</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -180,142 +192,264 @@ new TWTR.Widget({
 <dl class="describe">
 <dt>
 <tt class="descname">bool clear_row(string name, string id)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : 削除する行 ID</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
+<li>戻り値:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li>行の削除に成功した場合 True</li>
 </ul>
-<p><tt class="docutils literal"><span class="pre">id</span></tt> で指定されるテーブルを削除する。</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">id</span></tt> で指定される行を推薦テーブルから削除する。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">bool update_row(string name, string id, datum d)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
 <li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>更新に成功した場合はTrue</li>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li>モデルの更新に成功した場合 True</li>
 </ul>
-<p>rowデータをdataを利用して差分更新する．同じ特徴番号がある場合は上書き更新する．新しいrow idが指定された場合は，新しいrowエントリを作成する．更新操作は同じサーバーであれば即次反映され，異なるサーバーであれば，mix後に反映される．</p>
+</div></blockquote>
+<p>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> のデータを <tt class="docutils literal"><span class="pre">d</span></tt> を利用して差分更新する。
+同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、 <tt class="docutils literal"><span class="pre">d</span></tt> で上書きされる。
+存在しない場合は、新しい行のエントリが作成される。
+更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
+異なるサーバーであれば、MIX 後に反映される。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">bool clear(0: string name)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>モデルの削除に成功した場合 True</li>
+</ul>
+</div></blockquote>
+<p>モデルを完全に消去する。</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">datum complete_row_from_id(0: string name, 1: string id)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
-</ul>
-</li>
-<li>Returns:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> の近傍から未定義の値を補完したdatum</li>
-</ul>
-</li>
+<dd><ul class="simple">
+<li>引数:</li>
 </ul>
 <blockquote>
-<div>指定したidのrowの中で欠けている値を予測して返す。</div></blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">id</span></tt> の近傍から未定義の値を補完したdatum</li>
+</ul>
+</div></blockquote>
+<p>指定したidのrowの中で欠けている値を予測して返す。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">datum complete_row_from_data(0: string name, 1: datum dat)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> : 補完したい値が欠けたdatum.</li>
-</ul>
-</li>
-<li>Returns:</li>
+<dd><ul class="simple">
+<li>引数:</li>
 </ul>
 <blockquote>
-<div>指定したdatumで構成されるrowの中で欠けている値を予測して返す。</div></blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">dat</span></tt> : 補完したい値が欠けたdatum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>指定したdatumで構成されるrowの中で欠けている値を補完したdatum</li>
+</ul>
+</div></blockquote>
+<p>指定したdatumで構成されるrowの中で欠けている値を予測して返す。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
 <li><tt class="docutils literal"><span class="pre">size</span></tt> : 返す近傍の数</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍のidとその近傍性の値のリスト .</li>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍のidとその近傍性の値のリスト</li>
 </ul>
+</div></blockquote>
 <p><tt class="docutils literal"><span class="pre">similar_result</span></tt> で定義された指定したidに近い行とその近傍性のリストを <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">dat</span></tt> : 補完したいdatum</li>
 <li><tt class="docutils literal"><span class="pre">ret_num</span></tt> : 返す近傍の数</li>
 </ul>
-</li>
-<li>Returns:<ul>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">dat</span></tt> から構成された <tt class="docutils literal"><span class="pre">similar_result</span></tt> .</li>
 </ul>
-</li>
-</ul>
+</div></blockquote>
 <p><tt class="docutils literal"><span class="pre">similar_result</span></tt> で定義された指定したdatumに近い行とその近傍性のリストを``size``個返す。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">datum decode_row(0: string name, 1: string id)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> で指定した行の <tt class="docutils literal"><span class="pre">datum</span></tt> 表現を返す。ただし、fv_converterで不可逆な処理を行なっている <tt class="docutils literal"><span class="pre">datum</span></tt> は復元されない。</li>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> に対応する datum</li>
 </ul>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">id</span></tt> で指定した行の <tt class="docutils literal"><span class="pre">datum</span></tt> 表現を返す。
+ただし、fv_converterで不可逆な処理を行なっている <tt class="docutils literal"><span class="pre">datum</span></tt> は復元されない。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">list&lt;string&gt; get_all_rows(0:string name)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Returns:<ul>
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
 <li>すべての列のリスト</li>
 </ul>
-</li>
-</ul>
+</div></blockquote>
 <p>すべての列のリストを返す。</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">float similarity(0: string name, 1: datum lhs, 2: datum rhs)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">lhs</span></tt> : datum</li>
+<li><tt class="docutils literal"><span class="pre">rhs</span></tt> : 別の datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> の近傍性</li>
+</ul>
+</div></blockquote>
+<p>指定した2つの datum の近傍性を返す。</p>
+</dd></dl>
 
-<p>指定した2つの <tt class="docutils literal"><span class="pre">datum</span></tt> の近傍性を返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">float l2norm(0: string name, 1: datum d)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>引数:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>戻り値:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">d</span></tt> の L2 ノルム</li>
+</ul>
+</div></blockquote>
+<p>指定した <tt class="docutils literal"><span class="pre">datum</span></tt> の L2 ノルムを返す。</p>
+</dd></dl>
 
-<p>指定した <tt class="docutils literal"><span class="pre">datum</span></tt> のL2ノルムを返す。</p>
 </div>
 </div>
 

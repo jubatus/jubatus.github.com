@@ -173,58 +173,67 @@ new TWTR.Widget({
             
   <div class="section" id="stat">
 <h1>Stat<a class="headerlink" href="#stat" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> for original and detailed spec.</p>
+<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> for detailed specification.</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::stat::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>Represents a configuration of the server.
+<tt class="docutils literal"><span class="pre">window_size</span></tt> is a number of values to hold.</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="kt">int</span> <span class="n">window_size</span>
-
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool push(0: string name, 1: string key, 2: double val)</tt></dt>
-<dd></dd></dl>
+<dd><p>Add value <tt class="docutils literal"><span class="pre">val</span></tt> to the key called <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">double sum(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>Return value of sum from the key called <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">double stddev(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>Return value of standard deviation from the key called <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">double max(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>Return the maximum value from the key called <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">double min(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>Return the minimum value from the key called <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">double entropy(0: string name, 1: string key)</tt></dt>
-<dd></dd></dl>
+<dd><p>Return the value of entropy from the key called <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">double moment(0: string name, 1: string key, 2: int n, 3: double c)</tt></dt>
-<dd></dd></dl>
+<dd><p>Return the value of <tt class="docutils literal"><span class="pre">n</span></tt>-th moment of the <tt class="docutils literal"><span class="pre">key</span></tt> about <tt class="docutils literal"><span class="pre">c</span></tt>.</p>
+</dd></dl>
 
 </div>
 </div>

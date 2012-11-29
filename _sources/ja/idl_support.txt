@@ -1,7 +1,9 @@
 IDL Support Status (2012 Nov.)
--------------------------------------------
+------------------------------
 
-2012年10月現在、Jubatusは、 機械学習タスク (Classifier, Regression, Recommender, Stat, Graph) をサポートしています。 :ref:`how_to_get_clients` で紹介している通り、クライアントコードは、 msgpack-idlで生成されています。以下はそのサポート状況です。
+現在、Jubatus は 5 種類の機械学習タスク (Classifier, Regression, Recommender, Stat, Graph) をサポートしています。
+:ref:`how_to_get_clients` で紹介している通り、クライアントコードは、 msgpack-idlで生成されています。
+以下はそのサポート状況です。
 
 +------------+------------+-------------+--------------+--------------+--------------+ 
 |            | Classifier | Regression  | Recommender  | Stat         | Graph        |
@@ -19,9 +21,9 @@ IDL Support Status (2012 Nov.)
 
 - needs fix：自動生成したコードから少し変更が必要です。
 
+  - MessagePack-IDL へのパッチを歓迎します。
 
 以下の環境でテストを行なっています。
-
 
 - Jubatus : Jubatus 0.3.4
 
@@ -31,11 +33,7 @@ IDL Support Status (2012 Nov.)
 
 - IDL : 上記レポジトリのIDLファイル
 
-
 All Clients Are Available
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`download page <https://github.com/jubatus/jubatus/downloads>`_ からダウンロードされるクライアントは、C++, Java, Python, Rubyの4つの言語に対して、正しく動作することを確認しています。
-
-Javaクライアントは、手動で正しく動くように修正され、それ以外のすべてのクライアントは、自動生成されています。
-
+`GitHub の Downloads セクション <https://github.com/jubatus/jubatus/downloads>`_ で配布しているクライアントは、C++, Java, Python, Ruby の4つの言語に対して、正しく動作することを確認しています。

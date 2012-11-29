@@ -173,155 +173,298 @@ new TWTR.Widget({
             
   <div class="section" id="recommender">
 <h1>Recommender<a class="headerlink" href="#recommender" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL definition</a> for original and detailed spec.</p>
+<p>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL definition</a> for detailed specification.</p>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::config_data</tt></dt>
-<dd></dd></dl>
+<tt class="descname">config_data</tt></dt>
+<dd><p>Represents a configuration of the server.
+<tt class="docutils literal"><span class="pre">method</span></tt> is an algorithm used for recommendation.
+Currently, one of <tt class="docutils literal"><span class="pre">inverted_index</span></tt>, <tt class="docutils literal"><span class="pre">minhash</span></tt> or <tt class="docutils literal"><span class="pre">lsh</span></tt> can be specified.
+<tt class="docutils literal"><span class="pre">config</span></tt> is a string in JSON format described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
+</dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-
   <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">converter</span>
-
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">converter</span></tt> is a string of JSON format that describes configuration of feature extranction of <tt class="docutils literal"><span class="pre">datum</span></tt> . See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">similar_result</tt></dt>
+<dd><p>Represents a result of similarity methods.
+It is a list of tuple of string and float.
+The string value is a row ID and the float value is a similarity for the ID.
+Higher similarity value means that they are more similar to each other.</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">similar_result</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="o">&gt;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
 <tt class="descname">bool clear_row(string name, string id)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID to be cleared</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">ids</span></tt> : a list of ids to be cleared. Each id specifies a row in a recommendation table.</li>
+<li>Returns:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li>True when the row was cleared successfully</li>
 </ul>
-<p>Clear rows specified by <tt class="docutils literal"><span class="pre">ids</span></tt> .</p>
+</div></blockquote>
+<p>Clear the given row <tt class="docutils literal"><span class="pre">id</span></tt> from the recommendation table.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">bool update_row(string name, string id, datum d)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
+<li><tt class="docutils literal"><span class="pre">d</span></tt> : datum for the row</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in Zookeeper quorum</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : a string value to uniquely identifies a row in a recommendation table</li>
-<li><tt class="docutils literal"><span class="pre">d</span></tt> : vector of datum</li>
+<li>Returns:</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>True if this function updates models successfully.</li>
+<blockquote>
+<div><ul class="simple">
+<li>True if this function updates models successfully</li>
 </ul>
-</li>
-</ul>
-<p>Differential update of row data using row data. If row whose id is  <tt class="docutils literal"><span class="pre">id</span></tt> exists, row is overwritten. Otherwise, new row entry will be created. If the server that manages <tt class="docutils literal"><span class="pre">id</span></tt> row and that operation is received is same, update operation is reflected instantly. Otherwise, update operation is reflected after mix.</p>
+</div></blockquote>
+<p>Differencial update the row whose id is <tt class="docutils literal"><span class="pre">id</span></tt> with given <tt class="docutils literal"><span class="pre">d</span></tt>.
+If the <tt class="docutils literal"><span class="pre">id</span></tt> row already exists, the row is overwritten with the given <tt class="docutils literal"><span class="pre">d</span></tt>.
+Otherwise, new row entry will be created.
+If the server that manages <tt class="docutils literal"><span class="pre">id</span></tt> row and the server that received this RPC request are same, this operation is reflected instantly;.
+If not, update operation is reflected after MIX.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">bool clear(0: string name)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>True when the model was cleared successfully</li>
+</ul>
+</div></blockquote>
+<p>Completely clear the model.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">datum complete_row_from_id(0: string name, 1: string id)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : a string value to uniquely identifies a row in a recommendation table</li>
+<li>Returns:</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>datum stored in <tt class="docutils literal"><span class="pre">id</span></tt> row with missing value completed by predicted value.</li>
+<blockquote>
+<div><ul class="simple">
+<li>datum stored in <tt class="docutils literal"><span class="pre">id</span></tt> row with missing value completed by predicted value</li>
 </ul>
-</li>
-</ul>
-<p>Return row specified by <tt class="docutils literal"><span class="pre">id</span></tt> with missing value completed by predicted value.</p>
+</div></blockquote>
+<p>Return the datum for the given row ID, with missing value completed by predicted value.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
-<tt class="descname">datum complete_row_from_data(0: string name, 1: datum dat)</tt></dt>
-<dd></dd></dl>
-
-<ul class="simple">
-<li>Parameters:<ul>
+<tt class="descname">datum complete_row_from_data(0: string name, 1: datum d)</tt></dt>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">dat</span></tt> : original datum to be completed (possibly some values are missing).</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>row constructed from inputted datum with missing value completed by predicted value.</li>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li>datum constructed from the given datum with missing value completed by predicted value</li>
 </ul>
+</div></blockquote>
+<p>Return the datum constructed from the given datum, with missing value completed by predicted value.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
+<li><tt class="docutils literal"><span class="pre">size</span></tt> : number of rows to be returned</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : a string value to uniquely identifies a row in a recommendation table</li>
-<li><tt class="docutils literal"><span class="pre">size</span></tt> : number of rows to be returned.</li>
+<li>Returns:</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>similar_result of <tt class="docutils literal"><span class="pre">id</span></tt> .</li>
+<blockquote>
+<div><ul class="simple">
+<li>rows that are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt></li>
 </ul>
-</li>
-</ul>
-<p>Returns <tt class="docutils literal"><span class="pre">ret_num</span></tt> rows which are most similar to row specified by <tt class="docutils literal"><span class="pre">id</span></tt> .
-The meaning of similar_result is described in typedef of similar_result.</p>
+</div></blockquote>
+<p>Return <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) which are most similar to the given row ID.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">dat</span></tt> : original datum to be completed (possibly some values are missing)</li>
+<li><tt class="docutils literal"><span class="pre">size</span></tt> : number of rows to be returned</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> : original datum to be completed (possibly some values are missing).</li>
-<li><tt class="docutils literal"><span class="pre">ret_num`</span></tt> : number of rows to be returned.</li>
+<li>Returns:</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>similar_result of the row constructed from <tt class="docutils literal"><span class="pre">dat</span></tt> .</li>
+<blockquote>
+<div><ul class="simple">
+<li>rows that most have a similar datum to <tt class="docutils literal"><span class="pre">dat</span></tt></li>
 </ul>
-</li>
-</ul>
-<p>Return <tt class="docutils literal"><span class="pre">ret_num</span></tt> rows which are most similar to row constructed from inputted datum.
-The meaning of similar_result is described in typedef of similar_result.</p>
+</div></blockquote>
+<p>Return <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that most have similar datum to given datum.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">datum decode_row(0: string name, 1: string id)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>datum for the given row <tt class="docutils literal"><span class="pre">id</span></tt>.</li>
+</ul>
+</div></blockquote>
+<p>Return the datum in the row ID.
+Note that irreversibly converted datum (processed by <tt class="docutils literal"><span class="pre">fv_converter</span></tt>) will not be returned.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">list&lt;string&gt; get_all_rows(0:string name)</tt></dt>
-<dd></dd></dl>
-
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+</ul>
+</div></blockquote>
 <ul class="simple">
-<li>Returns:<ul>
-<li>list of all rows</li>
+<li>Returns:</li>
 </ul>
-</li>
+<blockquote>
+<div><ul class="simple">
+<li>list of all row IDs</li>
 </ul>
-<p>Return list of all rows.</p>
+</div></blockquote>
+<p>Return the list of all row IDs.</p>
+</dd></dl>
+
 <dl class="describe">
 <dt>
 <tt class="descname">float similarity(0: string name, 1: datum lhs, 2: datum rhs)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">lhs</span></tt> : datum</li>
+<li><tt class="docutils literal"><span class="pre">rhs</span></tt> : another datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>similarity between <tt class="docutils literal"><span class="pre">lhs</span></tt> and <tt class="docutils literal"><span class="pre">rhs</span></tt></li>
+</ul>
+</div></blockquote>
+<p>Return the similarity between two datum.</p>
+</dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">float l2norm(0: string name, 1: datum d)</tt></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li>Parameters:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Returns:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>L2 norm for the given <tt class="docutils literal"><span class="pre">d</span></tt></li>
+</ul>
+</div></blockquote>
+<p>Return the value of L2 norm for the datum.</p>
+</dd></dl>
 
 </div>
 </div>
