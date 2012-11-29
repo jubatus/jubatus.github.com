@@ -29,7 +29,6 @@ Table of Contents
    en/documentation
    en/references
    en/howtocontribute
-   en/idl_support
    en/misc
 
 

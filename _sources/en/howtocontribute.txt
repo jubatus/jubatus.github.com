@@ -10,7 +10,7 @@ We welcome contributions from our community!
 Possible contributions may be:
 
   - Submit a bug report to `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ .
-  - Give us a feedback (comments, problems you faced, feature requests, etc.), or tell us how do you use Jubatus in your environment in the `mailing list <http://groups.google.com/group/jubatus>`_.
+  - Give us a feedback (comments, problems you faced, feature requests, etc.), or tell us how you use Jubatus in your environment in the `mailing list <http://groups.google.com/group/jubatus>`_.
   - Improve documentation by sending `pull-request <https://github.com/jubatus/website/pulls>`_ to the `website repository <https://github.com/jubatus/website>`_.
   - Fix bugs in `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ or implement new feature to the framework.
 

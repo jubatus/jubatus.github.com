@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Commands &mdash; Jubatus 0.3.4 documentation</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
+    <link rel="up" title="References" href="references.html" />
+    <link rel="next" title="Client API" href="api.html" />
+    <link rel="prev" title="References" href="references.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Client API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="references.html" title="References"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+          <li><a href="references.html" accesskey="U">References</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Commands</a><ul>
+<li><a class="reference internal" href="#jubatus-servers">Jubatus Servers</a></li>
+<li><a class="reference internal" href="#jubatus-keepers">Jubatus Keepers</a></li>
+<li><a class="reference internal" href="#cluster-management">Cluster Management</a><ul>
+<li><a class="reference internal" href="#jubavisor">jubavisor</a></li>
+<li><a class="reference internal" href="#jubactl">jubactl</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tools">Tools</a><ul>
+<li><a class="reference internal" href="#jubaconv">jubaconv</a></li>
+<li><a class="reference internal" href="#jenerator">jenerator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="references.html"
+                        title="previous chapter">References</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">Client API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/en/commands.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="commands">
+<h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="jubatus-servers">
+<h2>Jubatus Servers<a class="headerlink" href="#jubatus-servers" title="Permalink to this headline">¶</a></h2>
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-p">
+<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port number for RPC([= 9199])</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-c">
+<tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of threads RPC can handle similtaneously([= 2])</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-t">
+<tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Session timeout of RPC in second([= 10])</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-z">
+<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless <tt class="docutils literal"><span class="pre">--storage</span></tt> option is local.
+Format of this option must be  <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> . No spaces between values are allowed.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-n">
+<tt class="descname">-n</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance name, which is unique among zookeeper cluster specified with <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> .
+If local_mixture is specified in <tt class="docutils literal"><span class="pre">--storage</span></tt> , parameters are mixed among all instances whose names are identical.
+This option must not contain characters which are not available as znode (such as &#8216;/&#8217;).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-d">
+<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--tmpdir</tt><tt class="descclassname">([=/tmp])</tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-d" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">save</span></tt> Location where training model is saved when &#8220;save&#8221; API is published. Default value is <tt class="docutils literal"><span class="pre">/tmp</span></tt> .
+<tt class="docutils literal"><span class="pre">load</span></tt> Location from where training model is loaded when &#8220;load&#8221; API is publised. Default value is <tt class="docutils literal"><span class="pre">/tmp</span></tt> .</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-l">
+<tt class="descname">-l</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location of logfiles.
+If this option is not specified, log messages output to stderr.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-j">
+<tt class="descname">-j</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--join</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won&#8217;t work.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-s">
+<tt class="descname">-s</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname">([=16])</tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interval time of one of &#8216;&#8217;mix&#8217;&#8217; trigger in seconds.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers-i">
+<tt class="descname">-i</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname">([=512])</tt><a class="headerlink" href="#cmdoption-Jubatus-Servers-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Another &#8216;&#8217;mix&#8217;&#8217; trigger: By default, in each 512 update requests (in single server) mix is tried to be invoked.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Servers--help">
+<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Servers--help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print this message.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="jubatus-keepers">
+<h2>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="Permalink to this headline">¶</a></h2>
+<dl class="option">
+<dt id="cmdoption-Jubatus-Keepers-p">
+<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Keepers-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port number for RPC([= 9199])</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Keepers-c">
+<tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname">([=16])</tt><a class="headerlink" href="#cmdoption-Jubatus-Keepers-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads that accepts requests from clients.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Keepers-z">
+<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Keepers-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless <tt class="docutils literal"><span class="pre">--storage</span></tt> option is local.
+Format of this option must be  <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> . No spaces between values are allowed.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-Jubatus-Keepers-l">
+<tt class="descname">-l</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-Jubatus-Keepers-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location of logfiles.
+If this option is not specified, log messages output to stderr.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cluster-management">
+<h2>Cluster Management<a class="headerlink" href="#cluster-management" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jubavisor">
+<h3>jubavisor<a class="headerlink" href="#jubavisor" title="Permalink to this headline">¶</a></h3>
+<p>(TODO: update to the latest spec.)
+jubavisor receives the commands from jubactl and start jubaclassifier.</p>
+<dl class="option">
+<dt id="cmdoption-jubavisor-p">
+<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubavisor-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port number for RPC([= 9198])</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubavisor-z">
+<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubavisor-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless <tt class="docutils literal"><span class="pre">--storage</span></tt> option is local.
+Format of this option must be  <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> . No spaces between values are allowed.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="jubactl">
+<h3>jubactl<a class="headerlink" href="#jubactl" title="Permalink to this headline">¶</a></h3>
+<p>(TODO: update to latest)
+jubactl sends commands to jubavisor.</p>
+<dl class="option">
+<dt id="cmdoption-jubactl-c">
+<tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--cmd</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send specified command to registered to Zookeeper. Command should be one of the followings.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="96%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>start</td>
+<td>start N jubaclassifiers with option &#8211;name=NAME &#8211;storage=STORAGE &#8211;zookeeper=ZOOKEEPER.  N, NAME, STORAGE and ZOOKEEPER are the ones specified with <tt class="docutils literal"><span class="pre">--name</span></tt> , <tt class="docutils literal"><span class="pre">--storage</span></tt> , <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> , and <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> , respectively.</td>
+</tr>
+<tr class="row-even"><td>stop</td>
+<td>stop jubaclassifier.</td>
+</tr>
+<tr class="row-odd"><td>save</td>
+<td>save trained model in binary format to local directory specified <tt class="docutils literal"><span class="pre">--tmpdir</span></tt></td>
+</tr>
+<tr class="row-even"><td>load</td>
+<td>load trained model to local directory specified <tt class="docutils literal"><span class="pre">--tmpdir</span></tt></td>
+</tr>
+<tr class="row-odd"><td>status</td>
+<td>print nodes which are relevant classified specified by name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-t">
+<tt class="descname">-t</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>supported only &#8220;classifier&#8221;.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-n">
+<tt class="descname">-n</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance name, which is unique among zookeeper cluster specified with <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> .
+If local_mixture is specified in <tt class="docutils literal"><span class="pre">--storage</span></tt> , parameters are mixed among all instances whose names are identical.
+This option must not contain characters which are not available as znode (such as &#8216;/&#8217;).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-s">
+<tt class="descname">-s</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--storage</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location where training model is saved.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>local</td>
+<td>runs in standalone mode</td>
+</tr>
+<tr class="row-even"><td>local_mixture</td>
+<td>coordinate performance of Classifiers among multiple servers</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-z">
+<tt class="descname">-z</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless <tt class="docutils literal"><span class="pre">--storage</span></tt> option is local.
+Format of this option must be  <tt class="docutils literal"><span class="pre">ipaddress:port,hostname:port,...</span></tt> . No spaces between values are allowed.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-N">
+<tt class="descname">-N</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--num</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Argument used in start command in cmd option. If other command is specified in cmd, this option is ignored.
+If 0 is specified, the number of classifier started is same as the number of servers.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl--help">
+<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl--help" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">Print this message.</tt></dt>
+<dd></dd></dl>
+
+<p>&lt;FIXME: &#8220;semimaster&#8221; in figure: semimaster=jubakeeper&gt;
+The following picture describes how to run programs used by management process.</p>
+<div class="figure">
+<img alt="relationship of processes" src="../_images/processes.png" style="width: 90%;" />
+<p class="caption">figure: relationship of processes</p>
+</div>
+</div>
+</div>
+<div class="section" id="tools">
+<h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jubaconv">
+<h3>jubaconv<a class="headerlink" href="#jubaconv" title="Permalink to this headline">¶</a></h3>
+<p>jubaconv is a debug tool which converts specified data is converted in a scecified format.
+It simulates internal behavior of fv_converter in the console.
+We can utilize this in order to check if converter_config works correctly.</p>
+<dl class="option">
+<dt id="cmdoption-jubaconv-i">
+<tt class="descname">-i</tt><tt class="descclassname"> (json/datum)</tt><a class="headerlink" href="#cmdoption-jubaconv-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies input format.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubaconv-o">
+<tt class="descname">-o</tt><tt class="descclassname"> (json/datum/fv)</tt><a class="headerlink" href="#cmdoption-jubaconv-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies output format. Processing is simulated until specified format is obtained.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubaconv-c">
+<tt class="descname">-c</tt><tt class="descclassname"> converter_config</tt><a class="headerlink" href="#cmdoption-jubaconv-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies converter_config.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="jenerator">
+<span id="id1"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="Permalink to this headline">¶</a></h3>
+<p>jenerator is a converter to create a jubakeeper and basic server template from extended msgpack-idl format. jenerator takes first argument as an IDL filename to process, rest is for options.</p>
+<dl class="option">
+<dt id="cmdoption-jenerator-&lt;filename&gt;-t">
+<tt class="descname">-t</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-<filename>-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates server template.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jenerator-&lt;filename&gt;-i">
+<tt class="descname">-i</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-<filename>-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the code as internal library to merged in Jubatus repository.
+If the generated code is separated from Jubatus repository and assumed
+Jubatus is installed, or you don&#8217;t know well, <em>DO NOT</em> use this option.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jenerator-&lt;filename&gt;-o">
+<tt class="descname">-o</tt><tt class="descclassname"> path</tt><a class="headerlink" href="#cmdoption-jenerator-<filename>-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<em>NOT IMPLEMENTED</em>) Directory to output the generate source code files.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Client API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="references.html" title="References"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

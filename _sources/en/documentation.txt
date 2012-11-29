@@ -4,9 +4,11 @@ Documentation
 .. toctree::
    :maxdepth: 2
 
+   processes
    fv_convert
    plugin
-   howtogetclients
-   server
    admin
+   server
+   howtogetclients
+   idl_support
 

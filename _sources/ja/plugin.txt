@@ -46,7 +46,7 @@ word_splitterクラスは文字列を受け取って、文字列を分割した�
 
 上記のファイルをコンパイルし、libjubaconverter.soとリンクすると.soファイルが完成する。
 できた.soファイルは、プラグインとして利用できる。
-プラグインとして利用する方法は、 :ref:`conversion` :ref:`conversion_plugin` を参照のこと。
+プラグインとして利用する方法は、 :ref:`conversion-ja` および :ref:`conversion_plugin-ja` を参照のこと。
 
 
 その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。

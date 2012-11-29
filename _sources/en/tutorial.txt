@@ -172,7 +172,7 @@ You can choose one of the following algorithm as ``method``:
 
 We use ``PA`` in this tutorial.
 
-``converter`` decides how to extract feature vector from input data (see :ref:`conversion` for details).
+``converter`` decides how to extract feature vector from input data (see :doc:`fv_convert` for details).
 
 In this tutorial, input data is the text of natural language.
 Many languages such as English, <space> and <return> can be split into words.

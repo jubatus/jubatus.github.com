@@ -29,7 +29,6 @@ Table of Contents
    documentation
    references
    howtocontribute
-   idl_support
    misc
 
 

@@ -9,7 +9,7 @@ Install Jubatus
 Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 (x86_64) が公式にサポートされています。
 
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
-その他のシステムでのインストールについては :ref:`build_from_source` を参照してください。
+その他のシステムでのインストールについては :ref:`build_from_source-ja` を参照してください。
 
 Yum Repository (RHEL)
 ~~~~~~~~~~~~~~~~~~~~~

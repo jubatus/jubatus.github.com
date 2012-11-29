@@ -4,7 +4,7 @@ References
 .. toctree::
    :maxdepth: 2
 
-   processes
+   commands
    api
 
 
