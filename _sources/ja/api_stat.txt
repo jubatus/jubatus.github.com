@@ -20,7 +20,7 @@ Data Structures
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別するクラスタ内でユニークな名前である。
+各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 スタンドアロン構成では、空文字列 (``""``) を指定する。
 
 .. describe:: bool push(0: string name, 1: string key, 2: double val)

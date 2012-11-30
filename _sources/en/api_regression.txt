@@ -23,14 +23,14 @@ Data Structures
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (``""``).
 
 .. describe:: int train(0: string name, list<tuple<float, datum> > train_data)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in cluster
+  - ``name`` : a string value to uniquely identifies a task in the ZooKeeper cluster
   - ``train_data`` : list of tuple of label and datum
 
  - Returns:
@@ -45,7 +45,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in cluster
+  - ``name`` : a string value to uniquely identifies a task in the ZooKeeper cluster
   - ``estimate_data`` : list of datum to estimate
 
  - Returns:

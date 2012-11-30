@@ -22,14 +22,14 @@ Data Structures
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (``""``).
 
 .. describe:: bool save(0: string name, 1: string id)
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : file name to save
 
  - Returns:
@@ -42,7 +42,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : file name to load
 
  - Returns:
@@ -55,7 +55,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``c`` : configuration data
 
  - Returns:
@@ -69,7 +69,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
  - Returns:
 
@@ -82,7 +82,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
  - Returns:
 

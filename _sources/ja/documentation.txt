@@ -8,6 +8,7 @@ Documentation
    fv_convert
    plugin
    admin
+   build
    server
    howtogetclients
    idl_support

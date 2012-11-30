@@ -34,14 +34,14 @@ Data Structures
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (``""``).
 
 .. describe:: bool clear_row(string name, string id)
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : row ID to be removed
 
  - Returns:
@@ -54,7 +54,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : row ID
   - ``d`` : datum for the row
 
@@ -72,7 +72,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
  - Returns:
 
@@ -84,7 +84,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : row ID
 
  - Returns:
@@ -97,7 +97,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``d`` : original datum to be completed (possibly some values are missing).
 
  - Returns:
@@ -110,7 +110,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : row ID
   - ``size`` : number of rows to be returned
 
@@ -124,7 +124,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``data`` : original datum to be completed (possibly some values are missing)
   - ``size`` : number of rows to be returned
 
@@ -138,7 +138,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``id`` : row ID
 
  - Returns:
@@ -152,7 +152,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
  - Returns:
 
@@ -164,7 +164,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``lhs`` : datum
   - ``rhs`` : another datum
 
@@ -178,7 +178,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``d`` : datum
 
  - Returns:

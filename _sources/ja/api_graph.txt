@@ -99,7 +99,7 @@ Usage of Properties and Queries
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別するクラスタ内でユニークな名前である。
+各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 スタンドアロン構成では、空文字列 (``""``) を指定する。
 
 .. describe:: string create_node(0: string name)

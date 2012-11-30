@@ -99,7 +99,7 @@ This case does not match -- key ``spam`` does not exist in ``property``:
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (``""``).
 
 .. describe:: string create_node(0: string name)

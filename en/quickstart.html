@@ -116,14 +116,6 @@
 <li><a class="reference internal" href="#write-your-application">Write Your Application</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#building-jubatus-from-source">Building Jubatus from Source</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a><ul>
-<li><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
-<li><a class="reference internal" href="#other-environments">Other Environments</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
   <h4>Previous topic</h4>
@@ -194,7 +186,7 @@ new TWTR.Widget({
 <h2>Install Jubatus<a class="headerlink" href="#install-jubatus" title="Permalink to this headline">¶</a></h2>
 <p>We officially support Ubuntu Server 12.04 LTS (x86_64) and Red Hat Enterprise Linux 6.2 (x86_64).</p>
 <p>On supported systems, you can install all components of Jubatus using binary packages.
-For other systems, see <a class="reference internal" href="#build-from-source"><em>Building Jubatus from Source</em></a>.</p>
+For other systems, see <a class="reference internal" href="build.html"><em>Building Jubatus from Source</em></a>.</p>
 <div class="section" id="yum-repository-rhel">
 <h3>Yum Repository (RHEL)<a class="headerlink" href="#yum-repository-rhel" title="Permalink to this headline">¶</a></h3>
 <p>Run the following command to register Jubatus Yum repository to the system.</p>
@@ -303,126 +295,6 @@ See the <a class="reference internal" href="api.html"><em>Client API</em></a> fo
 </ul>
 </div></blockquote>
 <p>For Python users, see the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial repository</a>.</p>
-</div>
-</div>
-<div class="section" id="building-jubatus-from-source">
-<span id="build-from-source"></span><h1>Building Jubatus from Source<a class="headerlink" href="#building-jubatus-from-source" title="Permalink to this headline">¶</a></h1>
-<p>We recommend using binary packages whenever possible, but you can of course build Jubatus from source.
-<a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> may help your installation from source.</p>
-<div class="section" id="requirements">
-<span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>We need <tt class="docutils literal"><span class="pre">gcc</span></tt> (version 4.4 or later), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (version 0.26 or later) and <tt class="docutils literal"><span class="pre">python</span></tt> (version 2.6 or later, used in <tt class="docutils literal"><span class="pre">waf</span></tt>) to build Jubatus from source.
-In addition, following libraries are required.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="14%" />
-<col width="12%" />
-<col width="10%" />
-<col width="64%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Software</th>
-<th class="head">Version</th>
-<th class="head">Required</th>
-<th class="head">Note</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>msgpack</td>
-<td>&gt;= 0.5.7</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>pficommon</td>
-<td>master</td>
-<td>✔</td>
-<td>Must be msgpack enabled.</td>
-</tr>
-<tr class="row-even"><td>libevent</td>
-<td>&gt;= 1.4</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>google-glog</td>
-<td>&gt;= 3.2</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>mecab</td>
-<td>&gt;= 0.99</td>
-<td>&nbsp;</td>
-<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-mecab</span></tt>.</td>
-</tr>
-<tr class="row-odd"><td>re2</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td>&nbsp;</td>
-<td>Required when configured <em>without</em> <tt class="docutils literal"><span class="pre">--disable-re2</span></tt></td>
-</tr>
-<tr class="row-even"><td>ux-trie</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td>&nbsp;</td>
-<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-ux</span></tt>.</td>
-</tr>
-<tr class="row-odd"><td>zookeeper</td>
-<td>&gt;= 3.3</td>
-<td>&nbsp;</td>
-<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt>.
-C client libraries must be installed.</td>
-</tr>
-</tbody>
-</table>
-<p>Depending on your distribution, some libraries may be available as a binary package.
-When binary packages are not available, you also need to build these libraries from source; download them from each website:
-<a class="reference external" href="http://msgpack.org/">msgpack</a>,
-<a class="reference external" href="https://github.com/pfi/pficommon">pficommon</a>,
-<a class="reference external" href="http://libevent.org/">libevent</a>,
-<a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a>,
-<a class="reference external" href="http://code.google.com/p/mecab/">mecab</a>,
-<a class="reference external" href="http://code.google.com/p/re2/">re2</a>,
-<a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a>,
-<a class="reference external" href="http://zookeeper.apache.org/">zookeeper</a>.</p>
-<div class="section" id="ubuntu-12-04">
-<h3>Ubuntu 12.04<a class="headerlink" href="#ubuntu-12-04" title="Permalink to this headline">¶</a></h3>
-<p>Here&#8217;s an example on Ubuntu 12.04 systems.</p>
-<div class="highlight-python"><pre>$ sudo aptitude install build-essential git-core
-$ sudo aptitude install libmsgpack-dev libevent-dev
-$ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
-$ cd glog-0.3.2
-$ ./configure; make
-$ sudo make install
-$ cd ..
-$ git clone git://github.com/pfi/pficommon.git
-$ cd pficommon
-$ ./waf configure
-(ensure that pficommon is configured with msgpack enbabled)
-$ ./waf build
-$ sudo ./waf install</pre>
-</div>
-<p>Now build Jubatus.</p>
-<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus.git
-$ cd jubatus
-$ ./waf configure --disable-re2
-$ ./waf build
-$ sudo ./waf install</pre>
-</div>
-<p>As this is is a minimal configuration (see <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> for other configuration options available), some features like clustering and feature extraction plugins are not available.</p>
-</div>
-<div class="section" id="other-environments">
-<h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Mac OS X runs standalone mode by using llvm-gcc.</li>
-<li>Debian/GNU Linux runs all mode.</li>
-<li>Arch Linux runs standalone mode.</li>
-<li>FreeBSD does not run, needs some fixed on pficommon.</li>
-<li>We are waiting for report in other *BSD systems and in Solaris.</li>
-</ul>
-</div>
 </div>
 </div>
 

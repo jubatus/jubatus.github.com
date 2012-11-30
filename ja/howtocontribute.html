@@ -95,6 +95,7 @@
 <li><a class="reference internal" href="#we-welcome-your-contribution">We Welcome Your Contribution</a></li>
 <li><a class="reference internal" href="#participate-in-the-mailing-list">Participate in the Mailing List</a></li>
 <li><a class="reference internal" href="#repositories">Repositories</a></li>
+<li><a class="reference internal" href="#tips-for-contributors">Tips for Contributors</a></li>
 </ul>
 </li>
 </ul>
@@ -164,7 +165,7 @@ new TWTR.Widget({
 <div><ul class="simple">
 <li>バグリポートを <a class="reference external" href="https://github.com/jubatus/jubatus/issues">GitHub issues</a> に投稿してください。</li>
 <li>フィードバック (コメント、発生した問題、機能の要望など) や、あなたの環境で Jubatus をどのように使っているかを <a class="reference external" href="http://groups.google.com/group/jubatus">メーリングリスト</a> で教えてください。</li>
-<li>ドキュメントの改善: <a class="reference external" href="https://github.com/jubatus/website">website リポジトリ</a> に <a class="reference external" href="https://github.com/jubatus/website/pulls">pull-request</a> を送ってください。</li>
+<li>ドキュメントの改善: <a class="reference external" href="https://github.com/jubatus/website">website リポジトリ</a> に <a class="reference external" href="https://github.com/jubatus/website/pulls">pull-request</a> を送ってください。typo や表現の誤りの訂正など、小さな修正も歓迎します。</li>
 <li><a class="reference external" href="https://github.com/jubatus/jubatus/issues">GitHub issues</a> にあるバグを修正したり、新しい機能をフレームワークに実装してください。</li>
 </ul>
 </div></blockquote>
@@ -186,8 +187,8 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>master  - リリース用ブランチ。</li>
-<li>develop - 開発用ブランチ。最新機能はここで公開されています。pull-request はこのブランチに送ってください。</li>
+<li><tt class="docutils literal"><span class="pre">master</span></tt>  : リリース用ブランチ。</li>
+<li><tt class="docutils literal"><span class="pre">develop</span></tt> : 開発用ブランチ。最新機能はここで公開されています。</li>
 </ul>
 </div></blockquote>
 </div></blockquote>
@@ -196,7 +197,30 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>このサイトの <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> ソースです。typo の修正や表現の誤りなどの修正も歓迎します。</li>
+<li>このサイトの <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> ソースです。</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="tips-for-contributors">
+<h2>Tips for Contributors<a class="headerlink" href="#tips-for-contributors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Jubatus フレームワークにあなたのコードをコントリビュートする場合:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">develop</span></tt> ブランチをフォークしてから作業を始めてください。</li>
+<li>pull-request を送る前に、既存の機能が破壊されていないことを確認してください - <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">--checkall</span></tt> を実行するとすべてのユニットテストが実行されます。</li>
+<li>ユニットテストを実行するには、ソースコードから Jubatus をビルドできる環境が必要です。</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>必要なツールやライブラリについては <a class="reference internal" href="build.html"><em>Building Jubatus from Source</em></a> をご覧ください。</li>
+<li>Jubatus バイナリパッケージを RHEL で使用している場合は、以下のコマンドでビルド環境がセットアップできます: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">msgpack-devel</span> <span class="pre">glog-devel</span> <span class="pre">libevent-devel</span> <span class="pre">pficommon-devel</span> <span class="pre">zookeeper-client-devel</span> <span class="pre">mecab-devel</span> <span class="pre">ux-devel</span> <span class="pre">re2-devel</span></tt> 。</li>
+<li>Jubatus バイナリパッケージを Ubuntu で使用している場合は、すでにビルド環境が整っています。</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>すべての pull-request は、 <tt class="docutils literal"><span class="pre">master</span></tt> ではなく <tt class="docutils literal"><span class="pre">develop</span></tt> ブランチに送ってください。</li>
 </ul>
 </div></blockquote>
 </div>

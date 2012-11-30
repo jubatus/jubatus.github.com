@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building Jubatus from Source &mdash; Jubatus 0.3.4 documentation</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
+    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="next" title="Server Generation Using Code Generator" href="server.html" />
+    <link rel="prev" title="Cluster Administration Guide" href="admin.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="server.html" title="Server Generation Using Code Generator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="admin.html" title="Cluster Administration Guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building Jubatus from Source</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
+<li><a class="reference internal" href="#other-environments">Other Environments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="admin.html"
+                        title="previous chapter">Cluster Administration Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="server.html"
+                        title="next chapter">Server Generation Using Code Generator</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/en/build.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 220,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('JubatusOfficial').start();
+</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-jubatus-from-source">
+<h1>Building Jubatus from Source<a class="headerlink" href="#building-jubatus-from-source" title="Permalink to this headline">¶</a></h1>
+<p>We recommend using binary packages (see <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a>) whenever possible, but you can of course build Jubatus from source.
+<a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> may help your installation from source.</p>
+<div class="section" id="requirements">
+<span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>You need <tt class="docutils literal"><span class="pre">gcc</span></tt> (version 4.4 or later), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (version 0.26 or later) and <tt class="docutils literal"><span class="pre">python</span></tt> (version 2.6 or later, used in <tt class="docutils literal"><span class="pre">waf</span></tt>) to build Jubatus from source.
+In addition, following libraries are required.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="12%" />
+<col width="11%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Software</th>
+<th class="head">Version</th>
+<th class="head">Mandatory</th>
+<th class="head">Note</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>msgpack</td>
+<td>&gt;= 0.5.7</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pficommon</td>
+<td>master</td>
+<td>✔</td>
+<td>Must be msgpack enabled.</td>
+</tr>
+<tr class="row-even"><td>libevent</td>
+<td>&gt;= 1.4</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>google-glog</td>
+<td>&gt;= 3.2</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>mecab</td>
+<td>&gt;= 0.99</td>
+<td>&nbsp;</td>
+<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-mecab</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>re2</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>&nbsp;</td>
+<td>Required when configured <em>without</em> <tt class="docutils literal"><span class="pre">--disable-re2</span></tt></td>
+</tr>
+<tr class="row-even"><td>ux-trie</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>&nbsp;</td>
+<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-ux</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>zookeeper</td>
+<td>&gt;= 3.3</td>
+<td>&nbsp;</td>
+<td>Required when configured with <tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt>.
+C client libraries must be installed.</td>
+</tr>
+</tbody>
+</table>
+<p>Depending on your distribution, some libraries may be available as a binary package.
+When binary packages are not available, you also need to build these libraries from source; download them from each website (
+<a class="reference external" href="http://msgpack.org/">msgpack</a>,
+<a class="reference external" href="https://github.com/pfi/pficommon">pficommon</a>,
+<a class="reference external" href="http://libevent.org/">libevent</a>,
+<a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a>,
+<a class="reference external" href="http://code.google.com/p/mecab/">mecab</a>,
+<a class="reference external" href="http://code.google.com/p/re2/">re2</a>,
+<a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a>,
+<a class="reference external" href="http://zookeeper.apache.org/">zookeeper</a>
+).</p>
+<div class="section" id="ubuntu-12-04">
+<h3>Ubuntu 12.04<a class="headerlink" href="#ubuntu-12-04" title="Permalink to this headline">¶</a></h3>
+<p>Here&#8217;s an example on Ubuntu 12.04 systems.</p>
+<div class="highlight-python"><pre>$ sudo aptitude install build-essential git-core
+$ sudo aptitude install libmsgpack-dev libevent-dev
+$ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
+$ cd glog-0.3.2
+$ ./configure; make
+$ sudo make install
+$ cd ..
+$ git clone https://github.com/pfi/pficommon.git
+$ cd pficommon
+$ ./waf configure
+(ensure that pficommon is configured with msgpack enbabled)
+$ ./waf build
+$ sudo ./waf install</pre>
+</div>
+<p>Now build Jubatus.</p>
+<div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus.git
+$ cd jubatus
+$ ./waf configure --disable-re2
+$ ./waf build
+$ sudo ./waf install</pre>
+</div>
+<p>As this is a minimal configuration (see <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> for other configuration options available), some features like clustering and feature extraction plugins are not available.</p>
+</div>
+<div class="section" id="other-environments">
+<h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Mac OS X runs standalone mode by using llvm-gcc (c.f., <a class="reference external" href="https://github.com/jubatus/jubatus/tree/master/tools/packaging/homebrew">Homebrew formula</a>).</li>
+<li>Debian/GNU Linux runs all mode.</li>
+<li>Arch Linux runs standalone mode.</li>
+<li>FreeBSD does not run, needs some fixed on pficommon.</li>
+<li>We are waiting for report in other *BSD systems and in Solaris.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="server.html" title="Server Generation Using Code Generator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="admin.html" title="Cluster Administration Guide"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 PFI&amp;NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

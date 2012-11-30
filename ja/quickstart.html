@@ -108,14 +108,6 @@
 <li><a class="reference internal" href="#write-your-application">Write Your Application</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#building-jubatus-from-source">Building Jubatus from Source</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a><ul>
-<li><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
-<li><a class="reference internal" href="#other-environments">Other Environments</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
   <h3>This Page</h3>
@@ -180,7 +172,7 @@ new TWTR.Widget({
 <h2>Install Jubatus<a class="headerlink" href="#install-jubatus" title="Permalink to this headline">¶</a></h2>
 <p>Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 (x86_64) が公式にサポートされています。</p>
 <p>これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
-その他のシステムでのインストールについては <a class="reference internal" href="#build-from-source-ja"><em>Building Jubatus from Source</em></a> を参照してください。</p>
+その他のシステムでのインストールについては <a class="reference internal" href="build.html"><em>Building Jubatus from Source</em></a> を参照してください。</p>
 <div class="section" id="yum-repository-rhel">
 <h3>Yum Repository (RHEL)<a class="headerlink" href="#yum-repository-rhel" title="Permalink to this headline">¶</a></h3>
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
@@ -289,126 +281,6 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
 </ul>
 </div></blockquote>
 <p>Python をお使いの方は、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルのリポジトリ</a> をご覧ください。</p>
-</div>
-</div>
-<div class="section" id="building-jubatus-from-source">
-<span id="build-from-source-ja"></span><h1>Building Jubatus from Source<a class="headerlink" href="#building-jubatus-from-source" title="Permalink to this headline">¶</a></h1>
-<p>Jubatus をソースからビルドすることは可能ですが、できる限りバイナリパッケージを使用することを推奨します。
-ソースからビルドする場合は、 <a class="reference external" href="https://github.com/odasatoshi/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
-<div class="section" id="requirements">
-<span id="requirements-ja"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>Jubatus をソースからビルドするには、 <tt class="docutils literal"><span class="pre">gcc</span></tt> (バージョン 4.4 以降), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (バージョン 0.26 以降) および <tt class="docutils literal"><span class="pre">python</span></tt> (バージョン 2.6 以降,  <tt class="docutils literal"><span class="pre">waf</span></tt> で使用される) が必要です。
-加えて、以下のライブラリも必要になります。</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="14%" />
-<col width="12%" />
-<col width="10%" />
-<col width="64%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">ソフトウェア</th>
-<th class="head">バージョン</th>
-<th class="head">必須</th>
-<th class="head">備考</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>msgpack</td>
-<td>&gt;= 0.5.7</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>pficommon</td>
-<td>master</td>
-<td>✔</td>
-<td>msgpack が有効であること。</td>
-</tr>
-<tr class="row-even"><td>libevent</td>
-<td>&gt;= 1.4</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>google-glog</td>
-<td>&gt;= 3.2</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>mecab</td>
-<td>&gt;= 0.99</td>
-<td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> ありでビルドされた場合のみ。</td>
-</tr>
-<tr class="row-odd"><td>re2</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--disable-re2</span></tt> <em>なし</em> でビルドされた場合のみ。</td>
-</tr>
-<tr class="row-even"><td>ux-trie</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--enable-ux</span></tt> ありでビルドされた場合のみ。</td>
-</tr>
-<tr class="row-odd"><td>zookeeper</td>
-<td>&gt;= 3.3</td>
-<td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt> ありでビルドされた場合のみ。
-C クライアントライブラリが必要です。</td>
-</tr>
-</tbody>
-</table>
-<p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
-バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます:
-<a class="reference external" href="http://msgpack.org/">msgpack</a>,
-<a class="reference external" href="https://github.com/pfi/pficommon">pficommon</a>,
-<a class="reference external" href="http://libevent.org/">libevent</a>,
-<a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a>,
-<a class="reference external" href="http://code.google.com/p/mecab/">mecab</a>,
-<a class="reference external" href="http://code.google.com/p/re2/">re2</a>,
-<a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a>,
-<a class="reference external" href="http://zookeeper.apache.org/">zookeeper</a>.</p>
-<div class="section" id="ubuntu-12-04">
-<h3>Ubuntu 12.04<a class="headerlink" href="#ubuntu-12-04" title="Permalink to this headline">¶</a></h3>
-<p>Ubuntu 12.04 でのビルドを行う例です。</p>
-<div class="highlight-python"><pre>$ sudo aptitude install build-essential git-core
-$ sudo aptitude install libmsgpack-dev libevent-dev
-$ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
-$ cd glog-0.3.2
-$ ./configure; make
-$ sudo make install
-$ cd ..
-$ git clone git://github.com/pfi/pficommon.git
-$ cd pficommon
-$ ./waf configure
-(ensure that pficommon is configured with msgpack enbabled)
-$ ./waf build
-$ sudo ./waf install</pre>
-</div>
-<p>Jubatus のビルドを行います。</p>
-<div class="highlight-python"><pre>$ git clone git://github.com/jubatus/jubatus.git
-$ cd jubatus
-$ ./waf configure --disable-re2
-$ ./waf build
-$ sudo ./waf install</pre>
-</div>
-<p>この例は最小限の設定でビルドしているため (どのようなオプションが利用可能かは <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> をご覧ください)、クラスタリングや特徴抽出プラグインなど一部の機能は利用できません。</p>
-</div>
-<div class="section" id="other-environments">
-<h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Mac OS X では llvm-gcc でビルドすることでスタンドアローンモードで動作しています。</li>
-<li>Debian/GNU Linux では動作しています。</li>
-<li>Arch Linux ではスタンドアローンモードで動作しています。</li>
-<li>FreeBSD では動作していません。pficommon を修正する必要があります。</li>
-<li>他の *BSD systems や Solarisでの動作報告をお待ちしています。</li>
-</ul>
-</div>
 </div>
 </div>
 

@@ -23,17 +23,17 @@ Data Structures
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別するクラスタ内でユニークな名前である。
+各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 スタンドアロン構成では、空文字列 (``""``) を指定する。
 
 .. describe:: int train(0: string name, list<tuple<float, datum> > train_data)
 
- - Parameters:
+ - 引数:
 
-  - ``name`` : タスクを識別するクラスタ内でユニークな名前
+  - ``name`` : タスクを識別する ZooKeeper クラスタ内でユニークな名前
   - ``train_data`` : floatとdatumで構成される組のリスト
 
- - Returns:
+ - 戻り値:
 
   - モデルの更新に成功した場合 0
 
@@ -43,12 +43,12 @@ Methods
 
 .. describe:: list<float> estimate(0: string name, 1: list<datum> estimate_data)
 
- - Parameters:
+ - 引数:
 
-  - ``name`` : タスクを識別するクラスタ内でユニークな名前
+  - ``name`` : タスクを識別する ZooKeeper クラスタ内でユニークな名前
   - ``estimate_data`` : 推定するdatumのリスト
 
- - Returns:
+ - 戻り値:
 
   - 推定値のリスト (入れられたdatumの順に並ぶ)
 
