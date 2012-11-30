@@ -103,7 +103,8 @@
   <ul>
 <li><a class="reference internal" href="#">Data Conversion</a><ul>
 <li><a class="reference internal" href="#datum">Datum</a></li>
-<li><a class="reference internal" href="#filter">Filter</a><ul>
+<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
+<li><a class="reference internal" href="#filtering">Filtering</a><ul>
 <li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
 <li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
 <li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
@@ -121,7 +122,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#plugins">Plugins</a></li>
-<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
 </ul>
 </li>
 </ul>
@@ -246,8 +246,22 @@ The following is an example of a datum.</p>
 <p>For example, a datum consists of <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> and  <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> in C++.
 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> (resp.  <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt>) is to C++ what tuple (resp. vector) is to Python.</p>
 </div>
-<div class="section" id="filter">
-<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flow-of-data-conversion">
+<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
+<p>The following is the overview of data conversion.
+As datum consists of string data and numeric data, there are flows of processing for each type of data.
+For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
+Then, features are extracted from string data with &#8220;string_rules&#8221;.
+For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to the datum.
+Then, features are extracted from string data with &#8220;num_rules&#8221;.
+As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
+<div class="figure">
+<img alt="feature vector converter" src="../_images/convert_flow.png" style="width: 90%;" />
+<p class="caption">Figure : System of Conversion Engine</p>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
 <p>Jubatus has filtering system of raw data. This enables us to create additional key-value elements by converting existing key-value elements in a datum and to insert additional key-value elements by the filter.
 For example, let us suppose we have an original text as an HTML.
 Tags, such as &lt;a&gt;, in the data are in the way of training in many cases. Therefore, we want to filter and get rid of them in advance.
@@ -777,20 +791,6 @@ This plugin is available only when <strong>NOT</strong> compiled with <tt class=
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="flow-of-data-conversion">
-<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>The following is the overview of data conversion.
-As datum consists of string data and numeric data, there are flows of processing for each type of data.
-For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
-Then, features are extracted from string data with &#8220;string_rules&#8221;.
-For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to the datum.
-Then, features are extracted from string data with &#8220;num_rules&#8221;.
-As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
-<div class="figure">
-<img alt="feature vector converter" src="../_images/convert_flow.png" style="width: 90%;" />
-<p class="caption">Figure : System of Conversion Engine</p>
-</div>
 </div>
 </div>
 

@@ -104,7 +104,8 @@
   <ul>
 <li><a class="reference internal" href="#">Data Conversion</a><ul>
 <li><a class="reference internal" href="#datum">Datum</a></li>
-<li><a class="reference internal" href="#filter">Filter</a><ul>
+<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
+<li><a class="reference internal" href="#filtering">Filtering</a><ul>
 <li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
 <li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
 <li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
@@ -122,7 +123,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#plugins">Plugins</a></li>
-<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
 </ul>
 </li>
 </ul>
@@ -247,8 +247,22 @@ datumには2つのkey-valueが存在する。
 <p>例えばC++から利用する場合、datumは <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> と、 <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> の2つの要素からなっている。
 ここでは、 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> をPython風のタプルで、 <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt> をPython風のリストで表している。</p>
 </div>
-<div class="section" id="filter">
-<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flow-of-data-conversion">
+<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
+<p>大まかな処理の流れは以下のようになっている。
+datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
+文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、string_rulesによって文字列データからの特徴量が抽出される。
+数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、num_rulesによって数値データからの特徴量が抽出される。
+フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
+<div class="figure">
+<img alt="feature vector converter" src="../_images/convert_flow1.png" style="width: 90%;" />
+<p class="caption">図: 変換エンジンの構成</p>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
 <p>Jubatusはフィルターという機能を用いて、datum中のkey-valueペアを変換して、別の要素として追加することができる。
 例えば、元のデータがHTMLで書かれていたとしよう。
 この中のタグ文字列（&lt;a&gt; など）は、学習時には邪魔になることがおおく、そのため予めフィルタリングして使いたいことがある。
@@ -778,20 +792,6 @@ re2を利用して、与えられた文書から正規表現を利用してキ�
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="flow-of-data-conversion">
-<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>大まかな処理の流れは以下のようになっている。
-datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
-文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
-その状態で、string_rulesによって文字列データからの特徴量が抽出される。
-数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
-その状態で、num_rulesによって数値データからの特徴量が抽出される。
-フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
-<div class="figure">
-<img alt="feature vector converter" src="../_images/convert_flow1.png" style="width: 90%;" />
-<p class="caption">図: 変換エンジンの構成</p>
-</div>
 </div>
 </div>
 

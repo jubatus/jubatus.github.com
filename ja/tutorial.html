@@ -44,7 +44,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
     <link rel="up" title="Jubatus : オンライン機械学習向け分散処理フレームワーク" href="index_ja.html" />
-    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="next" title="Tutorial in Distributed Mode" href="tutorial_distributed.html" />
     <link rel="prev" title="Overview" href="overview.html" /> 
 
 <!--
@@ -84,7 +84,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="documentation.html" title="Documentation"
+          <a href="tutorial_distributed.html" title="Tutorial in Distributed Mode"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="overview.html" title="Overview"
@@ -103,26 +103,11 @@
   <ul>
 <li><a class="reference internal" href="#">Tutorial</a><ul>
 <li><a class="reference internal" href="#scenario">Scenario</a></li>
-<li><a class="reference internal" href="#standalone-mode">Standalone Mode</a><ul>
 <li><a class="reference internal" href="#run-tutorial">Run Tutorial</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#tutorial-in-detail">Tutorial in Detail</a><ul>
 <li><a class="reference internal" href="#dataset">Dataset</a></li>
 <li><a class="reference internal" href="#server-configuration">Server Configuration</a></li>
 <li><a class="reference internal" href="#use-of-classifier-api-train-classify">Use of Classifier API: Train &amp; Classify</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#cluster-mode">Cluster Mode</a><ul>
-<li><a class="reference internal" href="#setup-zookeeper">Setup ZooKeeper</a></li>
-<li><a class="reference internal" href="#jubatus-keeper">Jubatus Keeper</a></li>
-<li><a class="reference internal" href="#join-jubatus-servers-to-cluster">Join Jubatus Servers to Cluster</a></li>
-<li><a class="reference internal" href="#id2">Run Tutorial</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#cluster-management-in-jubatus">Cluster Management in Jubatus</a><ul>
-<li><a class="reference internal" href="#zookeepers-jubatus-keepers">ZooKeepers &amp; Jubatus Keepers</a></li>
-<li><a class="reference internal" href="#jubavisor-process-management-agent">Jubavisor: Process Management Agent</a></li>
 </ul>
 </li>
 </ul>
@@ -133,8 +118,8 @@
   <p class="topless"><a href="overview.html"
                         title="previous chapter">Overview</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="documentation.html"
-                        title="next chapter">Documentation</a></p>
+  <p class="topless"><a href="tutorial_distributed.html"
+                        title="next chapter">Tutorial in Distributed Mode</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/ja/tutorial.txt"
@@ -199,11 +184,21 @@ new TWTR.Widget({
 <p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20</a> (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) を利用します。
 News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。</p>
-<p>このチュートリアルの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。</p>
+<p>このチュートリアルプログラムの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。</p>
+<p>このチュートリアルでは、以下のトピックをカバーします。</p>
+<ul class="simple">
+<li>Jubatus サーバをスタンドアローン構成で起動する<ul>
+<li>分散環境での動作に興味がある方は、このチュートリアルの <em>後で</em> <a class="reference internal" href="tutorial_distributed.html"><em>Tutorial in Distributed Mode</em></a> をご覧ください。</li>
+</ul>
+</li>
+<li>Jubatus サーバを <tt class="docutils literal"><span class="pre">set_config</span></tt> API で設定する</li>
+<li>Jubatus の分類器を <tt class="docutils literal"><span class="pre">train</span></tt> と <tt class="docutils literal"><span class="pre">classify</span></tt> API で使用する</li>
+<li>分類に関する基本的なコンセプト</li>
+</ul>
 </div>
-<div class="section" id="standalone-mode">
-<h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this headline">¶</a></h2>
-<p>分類器の機能を提供する <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> プログラムを単に起動します。</p>
+<div class="section" id="run-tutorial">
+<h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>分類器の機能を提供する <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> プログラムをオプションなしで起動します。</p>
 <div class="highlight-python"><pre>$ jubaclassifier
 I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 RPC server at 192.168.1.2:9199
   pid            : 4200
@@ -229,9 +224,7 @@ Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用し�
 <div class="figure">
 <img alt="single client, single server" src="../_images/single_single1.png" style="width: 70%;" />
 </div>
-<div class="section" id="run-tutorial">
-<h3>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードします。</p>
+<p>それでは、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードしましょう。</p>
 <div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
@@ -240,10 +233,9 @@ $ tar xvzf 20news-bydate.tar.gz</pre>
 <p>チュートリアルプログラムを実行します。</p>
 <div class="highlight-python"><pre>$ python tutorial.py</pre>
 </div>
-<p>分類の結果が表示されます。
+<p>分類の結果が表示されました!
 それぞれのメッセージについて、 <tt class="docutils literal"><span class="pre">OK</span></tt> は Jubatus の分類したラベルが正しかったことを、 <tt class="docutils literal"><span class="pre">NG</span></tt> は誤っていたことを表します。</p>
 <p>より詳しい説明は以下を参照してください。</p>
-</div>
 </div>
 <div class="section" id="tutorial-in-detail">
 <h2>Tutorial in Detail<a class="headerlink" href="#tutorial-in-detail" title="Permalink to this headline">¶</a></h2>
@@ -388,160 +380,6 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 <p>メッセージ <tt class="docutils literal"><span class="pre">d2</span></tt> は <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> に投稿された可能性が高いことが分かりました。</p>
 </div>
 </div>
-<div class="section" id="cluster-mode">
-<h2>Cluster Mode<a class="headerlink" href="#cluster-mode" title="Permalink to this headline">¶</a></h2>
-<p>Jubatus では ZooKeeper を用いて複数のサーバプロセス間を協調動作させることで、分散処理を行うことができます。</p>
-<div class="figure">
-<img alt="single client, multi servers" src="../_images/single_multi1.png" style="width: 70%;" />
-</div>
-<div class="section" id="setup-zookeeper">
-<h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> は分散コーディネーションサービスです。
-Jubatus を分散環境で動作させる場合、ZooKeeper を使って Jubatus サーバと Keeper を管理することができます。</p>
-<p>ZooKeeper は以下のようにして起動します。</p>
-<div class="highlight-python"><pre>$ /path/to/zookeeper/bin/zkServer.sh start
-JMX enabled by default
-Using config: /path/to/zookeeper/bin/../conf/zoo.cfg
-Starting zookeeper ...
-STARTED</pre>
-</div>
-<p>以降では、ZooKeeper が localhost:2181 で動作していると仮定します。この設定は <tt class="docutils literal"><span class="pre">zoo.cfg</span></tt> で変更可能です。</p>
-</div>
-<div class="section" id="jubatus-keeper">
-<h3>Jubatus Keeper<a class="headerlink" href="#jubatus-keeper" title="Permalink to this headline">¶</a></h3>
-<p>Jubatus Keeper は RPC リクエストをクライアントからサーバに中継 (プロキシ) します。
-分散環境では、クライアントからの RPC リクエストを直接サーバに送るのではなく、一度 Keeper に送ります。</p>
-<p>Jubatus Keeper は各 Jubatus サーバの種類ごとに提供されています。
-分類器に対応する Keeper は <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> となります。</p>
-<div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
-</div>
-<p>これにより、jubaclassifier_keeper は、TCP 9198 番ポートで RPC リクエストを待ち受けます。</p>
-</div>
-<div class="section" id="join-jubatus-servers-to-cluster">
-<h3>Join Jubatus Servers to Cluster<a class="headerlink" href="#join-jubatus-servers-to-cluster" title="Permalink to this headline">¶</a></h3>
-<p>Jubatus サーバを分散環境で開始するには、 <tt class="docutils literal"><span class="pre">--name</span></tt> と <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> オプションをサーバの起動時に指定します。
-同じ <tt class="docutils literal"><span class="pre">--name</span></tt> で起動されたサーバプロセスは同じクラスタに所属し、お互いに協調動作します。</p>
-<p>一つのマシン内で複数のサーバを起動する場合は、各サーバプロセスごとにポート番号を変える必要があることに注意してください。</p>
-<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial --zookeeper=localhost:2181 &amp;
-$ jubaclassifier --rpc-port=9181 --name=tutorial --zookeeper=localhost:2181 &amp;
-$ jubaclassifier --rpc-port=9182 --name=tutorial --zookeeper=localhost:2181 &amp;</pre>
-</div>
-<p>Jubatus サーバが分散環境で開始する際に、ZooKeeper システムの中にノードが作成されます。
-ZooKeeper のクライアントを用いて、3 つのプロセスが ZooKeeper システムに登録されていることが確認できます。</p>
-<div class="highlight-python"><pre>$ /path/to/zookeeper/bin/zkCli.sh -server localhost:2181
-[zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/classifier/tutorial/nodes
-[XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]</pre>
-</div>
-</div>
-<div class="section" id="id2">
-<h3>Run Tutorial<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>チュートリアルプログラムを再び実行します。ただし、今回はサーバではなく Keeper に接続するため、ポート番号をオプションとして指定します。
-また、分散環境では、RPC リクエストを Keeper へ送る際にクラスタ名を指定する必要があります。</p>
-<div class="highlight-python"><pre>$ python tutorial.py --server_port=9198 --name=tutorial</pre>
-</div>
-<p>接続先がスタンドアロンであっても、分散環境であっても、クライアントコードの変更が不要であることに着目してください。</p>
-</div>
-</div>
-<div class="section" id="cluster-management-in-jubatus">
-<h2>Cluster Management in Jubatus<a class="headerlink" href="#cluster-management-in-jubatus" title="Permalink to this headline">¶</a></h2>
-<p>Jubatusは各種プロセスを一括管理するための仕組みを備えています。
-今、それぞれのサーバに対して、以下の表に対応したプロセスを起動させることを考えます。</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="25%" />
-<col width="75%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">IP Address</th>
-<th class="head">Processes</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>192.168.0.1</td>
-<td>Terminal</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.11</td>
-<td>jubaclassifier - 1</td>
-</tr>
-<tr class="row-even"><td>192.168.0.12</td>
-<td>jubaclassifier - 2</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.13</td>
-<td>jubaclassifier - 3</td>
-</tr>
-<tr class="row-even"><td>192.168.0.101</td>
-<td>jubaclassifier_keeper/client - 1</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.102</td>
-<td>jubaclassifier_keeper/client - 2</td>
-</tr>
-<tr class="row-even"><td>192.168.0.103</td>
-<td>jubaclassifier_keeper/client - 3</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.211</td>
-<td>ZooKeeper - 1</td>
-</tr>
-<tr class="row-even"><td>192.168.0.212</td>
-<td>ZooKeeper - 2</td>
-</tr>
-<tr class="row-odd"><td>192.168.0.213</td>
-<td>ZooKeeper - 3</td>
-</tr>
-</tbody>
-</table>
-<p>ベストプラクティスについては <a class="reference internal" href="admin.html"><em>Cluster Administration Guide</em></a> を参照してください。</p>
-<div class="figure">
-<img alt="multi clients, multi servers" src="../_images/multi_multi1.png" style="width: 70%;" />
-</div>
-<div class="section" id="zookeepers-jubatus-keepers">
-<h3>ZooKeepers &amp; Jubatus Keepers<a class="headerlink" href="#zookeepers-jubatus-keepers" title="Permalink to this headline">¶</a></h3>
-<p>ZooKeeper サーバを起動します (これらの間でアンサンブル構成を行う必要があります)。</p>
-<div class="highlight-python"><pre>[192.168.0.211]$ bin/zkServer.sh start
-[192.168.0.212]$ bin/zkServer.sh start
-[192.168.0.213]$ bin/zkServer.sh start</pre>
-</div>
-<p><tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> プロセスを起動します。 <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> は TCP 9199 番ポートをデフォルトで使用します。</p>
-<div class="highlight-python"><pre>[192.168.0.101]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-[192.168.0.102]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-[192.168.0.103]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
-</div>
-</div>
-<div class="section" id="jubavisor-process-management-agent">
-<h3>Jubavisor: Process Management Agent<a class="headerlink" href="#jubavisor-process-management-agent" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> はサーバプロセスを管理するためのエージェントプロセスです。</p>
-<p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> を使うことで、Jubatus サーバの各プロセスを、操作用コマンドである <tt class="docutils literal"><span class="pre">jubactl</span></tt> からの RPC リクエストによって管理することができます。
-<tt class="docutils literal"><span class="pre">jubavisor</span></tt> は TCP 9198 番ポートをデフォルトで使用します。</p>
-<div class="highlight-python"><pre>[192.168.0.11]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
-[192.168.0.22]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
-[192.168.0.33]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon</pre>
-</div>
-<p><tt class="docutils literal"><span class="pre">jubactl</span></tt> から <tt class="docutils literal"><span class="pre">jubavisor</span></tt> に命令を送信してみましょう。</p>
-<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-[192.168.0.1]$ jubactl -c status --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-active jubaclassifier_keeper members:
- 192.168.0.101_9199
- 192.168.0.102_9199
- 192.168.0.103_9199
-active jubavisor members:
- 192.168.0.11_9198
- 192.168.0.12_9198
- 192.168.0.13_9198
-active tutorial members:
- 192.168.0.11_9199
- 192.168.0.12_9199
- 192.168.0.13_9199</pre>
-</div>
-<p>members の表示から、サーバが起動していることが分かります。
-複数のホストでクライアントを同時に動かしてみましょう。</p>
-<div class="highlight-python"><pre>[192.168.0.101]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
-[192.168.0.102]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
-[192.168.0.103]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199</pre>
-</div>
-<p>なお、Jubatus サーバの停止も <tt class="docutils literal"><span class="pre">jubactl</span></tt> から行うことができます。</p>
-<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
-</div>
-</div>
-</div>
 </div>
 
 
@@ -557,7 +395,7 @@ active tutorial members:
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="documentation.html" title="Documentation"
+          <a href="tutorial_distributed.html" title="Tutorial in Distributed Mode"
              >next</a> |</li>
         <li class="right" >
           <a href="overview.html" title="Overview"

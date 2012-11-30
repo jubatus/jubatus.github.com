@@ -66,9 +66,25 @@ datumには2つのkey-valueが存在する。
 例えばC++から利用する場合、datumは ``std::vector<std::pair<std::string, std::string> >`` と、 ``std::vector<std::pair<std::stirng, double> >`` の2つの要素からなっている。
 ここでは、 ``std::pair<T,U>`` をPython風のタプルで、 ``std::vector<T>`` をPython風のリストで表している。
 
+Flow of Data Conversion
+-----------------------
 
-Filter
-------
+大まかな処理の流れは以下のようになっている。
+datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
+文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、string_rulesによって文字列データからの特徴量が抽出される。
+数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、num_rulesによって数値データからの特徴量が抽出される。
+フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。
+
+.. figure:: ../_static/convert_flow.png
+   :width: 90 %
+   :alt: feature vector converter
+
+   図: 変換エンジンの構成
+
+Filtering
+---------
 
 Jubatusはフィルターという機能を用いて、datum中のkey-valueペアを変換して、別の要素として追加することができる。
 例えば、元のデータがHTMLで書かれていたとしよう。
@@ -458,21 +474,3 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
           "group": "3"
         }
       }
-
-Flow of Data Conversion
------------------------
-
-大まかな処理の流れは以下のようになっている。
-datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
-文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
-その状態で、string_rulesによって文字列データからの特徴量が抽出される。
-数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
-その状態で、num_rulesによって数値データからの特徴量が抽出される。
-フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。
-
-.. figure:: ../_static/convert_flow.png
-   :width: 90 %
-   :alt: feature vector converter
-
-   図: 変換エンジンの構成
-

@@ -17,35 +17,15 @@ Publications
 
 - 2011/10/26 Press Relase
 
- - PFI ( `PFI_EN <http://preferred.jp/2011/10/jubatus-english.html>`_ / `PFI_JA <http://preferred.jp/2011/10/jubatus.html>`_ )
- - NTT ( `NTT_EN <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_ / `NTT_JA <http://www.ntt.co.jp/news2011/1110/111026a.html>`_ )
+ - PFI ( `pfien <http://preferred.jp/2011/10/jubatus-english.html>`_ / `pfija <http://preferred.jp/2011/10/jubatus.html>`_ )
+ - NTT ( `nttEN <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_ / `nttJA <http://www.ntt.co.jp/news2011/1110/111026a.html>`_ )
  - `Press Release Slides (in Japanese) <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
-
-
-FAQ
----
-
-- When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of ``EADDRINUSE``)
-
- - sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1
-
-- mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?
-
- - check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
-
-- How does 'jubatus' read?
-
- - Please do not run 'say' command in MacOS.
-
-
 
 Contributions (Thanks a lot!)
 -----------------------------
 
 - `MacPorts <http://d.hatena.ne.jp/hjym_u/20111107/1320647557>`_
-- `Homebrew <http://d.hatena.ne.jp/katsyoshi/20111107/1320678982>`_
 
-- 0.1.0
+- For 0.1.0
 
- - `Ruby Client <https://github.com/pfi/jubatus-ruby-client>`_
  - `PHP Client <http://d.hatena.ne.jp/oxalis-gps/20111101/1320112193>`_ ( `github repo <https://github.com/oxalis-gps/jubatus-php-client>`_ )

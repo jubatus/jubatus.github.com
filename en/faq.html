@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>How to Get Clients &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Frequently Asked Questions (FAQs) &mdash; Jubatus 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -43,9 +43,9 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
-    <link rel="up" title="Using Framework" href="framework.html" />
-    <link rel="next" title="IDL Support Status (2012 Nov.)" href="idl_support.html" />
-    <link rel="prev" title="Server generation using code generator" href="server.html" /> 
+    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="IDL Support Status (2012 Nov.)" href="idl_support.html" /> 
 
 <!--
 
@@ -84,15 +84,13 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2012 Nov.)"
+          <a href="references.html" title="References"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="server.html" title="Server generation using code generator"
+          <a href="idl_support.html" title="IDL Support Status (2012 Nov.)"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li>
-          <li><a href="framework.html" accesskey="U">Using Framework</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -101,24 +99,15 @@
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">How to Get Clients</a><ul>
-<li><a class="reference internal" href="#use-pre-generated-client">Use pre-generated client</a></li>
-<li><a class="reference internal" href="#generate-clients-from-msgpack-idl">Generate clients from msgpack-idl</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
-  <p class="topless"><a href="server.html"
-                        title="previous chapter">Server generation using code generator</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="idl_support.html"
-                        title="next chapter">IDL Support Status (2012 Nov.)</a></p>
+                        title="previous chapter">IDL Support Status (2012 Nov.)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="references.html"
+                        title="next chapter">References</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/howtogetclients.txt"
+    <li><a href="../_sources/en/faq.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -172,32 +161,44 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="how-to-get-clients">
-<span id="how-to-get-clientsja"></span><h1>How to Get Clients<a class="headerlink" href="#how-to-get-clients" title="Permalink to this headline">¶</a></h1>
-<p>各言語ごとのjubatusクライアントを取得する方法は、二種類あります。</p>
+  <div class="section" id="frequently-asked-questions-faqs">
+<h1>Frequently Asked Questions (FAQs)<a class="headerlink" href="#frequently-asked-questions-faqs" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/jubatus/jubatus/downloads">github</a> から生成済みコードを取得する。</li>
-<li>msgpack-idl と .idl ファイルから生成する。</li>
+<li>Failed in <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configre</span></tt> with ...</li>
 </ul>
-<p>以降の章で、それぞれの方法を解説します。</p>
-<div class="section" id="use-pre-generated-client">
-<h2>Use pre-generated client<a class="headerlink" href="#use-pre-generated-client" title="Permalink to this headline">¶</a></h2>
-<p>クライアント用コードを簡単に使いたいならば、Jubatus開発者らによって生成されたクライアントライブラリを利用するべきです。
-それらのコードは、 <a class="reference external" href="https://github.com/jubatus/jubatus/downloads">こちら</a> からダウンロードすることができます。</p>
+<div class="highlight-python"><pre>...
+line 298, in load_tool
+     __import__(d)
+   File "/Users/oliner/tmp/jubatus/unittest_gtest.py", line 8
+     C1 = b'#XXX'
+              ^
+SyntaxError: invalid syntax</pre>
 </div>
-<div class="section" id="generate-clients-from-msgpack-idl">
-<h2>Generate clients from msgpack-idl<a class="headerlink" href="#generate-clients-from-msgpack-idl" title="Permalink to this headline">¶</a></h2>
-<p>新機能追加など、これまでのクライアントが利用できないなどの場合は、クライアントコードを <a class="reference external" href="http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl">msgpack-idl</a> のidlファイルを用いて生成することができます。
-msgpack-idl は、Haskellで書かれたIDLコンパイラで、idlファイルで定義されたインターフェイスを各言語に変換します。
-このプログラムは、ghc7とcabalを必要とします。classifierを生成するには、以下のように実行します。</p>
-<div class="highlight-python"><pre>$ cabal install msgpack-idl
-$ mpidl cpp classifier.idl -o . -p
-...
-$ ls
-classifier_types.hpp classifier_client.hpp classifier_server.hpp</pre>
-</div>
-<p>このコード生成システムにより、jubatusは様々なプログラミング言語から利用することができます。</p>
-</div>
+<p>This error occurs when old python. Use python 2.7 or later.</p>
+<ul class="simple">
+<li>When using python client, &#8220;got socket.error: [Errno 99] Cannot assign requested address&#8221; (or kind of <tt class="docutils literal"><span class="pre">EADDRINUSE</span></tt>)</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>How does &#8216;jubatus&#8217; read?</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Please do not run &#8216;say&#8217; command in MacOS.</li>
+</ul>
+</div></blockquote>
 </div>
 
 
@@ -213,15 +214,13 @@ classifier_types.hpp classifier_client.hpp classifier_server.hpp</pre>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2012 Nov.)"
+          <a href="references.html" title="References"
              >next</a> |</li>
         <li class="right" >
-          <a href="server.html" title="Server generation using code generator"
+          <a href="idl_support.html" title="IDL Support Status (2012 Nov.)"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li>
-          <li><a href="framework.html" >Using Framework</a> &raquo;</li> 
+          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
