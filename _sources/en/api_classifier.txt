@@ -36,30 +36,34 @@ Data Structures
 Methods
 ~~~~~~~
 
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (``""``).
+
 .. describe:: int train(0: string name, 1: list<tuple<string, datum> > data)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in cluster
   - ``data`` : list of tuple of label and datum
 
  - Returns:
 
   - Zero if the model is updated successfully
 
- Train and update the model. ``tuple<string, datum>`` is a tuple of datum and its label.
- This API is designed to allow bulk update with list of ``tuple<string, datum>``.
+ Trains and updates the model.
+ ``tuple<string, datum>`` is a tuple of datum and its label.
+ This API is designed to accept bulk update with list of ``tuple<string, datum>``.
 
 .. describe:: list<list<estimate_result> > classify(0: string name, 1: list<datum> data)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in cluster
+  - ``name`` : string value to uniquely identifies a task in cluster
   - ``data`` : list of datum to classifiy
 
  - Returns:
 
   - List of list of ``estimate_result``, in order of given datum
 
- Estimating the label from given ``data``.
- This API is designed to allow bulk classification with list of ``datum``.
+ Estimates the label from given ``data``.
+ This API is designed to accept bulk classification with list of ``datum``.

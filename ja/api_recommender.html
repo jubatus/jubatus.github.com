@@ -189,6 +189,8 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別するクラスタ内でユニークな名前である。
+スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool clear_row(string name, string id)</tt></dt>
@@ -220,7 +222,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
 <li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
 </ul>
@@ -237,7 +239,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、 <tt class="docutils literal"><span class="pre">d</span></tt> で上書きされる。
 存在しない場合は、新しい行のエントリが作成される。
 更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
-異なるサーバーであれば、MIX 後に反映される。</p>
+異なるサーバーであれば、mix 後に反映される。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -248,7 +250,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -270,7 +272,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
 </ul>
 </div></blockquote>
@@ -282,19 +284,19 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li><tt class="docutils literal"><span class="pre">id</span></tt> の近傍から未定義の値を補完したdatum</li>
 </ul>
 </div></blockquote>
-<p>指定したidのrowの中で欠けている値を予測して返す。</p>
+<p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の中で欠けている値を近傍から予測し、補完された datum を返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">datum complete_row_from_data(0: string name, 1: datum dat)</tt></dt>
+<tt class="descname">datum complete_row_from_data(0: string name, 1: datum d)</tt></dt>
 <dd><ul class="simple">
 <li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> : 補完したい値が欠けたdatum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">d</span></tt> : 補完したい値が欠けたdatum</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -305,7 +307,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li>指定したdatumで構成されるrowの中で欠けている値を補完したdatum</li>
 </ul>
 </div></blockquote>
-<p>指定したdatumで構成されるrowの中で欠けている値を予測して返す。</p>
+<p>指定した datum <tt class="docutils literal"><span class="pre">d</span></tt> で欠けている値を近傍から予測し、補完された datum を返す。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -316,7 +318,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
 <li><tt class="docutils literal"><span class="pre">size</span></tt> : 返す近傍の数</li>
 </ul>
@@ -329,19 +331,19 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍のidとその近傍性の値のリスト</li>
 </ul>
 </div></blockquote>
-<p><tt class="docutils literal"><span class="pre">similar_result</span></tt> で定義された指定したidに近い行とその近傍性のリストを <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+<p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその近傍性のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)</tt></dt>
+<tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum data, 2: uint size)</tt></dt>
 <dd><ul class="simple">
 <li>引数:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> : 補完したいdatum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : 補完したいdatum</li>
 <li><tt class="docutils literal"><span class="pre">ret_num</span></tt> : 返す近傍の数</li>
 </ul>
 </div></blockquote>
@@ -353,7 +355,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li><tt class="docutils literal"><span class="pre">dat</span></tt> から構成された <tt class="docutils literal"><span class="pre">similar_result</span></tt> .</li>
 </ul>
 </div></blockquote>
-<p><tt class="docutils literal"><span class="pre">similar_result</span></tt> で定義された指定したdatumに近い行とその近傍性のリストを``size``個返す。</p>
+<p>指定したdatum <tt class="docutils literal"><span class="pre">data</span></tt> に近い行とその近傍性のリストを``size``個返す。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -364,7 +366,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
 </ul>
 </div></blockquote>
@@ -376,7 +378,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> に対応する datum</li>
 </ul>
 </div></blockquote>
-<p><tt class="docutils literal"><span class="pre">id</span></tt> で指定した行の <tt class="docutils literal"><span class="pre">datum</span></tt> 表現を返す。
+<p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の <tt class="docutils literal"><span class="pre">datum</span></tt> 表現を返す。
 ただし、fv_converterで不可逆な処理を行なっている <tt class="docutils literal"><span class="pre">datum</span></tt> は復元されない。</p>
 </dd></dl>
 
@@ -388,7 +390,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
 </ul>
 </div></blockquote>
@@ -397,10 +399,10 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>すべての列のリスト</li>
+<li>すべての行の ID リスト</li>
 </ul>
 </div></blockquote>
-<p>すべての列のリストを返す。</p>
+<p>すべての行の ID リストを返す。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -411,7 +413,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">lhs</span></tt> : datum</li>
 <li><tt class="docutils literal"><span class="pre">rhs</span></tt> : 別の datum</li>
 </ul>
@@ -424,7 +426,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li><tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> の近傍性</li>
 </ul>
 </div></blockquote>
-<p>指定した2つの datum の近傍性を返す。</p>
+<p>指定した 2 つの datum の近傍性を返す。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -435,7 +437,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
 </ul>
 </div></blockquote>
@@ -447,7 +449,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <li><tt class="docutils literal"><span class="pre">d</span></tt> の L2 ノルム</li>
 </ul>
 </div></blockquote>
-<p>指定した <tt class="docutils literal"><span class="pre">datum</span></tt> の L2 ノルムを返す。</p>
+<p>指定した datum <tt class="docutils literal"><span class="pre">d</span></tt> の L2 ノルムを返す。</p>
 </dd></dl>
 
 </div>

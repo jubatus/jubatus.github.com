@@ -1,27 +1,10 @@
 Graph
 -----
 
-See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl>`_ for detailed specification..
+See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/graph.idl>`_ for detailed specification.
 
 Data Structures
 ~~~~~~~~~~~~~~~
-
-.. describe:: centrality_type
-
- Represents a type of centrality.
- Currently, only ``0`` (PageRank) can be specified.
-
-.. code-block:: c++
-
-  type centrality_type = int
-
-.. describe:: edge_id_t
-
- Represents an ID for an edge.
-
-.. code-block:: c++
-
-  type edge_id_t = ulong
 
 .. describe:: property
 
@@ -85,20 +68,19 @@ Data Structures
     3: preset_query q
   }
 
-Usage of Properties and Preset Queries
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usage of Properties and Queries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Properties and Queries are both represented as key-value pair like
-``{ 'key' : 'value', 'key2' : 'value2', ... }``.
-The condition when a query matches to a property is: all keys in a query MUST exist in a property and the corresponding value which belongs to the query and the property MUST match excactly. The ordering of each key-value in property/query does not matter.
+Properties and Queries are both represented as key-value pair like ``{ 'key' : 'value', 'key2' : 'value2', ... }``.
+The condition when a query matches to a property is: all keys in a query MUST exist in a property and the corresponding value which belongs to the query and the property MUST match excactly.
+The ordering of each key-value in property/query does not matter.
 
-This case matches:
+For example, this case matches:
 
 ::
 
    query:    { 'key' : 'value' }
    property: { 'key' : 'value', 'foo' : 'bar' }
-
 
 This case does not match -- same ``key`` but different value:
 
@@ -106,7 +88,6 @@ This case does not match -- same ``key`` but different value:
 
    query:    { 'key' : 'wrong' }
    property: { 'key' : 'value', 'foo' : 'bar' }
-
 
 This case does not match -- key ``spam`` does not exist in ``property``:
 
@@ -123,85 +104,94 @@ When using standalone mode, this must be left blank (``""``).
 
 .. describe:: string create_node(0: string name)
 
- Creates a node on the graph named ``name``.
- Returns a node id as string.
+ Creates a node on the graph.
+ Returns a node ID as string.
 
 .. describe:: int remove_node(0: string name, 1: string nid)
 
- Removes a node from the graph.
+ Removes a node ``nid`` from the graph.
 
 .. describe:: int update_node(0: string name, 1: string nid, 2: property p)
 
- Updates the property of the node.
+ Updates the property of the node ``nid`` to ``p``.
 
 .. describe:: ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)
 
  Creates a link from ``ei.src`` to ``ei.tgt``.
- The link has direction.
- Multiple links with same direction can be created on each pair of nodes.
- Also, a property ``ei.p`` can be associated to each link: see ``edge_info``.
+ Returns a edge ID as long unsigned integer.
 
- Returns ``edge_id`` as long unsigned integer.
+ The link has direction.
+ For any two nodes, multiple links with same direction can be created.
+ In this case, property ``ei.p`` can be associated to each link (see ``edge_info``).
+
  ``nid`` must be the same value as ``ei.src``.
 
 .. describe:: int update_edge(0: string name, 1: string nid, 2: ulong eid, 3: edge_info ei)
 
- Updates an existing edge with a new property.
- Property is replaced.
+ Updates an existing edge ``eid`` with information ``ei``.
+ Property will be replaced.
+
  ``nid`` must be the same value as ``ei.src``.
 
-.. describe:: int remove_edge(0: string name, 1: string nid, 2: ulong eid)
+.. describe:: int remove_edge(0: string name, 1: string nid, 2: ulong e)
 
  Removes an edge.
- ``nid`` must be an ID for the source node of the edge ``eid``.
+ ``nid`` must be an ID for the source node of the edge ``e``.
 
-.. describe:: double centrality(0: string name, 1: string nid, 2: centrality_type ct, 3: preset_query q)
+.. describe:: double centrality(0: string name, 1: string nid, 2: int ct, 3: preset_query q)
 
- For query ``q`` that was registered with ``add_centrality_query``, calculates (gets the computed value) the centrality over the edges that match the preset query ``q``.
- Currently there's only PageRank centrality.
+ Calculates (gets the computed value) the centrality over the edges that match the preset query ``q``.
+ Query must be registered beforehand by using ``add_centrality_query``.
+
+ ``ct`` is a type of centrality.
+ Currently, only ``0`` (PageRank centrality) can be specified.
 
  Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality and the computed value if there're updates not mixed.
+ See also the description of ``update_index``.
 
 .. describe:: bool add_centrality_query(0: string name, 1: preset_query q)
 
- Sets a preset query to the graph for centrality calculation.
+ Sets a preset query ``q`` to the graph for centrality calculation.
 
 .. describe:: bool add_shortest_path_query(0: string name, 1: preset_query q)
 
- Sets a preset query to the graph for shortest path calculation.
+ Sets a preset query ``q`` to the graph for shortest path calculation.
 
 .. describe:: bool remove_centrality_query(0: string name, 1: preset_query q)
 
- Removes a preset query from the graph for centrality calculation.
+ Removes a preset query ``q`` from the graph for centrality calculation.
 
 .. describe:: bool remove_shortest_path_query(0: string name, 1: preset_query q)
 
- Removes a preset query from the graph for shortest path calculation.
+ Removes a preset query ``q`` from the graph for shortest path calculation.
 
 .. describe:: list<string> shortest_path(0: string name, 1: shortest_path_req r)
 
- For query ``r.q`` that was registered with ``add_shortest_path_query``, calculates (from the precomputed data) a shortest path from ``r.src`` to ``r.tgt`` that matches the preset query.
- The return value is a list of node IDs.
+ Calculates (from the precomputed data) a shortest path from ``r.src`` to ``r.tgt`` that matches the preset query.
+ Query must be registered beforehand by using ``add_shortest_path_query``.
+ Returns a list of node IDs that represents a path from ``r.src`` to ``r.tgt``.
+
  If the shortest path from ``r.src`` to ``r.dst`` cannot be found within ``r.max_hop`` hops, the result will be truncated.
 
  Path-index tree may have a gap between the exact path and the computed path when in a distributed setup.
+ See also the description of ``update_index``.
 
 .. describe:: int update_index(0: string name)
 
- Run mix locally. **Do not use in distributed mode**.
+ Runs mix locally. **Do not use in distributed mode**.
 
- Some functions like ``centrality`` and ``shortest_path`` uses an index that is updated in the MIX operation.
+ Some functions like ``centrality`` and ``shortest_path`` uses an index that is updated in the mix operation.
  In a standalone mode, mix is not automatically called thus users must call this API by themselves.
 
 .. describe:: int clear(0: string name)
 
- Clears the whole data in a cluster.
+ Clears the whole data.
 
 .. describe:: node_info get_node(0: string name, 1: string nid)
 
- Gets the ``node_info`` for a node.
+ Gets the ``node_info`` for a node ``nid``.
 
-.. describe:: edge_info get_edge(0: string name, 1: string nid, 2: ulong eid)
+.. describe:: edge_info get_edge(0: string name, 1: string nid, 2: ulong e)
 
- Gets the ``edge_info`` of an edge, which includes property, source node and target node.
+ Gets the ``edge_info`` of an edge ``e``.
  ``nid`` is an ID for the source node of the edge ``eid``.

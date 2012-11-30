@@ -1,16 +1,16 @@
-
 Common Data Structures and Methods
 ----------------------------------
 
 These data structures and methods are available in each server.
-Note that ``get_config`` and ``set_config`` are not supported on ``graph``.
+Note that ``get_config`` and ``set_config`` are not available in Graph.
 
-Datum
-~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
-.. describe:: jubatus::datum
+.. describe:: datum
 
- Class that represents the data used for machine learning in Jubatus. See :doc:`fv_convert` for details.
+ Represents a set of data used for machine learning in Jubatus.
+ See :doc:`fv_convert` for details.
 
 .. code-block:: c++
 
@@ -26,7 +26,7 @@ Methods
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
+  - ``name`` : string value to uniquely identifies a task in cluster
   - ``id`` : file name to save
 
  - Returns:
@@ -35,12 +35,11 @@ Methods
 
  Store the learing model to the local disk at **ALL** servers.
 
-
 .. describe:: bool load(0: string name, 1: string id)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
+  - ``name`` : string value to uniquely identifies a task in cluster
   - ``id`` : file name to load
 
  - Returns:
@@ -49,42 +48,42 @@ Methods
 
  Restore the saved model from local disk at **ALL** servers.
 
-
 .. describe:: bool set_config(0: string name, 1: config_data c)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
-  - ``c`` : config_data
+  - ``name`` : string value to uniquely identifies a task in cluster
+  - ``c`` : configuration data
 
  - Returns:
 
   - True if this function successfully updated configuration at all servers
 
  Updates server configuration at **ALL** servers.
-
+ For definition of ``config_data``, see API reference of each services.
 
 .. describe:: config_data get_config(0: string name)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
+  - ``name`` : string value to uniquely identifies a task in cluster
 
  - Returns:
 
   - server configuration set by ``set_config``
 
- Returns server configuration from a server chosen randomly.
+ Returns server configuration from a server.
+ For definition of ``config_data``, see API reference of each services.
 
 .. describe:: map<string, map<string, string > > get_status(string name)
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in zookeeper quorum
+  - ``name`` : string value to uniquely identifies a task in cluster
 
  - Returns:
 
-  - Internal state for each servers. The key of most outer map is in format of ``hostname_portnumber``.
+  - Internal state for each servers. The key of most outer map is in form of ``hostname_portnumber``.
 
- Returns server status from **ALL** servers. Each server is represented by a pair of host name and port.
-
+ Returns server status from **ALL** servers.
+ Each server is represented by a pair of host name and port.

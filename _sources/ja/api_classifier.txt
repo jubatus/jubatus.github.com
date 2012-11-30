@@ -36,6 +36,9 @@ Data Structures
 Methods
 ~~~~~~~
 
+各メソッドの最初のパラメタ ``name`` は、タスクを識別するクラスタ内でユニークな名前である。
+スタンドアロン構成では、空文字列 (``""``) を指定する。
+
 .. describe:: int train(0: string name, 1: list<tuple<string, datum> > data)
 
  - 引数:
@@ -47,7 +50,8 @@ Methods
 
   - モデルの更新に成功した場合 0
 
- 学習しモデルを更新する。 ``tuple<string, datum>`` は、datumとそのlabelの組である。
+ 学習しモデルを更新する。
+ ``tuple<string, datum>`` は、datumとそのlabelの組である。
  この API は ``tuple<string, datum>`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
 
 .. describe:: list<list<estimate_result> > classify(0: string name, 1: list<datum> data)

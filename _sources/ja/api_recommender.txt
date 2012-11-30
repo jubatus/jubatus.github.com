@@ -34,6 +34,9 @@ Data Structures
 Methods
 ~~~~~~~
 
+各メソッドの最初のパラメタ ``name`` は、タスクを識別するクラスタ内でユニークな名前である。
+スタンドアロン構成では、空文字列 (``""``) を指定する。
+
 .. describe:: bool clear_row(string name, string id)
 
  - 引数:
@@ -51,7 +54,7 @@ Methods
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``id`` : 行 ID 
   - ``d`` : datum
 
@@ -63,13 +66,13 @@ Methods
  同じ ``id`` を持つ行が既に存在する場合は、 ``d`` で上書きされる。
  存在しない場合は、新しい行のエントリが作成される。
  更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
- 異なるサーバーであれば、MIX 後に反映される。
+ 異なるサーバーであれば、mix 後に反映される。
 
 .. describe:: bool clear(0: string name)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
  
  - 戻り値:
 
@@ -81,33 +84,33 @@ Methods
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``id`` : 行 ID
 
  - 戻り値:
 
   - ``id`` の近傍から未定義の値を補完したdatum 
 
- 指定したidのrowの中で欠けている値を予測して返す。
+ 行 ``id`` の中で欠けている値を近傍から予測し、補完された datum を返す。
 
-.. describe:: datum complete_row_from_data(0: string name, 1: datum dat)
+.. describe:: datum complete_row_from_data(0: string name, 1: datum d)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
-  - ``dat`` : 補完したい値が欠けたdatum
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
+  - ``d`` : 補完したい値が欠けたdatum
 
  - 戻り値:
 
   - 指定したdatumで構成されるrowの中で欠けている値を補完したdatum
 
- 指定したdatumで構成されるrowの中で欠けている値を予測して返す。
+ 指定した datum ``d`` で欠けている値を近傍から予測し、補完された datum を返す。
 
 .. describe:: similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``id`` : 推薦テーブル内の行を表すID
   - ``size`` : 返す近傍の数
 
@@ -115,54 +118,54 @@ Methods
 
   - ``id`` で指定した近傍のidとその近傍性の値のリスト
 
- ``similar_result`` で定義された指定したidに近い行とその近傍性のリストを ``size`` 個返す。
+ 指定した行 ``id`` に近い行とその近傍性のリストを (最大で) ``size`` 個返す。
 
-.. describe:: similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)
+.. describe:: similar_result similar_row_from_data(0: string name, 1: datum data, 2: uint size)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
-  - ``dat`` : 補完したいdatum
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
+  - ``data`` : 補完したいdatum
   - ``ret_num`` : 返す近傍の数
 
  - 戻り値:
 
   - ``dat`` から構成された ``similar_result`` .
 
- ``similar_result`` で定義された指定したdatumに近い行とその近傍性のリストを``size``個返す。
+ 指定したdatum ``data`` に近い行とその近傍性のリストを``size``個返す。
 
 .. describe:: datum decode_row(0: string name, 1: string id)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``id`` : 推薦テーブル内の行を表すID
 
  - 戻り値:
 
   - 行 ID ``id`` に対応する datum
 
- ``id`` で指定した行の ``datum`` 表現を返す。
+ 行 ``id`` の ``datum`` 表現を返す。
  ただし、fv_converterで不可逆な処理を行なっている ``datum`` は復元されない。
 
 .. describe:: list<string> get_all_rows(0:string name)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``id`` : 行 ID
 
  - 戻り値:
 
-  - すべての列のリスト
+  - すべての行の ID リスト
 
- すべての列のリストを返す。
+ すべての行の ID リストを返す。
 
 .. describe:: float similarity(0: string name, 1: datum lhs, 2: datum rhs)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``lhs`` : datum
   - ``rhs`` : 別の datum
 
@@ -170,17 +173,17 @@ Methods
 
   - ``lhs`` と ``rhs`` の近傍性
 
- 指定した2つの datum の近傍性を返す。
+ 指定した 2 つの datum の近傍性を返す。
 
 .. describe:: float l2norm(0: string name, 1: datum d)
 
  - 引数:
 
-  - ``name`` : タスクを識別するユニークな名前
+  - ``name`` : タスクを識別するクラスタ内でユニークな名前
   - ``d`` : datum
 
  - 戻り値:
 
   - ``d`` の L2 ノルム
  
- 指定した ``datum`` の L2 ノルムを返す。
+ 指定した datum ``d`` の L2 ノルムを返す。

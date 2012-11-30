@@ -206,6 +206,8 @@ Higher similarity value means that they are more similar to each other.</p>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="describe">
 <dt>
 <tt class="descname">bool clear_row(string name, string id)</tt></dt>
@@ -215,7 +217,7 @@ Higher similarity value means that they are more similar to each other.</p>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID to be cleared</li>
+<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID to be removed</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -226,7 +228,7 @@ Higher similarity value means that they are more similar to each other.</p>
 <li>True when the row was cleared successfully</li>
 </ul>
 </div></blockquote>
-<p>Clear the given row <tt class="docutils literal"><span class="pre">id</span></tt> from the recommendation table.</p>
+<p>Removes the given row <tt class="docutils literal"><span class="pre">id</span></tt> from the recommendation table.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -250,11 +252,11 @@ Higher similarity value means that they are more similar to each other.</p>
 <li>True if this function updates models successfully</li>
 </ul>
 </div></blockquote>
-<p>Differencial update the row whose id is <tt class="docutils literal"><span class="pre">id</span></tt> with given <tt class="docutils literal"><span class="pre">d</span></tt>.
-If the <tt class="docutils literal"><span class="pre">id</span></tt> row already exists, the row is overwritten with the given <tt class="docutils literal"><span class="pre">d</span></tt>.
+<p>Differencial updates the row whose id is <tt class="docutils literal"><span class="pre">id</span></tt> with given <tt class="docutils literal"><span class="pre">d</span></tt>.
+If the row with the same <tt class="docutils literal"><span class="pre">id</span></tt> already exists, the row is overwritten by <tt class="docutils literal"><span class="pre">d</span></tt>.
 Otherwise, new row entry will be created.
-If the server that manages <tt class="docutils literal"><span class="pre">id</span></tt> row and the server that received this RPC request are same, this operation is reflected instantly;.
-If not, update operation is reflected after MIX.</p>
+If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
+If not, update operation is reflected after mix.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -276,7 +278,7 @@ If not, update operation is reflected after MIX.</p>
 <li>True when the model was cleared successfully</li>
 </ul>
 </div></blockquote>
-<p>Completely clear the model.</p>
+<p>Completely clears the model.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -299,7 +301,7 @@ If not, update operation is reflected after MIX.</p>
 <li>datum stored in <tt class="docutils literal"><span class="pre">id</span></tt> row with missing value completed by predicted value</li>
 </ul>
 </div></blockquote>
-<p>Return the datum for the given row ID, with missing value completed by predicted value.</p>
+<p>Returns the datum for the row <tt class="docutils literal"><span class="pre">id</span></tt>, with missing value completed by predicted value.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -311,7 +313,7 @@ If not, update operation is reflected after MIX.</p>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> : original datum to be completed (possibly some values are missing).</li>
+<li><tt class="docutils literal"><span class="pre">d</span></tt> : original datum to be completed (possibly some values are missing).</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -322,7 +324,7 @@ If not, update operation is reflected after MIX.</p>
 <li>datum constructed from the given datum with missing value completed by predicted value</li>
 </ul>
 </div></blockquote>
-<p>Return the datum constructed from the given datum, with missing value completed by predicted value.</p>
+<p>Returns the datum constructed from datum <tt class="docutils literal"><span class="pre">d</span></tt>, with missing value completed by predicted value.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -346,19 +348,19 @@ If not, update operation is reflected after MIX.</p>
 <li>rows that are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt></li>
 </ul>
 </div></blockquote>
-<p>Return <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) which are most similar to the given row ID.</p>
+<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) which are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)</tt></dt>
+<tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum data, 2: uint size)</tt></dt>
 <dd><ul class="simple">
 <li>Parameters:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> : original datum to be completed (possibly some values are missing)</li>
+<li><tt class="docutils literal"><span class="pre">data</span></tt> : original datum to be completed (possibly some values are missing)</li>
 <li><tt class="docutils literal"><span class="pre">size</span></tt> : number of rows to be returned</li>
 </ul>
 </div></blockquote>
@@ -367,10 +369,10 @@ If not, update operation is reflected after MIX.</p>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>rows that most have a similar datum to <tt class="docutils literal"><span class="pre">dat</span></tt></li>
+<li>rows that most have a similar datum to <tt class="docutils literal"><span class="pre">data</span></tt></li>
 </ul>
 </div></blockquote>
-<p>Return <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that most have similar datum to given datum.</p>
+<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that most have similar datum to datum <tt class="docutils literal"><span class="pre">data</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -393,8 +395,8 @@ If not, update operation is reflected after MIX.</p>
 <li>datum for the given row <tt class="docutils literal"><span class="pre">id</span></tt>.</li>
 </ul>
 </div></blockquote>
-<p>Return the datum in the row ID.
-Note that irreversibly converted datum (processed by <tt class="docutils literal"><span class="pre">fv_converter</span></tt>) will not be returned.</p>
+<p>Returns the datum in the row <tt class="docutils literal"><span class="pre">id</span></tt>.
+Note that irreversibly converted datum (processed by <tt class="docutils literal"><span class="pre">fv_converter</span></tt>) will not be decoded.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -416,7 +418,7 @@ Note that irreversibly converted datum (processed by <tt class="docutils literal
 <li>list of all row IDs</li>
 </ul>
 </div></blockquote>
-<p>Return the list of all row IDs.</p>
+<p>Returns the list of all row IDs.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -440,7 +442,7 @@ Note that irreversibly converted datum (processed by <tt class="docutils literal
 <li>similarity between <tt class="docutils literal"><span class="pre">lhs</span></tt> and <tt class="docutils literal"><span class="pre">rhs</span></tt></li>
 </ul>
 </div></blockquote>
-<p>Return the similarity between two datum.</p>
+<p>Returns the similarity between two datum.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -463,7 +465,7 @@ Note that irreversibly converted datum (processed by <tt class="docutils literal
 <li>L2 norm for the given <tt class="docutils literal"><span class="pre">d</span></tt></li>
 </ul>
 </div></blockquote>
-<p>Return the value of L2 norm for the datum.</p>
+<p>Returns the value of L2 norm for the datum <tt class="docutils literal"><span class="pre">d</span></tt>.</p>
 </dd></dl>
 
 </div>

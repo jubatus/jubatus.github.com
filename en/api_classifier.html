@@ -208,6 +208,8 @@ Higher <tt class="docutils literal"><span class="pre">prob</span></tt> value mea
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int train(0: string name, 1: list&lt;tuple&lt;string, datum&gt; &gt; data)</tt></dt>
@@ -216,7 +218,7 @@ Higher <tt class="docutils literal"><span class="pre">prob</span></tt> value mea
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">data</span></tt> : list of tuple of label and datum</li>
 </ul>
 </div></blockquote>
@@ -228,8 +230,9 @@ Higher <tt class="docutils literal"><span class="pre">prob</span></tt> value mea
 <li>Zero if the model is updated successfully</li>
 </ul>
 </div></blockquote>
-<p>Train and update the model. <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its label.
-This API is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt>.</p>
+<p>Trains and updates the model.
+<tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its label.
+This API is designed to accept bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -240,7 +243,7 @@ This API is designed to allow bulk update with list of <tt class="docutils liter
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">data</span></tt> : list of datum to classifiy</li>
 </ul>
 </div></blockquote>
@@ -252,8 +255,8 @@ This API is designed to allow bulk update with list of <tt class="docutils liter
 <li>List of list of <tt class="docutils literal"><span class="pre">estimate_result</span></tt>, in order of given datum</li>
 </ul>
 </div></blockquote>
-<p>Estimating the label from given <tt class="docutils literal"><span class="pre">data</span></tt>.
-This API is designed to allow bulk classification with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
+<p>Estimates the label from given <tt class="docutils literal"><span class="pre">data</span></tt>.
+This API is designed to accept bulk classification with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
 </dd></dl>
 
 </div>

@@ -92,7 +92,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Common Data Structures and Methods</a><ul>
-<li><a class="reference internal" href="#datum">Datum</a></li>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
@@ -156,14 +156,15 @@ new TWTR.Widget({
             
   <div class="section" id="common-data-structures-and-methods">
 <h1>Common Data Structures and Methods<a class="headerlink" href="#common-data-structures-and-methods" title="Permalink to this headline">¶</a></h1>
-<p>以下のデータ構造とメソッドは各サーバで利用できます。
-ただし、 <tt class="docutils literal"><span class="pre">graph</span></tt> では <tt class="docutils literal"><span class="pre">get_config</span></tt> と <tt class="docutils literal"><span class="pre">set_config</span></tt> は利用できません。</p>
-<div class="section" id="datum">
-<h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
+<p>以下のデータ構造とメソッドは各サーバで利用可能である。
+ただし、Graph では <tt class="docutils literal"><span class="pre">get_config</span></tt> と <tt class="docutils literal"><span class="pre">set_config</span></tt> は利用できない。</p>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::datum</tt></dt>
-<dd><p>Jubatus で機械学習の対象となるデータを表すクラス。詳細は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照してください。</p>
+<tt class="descname">datum</tt></dt>
+<dd><p>Jubatus で機械学習の対象となるデータを表す。
+詳細は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照すること。</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">datum</span> <span class="p">{</span>
@@ -183,7 +184,7 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 保存されるファイル名</li>
 </ul>
 </div></blockquote>
@@ -206,7 +207,7 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 読み出すファイル名</li>
 </ul>
 </div></blockquote>
@@ -229,8 +230,8 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">c</span></tt> : config_data</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">c</span></tt> : 設定データ</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -241,7 +242,8 @@ new TWTR.Widget({
 <li>すべてのサーバで設定に成功したらTrue</li>
 </ul>
 </div></blockquote>
-<p><strong>すべての</strong> サーバの設定を更新する。</p>
+<p><strong>すべての</strong> サーバの設定を更新する。
+<tt class="docutils literal"><span class="pre">config_data</span></tt> の定義については、各サービスの API リファレンスを参照のこと。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -252,7 +254,7 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -263,7 +265,8 @@ new TWTR.Widget({
 <li><tt class="docutils literal"><span class="pre">set_config</span></tt> で設定した設定情報</li>
 </ul>
 </div></blockquote>
-<p>ランダムに選んだサーバの設定を取得する。</p>
+<p>サーバの設定を取得する。
+<tt class="docutils literal"><span class="pre">config_data</span></tt> の定義については、各サービスの API リファレンスを参照のこと。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -274,7 +277,7 @@ new TWTR.Widget({
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するユニークな名前</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -285,7 +288,8 @@ new TWTR.Widget({
 <li>それぞれのサーバの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</li>
 </ul>
 </div></blockquote>
-<p><strong>すべての</strong> サーバの内部状態を取得する。サーバはホスト名、ポート番号で識別する。</p>
+<p><strong>すべての</strong> サーバの内部状態を取得する。
+サーバはホスト名、ポート番号で識別する。</p>
 </dd></dl>
 
 </div>

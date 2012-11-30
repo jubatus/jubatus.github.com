@@ -34,18 +34,21 @@ Data Structures
 Methods
 ~~~~~~~
 
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (``""``).
+
 .. describe:: bool clear_row(string name, string id)
 
  - Parameters:
 
   - ``name`` : string value to uniquely identifies a task in cluster
-  - ``id`` : row ID to be cleared
+  - ``id`` : row ID to be removed
 
  - Returns:
 
   - True when the row was cleared successfully
 
- Clear the given row ``id`` from the recommendation table.
+ Removes the given row ``id`` from the recommendation table.
 
 .. describe:: bool update_row(string name, string id, datum d)
 
@@ -59,11 +62,11 @@ Methods
 
   - True if this function updates models successfully
 
- Differencial update the row whose id is ``id`` with given ``d``.
- If the ``id`` row already exists, the row is overwritten with the given ``d``.
+ Differencial updates the row whose id is ``id`` with given ``d``.
+ If the row with the same ``id`` already exists, the row is overwritten by ``d``.
  Otherwise, new row entry will be created.
- If the server that manages ``id`` row and the server that received this RPC request are same, this operation is reflected instantly;.
- If not, update operation is reflected after MIX.
+ If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
+ If not, update operation is reflected after mix.
 
 .. describe:: bool clear(0: string name)
 
@@ -75,7 +78,7 @@ Methods
 
   - True when the model was cleared successfully
 
- Completely clear the model.
+ Completely clears the model.
 
 .. describe:: datum complete_row_from_id(0: string name, 1: string id)
 
@@ -88,20 +91,20 @@ Methods
 
   - datum stored in ``id`` row with missing value completed by predicted value
 
- Return the datum for the given row ID, with missing value completed by predicted value.
+ Returns the datum for the row ``id``, with missing value completed by predicted value.
 
 .. describe:: datum complete_row_from_data(0: string name, 1: datum d)
 
  - Parameters:
 
   - ``name`` : string value to uniquely identifies a task in cluster
-  - ``dat`` : original datum to be completed (possibly some values are missing).
+  - ``d`` : original datum to be completed (possibly some values are missing).
 
  - Returns:
 
   - datum constructed from the given datum with missing value completed by predicted value
 
- Return the datum constructed from the given datum, with missing value completed by predicted value.
+ Returns the datum constructed from datum ``d``, with missing value completed by predicted value.
 
 .. describe:: similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)
 
@@ -115,21 +118,21 @@ Methods
 
   - rows that are most similar to the row ``id``
 
- Return ``size`` rows (at maximum) which are most similar to the given row ID.
+ Returns ``size`` rows (at maximum) which are most similar to the row ``id``.
 
-.. describe:: similar_result similar_row_from_data(0: string name, 1: datum dat, 2: uint size)
+.. describe:: similar_result similar_row_from_data(0: string name, 1: datum data, 2: uint size)
 
  - Parameters:
 
   - ``name`` : string value to uniquely identifies a task in cluster
-  - ``dat`` : original datum to be completed (possibly some values are missing)
+  - ``data`` : original datum to be completed (possibly some values are missing)
   - ``size`` : number of rows to be returned
 
  - Returns:
 
-  - rows that most have a similar datum to ``dat``
+  - rows that most have a similar datum to ``data``
 
- Return ``size`` rows (at maximum) that most have similar datum to given datum.
+ Returns ``size`` rows (at maximum) that most have similar datum to datum ``data``.
 
 .. describe:: datum decode_row(0: string name, 1: string id)
 
@@ -142,8 +145,8 @@ Methods
 
   - datum for the given row ``id``.
 
- Return the datum in the row ID.
- Note that irreversibly converted datum (processed by ``fv_converter``) will not be returned.
+ Returns the datum in the row ``id``.
+ Note that irreversibly converted datum (processed by ``fv_converter``) will not be decoded.
 
 .. describe:: list<string> get_all_rows(0:string name)
 
@@ -155,7 +158,7 @@ Methods
 
   - list of all row IDs
 
- Return the list of all row IDs.
+ Returns the list of all row IDs.
 
 .. describe:: float similarity(0: string name, 1: datum lhs, 2: datum rhs)
 
@@ -169,7 +172,7 @@ Methods
 
   - similarity between ``lhs`` and ``rhs``
 
- Return the similarity between two datum.
+ Returns the similarity between two datum.
 
 .. describe:: float l2norm(0: string name, 1: datum d)
 
@@ -182,4 +185,4 @@ Methods
 
   - L2 norm for the given ``d``
 
- Return the value of L2 norm for the datum.
+ Returns the value of L2 norm for the datum ``d``.

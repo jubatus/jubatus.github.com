@@ -194,6 +194,8 @@ Currently, only <tt class="docutils literal"><span class="pre">PA</span></tt> ca
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int train(0: string name, list&lt;tuple&lt;float, datum&gt; &gt; train_data)</tt></dt>
@@ -214,20 +216,21 @@ Currently, only <tt class="docutils literal"><span class="pre">PA</span></tt> ca
 <li>Zero if this function updates models successfully</li>
 </ul>
 </div></blockquote>
-<p>Train and update the model. <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its value.
+<p>Trains and updates the model.
+<tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its value.
 This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt>.</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">list&lt;float&gt; estimate(0: string name, 1: list&lt;datum&gt; data)</tt></dt>
+<tt class="descname">list&lt;float&gt; estimate(0: string name, 1: list&lt;datum&gt; estimate_data)</tt></dt>
 <dd><ul class="simple">
 <li>Parameters:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in cluster</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : list of datum to estimate</li>
+<li><tt class="docutils literal"><span class="pre">estimate_data</span></tt> : list of datum to estimate</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -238,7 +241,7 @@ This function is designed to allow bulk update with list of <tt class="docutils 
 <li>List of estimated values, in order of given datum</li>
 </ul>
 </div></blockquote>
-<p>Estimate the value from given <tt class="docutils literal"><span class="pre">data</span></tt>.
+<p>Estimates the value from given <tt class="docutils literal"><span class="pre">estimate_data</span></tt>.
 This API is designed to allow bulk estimation with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
 </dd></dl>
 

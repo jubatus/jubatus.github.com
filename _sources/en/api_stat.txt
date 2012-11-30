@@ -25,28 +25,28 @@ When using standalone mode, this must be left blank (``""``).
 
 .. describe:: bool push(0: string name, 1: string key, 2: double val)
 
- Add value ``val`` to the key called ``key``.
+ Adds value ``val`` to the attribute ``key``.
 
 .. describe:: double sum(0: string name, 1: string key)
 
- Return value of sum from the key called ``key``.
+ Returns value of sum from the attribute ``key``.
 
 .. describe:: double stddev(0: string name, 1: string key)
 
- Return value of standard deviation from the key called ``key``.
+ Returns value of standard deviation from the attribute ``key``.
 
 .. describe:: double max(0: string name, 1: string key)
 
- Return the maximum value from the key called ``key``.
+ Returns the maximum value from the attribute ``key``.
 
 .. describe:: double min(0: string name, 1: string key)
 
- Return the minimum value from the key called ``key``.
+ Returns the minimum value from the attribute ``key``.
 
 .. describe:: double entropy(0: string name, 1: string key)
 
- Return the value of entropy from the key called ``key``.
+ Returns the value of entropy from the attribute ``key``.
 
 .. describe:: double moment(0: string name, 1: string key, 2: int n, 3: double c)
 
- Return the value of ``n``-th moment of the ``key`` about ``c``.
+ Returns the value of ``n``-th moment of the attribute ``key`` about ``c``.

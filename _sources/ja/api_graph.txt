@@ -6,26 +6,9 @@ Graph
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. describe:: centrality_type
-
- 中心性の種類を表す。
- 現在、 ``0`` (PageRank) のみが指定可能である。
-
-.. code-block:: c++
-
-  type centrality_type = int
-
-.. describe:: edge_id_t
-
- 枝の ID を表す。
-
-.. code-block:: c++
-
-  type edge_id_t = ulong
-
 .. describe:: property
 
- ノードまたは枝の key-value の属性値を表す。
+ ノードまたはエッジの key-value の属性値を表す。
 
 .. code-block:: c++
 
@@ -34,8 +17,8 @@ Data Structures
 .. describe:: node_info
 
  ノードの情報を表す。
- ``in_edges`` はノードに向かう枝の ID のリストである。
- ``out_edges`` はノードから出る枝の ID のリストである。
+ ``in_edges`` はノードに向かうエッジの ID のリストである。
+ ``out_edges`` はノードから出るエッジの ID のリストである。
 
 .. code-block:: c++
 
@@ -47,7 +30,7 @@ Data Structures
 
 .. describe:: preset_query
 
- Preset query を表す。
+ プリセットクエリーを表す。
  詳細は以下の説明を参照すること。
 
 .. code-block:: c++
@@ -59,9 +42,9 @@ Data Structures
 
 .. describe:: edge_info
 
- 枝の情報を表す。
- ``src`` はこの枝の接続元のノードの ID である。
- ``tgt`` はこの枝の接続先のノードの ID である。
+ エッジの情報を表す。
+ ``src`` はこのエッジの接続元のノードの ID である。
+ ``tgt`` はこのエッジの接続先のノードの ID である。
 
 .. code-block:: c++
 
@@ -85,27 +68,28 @@ Data Structures
     3: preset_query q
   }
 
-Usage of Properties and Preset Queries
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usage of Properties and Queries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Property と Query は共に、 ``{ 'key' : 'value', 'key2' : 'value2', ... }`` のような Key-Value ペアで表される。
-Query が Property にマッチする条件は、「Query に含まれるすべてのキーが Property に存在し、かつ、対応する値が完全に一致すること」である。Property と Query に含まれる Key-Value の順序は無関係である。
+属性とクエリーは共に、 ``{ 'key' : 'value', 'key2' : 'value2', ... }`` のような key-value ペアで表される。
+あるクエリーが属性にマッチする条件は、「クエリーに含まれるすべてのキーが属性に存在し、かつ、対応する値が完全に一致すること」である。
+属性とクエリーに含まれる key-value の順序は無関係である。
 
-以下の場合は、マッチする:
+例えば、以下の場合はマッチする:
 
 ::
 
    query:    { 'key' : 'value' }
    property: { 'key' : 'value', 'foo' : 'bar' }
 
-以下の場合は、マッチしない (``key`` に対応する値が異なっている):
+以下の場合は、マッチしない (``key`` に対応する値が異なるため):
 
 ::
 
    query:    { 'key' : 'wrong' }
    property: { 'key' : 'value', 'foo' : 'bar' }
 
-以下の場合もマッチしない (キー ``spam`` は property に存在しない):
+以下の場合もマッチしない (キー ``spam`` は property に存在しないため):
 
 ::
 
@@ -121,43 +105,49 @@ Methods
 .. describe:: string create_node(0: string name)
 
  グラフ内にノードを一つ追加する。
- nodeのidをstring形式で返す。
+ ノードの ID をstring形式で返す。
 
 .. describe:: int remove_node(0: string name, 1: string nid)
 
- nodeのidをグラフ内から削除する。
+ ノード ``nid`` をグラフ内から削除する。
 
 .. describe:: int update_node(0: string name, 1: string nid, 2: property p)
 
- nodeのidで指定されたノードの属性を更新する。
+ ノード ``nid`` の属性を ``p`` に更新する。
 
 .. describe:: ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)
 
- ``ei.src`` から ``ei.tgt`` に向けた枝を張る。interger形式のedge_idを返す。
- この枝には方向を持つ。
- 枝は複数張ることも出来る。
- ``ei.p`` で指定される属性はそれぞれの枝に適用される (``edge_info`` を参照)。
+ ``ei.src`` から ``ei.tgt`` に向けたエッジを張る。
+ エッジの ID を long unsigned integer 形式で返す。
 
- 作成された枝の ID が long unsigned integer で返却される。
- ``nid`` は ``ei.src`` と同じ値を指定する必要がある。
+ このエッジには方向を持つ。
+ ある二つのノードに対して、複数のエッジを張ることもできる。
+ この場合、リンクごとに異なる属性 ``ei.p`` を適用することができる (``edge_info`` を参照)。
 
-.. describe:: int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)
+ ``nid`` には ``ei.src`` と同じ値を指定する必要がある。
 
- ``edge_id`` で指定した枝の属性を更新する。
+.. describe:: int update_edge(0: string name, 1: string nid, 2: ulong eid, 3: edge_info ei)
+
+ エッジ ``eid`` の属性 ``ei`` で更新する。
  属性は上書きされる。
- ``nid`` と ``ei.src`` は同じ値を指定する必要がある。
 
-.. describe:: int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)
+ ``nid`` には ``ei.src`` と同じ値を指定する必要がある。
 
- 指定した枝を取り除く。
- ``nid`` には枝 ``eid`` の接続元のノードの ID を指定する必要がある。
+.. describe:: int remove_edge(0: string name, 1: string nid, 2: ulong e)
 
-.. describe:: double centrality(0: string name, 1: string nid, 2: centrality_type ct, 3: preset_query q)
+ 指定したエッジを取り除く。
+ ``nid`` にはエッジ ``e`` の接続元のノードの ID を指定する必要がある。
 
- あらかじめ ``add_centrality_query`` で指定しているクエリー ``q`` に関するノード ID ``nid`` の中心性を求める。
- 現在は PageRank のみがサポートされている。
+.. describe:: double centrality(0: string name, 1: string nid, 2: int ct, 3: preset_query q)
+
+ プリセットクエリ― ``q`` にマッチする、ノード ID ``nid`` の中心性を計算 (予め算出された値を取得) する。
+ クエリーはあらかじめ ``add_centrality_query`` で登録しておく必要がある。
+
+ ``ct`` には中心性の種類を指定する。
+ 現在は ``0`` (PageRank) のみがサポートされている。
 
  中心性は、mixの度に徐々に計算されるため、その時点では正確な値ではないかもしれない。
+ ``update_index`` の説明も参照すること。
 
 .. describe:: bool add_centrality_query(0: string name, 1: preset_query q)
 
@@ -177,18 +167,21 @@ Methods
 
 .. describe:: list<node_id>  shortest_path(0: string name, 1: shortest_path_req r)
 
- あらかじめ ``add_shortest_path_query`` で指定しているクエリー ``r.q`` に関して、``r.src`` から ``r.tgt`` への最短パスを計算する。
- 戻り値はノード ID のリストである。
- ``r.src`` から ``r.dst`` までの最短パスが ``r.max_hop`` ホップ以内に発見できなかった場合は、結果は切り捨てられる。
+ プリセットクエリ― ``r.q`` にマッチする、 ``r.src`` から ``r.tgt`` への最短パスを (予め算出された値から) 計算する。
+ クエリーはあらかじめ ``add_shortest_path_query`` で登録しておく必要がある。
+ ``r.src`` から ``r.tgt`` までの経路のノード ID のリストを返す。
+
+ ``r.src`` から ``r.dst`` までの最短パスが ``r.max_hop`` ホップ以内に発見できなかった場合は、結果は切り詰められる。
 
  Path-index Treeはmixの度に更新されるためこの最短パスは、必ずしも最短であるとは限らない。
+ ``update_index`` の説明も参照すること。
 
 .. describe:: int update_index(0: string name)
 
- mixをローカルで実行する。 **この関数は分散環境で利用してはならない。**
+ mix をローカルで実行する。 **この関数は分散環境で利用してはならない。**
 
- ``centrality`` や ``shortest_path`` などの関数は MIX のタイミングでアップデートされるインデックスを参照する。
- スタンドアローン環境では、mixは自動的に呼ばれないため、ユーザ自身でこの関数を呼び出す必要がある。
+ ``centrality`` や ``shortest_path`` などの関数は mix のタイミングでアップデートされるインデックスを参照する。
+ スタンドアローン環境では、mix は自動的に呼ばれないため、ユーザ自身でこの API を呼び出す必要がある。
 
 .. describe:: int clear(0: string name)
 
@@ -196,9 +189,9 @@ Methods
 
 .. describe:: node_info get_node(0: string name, 1: string nid)
 
- 指定したノードの ``node_info`` を取得する。
+ ノード ``nid`` の ``node_info`` を取得する。
 
-.. describe:: edge_info get_edge(0: string name, 1: string nid, 2: edge_id_t e)
+.. describe:: edge_info get_edge(0: string name, 1: string nid, 2: ulong e)
 
- 指定した枝の ``edge_info`` を取得する。
- ``nid`` には枝 ``eid`` の接続元のノードの ID を指定する必要がある。
+ エッジ ``e`` の ``edge_info`` を取得する。
+ ``nid`` にはエッジ ``eid`` の接続元のノードの ID を指定する必要がある。

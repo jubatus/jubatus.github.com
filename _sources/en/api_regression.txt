@@ -23,6 +23,9 @@ Data Structures
 Methods
 ~~~~~~~
 
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (``""``).
+
 .. describe:: int train(0: string name, list<tuple<float, datum> > train_data)
 
  - Parameters:
@@ -34,19 +37,20 @@ Methods
 
   - Zero if this function updates models successfully
 
- Train and update the model. ``tuple<float, datum>`` is a tuple of datum and its value. 
+ Trains and updates the model.
+ ``tuple<float, datum>`` is a tuple of datum and its value.
  This function is designed to allow bulk update with list of ``tuple<float, datum>``.
 
-.. describe:: list<float> estimate(0: string name, 1: list<datum> data)
+.. describe:: list<float> estimate(0: string name, 1: list<datum> estimate_data)
 
  - Parameters:
 
   - ``name`` : a string value to uniquely identifies a task in cluster
-  - ``data`` : list of datum to estimate
+  - ``estimate_data`` : list of datum to estimate
 
  - Returns:
 
   - List of estimated values, in order of given datum
 
- Estimate the value from given ``data``.
+ Estimates the value from given ``estimate_data``.
  This API is designed to allow bulk estimation with list of ``datum``.

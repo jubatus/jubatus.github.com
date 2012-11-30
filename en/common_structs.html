@@ -103,7 +103,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Common Data Structures and Methods</a><ul>
-<li><a class="reference internal" href="#datum">Datum</a></li>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
@@ -174,13 +174,14 @@ new TWTR.Widget({
   <div class="section" id="common-data-structures-and-methods">
 <h1>Common Data Structures and Methods<a class="headerlink" href="#common-data-structures-and-methods" title="Permalink to this headline">¶</a></h1>
 <p>These data structures and methods are available in each server.
-Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> and <tt class="docutils literal"><span class="pre">set_config</span></tt> are not supported on <tt class="docutils literal"><span class="pre">graph</span></tt>.</p>
-<div class="section" id="datum">
-<h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
+Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> and <tt class="docutils literal"><span class="pre">set_config</span></tt> are not available in Graph.</p>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">jubatus::datum</tt></dt>
-<dd><p>Class that represents the data used for machine learning in Jubatus. See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
+<tt class="descname">datum</tt></dt>
+<dd><p>Represents a set of data used for machine learning in Jubatus.
+See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">datum</span> <span class="p">{</span>
@@ -200,7 +201,7 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : file name to save</li>
 </ul>
 </div></blockquote>
@@ -223,7 +224,7 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : file name to load</li>
 </ul>
 </div></blockquote>
@@ -246,8 +247,8 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
-<li><tt class="docutils literal"><span class="pre">c</span></tt> : config_data</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
+<li><tt class="docutils literal"><span class="pre">c</span></tt> : configuration data</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -258,7 +259,8 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 <li>True if this function successfully updated configuration at all servers</li>
 </ul>
 </div></blockquote>
-<p>Updates server configuration at <strong>ALL</strong> servers.</p>
+<p>Updates server configuration at <strong>ALL</strong> servers.
+For definition of <tt class="docutils literal"><span class="pre">config_data</span></tt>, see API reference of each services.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -269,7 +271,7 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -280,7 +282,8 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 <li>server configuration set by <tt class="docutils literal"><span class="pre">set_config</span></tt></li>
 </ul>
 </div></blockquote>
-<p>Returns server configuration from a server chosen randomly.</p>
+<p>Returns server configuration from a server.
+For definition of <tt class="docutils literal"><span class="pre">config_data</span></tt>, see API reference of each services.</p>
 </dd></dl>
 
 <dl class="describe">
@@ -291,7 +294,7 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : a string value to uniquely identifies a task in zookeeper quorum</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in cluster</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -299,10 +302,11 @@ Note that <tt class="docutils literal"><span class="pre">get_config</span></tt> 
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Internal state for each servers. The key of most outer map is in format of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</li>
+<li>Internal state for each servers. The key of most outer map is in form of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</li>
 </ul>
 </div></blockquote>
-<p>Returns server status from <strong>ALL</strong> servers. Each server is represented by a pair of host name and port.</p>
+<p>Returns server status from <strong>ALL</strong> servers.
+Each server is represented by a pair of host name and port.</p>
 </dd></dl>
 
 </div>

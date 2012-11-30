@@ -93,7 +93,7 @@
   <ul>
 <li><a class="reference internal" href="#">Graph</a><ul>
 <li><a class="reference internal" href="#data-structures">Data Structures</a></li>
-<li><a class="reference internal" href="#usage-of-properties-and-preset-queries">Usage of Properties and Preset Queries</a></li>
+<li><a class="reference internal" href="#usage-of-properties-and-queries">Usage of Properties and Queries</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
@@ -162,27 +162,8 @@ new TWTR.Widget({
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">centrality_type</tt></dt>
-<dd><p>中心性の種類を表す。
-現在、 <tt class="docutils literal"><span class="pre">0</span></tt> (PageRank) のみが指定可能である。</p>
-</dd></dl>
-
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">centrality_type</span> <span class="o">=</span> <span class="kt">int</span>
-</pre></div>
-</div>
-<dl class="describe">
-<dt>
-<tt class="descname">edge_id_t</tt></dt>
-<dd><p>枝の ID を表す。</p>
-</dd></dl>
-
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">edge_id_t</span> <span class="o">=</span> <span class="n">ulong</span>
-</pre></div>
-</div>
-<dl class="describe">
-<dt>
 <tt class="descname">property</tt></dt>
-<dd><p>ノードまたは枝の key-value の属性値を表す。</p>
+<dd><p>ノードまたはエッジの key-value の属性値を表す。</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">property</span> <span class="o">=</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span>
@@ -192,8 +173,8 @@ new TWTR.Widget({
 <dt>
 <tt class="descname">node_info</tt></dt>
 <dd><p>ノードの情報を表す。
-<tt class="docutils literal"><span class="pre">in_edges</span></tt> はノードに向かう枝の ID のリストである。
-<tt class="docutils literal"><span class="pre">out_edges</span></tt> はノードから出る枝の ID のリストである。</p>
+<tt class="docutils literal"><span class="pre">in_edges</span></tt> はノードに向かうエッジの ID のリストである。
+<tt class="docutils literal"><span class="pre">out_edges</span></tt> はノードから出るエッジの ID のリストである。</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">node_info</span> <span class="p">{</span>
@@ -206,7 +187,7 @@ new TWTR.Widget({
 <dl class="describe">
 <dt>
 <tt class="descname">preset_query</tt></dt>
-<dd><p>Preset query を表す。
+<dd><p>プリセットクエリーを表す。
 詳細は以下の説明を参照すること。</p>
 </dd></dl>
 
@@ -219,9 +200,9 @@ new TWTR.Widget({
 <dl class="describe">
 <dt>
 <tt class="descname">edge_info</tt></dt>
-<dd><p>枝の情報を表す。
-<tt class="docutils literal"><span class="pre">src</span></tt> はこの枝の接続元のノードの ID である。
-<tt class="docutils literal"><span class="pre">tgt</span></tt> はこの枝の接続先のノードの ID である。</p>
+<dd><p>エッジの情報を表す。
+<tt class="docutils literal"><span class="pre">src</span></tt> はこのエッジの接続元のノードの ID である。
+<tt class="docutils literal"><span class="pre">tgt</span></tt> はこのエッジの接続先のノードの ID である。</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">edge_info</span> <span class="p">{</span>
@@ -247,19 +228,20 @@ new TWTR.Widget({
 </pre></div>
 </div>
 </div>
-<div class="section" id="usage-of-properties-and-preset-queries">
-<h2>Usage of Properties and Preset Queries<a class="headerlink" href="#usage-of-properties-and-preset-queries" title="Permalink to this headline">¶</a></h2>
-<p>Property と Query は共に、 <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'key'</span> <span class="pre">:</span> <span class="pre">'value',</span> <span class="pre">'key2'</span> <span class="pre">:</span> <span class="pre">'value2',</span> <span class="pre">...</span> <span class="pre">}</span></tt> のような Key-Value ペアで表される。
-Query が Property にマッチする条件は、「Query に含まれるすべてのキーが Property に存在し、かつ、対応する値が完全に一致すること」である。Property と Query に含まれる Key-Value の順序は無関係である。</p>
-<p>以下の場合は、マッチする:</p>
+<div class="section" id="usage-of-properties-and-queries">
+<h2>Usage of Properties and Queries<a class="headerlink" href="#usage-of-properties-and-queries" title="Permalink to this headline">¶</a></h2>
+<p>属性とクエリーは共に、 <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'key'</span> <span class="pre">:</span> <span class="pre">'value',</span> <span class="pre">'key2'</span> <span class="pre">:</span> <span class="pre">'value2',</span> <span class="pre">...</span> <span class="pre">}</span></tt> のような key-value ペアで表される。
+あるクエリーが属性にマッチする条件は、「クエリーに含まれるすべてのキーが属性に存在し、かつ、対応する値が完全に一致すること」である。
+属性とクエリーに含まれる key-value の順序は無関係である。</p>
+<p>例えば、以下の場合はマッチする:</p>
 <div class="highlight-python"><pre>query:    { 'key' : 'value' }
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
-<p>以下の場合は、マッチしない (<tt class="docutils literal"><span class="pre">key</span></tt> に対応する値が異なっている):</p>
+<p>以下の場合は、マッチしない (<tt class="docutils literal"><span class="pre">key</span></tt> に対応する値が異なるため):</p>
 <div class="highlight-python"><pre>query:    { 'key' : 'wrong' }
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
-<p>以下の場合もマッチしない (キー <tt class="docutils literal"><span class="pre">spam</span></tt> は property に存在しない):</p>
+<p>以下の場合もマッチしない (キー <tt class="docutils literal"><span class="pre">spam</span></tt> は property に存在しないため):</p>
 <div class="highlight-python"><pre>query:    { 'key' : 'value', 'spam': 'ham' }
 property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 </div>
@@ -272,53 +254,56 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 <dt>
 <tt class="descname">string create_node(0: string name)</tt></dt>
 <dd><p>グラフ内にノードを一つ追加する。
-nodeのidをstring形式で返す。</p>
+ノードの ID をstring形式で返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_node(0: string name, 1: string nid)</tt></dt>
-<dd><p>nodeのidをグラフ内から削除する。</p>
+<dd><p>ノード <tt class="docutils literal"><span class="pre">nid</span></tt> をグラフ内から削除する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">int update_node(0: string name, 1: string nid, 2: property p)</tt></dt>
-<dd><p>nodeのidで指定されたノードの属性を更新する。</p>
+<dd><p>ノード <tt class="docutils literal"><span class="pre">nid</span></tt> の属性を <tt class="docutils literal"><span class="pre">p</span></tt> に更新する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
-<dd><p><tt class="docutils literal"><span class="pre">ei.src</span></tt> から <tt class="docutils literal"><span class="pre">ei.tgt</span></tt> に向けた枝を張る。interger形式のedge_idを返す。
-この枝には方向を持つ。
-枝は複数張ることも出来る。
-<tt class="docutils literal"><span class="pre">ei.p</span></tt> で指定される属性はそれぞれの枝に適用される (<tt class="docutils literal"><span class="pre">edge_info</span></tt> を参照)。</p>
-<p>作成された枝の ID が long unsigned integer で返却される。
-<tt class="docutils literal"><span class="pre">nid</span></tt> は <tt class="docutils literal"><span class="pre">ei.src</span></tt> と同じ値を指定する必要がある。</p>
+<dd><p><tt class="docutils literal"><span class="pre">ei.src</span></tt> から <tt class="docutils literal"><span class="pre">ei.tgt</span></tt> に向けたエッジを張る。
+エッジの ID を long unsigned integer 形式で返す。</p>
+<p>このエッジには方向を持つ。
+ある二つのノードに対して、複数のエッジを張ることもできる。
+この場合、リンクごとに異なる属性 <tt class="docutils literal"><span class="pre">ei.p</span></tt> を適用することができる (<tt class="docutils literal"><span class="pre">edge_info</span></tt> を参照)。</p>
+<p><tt class="docutils literal"><span class="pre">nid</span></tt> には <tt class="docutils literal"><span class="pre">ei.src</span></tt> と同じ値を指定する必要がある。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">int update_edge(0: string name, 1: string nid, 2: edge_id_t eid, 3: edge_info ei)</tt></dt>
-<dd><p><tt class="docutils literal"><span class="pre">edge_id</span></tt> で指定した枝の属性を更新する。
-属性は上書きされる。
-<tt class="docutils literal"><span class="pre">nid</span></tt> と <tt class="docutils literal"><span class="pre">ei.src</span></tt> は同じ値を指定する必要がある。</p>
+<tt class="descname">int update_edge(0: string name, 1: string nid, 2: ulong eid, 3: edge_info ei)</tt></dt>
+<dd><p>エッジ <tt class="docutils literal"><span class="pre">eid</span></tt> の属性 <tt class="docutils literal"><span class="pre">ei</span></tt> で更新する。
+属性は上書きされる。</p>
+<p><tt class="docutils literal"><span class="pre">nid</span></tt> には <tt class="docutils literal"><span class="pre">ei.src</span></tt> と同じ値を指定する必要がある。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">int remove_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
-<dd><p>指定した枝を取り除く。
-<tt class="docutils literal"><span class="pre">nid</span></tt> には枝 <tt class="docutils literal"><span class="pre">eid</span></tt> の接続元のノードの ID を指定する必要がある。</p>
+<tt class="descname">int remove_edge(0: string name, 1: string nid, 2: ulong e)</tt></dt>
+<dd><p>指定したエッジを取り除く。
+<tt class="docutils literal"><span class="pre">nid</span></tt> にはエッジ <tt class="docutils literal"><span class="pre">e</span></tt> の接続元のノードの ID を指定する必要がある。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">double centrality(0: string name, 1: string nid, 2: centrality_type ct, 3: preset_query q)</tt></dt>
-<dd><p>あらかじめ <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt> で指定しているクエリー <tt class="docutils literal"><span class="pre">q</span></tt> に関するノード ID <tt class="docutils literal"><span class="pre">nid</span></tt> の中心性を求める。
-現在は PageRank のみがサポートされている。</p>
-<p>中心性は、mixの度に徐々に計算されるため、その時点では正確な値ではないかもしれない。</p>
+<tt class="descname">double centrality(0: string name, 1: string nid, 2: int ct, 3: preset_query q)</tt></dt>
+<dd><p>プリセットクエリ― <tt class="docutils literal"><span class="pre">q</span></tt> にマッチする、ノード ID <tt class="docutils literal"><span class="pre">nid</span></tt> の中心性を計算 (予め算出された値を取得) する。
+クエリーはあらかじめ <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt> で登録しておく必要がある。</p>
+<p><tt class="docutils literal"><span class="pre">ct</span></tt> には中心性の種類を指定する。
+現在は <tt class="docutils literal"><span class="pre">0</span></tt> (PageRank) のみがサポートされている。</p>
+<p>中心性は、mixの度に徐々に計算されるため、その時点では正確な値ではないかもしれない。
+<tt class="docutils literal"><span class="pre">update_index</span></tt> の説明も参照すること。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -348,18 +333,20 @@ nodeのidをstring形式で返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">list&lt;node_id&gt;  shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
-<dd><p>あらかじめ <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt> で指定しているクエリー <tt class="docutils literal"><span class="pre">r.q</span></tt> に関して、``r.src`` から <tt class="docutils literal"><span class="pre">r.tgt</span></tt> への最短パスを計算する。
-戻り値はノード ID のリストである。
-<tt class="docutils literal"><span class="pre">r.src</span></tt> から <tt class="docutils literal"><span class="pre">r.dst</span></tt> までの最短パスが <tt class="docutils literal"><span class="pre">r.max_hop</span></tt> ホップ以内に発見できなかった場合は、結果は切り捨てられる。</p>
-<p>Path-index Treeはmixの度に更新されるためこの最短パスは、必ずしも最短であるとは限らない。</p>
+<dd><p>プリセットクエリ― <tt class="docutils literal"><span class="pre">r.q</span></tt> にマッチする、 <tt class="docutils literal"><span class="pre">r.src</span></tt> から <tt class="docutils literal"><span class="pre">r.tgt</span></tt> への最短パスを (予め算出された値から) 計算する。
+クエリーはあらかじめ <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt> で登録しておく必要がある。
+<tt class="docutils literal"><span class="pre">r.src</span></tt> から <tt class="docutils literal"><span class="pre">r.tgt</span></tt> までの経路のノード ID のリストを返す。</p>
+<p><tt class="docutils literal"><span class="pre">r.src</span></tt> から <tt class="docutils literal"><span class="pre">r.dst</span></tt> までの最短パスが <tt class="docutils literal"><span class="pre">r.max_hop</span></tt> ホップ以内に発見できなかった場合は、結果は切り詰められる。</p>
+<p>Path-index Treeはmixの度に更新されるためこの最短パスは、必ずしも最短であるとは限らない。
+<tt class="docutils literal"><span class="pre">update_index</span></tt> の説明も参照すること。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">int update_index(0: string name)</tt></dt>
-<dd><p>mixをローカルで実行する。 <strong>この関数は分散環境で利用してはならない。</strong></p>
-<p><tt class="docutils literal"><span class="pre">centrality</span></tt> や <tt class="docutils literal"><span class="pre">shortest_path</span></tt> などの関数は MIX のタイミングでアップデートされるインデックスを参照する。
-スタンドアローン環境では、mixは自動的に呼ばれないため、ユーザ自身でこの関数を呼び出す必要がある。</p>
+<dd><p>mix をローカルで実行する。 <strong>この関数は分散環境で利用してはならない。</strong></p>
+<p><tt class="docutils literal"><span class="pre">centrality</span></tt> や <tt class="docutils literal"><span class="pre">shortest_path</span></tt> などの関数は mix のタイミングでアップデートされるインデックスを参照する。
+スタンドアローン環境では、mix は自動的に呼ばれないため、ユーザ自身でこの API を呼び出す必要がある。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -371,14 +358,14 @@ nodeのidをstring形式で返す。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">node_info get_node(0: string name, 1: string nid)</tt></dt>
-<dd><p>指定したノードの <tt class="docutils literal"><span class="pre">node_info</span></tt> を取得する。</p>
+<dd><p>ノード <tt class="docutils literal"><span class="pre">nid</span></tt> の <tt class="docutils literal"><span class="pre">node_info</span></tt> を取得する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: edge_id_t e)</tt></dt>
-<dd><p>指定した枝の <tt class="docutils literal"><span class="pre">edge_info</span></tt> を取得する。
-<tt class="docutils literal"><span class="pre">nid</span></tt> には枝 <tt class="docutils literal"><span class="pre">eid</span></tt> の接続元のノードの ID を指定する必要がある。</p>
+<tt class="descname">edge_info get_edge(0: string name, 1: string nid, 2: ulong e)</tt></dt>
+<dd><p>エッジ <tt class="docutils literal"><span class="pre">e</span></tt> の <tt class="docutils literal"><span class="pre">edge_info</span></tt> を取得する。
+<tt class="docutils literal"><span class="pre">nid</span></tt> にはエッジ <tt class="docutils literal"><span class="pre">eid</span></tt> の接続元のノードの ID を指定する必要がある。</p>
 </dd></dl>
 
 </div>

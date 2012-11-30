@@ -23,6 +23,9 @@ Data Structures
 Methods
 ~~~~~~~
 
+各メソッドの最初のパラメタ ``name`` は、タスクを識別するクラスタ内でユニークな名前である。
+スタンドアロン構成では、空文字列 (``""``) を指定する。
+
 .. describe:: int train(0: string name, list<tuple<float, datum> > train_data)
 
  - Parameters:
@@ -34,20 +37,20 @@ Methods
 
   - モデルの更新に成功した場合 0
 
- 学習し、モデルを更新する。 ``tuple<float, datum>`` は、datumとその値の組である。
+ 学習し、モデルを更新する。
+ ``tuple<float, datum>`` は、datumとその値の組である。
  この関数は ``tuple<float, datum>`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
 
-.. describe:: list<float> estimate(0: string name, 1: list<datum> data)
+.. describe:: list<float> estimate(0: string name, 1: list<datum> estimate_data)
 
  - Parameters:
 
   - ``name`` : タスクを識別するクラスタ内でユニークな名前
-  - ``data`` : 推定するdatumのリスト
+  - ``estimate_data`` : 推定するdatumのリスト
 
  - Returns:
 
   - 推定値のリスト (入れられたdatumの順に並ぶ)
 
- 与えられた ``data`` から結果を推定する。
- この関数は ``datum`` をリスト形式でまとめて同時に受け付けることができる (バルク推定)。
- ``estimate_results`` は、予想値のリストが、入れられたdatumの順番に入っている。
+ 与えられた ``estimate_data`` から結果を推定する。
+ この関数は datum をリスト形式でまとめて同時に受け付けることができる (バルク推定)。

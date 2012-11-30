@@ -177,6 +177,8 @@ new TWTR.Widget({
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別するクラスタ内でユニークな名前である。
+スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int train(0: string name, list&lt;tuple&lt;float, datum&gt; &gt; train_data)</tt></dt>
@@ -197,20 +199,21 @@ new TWTR.Widget({
 <li>モデルの更新に成功した場合 0</li>
 </ul>
 </div></blockquote>
-<p>学習し、モデルを更新する。 <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> は、datumとその値の組である。
+<p>学習し、モデルを更新する。
+<tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> は、datumとその値の組である。
 この関数は <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">list&lt;float&gt; estimate(0: string name, 1: list&lt;datum&gt; data)</tt></dt>
+<tt class="descname">list&lt;float&gt; estimate(0: string name, 1: list&lt;datum&gt; estimate_data)</tt></dt>
 <dd><ul class="simple">
 <li>Parameters:</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別するクラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : 推定するdatumのリスト</li>
+<li><tt class="docutils literal"><span class="pre">estimate_data</span></tt> : 推定するdatumのリスト</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -221,9 +224,8 @@ new TWTR.Widget({
 <li>推定値のリスト (入れられたdatumの順に並ぶ)</li>
 </ul>
 </div></blockquote>
-<p>与えられた <tt class="docutils literal"><span class="pre">data</span></tt> から結果を推定する。
-この関数は <tt class="docutils literal"><span class="pre">datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク推定)。
-<tt class="docutils literal"><span class="pre">estimate_results</span></tt> は、予想値のリストが、入れられたdatumの順番に入っている。</p>
+<p>与えられた <tt class="docutils literal"><span class="pre">estimate_data</span></tt> から結果を推定する。
+この関数は datum をリスト形式でまとめて同時に受け付けることができる (バルク推定)。</p>
 </dd></dl>
 
 </div>
