@@ -27,3 +27,10 @@ Jubatus では、データ量が膨大である、データソースが離れて
 .. figure:: ../_static/multi_multi.png
    :width: 70 %
    :alt: multi clients, multi servers
+
+以下の図は、管理用プロセスの実行方法を表しています。
+なお、"semimaster", "jubatusctrl" および "jubatus_classifier_server" は、現在ではそれぞれ "keeper", "jubactl" および "jubaclassifier" と呼ばれています。
+
+.. figure:: ../_static/processes.png
+   :width: 90 %
+   :alt: relationship of processes

@@ -27,3 +27,10 @@ Jubatus can achieve this by creating multiple keepers and assigning different ke
 .. figure:: ../_static/multi_multi.png
    :width: 70 %
    :alt: multi clients, multi servers
+
+The following picture describes how to run programs used by management process.
+Please note that "semimaster", "jubatusctrl" and "jubatus_classifier_server" is now called as "keeper", "jubactl" and "jubaclassifier", respectively.
+
+.. figure:: ../_static/processes.png
+   :width: 90 %
+   :alt: relationship of processes

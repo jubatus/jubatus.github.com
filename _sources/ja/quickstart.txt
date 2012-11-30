@@ -5,7 +5,7 @@ Quick Start
 Install Jubatus
 ---------------
 
-Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 (x86_64) が公式にサポートされています。
+Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 以降 (x86_64) が公式にサポートされています。
 
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
 その他のシステムでのインストールについては :doc:`build` を参照してください。

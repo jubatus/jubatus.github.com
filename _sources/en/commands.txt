@@ -1,211 +1,325 @@
 Commands
 ========
 
+``[]`` indicates the default value.
+
 Jubatus Servers
 ---------------
 
-.. program:: Jubatus Servers
+.. program:: server
 
-.. option:: -p, --rpc-port
+.. option:: -p <port>, --rpc-port <port>
 
-   Port number for RPC([= 9199])
+   Port number to listen for RPC requests. [9199]
 
-.. option:: -c, --thread
+.. option:: -c <num>, --thread <num>
 
-   The number of threads RPC can handle similtaneously([= 2])
+   Number of threads to accept RPC connection. [2]
 
-.. option::  -t, --timeout
+.. option:: -t <seconds>, --timeout <seconds>
 
-   Session timeout of RPC in second([= 10])
+   Session timeout of RPC in seconds. [10]
 
-.. option::  -z, --zookeeper
+.. option:: -d <dirpath>, --tmpdir <dirpath>
 
-   Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless ``--storage`` option is local.
-   Format of this option must be  ``ipaddress:port,hostname:port,...`` . No spaces between values are allowed.
+   Path of directory to save and load training models using ``save`` and ``load`` RPC requests. [/tmp]
 
-.. option::  -n, --name
+.. option:: -l <dirpath>, --logdir <dirpath>
 
-   Instance name, which is unique among zookeeper cluster specified with ``--zookeeper`` .
-   If local_mixture is specified in ``--storage`` , parameters are mixed among all instances whose names are identical.
-   This option must not contain characters which are not available as znode (such as '/').
+   Path of directory to output log files.
 
-.. option::  -d, --tmpdir([=/tmp])
+   If not specified, logs are dumped to the standard error.
 
-   ``save`` Location where training model is saved when "save" API is published. Default value is ``/tmp`` .
-   ``load`` Location from where training model is loaded when "load" API is publised. Default value is ``/tmp`` .
+.. option:: -z <list>, --zookeeper <list>
 
-.. option::  -l, --logdir
+   List of ZooKeeper server(s).
 
-   Location of logfiles.
-   If this option is not specified, log messages output to stderr.
+   If not specified, Jubatus servers runs in standalone mode.
 
-.. option::  -j, --join
+   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
+   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
 
-   Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won't work.
+   No spaces between values are allowed.
 
-.. option:: -s, --interval_sec([=16])
+.. option:: -n <name>, --name <name>
 
-   Interval time of one of ''mix'' trigger in seconds.
+   The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.
 
-.. option:: -i, --interval_count([=512])
+   This option must be given only if ``--zookeeper`` is specified.
 
-   Another ''mix'' trigger: By default, in each 512 update requests (in single server) mix is tried to be invoked.
+   ``<name>`` should not contain characters that cannot be used as ZooKeeper node name (such as ``/``).
 
-.. option::  -?, --help
+.. option:: -j, --join
 
-   Print this message.
+   Join to the existing cluster.
 
+   New processes should join to the existing cluster with this option otherwise the machine learning won't work.
 
-Jubatus Keepers
----------------
+   This option is currently not implemented.
 
-.. program:: Jubatus Keepers
+.. option:: -s <seconds>, --interval_sec <seconds>
 
-.. option:: -p, --rpc-port
+   Invoke "mix" in every ``<seconds>`` second. [16]
 
-   Port number for RPC([= 9199])
+.. option:: -i <count>, --interval_count <count>
 
-.. option:: -c, --thread([=16])
+   Invoke "mix" in every ``<count>`` updates. [512]
 
-   Number of threads that accepts requests from clients.
+   The update counter is incremented when API that updates the training model (such as ``train`` in the classifier) is called.
 
-.. option::  -z, --zookeeper
+.. option:: -v, --version
 
-   Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless ``--storage`` option is local.
-   Format of this option must be  ``ipaddress:port,hostname:port,...`` . No spaces between values are allowed.
+   Print the version of Jubatus server.
 
-.. option::  -l, --logdir
+.. option:: -?, --help
 
-   Location of logfiles.
-   If this option is not specified, log messages output to stderr.
-
+   Print the brief usage of the command.
 
 Cluster Management
 ------------------
 
+Jubatus Keepers
+~~~~~~~~~~~~~~~
+
+.. program:: keeper
+
+.. option:: -p <port>, --rpc-port <port>
+
+   Port number to listen for RPC requests. [9199]
+
+.. option:: -c <num>, --thread <num>
+
+   Number of threads to accept RPC connection. [16]
+
+.. option:: -t <seconds>, --timeout <seconds>
+
+   Session timeout of RPC in seconds. [10]
+
+.. option:: -l <dirpath>, --logdir <dirpath>
+
+   Path of directory to output log files.
+
+   If not specified, logs are dumped to the standard error.
+
+.. option:: -z <list>, --zookeeper <list>
+
+   List of ZooKeeper server(s).
+
+   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
+   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
+
+   No spaces between values are allowed.
+
+.. option:: -v, --version
+
+   Print the version of Jubatus keeper.
+
+.. option:: -?, --help
+
+   Print the brief usage of the command.
+
 jubavisor
 ~~~~~~~~~
 
-(TODO: update to the latest spec.)
-jubavisor receives the commands from jubactl and start jubaclassifier.
-
 .. program:: jubavisor
 
-.. option:: -p, --rpc-port
+.. option:: -p <port>, --rpc-port <port>
 
-   Port number for RPC([= 9198])
+   Port number to listen for RPC requests. [9198]
 
-.. option::  -z, --zookeeper
+.. option:: -t <seconds>, --timeout <seconds>
 
-   Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless ``--storage`` option is local.
-   Format of this option must be  ``ipaddress:port,hostname:port,...`` . No spaces between values are allowed.
+   Session timeout of RPC in seconds. [10]
+
+.. option:: -l <dirpath>, --logdir <dirpath>
+
+   Path of directory to output log files.
+
+   If not specified, logs are dumped to the standard error.
+
+.. option:: -z <list>, --zookeeper <list>
+
+   List of ZooKeeper server(s).
+
+   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
+   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
+
+   No spaces between values are allowed.
+
+.. option:: -d, --daemon
+
+   Daemonize the process.
+
+.. option:: -?, --help
+
+   Print the brief usage of the command.
 
 jubactl
 ~~~~~~~
 
-(TODO: update to latest)
-jubactl sends commands to jubavisor.
-
 .. program:: jubactl
 
-.. option::  -c, --cmd
+.. option:: -c <command>, --cmd <command>
 
-   Send specified command to registered to Zookeeper. Command should be one of the followings.
+   Send specified command to jubavisors registered to ZooKeeper.
+   ``<command>`` should be one of the following.
 
    ========= =====================================================================================
-   start     start N jubaclassifiers with option --name=NAME --storage=STORAGE --zookeeper=ZOOKEEPER.  N, NAME, STORAGE and ZOOKEEPER are the ones specified with ``--name`` , ``--storage`` , ``--zookeeper`` , and ``--zookeeper`` , respectively.
-   stop      stop jubaclassifier.
-   save      save trained model in binary format to local directory specified ``--tmpdir``
-   load      load trained model to local directory specified ``--tmpdir``
-   status    print nodes which are relevant classified specified by name
+   Command   Description
+   ========= =====================================================================================
+   start     Start Jubatus servers
+   stop      Stop Jubatus servers
+   save      Save the model to directory specified by :option:`server -t`
+   load      Load the model from directory specified by :option:`server -t`
+   status    Print the status of servers, keepers and jubavisors
    ========= =====================================================================================
 
-.. option::  -t, --type
+.. option:: -s <program>, --server <program>
 
-   supported only "classifier".
+   Executable file of the server program (e.g., ``jubaclassifier``, ``jubarecommender``, ...).
 
-.. option::  -n, --name
+.. option:: -n <name>, --name <name>
 
-   Instance name, which is unique among zookeeper cluster specified with ``--zookeeper`` .
-   If local_mixture is specified in ``--storage`` , parameters are mixed among all instances whose names are identical.
-   This option must not contain characters which are not available as znode (such as '/').
+   The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.
 
-.. option::  -s, --storage
+.. option:: -t <type>, --type <type>
 
-   Location where training model is saved.
+   Type of the server program (e.g., ``classifier``, ``recommender``, ...).
 
-   =================== ======================================================================
-   local               runs in standalone mode
-   local_mixture       coordinate performance of Classifiers among multiple servers
-   =================== ======================================================================
+.. option:: -N <num>, --num <num>
 
+   Number of processes in the whole cluster.
 
-.. option::  -z, --zookeeper
+   Effective only when used with ``--cmd start``.
 
-   Server and port number of Zookeeper. If this option is not specified, Zookeeper runs standalone mode. This option must be specified unless ``--storage`` option is local.
-   Format of this option must be  ``ipaddress:port,hostname:port,...`` . No spaces between values are allowed.
+   When ``0`` is specified, start 1 process on each jubavisor.
 
-.. option::  -N, --num
+.. option:: -z <list>, --zookeeper <list>
 
-   Argument used in start command in cmd option. If other command is specified in cmd, this option is ignored.
-   If 0 is specified, the number of classifier started is same as the number of servers.
+   List of ZooKeeper server(s).
 
-.. option::  -?, --help
-   Print this message.
+   If not specified, environment variable ``ZK`` will be used.
 
-<FIXME: "semimaster" in figure: semimaster=jubakeeper>
-The following picture describes how to run programs used by management process.
+   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
+   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
 
-.. figure:: ../_static/processes.png
-   :width: 90 %
-   :alt: relationship of processes
+   No spaces between values are allowed.
 
-   figure: relationship of processes
+.. option:: -C <num>, --thread <num>
 
+   Option given when starting new server process (:option:`server -c`).
 
-Tools
------
+   Effective only when used with ``--cmd start``.
+
+.. option:: -T <seconds>, --timeout <seconds>
+
+   Option given when starting new server process (:option:`server -t`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -D <dirpath>, --tmpdir <dirpath>
+
+   Option given when starting new server process (:option:`server -d`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -L <dirpath>, --logdir <dirpath>
+
+   Option given when starting new server process (:option:`server -l`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -J, --join
+
+   Option given when starting new server process (:option:`server -j`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -S <seconds>, --interval_sec <seconds>
+
+   Option given when starting new server process (:option:`server -s`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -I <count>, --interval_count <count>
+
+   Option given when starting new server process (:option:`server -i`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -d, --debug
+
+   Run in debug mode.
+
+.. option:: -?, --help
+
+   Print the brief usage of the command.
+
+Utilities
+---------
+
+.. _jubaconv:
 
 jubaconv
 ~~~~~~~~
 
-jubaconv is a debug tool which converts specified data is converted in a scecified format.
-It simulates internal behavior of fv_converter in the console.
-We can utilize this in order to check if converter_config works correctly.
+``jubaconv`` is a tool to test your fv_converter configuration.
+
+``jubaconv`` simulates the internal behavior of fv_converter and displays the result of conversion on the command-line.
 
 .. program:: jubaconv
 
-.. option::  -i (json/datum)
+.. option:: -i <format>, --input-format <format>
 
-    Specifies input format.
+   Format of the input. [json]
+   ``<format>`` must be one of ``json`` or ``datum``.
 
-.. option::  -o (json/datum/fv)
+.. option:: -o <format>, --output-format <format>
 
-    Specifies output format. Processing is simulated until specified format is obtained.
+   Format of the output. [fv]
+   ``<format>`` must be one of ``json``, ``datum`` or ``fv``.
 
-.. option::  -c converter_config
+.. option:: -c <config>, --conf <config>
 
-    Specifies converter_config.
+   fv_converter configuration file in JSON (see :doc:`fv_convert`).
 
 .. _jenerator:
 
 jenerator
 ~~~~~~~~~
 
-jenerator is a converter to create a jubakeeper and basic server template from extended msgpack-idl format. jenerator takes first argument as an IDL filename to process, rest is for options.
+``jenerator`` generates C++ source of keeper and server skeleton from extended MessagePack-IDL file.
 
-.. program:: jenerator <filename>
+``jenerator`` is not installed by default (see ``src/tools/generator`` in the source tree).
 
-.. option:: -t
+.. code-block:: none
 
-    Generates server template.
+  $ jenerator <idl-file> [options...]
+
+.. program:: jenerator
+
+.. option:: -o <dirpath>
+
+   Directory to output the generated source files.
 
 .. option:: -i
 
-    Generates the code as internal library to merged in Jubatus repository.
-    If the generated code is separated from Jubatus repository and assumed
-    Jubatus is installed, or you don't know well, *DO NOT* use this option.
+   Use relative path for ``#include`` directives.
 
-.. option:: -o path
+   This option is intended for use by Jubatus developers; you don't need this option in most cases.
 
-    (*NOT IMPLEMENTED*) Directory to output the generate source code files.
+.. option:: -n <namespace>
+
+   Declare the specified namespace for generated source.
+
+.. option:: -t
+
+   Generate server template.
+
+.. option:: -d
+
+   Run in debug mode.
+
+.. option:: -help, --help
+
+   Print the brief usage of the command.

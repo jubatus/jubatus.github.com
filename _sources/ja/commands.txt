@@ -1,211 +1,325 @@
 Commands
 ========
 
+``[]`` はデフォルト値を意味する。
+
 Jubatus Servers
 ---------------
 
-.. program:: Jubatus Servers
+.. program:: server
 
-.. option:: -p, --rpc-port
+.. option:: -p <port>, --rpc-port <port>
 
-   RPC用の待受ポート番号([= 9199])
+   RPC リクエストを受け付けるポート番号。 [9199]
 
-.. option:: -c, --thread
+.. option:: -c <num>, --thread <num>
 
-   RPCが同時に処理するスレッド数([= 2])
+   RPC リクエストを受け付けるスレッド数。 [2]
 
-.. option::  -t, --timeout
+.. option:: -t <seconds>, --timeout <seconds>
 
-   RPCのsession timeout秒([= 10])
+   RPC セッションのタイムアウト時間 (秒)。 [10]
 
-.. option::  -z, --zookeeper
+.. option:: -d <dirpath>, --tmpdir <dirpath>
 
-   zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 ``--storage`` オプションにlocal以外を指定した場合は必須。
-   書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。スペースを間にはさんではいけない。
+   ``save``/``load`` RPC リクエストを受信したときに学習モデルを保存/復元するディレクトリ。 [/tmp]
 
-.. option::  -n, --name
+.. option:: -l <dirpath>, --logdir <dirpath>
 
-   ``--zookeeper`` で指定した ZooKeeper クラスタ内でユニークなインスタンス名。
-   ``--storage`` でlocal_mixtureを指定した場合、 ``--name`` で指定したnameが同じインスタンス同士がパラメタをmixする。
-   '/' 等、znodeに利用できない文字を含んではならない。
+   ログファイルを出力するディレクトリ。
 
-.. option::  -d, --tmpdir([=/tmp])
+   指定されていない場合、ログは標準エラーに出力される。
 
-   ``save`` APIを発行されたときに、学習モデルを保管する場所。
-   ``load`` APIを発行されたときには、この場所から学習モデルをロードする。デフォルトは ``/tmp`` である。
+.. option:: -z <list>, --zookeeper <list>
 
-.. option::  -l, --logdir
+   ZooKeeper サーバの一覧。
 
-   ログファイルの出力場所。
-   指定しない場合は、標準エラーに出力される。
+   指定されていない場合、Jubatus サーバはスタンドアローンモードで動作する。
 
-.. option::  -j, --join
+   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
+   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
 
-   Join to the existing clister. New processes should not join to the existing cluster without specifying this option otherwise the machine learning won't work.
+   値の中にスペースを含めることはできない。
 
-.. option:: -s, --interval_sec([=16])
+.. option:: -n <name>, --name <name>
 
-   Interval time of one of ''mix'' trigger in seconds.
+   インスタンス名 (タスクを識別する ZooKeeper クラスタ内でユニークな名前)。
 
-.. option:: -i, --interval_count([=512])
+   ``--zookeeper`` が指定されている場合のみ、このオプションを指定する必要がある。
 
-   Another ''mix'' trigger: By default, in each 512 update requests (in single server) mix is tried to be invoked.
+   ``<name>`` には、ZooKeeper のノード名として使用できない文字 (``/`` など) を使用することはできない。
 
-.. option::  -?, --help
+.. option:: -j, --join
 
-    オプションの一覧を表示
+   既存のクラスタに参加する。
 
+   新しいプロセスは、このオプションを指定してクラスタに参加しなければ機械学習が動作しない。
 
-Jubatus Keepers
----------------
+   このオプションは現在実装されていない。
 
-.. program:: Jubatus Keepers
+.. option:: -s <seconds>, --interval_sec <seconds>
 
-.. option:: -p, --rpc-port
+   毎 ``<seconds>`` 秒おきに mix を行う。 [16]
 
-   RPC用の待受ポート番号([= 9199])
+.. option:: -i <count>, --interval_count <count>
 
-.. option:: -c, --thread([=16])
+   毎 ``<count>`` 更新ごとに mix を行う。 [512]
 
-   Number of threads that accepts requests from clients.
+   更新カウンタは、学習モデルを更新する API (分類器の ``train`` など) を呼ぶたびにインクリメントされる。
 
-.. option::  -z, --zookeeper
+.. option:: -v, --version
 
-   zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 ``--storage`` オプションにlocal以外を指定した場合は必須。
-   書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。スペースを間にはさんではいけない。
+   Jubatus サーバのバージョンを表示する。
 
-.. option::  -l, --logdir
+.. option:: -?, --help
 
-   ログファイルの出力場所。
-   指定しない場合は、標準エラーに出力される。
+   このコマンドの簡単な使い方を表示する。
 
 Cluster Management
 ------------------
 
+Jubatus Keepers
+~~~~~~~~~~~~~~~
+
+.. program:: keeper
+
+.. option:: -p <port>, --rpc-port <port>
+
+   RPC リクエストを受け付けるポート番号。 [9199]
+
+.. option:: -c <num>, --thread <num>
+
+   RPC リクエストを受け付けるスレッド数。 [16]
+
+.. option:: -t <seconds>, --timeout <seconds>
+
+   RPC セッションのタイムアウト時間 (秒)。 [10]
+
+.. option:: -l <dirpath>, --logdir <dirpath>
+
+   ログファイルを出力するディレクトリ。
+
+   指定されていない場合、ログは標準エラーに出力される。
+
+.. option:: -z <list>, --zookeeper <list>
+
+   ZooKeeper サーバの一覧。
+
+   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
+   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
+
+   値の中にスペースを含めることはできない。
+
+.. option:: -v, --version
+
+   Jubatus Keeper のバージョンを表示する。
+
+.. option:: -?, --help
+
+   このコマンドの簡単な使い方を表示する。
+
 jubavisor
 ~~~~~~~~~
 
-(TODO: update to the latest spec.)
-jubactlから指示を受けつけて、jubaclassifierを適切な場所で適切なオプションで起動する。
-
 .. program:: jubavisor
 
-.. option:: -p, --rpc-port
+.. option:: -p <port>, --rpc-port <port>
 
-   RPC用の待受ポート番号([= 9198])
+   RPC リクエストを受け付けるポート番号。 [9198]
 
-.. option::  -z, --zookeeper
+.. option:: -t <seconds>, --timeout <seconds>
 
-   zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 ``--storage`` オプションにlocal以外を指定した場合は必須。
-   書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。スペースを間にはさんではいけない。
+   RPC セッションのタイムアウト時間 (秒)。 [10]
+
+.. option:: -l <dirpath>, --logdir <dirpath>
+
+   ログファイルを出力するディレクトリ。
+
+   指定されていない場合、ログは標準エラーに出力される。
+
+.. option:: -z <list>, --zookeeper <list>
+
+   ZooKeeper サーバの一覧。
+
+   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
+   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
+
+   値の中にスペースを含めることはできない。
+
+.. option:: -d, --daemon
+
+   プロセスをデーモンとして動作させる。
+
+.. option:: -?, --help
+
+   このコマンドの簡単な使い方を表示する。
 
 jubactl
 ~~~~~~~
 
-(TODO: update to latest)
-jubavisorに指示を送る。
-
 .. program:: jubactl
 
-.. option::  -c, --cmd
+.. option:: -c <command>, --cmd <command>
 
-   zookeeperに登録されているjubavisorに対して
+   ZooKeeper に登録されている jubavisor に指定したコマンドを送信する。
+   ``<command>`` の値は以下のいずれかを指定する。
 
-   ======== ==================================================================================================
-   start    jubaclassifier --name={name} --storage={storage} --zookeeper={zookeeper}を{num}個起動する。
-   stop     jubaclassifier を停止する。
-   save     --tmpdirで指定したローカルディレクトリにバイナリ形式で学習済みのモデルを保存
-   load     --tmpdirで指定したローカルディレクトリから学習済みのモデルをロードする
-   status   nameで指定したclassifierに関係するノードを表示する
-   ======== ==================================================================================================
+   ========= =====================================================================================
+   コマンド  説明
+   ========= =====================================================================================
+   start     Jubatus サーバを起動する
+   stop      Jubatus サーバを停止する
+   save      :option:`server -t` で指定されたディレクトリに学習モデルを保存する
+   load      :option:`server -t` で指定されたディレクトリから学習モデルを復元する
+   status    サーバ、Keeper および jubavisor の状態を表示する
+   ========= =====================================================================================
 
-.. option::  -t, --type
+.. option:: -s <program>, --server <program>
 
-   supported only "classifier".
+   サーバプログラムの実行ファイル (例: ``jubaclassifier``, ``jubarecommender``, ...)。
 
-.. option::  -n, --name
+.. option:: -n <name>, --name <name>
 
-   ``--zookeeper`` で指定した ZooKeeper クラスタ内でユニークなインスタンス名。
-   ``--storage`` でlocal_mixtureを指定した場合、 ``--name`` で指定したnameが同じインスタンス同士がパラメタをmixする。
-   '/' 等、znodeに利用できない文字を含んではならない。
+   インスタンス名 (タスクを識別する ZooKeeper クラスタ内でユニークな名前)。
 
-.. option::  -s, --storage
+.. option:: -t <type>, --type <type>
 
-   学習モデルをどこで保持するか
+   サーバプログラムの種類 (例: ``classifier``, ``recommender``, ...).
 
-   =================== ======================================================================
-   local               スタンドアローンでの動作
-   local_mixture       複数サーバーでのClassifierの協調動作
-   =================== ======================================================================
+.. option:: -N <num>, --num <num>
 
+   クラスタ内のプロセス数。
 
-.. option::  -z, --zookeeper
+   ``--cmd start`` を指定した場合のみ有効である。
 
-   zookeeperのサーバ、ポートを指定。オプションを指定しない場合は、standaloneで動作する。 ``--storage`` オプションにlocal以外を指定した場合は必須。
-   書式は、 ``ipaddress:port,hostname:port,...`` の形式に従うこと。スペースを間にはさんではいけない。
+   ``0`` が指定された場合、各 jubavisor ごとに 1 プロセスが起動される。
 
-.. option::  -N, --num
+.. option:: -z <list>, --zookeeper <list>
 
-    cmdにstart以外が指定されている場合は、無視される。
-    0を指定すると、serverの台数分だけサーバを立ち上げる。
+   ZooKeeper サーバの一覧。
 
+   指定されない場合は、環境変数 ``ZK`` が使用される。
 
-.. option::  -?, --help
-         print this message
+   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
+   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
 
-<FIXME: "semimaster" in figure: semimaster=jubakeeper>
-management process で利用されるプログラムの使い方手順をまとめます。
+   値の中にスペースを含めることはできない。
 
-.. figure:: ../_static/processes.png
-   :width: 90 %
-   :alt: relationship of processes
+.. option:: -C <num>, --thread <num>
 
-   figure: relationship of processes
+   サーバプロセスの開始時のオプションを指定する (:option:`server -c`).
 
+   ``--cmd start`` を指定した場合のみ有効である。
 
-Tools
------
+.. option:: -T <seconds>, --timeout <seconds>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -t`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -D <dirpath>, --tmpdir <dirpath>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -d`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -L <dirpath>, --logdir <dirpath>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -l`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -J, --join
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -j`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -S <seconds>, --interval_sec <seconds>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -s`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -I <count>, --interval_count <count>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -i`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -d, --debug
+
+   デバッグモードで実行する。
+
+.. option:: -?, --help
+
+   このコマンドの簡単な使い方を表示する。
+
+Utilities
+---------
+
+.. _jubaconv-ja:
 
 jubaconv
 ~~~~~~~~
 
-指定した形式のデータを指定した形式の出力に変換するデバッグツール。
-fv_converter内部で行われていることをコンソールで実施する。
-converter_configが意図したとおりに動作しているかどうかを確認するのに使う。
+``jubaconv`` は fv_converter の設定をテストするためのツールである。
+
+``jubaconv`` は fv_converter 内部の動作をシミュレーションし、変換結果をコマンドラインで表示することができる。
 
 .. program:: jubaconv
 
-.. option::  -i (json/datum)
+.. option:: -i <format>, --input-format <format>
 
-    入力形式を指定。
+   入力のフォーマット。 [json]
+   ``<format>`` には ``json`` または ``datum`` のいずれかを指定する。
 
-.. option::  -o (json/datum/fv)
+.. option:: -o <format>, --output-format <format>
 
-    出力形式を指定。指定したところまで処理を行う。
+   出力のフォーマット。 [fv]
+   ``<format>`` には ``json``, ``datum`` または ``fv`` のいずれかを指定する。
 
-.. option::  -c converter_config
+.. option:: -c <config>, --conf <config>
 
-    converter_configを指定。
+   JSON で記述された fv_converter の設定ファイル (see :doc:`fv_convert`)。
 
 .. _jenerator-ja:
 
 jenerator
 ~~~~~~~~~
 
-jenerator is a converter to create a jubakeeper and basic server template from extended msgpack-idl format. jenerator takes first argument as an IDL filename to process, rest is for options.
+``jenerator`` は拡張 MessagePack-IDL ファイルから、Keeper とサーバのスケルトン (C++ source) を生成する。
 
-.. program:: jenerator <filename>
+``jenerator`` はデフォルトではインストールされない (ソースの ``src/tools/generator`` ディレクトリを参照)。
 
-.. option:: -t
+.. code-block:: none
 
-    Generates server template.
+  $ jenerator <idl-file> [options...]
+
+.. program:: jenerator
+
+.. option:: -o <dirpath>
+
+   生成されたソースファイルを出力するディレクトリ。
 
 .. option:: -i
 
-    Generates the code as internal library to merged in Jubatus repository.
-    If the generated code is separated from Jubatus repository and assumed
-    Jubatus is installed, or you don't know well, *DO NOT* use this option.
+   ``#include`` 命令に相対パスを使用する。
 
-.. option:: -o path
+   このオプションは Jubatus 開発者による利用を想定しているため、多くの場合、指定する必要はない。
 
-    (*NOT IMPLEMENTED*) Directory to output the generate source code files.
+.. option:: -n <namespace>
+
+   生成されたソースで指定された名前空間を宣言する。
+
+.. option:: -t
+
+   サーバのテンプレートを生成する。
+
+.. option:: -d
+
+   デバッグモードで実行する。
+
+.. option:: -help, --help
+
+   このコマンドの簡単な使い方を表示する。

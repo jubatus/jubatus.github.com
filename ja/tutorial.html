@@ -42,7 +42,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" /> 
+    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
+    <link rel="up" title="Jubatus : オンライン機械学習向け分散処理フレームワーク" href="index_ja.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
 
 <!--
 
@@ -80,7 +83,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="documentation.html" title="Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+          <li><a href="index_ja.html" accesskey="U">Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -119,6 +129,12 @@
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="documentation.html"
+                        title="next chapter">Documentation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/ja/tutorial.txt"
@@ -181,9 +197,9 @@ new TWTR.Widget({
 <div class="section" id="scenario">
 <h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
 <p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20</a> (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) を利用します。
-News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
+News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。</p>
-<p>このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。</p>
+<p>このチュートリアルの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。</p>
 </div>
 <div class="section" id="standalone-mode">
 <h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this headline">¶</a></h2>
@@ -203,7 +219,7 @@ I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 R
   interval sec   : 16
   interval count : 512</pre>
 </div>
-<p>Jubatus の分類器が起動しました。
+<p>Jubatus の分類器サーバが起動しました。
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
 その他のポートを使用したい場合は、 <tt class="docutils literal"><span class="pre">--rcp-port</span></tt> オプションで指定することができます。
 例えば、19199 番ポートを使用するには、次のようにします。</p>
@@ -225,7 +241,8 @@ $ tar xvzf 20news-bydate.tar.gz</pre>
 <div class="highlight-python"><pre>$ python tutorial.py</pre>
 </div>
 <p>分類の結果が表示されます。
-より詳しい説明は以下を参照してください。</p>
+それぞれのメッセージについて、 <tt class="docutils literal"><span class="pre">OK</span></tt> は Jubatus の分類したラベルが正しかったことを、 <tt class="docutils literal"><span class="pre">NG</span></tt> は誤っていたことを表します。</p>
+<p>より詳しい説明は以下を参照してください。</p>
 </div>
 </div>
 <div class="section" id="tutorial-in-detail">
@@ -260,7 +277,7 @@ $ tar xvzf 20news-bydate.tar.gz</pre>
 |-- talk.politics.misc
 `-- talk.religion.misc</pre>
 </div>
-<p><tt class="docutils literal"><span class="pre">49960</span></tt> はメッセージの一つで、 <tt class="docutils literal"><span class="pre">alt.atheism</span></tt> はそのメッセージが投稿されたnewsgroupの名前です。
+<p><tt class="docutils literal"><span class="pre">49960</span></tt> はメッセージの一つで、 <tt class="docutils literal"><span class="pre">alt.atheism</span></tt> はそのメッセージが投稿されたニュースグループの名前です。
 例えば、 <tt class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></tt> の内容は次のようなものです。</p>
 <div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
@@ -289,20 +306,22 @@ preferably longer, of course, and worth being part of.)
 </div>
 <div class="section" id="server-configuration">
 <h3>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> の動作は <tt class="docutils literal"><span class="pre">set_config</span></tt> メソッドで設定します。
+<p>分類器サービスを使用する前に、 <tt class="docutils literal"><span class="pre">set_config</span></tt> API を用いて <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> の動作をセットアップする必要があります。
 <tt class="docutils literal"><span class="pre">method</span></tt> と <tt class="docutils literal"><span class="pre">converter</span></tt> の 2 つの設定可能なパラメタがあります。
 これらのパラメタのサンプルを以下に示します。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
-          <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:[],</span>
-          <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
-          <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
-          <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
-         <span class="p">}</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">algo</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">converter</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">method</span> <span class="o">=</span> <span class="s">&quot;PA&quot;</span>
+<span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
+              <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:[],</span>
+              <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+              <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+              <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">converter</span><span class="p">))</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">method</span></tt> は、以下のアルゴリズムのうちいずれかを指定することができます。</p>
@@ -315,66 +334,63 @@ preferably longer, of course, and worth being part of.)
 </ul>
 <p>このチュートリアルでは、 <tt class="docutils literal"><span class="pre">PA</span></tt> を選択します。</p>
 <p><tt class="docutils literal"><span class="pre">converter</span></tt> は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します (詳細は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照してください)。</p>
-<p>今回の学習データは、自然言語のテキストです。
-英語など多くの言語は、&lt;space&gt; と &lt;return&gt; で単語に分割出来るので、単語化して特徴ベクトルにすることにしましょう。
-Jubatus はこの機能をデフォルトで備えています。
-また、HTMLタグなどは、内容を分類するのにノイズになりそうなので、&#8221;&lt;&gt;&#8221;で囲まれた部分を除去することにしましょう。</p>
-<p>こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことができます。
-今回のルールをJSONで表現すると、以下のようになります。</p>
+<p>このチュートリアルで使用する学習データは、自然言語のテキストです。
+英語など多くの言語は、空白と改行で区切るだけで単語を抽出できます。
+Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自然言語のテキストを単語に分割) をデフォルトで備えています。
+また、HTML タグなどは、内容を分類するのにノイズになりそうなので、 <tt class="docutils literal"><span class="pre">&lt;</span></tt> と <tt class="docutils literal"><span class="pre">&gt;</span></tt> で囲まれた部分を除去することにしましょう。</p>
+<p>この機能を使用すると、こういった自然言語処理や与えられた値の重み付けなど、様々なルール付けを行うことができます。
+今回のルールを JSON で表現すると、以下のようになります。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
-         <span class="p">},</span>
-        <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:</span>
-           <span class="p">[</span>
-          <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
-           <span class="p">],</span>
-          <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
-          <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
-              <span class="p">{</span><span class="s">&#39;key&#39;</span><span class="p">:</span> <span class="s">&#39;message-detagged&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+              <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
               <span class="p">],</span>
-          <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-          <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
-          <span class="p">}</span>
+              <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+              <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s">&#39;key&#39;</span><span class="p">:</span> <span class="s">&#39;message-detagged&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+              <span class="p">],</span>
+              <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+              <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">get_config</span></tt> を呼ぶと、現在指定されている設定値が返却されます。</p>
 </div>
 <div class="section" id="use-of-classifier-api-train-classify">
 <h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
-<p>分類器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> という API (RPC メソッド) を利用します。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">train_dat</span> <span class="o">=</span> <span class="p">[</span>
-              <span class="p">(</span>
-                <span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span>
-                <span class="p">[[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy a new mac book air...&quot;</span><span class="p">],</span> <span class="p">[]]</span>
-              <span class="p">)</span>
-            <span class="p">]</span>
+<p>分類器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> という API (RPC メソッド) を利用します。
+以下の例で、 <tt class="docutils literal"><span class="pre">d1</span></tt> はメッセージから作成された datum であり、 <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> はそのメッセージのラベル (ニュースグループの名前) です。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">datum</span><span class="p">([[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">]],</span> <span class="p">[])</span>
+<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
 </pre></div>
 </div>
-<p>推定 (ここでは、Jubatus に与えられたデータから分類) を行う場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> という API を利用します。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">classify_dat</span> <span class="o">=</span> <span class="p">[</span>
-                 <span class="p">[[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I bought a new mac book air...&quot;</span><span class="p">],</span> <span class="p">[]]</span>
-               <span class="p">]</span>
+<p>この要領で、ラベルとメッセージの組み合わせを多数学習させます。</p>
+<p>学習結果を使って分類を行う場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> という API を利用します。
+<tt class="docutils literal"><span class="pre">d2</span></tt> はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">datum</span><span class="p">([[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">]],</span> <span class="p">[])</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">d2</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>その結果、以下のような値が得られます。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span>
      <span class="p">[</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
      <span class="o">...</span>
-     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">2.0973217487300002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">0.2273217487300002</span><span class="p">],</span>
      <span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
      <span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
      <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
 <span class="p">]]</span>
 </pre></div>
 </div>
+<p>メッセージ <tt class="docutils literal"><span class="pre">d2</span></tt> は <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> に投稿された可能性が高いことが分かりました。</p>
 </div>
 </div>
 <div class="section" id="cluster-mode">
 <h2>Cluster Mode<a class="headerlink" href="#cluster-mode" title="Permalink to this headline">¶</a></h2>
-<p>Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を協調動作させることで、分散処理を行うことが出来ます。</p>
+<p>Jubatus では ZooKeeper を用いて複数のサーバプロセス間を協調動作させることで、分散処理を行うことができます。</p>
 <div class="figure">
 <img alt="single client, multi servers" src="../_images/single_multi1.png" style="width: 70%;" />
 </div>
@@ -399,7 +415,7 @@ STARTED</pre>
 分類器に対応する Keeper は <tt class="docutils literal"><span class="pre">jubaclassifier_keeper</span></tt> となります。</p>
 <div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
 </div>
-<p>これにより、jubaclassifier_keeperは、TCP 9198 番ポートでRPCを待ち受けます。</p>
+<p>これにより、jubaclassifier_keeper は、TCP 9198 番ポートで RPC リクエストを待ち受けます。</p>
 </div>
 <div class="section" id="join-jubatus-servers-to-cluster">
 <h3>Join Jubatus Servers to Cluster<a class="headerlink" href="#join-jubatus-servers-to-cluster" title="Permalink to this headline">¶</a></h3>
@@ -540,7 +556,14 @@ active tutorial members:
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="documentation.html" title="Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,4 +1,3 @@
-
 Tutorial
 ========
 
@@ -37,7 +36,7 @@ Simply run ``jubaclassifier`` program that provides classification feature.
     interval sec   : 16
     interval count : 512
 
-Jubatus classification service is now started.
+Jubatus classification server is now started.
 Jubatus servers listen on TCP port 9199 by default.
 If you would like to use another port, specify it using ``--rcp-port`` option.
 For example, to use port 19199:
@@ -71,6 +70,8 @@ Then, run the program.
   $ python tutorial.py
 
 Now you'll see the result of classification!
+For each message, ``OK`` means that Jubatus estimated the label correctly, and ``NG`` means that estimated label was wrong.
+
 Read below for more detailed description.
 
 
@@ -144,23 +145,25 @@ In this tutorial, we use these text as the training data.
 Server Configuration
 ~~~~~~~~~~~~~~~~~~~~
 
-You can setup a behavior of ``jubaclassifier`` using ``set_config`` API.
+Before using classification service, you need to setup a behavior of ``jubaclassifier`` using ``set_config`` API.
 There are two configurable parameter: ``method`` and ``converter``.
 Examle of these parameters are as follows.
 
 .. code-block:: python
 
+  method = "PA"
   converter = {
-            'string_filter_types': {},
-            'string_filter_rules':[],
-            'num_filter_types': {},
-            'num_filter_rules': [],
-            'string_types': {},
-            'string_rules': [],
-            'num_types': {},
-            'num_rules': []
-           }
-  config = types.config_data(options.algo, json.dumps(converter))
+                'string_filter_types': {},
+                'string_filter_rules':[],
+                'num_filter_types': {},
+                'num_filter_rules': [],
+                'string_types': {},
+                'string_rules': [],
+                'num_types': {},
+                'num_rules': []
+              }
+  config = types.config_data(method, json.dumps(converter))
+  client.set_config("", config)
 
 You can choose one of the following algorithm as ``method``:
 
@@ -174,10 +177,10 @@ We use ``PA`` in this tutorial.
 
 ``converter`` decides how to extract feature vector from input data (see :doc:`fv_convert` for details).
 
-In this tutorial, input data is the text of natural language.
-Many languages such as English, <space> and <return> can be split into words.
-Jubatus supports this feature by default.
-HTML tags are noisy to classify the contents so we will remove the part that is enclosed in "<>".
+In this tutorial, input data is text of natural language.
+In many languages such as English, words can be extracted by just splitting with spaces and line breaks.
+Jubatus supports this kind of feature vector extraction (in this case, from text of natural language into words) by default.
+Additionally, HTML tags are noisy to classify the contents so we will remove the part that is enclosed in ``<`` and ``>``.
 
 Using this feature, you can apply multiple rules such as natural language process and weighting of values.
 These rules expressed as follows in JSON.
@@ -185,60 +188,57 @@ These rules expressed as follows in JSON.
 .. code-block:: python
 
     converter = {
-            'string_filter_types': {
-            "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
-             },
-            'string_filter_rules':
-               [
-              { "key": "message", "type": "detag", "suffix": "-detagged" }
-               ],
-              'num_filter_types': {},
-              'num_filter_rules': [],
-              'string_types': {},
-              'string_rules': [
-                  {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
+                  'string_filter_types': {
+                    "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+                  },
+                  'string_filter_rules': [
+                    { "key": "message", "type": "detag", "suffix": "-detagged" }
                   ],
-              'num_types': {},
-              'num_rules': []
-              }
-
-``get_config`` will return the configuration currently set in the server.
+                  'num_filter_types': {},
+                  'num_filter_rules': [],
+                  'string_types': {},
+                  'string_rules': [
+                    {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
+                  ],
+                  'num_types': {},
+                  'num_rules': []
+                }
 
 Use of Classifier API: Train & Classify
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Call ``train`` API (RPC method) to update models in the classifier.
+In the following example, ``d1`` is a datum constructed from a message, and ``"comp.sys.mac.hardware"`` is a label (name of newsgroup) for the message.
 
 .. code-block:: python
 
-  train_dat = [
-                (
-                  "comp.sys.mac.hardware",
-                  [["message" , "I want to buy a new mac book air..."], []]
-                )
-              ]
+  d1 = types.datum([["message" , "I want to buy mac book air..."]], [])
+  client.train("", [("comp.sys.mac.hardware", d1)])
 
-Call ``classify`` API to analyze (in this case, let Jubatus classify the given data) with models.
+Repeat training the model using many instances of labels and messages in this way.
+
+Now, call ``classify`` API to analyze with models.
+``d2`` is a datum constructed from a message, but you don't know the newsgroup the message was posted to; so let Jubatus predict it.
 
 .. code-block:: python
 
-  classify_dat = [
-                   [["message" , "I bought a new mac book air..."], []]
-                 ]
+  d2 = types.datum([["message" , "Just bought a new mac book air..."]], [])
+  result = client.classify("", [d2])
 
-The return format of ``classify`` method is as follows.
+The result is as follows.
 
 .. code-block:: python
 
    [[
         ["comp.sys.mac.hardware", 1.10477745533],
         ...
-        ["rec.sport.hockey", 2.0973217487300002],
+        ["rec.sport.hockey", 0.2273217487300002],
         ["comp.os.ms-windows.misc", -0.065333858132400002],
         ["sci.electronics", -0.184129983187],
         ["talk.religion.misc", -0.092822007834899994]
    ]]
 
+So, it seems that the message ``d2`` was posted to ``"comp.sys.mac.hardware"``.
 
 Cluster Mode
 ------------
@@ -280,7 +280,7 @@ For the classifier, ``jubaclassifier_keeper`` is the corresponding keeper.
 
     $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
 
-Now ``jubaclassifier_keeper`` started listening on TCP 9198 port.
+Now ``jubaclassifier_keeper`` started listening on TCP 9198 port for RPC requests.
 
 Join Jubatus Servers to Cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -411,4 +411,3 @@ You can also stop instance of Jubatus server from ``jubactl``.
 ::
 
     [192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-

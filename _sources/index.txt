@@ -31,6 +31,10 @@ Table of Contents
    en/howtocontribute
    en/misc
 
+.. toctree::
+   :hidden:
+
+   ja/index_ja
 
 Other Resources
 ===============

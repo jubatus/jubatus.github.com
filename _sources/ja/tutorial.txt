@@ -1,4 +1,3 @@
-
 Tutorial
 ========
 
@@ -9,10 +8,10 @@ Scenario
 --------
 
 このチュートリアルでは、自然言語の分類に対する評価用データとして有名な `News20 <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ (``20news-bydate.tar.gz``) を利用します。
-News20では、話題が20個のnewsgroupに分かれており、人々は自分が適していると思ったnewsgroupに投稿します。
+News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。
 
-このチュートリアルの目的は、学習用データを(投稿先newsgroup, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先newsgroupを推測することです。
+このチュートリアルの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。
 
 
 Standalone Mode
@@ -37,7 +36,7 @@ Standalone Mode
     interval sec   : 16
     interval count : 512
 
-Jubatus の分類器が起動しました。
+Jubatus の分類器サーバが起動しました。
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
 その他のポートを使用したい場合は、 ``--rcp-port`` オプションで指定することができます。
 例えば、19199 番ポートを使用するには、次のようにします。
@@ -71,6 +70,8 @@ Run Tutorial
   $ python tutorial.py
 
 分類の結果が表示されます。
+それぞれのメッセージについて、 ``OK`` は Jubatus の分類したラベルが正しかったことを、 ``NG`` は誤っていたことを表します。
+
 より詳しい説明は以下を参照してください。
 
 
@@ -111,7 +112,7 @@ Dataset
   |-- talk.politics.misc
   `-- talk.religion.misc
 
-``49960`` はメッセージの一つで、 ``alt.atheism`` はそのメッセージが投稿されたnewsgroupの名前です。
+``49960`` はメッセージの一つで、 ``alt.atheism`` はそのメッセージが投稿されたニュースグループの名前です。
 例えば、 ``20news-bydate-train/rec.motorcycles/104435`` の内容は次のようなものです。
 
 ::
@@ -144,23 +145,25 @@ Dataset
 Server Configuration
 ~~~~~~~~~~~~~~~~~~~~
 
-``jubaclassifier`` の動作は ``set_config`` メソッドで設定します。
+分類器サービスを使用する前に、 ``set_config`` API を用いて ``jubaclassifier`` の動作をセットアップする必要があります。
 ``method`` と ``converter`` の 2 つの設定可能なパラメタがあります。
 これらのパラメタのサンプルを以下に示します。
 
 .. code-block:: python
 
+  method = "PA"
   converter = {
-            'string_filter_types': {},
-            'string_filter_rules':[],
-            'num_filter_types': {},
-            'num_filter_rules': [],
-            'string_types': {},
-            'string_rules': [],
-            'num_types': {},
-            'num_rules': []
-           }
-  config = types.config_data(options.algo, json.dumps(converter))
+                'string_filter_types': {},
+                'string_filter_rules':[],
+                'num_filter_types': {},
+                'num_filter_rules': [],
+                'string_types': {},
+                'string_rules': [],
+                'num_types': {},
+                'num_rules': []
+              }
+  config = types.config_data(method, json.dumps(converter))
+  client.set_config("", config)
 
 ``method`` は、以下のアルゴリズムのうちいずれかを指定することができます。
 
@@ -174,57 +177,53 @@ Server Configuration
 
 ``converter`` は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します (詳細は :doc:`fv_convert` を参照してください)。
 
-今回の学習データは、自然言語のテキストです。
-英語など多くの言語は、<space> と <return> で単語に分割出来るので、単語化して特徴ベクトルにすることにしましょう。
-Jubatus はこの機能をデフォルトで備えています。
-また、HTMLタグなどは、内容を分類するのにノイズになりそうなので、"<>"で囲まれた部分を除去することにしましょう。
+このチュートリアルで使用する学習データは、自然言語のテキストです。
+英語など多くの言語は、空白と改行で区切るだけで単語を抽出できます。
+Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自然言語のテキストを単語に分割) をデフォルトで備えています。
+また、HTML タグなどは、内容を分類するのにノイズになりそうなので、 ``<`` と ``>`` で囲まれた部分を除去することにしましょう。
 
-こういった自然言語処理、与えられた値の重み付けなど、様々なルール付けを行うことができます。
-今回のルールをJSONで表現すると、以下のようになります。
+この機能を使用すると、こういった自然言語処理や与えられた値の重み付けなど、様々なルール付けを行うことができます。
+今回のルールを JSON で表現すると、以下のようになります。
 
 .. code-block:: python
 
     converter = {
-            'string_filter_types': {
-            "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
-             },
-            'string_filter_rules':
-               [
-              { "key": "message", "type": "detag", "suffix": "-detagged" }
-               ],
-              'num_filter_types': {},
-              'num_filter_rules': [],
-              'string_types': {},
-              'string_rules': [
-                  {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
+                  'string_filter_types': {
+                    "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+                  },
+                  'string_filter_rules': [
+                    { "key": "message", "type": "detag", "suffix": "-detagged" }
                   ],
-              'num_types': {},
-              'num_rules': []
-              }
-
-``get_config`` を呼ぶと、現在指定されている設定値が返却されます。
+                  'num_filter_types': {},
+                  'num_filter_rules': [],
+                  'string_types': {},
+                  'string_rules': [
+                    {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
+                  ],
+                  'num_types': {},
+                  'num_rules': []
+                }
 
 Use of Classifier API: Train & Classify
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 分類器に学習させる場合は、 ``train`` という API (RPC メソッド) を利用します。
+以下の例で、 ``d1`` はメッセージから作成された datum であり、 ``"comp.sys.mac.hardware"`` はそのメッセージのラベル (ニュースグループの名前) です。
 
 .. code-block:: python
 
-  train_dat = [
-                (
-                  "comp.sys.mac.hardware",
-                  [["message" , "I want to buy a new mac book air..."], []]
-                )
-              ]
+  d1 = types.datum([["message" , "I want to buy mac book air..."]], [])
+  client.train("", [("comp.sys.mac.hardware", d1)])
 
-推定 (ここでは、Jubatus に与えられたデータから分類) を行う場合は、 ``classify`` という API を利用します。
+この要領で、ラベルとメッセージの組み合わせを多数学習させます。
+
+学習結果を使って分類を行う場合は、 ``classify`` という API を利用します。
+``d2`` はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。
 
 .. code-block:: python
 
-  classify_dat = [
-                   [["message" , "I bought a new mac book air..."], []]
-                 ]
+  d2 = types.datum([["message" , "Just bought a new mac book air..."]], [])
+  result = client.classify("", [d2])
 
 その結果、以下のような値が得られます。
 
@@ -233,17 +232,18 @@ Use of Classifier API: Train & Classify
    [[
         ["comp.sys.mac.hardware", 1.10477745533],
         ...
-        ["rec.sport.hockey", 2.0973217487300002],
+        ["rec.sport.hockey", 0.2273217487300002],
         ["comp.os.ms-windows.misc", -0.065333858132400002],
         ["sci.electronics", -0.184129983187],
         ["talk.religion.misc", -0.092822007834899994]
    ]]
 
+メッセージ ``d2`` は ``"comp.sys.mac.hardware"`` に投稿された可能性が高いことが分かりました。
 
 Cluster Mode
 ------------
 
-Jubatusでは、Zookeeperを用いて複数のサーバプロセス間を協調動作させることで、分散処理を行うことが出来ます。
+Jubatus では ZooKeeper を用いて複数のサーバプロセス間を協調動作させることで、分散処理を行うことができます。
 
 .. figure:: ../_static/single_multi.png
    :width: 70 %
@@ -280,7 +280,7 @@ Jubatus Keeper は各 Jubatus サーバの種類ごとに提供されていま�
 
     $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
 
-これにより、jubaclassifier_keeperは、TCP 9198 番ポートでRPCを待ち受けます。
+これにより、jubaclassifier_keeper は、TCP 9198 番ポートで RPC リクエストを待ち受けます。
 
 Join Jubatus Servers to Cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -411,4 +411,3 @@ members の表示から、サーバが起動していることが分かります
 ::
 
     [192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-
