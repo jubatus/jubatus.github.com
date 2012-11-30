@@ -22,6 +22,9 @@ Data Structures
 Methods
 ~~~~~~~
 
+For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in a cluster.
+When using standalone mode, this must be left blank (``""``).
+
 .. describe:: bool save(0: string name, 1: string id)
 
  - Parameters:
