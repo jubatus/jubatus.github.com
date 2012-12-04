@@ -118,9 +118,9 @@ Methods
 .. describe:: ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)
 
  ``ei.src`` から ``ei.tgt`` に向けたエッジを張る。
- エッジの ID を long unsigned integer 形式で返す。
+ エッジの ID を unsigned long integer 形式で返す。
 
- このエッジには方向を持つ。
+ このエッジは方向を持つ。
  ある二つのノードに対して、複数のエッジを張ることもできる。
  この場合、リンクごとに異なる属性 ``ei.p`` を適用することができる (``edge_info`` を参照)。
 
@@ -135,7 +135,7 @@ Methods
 
 .. describe:: int remove_edge(0: string name, 1: string nid, 2: ulong e)
 
- 指定したエッジを取り除く。
+ 指定したエッジ ``e`` を取り除く。
  ``nid`` にはエッジ ``e`` の接続元のノードの ID を指定する必要がある。
 
 .. describe:: double centrality(0: string name, 1: string nid, 2: int ct, 3: preset_query q)
@@ -151,19 +151,19 @@ Methods
 
 .. describe:: bool add_centrality_query(0: string name, 1: preset_query q)
 
- 中心性の算出を行いたいクエリー ``q`` を新たに登録する。
+ 中心性の算出に使用したいクエリー ``q`` を新たに登録する。
 
 .. describe:: bool add_shortest_path_query(0: string name, 1: preset_query q)
 
- 最短パスの算出を行いたいクエリー ``q`` を新たに登録する。
+ 最短パスの算出に使用したいクエリー ``q`` を新たに登録する。
 
 .. describe:: bool remove_centrality_query(0: string name, 1: preset_query q)
 
- 中心性の算出を行いたいクエリー ``q`` を削除する。
+ 登録済みのクエリー ``q`` を削除する。
 
 .. describe:: bool remove_shortest_path_query(0: string name, 1: preset_query q)
 
- 最短パスの算出を行いたいクエリー ``q`` を削除する。
+ 登録済みのクエリー ``q`` を削除する。
 
 .. describe:: list<node_id>  shortest_path(0: string name, 1: shortest_path_req r)
 

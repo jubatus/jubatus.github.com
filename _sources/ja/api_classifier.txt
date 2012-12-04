@@ -11,13 +11,13 @@ Data Structures
  サーバの設定を表す。
  ``method`` は分類に使用するアルゴリズムである。
  現在、 ``perceptron``, ``PA``, ``PA1``, ``PA2``, ``CW``, ``AROW`` または ``NHERD`` のいずれかが指定可能である。
- ``converter`` は :doc:`fv_convert` で説明されている JSON 形式の文字列である。
+ ``config`` は :doc:`fv_convert` で説明されている JSON 形式の文字列である。
 
 .. code-block:: c++
 
    message config_data {
      0: string method
-     1: string converter
+     1: string config
    }
 
 .. describe:: estimate_result

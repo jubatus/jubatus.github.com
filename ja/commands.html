@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Commands &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Commands &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
+    <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="References" href="references.html" />
     <link rel="next" title="Client API" href="api.html" />
     <link rel="prev" title="References" href="references.html" /> 
@@ -89,7 +89,7 @@
         <li class="right" >
           <a href="references.html" title="References"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
           <li><a href="references.html" accesskey="U">References</a> &raquo;</li> 
       </ul>
@@ -104,7 +104,7 @@
   <ul>
 <li><a class="reference internal" href="#">Commands</a><ul>
 <li><a class="reference internal" href="#jubatus-servers">Jubatus Servers</a></li>
-<li><a class="reference internal" href="#cluster-management">Cluster Management</a><ul>
+<li><a class="reference internal" href="#distributed-environment">Distributed Environment</a><ul>
 <li><a class="reference internal" href="#jubatus-keepers">Jubatus Keepers</a></li>
 <li><a class="reference internal" href="#jubavisor">jubavisor</a></li>
 <li><a class="reference internal" href="#jubactl">jubactl</a></li>
@@ -183,7 +183,12 @@ new TWTR.Widget({
             
   <div class="section" id="commands">
 <h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
-<p><tt class="docutils literal"><span class="pre">[]</span></tt> はデフォルト値を意味する。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">[]</span></tt> はデフォルト値を意味する。</li>
+<li><tt class="docutils literal"><span class="pre">&lt;zookeeper_list&gt;</span></tt> は ZooKeeper サーバの <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> をカンマで区切ったものである (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></tt>)。
+値の中にスペースを含めることはできない。
+ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> を指定する (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181</span></tt>)。</li>
+</ul>
 <div class="section" id="jubatus-servers">
 <h2>Jubatus Servers<a class="headerlink" href="#jubatus-servers" title="Permalink to this headline">¶</a></h2>
 <dl class="option">
@@ -219,12 +224,9 @@ new TWTR.Widget({
 
 <dl class="option">
 <dt id="cmdoption-server-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;list&gt;</tt><a class="headerlink" href="#cmdoption-server-z" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-server-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>ZooKeeper サーバの一覧。</p>
 <p>指定されていない場合、Jubatus サーバはスタンドアローンモードで動作する。</p>
-<p><tt class="docutils literal"><span class="pre">&lt;list&gt;</span></tt> は ZooKeeper サーバの <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> をカンマで区切ったものである (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></tt>)。
-ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> を指定する (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181</span></tt>)。</p>
-<p>値の中にスペースを含めることはできない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -253,7 +255,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dt id="cmdoption-server-i">
 <tt class="descname">-i</tt><tt class="descclassname"> &lt;count&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname"> &lt;count&gt;</tt><a class="headerlink" href="#cmdoption-server-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>毎 <tt class="docutils literal"><span class="pre">&lt;count&gt;</span></tt> 更新ごとに mix を行う。 [512]</p>
-<p>更新カウンタは、学習モデルを更新する API (分類器の <tt class="docutils literal"><span class="pre">train</span></tt> など) を呼ぶたびにインクリメントされる。</p>
+<p>更新カウントは、学習モデルを更新する API (分類器の <tt class="docutils literal"><span class="pre">train</span></tt> など) を呼ぶたびにインクリメントされる。</p>
 </dd></dl>
 
 <dl class="option">
@@ -269,8 +271,8 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 </dd></dl>
 
 </div>
-<div class="section" id="cluster-management">
-<h2>Cluster Management<a class="headerlink" href="#cluster-management" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="distributed-environment">
+<h2>Distributed Environment<a class="headerlink" href="#distributed-environment" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jubatus-keepers">
 <h3>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
@@ -300,11 +302,8 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 
 <dl class="option">
 <dt id="cmdoption-keeper-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;list&gt;</tt><a class="headerlink" href="#cmdoption-keeper-z" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-keeper-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>ZooKeeper サーバの一覧。</p>
-<p><tt class="docutils literal"><span class="pre">&lt;list&gt;</span></tt> は ZooKeeper サーバの <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> をカンマで区切ったものである (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></tt>)。
-ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> を指定する (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181</span></tt>)。</p>
-<p>値の中にスペースを含めることはできない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -343,11 +342,8 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 
 <dl class="option">
 <dt id="cmdoption-jubavisor-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;list&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-z" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>ZooKeeper サーバの一覧。</p>
-<p><tt class="docutils literal"><span class="pre">&lt;list&gt;</span></tt> は ZooKeeper サーバの <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> をカンマで区切ったものである (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></tt>)。
-ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> を指定する (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181</span></tt>)。</p>
-<p>値の中にスペースを含めることはできない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -415,7 +411,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-jubactl-t">
 <tt class="descname">-t</tt><tt class="descclassname"> &lt;type&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"> &lt;type&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>サーバプログラムの種類 (例: <tt class="docutils literal"><span class="pre">classifier</span></tt>, <tt class="docutils literal"><span class="pre">recommender</span></tt>, ...).</p>
+<dd><p>サーバプログラムの種類 (例: <tt class="docutils literal"><span class="pre">classifier</span></tt>, <tt class="docutils literal"><span class="pre">recommender</span></tt>, ...)。</p>
 </dd></dl>
 
 <dl class="option">
@@ -428,12 +424,9 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 
 <dl class="option">
 <dt id="cmdoption-jubactl-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;list&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-z" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>ZooKeeper サーバの一覧。</p>
 <p>指定されない場合は、環境変数 <tt class="docutils literal"><span class="pre">ZK</span></tt> が使用される。</p>
-<p><tt class="docutils literal"><span class="pre">&lt;list&gt;</span></tt> は ZooKeeper サーバの <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> をカンマで区切ったものである (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></tt>)。
-ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt class="docutils literal"><span class="pre">ホスト:ポート</span></tt> を指定する (例: <tt class="docutils literal"><span class="pre">10.0.0.1:2181</span></tt>)。</p>
-<p>値の中にスペースを含めることはできない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -508,27 +501,28 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-jubaconv-i">
 <tt class="descname">-i</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--input-format</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubaconv-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>入力のフォーマット。 [json]
-<tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> には <tt class="docutils literal"><span class="pre">json</span></tt> または <tt class="docutils literal"><span class="pre">datum</span></tt> のいずれかを指定する。</p>
+<dd><p>入力のフォーマット。 [json]</p>
+<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> には <tt class="docutils literal"><span class="pre">json</span></tt> または <tt class="docutils literal"><span class="pre">datum</span></tt> のいずれかを指定する。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconv-o">
 <tt class="descname">-o</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--output-format</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubaconv-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>出力のフォーマット。 [fv]
-<tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> には <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">datum</span></tt> または <tt class="docutils literal"><span class="pre">fv</span></tt> のいずれかを指定する。</p>
+<dd><p>出力のフォーマット。 [fv]</p>
+<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> には <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">datum</span></tt> または <tt class="docutils literal"><span class="pre">fv</span></tt> のいずれかを指定する。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconv-c">
 <tt class="descname">-c</tt><tt class="descclassname"> &lt;config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--conf</tt><tt class="descclassname"> &lt;config&gt;</tt><a class="headerlink" href="#cmdoption-jubaconv-c" title="Permalink to this definition">¶</a></dt>
-<dd><p>JSON で記述された fv_converter の設定ファイル (see <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>)。</p>
+<dd><p>JSON で記述された fv_converter の設定ファイル (<a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> を参照)。</p>
+<p><a class="reference internal" href="#cmdoption-jubaconv-o"><em class="xref std std-option">-o</em></a> に <tt class="docutils literal"><span class="pre">fv</span></tt> が指定されている場合のみ、このオプションを指定する必要がある。</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jenerator">
 <span id="jenerator-ja"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Keeper とサーバのスケルトン (C++ source) を生成する。</p>
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Keeper とサーバのテンプレート (C++ ソース) を生成する。</p>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> はデフォルトではインストールされない (ソースの <tt class="docutils literal"><span class="pre">src/tools/generator</span></tt> ディレクトリを参照)。</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator &lt;idl-file&gt; [options...]
 </pre></div>
@@ -592,13 +586,13 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
         <li class="right" >
           <a href="references.html" title="References"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI&amp;NTT.
+        &copy; Copyright 2011,2012 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

@@ -17,8 +17,8 @@ Publications
 
 - 2011/10/26 Press Relase
 
- - PFI ( `pfien <http://preferred.jp/2011/10/jubatus-english.html>`_ / `pfija <http://preferred.jp/2011/10/jubatus.html>`_ )
- - NTT ( `nttEN <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_ / `nttJA <http://www.ntt.co.jp/news2011/1110/111026a.html>`_ )
+ - PFI (`Japanese <http://preferred.jp/news/?id=278>`_)
+ - NTT (`English <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_ / `Japanese <http://www.ntt.co.jp/news2011/1110/111026a.html>`_)
  - `Press Release Slides (in Japanese) <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
 
 Contributions (Thanks a lot!)
@@ -28,4 +28,4 @@ Contributions (Thanks a lot!)
 
 - For 0.1.0
 
- - `PHP Client <http://d.hatena.ne.jp/oxalis-gps/20111101/1320112193>`_ ( `github repo <https://github.com/oxalis-gps/jubatus-php-client>`_ )
+ - `PHP Client <http://d.hatena.ne.jp/oxalis-gps/20111101/1320112193>`_ (`github repo <https://github.com/oxalis-gps/jubatus-php-client>`_)

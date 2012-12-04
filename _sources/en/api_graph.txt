@@ -118,10 +118,10 @@ When using standalone mode, this must be left blank (``""``).
 .. describe:: ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)
 
  Creates a link from ``ei.src`` to ``ei.tgt``.
- Returns a edge ID as long unsigned integer.
+ Returns a edge ID as a unsigned long integer.
 
- The link has direction.
- For any two nodes, multiple links with same direction can be created.
+ The link has a direction.
+ For any two nodes, multiple links with the same direction can be created.
  In this case, property ``ei.p`` can be associated to each link (see ``edge_info``).
 
  ``nid`` must be the same value as ``ei.src``.
@@ -135,13 +135,13 @@ When using standalone mode, this must be left blank (``""``).
 
 .. describe:: int remove_edge(0: string name, 1: string nid, 2: ulong e)
 
- Removes an edge.
+ Removes an edge ``e``.
  ``nid`` must be an ID for the source node of the edge ``e``.
 
 .. describe:: double centrality(0: string name, 1: string nid, 2: int ct, 3: preset_query q)
 
  Calculates (gets the computed value) the centrality over the edges that match the preset query ``q``.
- Query must be registered beforehand by using ``add_centrality_query``.
+ The query must be registered beforehand by using ``add_centrality_query``.
 
  ``ct`` is a type of centrality.
  Currently, only ``0`` (PageRank centrality) can be specified.
@@ -151,24 +151,24 @@ When using standalone mode, this must be left blank (``""``).
 
 .. describe:: bool add_centrality_query(0: string name, 1: preset_query q)
 
- Sets a preset query ``q`` to the graph for centrality calculation.
+ Adds a preset query ``q`` to the graph for centrality calculation.
 
 .. describe:: bool add_shortest_path_query(0: string name, 1: preset_query q)
 
- Sets a preset query ``q`` to the graph for shortest path calculation.
+ Adds a preset query ``q`` to the graph for shortest path calculation.
 
 .. describe:: bool remove_centrality_query(0: string name, 1: preset_query q)
 
- Removes a preset query ``q`` from the graph for centrality calculation.
+ Removes a preset query ``q`` from the graph.
 
 .. describe:: bool remove_shortest_path_query(0: string name, 1: preset_query q)
 
- Removes a preset query ``q`` from the graph for shortest path calculation.
+ Removes a preset query ``q`` from the graph.
 
 .. describe:: list<string> shortest_path(0: string name, 1: shortest_path_req r)
 
  Calculates (from the precomputed data) a shortest path from ``r.src`` to ``r.tgt`` that matches the preset query.
- Query must be registered beforehand by using ``add_shortest_path_query``.
+ The query must be registered beforehand by using ``add_shortest_path_query``.
  Returns a list of node IDs that represents a path from ``r.src`` to ``r.tgt``.
 
  If the shortest path from ``r.src`` to ``r.dst`` cannot be found within ``r.max_hop`` hops, the result will be truncated.

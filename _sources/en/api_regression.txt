@@ -11,7 +11,7 @@ Data Structures
  Represents a configuration of the server.
  ``method`` is an algorithm used for regression.
  Currently, only ``PA`` can be specified.
- ``converter`` is a string in JSON format described in :doc:`fv_convert`.
+ ``config`` is a string in JSON format described in :doc:`fv_convert`.
 
 .. code-block:: c++
 
@@ -30,7 +30,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in the ZooKeeper cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``train_data`` : list of tuple of label and datum
 
  - Returns:
@@ -45,7 +45,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Parameters:
 
-  - ``name`` : a string value to uniquely identifies a task in the ZooKeeper cluster
+  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
   - ``estimate_data`` : list of datum to estimate
 
  - Returns:

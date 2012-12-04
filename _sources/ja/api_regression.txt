@@ -11,7 +11,7 @@ Data Structures
  サーバの設定を表す。
  ``method`` は回帰に使用するアルゴリズムである。
  現在は ``PA`` のみが指定可能である。
- ``converter`` は :doc:`fv_convert` で説明されている JSON 形式の文字列である。
+ ``config`` は :doc:`fv_convert` で説明されている JSON 形式の文字列である。
 
 .. code-block:: c++
 

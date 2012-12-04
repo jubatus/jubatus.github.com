@@ -29,24 +29,24 @@ When using standalone mode, this must be left blank (``""``).
 
 .. describe:: double sum(0: string name, 1: string key)
 
- Returns value of sum from the attribute ``key``.
+ Returns the sum of values in the attribute ``key``.
 
 .. describe:: double stddev(0: string name, 1: string key)
 
- Returns value of standard deviation from the attribute ``key``.
+ Returns the standard deviation of values in the attribute ``key``.
 
 .. describe:: double max(0: string name, 1: string key)
 
- Returns the maximum value from the attribute ``key``.
+ Returns the maximum value of values in the attribute ``key``.
 
 .. describe:: double min(0: string name, 1: string key)
 
- Returns the minimum value from the attribute ``key``.
+ Returns the minimum value of values in the attribute ``key``.
 
 .. describe:: double entropy(0: string name, 1: string key)
 
- Returns the value of entropy from the attribute ``key``.
+ Returns the entropy of values in the attribute ``key``.
 
 .. describe:: double moment(0: string name, 1: string key, 2: int n, 3: double c)
 
- Returns the value of ``n``-th moment of the attribute ``key`` about ``c``.
+ Returns the ``n``-th moment about ``c`` of values in the attribute ``key``.

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Graph &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Graph &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
+    <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="How to Contribute" href="howtocontribute.html" />
     <link rel="prev" title="Stat" href="api_stat.html" /> 
@@ -89,7 +89,7 @@
         <li class="right" >
           <a href="api_stat.html" title="Stat"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
@@ -291,8 +291,8 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 <dt>
 <tt class="descname">ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
 <dd><p><tt class="docutils literal"><span class="pre">ei.src</span></tt> から <tt class="docutils literal"><span class="pre">ei.tgt</span></tt> に向けたエッジを張る。
-エッジの ID を long unsigned integer 形式で返す。</p>
-<p>このエッジには方向を持つ。
+エッジの ID を unsigned long integer 形式で返す。</p>
+<p>このエッジは方向を持つ。
 ある二つのノードに対して、複数のエッジを張ることもできる。
 この場合、リンクごとに異なる属性 <tt class="docutils literal"><span class="pre">ei.p</span></tt> を適用することができる (<tt class="docutils literal"><span class="pre">edge_info</span></tt> を参照)。</p>
 <p><tt class="docutils literal"><span class="pre">nid</span></tt> には <tt class="docutils literal"><span class="pre">ei.src</span></tt> と同じ値を指定する必要がある。</p>
@@ -309,7 +309,7 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_edge(0: string name, 1: string nid, 2: ulong e)</tt></dt>
-<dd><p>指定したエッジを取り除く。
+<dd><p>指定したエッジ <tt class="docutils literal"><span class="pre">e</span></tt> を取り除く。
 <tt class="docutils literal"><span class="pre">nid</span></tt> にはエッジ <tt class="docutils literal"><span class="pre">e</span></tt> の接続元のノードの ID を指定する必要がある。</p>
 </dd></dl>
 
@@ -327,25 +327,25 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_centrality_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>中心性の算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を新たに登録する。</p>
+<dd><p>中心性の算出に使用したいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を新たに登録する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>最短パスの算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を新たに登録する。</p>
+<dd><p>最短パスの算出に使用したいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を新たに登録する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_centrality_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>中心性の算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を削除する。</p>
+<dd><p>登録済みのクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を削除する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>最短パスの算出を行いたいクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を削除する。</p>
+<dd><p>登録済みのクエリー <tt class="docutils literal"><span class="pre">q</span></tt> を削除する。</p>
 </dd></dl>
 
 <dl class="describe">
@@ -407,14 +407,14 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
         <li class="right" >
           <a href="api_stat.html" title="Stat"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI&amp;NTT.
+        &copy; Copyright 2011,2012 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

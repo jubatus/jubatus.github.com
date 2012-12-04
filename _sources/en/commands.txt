@@ -1,7 +1,10 @@
 Commands
 ========
 
-``[]`` indicates the default value.
+* ``[]`` indicates the default value.
+* ``<zookeeper_list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
+  No spaces between values are allowed.
+  If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
 
 Jubatus Servers
 ---------------
@@ -30,16 +33,11 @@ Jubatus Servers
 
    If not specified, logs are dumped to the standard error.
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    List of ZooKeeper server(s).
 
    If not specified, Jubatus servers runs in standalone mode.
-
-   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
-   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
-
-   No spaces between values are allowed.
 
 .. option:: -n <name>, --name <name>
 
@@ -65,7 +63,7 @@ Jubatus Servers
 
    Invoke "mix" in every ``<count>`` updates. [512]
 
-   The update counter is incremented when API that updates the training model (such as ``train`` in the classifier) is called.
+   The update is counted when API that updates the training model (such as ``train`` in the classifier) is called.
 
 .. option:: -v, --version
 
@@ -75,8 +73,8 @@ Jubatus Servers
 
    Print the brief usage of the command.
 
-Cluster Management
-------------------
+Distributed Environment
+-----------------------
 
 Jubatus Keepers
 ~~~~~~~~~~~~~~~
@@ -101,14 +99,9 @@ Jubatus Keepers
 
    If not specified, logs are dumped to the standard error.
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    List of ZooKeeper server(s).
-
-   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
-   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
-
-   No spaces between values are allowed.
 
 .. option:: -v, --version
 
@@ -137,14 +130,9 @@ jubavisor
 
    If not specified, logs are dumped to the standard error.
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    List of ZooKeeper server(s).
-
-   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
-   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
-
-   No spaces between values are allowed.
 
 .. option:: -d, --daemon
 
@@ -194,16 +182,11 @@ jubactl
 
    When ``0`` is specified, start 1 process on each jubavisor.
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    List of ZooKeeper server(s).
 
    If not specified, environment variable ``ZK`` will be used.
-
-   ``<list>`` is a comma-separated list of ``host:port`` of ZooKeeper servers (e.g., ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``).
-   If you have only one ZooKeeper server, just specify ``host:port`` without comma (e.g., ``10.0.0.1:2181``).
-
-   No spaces between values are allowed.
 
 .. option:: -C <num>, --thread <num>
 
@@ -272,23 +255,27 @@ jubaconv
 .. option:: -i <format>, --input-format <format>
 
    Format of the input. [json]
+
    ``<format>`` must be one of ``json`` or ``datum``.
 
 .. option:: -o <format>, --output-format <format>
 
    Format of the output. [fv]
+
    ``<format>`` must be one of ``json``, ``datum`` or ``fv``.
 
 .. option:: -c <config>, --conf <config>
 
    fv_converter configuration file in JSON (see :doc:`fv_convert`).
 
+   This option must be given only if ``fv`` is specified for :option:`-o`.
+
 .. _jenerator:
 
 jenerator
 ~~~~~~~~~
 
-``jenerator`` generates C++ source of keeper and server skeleton from extended MessagePack-IDL file.
+``jenerator`` generates C++ source of keeper and server template from extended MessagePack-IDL file.
 
 ``jenerator`` is not installed by default (see ``src/tools/generator`` in the source tree).
 

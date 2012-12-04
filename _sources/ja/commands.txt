@@ -1,7 +1,10 @@
 Commands
 ========
 
-``[]`` はデフォルト値を意味する。
+* ``[]`` はデフォルト値を意味する。
+* ``<zookeeper_list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
+  値の中にスペースを含めることはできない。
+  ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
 
 Jubatus Servers
 ---------------
@@ -30,16 +33,11 @@ Jubatus Servers
 
    指定されていない場合、ログは標準エラーに出力される。
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
 
    指定されていない場合、Jubatus サーバはスタンドアローンモードで動作する。
-
-   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
-   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
-
-   値の中にスペースを含めることはできない。
 
 .. option:: -n <name>, --name <name>
 
@@ -65,7 +63,7 @@ Jubatus Servers
 
    毎 ``<count>`` 更新ごとに mix を行う。 [512]
 
-   更新カウンタは、学習モデルを更新する API (分類器の ``train`` など) を呼ぶたびにインクリメントされる。
+   更新カウントは、学習モデルを更新する API (分類器の ``train`` など) を呼ぶたびにインクリメントされる。
 
 .. option:: -v, --version
 
@@ -75,8 +73,8 @@ Jubatus Servers
 
    このコマンドの簡単な使い方を表示する。
 
-Cluster Management
-------------------
+Distributed Environment
+-----------------------
 
 Jubatus Keepers
 ~~~~~~~~~~~~~~~
@@ -101,14 +99,9 @@ Jubatus Keepers
 
    指定されていない場合、ログは標準エラーに出力される。
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
-
-   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
-   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
-
-   値の中にスペースを含めることはできない。
 
 .. option:: -v, --version
 
@@ -137,14 +130,9 @@ jubavisor
 
    指定されていない場合、ログは標準エラーに出力される。
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
-
-   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
-   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
-
-   値の中にスペースを含めることはできない。
 
 .. option:: -d, --daemon
 
@@ -184,7 +172,7 @@ jubactl
 
 .. option:: -t <type>, --type <type>
 
-   サーバプログラムの種類 (例: ``classifier``, ``recommender``, ...).
+   サーバプログラムの種類 (例: ``classifier``, ``recommender``, ...)。
 
 .. option:: -N <num>, --num <num>
 
@@ -194,16 +182,11 @@ jubactl
 
    ``0`` が指定された場合、各 jubavisor ごとに 1 プロセスが起動される。
 
-.. option:: -z <list>, --zookeeper <list>
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
 
    指定されない場合は、環境変数 ``ZK`` が使用される。
-
-   ``<list>`` は ZooKeeper サーバの ``ホスト:ポート`` をカンマで区切ったものである (例: ``10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181``)。
-   ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に ``ホスト:ポート`` を指定する (例: ``10.0.0.1:2181``)。
-
-   値の中にスペースを含めることはできない。
 
 .. option:: -C <num>, --thread <num>
 
@@ -272,23 +255,27 @@ jubaconv
 .. option:: -i <format>, --input-format <format>
 
    入力のフォーマット。 [json]
+
    ``<format>`` には ``json`` または ``datum`` のいずれかを指定する。
 
 .. option:: -o <format>, --output-format <format>
 
    出力のフォーマット。 [fv]
+
    ``<format>`` には ``json``, ``datum`` または ``fv`` のいずれかを指定する。
 
 .. option:: -c <config>, --conf <config>
 
-   JSON で記述された fv_converter の設定ファイル (see :doc:`fv_convert`)。
+   JSON で記述された fv_converter の設定ファイル (:doc:`fv_convert` を参照)。
+
+   :option:`-o` に ``fv`` が指定されている場合のみ、このオプションを指定する必要がある。
 
 .. _jenerator-ja:
 
 jenerator
 ~~~~~~~~~
 
-``jenerator`` は拡張 MessagePack-IDL ファイルから、Keeper とサーバのスケルトン (C++ source) を生成する。
+``jenerator`` は拡張 MessagePack-IDL ファイルから、Keeper とサーバのテンプレート (C++ ソース) を生成する。
 
 ``jenerator`` はデフォルトではインストールされない (ソースの ``src/tools/generator`` ディレクトリを参照)。
 

@@ -45,4 +45,4 @@ Tips for Contributors
   * Jubatus バイナリパッケージを RHEL で使用している場合は、以下のコマンドでビルド環境がセットアップできます: ``sudo yum install msgpack-devel glog-devel libevent-devel pficommon-devel zookeeper-client-devel mecab-devel ux-devel re2-devel`` 。
   * Jubatus バイナリパッケージを Ubuntu で使用している場合は、すでにビルド環境が整っています。
 
- * すべての pull-request は、 ``master`` ではなく ``develop`` ブランチに送ってください。
+ * pull-request は、 ``master`` ではなく ``develop`` ブランチに送ってください。

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Graph &mdash; Jubatus 0.3.4 documentation</title>
+    <title>Graph &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -42,7 +42,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus 0.3.4 documentation" href="../index.html" />
+    <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="How to Contribute" href="howtocontribute.html" />
     <link rel="prev" title="Stat" href="api_stat.html" /> 
@@ -89,7 +89,7 @@
         <li class="right" >
           <a href="api_stat.html" title="Stat"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
@@ -290,9 +290,9 @@ Returns a node ID as string.</p>
 <dt>
 <tt class="descname">ulong create_edge(0: string name, 1: string nid, 2: edge_info ei)</tt></dt>
 <dd><p>Creates a link from <tt class="docutils literal"><span class="pre">ei.src</span></tt> to <tt class="docutils literal"><span class="pre">ei.tgt</span></tt>.
-Returns a edge ID as long unsigned integer.</p>
-<p>The link has direction.
-For any two nodes, multiple links with same direction can be created.
+Returns a edge ID as a unsigned long integer.</p>
+<p>The link has a direction.
+For any two nodes, multiple links with the same direction can be created.
 In this case, property <tt class="docutils literal"><span class="pre">ei.p</span></tt> can be associated to each link (see <tt class="docutils literal"><span class="pre">edge_info</span></tt>).</p>
 <p><tt class="docutils literal"><span class="pre">nid</span></tt> must be the same value as <tt class="docutils literal"><span class="pre">ei.src</span></tt>.</p>
 </dd></dl>
@@ -308,7 +308,7 @@ Property will be replaced.</p>
 <dl class="describe">
 <dt>
 <tt class="descname">int remove_edge(0: string name, 1: string nid, 2: ulong e)</tt></dt>
-<dd><p>Removes an edge.
+<dd><p>Removes an edge <tt class="docutils literal"><span class="pre">e</span></tt>.
 <tt class="docutils literal"><span class="pre">nid</span></tt> must be an ID for the source node of the edge <tt class="docutils literal"><span class="pre">e</span></tt>.</p>
 </dd></dl>
 
@@ -316,7 +316,7 @@ Property will be replaced.</p>
 <dt>
 <tt class="descname">double centrality(0: string name, 1: string nid, 2: int ct, 3: preset_query q)</tt></dt>
 <dd><p>Calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">q</span></tt>.
-Query must be registered beforehand by using <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt>.</p>
+The query must be registered beforehand by using <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">ct</span></tt> is a type of centrality.
 Currently, only <tt class="docutils literal"><span class="pre">0</span></tt> (PageRank centrality) can be specified.</p>
 <p>Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality and the computed value if there&#8217;re updates not mixed.
@@ -326,32 +326,32 @@ See also the description of <tt class="docutils literal"><span class="pre">updat
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_centrality_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>Sets a preset query <tt class="docutils literal"><span class="pre">q</span></tt> to the graph for centrality calculation.</p>
+<dd><p>Adds a preset query <tt class="docutils literal"><span class="pre">q</span></tt> to the graph for centrality calculation.</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool add_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>Sets a preset query <tt class="docutils literal"><span class="pre">q</span></tt> to the graph for shortest path calculation.</p>
+<dd><p>Adds a preset query <tt class="docutils literal"><span class="pre">q</span></tt> to the graph for shortest path calculation.</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_centrality_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>Removes a preset query <tt class="docutils literal"><span class="pre">q</span></tt> from the graph for centrality calculation.</p>
+<dd><p>Removes a preset query <tt class="docutils literal"><span class="pre">q</span></tt> from the graph.</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">bool remove_shortest_path_query(0: string name, 1: preset_query q)</tt></dt>
-<dd><p>Removes a preset query <tt class="docutils literal"><span class="pre">q</span></tt> from the graph for shortest path calculation.</p>
+<dd><p>Removes a preset query <tt class="docutils literal"><span class="pre">q</span></tt> from the graph.</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">list&lt;string&gt; shortest_path(0: string name, 1: shortest_path_req r)</tt></dt>
 <dd><p>Calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt> that matches the preset query.
-Query must be registered beforehand by using <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt>.
+The query must be registered beforehand by using <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt>.
 Returns a list of node IDs that represents a path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.tgt</span></tt>.</p>
 <p>If the shortest path from <tt class="docutils literal"><span class="pre">r.src</span></tt> to <tt class="docutils literal"><span class="pre">r.dst</span></tt> cannot be found within <tt class="docutils literal"><span class="pre">r.max_hop</span></tt> hops, the result will be truncated.</p>
 <p>Path-index tree may have a gap between the exact path and the computed path when in a distributed setup.
@@ -406,13 +406,13 @@ In a standalone mode, mix is not automatically called thus users must call this 
         <li class="right" >
           <a href="api_stat.html" title="Stat"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus 0.3.4 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI&amp;NTT.
+        &copy; Copyright 2011,2012 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

@@ -38,7 +38,7 @@ Tips for Contributors
 * When contributing your code to Jubatus framework:
 
  * Always start working with your fork of ``develop`` branch.
- * Before sending pull-requests, make sure your code does not break existing features - run ``./waf --checkall`` to pass through the unittests.
+ * Before sending pull-requests, make sure your code does not break existing features - type ``./waf --checkall`` to run through the unittests.
  * You need to setup the environment that can build Jubatus from source to run unittests.
 
   * See :doc:`build` for required tools and libraries.

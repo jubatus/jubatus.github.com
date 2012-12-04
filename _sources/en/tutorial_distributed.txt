@@ -44,7 +44,7 @@ For the classifier, ``jubaclassifier_keeper`` is the corresponding keeper.
 
     $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
 
-Now ``jubaclassifier_keeper`` started listening on TCP 9198 port for RPC requests.
+Now ``jubaclassifier_keeper`` started listening on TCP port 9198 for RPC requests.
 
 Join Jubatus Servers to Cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -120,7 +120,7 @@ Start ZooKeeper servers (make sure you configure an ensemble between them).
     [192.168.0.212]$ bin/zkServer.sh start
     [192.168.0.213]$ bin/zkServer.sh start
 
-Start ``jubaclassifier_keeper`` processes. ``jubaclassifier_keeper`` uses TCP 9199 port by default.
+Start ``jubaclassifier_keeper`` processes. ``jubaclassifier_keeper`` uses TCP port 9199 by default.
 
 ::
 
@@ -134,7 +134,7 @@ Jubavisor: Process Management Agent
 ``jubavisor`` is an agent process that manages server processes.
 
 ``jubavisor`` can manage each Jubatus server processes by receiving RPC requests from ``jubactl``, a controller command.
-``jubavisor`` uses TCP 9198 port by default.
+``jubavisor`` uses TCP port 9198 by default.
 
 ::
 

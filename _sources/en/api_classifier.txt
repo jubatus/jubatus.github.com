@@ -23,7 +23,7 @@ Data Structures
 .. describe:: estimate_result
 
  Represents a result of classification.
- ``label`` is a estimated label and ``prob`` is a probability value for the ``label``.
+ ``label`` is an estimated label and ``prob`` is a probability value for the ``label``.
  Higher ``prob`` value means that the estimated label is more confident.
 
 .. code-block:: c++
@@ -65,5 +65,5 @@ When using standalone mode, this must be left blank (``""``).
 
   - List of list of ``estimate_result``, in order of given datum
 
- Estimates the label from given ``data``.
+ Estimates labels from given ``data``.
  This API is designed to accept bulk classification with list of ``datum``.
