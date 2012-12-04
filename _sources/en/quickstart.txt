@@ -159,7 +159,7 @@ Congratulations!
 Now you can write your own application using Jubatus.
 See the :doc:`api` for what Jubatus can do.
 
-For C++ and Java users, skelton projects are available:
+For C++ and Java users, skeleton projects are available:
 
   - `C++ Client Development Skelton <https://github.com/jubatus/jubatus-cpp-skelton>`_
   - `Java Client Development Skelton <https://github.com/jubatus/jubatus-java-skelton>`_ (Eclipse project template)

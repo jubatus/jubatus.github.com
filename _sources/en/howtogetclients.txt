@@ -24,7 +24,7 @@ Generate clients from msgpack-idl
 
 We can generate client codes by `msgpack-idl <http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl>`_ .idl file.
 msgpack-idl is an idl compiler written in Haskell and .idl file is a specification file of msgpack-idl.  This program requires ghc7 and cabal.
-The followings are exapmle of generating clients (and servers). In this exapmle, we generate clients of classifier.
+The followings are example of generating clients (and servers). In this example, we generate clients of classifier.
 
 ::
 

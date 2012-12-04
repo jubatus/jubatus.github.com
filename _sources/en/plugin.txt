@@ -17,7 +17,7 @@ Developing plugin is roughly developed in the following manner.
 First, we include /usr/local/include/jubatus/plugin.hpp.
 Second, we inherit a base class, or a framework of plugin and write an arbitrary module for feature extraction and filter.
 Finally, we write funcion that creates an instance of the class and returns a pointer to the instance.
-This function must be enclosed with extrn "C" so that it is seen from C code.
+This function must be enclosed with extern "C" so that it is seen from C code.
 The name of the function is specified as "function" key in fv_converter when using this plugin.
 
 .. 大まかなプラグインの開発方法は以下のとおりである。まず、/usr/local/include/jubatus/plugin.hppをインクルードするところから始まる。次に、プラグインの雛形となるクラスを継承し、任意の特徴抽出モジュール、フィルターモジュールを作成する。最後に、これを外から見えるように、extern "C"で囲った領域に、インスタンス生成の関数を作成する。この関数の中で、先ほど作成した自前クラスをnewで生成し、そのポインタを返すようにする。最後に作った関数の名前が、プラグインを利用するときに指定する"function"引数の中身である。

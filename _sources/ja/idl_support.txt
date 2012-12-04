@@ -2,7 +2,7 @@ IDL Support Status (2012 Nov.)
 ------------------------------
 
 現在、Jubatus は 5 種類の機械学習タスク (Classifier, Regression, Recommender, Stat, Graph) をサポートしています。
-:ref:`how_to_get_clients` で紹介している通り、クライアントコードは、 msgpack-idlで生成されています。
+:ref:`how_to_get_clients-ja` で紹介している通り、クライアントコードは、 msgpack-idlで生成されています。
 以下はそのサポート状況です。
 
 +------------+------------+-------------+--------------+--------------+--------------+ 

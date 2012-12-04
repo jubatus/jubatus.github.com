@@ -190,18 +190,18 @@ new TWTR.Widget({
             
   <div class="section" id="data-conversion">
 <span id="conversion"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="Permalink to this headline">¶</a></h1>
-<p>Generally speaking, we cannot use unstructured data such as texts directly when we use machine-learing softwares.
+<p>Generally speaking, we cannot use unstructured data such as texts directly when we use machine-learning software.
 Such data are converted to &#8220;feature vectors&#8221; by being process called feature extraction in advance to the tasks.
 We use key-value type as feature vector in which keys are strings and values are numeric values.
 Through this process, we can handle unstructured raw data such as natural language texts, pictures and voice in a unified way.
-The data-conversion engine in Jubatuse enables us to customize this feature-extraction process flexibly only by creating an easy configuration file.</p>
+The data-conversion engine in Jubatus enables us to customize this feature-extraction process flexibly only by creating an easy configuration file.</p>
 <p>Data-conversion is executed in two steps.
 First, we sanitize data with filtering.
 This filtering includes removing HTML tags and symbols which we know are unnecessary.
 Next, we extract features from sanitized data by feature-extraction process.</p>
 <p>We can expect a series of process works well by the easiest configuration in most cases.
 The followings is one of the easiest configuration.
-In this configuration, we use each word separated by spaces a feature for string data. For numric data, we use the value itself a feature.
+In this configuration, we use each word separated by spaces a feature for string data. For numeric data, we use the value itself a feature.
 It is probable that doing some tuning this configuration to obtain training model with high precision and desirable result.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
@@ -228,7 +228,7 @@ The other is &#8220;num_values&#8221;, whose key is string data as string_values
 We can store in string_values arbitrary text data such as name, text, profession etc.
 And we can store in num_values arbitrary numeric data such as age, income, the number of access etc.
 The data-conversion module extracts features which are used in machine learning tasks from these two types of data.
-Each key-value is represented not as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
+Each key-value is represented neither as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
   <span class="p">[</span>
@@ -279,10 +279,10 @@ This procedure is represented by the following configuration.</p>
 </pre></div>
 </div>
 <p>As a first step, we define a filter in &#8220;string_filter_types&#8221;. We name this filter &#8220;detag&#8221;.
-In &#8220;detag&#8221;, we define a filter which applys a method named &#8220;regexp&#8221;, which replaces &#8220;&lt;[^&gt;]*&gt;&#8221; with &#8220;&#8221;.
+In &#8220;detag&#8221;, we define a filter which applies a method named &#8220;regexp&#8221;, which replaces &#8220;&lt;[^&gt;]*&gt;&#8221; with &#8220;&#8221;.
 Next, we define to which elements in datum and how we apply this filter. We write it in &#8220;string_filter_rules&#8221;.
 The example above indicates that we apply the &#8220;detag&#8221; filter defined earlier to the value whose key is &#8220;message&#8221;, and that we store the resultant to &#8220;message-detagged&#8221; key, that is generated from the original key &#8220;message&#8221; and a suffix &#8220;-detagged&#8221;.</p>
-<p>In another example, we can add one to &#8220;age&#8221; by the following configuration (in Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or east asian age reckoning).</p>
+<p>In another example, we can add one to &#8220;age&#8221; by the following configuration (in Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or East Asian age reckoning).</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
@@ -364,7 +364,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <p>Specifies rules how to apply filters.
 The rules are checked in order.
 If a datum is matched to a rule, the corresponding filter is applied and a converted value is stored to the datum.
-Application is called recursively, that is, rest of filters are applied to the original values and the converted values.
+Application is called recursively, that is, rest of filters is applied to the original values and the converted values.
 Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -382,8 +382,8 @@ Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#822
 </div></blockquote>
 <p>&#8220;key&#8221; is specified in one of the following formats.
 For each key in a datum, all rules checked to be applicable.
-It means that if a single key matches n rules, every corresponding filters are applied to the original key. Then, new n keys are added to the datum.
-Every &#8220;key&#8221;s in this document are in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
+It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
+Every &#8220;key&#8221; in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -592,13 +592,13 @@ In concrete, the weight is the product of these two weights.</p>
 </table>
 </div></blockquote>
 <p>In most of machine learning tasks, it works well even if we use &#8220;bin&#8221; in both sample_weight and global_weight.
-In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight. Classification is an example of a such task.</p>
+In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight. Classification is an example of such a task.</p>
 </div>
 </div>
 <div class="section" id="feature-extraction-from-numbers">
 <h2>Feature Extraction from Numbers<a class="headerlink" href="#feature-extraction-from-numbers" title="Permalink to this headline">¶</a></h2>
 <p>As with strings, feature extraction rules are also described for numeric types.
-We can make user-defined extractors for numric types, too.</p>
+We can make user-defined extractors for numeric types, too.</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -679,7 +679,7 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 A plugin is a single dynamic library file (.so file).
 We will explain how to make plugins later. In this section, we will describe how to use plugins.</p>
 <p>How to specify plugin is same in both filters and extractors.
-In CLASS_types (CLASS is either <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">num</span></tt>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of funcion defined in the plugin in &#8220;function&#8221;.
+In CLASS_types (CLASS is either <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">num</span></tt>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of function defined in the plugin in &#8220;function&#8221;.
 Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (<tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> or <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> in most cases).
 Argument of the function is specified by other parameters.</p>
 <p>In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
@@ -728,7 +728,7 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">Specifies a full path of a dictionary file. The dictonary file consists of keywords, one keyword for one line.</td>
+<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">Specifies a full path of a dictionary file. The dictionary file consists of keywords, one keyword for one line.</td>
 </tr>
 </tbody>
 </table>

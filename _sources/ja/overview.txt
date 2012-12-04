@@ -5,7 +5,7 @@ In the coming era of extremely large databases, computer science will face new c
 
 In such applications, it is impractical or useless to apply ordinary approaches for data analysis on small datasets by storing all data into databases, analyzing the data on the databases as a batch-processing, and only visualizing the summarized output. 
 
-In fact, the future of data analytics platform should expand to three directions at the same time, handling even bigger data, applying deep analytics, and processing in real-time. However, there has been no such analytics platform for massive data streams of continuously generated Big Data with a distributed scale-out architecture. For example, 
+In fact, the future of data analytics platform should expand to three directions at the same time, handling even bigger data, applying deep analytics, and processing in real-time. However, there has been no such analytics platform for massive data streams of continuously generated Big Data with distributed scale-out architecture. For example,
 Jubatus is the first open source platform for online distributed machine learning on the data streams of Big Data. We use a loose model sharing architecture for efficient training and sharing of machine learning models, by defining three fundamental operations; Update, Mix, and Analyze, in a similar way with the Map and Reduce operations in Hadoop. 
 The point is how to reduce the size of model and the number of the Mix operations while keeping high accuracy, since Mix-ing large models for many times causes high networking cost and high latency in the distributed environment. 
 

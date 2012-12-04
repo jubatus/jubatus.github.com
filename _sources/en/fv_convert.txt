@@ -3,11 +3,11 @@
 Data Conversion
 ===============
 
-Generally speaking, we cannot use unstructured data such as texts directly when we use machine-learing softwares.
+Generally speaking, we cannot use unstructured data such as texts directly when we use machine-learning software.
 Such data are converted to "feature vectors" by being process called feature extraction in advance to the tasks.
 We use key-value type as feature vector in which keys are strings and values are numeric values.
 Through this process, we can handle unstructured raw data such as natural language texts, pictures and voice in a unified way.
-The data-conversion engine in Jubatuse enables us to customize this feature-extraction process flexibly only by creating an easy configuration file.
+The data-conversion engine in Jubatus enables us to customize this feature-extraction process flexibly only by creating an easy configuration file.
 
 Data-conversion is executed in two steps.
 First, we sanitize data with filtering.
@@ -16,7 +16,7 @@ Next, we extract features from sanitized data by feature-extraction process.
 
 We can expect a series of process works well by the easiest configuration in most cases.
 The followings is one of the easiest configuration.
-In this configuration, we use each word separated by spaces a feature for string data. For numric data, we use the value itself a feature. 
+In this configuration, we use each word separated by spaces a feature for string data. For numeric data, we use the value itself a feature.
 It is probable that doing some tuning this configuration to obtain training model with high precision and desirable result.
 
 .. code-block:: python
@@ -46,7 +46,7 @@ The other is "num_values", whose key is string data as string_values is, but val
 We can store in string_values arbitrary text data such as name, text, profession etc.
 And we can store in num_values arbitrary numeric data such as age, income, the number of access etc.
 The data-conversion module extracts features which are used in machine learning tasks from these two types of data.
-Each key-value is represented not as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
+Each key-value is represented neither as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.
 
 .. code-block:: python
@@ -106,11 +106,11 @@ This procedure is represented by the following configuration.
       ]
 
 As a first step, we define a filter in "string_filter_types". We name this filter "detag".
-In "detag", we define a filter which applys a method named "regexp", which replaces "<[^>]*>" with "".
+In "detag", we define a filter which applies a method named "regexp", which replaces "<[^>]*>" with "".
 Next, we define to which elements in datum and how we apply this filter. We write it in "string_filter_rules".
 The example above indicates that we apply the "detag" filter defined earlier to the value whose key is "message", and that we store the resultant to "message-detagged" key, that is generated from the original key "message" and a suffix "-detagged".
 
-In another example, we can add one to "age" by the following configuration (in Japan, such a counting method is called "Kazoe Doshi", or east asian age reckoning).
+In another example, we can add one to "age" by the following configuration (in Japan, such a counting method is called "Kazoe Doshi", or East Asian age reckoning).
 
 .. code-block:: js
 
@@ -183,7 +183,7 @@ string_filter_rules
 Specifies rules how to apply filters.
 The rules are checked in order.
 If a datum is matched to a rule, the corresponding filter is applied and a converted value is stored to the datum.
-Application is called recursively, that is, rest of filters are applied to the original values and the converted values.
+Application is called recursively, that is, rest of filters is applied to the original values and the converted values.
 Each rule is represented as a dictionary whose keys are "key", "type" and "suffix".
 
  :key:       Specifies to which keys in a datum we apply the rule. We describe it in datail later.
@@ -192,8 +192,8 @@ Each rule is represented as a dictionary whose keys are "key", "type" and "suffi
 
 "key" is specified in one of the following formats.
 For each key in a datum, all rules checked to be applicable.
-It means that if a single key matches n rules, every corresponding filters are applied to the original key. Then, new n keys are added to the datum.
-Every "key"s in this document are in the same format. Similarly, it happens that multiple rules are applied to a single key.
+It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
+Every "key" in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.
 
  :"\*" or "":   Matches all keys in a datum. That is, this rule is applied to every keys in the datum.
  :"XXX\*":      Matches keys whose prefixes are "XXX".
@@ -318,14 +318,14 @@ In concrete, the weight is the product of these two weights.
     :idf:     global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.
 
 In most of machine learning tasks, it works well even if we use "bin" in both sample_weight and global_weight.
-In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set "bin" in sample_weight and global_weight. Classification is an example of a such task.
+In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set "bin" in sample_weight and global_weight. Classification is an example of such a task.
 
 
 Feature Extraction from Numbers
 -------------------------------
 
 As with strings, feature extraction rules are also described for numeric types.
-We can make user-defined extractors for numric types, too.
+We can make user-defined extractors for numeric types, too.
 
 .. code-block:: js
 
@@ -389,7 +389,7 @@ A plugin is a single dynamic library file (.so file).
 We will explain how to make plugins later. In this section, we will describe how to use plugins.
 
 How to specify plugin is same in both filters and extractors.
-In CLASS_types (CLASS is either ``string`` or ``num``), we should specify "dynamic" in "method", a path to a .so file in "path" and the name of funcion defined in the plugin in "function".
+In CLASS_types (CLASS is either ``string`` or ``num``), we should specify "dynamic" in "method", a path to a .so file in "path" and the name of function defined in the plugin in "function".
 Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib/jubatus/plugin`` in most cases).
 Argument of the function is specified by other parameters.
 
@@ -424,7 +424,7 @@ Note that some plugins are not available depending on your compile options.
  This plugin is available only when compiled with ``--enable-ux``.
 
   :function:   Specifies "create".
-  :dict_path:  Specifies a full path of a dictionary file. The dictonary file consists of keywords, one keyword for one line.
+  :dict_path:  Specifies a full path of a dictionary file. The dictionary file consists of keywords, one keyword for one line.
 
  .. code-block:: js
 

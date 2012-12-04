@@ -37,7 +37,7 @@ Jubatus Servers
 
    List of ZooKeeper server(s).
 
-   If not specified, Jubatus servers runs in standalone mode.
+   If not specified, Jubatus servers run in standalone mode.
 
 .. option:: -n <name>, --name <name>
 

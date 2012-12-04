@@ -21,7 +21,7 @@ The followings are support status of msgpack-idl.
 
 - needs fix：We need to make some minor changes manually from automatically generated clients in order to interact with server.
 
-  - We appreciate you if you gave us patchs to MessagePack-IDL.
+  - We appreciate you if you gave us patches to MessagePack-IDL.
 
 We tested these clients in the following condition
 

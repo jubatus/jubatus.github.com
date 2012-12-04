@@ -1,9 +1,9 @@
-.. _how_to_get_clientsja:
+.. _how_to_get_clients-ja:
 
 How to Get Clients
 -------------------------------------
 
-各言語ごとのjubatusクライアントを取得する方法は、二種類あります。
+各言語版のJubatusクライアントを取得する方法は、二種類あります。
 
 - `github <https://github.com/jubatus/jubatus/downloads>`_ から生成済みコードを取得する。
 

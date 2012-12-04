@@ -22,7 +22,7 @@ Jubatus Keepers
 
 To keep operation and implementation of the client application simple, we recommend assigning one keeper for each instance of the application.
 
-In case that the client application cannot connect to the keeper (e.g.,the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:
+In case that the client application cannot connect to the keeper (e.g., the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:
 
 #. Monitor the keeper processes. When the keeper goes down, block the access to the application from users.
 #. Switch over to another keeper.
@@ -34,17 +34,17 @@ If you set the same name using ``--name`` option, processes collaborate with one
 
 In the figure above, processes is distributed on ``N + 1`` machines. Even when a failure occurs in ``N`` of machines, all of instances are available.
 
-Jubatus processes all data in memory. In order to prevent the lack of resourses (specially memory), you should pay to attention to the placement of the process.
+Jubatus processes all data in memory. In order to prevent the lack of resources (especially memory), you should pay to attention to the placement of the process.
 
 ZooKeeper
 ~~~~~~~~~
 
-When running Jubatus in a distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:
+When running Jubatus in a distributed environment, it is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:
 
 #. Deploy ZooKeeper in a cluster (an ensemble) using an odd number of machines.
 #. To avoid degradation of performance and stability, deploy ZooKeeper on a dedicated machine.
 
-For details, See `the documentation of ZooKeeper <http://zookeeper.apache.org/doc/current/>`_ .
+For details, See `the documentation of ZooKeeper <http://zookeeper.apache.org/doc/current/>`_.
 
 Managing Clusters
 -----------------

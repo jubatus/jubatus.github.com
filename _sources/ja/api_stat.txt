@@ -1,7 +1,7 @@
 Stat
 ----
 
-詳細な仕様は `IDL 定義 <https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl>`_ を参照してください。
+* 詳細な仕様は `IDL 定義 <https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl>`_ を参照してください。
 
 Data Structures
 ~~~~~~~~~~~~~~~

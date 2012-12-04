@@ -2,10 +2,10 @@
 Server Generation Using Code Generator
 --------------------------------------
 
-In Jubatus, distributed machine learning can implemented easily by using Jubatus framework.
+By using Jubatus framework, distributed machine learning can be easily implemented.
 This section describes how to realize your own machine learning algorithm with mix using Jubatus framework.
 
-First, there must exist same definitions in six C++ source files everytime we add new learning algorithm,
+First, there must exist same definitions in six C++ source files every time we add new learning algorithm,
 that is, header and implementation of client, header and implementation of Jubakeeper and header and implementation of server.
 This would lead to a "hotbed" of bugs every time we had changed the API.
 
@@ -24,7 +24,7 @@ Currenly all algorithms (recommener, classifier, regression, and stat) defines i
 ``jenerator``: The Code Generator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We define interface with `MsgPack-IDL <https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md>`_ .
+We define interface with `MsgPack-IDL <https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md>`_.
 So please read the instruction of MsgPack-IDL first.
 Aside from MsgPack-IDL's original syntax, we must add annotations for each method of RPC service in order to generate codes used in Jubatus.
 Annotations are interpreted by the code generator, but they are ignored as comments by MsgPack-IDL.
@@ -36,12 +36,12 @@ Therefore, we can generate each client with same interface by MsgPack-IDL.
   - First annotation defines routing of request. This annotation should begin with "#@" and be followed with one of "cht", "broadcast" and "random". Each keyword represents distribution of request with Consistent Hashing, broadcast of request to all servers, and sending of request to a randomly chosen server, respectively. We can cover distribute methods used in typical machine learning tasks.
 
     - Annotation "cht" may have one argument by itself, like ``#@cht(1)``, which defines replication number of the update data.
-    - Method annotated with "cht" must have more than two arguments. First is a string that specifies the name of a synced cluster. Second arguemnt is for a key of .
+    - Method annotated with "cht" must have more than two arguments. First is a string that specifies the name of a synced cluster. Second argument is for a key of.
     - Method annotated with "broadcast" or "random" must have one argument and one return value. void type is not available. If argument or return value is not needed, we must add meaningless value such as value of int type.
 
-  - Second annotation defines read/write of request. If we choose "analysis", data is locked in server side with read lock and is accesible by multiple thread simultaneously. On the other hand, if we choose "update", data is locked with write lock. Therefore, we can safely update data.
+  - Second annotation defines read/write of request. If we choose "analysis", data is locked in server side with read lock and is accessible by multiple thread simultaneously. On the other hand, if we choose "update", data is locked with write lock. Therefore, we can safely update data.
 
-  - Third annotation defines how to aggrate the result of API call. Available aggregator is written in `aggregators.hpp <https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp>`_ .
+  - Third annotation defines how to aggrate the results of API call. Available aggregator is written in `aggregators.hpp <https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp>`_ .
 
 
 .. code-block:: c++
@@ -70,7 +70,7 @@ Therefore, we can generate each client with same interface by MsgPack-IDL.
     map<string, map<string, string> > get_status()
   }
 
-Ocaml and Omake are required to build the generator .
+Ocaml and Omake are required to build the generator.
 Suppose the name of this file is kvs.idl. We can generate codes in the following manner.
 
 
@@ -100,7 +100,7 @@ MsgPack-IDL generates headers for mprpc of pficommon. In the example above, the 
 These headers register functors of RPC definition to servers.
 This registration is executed by passing the class name to class server with CRTP (Compressed Real Time Protocol).
 Generated kvx_impl.cpp construct server with kvs_server.hpp.
-Generators defines kvs_serv class in kvs_impl.cpp.
+Generator defines kvs_serv class in kvs_impl.cpp.
 Users should declare and implement this class under the same namespace.
 By this process, users can insert server-side implementation to the framework.
 At this time, API named get_diff and putdiff are added to server automatically.
@@ -148,7 +148,7 @@ Keeper
 
 Users don't have to implement nothing regarding keeper.
 Users have only to compile source codes of keeper.
-As the generator generate kvs_keeper.cpp, compile it and users can get keeper program.
+As the generator generates kvs_keeper.cpp, compile it and users can get keeper program.
 kvs_keeper.cpp has only main function.
 In this main function, keeper mainly does two things.
 First, keeper specifies routing of cht, broadcast and random, update process, and read process.
@@ -159,11 +159,11 @@ Second, keeper register proxy functor for each RPC.
 
 - cht
 
-  - Specifies servers with Consistent Hashing and key used in hashing. This process guarantees that requests with same key is send to same servers. Currently request is send to two servers because of redundancy. As this is senchronous call of MPRPC, all RPC call are serialized. Therefore, process time is proportional to the number of servers.
+  - Specifies servers with Consistent Hashing and key used in hashing. This process guarantees that requests with same key is send to same servers. Currently request is send to two servers because of redundancy. As this is synchronous call of MPRPC, all RPC call are serialized. Therefore, process time is proportional to the number of servers.
 
 - broadcast
 
-  - Send request to all servers. As this is senchronous call of MPRPC, all RPC call are serialized. Therefore, process time is proportional to the number of servers.
+  - Send request to all servers. As this is synchronous call of MPRPC, all RPC call are serialized. Therefore, process time is proportional to the number of servers.
 
 - random
 

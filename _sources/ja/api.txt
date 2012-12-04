@@ -19,3 +19,8 @@ MessagePack-IDL 形式はとてもシンプルなため、各言語でどのよ�
    api_recommender
    api_stat
    api_graph
+
+.. toctree::
+   :hidden:
+
+   method

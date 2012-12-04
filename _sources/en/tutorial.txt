@@ -7,8 +7,8 @@ Before trying the tutorial, you need to install Jubatus and Jubatus Python clien
 Scenario
 --------
 
-This tutorial uses `News20 <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ dataset (``20news-bydate.tar.gz``) which is a popular for experiments in text classiication.
-News20 has 20 different newsgroups and users post thier message on a suitable newsgroup.
+This tutorial uses `News20 <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ dataset (``20news-bydate.tar.gz``) which is a popular for experiments in text classification.
+News20 has 20 different newsgroups and users post their message on a suitable newsgroup.
 News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).
 
 The goal of this tutorial program is to learn model from 20news-bydate-train and to guess the newsgroup to post from 20news-bydate-test.
@@ -153,8 +153,8 @@ Server Configuration
 ~~~~~~~~~~~~~~~~~~~~
 
 Before using classification service, you need to setup a behavior of ``jubaclassifier`` using ``set_config`` API.
-There are two configurable parameter: ``method`` and ``converter``.
-Examle of these parameters are as follows.
+There are two configurable parameters: ``method`` and ``converter``.
+Example of these parameters is as follows.
 
 .. code-block:: python
 
@@ -172,7 +172,7 @@ Examle of these parameters are as follows.
   config = types.config_data(method, json.dumps(converter))
   client.set_config("", config)
 
-You can choose one of the following algorithm as ``method``:
+You can choose one of the following algorithms as ``method``:
 
 - ``perceptron``
 - ``PA``, ``PA1``, ``PA2``

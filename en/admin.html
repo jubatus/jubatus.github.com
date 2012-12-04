@@ -192,7 +192,7 @@ Additionally, to ensure high performance, you should carefully plan the process 
 <div class="section" id="jubatus-keepers">
 <h3>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="Permalink to this headline">¶</a></h3>
 <p>To keep operation and implementation of the client application simple, we recommend assigning one keeper for each instance of the application.</p>
-<p>In case that the client application cannot connect to the keeper (e.g.,the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:</p>
+<p>In case that the client application cannot connect to the keeper (e.g., the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:</p>
 <ol class="arabic simple">
 <li>Monitor the keeper processes. When the keeper goes down, block the access to the application from users.</li>
 <li>Switch over to another keeper.</li>
@@ -202,16 +202,16 @@ Additionally, to ensure high performance, you should carefully plan the process 
 <h3>Jubatus Servers<a class="headerlink" href="#jubatus-servers" title="Permalink to this headline">¶</a></h3>
 <p>If you set the same name using <tt class="docutils literal"><span class="pre">--name</span></tt> option, processes collaborate with one another. As long as one of processes is running, Jubatus service is available.</p>
 <p>In the figure above, processes is distributed on <tt class="docutils literal"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">1</span></tt> machines. Even when a failure occurs in <tt class="docutils literal"><span class="pre">N</span></tt> of machines, all of instances are available.</p>
-<p>Jubatus processes all data in memory. In order to prevent the lack of resourses (specially memory), you should pay to attention to the placement of the process.</p>
+<p>Jubatus processes all data in memory. In order to prevent the lack of resources (especially memory), you should pay to attention to the placement of the process.</p>
 </div>
 <div class="section" id="zookeeper">
 <h3>ZooKeeper<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h3>
-<p>When running Jubatus in a distributed environment, It is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:</p>
+<p>When running Jubatus in a distributed environment, it is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:</p>
 <ol class="arabic simple">
 <li>Deploy ZooKeeper in a cluster (an ensemble) using an odd number of machines.</li>
 <li>To avoid degradation of performance and stability, deploy ZooKeeper on a dedicated machine.</li>
 </ol>
-<p>For details, See <a class="reference external" href="http://zookeeper.apache.org/doc/current/">the documentation of ZooKeeper</a> .</p>
+<p>For details, See <a class="reference external" href="http://zookeeper.apache.org/doc/current/">the documentation of ZooKeeper</a>.</p>
 </div>
 </div>
 <div class="section" id="managing-clusters">
