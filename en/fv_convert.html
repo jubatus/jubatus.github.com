@@ -121,6 +121,7 @@
 <li><a class="reference internal" href="#num-rules">num_rules</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
 <li><a class="reference internal" href="#plugins">Plugins</a></li>
 </ul>
 </li>
@@ -248,13 +249,13 @@ The following is an example of a datum.</p>
 </div>
 <div class="section" id="flow-of-data-conversion">
 <h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>The following is the overview of data conversion.
-As datum consists of string data and numeric data, there are flows of processing for each type of data.
-For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
-Then, features are extracted from string data with &#8220;string_rules&#8221;.
-For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to the datum.
-Then, features are extracted from string data with &#8220;num_rules&#8221;.
-As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
+<p>The following is the overview of data conversion.</p>
+<p>As datum consists of string data and numeric data, there are flows of processing for each type of data.</p>
+<p>For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
+Then, features are extracted from string data with &#8220;string_rules&#8221;.</p>
+<p>For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to the datum.
+Then, features are extracted from string data with &#8220;num_rules&#8221;.</p>
+<p>As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
 <div class="figure">
 <img alt="feature vector converter" src="../_images/convert_flow.png" style="width: 90%;" />
 <p class="caption">Figure : System of Conversion Engine</p>
@@ -672,6 +673,28 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </table>
 </div></blockquote>
 </div>
+</div>
+<div class="section" id="hashing-key-of-feature-vector">
+<h2>Hashing Key of Feature Vector<a class="headerlink" href="#hashing-key-of-feature-vector" title="Permalink to this headline">¶</a></h2>
+<p>To reduce memory consumption, Jubatus can hash keys of feature vectors.
+By hashing feature vector keys, you can limit a maximum dimension of feature vectors, although this may decrease the accuracy of the result when one hash value collides with another.</p>
+<p>This function is disabled by default.
+To use this option, specify the <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> in the converter configuration.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}],</span>
+  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}],</span>
+  <span class="s">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The appropriate number of <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> depends on the data set you use and your environment.
+Note that <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> is not a limit for a number of keys in the original datum, but a number of keys in (converted) feature vectors.</p>
 </div>
 <div class="section" id="plugins">
 <span id="conversion-plugin"></span><h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>

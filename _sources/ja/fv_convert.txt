@@ -70,11 +70,15 @@ Flow of Data Conversion
 -----------------------
 
 大まかな処理の流れは以下のようになっている。
+
 datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
+
 文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
 その状態で、string_rulesによって文字列データからの特徴量が抽出される。
+
 数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
 その状態で、num_rulesによって数値データからの特徴量が抽出される。
+
 フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。
 
 .. figure:: ../_static/convert_flow.png
@@ -378,6 +382,32 @@ string_rulesなどと同様、複数の規則を羅列する。
  :suffix:
 
    変換後の結果を格納するkeyのサフィックスを指定する。
+
+Hashing Key of Feature Vector
+-----------------------------
+
+Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができます。
+特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができますが、ハッシュの衝突により学習精度の低下が発生する可能性があります。
+
+この機能はデフォルトでは無効です。
+使用するには、変換設定に ``hash_max_size`` を指定します。
+
+::
+
+  {
+    "string_filter_types": {},
+    "string_filter_rules": [],
+    "num_filter_types": {},
+    "num_filter_rules": [],
+    "string_types": {},
+    "string_rules": [{"key": "*", "type" : "str", "sample_weight": "bin", "global_weight" : "bin"}],
+    "num_types": {},
+    "num_rules": [{"key" : "*", "type" : "num"}],
+    "hash_max_size": 16
+  }
+
+最適な ``hash_max_size`` の値は、使用するデータセットおよび環境により異なります。
+``hash_max_size`` が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意してください。
 
 .. _conversion_plugin-ja:
 

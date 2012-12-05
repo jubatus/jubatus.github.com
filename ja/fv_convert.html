@@ -122,6 +122,7 @@
 <li><a class="reference internal" href="#num-rules">num_rules</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
 <li><a class="reference internal" href="#plugins">Plugins</a></li>
 </ul>
 </li>
@@ -249,13 +250,13 @@ datumには2つのkey-valueが存在する。
 </div>
 <div class="section" id="flow-of-data-conversion">
 <h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>大まかな処理の流れは以下のようになっている。
-datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。
-文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
-その状態で、string_rulesによって文字列データからの特徴量が抽出される。
-数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
-その状態で、num_rulesによって数値データからの特徴量が抽出される。
-フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
+<p>大まかな処理の流れは以下のようになっている。</p>
+<p>datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。</p>
+<p>文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、string_rulesによって文字列データからの特徴量が抽出される。</p>
+<p>数値データには、まずnum_filter_rulesが適用されて、フィルター済みデータが追加される。
+その状態で、num_rulesによって数値データからの特徴量が抽出される。</p>
+<p>フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
 <div class="figure">
 <img alt="feature vector converter" src="../_images/convert_flow1.png" style="width: 90%;" />
 <p class="caption">図: 変換エンジンの構成</p>
@@ -673,6 +674,28 @@ string_rulesなどと同様、複数の規則を羅列する。
 </table>
 </div></blockquote>
 </div>
+</div>
+<div class="section" id="hashing-key-of-feature-vector">
+<h2>Hashing Key of Feature Vector<a class="headerlink" href="#hashing-key-of-feature-vector" title="Permalink to this headline">¶</a></h2>
+<p>Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができます。
+特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができますが、ハッシュの衝突により学習精度の低下が発生する可能性があります。</p>
+<p>この機能はデフォルトでは無効です。
+使用するには、変換設定に <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> を指定します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}],</span>
+  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}],</span>
+  <span class="s">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>最適な <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> の値は、使用するデータセットおよび環境により異なります。
+<tt class="docutils literal"><span class="pre">hash_max_size</span></tt> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意してください。</p>
 </div>
 <div class="section" id="plugins">
 <span id="conversion-plugin-ja"></span><h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
