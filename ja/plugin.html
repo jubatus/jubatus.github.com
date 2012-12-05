@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Develpment &mdash; Jubatus</title>
+    <title>Plugin Development &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -102,8 +102,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Plugin Develpment</a><ul>
-<li><a class="reference internal" href="#plugin-for-data-conversion">plugin for data conversion</a></li>
+<li><a class="reference internal" href="#">Plugin Development</a><ul>
+<li><a class="reference internal" href="#plugin-for-data-conversion">Plugin for Data Conversion</a></li>
 </ul>
 </li>
 </ul>
@@ -170,24 +170,26 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="plugin-develpment">
-<h1>Plugin Develpment<a class="headerlink" href="#plugin-develpment" title="Permalink to this headline">¶</a></h1>
-<p id="plugin">Jubatusはユーザーがプラグインを開発することで、様々な拡張ができるようになっている。
-特に、データ変換エンジンではユーザーが任意の変換ロジックを組み込めるように、各モジュール用のプラグインを作ることができる。
-プラグインはC++を利用して作成する。
-このページでは、プラグイン開発の方法を説明する。</p>
+  <div class="section" id="plugin-development">
+<h1>Plugin Development<a class="headerlink" href="#plugin-development" title="Permalink to this headline">¶</a></h1>
+<p>このページでは、プラグイン開発の方法を説明する。</p>
+<p>Jubatus はユーザーが C++ でプラグインを開発することで、様々な拡張ができるようになっている。</p>
+<p>特に、データ変換エンジンではユーザーが任意の変換ロジックを組み込めるように、各モジュール用のプラグインを作ることができる。</p>
 <div class="section" id="plugin-for-data-conversion">
-<h2>plugin for data conversion<a class="headerlink" href="#plugin-for-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>大まかなプラグインの開発方法は以下のとおりである。
-まず、/usr/local/include/jubatus/plugin.hppをインクルードするところから始まる。
-次に、プラグインの雛形となるクラスを継承し、任意の特徴抽出モジュール、フィルターモジュールを作成する。
-最後に、これを外から見えるように、extern &#8220;C&#8221;で囲った領域に、インスタンス生成の関数を作成する。
-この関数の中で、先ほど作成した自前クラスをnewで生成し、そのポインタを返すようにする。
-最後に作った関数の名前が、プラグインを利用するときに指定する&#8221;function&#8221;引数の中身である。</p>
-<p>例としてstring_types用のプラグインの作り方を示す。
-この場合、ひな形はjubatus::word_splitterクラスである。
-word_splitterクラスは文字列を受け取って、文字列を分割したあとの分割点を返すsplitというメンバ関数のみからなる。
-以下に例を示す。</p>
+<h2>Plugin for Data Conversion<a class="headerlink" href="#plugin-for-data-conversion" title="Permalink to this headline">¶</a></h2>
+<p>fv_converter プラグインの開発は以下の手順で行う。</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">jubatus/plugin.hpp</span></tt> をインクルードする。</li>
+<li>プラグインのひな形となる基底クラスを継承し、必要な特徴抽出モジュールまたはフィルターモジュールを実装する。</li>
+<li>実装したクラスのインスタンスを生成し、そのポインタを返却する関数を作成する。
+この関数は C コードから見えるように <tt class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></tt> で囲う必要がある。
+この関数の名前が、fv_converter でプラグインを利用するときに指定する <tt class="docutils literal"><span class="pre">&quot;function&quot;</span></tt> 引数の中身である。</li>
+</ol>
+<p>例として、文字列からの特徴量抽出 (<tt class="docutils literal"><span class="pre">string_types</span></tt>) 用のプラグインの作り方を示す。</p>
+<p>この場合、継承すべきひな形は <tt class="docutils literal"><span class="pre">jubatus::word_splitter</span></tt> クラスである。
+<tt class="docutils literal"><span class="pre">word_splitter</span></tt> クラスは文字列を引数に取り、その文字列を分割して各パーツの分割点を返す <tt class="docutils literal"><span class="pre">split</span></tt> というメンバ関数のみからなる。
+分割点は <tt class="docutils literal"><span class="pre">size_t</span></tt> のペアのベクタである。一つ目の値はそのパーツの開始位置であり、二つ目の値はそのパーツの長さを表す。</p>
+<p>以下にコード例を示す。</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/plugin.hpp&gt;</span>
 <span class="cp">#include &lt;map&gt;</span>
 
@@ -196,7 +198,7 @@ word_splitterクラスは文字列を受け取って、文字列を分割した�
 <span class="k">class</span> <span class="nc">my_splitter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">word_splitter</span> <span class="p">{</span>
  <span class="k">public</span><span class="o">:</span>
    <span class="kt">void</span> <span class="n">split</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">,</span>
-              <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">size_t</span><span class="p">,</span> <span class="n">size_t</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">ret_boundaries</span><span class="p">)</span> <span class="p">{</span>
+              <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">size_t</span><span class="p">,</span> <span class="n">size_t</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">ret_boundaries</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
     <span class="c1">// do somehting</span>
   <span class="p">}</span>
 <span class="p">};</span>
@@ -208,12 +210,12 @@ word_splitterクラスは文字列を受け取って、文字列を分割した�
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>上記のファイルをコンパイルし、libjubaconverter.soとリンクすると.soファイルが完成する。
-できた.soファイルは、プラグインとして利用できる。
-プラグインとして利用する方法は、 <a class="reference internal" href="fv_convert.html#conversion-ja"><em>Data Conversion</em></a> および <a class="reference internal" href="fv_convert.html#conversion-plugin-ja"><em>Plugins</em></a> を参照のこと。</p>
+<p>上記のファイルをコンパイルし、 <tt class="docutils literal"><span class="pre">libjubaconverter.so</span></tt> とリンクすることで、プラグイン (共有ライブラリ (.so)) が作成される。
+プラグインとして利用する方法は、 <a class="reference internal" href="fv_convert.html#conversion-plugin-ja"><em>Plugins</em></a> を参照のこと。</p>
 <p>その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。
-より具体的なソースに関しては、src/server/fv_converter中のtest_*.cppを参照して、同様の方法でプラグインを作成できる。
-それぞれが各モジュールプラグインのサンプルになっている。</p>
+より具体的なソースの例に関しては、Jubatus ソース内の <tt class="docutils literal"><span class="pre">src/fv_converter</span></tt> 中の <tt class="docutils literal"><span class="pre">test_*.cpp</span></tt> を参照すること。</p>
+<p>プラグインの開発を行う場合、 <a class="reference external" href="https://github.com/jubatus/jubatus-plugin-skelton.git">プラグイン開発用スケルトンプロジェクト</a> を使用すると便利である。
+このスケルトンでは、渡された文字列から ASCII 文字列を特徴量として抽出する機能が既に実装されている。</p>
 </div>
 </div>
 

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Develpment &mdash; Jubatus</title>
+    <title>Plugin Development &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -101,7 +101,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Plugin Develpment</a><ul>
+<li><a class="reference internal" href="#">Plugin Development</a><ul>
 <li><a class="reference internal" href="#plugin-for-data-conversion">Plugin for Data Conversion</a></li>
 </ul>
 </li>
@@ -169,25 +169,26 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="plugin-develpment">
-<h1>Plugin Develpment<a class="headerlink" href="#plugin-develpment" title="Permalink to this headline">¶</a></h1>
-<p id="plugin">Jubatus can extend its functionality with user-developed plugins.
-Especially in data conversion engine, we can develop plugins for each module so that we can embed arbitrary conversion logics.
-Plugin is written in C++.
-In this section, we will explain how to develop plugins.</p>
+  <div class="section" id="plugin-development">
+<h1>Plugin Development<a class="headerlink" href="#plugin-development" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we will explain how to develop plugins.</p>
+<p>You can extend the functionality of Jubatus by developing plugins in C++.</p>
+<p>Especially in the data conversion engine, we can develop plugins for each module so that we can embed arbitrary conversion logics.</p>
 <div class="section" id="plugin-for-data-conversion">
 <h2>Plugin for Data Conversion<a class="headerlink" href="#plugin-for-data-conversion" title="Permalink to this headline">¶</a></h2>
-<p>Developing plugin is roughly developed in the following manner.
-First, we include /usr/local/include/jubatus/plugin.hpp.
-Second, we inherit a base class, or a framework of plugin and write an arbitrary module for feature extraction and filter.
-Finally, we write funcion that creates an instance of the class and returns a pointer to the instance.
-This function must be enclosed with extern &#8220;C&#8221; so that it is seen from C code.
-The name of the function is specified as &#8220;function&#8221; key in fv_converter when using this plugin.</p>
-<p>As an example, we describe how to develop a plugin for &#8220;string_types&#8221;.
-In this case, base class to be inherit is jubatus::word_splitter class.
-word_splitter class is consist of the only member function named &#8220;split&#8221;.
-split function receives string, splits this string and returns split point.
-The following is an example of my_splitter class.</p>
+<p>To develop a fv_converter plugin, follow the instructions below.</p>
+<ol class="arabic simple">
+<li>Include <tt class="docutils literal"><span class="pre">jubatus/plugin.hpp</span></tt>.</li>
+<li>Inherit a base class (or a framework of plugin) and implement an arbitrary module for feature extraction or filter.</li>
+<li>Write a function that creates an instance of the class and returns a pointer to it.
+The function must be enclosed in <tt class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></tt> to make it visible from C code.
+This is the name of the function as specified in <tt class="docutils literal"><span class="pre">&quot;function&quot;</span></tt> key in fv_converter when using the plugin.</li>
+</ol>
+<p>As an example, we describe how to develop a plugin for feature extraction from strings (<tt class="docutils literal"><span class="pre">string_types</span></tt>).</p>
+<p>In this case, a base class you need to inherit is <tt class="docutils literal"><span class="pre">jubatus::word_splitter</span></tt>.
+<tt class="docutils literal"><span class="pre">word_splitter</span></tt> class consists of the only member function named <tt class="docutils literal"><span class="pre">split</span></tt> which takes a string as an argument, splits the string and returns boundaries for each split parts.
+Boundaries is a vector of pair of two <tt class="docutils literal"><span class="pre">size_t</span></tt> s, where the first value of the pair is the byte of the string where the part starts, and the second value is the length of the part.</p>
+<p>The following is an example code.</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/plugin.hpp&gt;</span>
 <span class="cp">#include &lt;map&gt;</span>
 
@@ -208,12 +209,12 @@ The following is an example of my_splitter class.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>We compile this file and like it with libjubaconverter.so and get .so file.
-We can use this .so file as a plugin.
-How to use plugins is described in <a class="reference internal" href="fv_convert.html#conversion"><em>Data Conversion</em></a> and <a class="reference internal" href="fv_convert.html#conversion-plugin"><em>Plugins</em></a>.</p>
-<p>We can develop plugins of other feature extractors and filter in the same way.
-src/server/fv_converter/test_*.cpp are sample of each type of plugin.
-So please refer to these file for more concrete explanation.</p>
+<p>Compile this file, link it with <tt class="docutils literal"><span class="pre">libjubaconverter.so</span></tt> and you will get a plugin (shared library (.so)).
+See <a class="reference internal" href="fv_convert.html#conversion-plugin"><em>Plugins</em></a> for instruction on using .so files as a plugin.</p>
+<p>You can develop plugins of other feature extractors and filter in the same way.
+For other examples, see <tt class="docutils literal"><span class="pre">test_*.cpp</span></tt> in the <tt class="docutils literal"><span class="pre">src/fv_converter</span></tt> directory of Jubatus source code.</p>
+<p>When developing plugins, you can use <a class="reference external" href="https://github.com/jubatus/jubatus-plugin-skelton.git">Plugin Development Skeleton Project</a>.
+This skeleton implements a plugin that converts given string as a feature vector.</p>
 </div>
 </div>
 
