@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Server generation using code generator &mdash; Jubatus</title>
+    <title>Using Code Generators &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -103,14 +103,24 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Server generation using code generator</a><ul>
-<li><a class="reference internal" href="#generator">generator</a></li>
-<li><a class="reference internal" href="#server">server</a></li>
-<li><a class="reference internal" href="#keeper">keeper</a></li>
-<li><a class="reference internal" href="#future-works">Future works</a><ul>
-<li><a class="reference internal" href="#id1">同時接続数の限界</a></li>
+<li><a class="reference internal" href="#">Using Code Generators</a><ul>
+<li><a class="reference internal" href="#flow-of-development">Flow of Development</a></li>
+<li><a class="reference internal" href="#why-we-use-idl">Why We Use IDL</a></li>
+<li><a class="reference internal" href="#composition-of-files">Composition of Files</a></li>
+<li><a class="reference internal" href="#jenerator-the-code-generator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator</a><ul>
+<li><a class="reference internal" href="#building-jenerator">Building <tt class="docutils literal"><span class="pre">jenerator</span></tt></a></li>
+<li><a class="reference internal" href="#generating-server-keeper-from-idl">Generating Server/Keeper from IDL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-server">Implementing Server</a><ul>
+<li><a class="reference internal" href="#mixable-class">Mixable Class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-keeper">Implementing Keeper</a></li>
+<li><a class="reference internal" href="#future-works">Future Works</a><ul>
+<li><a class="reference internal" href="#id2">同時接続数の限界</a></li>
 <li><a class="reference internal" href="#api">ブロードキャストAPIの問題</a></li>
-<li><a class="reference internal" href="#id2">インターフェースと処理記述</a></li>
+<li><a class="reference internal" href="#id3">インターフェースと処理記述</a></li>
 </ul>
 </li>
 </ul>
@@ -179,147 +189,156 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="server-generation-using-code-generator">
-<h1>Server generation using code generator<a class="headerlink" href="#server-generation-using-code-generator" title="Permalink to this headline">¶</a></h1>
-<p>Jubatusは機械学習などのアルゴリズムをプラグイン化し，容易に追加できることを目的にしているが，公開されている実装に対してrecommenderを追加しようとした場合，それぞれのRPCインターフェースをクライアントのヘッダと実装，Jubakeeperのヘッダと実装，サーバー本体のヘッダと実装の6箇所に定義する必要があった．さらにpficommonのMPRPC_GEN, MPRPC_PROC等，サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった．
-このような設計では，新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず，APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており，機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい．さらに，C++のマクロおよびテンプレートを多用しているため，コンパイルエラーが複雑なものとなり，Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた．</p>
-<p>結果として，</p>
+  <div class="section" id="using-code-generators">
+<h1>Using Code Generators<a class="headerlink" href="#using-code-generators" title="Permalink to this headline">¶</a></h1>
+<p>Jubatus フレームワークを利用した機械学習アルゴリズムの開発では、まず IDL と呼ばれる RPC インタフェース定義ファイルを作成する。
+Jubatus に付属するコード生成器 <tt class="docutils literal"><span class="pre">jenerator</span></tt> と、MessagePack-IDL のコード生成器 <tt class="docutils literal"><span class="pre">mpidl</span></tt> を使用することで、IDL から各部品 (サーバ, Keeper, 各言語版のクライアント) を生成することができる。
+これらの生成器を利用することで、フレームワークの利用者は機械学習アルゴリズムの実装に集中することができる。</p>
+<div class="section" id="flow-of-development">
+<h2>Flow of Development<a class="headerlink" href="#flow-of-development" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>サーバーが持つべきRPCインターフェースを定義する</li>
-<li>ジェネレータによりIDL, サーバー，Jubakeeperのコードを生成</li>
-<li>RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体，および必要に応じてmix操作を作成</li>
-<li>msgpack-idlを用いてクライアントを生成</li>
+<li>サービスが持つべきRPCインターフェースを IDL で定義する。</li>
+<li><tt class="docutils literal"><span class="pre">jenerator</span></tt> を用いて IDL から サーバー、Keeper のコードを生成する。</li>
+<li><tt class="docutils literal"><span class="pre">mpidl</span></tt> を用いてデータ構造とクライアントを生成する。</li>
+<li>RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体、および必要に応じてmix操作を作成する。</li>
 </ol>
-<p>という手順で一連のシステムを作成することができることを確認した．実際にRPC定義をするのは，7箇所から3箇所に削減された．これを用いて，recommender, classifier, regression, statが構成出来ることを確認した．</p>
-<div class="section" id="generator">
-<h2>generator<a class="headerlink" href="#generator" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MsgPack-IDL</a> によりインターフェースを定義する．
-ただし，そのままJubatusのコードを生成するためにはRPCサービスの各メソッドにアノテーションをつける必要がある．
-これはコードジェネレータでは解釈されるが，MsgPack-IDLではコメントとして無視されるため，同じファイルで各種クライアントも生成できる．</p>
+<p><a class="reference external" href="https://github.com/jubatus/jubatus-service-skelton">スケルトンプロジェクト</a> を利用すると、容易に開発を開始できる。</p>
+</div>
+<div class="section" id="why-we-use-idl">
+<h2>Why We Use IDL<a class="headerlink" href="#why-we-use-idl" title="Permalink to this headline">¶</a></h2>
+<p>Jubatusは機械学習などのアルゴリズムをモジュール化し、容易に追加できることを目的にしているが、公開されている実装に対してrecommenderを追加しようとした場合、それぞれのRPCインターフェースをクライアントのヘッダと実装、Jubakeeperのヘッダと実装、サーバー本体のヘッダと実装の6箇所に定義する必要があった。さらにpficommonのMPRPC_GEN, MPRPC_PROC等、サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった。
+このような設計では、新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず、APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており、機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい。さらに、C++のマクロおよびテンプレートを多用しているため、コンパイルエラーが複雑なものとなり、Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた。</p>
+<p>IDL を利用することで、上記のフローで一連のシステムを作成することができることを確認した。
+実際に RPC 定義をするのは、7箇所から3箇所に削減された。これを用いて、recommender, classifier, regression, stat, graph が構成出来ることを確認した。</p>
+</div>
+<div class="section" id="composition-of-files">
+<h2>Composition of Files<a class="headerlink" href="#composition-of-files" title="Permalink to this headline">¶</a></h2>
+<p>Jubatus フレームワークを利用した機械学習システムは、以下のファイルで構成される (<em>NAME</em> はサービスの名称である)。</p>
 <ul class="simple">
-<li>アノテーションつきクラスメソッドの宣言<ul>
-<li>一番目のアノテーションでは，リクエストのルーティングを宣言することができる．必ず &#8220;#&#64;&#8221; から始まり， &#8220;cht&#8221;, &#8220;broadcast&#8221;, &#8220;random&#8221; のいずれかを表す．それぞれ，Consistent Hashingによるリクエストの分散，全サーバーへリクエストをブロードキャスト，ランダムに選択されたいずれかのサーバーへリクエストを送信，を表す．これによって，典型的だと思われる機械学習の分散方式をカバーすることができる．<ul>
-<li>chtアノテーションがあるメソッドは，第一引数がchtのキーとなるstring, 第二引数をユーザ利用の引数としなければならない．</li>
-<li>broadcast, randomアノテーションがあるメソッドは，必ずひとつの引数とひとつの返り値をもたなければならない．void型は利用できない．引数や返り値が必要ない場合は，意味のないintなどを指定しておくこと．</li>
+<li>NAME_serv.cpp: 機能を実装するソースファイル (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で生成されるテンプレートを編集)</li>
+<li>NAME_serv.hpp: <tt class="docutils literal"><span class="pre">NAME_serv.cpp</span></tt> に対応するヘッダファイル (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で生成されるテンプレートを編集)</li>
+<li>NAME_server.hpp: RPC メソッドの登録を行う <tt class="docutils literal"><span class="pre">NAME_impl_</span></tt> の親クラス (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
+<li>NAME_impl.cpp: サーバの main 関数と RPC インタフェースの定義 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
+<li>NAME_keeper.cpp: Keeper の実装 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
+<li>NAME_client.hpp: クライアントの実装 (<tt class="docutils literal"><span class="pre">mpidl</span></tt> で自動生成)</li>
+<li>NAME_types.hpp: RPC で使用する構造体や型の情報 (<tt class="docutils literal"><span class="pre">mpidl</span></tt> で自動生成; サーバ/クライアント/Keeper で共用)</li>
+</ul>
+</div>
+<div class="section" id="jenerator-the-code-generator">
+<h2><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator<a class="headerlink" href="#jenerator-the-code-generator" title="Permalink to this headline">¶</a></h2>
+<p>RPC インターフェースは <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MessagePack-IDL</a> により定義する。
+ただし、そのままJubatusのコードを生成するためには、MessagePack-IDL の文法とは別に、RPCサービスの各メソッドにアノテーションをつける必要がある。</p>
+<p>アノテーションは Jubatus のコードジェネレータである <tt class="docutils literal"><span class="pre">jenerator</span></tt> では解釈されるが、MessagePack-IDL ではコメントとして無視される。
+このため、同じ IDL ファイルで各種クライアントも生成できる。</p>
+<p>各メソッドに付与するアノテーションの文法は以下の通りである。</p>
+<ul class="simple">
+<li>各メソッドには <tt class="docutils literal"><span class="pre">#&#64;</span></tt> で始まる 3 つのアノテーションを付与する必要があり、順番に &#8220;ルーティング&#8221;, &#8220;ロック種類&#8221;, &#8220;結合方法&#8221; を指定する。</li>
+<li>&#8220;ルーティング&#8221; には、Keeper がどのようにリクエストをプロキシするかを定義する。
+<tt class="docutils literal"><span class="pre">cht</span></tt>, <tt class="docutils literal"><span class="pre">broadcast</span></tt>, <tt class="docutils literal"><span class="pre">random</span></tt> の 3 種類が用意されており、これによって、典型的だと思われる機械学習の分散方式をカバーすることができる。<ul>
+<li><tt class="docutils literal"><span class="pre">cht</span></tt> は Consistent Hashing によるリクエストの分散を意味する。
+<tt class="docutils literal"><span class="pre">cht</span></tt> アノテーションがあるメソッドは、2 つ以上の引数を取る必要がある。
+第 1 引数はクラスタ名を表す string 、第 2 引数が cht のキーとなる string である。
+更新データのレプリケーション多重度 (冗長度) はデフォルトでは 2 である。
+<tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt> のように、更新データのレプリケーション多重度を指定することもできる。</li>
+<li><tt class="docutils literal"><span class="pre">broadcast</span></tt> は全サーバーへリクエストをブロードキャストを意味する。</li>
+<li><tt class="docutils literal"><span class="pre">random</span></tt> はランダムに選択されたいずれか 1 台のサーバーへリクエストを送信することを表す。</li>
 </ul>
 </li>
-<li>二番目のアノテーションでは，リクエストのread/writeを宣言することができる．analysisにするとサーバー側でreadロックされることになり，複数のスレッドからの同時アクセスが可能となる．updateにするとサーバー側でwriteロックされることになり，安全にデータを更新することができる．</li>
-<li>三番目のアノテーションでは，API呼び出しの結果のアグリゲーションを定義することができる．利用可能なアグリゲータはソースのsrc/framework/aggregators.hppに掲載されている．</li>
+<li>&#8220;ロック種類&#8221; には、リクエストのread/writeを <tt class="docutils literal"><span class="pre">analysis</span></tt>, <tt class="docutils literal"><span class="pre">update</span></tt>, <tt class="docutils literal"><span class="pre">nolock</span></tt> のいずれかで定義する。<ul>
+<li><tt class="docutils literal"><span class="pre">analysis</span></tt> では、サーバ側で read ロックされることになり、複数のスレッドからの同時アクセスが可能となる。</li>
+<li><tt class="docutils literal"><span class="pre">update</span></tt> では、サーバー側で write ロックされることになり、安全にデータを更新することができる。</li>
+<li><tt class="docutils literal"><span class="pre">nolock</span></tt> ではロックは行われない。</li>
 </ul>
 </li>
+<li>&#8220;結合方法&#8221; には、API 呼び出しに対する複数のサーバからの結果を結合する方法を定義する。
+利用可能なアグリゲータは <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp">aggregators.hpp</a> に掲載されている。</li>
 </ul>
-<div class="highlight-java"><pre> message somemsgtype {
-   1: string key;
-   2: string value;
-   3: int version;
- };
+<p>なお、メソッドの戻り値型に <tt class="docutils literal"><span class="pre">void</span></tt> は利用できない。
+返り値が必要ない場合は、意味のない <tt class="docutils literal"><span class="pre">int</span></tt> や <tt class="docutils literal"><span class="pre">bool</span></tt> 型などを指定する必要がある。</p>
+<p>以下は、アノテーション付きの IDL の例である。</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">entry</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span>
+<span class="p">}</span>
 
-service kvs {
+<span class="n">service</span> <span class="n">kvs</span> <span class="p">{</span>
+<span class="cp">  #@cht(2) #@update #@all_and</span>
+  <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span><span class="p">)</span>
 
-  #@cht #@update #@all_and
-  int put(string key, string value);
+<span class="cp">  #@cht(2) #@analysis #@pass</span>
+  <span class="n">entry</span> <span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">)</span>
 
-  #@cht #@analysis #@random
-  somemsgtype get(string key, int v);
+<span class="cp">  #@cht(2) #@update #@all_and</span>
+  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span><span class="p">)</span>
 
-  #@cht #@update #@all_and
-  int del(string key, int v);
+<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">)</span>
 
-  #@broadcast #@update #@all_and
-  int clear(int);
+<span class="cp">  #@broadcast #@analysis #@merge</span>
+  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">)</span>
 
-  #@broadcase #@analysis #@merge
-  map&lt;string, string&gt; get_status(int);
-};</pre>
-</div>
-<p>generatorのビルドにはOCamlおよびOMakeが必要である．このファイルをkvs.idlとすると，</p>
-<div class="highlight-python"><pre>jubatus $ cd tools/generator
-jubatus $ omake
-jubatus $ ./jenerator path/to/kvs.idl -o .
-jubatus $ ls kvs*
-kvs_impl.cpp kvs_keeper.cpp</pre>
-</div>
-<p>通常は2つのファイルが生成される．-tオプションをつければ，サーバー実装の雛形となるC++のソースファイルが生成される．</p>
-<p>このとき，ジェネレータはsave/loadというAPIを自動で追加する．</p>
-<p>TODO: how to implement mix</p>
-</div>
-<div class="section" id="server">
-<h2>server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
-<p>msgpack-idlが生成するpficommonのmprpc向けヘッダは，CRTPによりクラス名を渡すことにより，RPC定義のファンクタをサーバーに登録する．ジェネレータが生成するkvs_impl.cppは，そのkvs_server.hppを利用してサーバーを構成する．ジェネレータはkvs_impl.cppの中でkvs_servというクラスを指定する．ユーザは同じ名前空間でこれを宣言・実装することによって，サーバー側の実装をフレームワークに組み込むことができる．
-このとき，サーバーは自動的にget_diff, put_diffというAPIをサーバーに追加する．これにより，サーバーでは，Mにget_diff, put_diffおよびreduceを実装するだけで分散環境でのmixを利用できる．以下に例を示す．</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span class="k">namespace</span> <span class="n">jubatus</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">server</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">kvs_serv</span> <span class="o">:</span> <span class="n">jubatus_serv</span><span class="o">&lt;</span><span class="n">my_kvs</span><span class="p">,</span> <span class="n">diff_t</span><span class="o">&gt;</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="n">kvs_serv</span><span class="p">(</span><span class="k">const</span> <span class="n">server_argv</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">kvs_serv</span><span class="p">();</span>
+<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="kt">bool</span> <span class="n">save</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
 
-  <span class="k">static</span> <span class="n">diffv</span> <span class="n">get_diff</span><span class="p">(</span><span class="k">const</span> <span class="n">my_kvs</span><span class="o">*</span><span class="p">);</span>
-  <span class="k">static</span> <span class="kt">int</span> <span class="n">put_diff</span><span class="p">(</span><span class="n">my_kvs</span><span class="o">*</span><span class="p">,</span> <span class="n">diff_t</span><span class="p">);</span>
-  <span class="k">static</span> <span class="kt">int</span> <span class="n">reduce</span><span class="p">(</span><span class="k">const</span> <span class="n">my_kvs</span><span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="n">diff_t</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">diff_t</span><span class="o">&amp;</span><span class="p">);</span>
-
-  <span class="n">pfi</span><span class="o">::</span><span class="n">lang</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">my_kvs</span><span class="o">&gt;</span> <span class="n">make_model</span><span class="p">();</span>
-  <span class="kt">void</span> <span class="n">after_laod</span><span class="p">();</span>
-
-  <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">value</span><span class="p">);</span>
-  <span class="n">somemsgtype</span> <span class="n">get</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="p">}}</span>
+<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="kt">bool</span> <span class="n">load</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>ユーザーは，make_model()を実装し，M(my_kvs)の初期化処理を定義しなければならない．
-また，after_load()を実装し，初期化後のサーバーの状態を変更することができる．例えば，classifierであれば，ここで
-set_mixerを実行することにより，mixのアルゴリズムを変更することができる．
-get_diff, put_diff, reduceはjubatus_serv&lt;M,Diff&gt;::set_mixer()を用いてファンクタを設定することにより利用できる．</p>
-<p>この例ではMをmy_kvsとしている．my_kvsが実装していなければならないAPIは以下のとおりである．</p>
-<dl class="function">
-<dt id="my_kvs::save__X">
-bool <tt class="descclassname">my_kvs::</tt><tt class="descname">save</tt><big>(</big><em>ostream&amp;</em><big>)</big><a class="headerlink" href="#my_kvs::save__X" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="my_kvs::load__X">
-bool <tt class="descclassname">my_kvs::</tt><tt class="descname">load</tt><big>(</big><em>istream&amp;</em><big>)</big><a class="headerlink" href="#my_kvs::load__X" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>kvs_impl.cppの中ではmain関数も実装されており，ユーザはmainを実装する必要はない．コマンドライン引数の仕様は統一されており，-?で参照することができる．</p>
+<p><tt class="docutils literal"><span class="pre">get_status</span></tt>, <tt class="docutils literal"><span class="pre">save</span></tt>, <tt class="docutils literal"><span class="pre">load</span></tt> の 3 つは Jubatus サーバとしての仕様を満たすために記述しておく必要がある。</p>
+<div class="section" id="building-jenerator">
+<h3>Building <tt class="docutils literal"><span class="pre">jenerator</span></tt><a class="headerlink" href="#building-jenerator" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml および OMake が必要である。</p>
+<div class="highlight-python"><pre>$ cd jubatus/tools/generator
+$ omake
+$ sudo omake install</pre>
 </div>
-<div class="section" id="keeper">
-<h2>keeper<a class="headerlink" href="#keeper" title="Permalink to this headline">¶</a></h2>
-<p>ユーザーはkeeperに関して何らかの実装をする必要はなく，ただコンパイルすればよい．ジェネレータがkvs_keeper.cppを生成するので，それをコンパイルすればkeeperとなる．実体はmain関数の実装があるだけで，broadcast, random, chtのルーティング，および更新処理と読込処理を指定して各RPCのプロキシとなるファンクタを登録する．</p>
-<ul class="simple">
-<li>broadcast<ul>
-<li>全サーバーにリクエストを送信する．MPRPCが同期呼び出しであるため，全てのRPC呼び出しがシリアルに実行されるため，処理時間はサーバーの台数分だけかかる．</li>
-</ul>
-</li>
-<li>random<ul>
-<li>全サーバーの中から，ランダムにサーバーを選択しリクエストを送信する．</li>
-</ul>
-</li>
-<li>cht<ul>
-<li>キーを指定することによって，Consistent Hashingを用いて同じキーは同じサーバーに必ず送信されることを保証する．現在は冗長化のために，2台にリクエストを送信している．MPRPCが同期呼び出しであるため，2回のRPC呼び出しがシリアルに実行される．</li>
-</ul>
-</li>
-</ul>
+<p>ヒント: Ubuntu を使用している場合、OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>) と OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) のバイナリパッケージが利用できる。</p>
+</div>
+<div class="section" id="generating-server-keeper-from-idl">
+<h3>Generating Server/Keeper from IDL<a class="headerlink" href="#generating-server-keeper-from-idl" title="Permalink to this headline">¶</a></h3>
+<p>上に示した例が <tt class="docutils literal"><span class="pre">kvs.idl</span></tt> というファイルに書かれていると仮定して、以下のような手順でサーバと Keeper を生成できる。</p>
+<div class="highlight-python"><pre>$ jenerator kvs.idl</pre>
+</div>
+<p>4 つのファイル <tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> (サーバ), <tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> (Keeper), <tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt> (サーバの実装のテンプレート) が生成される。</p>
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> の詳細な使い方については <a class="reference internal" href="commands.html#jenerator-ja"><em>jenerator</em></a> を参照すること。</p>
+</div>
+</div>
+<div class="section" id="implementing-server">
+<h2>Implementing Server<a class="headerlink" href="#implementing-server" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> は、 <tt class="docutils literal"><span class="pre">kvs_serv</span></tt> クラスを利用してサーバーを構成する。
+このクラスを <tt class="docutils literal"><span class="pre">kvs_serv.{cpp,hpp}</span></tt> に定義する必要がある。
+生成されたテンプレート (<tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt>) をリネームして利用することができる。</p>
+<p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> の中では <tt class="docutils literal"><span class="pre">main</span></tt> 関数も実装されており、ユーザは <tt class="docutils literal"><span class="pre">main</span></tt> を実装する必要はない。
+コマンドライン引数の仕様は Jubatus フレームワークを使用しているサーバの間ですべて共通である。
+オプションは <tt class="docutils literal"><span class="pre">--help</span></tt> で参照することができる。</p>
+<div class="section" id="mixable-class">
+<h3>Mixable Class<a class="headerlink" href="#mixable-class" title="Permalink to this headline">¶</a></h3>
+<p>TBD.</p>
+</div>
+</div>
+<div class="section" id="implementing-keeper">
+<h2>Implementing Keeper<a class="headerlink" href="#implementing-keeper" title="Permalink to this headline">¶</a></h2>
+<p>ユーザーは Keeper に関して何らかの実装をする必要はなく、ただ <tt class="docutils literal"><span class="pre">jenerator</span></tt> が生成した <tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> をコンパイルすればよい。</p>
+<p><tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> には <tt class="docutils literal"><span class="pre">main</span></tt> 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。</p>
 </div>
 <div class="section" id="future-works">
-<h2>Future works<a class="headerlink" href="#future-works" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>同時接続数の限界<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>現状のpficommonのI/Oアーキテクチャでは，スレッド数と同数の同時接続しか維持できない．従ってコネクションの接続と切断の繰り返しが必要になり，特にJubakeeperでボトルネックとなる．仮にJubakeeperでコネクションのキャッシュ機構を用意した場合，サーバー側での同時接続数に限界がくると同時にTCPコネクションのライフサイクルが複雑になる．代替案として</p>
+<h2>Future Works<a class="headerlink" href="#future-works" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>同時接続数の限界<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>現状のpficommonのI/Oアーキテクチャでは、スレッド数と同数の同時接続しか維持できない。従ってコネクションの接続と切断の繰り返しが必要になり、特にJubakeeperでボトルネックとなる。仮にJubakeeperでコネクションのキャッシュ機構を用意した場合、サーバー側での同時接続数に限界がくると同時にTCPコネクションのライフサイクルが複雑になる。代替案として</p>
 <ol class="arabic simple">
-<li>acceptベースのMsgpack-RPCサーバーではなく，epollなどの非同期I/Oを用いたサーバーを利用または作成する．公式のMsgpackサーバーは非同期I/Oの機能を持っているがメンテナンスがされてないこともあり利用しにくい．pficommonのMPRPCサーバーを改造するという選択肢がある．</li>
+<li>acceptベースのMsgpack-RPCサーバーではなく、epollなどの非同期I/Oを用いたサーバーを利用または作成する。公式のMsgpackサーバーは非同期I/Oの機能を持っているがメンテナンスがされてないこともあり利用しにくい。pficommonのMPRPCサーバーを改造するという選択肢がある。</li>
 </ol>
 </div>
 <div class="section" id="api">
 <h3>ブロードキャストAPIの問題<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h3>
-<p>全サーバーに対してRPCを実行するタイプのAPIでの実際のブロードキャストは，現在Jubakeeperが行なっている．しかし，ブロードキャスト型のRPCでは，各サーバーから得られた結果のまとめ方（アグリゲート）がAPIによって要件が異なるため，単純に全員に送信するだけでは要求を満たせない場合がある．たとえば，classifierなどのset_configは全サーバーでの実行結果が &#8220;全て成功&#8221; になるまで繰り返す必要がある（成功するか，サーバーが停止するかのどちらかでなければならない）一方で，get_statusのような状態取得APIを考えた場合には， &#8220;成功した返り値どうしをひとつのmapに結合する&#8221; といった動作が必要になる．これらの記述は，いまのジェネレータでは上手く読み出すことができない．</p>
+<p>全サーバーに対してRPCを実行するタイプのAPIでの実際のブロードキャストは、現在Jubakeeperが行なっている。しかし、ブロードキャスト型のRPCでは、各サーバーから得られた結果のまとめ方（アグリゲート）がAPIによって要件が異なるため、単純に全員に送信するだけでは要求を満たせない場合がある。たとえば、classifierなどのset_configは全サーバーでの実行結果が &#8220;全て成功&#8221; になるまで繰り返す必要がある（成功するか、サーバーが停止するかのどちらかでなければならない）一方で、get_statusのような状態取得APIを考えた場合には、 &#8220;成功した返り値どうしをひとつのmapに結合する&#8221; といった動作が必要になる。これらの記述は、いまのジェネレータでは上手く読み出すことができない。</p>
 </div>
-<div class="section" id="id2">
-<h3>インターフェースと処理記述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>複数の機械学習を結合したり，特徴量変換と学習器本体を分離するためには，C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない．現状のジェネレータでは学習器のインターフェースしか記述することができない．アルゴリズム自体も抽象化された言語上で試行錯誤し，機械学習を実装するユーザが一台のマシン上でも，複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を，検討する必要がある．</p>
+<div class="section" id="id3">
+<h3>インターフェースと処理記述<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>複数の機械学習を結合したり、特徴量変換と学習器本体を分離するためには、C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない。現状のジェネレータでは学習器のインターフェースしか記述することができない。アルゴリズム自体も抽象化された言語上で試行錯誤し、機械学習を実装するユーザが一台のマシン上でも、複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を、検討する必要がある。</p>
 </div>
 </div>
 </div>

@@ -1,167 +1,182 @@
+Using Code Generators
+=====================
 
-Server generation using code generator
---------------------------------------
+Jubatus フレームワークを利用した機械学習アルゴリズムの開発では、まず IDL と呼ばれる RPC インタフェース定義ファイルを作成する。
+Jubatus に付属するコード生成器 ``jenerator`` と、MessagePack-IDL のコード生成器 ``mpidl`` を使用することで、IDL から各部品 (サーバ, Keeper, 各言語版のクライアント) を生成することができる。
+これらの生成器を利用することで、フレームワークの利用者は機械学習アルゴリズムの実装に集中することができる。
 
-Jubatusは機械学習などのアルゴリズムをプラグイン化し，容易に追加できることを目的にしているが，公開されている実装に対してrecommenderを追加しようとした場合，それぞれのRPCインターフェースをクライアントのヘッダと実装，Jubakeeperのヘッダと実装，サーバー本体のヘッダと実装の6箇所に定義する必要があった．さらにpficommonのMPRPC_GEN, MPRPC_PROC等，サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった．
-このような設計では，新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず，APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており，機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい．さらに，C++のマクロおよびテンプレートを多用しているため，コンパイルエラーが複雑なものとなり，Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた．
+Flow of Development
+-------------------
 
-結果として，
+#. サービスが持つべきRPCインターフェースを IDL で定義する。
+#. ``jenerator`` を用いて IDL から サーバー、Keeper のコードを生成する。
+#. ``mpidl`` を用いてデータ構造とクライアントを生成する。
+#. RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体、および必要に応じてmix操作を作成する。
 
-#. サーバーが持つべきRPCインターフェースを定義する
-#. ジェネレータによりIDL, サーバー，Jubakeeperのコードを生成
-#. RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体，および必要に応じてmix操作を作成
-#. msgpack-idlを用いてクライアントを生成
+`スケルトンプロジェクト <https://github.com/jubatus/jubatus-service-skelton>`_ を利用すると、容易に開発を開始できる。
 
-という手順で一連のシステムを作成することができることを確認した．実際にRPC定義をするのは，7箇所から3箇所に削減された．これを用いて，recommender, classifier, regression, statが構成出来ることを確認した．
+Why We Use IDL
+--------------
 
+Jubatusは機械学習などのアルゴリズムをモジュール化し、容易に追加できることを目的にしているが、公開されている実装に対してrecommenderを追加しようとした場合、それぞれのRPCインターフェースをクライアントのヘッダと実装、Jubakeeperのヘッダと実装、サーバー本体のヘッダと実装の6箇所に定義する必要があった。さらにpficommonのMPRPC_GEN, MPRPC_PROC等、サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった。
+このような設計では、新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず、APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており、機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい。さらに、C++のマクロおよびテンプレートを多用しているため、コンパイルエラーが複雑なものとなり、Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた。
 
-generator
-~~~~~~~~~
+IDL を利用することで、上記のフローで一連のシステムを作成することができることを確認した。
+実際に RPC 定義をするのは、7箇所から3箇所に削減された。これを用いて、recommender, classifier, regression, stat, graph が構成出来ることを確認した。
 
-`MsgPack-IDL <https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md>`_ によりインターフェースを定義する．
-ただし，そのままJubatusのコードを生成するためにはRPCサービスの各メソッドにアノテーションをつける必要がある．
-これはコードジェネレータでは解釈されるが，MsgPack-IDLではコメントとして無視されるため，同じファイルで各種クライアントも生成できる．
+Composition of Files
+--------------------
 
-- アノテーションつきクラスメソッドの宣言
+Jubatus フレームワークを利用した機械学習システムは、以下のファイルで構成される (*NAME* はサービスの名称である)。
 
-  - 一番目のアノテーションでは，リクエストのルーティングを宣言することができる．必ず "#@" から始まり， "cht", "broadcast", "random" のいずれかを表す．それぞれ，Consistent Hashingによるリクエストの分散，全サーバーへリクエストをブロードキャスト，ランダムに選択されたいずれかのサーバーへリクエストを送信，を表す．これによって，典型的だと思われる機械学習の分散方式をカバーすることができる．
+- NAME_serv.cpp: 機能を実装するソースファイル (``jenerator`` で生成されるテンプレートを編集)
+- NAME_serv.hpp: ``NAME_serv.cpp`` に対応するヘッダファイル (``jenerator`` で生成されるテンプレートを編集)
+- NAME_server.hpp: RPC メソッドの登録を行う ``NAME_impl_`` の親クラス (``jenerator`` で自動生成)
+- NAME_impl.cpp: サーバの main 関数と RPC インタフェースの定義 (``jenerator`` で自動生成)
+- NAME_keeper.cpp: Keeper の実装 (``jenerator`` で自動生成)
+- NAME_client.hpp: クライアントの実装 (``mpidl`` で自動生成)
+- NAME_types.hpp: RPC で使用する構造体や型の情報 (``mpidl`` で自動生成; サーバ/クライアント/Keeper で共用)
 
-    - chtアノテーションがあるメソッドは，第一引数がchtのキーとなるstring, 第二引数をユーザ利用の引数としなければならない．
-    - broadcast, randomアノテーションがあるメソッドは，必ずひとつの引数とひとつの返り値をもたなければならない．void型は利用できない．引数や返り値が必要ない場合は，意味のないintなどを指定しておくこと．
+``jenerator``: The Code Generator
+---------------------------------
 
-  - 二番目のアノテーションでは，リクエストのread/writeを宣言することができる．analysisにするとサーバー側でreadロックされることになり，複数のスレッドからの同時アクセスが可能となる．updateにするとサーバー側でwriteロックされることになり，安全にデータを更新することができる．
+RPC インターフェースは `MessagePack-IDL <https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md>`_ により定義する。
+ただし、そのままJubatusのコードを生成するためには、MessagePack-IDL の文法とは別に、RPCサービスの各メソッドにアノテーションをつける必要がある。
 
-  - 三番目のアノテーションでは，API呼び出しの結果のアグリゲーションを定義することができる．利用可能なアグリゲータはソースのsrc/framework/aggregators.hppに掲載されている．
+アノテーションは Jubatus のコードジェネレータである ``jenerator`` では解釈されるが、MessagePack-IDL ではコメントとして無視される。
+このため、同じ IDL ファイルで各種クライアントも生成できる。
 
+各メソッドに付与するアノテーションの文法は以下の通りである。
 
-.. code-block:: java
+- 各メソッドには ``#@`` で始まる 3 つのアノテーションを付与する必要があり、順番に "ルーティング", "ロック種類", "結合方法" を指定する。
 
-   message somemsgtype {
-     1: string key;
-     2: string value;
-     3: int version;
-   };
+- "ルーティング" には、Keeper がどのようにリクエストをプロキシするかを定義する。
+  ``cht``, ``broadcast``, ``random`` の 3 種類が用意されており、これによって、典型的だと思われる機械学習の分散方式をカバーすることができる。
+
+  - ``cht`` は Consistent Hashing によるリクエストの分散を意味する。
+    ``cht`` アノテーションがあるメソッドは、2 つ以上の引数を取る必要がある。
+    第 1 引数はクラスタ名を表す string 、第 2 引数が cht のキーとなる string である。
+    更新データのレプリケーション多重度 (冗長度) はデフォルトでは 2 である。
+    ``#@cht(1)`` のように、更新データのレプリケーション多重度を指定することもできる。
+  - ``broadcast`` は全サーバーへリクエストをブロードキャストを意味する。
+  - ``random`` はランダムに選択されたいずれか 1 台のサーバーへリクエストを送信することを表す。
+
+- "ロック種類" には、リクエストのread/writeを ``analysis``, ``update``, ``nolock`` のいずれかで定義する。
+
+  - ``analysis`` では、サーバ側で read ロックされることになり、複数のスレッドからの同時アクセスが可能となる。
+  - ``update`` では、サーバー側で write ロックされることになり、安全にデータを更新することができる。
+  - ``nolock`` ではロックは行われない。
+
+- "結合方法" には、API 呼び出しに対する複数のサーバからの結果を結合する方法を定義する。
+  利用可能なアグリゲータは `aggregators.hpp <https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp>`_ に掲載されている。
+
+なお、メソッドの戻り値型に ``void`` は利用できない。
+返り値が必要ない場合は、意味のない ``int`` や ``bool`` 型などを指定する必要がある。
+
+以下は、アノテーション付きの IDL の例である。
+
+.. code-block:: c++
+
+  message entry {
+    0: string key
+    1: string value
+    2: int version
+  }
 
   service kvs {
+    #@cht(2) #@update #@all_and
+    int put(0: string name, 1: string key, 2: string value)
 
-    #@cht #@update #@all_and
-    int put(string key, string value);
+    #@cht(2) #@analysis #@pass
+    entry get(0: string name, 1: string key)
 
-    #@cht #@analysis #@random
-    somemsgtype get(string key, int v);
-
-    #@cht #@update #@all_and
-    int del(string key, int v);
+    #@cht(2) #@update #@all_and
+    int del(0: string name, 1: string key, 2: int version)
 
     #@broadcast #@update #@all_and
-    int clear(int);
+    int clear(0: string name)
 
-    #@broadcase #@analysis #@merge
-    map<string, string> get_status(int);
-  };
+    #@broadcast #@analysis #@merge
+    map<string, map<string, string> > get_status(0: string name)
 
-generatorのビルドにはOCamlおよびOMakeが必要である．このファイルをkvs.idlとすると，
+    #@broadcast #@update #@all_and
+    bool save(0: string name, 1: string id)
+
+    #@broadcast #@update #@all_and
+    bool load(0: string name, 1: string id)
+  }
+
+``get_status``, ``save``, ``load`` の 3 つは Jubatus サーバとしての仕様を満たすために記述しておく必要がある。
+
+Building ``jenerator``
+~~~~~~~~~~~~~~~~~~~~~~
+
+``jenerator`` のビルドには OCaml および OMake が必要である。
 
 ::
 
-  jubatus $ cd tools/generator
-  jubatus $ omake
-  jubatus $ ./jenerator path/to/kvs.idl -o .
-  jubatus $ ls kvs*
-  kvs_impl.cpp kvs_keeper.cpp
+  $ cd jubatus/tools/generator
+  $ omake
+  $ sudo omake install
 
-通常は2つのファイルが生成される．-tオプションをつければ，サーバー実装の雛形となるC++のソースファイルが生成される．
+ヒント: Ubuntu を使用している場合、OCaml (``ocaml-native-compilers``) と OMake (``omake``) のバイナリパッケージが利用できる。
 
-このとき，ジェネレータはsave/loadというAPIを自動で追加する．
+Generating Server/Keeper from IDL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO: how to implement mix
+上に示した例が ``kvs.idl`` というファイルに書かれていると仮定して、以下のような手順でサーバと Keeper を生成できる。
 
-.. これは，jubatus_serv<M, Diff>のM->saveを呼び出す．これによって，ユーザはsave/loadに関するサーバーの実装を書かなくてよくなり，機械学習のデータMのsave/load（シリアライゼーション）を実装するだけでよい．
+::
 
-.. IDLを用いたクライアントの生成は
+  $ jenerator kvs.idl
 
-server
-~~~~~~
+4 つのファイル ``kvs_impl.cpp`` (サーバ), ``kvs_keeper.cpp`` (Keeper), ``kvs_serv.tmpl.{cpp,hpp}`` (サーバの実装のテンプレート) が生成される。
 
-msgpack-idlが生成するpficommonのmprpc向けヘッダは，CRTPによりクラス名を渡すことにより，RPC定義のファンクタをサーバーに登録する．ジェネレータが生成するkvs_impl.cppは，そのkvs_server.hppを利用してサーバーを構成する．ジェネレータはkvs_impl.cppの中でkvs_servというクラスを指定する．ユーザは同じ名前空間でこれを宣言・実装することによって，サーバー側の実装をフレームワークに組み込むことができる．
-このとき，サーバーは自動的にget_diff, put_diffというAPIをサーバーに追加する．これにより，サーバーでは，Mにget_diff, put_diffおよびreduceを実装するだけで分散環境でのmixを利用できる．以下に例を示す．
+``jenerator`` の詳細な使い方については :ref:`jenerator-ja` を参照すること。
 
-.. code-block:: cpp
+Implementing Server
+-------------------
 
-  namespace jubatus { namespace server {
-  class kvs_serv : jubatus_serv<my_kvs, diff_t> {
-  public:
-    kvs_serv(const server_argv&);
-    virtual ~kvs_serv();
-    
-    static diffv get_diff(const my_kvs*);
-    static int put_diff(my_kvs*, diff_t);
-    static int reduce(const my_kvs*, const diff_t&, diff_t&);
+``kvs_impl.cpp`` は、 ``kvs_serv`` クラスを利用してサーバーを構成する。
+このクラスを ``kvs_serv.{cpp,hpp}`` に定義する必要がある。
+生成されたテンプレート (``kvs_serv.tmpl.{cpp,hpp}``) をリネームして利用することができる。
 
-    pfi::lang::shared_ptr<my_kvs> make_model();
-    void after_laod();
+``kvs_impl.cpp`` の中では ``main`` 関数も実装されており、ユーザは ``main`` を実装する必要はない。
+コマンドライン引数の仕様は Jubatus フレームワークを使用しているサーバの間ですべて共通である。
+オプションは ``--help`` で参照することができる。
 
-    int put(string key, string value);
-    somemsgtype get(string key, int v);
-    int del(string key, int v);
-    int clear(int);
-    map<string, string> get_status(int);
-  };
-  }}
+Mixable Class
+~~~~~~~~~~~~~
 
-ユーザーは，make_model()を実装し，M(my_kvs)の初期化処理を定義しなければならない．
-また，after_load()を実装し，初期化後のサーバーの状態を変更することができる．例えば，classifierであれば，ここで
-set_mixerを実行することにより，mixのアルゴリズムを変更することができる．
-get_diff, put_diff, reduceはjubatus_serv<M,Diff>::set_mixer()を用いてファンクタを設定することにより利用できる．
+TBD.
 
-この例ではMをmy_kvsとしている．my_kvsが実装していなければならないAPIは以下のとおりである．
+Implementing Keeper
+-------------------
 
-.. cpp:function:: bool my_kvs::save(ostream&)
+ユーザーは Keeper に関して何らかの実装をする必要はなく、ただ ``jenerator`` が生成した ``kvs_keeper.cpp`` をコンパイルすればよい。
 
+``kvs_keeper.cpp`` には ``main`` 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。
 
-.. cpp:function:: bool my_kvs::load(istream&)
-
-
-
-kvs_impl.cppの中ではmain関数も実装されており，ユーザはmainを実装する必要はない．コマンドライン引数の仕様は統一されており，-?で参照することができる．
-
-keeper
-~~~~~~
-
-ユーザーはkeeperに関して何らかの実装をする必要はなく，ただコンパイルすればよい．ジェネレータがkvs_keeper.cppを生成するので，それをコンパイルすればkeeperとなる．実体はmain関数の実装があるだけで，broadcast, random, chtのルーティング，および更新処理と読込処理を指定して各RPCのプロキシとなるファンクタを登録する．
-
-- broadcast
-
-  - 全サーバーにリクエストを送信する．MPRPCが同期呼び出しであるため，全てのRPC呼び出しがシリアルに実行されるため，処理時間はサーバーの台数分だけかかる．
-
-- random
-
-  - 全サーバーの中から，ランダムにサーバーを選択しリクエストを送信する．
-
-- cht
-
-  - キーを指定することによって，Consistent Hashingを用いて同じキーは同じサーバーに必ず送信されることを保証する．現在は冗長化のために，2台にリクエストを送信している．MPRPCが同期呼び出しであるため，2回のRPC呼び出しがシリアルに実行される．
-
-Future works
-~~~~~~~~~~~~
+Future Works
+------------
 
 同時接続数の限界
-..................
+~~~~~~~~~~~~~~~~
 
-現状のpficommonのI/Oアーキテクチャでは，スレッド数と同数の同時接続しか維持できない．従ってコネクションの接続と切断の繰り返しが必要になり，特にJubakeeperでボトルネックとなる．仮にJubakeeperでコネクションのキャッシュ機構を用意した場合，サーバー側での同時接続数に限界がくると同時にTCPコネクションのライフサイクルが複雑になる．代替案として
+現状のpficommonのI/Oアーキテクチャでは、スレッド数と同数の同時接続しか維持できない。従ってコネクションの接続と切断の繰り返しが必要になり、特にJubakeeperでボトルネックとなる。仮にJubakeeperでコネクションのキャッシュ機構を用意した場合、サーバー側での同時接続数に限界がくると同時にTCPコネクションのライフサイクルが複雑になる。代替案として
 
-#. acceptベースのMsgpack-RPCサーバーではなく，epollなどの非同期I/Oを用いたサーバーを利用または作成する．公式のMsgpackサーバーは非同期I/Oの機能を持っているがメンテナンスがされてないこともあり利用しにくい．pficommonのMPRPCサーバーを改造するという選択肢がある．
+#. acceptベースのMsgpack-RPCサーバーではなく、epollなどの非同期I/Oを用いたサーバーを利用または作成する。公式のMsgpackサーバーは非同期I/Oの機能を持っているがメンテナンスがされてないこともあり利用しにくい。pficommonのMPRPCサーバーを改造するという選択肢がある。
 
-.. #. Jubatusのメッセージングアーキテクチャを根本から見直す．ブロードキャスト，ランダム，RR，CHTなどの複数のプロトコルとZooKeeperの死活監視を統合したメッセージング機構を実装しなおす．
+.. #. Jubatusのメッセージングアーキテクチャを根本から見直す。ブロードキャスト、ランダム、RR、CHTなどの複数のプロトコルとZooKeeperの死活監視を統合したメッセージング機構を実装しなおす。
 
 
 ブロードキャストAPIの問題
-............................
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-全サーバーに対してRPCを実行するタイプのAPIでの実際のブロードキャストは，現在Jubakeeperが行なっている．しかし，ブロードキャスト型のRPCでは，各サーバーから得られた結果のまとめ方（アグリゲート）がAPIによって要件が異なるため，単純に全員に送信するだけでは要求を満たせない場合がある．たとえば，classifierなどのset_configは全サーバーでの実行結果が "全て成功" になるまで繰り返す必要がある（成功するか，サーバーが停止するかのどちらかでなければならない）一方で，get_statusのような状態取得APIを考えた場合には， "成功した返り値どうしをひとつのmapに結合する" といった動作が必要になる．これらの記述は，いまのジェネレータでは上手く読み出すことができない．
+全サーバーに対してRPCを実行するタイプのAPIでの実際のブロードキャストは、現在Jubakeeperが行なっている。しかし、ブロードキャスト型のRPCでは、各サーバーから得られた結果のまとめ方（アグリゲート）がAPIによって要件が異なるため、単純に全員に送信するだけでは要求を満たせない場合がある。たとえば、classifierなどのset_configは全サーバーでの実行結果が "全て成功" になるまで繰り返す必要がある（成功するか、サーバーが停止するかのどちらかでなければならない）一方で、get_statusのような状態取得APIを考えた場合には、 "成功した返り値どうしをひとつのmapに結合する" といった動作が必要になる。これらの記述は、いまのジェネレータでは上手く読み出すことができない。
 
 
 インターフェースと処理記述
-............................
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-複数の機械学習を結合したり，特徴量変換と学習器本体を分離するためには，C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない．現状のジェネレータでは学習器のインターフェースしか記述することができない．アルゴリズム自体も抽象化された言語上で試行錯誤し，機械学習を実装するユーザが一台のマシン上でも，複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を，検討する必要がある．
+複数の機械学習を結合したり、特徴量変換と学習器本体を分離するためには、C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない。現状のジェネレータでは学習器のインターフェースしか記述することができない。アルゴリズム自体も抽象化された言語上で試行錯誤し、機械学習を実装するユーザが一台のマシン上でも、複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を、検討する必要がある。

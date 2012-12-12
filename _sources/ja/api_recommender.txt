@@ -133,7 +133,7 @@ Methods
 
   - ``dat`` から構成された ``similar_result`` .
 
- 指定したdatum ``data`` に近い行とその近傍性のリストを``size``個返す。
+ 指定したdatum ``data`` に近い行とその近傍性のリストを ``size`` 個返す。
 
 .. describe:: datum decode_row(0: string name, 1: string id)
 

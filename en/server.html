@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Server Generation Using Code Generator &mdash; Jubatus</title>
+    <title>Using Code Generators &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -102,11 +102,20 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Server Generation Using Code Generator</a><ul>
-<li><a class="reference internal" href="#jenerator-the-code-generator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator</a></li>
-<li><a class="reference internal" href="#server">Server</a></li>
-<li><a class="reference internal" href="#mixable-class">Mixable class</a></li>
-<li><a class="reference internal" href="#keeper">Keeper</a></li>
+<li><a class="reference internal" href="#">Using Code Generators</a><ul>
+<li><a class="reference internal" href="#flow-of-development">Flow of Development</a></li>
+<li><a class="reference internal" href="#why-we-use-idl">Why We Use IDL</a></li>
+<li><a class="reference internal" href="#composition-of-files">Composition of Files</a></li>
+<li><a class="reference internal" href="#jenerator-the-code-generator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator</a><ul>
+<li><a class="reference internal" href="#building-jenerator">Building <tt class="docutils literal"><span class="pre">jenerator</span></tt></a></li>
+<li><a class="reference internal" href="#generating-server-keeper-from-idl">Generating Server/Keeper from IDL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-server">Implementing Server</a><ul>
+<li><a class="reference internal" href="#mixable-class">Mixable Class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-keeper">Implementing Keeper</a></li>
 </ul>
 </li>
 </ul>
@@ -173,147 +182,139 @@ new TWTR.Widget({
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="server-generation-using-code-generator">
-<h1>Server Generation Using Code Generator<a class="headerlink" href="#server-generation-using-code-generator" title="Permalink to this headline">¶</a></h1>
-<p>By using Jubatus framework, distributed machine learning can be easily implemented.
-This section describes how to realize your own machine learning algorithm with mix using Jubatus framework.</p>
-<p>First, there must exist same definitions in six C++ source files every time we add new learning algorithm,
-that is, header and implementation of client, header and implementation of Jubakeeper and header and implementation of server.
-This would lead to a &#8220;hotbed&#8221; of bugs every time we had changed the API.</p>
-<p>Now users can create system through very few steps,</p>
+  <div class="section" id="using-code-generators">
+<h1>Using Code Generators<a class="headerlink" href="#using-code-generators" title="Permalink to this headline">¶</a></h1>
+<p>Development of machine learning algorithms using Jubatus framework starts with writing an IDL (RPC interface definition).
+By using two code generator - <tt class="docutils literal"><span class="pre">jenerator</span></tt> (bundled tool with Jubatus) and <tt class="docutils literal"><span class="pre">mpidl</span></tt> (from MessagePack-IDL) - you can generate each component (server, keeper, client for each language) from the IDL.
+By using these generators, framework users don&#8217;t need to focus on things other than implementing algorithms.</p>
+<div class="section" id="flow-of-development">
+<h2>Flow of Development<a class="headerlink" href="#flow-of-development" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Define RPC interfaces that server should have.</li>
-<li>Generate codes of IDL, server, Jubakeeper with <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</li>
-<li>Implement codes of interface of user-defined class and (if necessary, ) mix operation.</li>
-<li>Generate clients with msgpack-idl</li>
+<li>Define RPC interfaces that the service should have using IDL.</li>
+<li>Generate codes for server and keeper with <tt class="docutils literal"><span class="pre">jenerator</span></tt> from IDL.</li>
+<li>Generate data structures and client with <tt class="docutils literal"><span class="pre">mpidl</span></tt> from IDL.</li>
+<li>Implement codes of interface of user-defined class and (if necessary) mix operation.</li>
 </ol>
-<p>Currenly all algorithms (recommener, classifier, regression, and stat) defines its interface with <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+<p>Use the <a class="reference external" href="https://github.com/jubatus/jubatus-service-skelton">skeleton project</a> to get started.</p>
+</div>
+<div class="section" id="why-we-use-idl">
+<h2>Why We Use IDL<a class="headerlink" href="#why-we-use-idl" title="Permalink to this headline">¶</a></h2>
+<p>First, there must exist same definitions in six C++ source files every time we add new learning algorithm, that is, header and implementation of client, header and implementation of keeper and header and implementation of server.
+This would lead to a &#8220;hotbed&#8221; of bugs every time we had changed the API.</p>
+<p>By using IDL, users can create system through the flow above.
+Currenly all algorithms (recommener, classifier, regression, stat and graph) defines its interface with <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+</div>
+<div class="section" id="composition-of-files">
+<h2>Composition of Files<a class="headerlink" href="#composition-of-files" title="Permalink to this headline">¶</a></h2>
+<p>Machine learning system that uses Jubatus framework consists of the following files (where <em>NAME</em> is a name of the service).</p>
+<ul class="simple">
+<li>NAME_serv.cpp: Implementation of the server (edit template generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
+<li>NAME_serv.hpp: Header file for <tt class="docutils literal"><span class="pre">NAME_serv.cpp</span></tt> (edit template generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
+<li>NAME_server.hpp: Parent class for the <tt class="docutils literal"><span class="pre">NAME_impl_</span></tt> class to register RPC methods (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
+<li>NAME_impl.cpp: <tt class="docutils literal"><span class="pre">main</span></tt> function and RPC interface definition for the server (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
+<li>NAME_keeper.cpp: Implementation of the keeper (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
+<li>NAME_client.hpp: Implementation of the client (automatically generated by <tt class="docutils literal"><span class="pre">mpidl</span></tt>)</li>
+<li>NAME_types.hpp: Structures and type information (automatically generated by <tt class="docutils literal"><span class="pre">mpidl</span></tt>; shared among server/client/keeper)</li>
+</ul>
+</div>
 <div class="section" id="jenerator-the-code-generator">
 <h2><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator<a class="headerlink" href="#jenerator-the-code-generator" title="Permalink to this headline">¶</a></h2>
-<p>We define interface with <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MsgPack-IDL</a>.
-So please read the instruction of MsgPack-IDL first.
-Aside from MsgPack-IDL&#8217;s original syntax, we must add annotations for each method of RPC service in order to generate codes used in Jubatus.
-Annotations are interpreted by the code generator, but they are ignored as comments by MsgPack-IDL.
-Therefore, we can generate each client with same interface by MsgPack-IDL.</p>
+<p>The RPC interface is defined with <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MessagePack-IDL</a>.
+Aside from MessagePack-IDL&#8217;s original syntax, we must add annotations for each method of RPC service in order to generate Jubatus servers and keepers.</p>
+<p>Annotations are interpreted by our code generator, called <tt class="docutils literal"><span class="pre">jenerator</span></tt>, but they are ignored as comments by MessagePack-IDL.
+Therefore, we can generate each client with same interface by MessagePack-IDL.</p>
+<p>Syntax of annotations for each methods is as follows.</p>
 <ul class="simple">
-<li>Declaration of Annotated Class Method.<ul>
-<li>First annotation defines routing of request. This annotation should begin with &#8220;#&#64;&#8221; and be followed with one of &#8220;cht&#8221;, &#8220;broadcast&#8221; and &#8220;random&#8221;. Each keyword represents distribution of request with Consistent Hashing, broadcast of request to all servers, and sending of request to a randomly chosen server, respectively. We can cover distribute methods used in typical machine learning tasks.<ul>
-<li>Annotation &#8220;cht&#8221; may have one argument by itself, like <tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt>, which defines replication number of the update data.</li>
-<li>Method annotated with &#8220;cht&#8221; must have more than two arguments. First is a string that specifies the name of a synced cluster. Second argument is for a key of.</li>
-<li>Method annotated with &#8220;broadcast&#8221; or &#8220;random&#8221; must have one argument and one return value. void type is not available. If argument or return value is not needed, we must add meaningless value such as value of int type.</li>
+<li>Each method must have 3 annotations, each of them starts with <tt class="docutils literal"><span class="pre">#&#64;</span></tt>, that specifies &#8220;routing&#8221;, &#8220;lock type&#8221; and &#8220;aggregation method&#8221; in order.</li>
+<li>The &#8220;routing&#8221; annotation defines how Keeper proxy requests.
+Three methods (<tt class="docutils literal"><span class="pre">cht</span></tt>, <tt class="docutils literal"><span class="pre">broadcast</span></tt> or <tt class="docutils literal"><span class="pre">random</span></tt>) are available so that we can cover distribution methods used in typical machine learning tasks.<ul>
+<li><tt class="docutils literal"><span class="pre">cht</span></tt> means that the request is distributed by using Consistent Hashing.
+Methods annotated with <tt class="docutils literal"><span class="pre">cht</span></tt> must take 2 arguments at least.
+The first argument is a string that represents a cluster name, and the second is a string that is used as a key for consistent hashing.
+Replication level of updated data is 2 by default.
+You can change the replication level by specifying like <tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">broadcast</span></tt> means that the request will be broadcasted to all servers in the cluster.</li>
+<li><tt class="docutils literal"><span class="pre">random</span></tt> means that the request will be proxied to one randomly-chosen server in the cluster.</li>
 </ul>
 </li>
-<li>Second annotation defines read/write of request. If we choose &#8220;analysis&#8221;, data is locked in server side with read lock and is accessible by multiple thread simultaneously. On the other hand, if we choose &#8220;update&#8221;, data is locked with write lock. Therefore, we can safely update data.</li>
-<li>Third annotation defines how to aggrate the results of API call. Available aggregator is written in <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp">aggregators.hpp</a> .</li>
+<li>The &#8220;lock type&#8221; annotation defines read/write of request, and value must be one of <tt class="docutils literal"><span class="pre">analysis</span></tt>, <tt class="docutils literal"><span class="pre">update</span></tt> or <tt class="docutils literal"><span class="pre">nolock</span></tt>.<ul>
+<li>When using <tt class="docutils literal"><span class="pre">analysis</span></tt>, data is locked in server with read lock and is accessible by multiple thread simultaneously.</li>
+<li>When using <tt class="docutils literal"><span class="pre">update</span></tt>, data is locked with write lock, so that we can safely update the data.</li>
+<li>When using <tt class="docutils literal"><span class="pre">nolock</span></tt>, no locks are aquired in the server.</li>
 </ul>
 </li>
+<li>The &#8220;aggregation&#8221; annotation defines how to aggrate the results of API call from multiple servers.
+Available aggregators are written in <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp">aggregators.hpp</a>.</li>
 </ul>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">somemsgtype</span> <span class="p">{</span>
+<p><tt class="docutils literal"><span class="pre">void</span></tt> type cannot be used as the return type of methods.
+If the return value is not needed, you must add meaningless type such as <tt class="docutils literal"><span class="pre">int</span></tt> or <tt class="docutils literal"><span class="pre">bool</span></tt>.</p>
+<p>Here is a example of MessagePack-IDL with annotation.</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">entry</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span>
   <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span>
 <span class="p">}</span>
 
 <span class="n">service</span> <span class="n">kvs</span> <span class="p">{</span>
-
-<span class="cp">  #@cht #@update #@all_and</span>
+<span class="cp">  #@cht(2) #@update #@all_and</span>
   <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="cp">  #@cht #@analysis #@random</span>
-  <span class="n">somemsgtype</span> <span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">)</span>
+<span class="cp">  #@cht(2) #@analysis #@pass</span>
+  <span class="n">entry</span> <span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">)</span>
 
-<span class="cp">  #@cht #@update #@all_and</span>
-  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span>
+<span class="cp">  #@cht(2) #@update #@all_and</span>
+  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span><span class="p">)</span>
 
 <span class="cp">  #@broadcast #@update #@all_and</span>
-  <span class="kt">int</span> <span class="n">clear</span><span class="p">()</span>
+  <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">)</span>
 
-<span class="cp">  #@broadcase #@analysis #@merge</span>
-  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">get_status</span><span class="p">()</span>
+<span class="cp">  #@broadcast #@analysis #@merge</span>
+  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="kt">bool</span> <span class="n">save</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
+
+<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="kt">bool</span> <span class="n">load</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Ocaml and Omake are required to build the generator.
-Suppose the name of this file is kvs.idl. We can generate codes in the following manner.</p>
-<div class="highlight-python"><pre>jubatus $ cd tools/generator
-jubatus $ omake
-jubatus $ sudo omake install
-jubatus $ cd -
-jubatus $ jenerator path/to/kvs.idl
-jubatus $ ls kvs*
-kvs_impl.cpp kvs_keeper.cpp</pre>
+<p><tt class="docutils literal"><span class="pre">get_status</span></tt>, <tt class="docutils literal"><span class="pre">save</span></tt> and <tt class="docutils literal"><span class="pre">load</span></tt> methods are required to satisfy the common interface specification of Jubatus servers.</p>
+<div class="section" id="building-jenerator">
+<h3>Building <tt class="docutils literal"><span class="pre">jenerator</span></tt><a class="headerlink" href="#building-jenerator" title="Permalink to this headline">¶</a></h3>
+<p>You need OCaml and OMake to build <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+<div class="highlight-python"><pre>$ cd jubatus/tools/generator
+$ omake
+$ sudo omake install</pre>
 </div>
-<p>Two files will be generated.
-If we add -t option, we can generate additionally C++ source file which is template of implementation of server.
-At that time generator will automatically add APIs named save/load.</p>
-<p>See <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> for furthur information.</p>
-<p>TODO: how to implement mix</p>
+<p>Hint: If you&#8217;re using Ubuntu systems, OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>) and OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) are both available as a binary package.</p>
 </div>
-<div class="section" id="server">
-<h2>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
-<p>MsgPack-IDL generates headers for mprpc of pficommon. In the example above, the name of the header should be kvs_server.hpp.
-These headers register functors of RPC definition to servers.
-This registration is executed by passing the class name to class server with CRTP (Compressed Real Time Protocol).
-Generated kvx_impl.cpp construct server with kvs_server.hpp.
-Generator defines kvs_serv class in kvs_impl.cpp.
-Users should declare and implement this class under the same namespace.
-By this process, users can insert server-side implementation to the framework.
-At this time, API named get_diff and putdiff are added to server automatically.
-It is only implementing get_diff, put_diff and reduce in server that users must do in order to use mix operation in a distributed environment.</p>
-<p>Here is the explanation of kvs_serv class:</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">namespace</span> <span class="n">jubatus</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">server</span> <span class="p">{</span>
-
-<span class="k">class</span> <span class="nc">kvs_serv</span> <span class="o">:</span> <span class="n">jubatus_serv</span><span class="o">&lt;</span><span class="n">my_kvs</span><span class="p">,</span> <span class="n">diff_t</span><span class="o">&gt;</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="n">kvs_serv</span><span class="p">(</span><span class="k">const</span> <span class="n">server_argv</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">kvs_serv</span><span class="p">();</span>
-
-  <span class="n">pfi</span><span class="o">::</span><span class="n">lang</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">my_kvs</span><span class="o">&gt;</span> <span class="n">make_model</span><span class="p">();</span>
-  <span class="kt">void</span> <span class="n">after_laod</span><span class="p">();</span>
-
-  <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span> <span class="n">value</span><span class="p">);</span>
-  <span class="n">somemsgtype</span> <span class="n">get</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="p">}}</span>
-</pre></div>
+<div class="section" id="generating-server-keeper-from-idl">
+<h3>Generating Server/Keeper from IDL<a class="headerlink" href="#generating-server-keeper-from-idl" title="Permalink to this headline">¶</a></h3>
+<p>Suppose the name of the example above is a file <tt class="docutils literal"><span class="pre">kvs.idl</span></tt>, we can generate servers and keepers in the following manner.</p>
+<div class="highlight-python"><pre>$ jenerator kvs.idl -o . -t</pre>
 </div>
-<p>Users must implement make_model() and define initialization of constructor M(my_kvs).
-Also, users can implement after_load(). It modifies the state of server after initialization.
-For example of classifier, users can execute set_mixer and modify the algorithm of mix.</p>
-<p>main() is implemented in kvs_impl.cpp. Therefore, users don&#8217;t have to implement main function.
-Command line options are same among servers.
-The options can be referenced with -? option.</p>
+<p>Four files, <tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> (server), <tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> (keeper), and <tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt> (template of implementation of server) will be generated.</p>
+<p>See <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> for the detailed usage of <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
 </div>
+</div>
+<div class="section" id="implementing-server">
+<h2>Implementing Server<a class="headerlink" href="#implementing-server" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> constructs a server instance by using class <tt class="docutils literal"><span class="pre">kvs_serv</span></tt>.
+You need to define the class in <tt class="docutils literal"><span class="pre">kvs_serv.hpp</span></tt> and <tt class="docutils literal"><span class="pre">kvs_serv.cpp</span></tt>.
+You can use templates (<tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt>) generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">main</span></tt> function is implemented in <tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt>, so users don&#8217;t have to implement it.
+Command line options are the same among all servers using Jubatus framework.
+The options can be referenced with <tt class="docutils literal"><span class="pre">--help</span></tt> option.</p>
 <div class="section" id="mixable-class">
-<h2>Mixable class<a class="headerlink" href="#mixable-class" title="Permalink to this headline">¶</a></h2>
+<h3>Mixable Class<a class="headerlink" href="#mixable-class" title="Permalink to this headline">¶</a></h3>
+<p>TBD.</p>
 </div>
-<div class="section" id="keeper">
-<h2>Keeper<a class="headerlink" href="#keeper" title="Permalink to this headline">¶</a></h2>
-<p>Users don&#8217;t have to implement nothing regarding keeper.
-Users have only to compile source codes of keeper.
-As the generator generates kvs_keeper.cpp, compile it and users can get keeper program.
-kvs_keeper.cpp has only main function.
-In this main function, keeper mainly does two things.
-First, keeper specifies routing of cht, broadcast and random, update process, and read process.
-These are defined in the annotated idl file.
-Second, keeper register proxy functor for each RPC.</p>
-<ul class="simple">
-<li>cht<ul>
-<li>Specifies servers with Consistent Hashing and key used in hashing. This process guarantees that requests with same key is send to same servers. Currently request is send to two servers because of redundancy. As this is synchronous call of MPRPC, all RPC call are serialized. Therefore, process time is proportional to the number of servers.</li>
-</ul>
-</li>
-<li>broadcast<ul>
-<li>Send request to all servers. As this is synchronous call of MPRPC, all RPC call are serialized. Therefore, process time is proportional to the number of servers.</li>
-</ul>
-</li>
-<li>random<ul>
-<li>Send request to randomly chosen server among all servers.</li>
-</ul>
-</li>
-</ul>
+</div>
+<div class="section" id="implementing-keeper">
+<h2>Implementing Keeper<a class="headerlink" href="#implementing-keeper" title="Permalink to this headline">¶</a></h2>
+<p>Users don&#8217;t have to implement nothing regarding keeper; just compile <tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt>, generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> only has <tt class="docutils literal"><span class="pre">main</span></tt> function, that registers functor for each RPC method that proxies requests and aggregates responses.</p>
 </div>
 </div>
 
