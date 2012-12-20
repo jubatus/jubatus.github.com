@@ -153,7 +153,7 @@ TBD.
 Implementing Keeper
 -------------------
 
-ユーザーは Keeper に関して何らかの実装をする必要はなく、ただ ``jenerator`` が生成した ``kvs_keeper.cpp`` をコンパイルすればよい。
+Keeper に関しては、実装をする必要はない。 ``jenerator`` が生成した ``kvs_keeper.cpp`` をコンパイルすると Keeper が得られる。
 
 ``kvs_keeper.cpp`` には ``main`` 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。
 
