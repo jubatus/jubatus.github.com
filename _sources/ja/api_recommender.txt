@@ -131,7 +131,7 @@ Methods
 
  - 戻り値:
 
-  - ``dat`` から構成された ``similar_result`` .
+  - ``dat`` から構成された ``similar_result``
 
  指定したdatum ``data`` に近い行とその近傍性のリストを ``size`` 個返す。
 

@@ -36,7 +36,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Returns:
 
-  - Zero if this function updates models successfully
+  - Number of trained datum (i.e., the length of the ``train_data``)
 
  Trains and updates the model.
  ``tuple<float, datum>`` is a tuple of datum and its value.

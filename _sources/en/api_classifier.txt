@@ -49,7 +49,7 @@ When using standalone mode, this must be left blank (``""``).
 
  - Returns:
 
-  - Zero if the model is updated successfully
+  - Number of trained datum (i.e., the length of the ``data``)
 
  Trains and updates the model.
  ``tuple<string, datum>`` is a tuple of datum and its label.
