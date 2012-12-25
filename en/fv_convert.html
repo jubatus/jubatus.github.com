@@ -104,7 +104,7 @@
 <li><a class="reference internal" href="#">Data Conversion</a><ul>
 <li><a class="reference internal" href="#datum">Datum</a></li>
 <li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
-<li><a class="reference internal" href="#filtering">Filtering</a><ul>
+<li><a class="reference internal" href="#filter">Filter</a><ul>
 <li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
 <li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
 <li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
@@ -261,8 +261,8 @@ Then, features are extracted from string data with &#8220;num_rules&#8221;.</p>
 <p class="caption">Figure : System of Conversion Engine</p>
 </div>
 </div>
-<div class="section" id="filtering">
-<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="filter">
+<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
 <p>Jubatus has filtering system of raw data. This enables us to create additional key-value elements by converting existing key-value elements in a datum and to insert additional key-value elements by the filter.
 For example, let us suppose we have an original text as an HTML.
 Tags, such as &lt;a&gt;, in the data are in the way of training in many cases. Therefore, we want to filter and get rid of them in advance.
@@ -720,7 +720,8 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify &#8220;create&#8221;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine. &#8220;arg&#8221; is not specified, Mecab works with default configuration. Please refer to document of MeCab about how to specify arguments.</td>
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine. &#8220;arg&#8221; is not specified, Mecab works with default configuration.
+Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">document of MeCab</a> about how to specify arguments.</td>
 </tr>
 </tbody>
 </table>
@@ -730,7 +731,7 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /path/to/mecab/dic&quot;</span>
+    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

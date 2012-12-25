@@ -105,7 +105,7 @@
 <li><a class="reference internal" href="#">Data Conversion</a><ul>
 <li><a class="reference internal" href="#datum">Datum</a></li>
 <li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
-<li><a class="reference internal" href="#filtering">Filtering</a><ul>
+<li><a class="reference internal" href="#filter">Filter</a><ul>
 <li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
 <li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
 <li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
@@ -262,8 +262,8 @@ datumには2つのkey-valueが存在する。
 <p class="caption">図: 変換エンジンの構成</p>
 </div>
 </div>
-<div class="section" id="filtering">
-<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="filter">
+<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
 <p>Jubatusはフィルターという機能を用いて、datum中のkey-valueペアを変換して、別の要素として追加することができる。
 例えば、元のデータがHTMLで書かれていたとしよう。
 この中のタグ文字列（&lt;a&gt; など）は、学習時には邪魔になることがおおく、そのため予めフィルタリングして使いたいことがある。
@@ -721,7 +721,8 @@ MeCabを利用して文書を単語分割し、各単語を特徴量として利
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&#8220;create&#8221;を指定する。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する。この指定がないと、MeCabのデフォルト設定で動作する。引数の指定の仕方は、MeCabのマニュアルを参照すること。</td>
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する。この指定がないと、MeCabのデフォルト設定で動作する。
+引数の指定の仕方は、 <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">MeCab のドキュメント</a> を参照すること。</td>
 </tr>
 </tbody>
 </table>
@@ -731,7 +732,7 @@ MeCabを利用して文書を単語分割し、各単語を特徴量として利
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /path/to/mecab/dic&quot;</span>
+    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

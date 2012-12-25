@@ -87,8 +87,8 @@ As some filters and feature extractors requires arguments, these are available i
 
    Figure : System of Conversion Engine
 
-Filtering
----------
+Filter
+------
 
 Jubatus has filtering system of raw data. This enables us to create additional key-value elements by converting existing key-value elements in a datum and to insert additional key-value elements by the filter.
 For example, let us suppose we have an original text as an HTML.
@@ -433,7 +433,8 @@ Note that some plugins are not available depending on your compile options.
  This plugin is available only when compiled with ``--enable-mecab``.
 
   :function:   Specify "create".
-  :arg:        Specify arguments to MeCab engine. "arg" is not specified, Mecab works with default configuration. Please refer to document of MeCab about how to specify arguments.
+  :arg:        Specify arguments to MeCab engine. "arg" is not specified, Mecab works with default configuration.
+               Refer to the `document of MeCab <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ about how to specify arguments.
 
  .. code-block:: js
 
@@ -442,7 +443,7 @@ Note that some plugins are not available depending on your compile options.
           "method": "dynamic",
           "path": "/usr/local/lib/jubatus/plugin/libmecab_splitter.so",
           "function": "create",
-          "arg": "-d /path/to/mecab/dic"
+          "arg": "-d /usr/lib64/mecab/dic/ipadic"
         }
       }
 
