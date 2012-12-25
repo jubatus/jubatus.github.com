@@ -60,7 +60,7 @@ When using standalone mode, this must be left blank (``""``).
  - Parameters:
 
   - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``data`` : list of datum to classifiy
+  - ``data`` : list of datum to classify
 
  - Returns:
 
