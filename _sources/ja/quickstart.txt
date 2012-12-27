@@ -163,5 +163,6 @@ C++ または Java でクライアントを開発する場合は、以下のス�
 
   - `C++ クライアント開発用スケルトン <https://github.com/jubatus/jubatus-cpp-skelton>`_
   - `Java クライアント開発用スケルトン <https://github.com/jubatus/jubatus-java-skelton>`_ (Eclipse プロジェクトのテンプレート)
+  - Python をお使いの方は、 `チュートリアルのリポジトリ <https://github.com/jubatus/jubatus-tutorial-python>`_ をご覧ください。
 
-Python をお使いの方は、 `チュートリアルのリポジトリ <https://github.com/jubatus/jubatus-tutorial-python>`_ をご覧ください。
+`jubatus-example <https://github.com/jubatus/jubatus-example>`_ リポジトリでは、Jubatus を利用したアプリケーションの実例を見ることができます。

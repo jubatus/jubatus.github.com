@@ -163,5 +163,6 @@ For C++ and Java users, skeleton projects are available:
 
   - `C++ Client Development Skelton <https://github.com/jubatus/jubatus-cpp-skelton>`_
   - `Java Client Development Skelton <https://github.com/jubatus/jubatus-java-skelton>`_ (Eclipse project template)
+  - For Python users, see the `tutorial repository <https://github.com/jubatus/jubatus-tutorial-python>`_.
 
-For Python users, see the `tutorial repository <https://github.com/jubatus/jubatus-tutorial-python>`_.
+In the `jubatus-example <https://github.com/jubatus/jubatus-example>`_ repository, you can see applications using Jubatus.
