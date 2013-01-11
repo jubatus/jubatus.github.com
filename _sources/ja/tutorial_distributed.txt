@@ -31,6 +31,17 @@ ZooKeeper は以下のようにして起動します。
 
 以降では、ZooKeeper が localhost:2181 で動作していると仮定します。この設定は ``zoo.cfg`` で変更可能です。
 
+
+Register configuration file to ZooKeeper
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+分散環境では、事前に設定ファイルを ZooKeeper に登録します。
+登録には jubaconfig というツールを使用します。
+
+::
+
+    $ jubaconfig --cmd write --zookeeper=localhost:2181 --file config.json --name tutorial --type classifier
+
 Jubatus Keeper
 ~~~~~~~~~~~~~~
 

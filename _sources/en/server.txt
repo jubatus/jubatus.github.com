@@ -11,6 +11,7 @@ Flow of Development
 #. Define RPC interfaces that the service should have using IDL.
 #. Generate codes for server and keeper with ``jenerator`` from IDL.
 #. Generate data structures and client with ``mpidl`` from IDL.
+#. Convert the output of ``mpidl`` with ``mpidlconv``.
 #. Implement codes of interface of user-defined class and (if necessary) mix operation.
 
 Use the `skeleton project <https://github.com/jubatus/jubatus-service-skelton>`_ to get started.

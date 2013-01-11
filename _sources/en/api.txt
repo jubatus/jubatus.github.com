@@ -17,6 +17,7 @@ Syntax of MessagePack-IDL is so simple that you can guess how to use the interfa
    api_classifier
    api_regression
    api_recommender
+   api_anomaly
    api_stat
    api_graph
 

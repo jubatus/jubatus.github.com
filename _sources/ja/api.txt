@@ -17,6 +17,7 @@ MessagePack-IDL 形式はとてもシンプルなため、各言語でどのよ�
    api_classifier
    api_regression
    api_recommender
+   api_anomaly
    api_stat
    api_graph
 

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.4',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -189,7 +189,7 @@ News20 is divided into learning data (20news-bydate-train, 80%) and experimental
 <li>If you are interested in distributed mode, see <a class="reference internal" href="tutorial_distributed.html"><em>Tutorial in Distributed Mode</em></a> <em>after</em> this tutorial.</li>
 </ul>
 </li>
-<li>Configuring Jubatus server via <tt class="docutils literal"><span class="pre">set_config</span></tt> API</li>
+<li>Configuring Jubatus server via JSON style config</li>
 <li>Using Jubatus classification service via <tt class="docutils literal"><span class="pre">train</span></tt> and <tt class="docutils literal"><span class="pre">classify</span></tt> API</li>
 <li>Basic concepts of classification</li>
 </ul>
@@ -197,26 +197,45 @@ News20 is divided into learning data (20news-bydate-train, 80%) and experimental
 <div class="section" id="run-tutorial">
 <h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h2>
 <p>Simply run <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> program that provides classification feature.</p>
-<div class="highlight-python"><pre>$ jubaclassifier
-I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 RPC server at 192.168.1.2:9199
-  pid            : 4200
-  user           : jubatus
-  mode           : standalone mode
-  timeout        : 10
-  thread         : 2
-  tmpdir         : /tmp
-  logdir         :
-  zookeeper      :
-  name           :
-  join           : false
-  interval sec   : 16
-  interval count : 512</pre>
+<div class="highlight-python"><pre>jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.0 RPC server at 192.168.0.1:9199
+    pid            : 1855
+    user           : oda
+    mode           : standalone mode
+    timeout        : 10
+    thread         : 2
+    datadir        : /tmp
+    logdir         :
+    loglevel       : INFO(0)
+    zookeeper      :
+    name           :
+    join           : false
+    interval sec   : 16
+    interval count : 512
+I0110 13:43:07.789721  1855 server_util.cpp:69] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
+I0110 13:43:07.790897  1855 classifier_serv.cpp:110] config loaded: {
+  "converter" : {
+    "string_filter_types" : {},
+    "string_filter_rules" : [],
+    "num_filter_types" : {},
+    "num_filter_rules" : [],
+    "string_types" : {},
+    "string_rules" : [
+      { "key" : "*", "type" : "str", "sample_weight" : "bin", "global_weight" : "bin" }
+    ],
+    "num_types" : {},
+    "num_rules" : [
+      { "key" : "*", "type" : "num" }
+    ]
+  },
+  "method" : "PA"
+}</pre>
 </div>
 <p>Jubatus classification server is now started.
 Jubatus servers listen on TCP port 9199 by default.
 If you would like to use another port, specify it using <tt class="docutils literal"><span class="pre">--rcp-port</span></tt> option.
 For example, to use port 19199:</p>
-<div class="highlight-python"><pre>$ jubaclassifier --rpc-port 19199</pre>
+<div class="highlight-python"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199</pre>
 </div>
 <p>Jubatus and Jubatus clients communicate with each other in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol over the TCP/IP network.</p>
 <div class="figure">
@@ -296,22 +315,29 @@ preferably longer, of course, and worth being part of.)
 </div>
 <div class="section" id="server-configuration">
 <h3>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h3>
-<p>Before using classification service, you need to setup a behavior of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using <tt class="docutils literal"><span class="pre">set_config</span></tt> API.
-There are two configurable parameters: <tt class="docutils literal"><span class="pre">method</span></tt> and <tt class="docutils literal"><span class="pre">converter</span></tt>.
+<p>Before using classification service, you need to setup a behavior of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> with JSON as follows.
+There are three configurable parameters: <tt class="docutils literal"><span class="pre">method</span></tt>, <tt class="docutils literal"><span class="pre">converter</span></tt> and <tt class="docutils literal"><span class="pre">parameter</span></tt>.
 Example of these parameters is as follows.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">method</span> <span class="o">=</span> <span class="s">&quot;PA&quot;</span>
-<span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:[],</span>
-              <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
-              <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
-              <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
-            <span class="p">}</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">config_data</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">converter</span><span class="p">))</span>
-<span class="n">client</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;PA&quot;</span><span class="p">,</span>
+  <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">},</span>
+  <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>You can choose one of the following algorithms as <tt class="docutils literal"><span class="pre">method</span></tt>:</p>
@@ -330,22 +356,22 @@ Jubatus supports this kind of feature vector extraction (in this case, from text
 Additionally, HTML tags are noisy to classify the contents so we will remove the part that is enclosed in <tt class="docutils literal"><span class="pre">&lt;</span></tt> and <tt class="docutils literal"><span class="pre">&gt;</span></tt>.</p>
 <p>Using this feature, you can apply multiple rules such as natural language process and weighting of values.
 These rules expressed as follows in JSON.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">converter</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s">&#39;string_filter_types&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
-              <span class="p">},</span>
-              <span class="s">&#39;string_filter_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
-              <span class="p">],</span>
-              <span class="s">&#39;num_filter_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;num_filter_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
-              <span class="s">&#39;string_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;string_rules&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span><span class="s">&#39;key&#39;</span><span class="p">:</span> <span class="s">&#39;message-detagged&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
-              <span class="p">],</span>
-              <span class="s">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
-              <span class="s">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[]</span>
-            <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -402,7 +428,7 @@ In the following example, <tt class="docutils literal"><span class="pre">d1</spa
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI &amp; NTT.
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

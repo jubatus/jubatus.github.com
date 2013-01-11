@@ -74,8 +74,6 @@ Jubatus を使ったクライアントアプリケーションは C++, Python, R
 
 Jubatus と Jubatus クライアントのバージョンは異なることがあります。これは、Jubatus の API が変更されない場合はクライアント側のアップデートが不要なためです。
 
-パッケージ管理システムを使わずに Jubatus クライアントを使用したい場合は、 `GitHub の Downloads セクション <https://github.com/jubatus/jubatus/downloads>`_ から tarball をダウンロードすることができます。
-
 C++
 ~~~
 
@@ -102,7 +100,6 @@ Python
 ::
 
   $ sudo pip install jubatus
-  $ sudo pip install msgpack-rpc-python
 
 ``pip`` コマンドがインストールされていない場合は、以下の手順でインストールしてください。
 
@@ -111,6 +108,8 @@ Python
   $ wget http://peak.telecommunity.com/dist/ez_setup.py
   $ sudo python ez_setup.py
   $ sudo easy_install pip
+
+Ubuntu では ``pip`` のインストールに ``python-pip`` パッケージを利用することもできます。
 
 Ruby
 ~~~~
@@ -141,7 +140,7 @@ Java
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>0.3.2</version>
+       <version>0.4.0</version>
      </dependency>
    </dependencies>
 

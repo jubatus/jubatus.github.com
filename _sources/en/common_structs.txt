@@ -2,22 +2,23 @@ Common Data Structures and Methods
 ----------------------------------
 
 These data structures and methods are available in each server.
-Note that ``get_config`` and ``set_config`` are not available in Graph.
+
 
 Data Structures
 ~~~~~~~~~~~~~~~
 
 .. describe:: datum
 
- Represents a set of data used for machine learning in Jubatus.
- See :doc:`fv_convert` for details.
+   Represents a set of data used for machine learning in Jubatus.
+   See :doc:`fv_convert` for details.
 
-.. code-block:: c++
+   .. code-block:: c++
 
-   message datum {
-     0: list<tuple<string, string> > string_values
-     1: list<tuple<string, double> > num_values
-   }
+      message datum {
+        0: list<tuple<string, string> > string_values
+        1: list<tuple<string, double> > num_values
+      }
+
 
 Methods
 ~~~~~~~
@@ -27,66 +28,55 @@ When using standalone mode, this must be left blank (``""``).
 
 .. describe:: bool save(0: string name, 1: string id)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : file name to save
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : file name to save
 
- - Returns:
+   - Returns:
 
-  - True if this function saves files successfully at all servers
+     - True if this function saves files successfully at all servers
 
- Store the learing model to the local disk at **ALL** servers.
+   Store the learing model to the local disk at **ALL** servers.
+
 
 .. describe:: bool load(0: string name, 1: string id)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : file name to load
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : file name to load
 
- - Returns:
+   - Returns:
 
-  - True if this function loads files successfully at all servers
+     - True if this function loads files successfully at all servers
 
- Restore the saved model from local disk at **ALL** servers.
+   Restore the saved model from local disk at **ALL** servers.
 
-.. describe:: bool set_config(0: string name, 1: config_data c)
-
- - Parameters:
-
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``c`` : configuration data
-
- - Returns:
-
-  - True if this function successfully updated configuration at all servers
-
- Updates server configuration at **ALL** servers.
- For definition of ``config_data``, see API reference of each services.
 
 .. describe:: config_data get_config(0: string name)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
- - Returns:
+   - Returns:
 
-  - server configuration set by ``set_config``
+     - server configuration set on initialization
 
- Returns server configuration from a server.
- For definition of ``config_data``, see API reference of each services.
+   Returns server configuration from a server.
+   For format of configuration, see API reference of each services.
 
-.. describe:: map<string, map<string, string > > get_status(string name)
 
- - Parameters:
+.. describe:: map<string, map<string, string> >  get_status(0: string name)
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+   - Parameters:
 
- - Returns:
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
-  - Internal state for each servers. The key of most outer map is in form of ``hostname_portnumber``.
+   - Returns:
 
- Returns server status from **ALL** servers.
- Each server is represented by a pair of host name and port.
+     - Internal state for each servers. The key of most outer map is in form of ``hostname_portnumber``.
+
+   Returns server status from **ALL** servers.
+   Each server is represented by a pair of host name and port.

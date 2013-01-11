@@ -74,8 +74,6 @@ If you're going to try :doc:`tutorial`, just install Python client and go ahead.
 
 Version of Jubatus and Jubatus clients may be different, as clients are not updated when there are no API changes to Jubatus.
 
-If you want to download client libraries without using package management system, you can find a tarball in `Downloads section of GitHub <https://github.com/jubatus/jubatus/downloads>`_.
-
 C++
 ~~~
 
@@ -102,7 +100,6 @@ The client (requires Python 2.7 or later) is available in `PyPI <http://pypi.pyt
 ::
 
   $ sudo pip install jubatus
-  $ sudo pip install msgpack-rpc-python
 
 If you don't have ``pip`` command, run the following command:
 
@@ -111,6 +108,8 @@ If you don't have ``pip`` command, run the following command:
   $ wget http://peak.telecommunity.com/dist/ez_setup.py
   $ sudo python ez_setup.py
   $ sudo easy_install pip
+
+On Ubuntu, you can also use ``python-pip`` package to install ``pip``.
 
 Ruby
 ~~~~
@@ -141,7 +140,7 @@ Please add these lines to ``pom.xml`` of your project.
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>0.3.2</version>
+       <version>0.4.0</version>
      </dependency>
    </dependencies>
 

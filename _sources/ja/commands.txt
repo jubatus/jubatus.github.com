@@ -9,11 +9,27 @@ Commands
 Jubatus Servers
 ---------------
 
+Jubatus サーバは機械学習の機能を提供する。
+
 .. program:: server
 
 .. option:: -p <port>, --rpc-port <port>
 
    RPC リクエストを受け付けるポート番号。 [9199]
+
+.. option:: -b <address>, --listen_addr <address>
+
+   RPC リクエストを受け付ける IPv4 アドレス。
+
+   指定されていない場合、すべての IPv4 アドレス上でリクエストを受け付ける。
+
+.. option:: -B <interface>, --listen_if <interface>
+
+   RPC リクエストを受け付けるネットワークインターフェース。
+
+   指定されていない場合、すべてのネットワークインターフェース上でリクエストを受け付ける。
+
+   ``--listen_addr`` と併用することはできない (同時に指定された場合は、このオプションは無視される)。
 
 .. option:: -c <num>, --thread <num>
 
@@ -23,7 +39,7 @@ Jubatus Servers
 
    RPC セッションのタイムアウト時間 (秒)。 [10]
 
-.. option:: -d <dirpath>, --tmpdir <dirpath>
+.. option:: -d <dirpath>, --datadir <dirpath>
 
    ``save``/``load`` RPC リクエストを受信したときに学習モデルを保存/復元するディレクトリ。 [/tmp]
 
@@ -32,6 +48,18 @@ Jubatus Servers
    ログファイルを出力するディレクトリ。
 
    指定されていない場合、ログは標準エラーに出力される。
+
+.. option:: -e <level>, --loglevel <level>
+
+   出力するログの下限を指定する。 [0]
+
+   INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。
+
+.. option:: -f <config>, --configpath <config>
+
+   サーバの設定ファイルへのパスを指定する。
+
+   ``--zookeeper`` を指定しない (スタンドアローンモードで動作させる) 場合のみ、このオプションを使用する必要がある。
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -79,11 +107,27 @@ Distributed Environment
 Jubatus Keepers
 ~~~~~~~~~~~~~~~
 
+Jubatus Keeper は、分散環境においてクライアントからのリクエストをサーバ間で分散する。
+
 .. program:: keeper
 
 .. option:: -p <port>, --rpc-port <port>
 
    RPC リクエストを受け付けるポート番号。 [9199]
+
+.. option:: -b <address>, --listen_addr <address>
+
+   RPC リクエストを受け付ける IPv4 アドレス。
+
+   指定されていない場合、すべての IPv4 アドレス上でリクエストを受け付ける。
+
+.. option:: -B <interface>, --listen_if <interface>
+
+   RPC リクエストを受け付けるネットワークインターフェース。
+
+   指定されていない場合、すべてのネットワークインターフェース上でリクエストを受け付ける。
+
+   ``--listen_addr`` と併用することはできない (同時に指定された場合は、このオプションは無視される)。
 
 .. option:: -c <num>, --thread <num>
 
@@ -93,15 +137,21 @@ Jubatus Keepers
 
    RPC セッションのタイムアウト時間 (秒)。 [10]
 
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
+
+   ZooKeeper サーバの一覧。
+
 .. option:: -l <dirpath>, --logdir <dirpath>
 
    ログファイルを出力するディレクトリ。
 
    指定されていない場合、ログは標準エラーに出力される。
 
-.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
+.. option:: -e <level>, --loglevel <level>
 
-   ZooKeeper サーバの一覧。
+   出力するログの下限を指定する。 [0]
+
+   INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。
 
 .. option:: -v, --version
 
@@ -113,6 +163,8 @@ Jubatus Keepers
 
 jubavisor
 ~~~~~~~~~
+
+``jubavisor`` は ``jubactl`` から操作するデーモンプロセスである。
 
 .. program:: jubavisor
 
@@ -144,6 +196,8 @@ jubavisor
 
 jubactl
 ~~~~~~~
+
+``jubactl`` は分散環境においてサーバプロセスの管理を行うコマンドである。
 
 .. program:: jubactl
 
@@ -188,6 +242,12 @@ jubactl
 
    指定されない場合は、環境変数 ``ZK`` が使用される。
 
+.. option:: -B <interface>, --listen_if <interface>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -B`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
 .. option:: -C <num>, --thread <num>
 
    サーバプロセスの開始時のオプションを指定する (:option:`server -c`).
@@ -200,7 +260,7 @@ jubactl
 
    ``--cmd start`` を指定した場合のみ有効である。
 
-.. option:: -D <dirpath>, --tmpdir <dirpath>
+.. option:: -D <dirpath>, --datadir <dirpath>
 
    サーバプロセスの開始時のオプションを指定する (:option:`server -d`).
 
@@ -209,6 +269,12 @@ jubactl
 .. option:: -L <dirpath>, --logdir <dirpath>
 
    サーバプロセスの開始時のオプションを指定する (:option:`server -l`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -E <level>, --loglevel <level>
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -e`).
 
    ``--cmd start`` を指定した場合のみ有効である。
 
@@ -229,6 +295,59 @@ jubactl
    サーバプロセスの開始時のオプションを指定する (:option:`server -i`).
 
    ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -d, --debug
+
+   デバッグモードで実行する。
+
+.. option:: -?, --help
+
+   このコマンドの簡単な使い方を表示する。
+
+jubaconfig
+~~~~~~~~~~
+
+``jubaconfig`` は分散環境において、ZooKeeper に配置される Jubatus サーバの設定ファイルを管理するためのコマンドである。
+
+.. program:: jubaconfig
+
+.. option:: -c <command>, --cmd <command>
+
+   実行したい操作を指定する。
+   ``<command>`` の値は以下のいずれかを指定する。
+
+   ========= =====================================================================================
+   コマンド  説明
+   ========= =====================================================================================
+   write     ローカルファイルシステム上の設定ファイルを ZooKeeper 上に登録する
+   read      ZooKeeper 上に登録された設定ファイルの内容を表示する
+   delete    ZooKeeper 上に登録された設定ファイルの内容を削除する
+   list      ZooKeeper 上に登録された設定ファイルの一覧を表示する
+   ========= =====================================================================================
+
+.. option:: -f <file>, --file <file>
+
+   ZooKeeper に登録する設定ファイルのパスを指定する。
+
+   ``--cmd write`` を指定した場合のみ有効である。
+
+.. option:: -t <type>, --type <type>
+
+   サーバプログラムの種類 (例: ``classifier``, ``recommender``, ...)。
+
+   ``--cmd write``, ``--cmd read``, ``--cmd delete`` のいずれかを指定した場合のみ有効である。
+
+.. option:: -n <name>, --name <name>
+
+   インスタンス名 (タスクを識別する ZooKeeper クラスタ内でユニークな名前)。
+
+   ``--cmd write``, ``--cmd read``, ``--cmd delete`` のいずれかを指定した場合のみ有効である。
+
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
+
+   ZooKeeper サーバの一覧。
+
+   指定されない場合は、環境変数 ``ZK`` が使用される。
 
 .. option:: -d, --debug
 
@@ -310,3 +429,32 @@ jenerator
 .. option:: -help, --help
 
    このコマンドの簡単な使い方を表示する。
+
+mpidlconv
+~~~~~~~~~
+
+``mpidlconv`` は ``mpidl`` コマンドの出力を Jubatus フレームワークで利用できる形に変換する。
+
+``mpidlconv`` はデフォルトではインストールされない (ソースの ``src/tools`` ディレクトリを参照)。
+
+.. program:: mpidlconv
+
+.. option:: -i <dirpath>, --input <dirpath>
+
+   ``mpidl`` で出力されたファイルが配置されたディレクトリ。
+
+.. option:: -o <dirpath>, --output <dirpath>
+
+   変換されたソースファイルを出力するディレクトリ。
+
+   指定されない場合は、 ``--input`` で指定されたディレクトリにあるファイルを直接書き換える。
+
+.. option:: -s <service>, --service <service>
+
+   変換するサービスの名前。
+
+.. option:: -I, --internal
+
+   ``#include`` 命令に相対パスを使用する。
+
+   このオプションは Jubatus 開発者による利用を想定しているため、多くの場合、指定する必要はない。

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.4',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,7 +44,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
-    <link rel="next" title="Stat" href="api_stat.html" />
+    <link rel="next" title="Anomaly" href="api_anomaly.html" />
     <link rel="prev" title="Regression" href="api_regression.html" /> 
 
 <!--
@@ -84,7 +84,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api_stat.html" title="Stat"
+          <a href="api_anomaly.html" title="Anomaly"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="api_regression.html" title="Regression"
@@ -104,6 +104,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Recommender</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#data-structures">Data Structures</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
@@ -114,8 +115,8 @@
   <p class="topless"><a href="api_regression.html"
                         title="previous chapter">Regression</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="api_stat.html"
-                        title="next chapter">Stat</a></p>
+  <p class="topless"><a href="api_anomaly.html"
+                        title="next chapter">Anomaly</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/ja/api_recommender.txt"
@@ -178,23 +179,142 @@ new TWTR.Widget({
 <li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL 定義</a> を参照してください。</li>
 <li>使用されているアルゴリズムの詳細については <a class="reference internal" href="method.html"><em>Methods</em></a> を参照してください。</li>
 </ul>
-<div class="section" id="data-structures">
-<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>設定は単体の JSON で与えられる。
+JSON の各フィールドは以下のとおりである</p>
 <dl class="describe">
 <dt>
-<tt class="descname">config_data</tt></dt>
-<dd><p>サーバの設定を表す。
-<tt class="docutils literal"><span class="pre">method</span></tt> は推薦に使用するアルゴリズムである。
-現在、 <tt class="docutils literal"><span class="pre">inverted_index</span></tt>, <tt class="docutils literal"><span class="pre">minhash</span></tt> または <tt class="docutils literal"><span class="pre">lsh</span></tt> のいずれかが指定可能である。
-<tt class="docutils literal"><span class="pre">converter</span></tt> は <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> で説明されている JSON 形式の文字列である。</p>
+<tt class="descname">method</tt></dt>
+<dd><p>レコメンドに使用するアルゴリズムを指定する。
+以下のアルゴリズムを指定できる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">設定値</th>
+<th class="head">手法</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;inverted_index&quot;</span></tt></td>
+<td>転置インデックスを利用する。</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
+<td>MinHash を利用する。 [Li10]</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
+<td>Locality Sensitive Hashing を利用する。</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
+<td>Euclid 距離版の LSH を利用する。 [Andoni06]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">method</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">converter</span>
+<dl class="describe">
+<dt>
+<tt class="descname">parameter</tt></dt>
+<dd><p>アルゴリズムに渡すパラーメータを指定する。
+<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
+<dl class="docutils">
+<dt>inverted_index:</dt>
+<dd>なし</dd>
+<dt>minhash</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュの個数を指定する。
+大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
+(Integer)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>lsh</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">bit_num:</th><td class="field-body">ハッシュ値のビット数を指定する。
+大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
+(Integer)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>euclid_lsh</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">lsh_num:</th><td class="field-body">ハッシュの数を指定する。
+大きくすると正確な値に近づく代わりに、再現率が低下し、また多くのメモリを消費する。
+(Integer)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body">テーブルの数を指定する。
+大きくすると再現率が向上する代わりに、多くのメモリを消費し、レスポンスに時間がかかる。
+(Integer)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">bin_width:</th><td class="field-body">量子化幅を指定する。
+大きくすると再現率が向上する代わりに、レスポンスに時間がかかる。
+(Float)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">probe_num:</th><td class="field-body">探索するビンの数を指定する。
+大きくすると再現率が向上する代わりに、レスポンスに時間がかかる。
+(Integer)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body">内部で利用している乱数のシードを指定する。
+(Integer)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><tt class="docutils literal"><span class="pre">true</span></tt> ならハッシュに利用する射影ベクトルをキャッシュする。
+レスポンス時間が低下する代わりに、メモリを消費する。
+(Boolean)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">converter</tt></dt>
+<dd><p>特徴変換の設定を指定する。
+フォーマットは <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> で説明する。</p>
+</dd></dl>
+
+<dl class="docutils">
+<dt>例:</dt>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;inverted_index&quot;</span>
+  <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span><span class="p">[],</span>
+    <span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="o">:</span><span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</dd>
+</dl>
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
 <tt class="descname">similar_result</tt></dt>
@@ -202,62 +322,52 @@ new TWTR.Widget({
 string と float のタプルのリストである。
 string の値は行 ID であり、float の値はその ID に対応する近傍性である。
 近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。</p>
-</dd></dl>
-
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">type</span> <span class="n">similar_result</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="o">&gt;</span>
 </pre></div>
 </div>
+</dd></dl>
+
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
-<dl class="describe">
+<dl class="function">
 <dt>
-<tt class="descname">bool clear_row(string name, string id)</tt></dt>
-<dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<tt class="descname">bool clear_row(0: string name, 1: string id)</tt></dt>
+<dd><dl class="docutils">
+<dt>引数</dt>
+<dd><ul class="first last simple">
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 削除する行 ID</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</dd>
+<dt>戻り値</dt>
+<dd><ul class="first last simple">
 <li>行の削除に成功した場合 True</li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
 <p><tt class="docutils literal"><span class="pre">id</span></tt> で指定される行を推薦テーブルから削除する。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">bool update_row(string name, string id, datum d)</tt></dt>
+<tt class="descname">bool update_row(0: string name, 1: string id, 2: datum row)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
-<li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
+<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li>モデルの更新に成功した場合 True</li>
 </ul>
-</div></blockquote>
-<p>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> のデータを <tt class="docutils literal"><span class="pre">d</span></tt> を利用して更新する。
-同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、その行が <tt class="docutils literal"><span class="pre">d</span></tt> で差分更新される。
+</li>
+</ul>
+<p>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> のデータを <tt class="docutils literal"><span class="pre">row</span></tt> を利用して更新する。
+同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、その行が <tt class="docutils literal"><span class="pre">row</span></tt> で差分更新される。
 存在しない場合は、新しい行のエントリが作成される。
 更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
 異なるサーバーであれば、mix 後に反映される。</p>
@@ -267,21 +377,15 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <dt>
 <tt class="descname">bool clear(0: string name)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li>モデルの削除に成功した場合 True</li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
 <p>モデルを完全に消去する。</p>
 </dd></dl>
 
@@ -289,93 +393,69 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <dt>
 <tt class="descname">datum complete_row_from_id(0: string name, 1: string id)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> の近傍から未定義の値を補完したdatum</li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
 <p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の中で欠けている値を近傍から予測し、補完された datum を返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">datum complete_row_from_data(0: string name, 1: datum d)</tt></dt>
+<tt class="descname">datum complete_row_from_datum(0: string name, 1: datum row)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">d</span></tt> : 補完したい値が欠けたdatum</li>
+<li><tt class="docutils literal"><span class="pre">row</span></tt> : 補完したい値が欠けたdatum</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li>指定したdatumで構成されるrowの中で欠けている値を補完したdatum</li>
 </ul>
-</div></blockquote>
-<p>指定した datum <tt class="docutils literal"><span class="pre">d</span></tt> で欠けている値を近傍から予測し、補完された datum を返す。</p>
+</li>
+</ul>
+<p>指定した datum <tt class="docutils literal"><span class="pre">row</span></tt> で欠けている値を近傍から予測し、補完された datum を返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
 <tt class="descname">similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
 <li><tt class="docutils literal"><span class="pre">size</span></tt> : 返す近傍の数</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍のidとその近傍性の値のリスト</li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
 <p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその近傍性のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">similar_result similar_row_from_data(0: string name, 1: datum data, 2: uint size)</tt></dt>
+<tt class="descname">similar_result similar_row_from_datum(0: string name, 1: datum row, 2: uint size)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : 補完したいdatum</li>
+<li><tt class="docutils literal"><span class="pre">row</span></tt> : 補完したいdatum</li>
 <li><tt class="docutils literal"><span class="pre">ret_num</span></tt> : 返す近傍の数</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
+</li>
+<li>戻り値:<ul>
+<li><tt class="docutils literal"><span class="pre">row</span></tt> から構成された <tt class="docutils literal"><span class="pre">similar_result</span></tt></li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">dat</span></tt> から構成された <tt class="docutils literal"><span class="pre">similar_result</span></tt></li>
+</li>
 </ul>
-</div></blockquote>
 <p>指定したdatum <tt class="docutils literal"><span class="pre">data</span></tt> に近い行とその近傍性のリストを <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
 </dd></dl>
 
@@ -383,22 +463,16 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <dt>
 <tt class="descname">datum decode_row(0: string name, 1: string id)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> に対応する datum</li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
 <p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の <tt class="docutils literal"><span class="pre">datum</span></tt> 表現を返す。
 ただし、fv_converterで不可逆な処理を行なっている <tt class="docutils literal"><span class="pre">datum</span></tt> は復元されない。</p>
 </dd></dl>
@@ -407,69 +481,51 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 <dt>
 <tt class="descname">list&lt;string&gt; get_all_rows(0:string name)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li>戻り値:<ul>
 <li>すべての行の ID リスト</li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
 <p>すべての行の ID リストを返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">float similarity(0: string name, 1: datum lhs, 2: datum rhs)</tt></dt>
+<tt class="descname">float calc_similarity(0: string name, 1: datum lhs, 2:datum rhs)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><tt class="docutils literal"><span class="pre">lhs</span></tt> : datum</li>
 <li><tt class="docutils literal"><span class="pre">rhs</span></tt> : 別の datum</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
+</li>
+<li>戻り値:<ul>
+<li><tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> の類似度</li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> の近傍性</li>
+</li>
 </ul>
-</div></blockquote>
-<p>指定した 2 つの datum の近傍性を返す。</p>
+<p>指定した 2 つの datum の類似度を返す。</p>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">float l2norm(0: string name, 1: datum d)</tt></dt>
+<tt class="descname">float calc_l2norm(0: string name, 1: datum row)</tt></dt>
 <dd><ul class="simple">
-<li>引数:</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li>引数:<ul>
 <li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">d</span></tt> : datum</li>
+<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>戻り値:</li>
+</li>
+<li>戻り値:<ul>
+<li><tt class="docutils literal"><span class="pre">row</span></tt> の L2 ノルム</li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">d</span></tt> の L2 ノルム</li>
+</li>
 </ul>
-</div></blockquote>
-<p>指定した datum <tt class="docutils literal"><span class="pre">d</span></tt> の L2 ノルムを返す。</p>
+<p>指定した datum <tt class="docutils literal"><span class="pre">row</span></tt> の L2 ノルムを返す。</p>
 </dd></dl>
 
 </div>
@@ -488,7 +544,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="api_stat.html" title="Stat"
+          <a href="api_anomaly.html" title="Anomaly"
              >next</a> |</li>
         <li class="right" >
           <a href="api_regression.html" title="Regression"
@@ -500,7 +556,7 @@ string の値は行 ID であり、float の値はその ID に対応する近�
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI &amp; NTT.
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

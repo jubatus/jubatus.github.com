@@ -19,7 +19,7 @@ This tutorial covers the following topics:
 
   * If you are interested in distributed mode, see :doc:`tutorial_distributed` *after* this tutorial.
 
-* Configuring Jubatus server via ``set_config`` API
+* Configuring Jubatus server via JSON style config
 * Using Jubatus classification service via ``train`` and ``classify`` API
 * Basic concepts of classification
 
@@ -31,20 +31,39 @@ Simply run ``jubaclassifier`` program that provides classification feature.
 
 ::
 
-  $ jubaclassifier
-  I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 RPC server at 192.168.1.2:9199
-    pid            : 4200
-    user           : jubatus
-    mode           : standalone mode
-    timeout        : 10
-    thread         : 2
-    tmpdir         : /tmp
-    logdir         :
-    zookeeper      :
-    name           :
-    join           : false
-    interval sec   : 16
-    interval count : 512
+  jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json 
+  I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.0 RPC server at 192.168.0.1:9199
+      pid            : 1855
+      user           : oda
+      mode           : standalone mode
+      timeout        : 10
+      thread         : 2
+      datadir        : /tmp
+      logdir         : 
+      loglevel       : INFO(0)
+      zookeeper      : 
+      name           : 
+      join           : false
+      interval sec   : 16
+      interval count : 512
+  I0110 13:43:07.789721  1855 server_util.cpp:69] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json 
+  I0110 13:43:07.790897  1855 classifier_serv.cpp:110] config loaded: {
+    "converter" : {
+      "string_filter_types" : {},
+      "string_filter_rules" : [],
+      "num_filter_types" : {},
+      "num_filter_rules" : [],
+      "string_types" : {},
+      "string_rules" : [
+        { "key" : "*", "type" : "str", "sample_weight" : "bin", "global_weight" : "bin" }
+      ],
+      "num_types" : {},
+      "num_rules" : [
+        { "key" : "*", "type" : "num" }
+      ]
+    },
+    "method" : "PA"
+  }
 
 Jubatus classification server is now started.
 Jubatus servers listen on TCP port 9199 by default.
@@ -53,7 +72,7 @@ For example, to use port 19199:
 
 ::
 
-  $ jubaclassifier --rpc-port 19199
+  $ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
 
 Jubatus and Jubatus clients communicate with each other in `MessagePack-RPC <http://msgpack.org>`_ protocol over the TCP/IP network.
 
@@ -152,25 +171,32 @@ In this tutorial, we use these text as the training data.
 Server Configuration
 ~~~~~~~~~~~~~~~~~~~~
 
-Before using classification service, you need to setup a behavior of ``jubaclassifier`` using ``set_config`` API.
-There are two configurable parameters: ``method`` and ``converter``.
+Before using classification service, you need to setup a behavior of ``jubaclassifier`` with JSON as follows.
+There are three configurable parameters: ``method``, ``converter`` and ``parameter``.
 Example of these parameters is as follows.
 
 .. code-block:: python
 
-  method = "PA"
-  converter = {
-                'string_filter_types': {},
-                'string_filter_rules':[],
-                'num_filter_types': {},
-                'num_filter_rules': [],
-                'string_types': {},
-                'string_rules': [],
-                'num_types': {},
-                'num_rules': []
-              }
-  config = types.config_data(method, json.dumps(converter))
-  client.set_config("", config)
+  {
+    "method": "PA",
+    "converter": {
+      "string_filter_types": {
+        "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+      },
+      "string_filter_rules": [
+        { "key": "message", "type": "detag", "suffix": "-detagged" }
+      ],
+      "num_filter_types": {},
+      "num_filter_rules": [],
+      "string_types": {},
+      "string_rules": [
+        { "key": "message-detagged", "type": "space", "sample_weight": "bin", "global_weight": "bin"}
+      ],
+      "num_types": {},
+      "num_rules": []
+    },
+    "parameter": {}
+  }
 
 You can choose one of the following algorithms as ``method``:
 
@@ -194,22 +220,22 @@ These rules expressed as follows in JSON.
 
 .. code-block:: python
 
-    converter = {
-                  'string_filter_types': {
-                    "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
-                  },
-                  'string_filter_rules': [
-                    { "key": "message", "type": "detag", "suffix": "-detagged" }
-                  ],
-                  'num_filter_types': {},
-                  'num_filter_rules': [],
-                  'string_types': {},
-                  'string_rules': [
-                    {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
-                  ],
-                  'num_types': {},
-                  'num_rules': []
-                }
+  "converter": {
+    "string_filter_types": {
+      "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+    },
+    "string_filter_rules": [
+      { "key": "message", "type": "detag", "suffix": "-detagged" }
+    ],
+    "num_filter_types": {},
+    "num_filter_rules": [],
+    "string_types": {},
+    "string_rules": [
+      { "key": "message-detagged", "type": "space", "sample_weight": "bin", "global_weight": "bin"}
+    ],
+    "num_types": {},
+    "num_rules": []
+  }
 
 Use of Classifier API: Train & Classify
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -31,6 +31,15 @@ Run ZooKeeper server like this:
 
 Here we assume that ZooKeeper is running on localhost:2181. You can change it in the ``zoo.cfg`` file.
 
+Register configuration file to ZooKeeper
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In distributed environment, register configuration file on the local file system to ZooKeeper using ``jubaconfig``.
+
+::
+
+    $ jubaconfig --cmd write --zookeeper=localhost:2181 --file config.json --name tutorial --type classifier
+
 Jubatus Keeper
 ~~~~~~~~~~~~~~
 

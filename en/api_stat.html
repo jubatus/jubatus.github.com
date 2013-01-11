@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.4',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Graph" href="api_graph.html" />
-    <link rel="prev" title="Recommender" href="api_recommender.html" /> 
+    <link rel="prev" title="Anomaly" href="api_anomaly.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="api_graph.html" title="Graph"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="api_recommender.html" title="Recommender"
+          <a href="api_anomaly.html" title="Anomaly"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -103,6 +103,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Stat</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#data-structures">Data Structures</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
@@ -110,8 +111,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="api_recommender.html"
-                        title="previous chapter">Recommender</a></p>
+  <p class="topless"><a href="api_anomaly.html"
+                        title="previous chapter">Anomaly</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="api_graph.html"
                         title="next chapter">Graph</a></p>
@@ -176,20 +177,30 @@ new TWTR.Widget({
 <ul class="simple">
 <li>See <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl">IDL definition</a> for detailed specification.</li>
 </ul>
-<div class="section" id="data-structures">
-<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Configuration is given as a JSON file.
+We show each filed below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">config_data</tt></dt>
-<dd><p>Represents a configuration of the server.
-<tt class="docutils literal"><span class="pre">window_size</span></tt> is a number of values to hold.</p>
+<tt class="descname">window_size</tt></dt>
+<dd><p>Number of values to store.
+(Integer)</p>
 </dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">config_data</span> <span class="p">{</span>
-  <span class="mi">0</span><span class="o">:</span> <span class="kt">int</span> <span class="n">window_size</span>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;window_size&quot;</span><span class="o">:</span> <span class="mi">128</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</dd>
+</dl>
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
@@ -197,7 +208,7 @@ new TWTR.Widget({
 When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="describe">
 <dt>
-<tt class="descname">bool push(0: string name, 1: string key, 2: double val)</tt></dt>
+<tt class="descname">bool push(0: string name, 1: string key, 2: double value)</tt></dt>
 <dd><p>Adds value <tt class="docutils literal"><span class="pre">val</span></tt> to the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
@@ -233,8 +244,8 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
 
 <dl class="describe">
 <dt>
-<tt class="descname">double moment(0: string name, 1: string key, 2: int n, 3: double c)</tt></dt>
-<dd><p>Returns the <tt class="docutils literal"><span class="pre">n</span></tt>-th moment about <tt class="docutils literal"><span class="pre">c</span></tt> of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+<tt class="descname">double moment(0: string name, 1: string key, 2: int degree, 3: double center)</tt></dt>
+<dd><p>Returns the <tt class="docutils literal"><span class="pre">degree</span></tt>-th moment about <tt class="docutils literal"><span class="pre">center</span></tt> of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 </div>
@@ -256,7 +267,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
           <a href="api_graph.html" title="Graph"
              >next</a> |</li>
         <li class="right" >
-          <a href="api_recommender.html" title="Recommender"
+          <a href="api_anomaly.html" title="Anomaly"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -264,7 +275,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI &amp; NTT.
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

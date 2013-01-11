@@ -4,33 +4,119 @@ Recommender
 * See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl>`_ for detailed specification.
 * See :doc:`method` for detailed description of algorithms used in this server.
 
+
+Configuration
+~~~~~~~~~~~~~
+
+Configuration is given as a JSON file.
+We show each filed below:
+
+.. describe:: method
+
+   Specify algorithm for recommender.
+   You can use these algorithms.
+
+   .. table::
+
+      ==================== ===================================
+      Value                Method
+      ==================== ===================================
+      ``"inverted_index"`` Use Inverted Index.
+      ``"minhash"``        Use MinHash. [Li10]_
+      ``"lsh"``            Use Locality Sensitive Hashing.
+      ``"euclid_lsh"``     Use Euclid-distance LSH. [Andoni06]_
+      ==================== ===================================
+
+
+.. describe:: parameter
+
+   Specify parameters for the algorithm.
+   Its format differs for each ``method``.
+
+
+   inverted_index
+     None
+   
+   minhash
+     :hash_num:
+        Number of hash values.
+        The bigger it is, the more accurate results you can get, but the more memory is required.
+        (Integer)
+
+   lsh
+     :bit_num:
+        Bit length of hash values.
+        The bigger it is, the more accurate results you can get, but the more memory is required.
+        (Integer)
+
+   euclid_lsh
+     :lsh_num:
+        Number of hash values.
+        The bigger it is, the more accurate results you can get, but the fewer results you can find and the more memory is required.
+        (Integer)
+     :table_num:
+        Number of tables
+        The bigger it is, the mroe results you can find, but the more memory is required and the longer response time is required.
+        (Integer)
+     :bin_width:
+        Quantization step size.
+        The bigger it is, the more results you can find, but the longer response time is required.
+        (Float)
+     :probe_num:
+        Number of bins to find.
+        The bigger it is, the more results you can find, but the longer response time is required.
+        (Integer)
+     :seed:
+        Seed of random number generator.
+        (Integer)
+     :retain_projection:
+        When it is ``true``, projection vectors for hashing are cached in memory.
+        Response time is lower though more memory is required.
+        (Boolean)
+
+
+.. describe:: converter
+
+   Specify configuration for data conversion.
+   Its format is described in :doc:`fv_convert`.
+
+
+Example:
+  .. code-block:: javascript
+
+     {
+       "method": "inverted_index"
+       "converter" : {
+         "string_filter_types": {},
+         "string_filter_rules":[],
+         "num_filter_types": {},
+         "num_filter_rules": [],
+         "string_types": {},
+         "string_rules":[
+           {"key" : "*", "type" : "str", "sample_weight":"bin", "global_weight" : "bin"}
+         ],
+         "num_types": {},
+         "num_rules": [
+           {"key" : "*", "type" : "num"}
+         ]
+       },
+     }
+
+
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. describe:: config_data
-
- Represents a configuration of the server.
- ``method`` is an algorithm used for recommendation.
- Currently, one of ``inverted_index``, ``minhash`` or ``lsh`` can be specified.
- ``converter`` is a string in JSON format described in :doc:`fv_convert`.
-
-.. code-block:: c++
-
-   message config_data {
-     0: string method
-     1: string converter
-   }
-
 .. describe:: similar_result
 
- Represents a result of similarity methods.
- It is a list of tuple of string and float.
- The string value is a row ID and the float value is a similarity for the ID.
- Higher similarity value means that they are more similar to each other.
+   Represents a result of similarity methods.
+   It is a list of tuple of string and float.
+   The string value is a row ID and the float value is a similarity for the ID.
+   Higher similarity value means that they are more similar to each other.
 
-.. code-block:: c++
+   .. code-block:: c++
 
-   type similar_result = list<tuple<string, float> >
+      type similar_result = list<tuple<string, float> >
+
 
 Methods
 ~~~~~~~
@@ -38,152 +124,162 @@ Methods
 For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (``""``).
 
-.. describe:: bool clear_row(string name, string id)
+.. describe:: bool clear_row(0: string name, 1: string id)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : row ID to be removed
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : row ID to be removed
 
- - Returns:
+   - Returns:
 
-  - True when the row was cleared successfully
+     - True when the row was cleared successfully
 
- Removes the given row ``id`` from the recommendation table.
+   Removes the given row ``id`` from the recommendation table.
 
-.. describe:: bool update_row(string name, string id, datum d)
 
- - Parameters:
+.. describe:: bool update_row(0: string name, 1: string id, 2: datum row)
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : row ID
-  - ``d`` : datum for the row
+   - Parameters:
 
- - Returns:
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : row ID
+     - ``row`` : datum for the row
 
-  - True if this function updates models successfully
+   - Returns:
 
- Updates the row whose id is ``id`` with given ``d``.
- If the row with the same ``id`` already exists, the row is differential updated with ``d``.
- Otherwise, new row entry will be created.
- If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
- If not, update operation is reflected after mix.
+     - True if this function updates models successfully
+
+   Updates the row whose id is ``id`` with given ``row``.
+   If the row with the same ``id`` already exists, the row is differential updated with ``row``.
+   Otherwise, new row entry will be created.
+   If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
+   If not, update operation is reflected after mix.
+
 
 .. describe:: bool clear(0: string name)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
- - Returns:
+   - Returns:
 
-  - True when the model was cleared successfully
+     - True when the model was cleared successfully
 
- Completely clears the model.
+   Completely clears the model.
+
 
 .. describe:: datum complete_row_from_id(0: string name, 1: string id)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : row ID
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : row ID
 
- - Returns:
+   - Returns:
 
-  - datum stored in ``id`` row with missing value completed by predicted value
+     - datum stored in ``id`` row with missing value completed by predicted value
 
- Returns the datum for the row ``id``, with missing value completed by predicted value.
+   Returns the datum for the row ``id``, with missing value completed by predicted value.
 
-.. describe:: datum complete_row_from_data(0: string name, 1: datum d)
 
- - Parameters:
+.. describe:: datum complete_row_from_datum(0: string name, 1: datum row)
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``d`` : original datum to be completed (possibly some values are missing).
+   - Parameters:
 
- - Returns:
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``row`` : original datum to be completed (possibly some values are missing).
 
-  - datum constructed from the given datum with missing value completed by predicted value
+   - Returns:
 
- Returns the datum constructed from datum ``d``, with missing value completed by predicted value.
+     - datum constructed from the given datum with missing value completed by predicted value
+
+   Returns the datum constructed from datum ``d``, with missing value completed by predicted value.
+
 
 .. describe:: similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : row ID
-  - ``size`` : number of rows to be returned
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : row ID
+     - ``size`` : number of rows to be returned
 
- - Returns:
+   - Returns:
 
-  - rows that are most similar to the row ``id``
+     - rows that are most similar to the row ``id``
 
- Returns ``size`` rows (at maximum) which are most similar to the row ``id``.
+   Returns ``size`` rows (at maximum) which are most similar to the row ``id``.
 
-.. describe:: similar_result similar_row_from_data(0: string name, 1: datum data, 2: uint size)
 
- - Parameters:
+.. describe:: similar_result similar_row_from_datum(0: string name, 1: datum row, 2: uint size)
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``data`` : original datum to be completed (possibly some values are missing)
-  - ``size`` : number of rows to be returned
+   - Parameters:
 
- - Returns:
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``row`` : original datum to be completed (possibly some values are missing)
+     - ``size`` : number of rows to be returned
 
-  - rows that most have a similar datum to ``data``
+   - Returns:
 
- Returns ``size`` rows (at maximum) that most have similar datum to datum ``data``.
+     - rows that most have a similar datum to ``row``
+
+   Returns ``size`` rows (at maximum) that most have similar datum to datum ``row``.
+
 
 .. describe:: datum decode_row(0: string name, 1: string id)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``id`` : row ID
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``id`` : row ID
 
- - Returns:
+   - Returns:
 
-  - datum for the given row ``id``
+     - datum for the given row ``id``
 
- Returns the datum in the row ``id``.
- Note that irreversibly converted datum (processed by ``fv_converter``) will not be decoded.
+   Returns the datum in the row ``id``.
+   Note that irreversibly converted datum (processed by ``fv_converter``) will not be decoded.
+
 
 .. describe:: list<string> get_all_rows(0:string name)
 
- - Parameters:
+   - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
 
- - Returns:
+   - Returns:
 
-  - list of all row IDs
+     - list of all row IDs
 
- Returns the list of all row IDs.
+   Returns the list of all row IDs.
 
-.. describe:: float similarity(0: string name, 1: datum lhs, 2: datum rhs)
 
- - Parameters:
+.. describe:: float calc_similarity(0: string name, 1: datum lhs, 2:datum rhs)
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``lhs`` : datum
-  - ``rhs`` : another datum
+   - Parameters:
 
- - Returns:
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``lhs`` : datum
+     - ``rhs`` : another datum
 
-  - similarity between ``lhs`` and ``rhs``
+   - Returns:
 
- Returns the similarity between two datum.
+     - similarity between ``lhs`` and ``rhs``
 
-.. describe:: float l2norm(0: string name, 1: datum d)
+   Returns the similarity between two datum.
 
- - Parameters:
 
-  - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
-  - ``d`` : datum
+.. describe:: float calc_l2norm(0: string name, 1: datum row)
 
- - Returns:
+   - Parameters:
 
-  - L2 norm for the given ``d``
+     - ``name`` : string value to uniquely identifies a task in the ZooKeeper cluster
+     - ``row`` : datum
 
- Returns the value of L2 norm for the datum ``d``.
+   - Returns:
+
+     - L2 norm for the given ``row``
+
+   Returns the value of L2 norm for the datum ``row``.

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.4',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -387,19 +387,31 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 したがって、複数の規則がマッチした場合は両方の規則が適用されて、複数のフィルター済みの値が追加されることに注意する。
 なお、&#8221;key&#8221;に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">値</th>
+<th class="head">意味</th>
+</tr>
+</thead>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">&#8220;*&#8221; or &#8220;&#8221;:</th><td class="field-body">全ての要素にマッチする。&#8221;key&#8221;にこれが指定されると必ず適用されることになる。</td>
+<tr class="row-even"><td>&#8220;*&#8221; or &#8220;&#8221;</td>
+<td>全ての要素にマッチする。&#8221;key&#8221;にこれが指定されると必ず適用されることになる。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">&#8220;XXX*&#8221;:</th><td class="field-body">末尾に*をつけると、その前のみをプレフィックスとして使用する。つまり、&#8221;XXX&#8221;で始まるkeyのみにマッチする。</td>
+<tr class="row-odd"><td>&#8220;XXX*&#8221;</td>
+<td>末尾に*をつけると、その前のみをプレフィックスとして使用する。つまり、&#8221;XXX&#8221;で始まるkeyのみにマッチする。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">&#8220;*XXX&#8221;:</th><td class="field-body">先頭に*をつけると、その後のみをサフィックスとして使用する。つまり、&#8221;XXX&#8221;で終わるkeyのみにマッチする。</td>
+<tr class="row-even"><td>&#8220;*XXX&#8221;</td>
+<td>先頭に*をつけると、その後のみをサフィックスとして使用する。つまり、&#8221;XXX&#8221;で終わるkeyのみにマッチする。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">&#8220;/XXX/&#8221;:</th><td class="field-body">2つのスラッシュ(/)で囲うと、その間の表現を正規表現とみなして、正規表現でマッチする。&#8211;disable-re2付きでコンパイルすると利用できない。</td>
+<tr class="row-odd"><td>&#8220;/XXX/&#8221;</td>
+<td>2つのスラッシュ(/)で囲うと、その間の表現を正規表現とみなして、正規表現でマッチする。&#8211;disable-re2付きでコンパイルすると利用できない。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">その他:</th><td class="field-body">以上のいずれでもない場合は、与えられた文字列と一致するkeyのみにマッチする。</td>
+<tr class="row-even"><td>その他</td>
+<td>以上のいずれでもない場合は、与えられた文字列と一致するkeyのみにマッチする。</td>
 </tr>
 </tbody>
 </table>
@@ -550,41 +562,89 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはstring_typesの項で作った抽出器名を指定する。また、以下の抽出器はデフォルトで利用できる。</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">str:</th><td class="field-body">文字列分割を行わず、指定された文字列そのものを特徴として利用する。</td>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">値</p>
+</th>
+<th class="head"><p class="first last">意味</p>
+</th>
 </tr>
-<tr class="field-even field"><th class="field-name">space:</th><td class="field-body">スペース文字で分割を行い、分割された部分文字列を特徴として利用する。</td>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></p>
+</td>
+<td><p class="first last">文字列分割を行わず、指定された文字列そのものを特徴として利用する。</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;space&quot;</span></tt></p>
+</td>
+<td><p class="first last">スペース文字で分割を行い、分割された部分文字列を特徴として利用する。</p>
+</td>
 </tr>
 </tbody>
 </table>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">各key-value毎の重み設定の仕方を指定する。これはkey-value一つに対して決定される重みである。</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">値</p>
+</th>
+<th class="head"><p class="first last">意味</p>
+</th>
+</tr>
+</thead>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">bin:</th><td class="field-body">重みを常に1とする。</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></p>
+</td>
+<td><p class="first last">重みを常に1とする。</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">tf:</th><td class="field-body">与えられた文字列中で出現する回数で重み付けをする。例えば5回&#8221;hello&#8221;が出現したら、重みを5にする、などである。</td>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;tf&quot;</span></tt></p>
+</td>
+<td><p class="first last">与えられた文字列中で出現する回数で重み付けをする。例えば5回&#8221;hello&#8221;が出現したら、重みを5にする、などである。</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">log_tf:</th><td class="field-body">tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&#8221;hello&#8221;が出現したら、重みはlog(5 + 1)にする、などである。</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></tt></p>
+</td>
+<td><p class="first last">tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&#8221;hello&#8221;が出現したら、重みはlog(5 + 1)にする、などである。</p>
+</td>
 </tr>
 </tbody>
 </table>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">今までの通算データをから算出される、大域的な重み付けを指定する。</p>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">bin:</th><td class="field-body">重みを常に1とする。</td>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">値</p>
+</th>
+<th class="head"><p class="first last">意味</p>
+</th>
 </tr>
-<tr class="field-even field"><th class="field-name">idf:</th><td class="field-body">文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする、などである。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。</td>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></p>
+</td>
+<td><p class="first last">重みを常に1とする。</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;idf&quot;</span></tt></p>
+</td>
+<td><p class="first last">文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする、などである。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -651,23 +711,39 @@ string_rulesなどと同様、複数の規則を羅列する。
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">値</p>
+</th>
+<th class="head"><p class="first last">意味</p>
+</th>
+</tr>
+</thead>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">num:</th><td class="field-body">与えられた数値をそのまま重みに利用する。</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;num&quot;</span></tt></p>
+</td>
+<td><p class="first last">与えられた数値をそのまま重みに利用する。</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">log:</th><td class="field-body">与えられた数値の対数を重みに利用する。但し、数値が1以下の場合は0とする。</td>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log&quot;</span></tt></p>
+</td>
+<td><p class="first last">与えられた数値の対数を重みに利用する。但し、数値が1以下の場合は0とする。</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">str:</th><td class="field-body">与えられた数値を文字列として扱う。これは、例えばIDなど、数値自体の大きさに意味のないデータに対して利用する。重みは1とする。</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></p>
+</td>
+<td><p class="first last">与えられた数値を文字列として扱う。これは、例えばIDなど、数値自体の大きさに意味のないデータに対して利用する。重みは1とする。</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">変換後の結果を格納するkeyのサフィックスを指定する。</p>
+<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">変換後の結果を格納するkeyのサフィックスを指定する。</p>
 </td>
 </tr>
 </tbody>
@@ -843,7 +919,7 @@ re2を利用して、与えられた文書から正規表現を利用してキ�
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI &amp; NTT.
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

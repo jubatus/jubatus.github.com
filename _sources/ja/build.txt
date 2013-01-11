@@ -12,25 +12,27 @@ Requirements
 Jubatus をソースからビルドするには、 ``gcc`` (バージョン 4.4 以降), ``pkg-config`` (バージョン 0.26 以降) および ``python`` (バージョン 2.6 以降,  ``waf`` で使用される) が必要です。
 加えて、以下のライブラリも必要になります。
 
-============ ========== ======== ======================================================
-ソフトウェア バージョン 必須     備考
-============ ========== ======== ======================================================
-msgpack      >= 0.5.7   ✔
-pficommon    master     ✔         msgpack が有効であること。
-libevent     >= 1.4     ✔
-google-glog  >= 3.2     ✔
-mecab        >= 0.99              ``--enable-mecab`` ありでビルドする場合のみ。
-re2          -                    ``--disable-re2`` *なし* でビルドする場合のみ。
-ux-trie      -                    ``--enable-ux`` ありでビルドする場合のみ。
-zookeeper    >= 3.3               ``--enable-zookeeper`` ありでビルドする場合のみ。
-                                  C クライアントライブラリが必要です。
-============ ========== ======== ======================================================
+=================== ========== ========= ======================================================
+ソフトウェア        バージョン 必須      備考
+=================== ========== ========= ======================================================
+msgpack             >= 0.5.7   ✔
+jubatus-mpio        master     ✔
+jubatus-msgpack-rpc master     ✔         C++ クライアントライブラリが必要である。
+pficommon           master     ✔         msgpack-rpc (mprpc) が有効であること。
+google-glog         >= 3.2     ✔
+mecab               >= 0.99              ``--enable-mecab`` ありでビルドする場合のみ。
+re2                 master               ``--disable-re2`` *なし* でビルドする場合のみ。
+ux-trie             master               ``--enable-ux`` ありでビルドする場合のみ。
+zookeeper           >= 3.3               ``--enable-zookeeper`` ありでビルドする場合のみ。
+                                         C クライアントライブラリが必要である。
+=================== ========== ========= ======================================================
 
 お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
 バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
 `msgpack <http://msgpack.org/>`_,
+`jubatus-mpio <https://github.com/jubatus/jubatus-mpio>`_,
+`jubatus-msgpack-rpc <https://github.com/jubatus/jubatus-msgpack-rpc>`_,
 `pficommon <https://github.com/pfi/pficommon>`_,
-`libevent <http://libevent.org/>`_,
 `google-glog <http://code.google.com/p/google-glog/>`_,
 `mecab <http://code.google.com/p/mecab/>`_,
 `re2 <http://code.google.com/p/re2/>`_,
@@ -46,18 +48,36 @@ Ubuntu 12.04 でのビルドを行う例です。
 ::
 
   $ sudo aptitude install build-essential git-core
-  $ sudo aptitude install libmsgpack-dev libevent-dev
-  $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
-  $ cd glog-0.3.2
-  $ ./configure; make
+
+  $ sudo aptitude install libmsgpack-dev
+
+  $ git clone https://github.com/jubatus/jubatus-mpio.git
+  $ cd jubatus-mpio
+  $ git checkout develop
+  $ ./bootstrap && ./configure && make
   $ sudo make install
   $ cd ..
+
+  $ git clone https://github.com/jubatus/jubatus-msgpack-rpc.git
+  $ cd jubatus-msgpack-rpc/cpp
+  $ git checkout develop
+  $ ./bootstrap && ./configure && make
+  $ sudo make install
+  $ cd ..
+
   $ git clone https://github.com/pfi/pficommon.git
   $ cd pficommon
   $ ./waf configure
-  (ensure that pficommon is configured with msgpack enbabled)
+    -> msgpack-rpc サポートが有効になっていることを確認してください ("MessagePack RPC module: yes")
   $ ./waf build
   $ sudo ./waf install
+  $ cd ..
+
+  $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
+  $ cd glog-0.3.2
+  $ ./configure && make
+  $ sudo make install
+  $ cd ..
 
 Jubatus のビルドを行います。
 

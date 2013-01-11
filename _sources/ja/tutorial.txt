@@ -19,7 +19,7 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 
   * 分散環境での動作に興味がある方は、このチュートリアルの *後で* :doc:`tutorial_distributed` をご覧ください。
 
-* Jubatus サーバを ``set_config`` API で設定する
+* Jubatus サーバを JSON スタイル で設定する
 * Jubatus の分類器を ``train`` と ``classify`` API で使用する
 * 分類に関する基本的なコンセプト
 
@@ -27,24 +27,43 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 Run Tutorial
 ------------
 
-分類器の機能を提供する ``jubaclassifier`` プログラムをオプションなしで起動します。
+分類器の機能を提供する ``jubaclassifier`` プログラムを設定ファイルを指定して起動します。
 
 ::
 
-  $ jubaclassifier
-  I1128 16:52:51.031333  4200 server_util.cpp:136] starting jubaclassifier 0.3.4 RPC server at 192.168.1.2:9199
-    pid            : 4200
-    user           : jubatus
-    mode           : standalone mode
-    timeout        : 10
-    thread         : 2
-    tmpdir         : /tmp
-    logdir         :
-    zookeeper      :
-    name           :
-    join           : false
-    interval sec   : 16
-    interval count : 512
+  jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json 
+  I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.0 RPC server at 192.168.0.1:9199
+      pid            : 1855
+      user           : oda
+      mode           : standalone mode
+      timeout        : 10
+      thread         : 2
+      datadir        : /tmp
+      logdir         : 
+      loglevel       : INFO(0)
+      zookeeper      : 
+      name           : 
+      join           : false
+      interval sec   : 16
+      interval count : 512
+  I0110 13:43:07.789721  1855 server_util.cpp:69] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
+  I0110 13:43:07.790897  1855 classifier_serv.cpp:110] config loaded: {
+    "converter" : {
+      "string_filter_types" : {},
+      "string_filter_rules" : [],
+      "num_filter_types" : {},
+      "num_filter_rules" : [],
+      "string_types" : {},
+      "string_rules" : [
+        { "key" : "*", "type" : "str", "sample_weight" : "bin", "global_weight" : "bin" }
+      ],
+      "num_types" : {},
+      "num_rules" : [
+        { "key" : "*", "type" : "num" }
+      ]
+    },
+    "method" : "PA"
+  }
 
 Jubatus の分類器サーバが起動しました。
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
@@ -53,7 +72,7 @@ Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用し�
 
 ::
 
-  $ jubaclassifier --rpc-port 19199
+  $ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
 
 Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で `MessagePack-RPC <http://msgpack.org>`_ プロトコルを使用して通信します。
 
@@ -152,25 +171,32 @@ Dataset
 Server Configuration
 ~~~~~~~~~~~~~~~~~~~~
 
-分類器サービスを使用する前に、 ``set_config`` API を用いて ``jubaclassifier`` の動作をセットアップする必要があります。
-``method`` と ``converter`` の 2 つの設定可能なパラメタがあります。
+分類器サービスを使用するためには JSONの設定ファイルを用いて ``jubaclassifier`` の動作を規定する必要があります。
+``method`` と ``converter`` と ``parameter`` の 3 つの設定可能なパラメタがあります。
 これらのパラメタのサンプルを以下に示します。
 
 .. code-block:: python
 
-  method = "PA"
-  converter = {
-                'string_filter_types': {},
-                'string_filter_rules':[],
-                'num_filter_types': {},
-                'num_filter_rules': [],
-                'string_types': {},
-                'string_rules': [],
-                'num_types': {},
-                'num_rules': []
-              }
-  config = types.config_data(method, json.dumps(converter))
-  client.set_config("", config)
+  {
+    "method": "PA",
+    "converter": {
+      "string_filter_types": {
+        "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+      },
+      "string_filter_rules": [
+        { "key": "message", "type": "detag", "suffix": "-detagged" }
+      ],
+      "num_filter_types": {},
+      "num_filter_rules": [],
+      "string_types": {},
+      "string_rules": [
+        { "key": "message-detagged", "type": "space", "sample_weight": "bin", "global_weight": "bin"}
+      ],
+      "num_types": {},
+      "num_rules": []
+    },
+    "parameter": {}
+  }
 
 ``method`` は、以下のアルゴリズムのうちいずれかを指定することができます。
 
@@ -194,22 +220,22 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 
 .. code-block:: python
 
-    converter = {
-                  'string_filter_types': {
-                    "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
-                  },
-                  'string_filter_rules': [
-                    { "key": "message", "type": "detag", "suffix": "-detagged" }
-                  ],
-                  'num_filter_types': {},
-                  'num_filter_rules': [],
-                  'string_types': {},
-                  'string_rules': [
-                    {'key': 'message-detagged', 'type': "space", "sample_weight": "bin", "global_weight": "bin"}
-                  ],
-                  'num_types': {},
-                  'num_rules': []
-                }
+  "converter": {
+    "string_filter_types": {
+      "detag": { "method": "regexp", "pattern": "<[^>]*>", "replace": "" }
+    },
+    "string_filter_rules": [
+      { "key": "message", "type": "detag", "suffix": "-detagged" }
+    ],
+    "num_filter_types": {},
+    "num_filter_rules": [],
+    "string_types": {},
+    "string_rules": [
+      { "key": "message-detagged", "type": "space", "sample_weight": "bin", "global_weight": "bin"}
+    ],
+    "num_types": {},
+    "num_rules": []
+  }
 
 Use of Classifier API: Train & Classify
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

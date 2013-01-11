@@ -9,11 +9,27 @@ Commands
 Jubatus Servers
 ---------------
 
+Jubatus server provides the machine learning feature.
+
 .. program:: server
 
 .. option:: -p <port>, --rpc-port <port>
 
    Port number to listen for RPC requests. [9199]
+
+.. option:: -b <address>, --listen_addr <address>
+
+   IPv4 address to listen for RPC requests.
+
+   If not specified, listens for requests on all IPv4 addresses.
+
+.. option:: -B <interface>, --listen_if <interface>
+
+   Network interface to listen for RPC requests.
+
+   If not specified, listens for requests on all network interfaces.
+
+   Cannot be specified altogether with ``--listen_addr`` (in that case this option will be ignored).
 
 .. option:: -c <num>, --thread <num>
 
@@ -23,7 +39,7 @@ Jubatus Servers
 
    Session timeout of RPC in seconds. [10]
 
-.. option:: -d <dirpath>, --tmpdir <dirpath>
+.. option:: -d <dirpath>, --datadir <dirpath>
 
    Path of directory to save and load training models using ``save`` and ``load`` RPC requests. [/tmp]
 
@@ -32,6 +48,18 @@ Jubatus Servers
    Path of directory to output log files.
 
    If not specified, logs are dumped to the standard error.
+
+.. option:: -e <level>, --loglevel <level>
+
+   Minimal level of log to output. [0]
+
+   INFO, WARNING, ERROR, FATAL corresponds to 0, 1, 2, 3, respectively.
+
+.. option:: -f <config>, --configpath <config>
+
+   Path of the server configuration file.
+
+   This option must be given when ``--zookeeper`` is not specified (i.e., running in standalone mode).
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -79,11 +107,27 @@ Distributed Environment
 Jubatus Keepers
 ~~~~~~~~~~~~~~~
 
+In distributed environment, Jubatus Keeper distributes requests from clients to servers.
+
 .. program:: keeper
 
 .. option:: -p <port>, --rpc-port <port>
 
    Port number to listen for RPC requests. [9199]
+
+.. option:: -b <address>, --listen_addr <address>
+
+   IPv4 address to listen for RPC requests.
+
+   If not specified, listens for requests on all IPv4 addresses.
+
+.. option:: -B <interface>, --listen_if <interface>
+
+   Network interface to listen for RPC requests.
+
+   If not specified, listens for requests on all network interfaces.
+
+   Cannot be specified altogether with ``--listen_addr`` (in that case this option will be ignored).
 
 .. option:: -c <num>, --thread <num>
 
@@ -93,15 +137,21 @@ Jubatus Keepers
 
    Session timeout of RPC in seconds. [10]
 
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
+
+   List of ZooKeeper server(s).
+
 .. option:: -l <dirpath>, --logdir <dirpath>
 
    Path of directory to output log files.
 
    If not specified, logs are dumped to the standard error.
 
-.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
+.. option:: -e <level>, --loglevel <level>
 
-   List of ZooKeeper server(s).
+   Minimal level of log to output. [0]
+
+   INFO, WARNING, ERROR, FATAL corresponds to 0, 1, 2, 3, respectively.
 
 .. option:: -v, --version
 
@@ -113,6 +163,8 @@ Jubatus Keepers
 
 jubavisor
 ~~~~~~~~~
+
+``jubavisor`` is a daemon process controlled by ``jubactl``.
 
 .. program:: jubavisor
 
@@ -144,6 +196,8 @@ jubavisor
 
 jubactl
 ~~~~~~~
+
+``jubactl`` is a command to manage server processes in distributed environment.
 
 .. program:: jubactl
 
@@ -188,6 +242,12 @@ jubactl
 
    If not specified, environment variable ``ZK`` will be used.
 
+.. option:: -B <interface>, --listen_if <interface>
+
+   Option given when starting new server process (:option:`server -B`).
+
+   Effective only when used with ``--cmd start``.
+
 .. option:: -C <num>, --thread <num>
 
    Option given when starting new server process (:option:`server -c`).
@@ -200,7 +260,7 @@ jubactl
 
    Effective only when used with ``--cmd start``.
 
-.. option:: -D <dirpath>, --tmpdir <dirpath>
+.. option:: -D <dirpath>, --datadir <dirpath>
 
    Option given when starting new server process (:option:`server -d`).
 
@@ -209,6 +269,12 @@ jubactl
 .. option:: -L <dirpath>, --logdir <dirpath>
 
    Option given when starting new server process (:option:`server -l`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -E <level>, --loglevel <level>
+
+   Option given when starting new server process (:option:`server -e`).
 
    Effective only when used with ``--cmd start``.
 
@@ -229,6 +295,59 @@ jubactl
    Option given when starting new server process (:option:`server -i`).
 
    Effective only when used with ``--cmd start``.
+
+.. option:: -d, --debug
+
+   Run in debug mode.
+
+.. option:: -?, --help
+
+   Print the brief usage of the command.
+
+jubaconfig
+~~~~~~~~~~
+
+In distributed environment, ``jubaconfig`` manages the configuration files of Jubatus servers that are registered on ZooKeeper.
+
+.. program:: jubaconfig
+
+.. option:: -c <command>, --cmd <command>
+
+   Specify the action to perform on configuration files.
+   ``<command>`` should be one of the following.
+
+   ========= =====================================================================================
+   Command   Description
+   ========= =====================================================================================
+   write     Register configuration file on the local file system to ZooKeeper
+   read      Display configuration file registered on ZooKeeper
+   delete    Remove configuration file registered on ZooKeeper
+   list      List configuration file registered on ZooKeeper
+   ========= =====================================================================================
+
+.. option:: -f <file>, --file <file>
+
+   Path of the configuration file to register to ZooKeeper.
+
+   Effective only when used with ``--cmd write``.
+
+.. option:: -t <type>, --type <type>
+
+   Type of the server program (e.g., ``classifier``, ``recommender``, ...).
+
+   Effective only when used with one of ``--cmd write``, ``--cmd read`` or ``--cmd delete``.
+
+.. option:: -n <name>, --name <name>
+
+   The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.
+
+   Effective only when used with one of ``--cmd write``, ``--cmd read`` or ``--cmd delete``.
+
+.. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
+
+   List of ZooKeeper server(s).
+
+   If not specified, environment variable ``ZK`` will be used.
 
 .. option:: -d, --debug
 
@@ -310,3 +429,32 @@ jenerator
 .. option:: -help, --help
 
    Print the brief usage of the command.
+
+mpidlconv
+~~~~~~~~~
+
+``mpidlconv`` converts output of ``mpidl`` command so that it can be used with Jubatus framework.
+
+``mpidlconv`` is not installed by default (see ``src/tools`` in the source tree).
+
+.. program:: mpidlconv
+
+.. option:: -i <dirpath>, --input <dirpath>
+
+   Directory that contains files generated by ``mpidl``.
+
+.. option:: -o <dirpath>, --output <dirpath>
+
+   Directory to output the converted source files.
+
+   If not specified, overwrite files in the directory specified by ``--input``.
+
+.. option:: -s <service>, --service <service>
+
+   Name of the service to convert.
+
+.. option:: -I, --internal
+
+   Use relative path for ``#include`` directives.
+
+   This option is intended for use by Jubatus developers; you don't need this option in most cases.

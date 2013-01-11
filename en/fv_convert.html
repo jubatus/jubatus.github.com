@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.4',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -386,19 +386,31 @@ For each key in a datum, all rules checked to be applicable.
 It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
 Every &#8220;key&#8221; in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">&#8220;*&#8221; or &#8220;&#8221;:</th><td class="field-body">Matches all keys in a datum. That is, this rule is applied to every keys in the datum.</td>
+<tr class="row-even"><td>&#8220;*&#8221; or &#8220;&#8221;</td>
+<td>Matches all keys in a datum. That is, this rule is applied to every keys in the datum.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">&#8220;XXX*&#8221;:</th><td class="field-body">Matches keys whose prefixes are &#8220;XXX&#8221;.</td>
+<tr class="row-odd"><td>&#8220;XXX*&#8221;</td>
+<td>Matches keys whose prefixes are &#8220;XXX&#8221;.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">&#8220;*XXX&#8221;:</th><td class="field-body">Matches keys whose suffixes are &#8220;XXX&#8221;.</td>
+<tr class="row-even"><td>&#8220;*XXX&#8221;</td>
+<td>Matches keys whose suffixes are &#8220;XXX&#8221;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">&#8220;/XXX/&#8221;:</th><td class="field-body">&#8220;XXX&#8221; is interpreted as a regular expression. Matches keys that the expression matches. It is unavailable if compiled with &#8211;disable-re2.</td>
+<tr class="row-odd"><td>&#8220;/XXX/&#8221;</td>
+<td>&#8220;XXX&#8221; is interpreted as a regular expression. Matches keys that the expression matches. It is unavailable if compiled with &#8211;disable-re2.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">otherwise:</th><td class="field-body">If the key is none of the above, it matches to keys that are identical to the given string.</td>
+<tr class="row-even"><td>otherwise</td>
+<td>If the key is none of the above, it matches to keys that are identical to the given string.</td>
 </tr>
 </tbody>
 </table>
@@ -549,41 +561,89 @@ In concrete, the weight is the product of these two weights.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of an extractor in use. The extractor is either one defined in &#8220;string_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">str:</th><td class="field-body">Use given string itself as a feature without separating it.</td>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">Value</p>
+</th>
+<th class="head"><p class="first last">Meaning</p>
+</th>
 </tr>
-<tr class="field-even field"><th class="field-name">space:</th><td class="field-body">Separate given string by spaces and use a set of substrings as features.</td>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></p>
+</td>
+<td><p class="first last">Use given string itself as a feature without separating it.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;space&quot;</span></tt></p>
+</td>
+<td><p class="first last">Separate given string by spaces and use a set of substrings as features.</p>
+</td>
 </tr>
 </tbody>
 </table>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">Specifies weight of each feature. Note that as term frequency is, &#8220;sample_weight&#8221; is uniquely defined if feature and datum are specified.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">Value</p>
+</th>
+<th class="head"><p class="first last">Meaning</p>
+</th>
+</tr>
+</thead>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">bin:</th><td class="field-body">sample_weight is 1 for all features and all data.</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></p>
+</td>
+<td><p class="first last">sample_weight is 1 for all features and all data.</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">tf:</th><td class="field-body">sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight for this string is 5.</td>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;tf&quot;</span></tt></p>
+</td>
+<td><p class="first last">sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight for this string is 5.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">log_tf:</th><td class="field-body">sample_weight is the logarithm of tf added by 1. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight is log(5+1).</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></tt></p>
+</td>
+<td><p class="first last">sample_weight is the logarithm of tf added by 1. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight is log(5+1).</p>
+</td>
 </tr>
 </tbody>
 </table>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">Specifies global weight calculated from data inputted so far.</p>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">bin:</th><td class="field-body">global_weight is 1 for all features.</td>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="4%" />
+<col width="96%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">Value</p>
+</th>
+<th class="head"><p class="first last">Meaning</p>
+</th>
 </tr>
-<tr class="field-even field"><th class="field-name">idf:</th><td class="field-body">global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.</td>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></p>
+</td>
+<td><p class="first last">global_weight is 1 for all features.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;idf&quot;</span></tt></p>
+</td>
+<td><p class="first last">global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -651,22 +711,40 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. The extractor is either one defined in &#8220;num_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><p class="first last">Value</p>
+</th>
+<th class="head"><p class="first last">Meaning</p>
+</th>
+</tr>
+</thead>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">num:</th><td class="field-body">Use given number itself as weight.</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;num&quot;</span></tt></p>
+</td>
+<td><p class="first last">Use given number itself as weight.</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">log:</th><td class="field-body">Use logarithm of given number as weight. If the number is not positive, weight is 0.</td>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log&quot;</span></tt></p>
+</td>
+<td><p class="first last">Use logarithm of given number as weight. If the number is not positive, weight is 0.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">str:</th><td class="field-body">Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.</td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></p>
+</td>
+<td><p class="first last">Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.</p>
+</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">Specifies a suffix of a key which stores a result of the extraction.</p>
+<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">Specifies a suffix of a key which stores a result of the extraction.</p>
 </td>
 </tr>
 </tbody>
@@ -841,7 +919,7 @@ This plugin is available only when <strong>NOT</strong> compiled with <tt class=
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2012 PFI &amp; NTT.
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

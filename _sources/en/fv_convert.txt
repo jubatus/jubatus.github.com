@@ -199,11 +199,16 @@ For each key in a datum, all rules checked to be applicable.
 It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
 Every "key" in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.
 
- :"\*" or "":   Matches all keys in a datum. That is, this rule is applied to every keys in the datum.
- :"XXX\*":      Matches keys whose prefixes are "XXX".
- :"\*XXX":      Matches keys whose suffixes are "XXX".
- :"/XXX/":      "XXX" is interpreted as a regular expression. Matches keys that the expression matches. It is unavailable if compiled with --disable-re2.
- :otherwise:    If the key is none of the above, it matches to keys that are identical to the given string.
+ ============= ====================
+ Value         Meaning
+ ============= ====================
+ "\*" or ""    Matches all keys in a datum. That is, this rule is applied to every keys in the datum.
+ "XXX\*"       Matches keys whose prefixes are "XXX".
+ "\*XXX"       Matches keys whose suffixes are "XXX".
+ "/XXX/"       "XXX" is interpreted as a regular expression. Matches keys that the expression matches. It is unavailable if compiled with --disable-re2.
+ otherwise     If the key is none of the above, it matches to keys that are identical to the given string.
+ ============= ====================
+
 
 num_filter_types
 ~~~~~~~~~~~~~~~~
@@ -305,21 +310,36 @@ A weight is calculated with two parameters, "sample_weight" and "global_weight".
 In concrete, the weight is the product of these two weights.
 
  :key:       Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
- :type:      Specifies the name of an extractor in use. The extractor is either one defined in "string_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
+ :type:
+    Specifies the name of an extractor in use. The extractor is either one defined in "string_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
 
-    :str:     Use given string itself as a feature without separating it.
-    :space:   Separate given string by spaces and use a set of substrings as features.
+    ============ =====================
+    Value        Meaning
+    ============ =====================
+    ``"str"``    Use given string itself as a feature without separating it.
+    ``"space"``  Separate given string by spaces and use a set of substrings as features.
+    ============ =====================
 
- :sample_weight:    Specifies weight of each feature. Note that as term frequency is, "sample_weight" is uniquely defined if feature and datum are specified.
+ :sample_weight:
+    Specifies weight of each feature. Note that as term frequency is, "sample_weight" is uniquely defined if feature and datum are specified.
 
-    :bin:     sample_weight is 1 for all features and all data.
-    :tf:      sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if "hello" is appeared five times, its sample_weight for this string is 5.
-    :log_tf:  sample_weight is the logarithm of tf added by 1. For example, if "hello" is appeared five times, its sample_weight is log(5+1).
+    ============= =====================
+    Value         Meaning
+    ============= =====================
+    ``"bin"``     sample_weight is 1 for all features and all data.
+    ``"tf"``      sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if "hello" is appeared five times, its sample_weight for this string is 5.
+    ``"log_tf"``  sample_weight is the logarithm of tf added by 1. For example, if "hello" is appeared five times, its sample_weight is log(5+1).
+    ============= =====================
 
- :global_weight:   Specifies global weight calculated from data inputted so far.
+ :global_weight:
+    Specifies global weight calculated from data inputted so far.
 
-    :bin:     global_weight is 1 for all features.
-    :idf:     global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.
+    ============= =====================
+    Value         Meaning
+    ============= =====================
+    ``"bin"``     global_weight is 1 for all features.
+    ``"idf"``     global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.
+    ============= =====================
 
 In most of machine learning tasks, it works well even if we use "bin" in both sample_weight and global_weight.
 In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set "bin" in sample_weight and global_weight. Classification is an example of such a task.
@@ -375,9 +395,13 @@ It depends on "type" how to specify weight and name features.
  
    Specifies the name of extractor in use. The extractor is either one defined in "num_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
 
-    :num: Use given number itself as weight.
-    :log: Use logarithm of given number as weight. If the number is not positive, weight is 0.
-    :str: Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.
+    ============= =====================
+    Value         Meaning
+    ============= =====================
+    ``"num"``     Use given number itself as weight.
+    ``"log"``     Use logarithm of given number as weight. If the number is not positive, weight is 0.
+    ``"str"``     Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.
+    ============= =====================
 
  :suffix:
 
