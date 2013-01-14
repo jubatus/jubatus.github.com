@@ -27,11 +27,11 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 Run Tutorial
 ------------
 
-分類器の機能を提供する ``jubaclassifier`` プログラムを設定ファイルを指定して起動します。
+分類器の機能を提供する ``jubaclassifier`` プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは ``$PREFIX/share/jubatus/example/config`` ディレクトリに格納されています。
 
 ::
 
-  jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json 
+  $ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
   I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.0 RPC server at 192.168.0.1:9199
       pid            : 1855
       user           : oda

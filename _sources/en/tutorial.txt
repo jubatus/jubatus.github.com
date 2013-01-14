@@ -27,11 +27,11 @@ This tutorial covers the following topics:
 Run Tutorial
 ------------
 
-Simply run ``jubaclassifier`` program that provides classification feature.
+Run ``jubaclassifier`` program, which provides classification feature, specifying a configuration file. Examples of configuration file are stored in ``$PREFIX/share/jubatus/example/config`` directory.
 
 ::
 
-  jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json 
+  $ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
   I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.0 RPC server at 192.168.0.1:9199
       pid            : 1855
       user           : oda

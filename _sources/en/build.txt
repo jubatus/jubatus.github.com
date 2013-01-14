@@ -19,7 +19,7 @@ msgpack             >= 0.5.7   ✔
 jubatus-mpio        master     ✔
 jubatus-msgpack-rpc master     ✔         C++ client library must be installed.
 pficommon           master     ✔         msgpack-rpc (mprpc) must be enabled.
-google-glog         >= 3.2     ✔
+google-glog         >= 0.3.2   ✔
 mecab               >= 0.99              Required when configured with ``--enable-mecab``.
 re2                 master               Required when configured *without* ``--disable-re2``
 ux-trie             master               Required when configured with ``--enable-ux``.

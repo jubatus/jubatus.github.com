@@ -32,7 +32,7 @@ Jubatus フレームワークを利用した機械学習システムは、以下
 
 - NAME_serv.cpp: 機能を実装するソースファイル (``jenerator`` で生成されるテンプレートを編集)
 - NAME_serv.hpp: ``NAME_serv.cpp`` に対応するヘッダファイル (``jenerator`` で生成されるテンプレートを編集)
-- NAME_server.hpp: RPC メソッドの登録を行う ``NAME_impl_`` の親クラス (``jenerator`` で自動生成)
+- NAME_server.hpp: RPC メソッドの登録を行う ``NAME_impl_`` の親クラス (``mpidl`` で自動生成)
 - NAME_impl.cpp: サーバの main 関数と RPC インタフェースの定義 (``jenerator`` で自動生成)
 - NAME_keeper.cpp: Keeper の実装 (``jenerator`` で自動生成)
 - NAME_client.hpp: クライアントの実装 (``mpidl`` で自動生成)

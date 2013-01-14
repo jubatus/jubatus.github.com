@@ -42,7 +42,7 @@ Tips for Contributors
  * You need to setup the environment that can build Jubatus from source to run unittests.
 
   * See :doc:`build` for required tools and libraries.
-  * If you're using Jubatus binary packages on RHEL, you can setup a build environment by ``sudo yum install msgpack-devel glog-devel libevent-devel pficommon-devel zookeeper-client-devel mecab-devel ux-devel re2-devel``.
+  * If you're using Jubatus binary packages on RHEL, you can setup a build environment by ``sudo yum install msgpack-devel glog-devel jubatus-mpio-devel jubatus-msgpack-rpc-devel pficommon-devel zookeeper-client-devel mecab-devel ux-devel re2-devel``.
   * If you're using Jubatus binary packages on Ubuntu, you already have a build environment.
 
  * All pull-requests must be sent to ``develop`` branch, not ``master``.

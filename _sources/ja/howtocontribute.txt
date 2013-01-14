@@ -42,7 +42,7 @@ Tips for Contributors
  * ユニットテストを実行するには、ソースコードから Jubatus をビルドできる環境が必要です。
 
   * 必要なツールやライブラリについては :doc:`build` をご覧ください。
-  * Jubatus バイナリパッケージを RHEL で使用している場合は、以下のコマンドでビルド環境がセットアップできます: ``sudo yum install msgpack-devel glog-devel libevent-devel pficommon-devel zookeeper-client-devel mecab-devel ux-devel re2-devel`` 。
+  * Jubatus バイナリパッケージを RHEL で使用している場合は、以下のコマンドでビルド環境がセットアップできます: ``sudo yum install msgpack-devel glog-devel jubatus-mpio-devel jubatus-msgpack-rpc-devel pficommon-devel zookeeper-client-devel mecab-devel ux-devel re2-devel`` 。
   * Jubatus バイナリパッケージを Ubuntu で使用している場合は、すでにビルド環境が整っています。
 
  * pull-request は、 ``master`` ではなく ``develop`` ブランチに送ってください。
