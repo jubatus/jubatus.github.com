@@ -53,14 +53,12 @@ Ubuntu 12.04 でのビルドを行う例です。
 
   $ git clone https://github.com/jubatus/jubatus-mpio.git
   $ cd jubatus-mpio
-  $ git checkout develop
   $ ./bootstrap && ./configure && make
   $ sudo make install
   $ cd ..
 
   $ git clone https://github.com/jubatus/jubatus-msgpack-rpc.git
   $ cd jubatus-msgpack-rpc/cpp
-  $ git checkout develop
   $ ./bootstrap && ./configure && make
   $ sudo make install
   $ cd ..

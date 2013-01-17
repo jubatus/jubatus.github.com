@@ -435,7 +435,7 @@ mpidlconv
 
 ``mpidlconv`` converts output of ``mpidl`` command so that it can be used with Jubatus framework.
 
-``mpidlconv`` is not installed by default (see ``src/tools`` in the source tree).
+``mpidlconv`` is not installed by default (see ``src/tools`` in the source tree). Requires Python 2.7 or later.
 
 .. program:: mpidlconv
 

@@ -114,7 +114,7 @@ Ubuntu では ``pip`` のインストールに ``python-pip`` パッケージを
 Ruby
 ~~~~
 
-クライアントは `RubyGems <http://rubygems.org/gems/jubatus>`_ で配布されています。
+クライアント (Ruby 1.9 以降が必要) は `RubyGems <http://rubygems.org/gems/jubatus>`_ で配布されています。
 
 ::
 

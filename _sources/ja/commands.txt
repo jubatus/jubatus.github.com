@@ -435,7 +435,7 @@ mpidlconv
 
 ``mpidlconv`` は ``mpidl`` コマンドの出力を Jubatus フレームワークで利用できる形に変換する。
 
-``mpidlconv`` はデフォルトではインストールされない (ソースの ``src/tools`` ディレクトリを参照)。
+``mpidlconv`` はデフォルトではインストールされない (ソースの ``src/tools`` ディレクトリを参照)。Python 2.7 以降が必要である。
 
 .. program:: mpidlconv
 

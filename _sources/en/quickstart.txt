@@ -114,7 +114,7 @@ On Ubuntu, you can also use ``python-pip`` package to install ``pip``.
 Ruby
 ~~~~
 
-The client is available in `RubyGems <http://rubygems.org/gems/jubatus>`_.
+The client (requires Ruby 1.9 or later) is available in `RubyGems <http://rubygems.org/gems/jubatus>`_.
 
 ::
 
