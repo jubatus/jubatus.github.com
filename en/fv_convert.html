@@ -563,8 +563,8 @@ In concrete, the weight is the product of these two weights.</p>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of an extractor in use. The extractor is either one defined in &#8220;string_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="14%" />
-<col width="86%" />
+<col width="15%" />
+<col width="85%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head"><p class="first last">Value</p>
@@ -781,7 +781,7 @@ A plugin is a single dynamic library file (.so file).
 We will explain how to make plugins later. In this section, we will describe how to use plugins.</p>
 <p>How to specify plugin is same in both filters and extractors.
 In CLASS_types (CLASS is either <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">num</span></tt>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of function defined in the plugin in &#8220;function&#8221;.
-Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (<tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> or <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> in most cases).
+Path to the plugin may either be a full path, or a file name if the plugin is in the default plugin directory (<tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> or <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> in most cases).
 Argument of the function is specified by other parameters.</p>
 <p>In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
 Note that some plugins are not available depending on your compile options.</p>
@@ -807,7 +807,7 @@ Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;mecab&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libmecab_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span>
   <span class="p">}</span>
@@ -838,7 +838,7 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;ux&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libux_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic&quot;</span>
   <span class="p">}</span>
@@ -872,7 +872,7 @@ This plugin is available only when <strong>NOT</strong> compiled with <tt class=
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libre2_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libre2_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;[0-9]{4}/[0-9]{2}/[0-9]{2}&quot;</span>
   <span class="p">}</span>
@@ -883,7 +883,7 @@ This plugin is available only when <strong>NOT</strong> compiled with <tt class=
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/libre2_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libre2_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;group&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>

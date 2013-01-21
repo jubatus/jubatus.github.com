@@ -441,7 +441,7 @@ Plugins
 
 各フィルターと抽出器のいずれの場合も、プラグインの指定の仕方は同じである。
 CLASS_types (CLASS は ``string`` または ``num``) で、フィルターや抽出器を指定する際のパラメータで、"method"に"dynamic"を、"path"に.soファイルへのパスを、"function"に各プラグイン固有の呼び出し関数名を指定する。
-プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は ``$PREFIX/lib/jubatus/plugin`` または ``$PREFIX/lib64/jubatus/plugin``) に格納されているプラグインについては basename で指定することもできる。
+プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は ``$PREFIX/lib/jubatus/plugin`` または ``$PREFIX/lib64/jubatus/plugin``) に格納されているプラグインについてはファイル名のみで指定することもできる。
 また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。
 
 Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグインが提供されている。
@@ -462,7 +462,7 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
       "string_types": {
         "mecab": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libmecab_splitter.so",
+          "path": "libmecab_splitter.so",
           "function": "create",
           "arg": "-d /usr/lib64/mecab/dic/ipadic"
         }
@@ -483,7 +483,7 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
       "string_types": {
         "ux": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libux_splitter.so",
+          "path": "libux_splitter.so",
           "function": "create",
           "dict_path": "/path/to/keyword/dic"
         }
@@ -507,7 +507,7 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
       "string_types": {
         "date": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libre2_splitter.so",
+          "path": "libre2_splitter.so",
           "function": "create",
           "pattern": "[0-9]{4}/[0-9]{2}/[0-9]{2}"
         }
@@ -520,7 +520,7 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
       "string_types": {
         "age": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libre2_splitter.so",
+          "path": "libre2_splitter.so",
           "function": "create",
           "pattern": "(age|Age)([ :=])([0-9]+)",
           "group": "3"

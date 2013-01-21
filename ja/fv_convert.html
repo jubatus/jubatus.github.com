@@ -780,7 +780,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
 <p>各フィルターと抽出器のいずれの場合も、プラグインの指定の仕方は同じである。
 CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</span></tt> または <tt class="docutils literal"><span class="pre">num</span></tt>) で、フィルターや抽出器を指定する際のパラメータで、&#8221;method&#8221;に&#8221;dynamic&#8221;を、&#8221;path&#8221;に.soファイルへのパスを、&#8221;function&#8221;に各プラグイン固有の呼び出し関数名を指定する。
-プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> または <tt class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></tt>) に格納されているプラグインについては basename で指定することもできる。
+プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> または <tt class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></tt>) に格納されているプラグインについてはファイル名のみで指定することもできる。
 また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。</p>
 <p>Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグインが提供されている。
 ただし、コンパイルオプションによっては一部のプラグインがビルドされないため、注意すること。</p>
@@ -806,7 +806,7 @@ MeCabを利用して文書を単語分割し、各単語を特徴量として利
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;mecab&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libmecab_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span>
   <span class="p">}</span>
@@ -837,7 +837,7 @@ ux-trieを利用して、与えられた文書から最長一致で辞書マッ�
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;ux&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libux_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic&quot;</span>
   <span class="p">}</span>
@@ -871,7 +871,7 @@ re2を利用して、与えられた文書から正規表現を利用してキ�
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libre2_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libre2_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;[0-9]{4}/[0-9]{2}/[0-9]{2}&quot;</span>
   <span class="p">}</span>
@@ -882,7 +882,7 @@ re2を利用して、与えられた文書から正規表現を利用してキ�
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/lib/jubatus/plugin/libre2_splitter.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libre2_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;group&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>

@@ -310,18 +310,16 @@ A weight is calculated with two parameters, "sample_weight" and "global_weight".
 In concrete, the weight is the product of these two weights.
 
  :key:       Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
- :type:
-    Specifies the name of an extractor in use. The extractor is either one defined in "string_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
+ :type:      Specifies the name of an extractor in use. The extractor is either one defined in "string_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
 
-    ============ =====================
-    Value        Meaning
-    ============ =====================
-    ``"str"``    Use given string itself as a feature without separating it.
-    ``"space"``  Separate given string by spaces and use a set of substrings as features.
-    ============ =====================
+    ============= =====================
+    Value         Meaning
+    ============= =====================
+    ``"str"``     Use given string itself as a feature without separating it.
+    ``"space"``   Separate given string by spaces and use a set of substrings as features.
+    ============= =====================
 
- :sample_weight:
-    Specifies weight of each feature. Note that as term frequency is, "sample_weight" is uniquely defined if feature and datum are specified.
+ :sample_weight:  Specifies weight of each feature. Note that as term frequency is, "sample_weight" is uniquely defined if feature and datum are specified.
 
     ============= =====================
     Value         Meaning
@@ -331,8 +329,7 @@ In concrete, the weight is the product of these two weights.
     ``"log_tf"``  sample_weight is the logarithm of tf added by 1. For example, if "hello" is appeared five times, its sample_weight is log(5+1).
     ============= =====================
 
- :global_weight:
-    Specifies global weight calculated from data inputted so far.
+ :global_weight:  Specifies global weight calculated from data inputted so far.
 
     ============= =====================
     Value         Meaning
@@ -444,7 +441,7 @@ We will explain how to make plugins later. In this section, we will describe how
 
 How to specify plugin is same in both filters and extractors.
 In CLASS_types (CLASS is either ``string`` or ``num``), we should specify "dynamic" in "method", a path to a .so file in "path" and the name of function defined in the plugin in "function".
-Path to the plugin may either be a full path, or a basename if the plugin is in the default plugin directory (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib/jubatus/plugin`` in most cases).
+Path to the plugin may either be a full path, or a file name if the plugin is in the default plugin directory (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib/jubatus/plugin`` in most cases).
 Argument of the function is specified by other parameters.
 
 In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
@@ -465,7 +462,7 @@ Note that some plugins are not available depending on your compile options.
       "string_types": {
         "mecab": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libmecab_splitter.so",
+          "path": "libmecab_splitter.so",
           "function": "create",
           "arg": "-d /usr/lib64/mecab/dic/ipadic"
         }
@@ -486,7 +483,7 @@ Note that some plugins are not available depending on your compile options.
       "string_types": {
         "ux": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libux_splitter.so",
+          "path": "libux_splitter.so",
           "function": "create",
           "dict_path": "/path/to/keyword/dic"
         }
@@ -510,7 +507,7 @@ Note that some plugins are not available depending on your compile options.
       "string_types": {
         "date": {
           "method": "dynamic",
-          "path": "/usr/local/lib/jubatus/plugin/libre2_splitter.so",
+          "path": "libre2_splitter.so",
           "function": "create",
           "pattern": "[0-9]{4}/[0-9]{2}/[0-9]{2}"
         }
@@ -523,7 +520,7 @@ Note that some plugins are not available depending on your compile options.
       "string_types": {
         "age": {
           "method": "dynamic",
-          "path": "/usr/local/lib/libre2_splitter.so",
+          "path": "libre2_splitter.so",
           "function": "create",
           "pattern": "(age|Age)([ :=])([0-9]+)",
           "group": "3"
