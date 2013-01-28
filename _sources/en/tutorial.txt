@@ -88,6 +88,7 @@ OK, let's download the `tutorial program <https://github.com/jubatus/jubatus-tut
   $ cd jubatus-tutorial-python
   $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
   $ tar xvzf 20news-bydate.tar.gz
+  $ jubaclassifier --configpath config.json
 
 Then, run the program.
 

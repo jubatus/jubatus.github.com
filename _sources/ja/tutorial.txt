@@ -88,6 +88,7 @@ Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で `
   $ cd jubatus-tutorial-python
   $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
   $ tar xvzf 20news-bydate.tar.gz
+  $ jubaclassifier --configpath config.json
 
 チュートリアルプログラムを実行します。
 
