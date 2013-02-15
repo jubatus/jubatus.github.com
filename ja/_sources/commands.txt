@@ -380,7 +380,7 @@ jubaconv
    /message$hello world@str#bin/bin: 1
    /age@num: 31
 
-   $ cat data_fv.json
+   $ cat datum.json
    {
      "string_values": {
        "hello": "world"
