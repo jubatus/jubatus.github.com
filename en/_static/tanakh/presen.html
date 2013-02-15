@@ -1,0 +1,611 @@
+<html><head><title>pficommonと<br>MessagePack-RPC</title><meta charset="utf-8" /><script src="http://html5slides.googlecode.com/svn/trunk/slides.js"></script><link rel="stylesheet" href="syntax.css" /><link rel="stylesheet" href="style.css" /></head><body style="display: none"><section class="slides layout-regular template-pfi"><article><h1>pficommonと<br>MessagePack-RPC</h1><p>田中英行&nbsp;<a href="mailto:tanakh@preferred.jp" alt="">tanakh@preferred.jp</a><br />2011/11/07</p></article><article><h3>自己紹介</h3><ul><li>田中英行&nbsp;(@tanakh)</li><li>(株)Preferred&nbsp;Infrastracture&nbsp;研究開発部門</li><li>ライブラリやサーバ作成など</li><li>Jubatusのサーバ部分</li></ul><p><br>&nbsp;<img src="http://jubat.us/en/_static/title.png" alt="" class="centered" /></p></article><article><h3>本日の概要</h3><ul><li>Jubatusとともにひっそりと公開したC++ライブラリ&nbsp;<em>pficommon</em>&nbsp;のご紹介</li><li><em>MessagePack-RPC</em>&nbsp;についても少し</li></ul></article><article><h2>C++ライブラリ&nbsp;pficommon</h2></article><article><h3>pficommonとは？</h3><ul><li>C++用汎用ライブラリ</li><li><a href="http://github.com/pfi/pficommon.git" alt="">http://github.com/pfi/pficommon.git</a></li><li>マルチスレッドサーバとネットワークプログラミングをやりやすく</li><li>モダンなC++コードを書きやすく</li><li><a href="http://preferred.jp/sedue.html" alt="">Sedue</a>で利用</li></ul><p><img src="http://jp.ebase-solutions.com/image/img-Sedue.png" alt="" class="centered" /></p></article><article><h3>開発コンセプト</h3><ul><li>小さくインストールしやすい<ul><li>⇒&nbsp;Boostはインストールするのが大変</li></ul></li><li>古いコンパイラ(g++-3.x.y)でも通る<ul><li>⇒&nbsp;CentOSなどのサポート</li></ul></li><li>C++0x&nbsp;(C++11)&nbsp;への移行のつなぎ</li></ul></article><article><h3>ライブラリ構成</h3><ul><li>pfi::lang<ul><li>Boost/tr1/C++11-std&nbsp;の再実装</li></ul></li><li>pfi::concurrent<ul><li>並行プログラミングのサポート</li></ul></li><li>pfi::network<ul><li>ネットワークプログラミングのサポート</li></ul></li><li>pfi::text<ul><li>テキスト処理・各種フォーマットのパーザ</li></ul></li><li>pfi::data<ul><li>各種データ構造・アルゴリズム</li></ul></li><li>pfi::database<ul><li>データベースサポート</li></ul></li></ul></article><article><h3>pfi::lang</h3><ul><li><p>モダンなC++コードを書くためのライブラリ</p></li><li>shared_ptr&nbsp;/&nbsp;scoped_ptr</li><li>function</li><li>bind</li><li>noncopyable</li><li><p>etc...</p></li></ul></article><article><h3>pfi::concurrent</h3><ul><li><p>並行プログラミングのためのライブラリ</p></li><li>thread</li><li>(recursive)&nbsp;mutex&nbsp;/&nbsp;read-write&nbsp;mutex&nbsp;/&nbsp;scoped&nbsp;locker</li><li>conditional&nbsp;variable</li><li>同期変数&nbsp;/&nbsp;同期キュー</li><li>タスクキュー</li><li>threading&nbsp;model</li><li><p>メモリバリア</p></li></ul></article><article><h3>例</h3><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    >pfi::concurrent::mvar&lt;<span class="dt"
+      >int</span
+      >&gt; m;<br
+       /><br
+       /><span class="dt"
+      >void</span
+      > foo()<br
+       />{<br
+       />  m.put(<span class="dv"
+      >123</span
+      >);<br
+       />}<br
+       /><br
+       /><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  pfi::concurrent::thread t(&amp;foo);<br
+       />  t.start();<br
+       />  cout &lt;&lt; m.take() &lt;&lt; endl;<br
+       />  <span class="kw"
+      >return</span
+      > <span class="dv"
+      >0</span
+      >;<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>pfi::network</h3><ul><li><p>ネットワークプログラミングのためのライブラリ</p></li><li>バッファ付きソケット</li><li>サーバソケット</li><li>各種プロトコル</li><li>Webアプリケーション用インターフェース</li><li><p>RPC</p></li></ul></article><article><h3>例1:&nbsp;HTTPクライアント</h3><p>low-levelな実装</p><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  stream_socket sock;<br
+       />  sock.<span class="kw"
+      >connect</span
+      >(<span class="st"
+      >&quot;tanakh.jp&quot;</span
+      >, <span class="dv"
+      >80</span
+      >);<br
+       />  sock.puts(<span class="st"
+      >&quot;GET /rss.xml HTTP/1.0</span
+      ><span class="ch"
+      >\r\n\r\n</span
+      ><span class="st"
+      >&quot;</span
+      >);<br
+       />  sock.flush();<br
+       />  string line;<br
+       />  <span class="kw"
+      >while</span
+      > (sock.getline(line))<br
+       />    cout &lt;&lt; line &lt;&lt; endl;<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>例2:&nbsp;HTTPクライアントその2</h3><p>ソケットストリームを利用</p><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  soocketstream ss(<span class="st"
+      >&quot;tanakh.jp&quot;</span
+      >, <span class="dv"
+      >80</span
+      >);<br
+       />  <span class="kw"
+      >if</span
+      > (!ss) <span class="kw"
+      >return</span
+      > <span class="dv"
+      >1</span
+      >; <span class="co"
+      >// cannot connect</span
+      ><br
+       />  ss &lt;&lt; <span class="st"
+      >&quot;GET /rss.xml HTTP/1.0</span
+      ><span class="ch"
+      >\r\n\r\n</span
+      ><span class="st"
+      >&quot;</span
+      > &lt;&lt; flush;<br
+       />  <span class="kw"
+      >for</span
+      > (string line; getline(ss, line); )<br
+       />    cout &lt;&lt; line &lt;&lt; endl;<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>例3:&nbsp;echoサーバ</h3><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  server_socket ssock;<br
+       />  ssock.create(<span class="dv"
+      >8888</span
+      >);<br
+       />  <span class="kw"
+      >for</span
+      > (; ;) {<br
+       />    socketstream ss(ssock.accept());<br
+       />    <span class="kw"
+      >for</span
+      > (string line; getline(ss, line); )<br
+       />      ss &lt;&lt; line;<br
+       />  }<br
+       />  <span class="kw"
+      >return</span
+      > <span class="dv"
+      >0</span
+      >;<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>例4:&nbsp;HTTPクライアント</h3><p>HTTPライブラリ</p><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  pfi::network::http::request req(<span class="st"
+      >&quot;GET&quot;</span
+      >, uri(<span class="st"
+      >&quot;http://tanakh.jp/&quot;</span
+      >), <span class="dv"
+      >1</span
+      >, <span class="dv"
+      >1</span
+      >);<br
+       />  shared_ptr&lt;stream_socket&gt; ss(<span class="kw"
+      >new</span
+      > stream_socket());<br
+       />  ss-&gt;<span class="kw"
+      >connect</span
+      >(<span class="st"
+      >&quot;tanakh.jp&quot;</span
+      >, <span class="dv"
+      >80</span
+      >);<br
+       />  req.send(ss);<br
+       />  pfi::network::http::response resp(ss);<br
+       /><br
+       />  <span class="kw"
+      >for</span
+      > (string line; getline(resp.body(), line); )<br
+       />    cout&lt;&lt;line&lt;&lt;endl;<br
+       /><br
+       />  <span class="kw"
+      >return</span
+      > <span class="dv"
+      >0</span
+      >;<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>RPC</h3><ul><li>2つのRPCをサポート<ul><li>pficommonプロトコル</li><li>MessagePack-RPC&nbsp;プロトコル<ul><li>後述</li></ul></li></ul></li></ul></article><article><h3>pficommon-RPC&nbsp;(1)</h3><ul><li>シグニチャを定義</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    >RPC_PROC(add, <span class="dt"
+      >int</span
+      >(<span class="dt"
+      >int</span
+      >, <span class="dt"
+      >int</span
+      >))    <span class="co"
+      >// method-def</span
+      ><br
+       />RPC_PROC(hello, string(string)) <span class="co"
+      >// method-def</span
+      ><br
+       />RPC_GEN(<span class="dv"
+      >0</span
+      > <span class="co"
+      >/* VERSION */</span
+      >, test, add, hello) <span class="co"
+      >// gen server, client</span
+      ></code
+    ></pre
+  ></html
+>
+</article><article><h3>pficommon-RPC&nbsp;(2)</h3><ul><li>サーバ</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > add(<span class="dt"
+      >int</span
+      > x, <span class="dt"
+      >int</span
+      > y){ <span class="kw"
+      >return</span
+      > x + y; }<br
+       /><br
+       />string hello(string s)<br
+       />{<br
+       />  <span class="kw"
+      >return</span
+      > <span class="st"
+      >&quot;Hello, &quot;</span
+      > + s;<br
+       />}<br
+       /><br
+       /><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  test_server serv;<br
+       />  serv.set_add(&amp;add);<br
+       />  serv.set_hello(&amp;hello);<br
+       />  serv.serv(<span class="dv"
+      >12345</span
+      >, <span class="dv"
+      >10</span
+      >); <span class="co"
+      >// port-num, thread-num</span
+      ><br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>pficommon-RPC&nbsp;(3)</h3><ul><li>クライアント</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  test_client cli(<span class="st"
+      >&quot;localhost&quot;</span
+      >, <span class="dv"
+      >12345</span
+      >); <span class="co"
+      >// host, port-num</span
+      ><br
+       /><br
+       />  cout &lt;&lt; cli.call_add(<span class="dv"
+      >123</span
+      >, <span class="dv"
+      >456</span
+      >) &lt;&lt; endl; <span class="co"
+      >// =&gt; 579</span
+      ><br
+       />  cout &lt;&lt; cli.call_hello(<span class="st"
+      >&quot;World!&quot;</span
+      >) &lt;&lt; endl; <span class="co"
+      >// =&gt; Hello, World!</span
+      ><br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>他言語バインディング</h3><ul><li>RPCのシグニチャを記述したC++のヘッダファイルから、他言語バインディングを生成する&nbsp;<em>genrpc</em>&nbsp;というプログラムが付属</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode bash"
+    >$ genrpc --php rpc.h</code
+    ></pre
+  ></html
+>
+<p>（いまのところPHPとHaskellだけ）</p></article><article><h3>pfi::network::cgi</h3><ul><li>Webアプリケーションを&nbsp;<strong>C++</strong>&nbsp;で楽に書くためのライブラリ</li><li>フロントエンドとバックエンドの分離</li><li>フロントエンド<ul><li>text/plain</li><li>HTML4&nbsp;/&nbsp;XHTML&nbsp;/&nbsp;HTML5</li><li>Json&nbsp;/&nbsp;XML</li></ul></li><li>バックエンド<ul><li>cgi</li><li>fcgi</li><li>standalone&nbsp;HTTP&nbsp;server</li></ul></li></ul></article><article><h3>例1:&nbsp;シンプルCGI</h3><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="kw"
+      >class</span
+      > my_cgi : <span class="kw"
+      >public</span
+      > cgi {<br
+       /><span class="kw"
+      >public</span
+      >:<br
+       />  <span class="dt"
+      >void</span
+      > run(ostream &amp;os){<br
+       />    <span class="co"
+      >// implementation...</span
+      ><br
+       />    head[<span class="st"
+      >&quot;Content-Type&quot;</span
+      >] = <span class="st"
+      >&quot;text/plain&quot;</span
+      >;<br
+       />    os &lt;&lt; <span class="st"
+      >&quot;Hello, &quot;</span
+      > &lt;&lt; query[<span class="st"
+      >&quot;name&quot;</span
+      >] &lt;&lt; endl;<br
+       />  }<br
+       />};<br
+       /><br
+       /><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  <span class="co"
+      >// run as a CGI</span
+      ><br
+       />  run_cgi(my_cgi()).run();<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>XHTML&nbsp;CGI</h3><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="kw"
+      >class</span
+      > my_cgi : <span class="kw"
+      >public</span
+      > xhtml_cgi {<br
+       /><span class="kw"
+      >public</span
+      >:<br
+       />  <span class="dt"
+      >void</span
+      > run() {<br
+       />    html__ {<br
+       />      head__<br
+       />        title__<br
+       />          text__(<span class="st"
+      >&quot;Hoge Hoge Page&quot;</span
+      >);<br
+       />      body__ {<br
+       />        a__ { href__ = <span class="st"
+      >&quot;http://tanakh.jp&quot;</span
+      >;<br
+       />          text__(<span class="st"
+      >&quot;hoge-&quot;</span
+      >);<br
+       />        }<br
+       />        br__;<br
+       />      }<br
+       />    }<br
+       />  }<br
+       />};</code
+    ></pre
+  ></html
+>
+<ul><li>Inspired&nbsp;by&nbsp;<a href="http://hackage.haskell.org/package/xhtml" alt="">Combinator&nbsp;library&nbsp;in&nbsp;Haskell</a></li></ul></article><article><h3>このへんのテクニック</h3><ul><li>私の昔のスライドに色々書いてあります<ul><li><a href="http://www.slideshare.net/pfi/pfi-seminar-2010-1-7" alt="">http://www.slideshare.net/pfi/pfi-seminar-2010-1-7</a></li></ul></li></ul><div style="width:400px mergin:0px auto;" id="__ss_2847802"> <iframe src="http://www.slideshare.net/slideshow/embed_code/2847802" width="400" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe> </div>
+</article><article><h3>バックエンド切り替え</h3><p>fcgiとして実行</p><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  run_fcgi(my_cgi()).run();<br
+       />}</code
+    ></pre
+  ></html
+>
+<p>Standaloneサーバとして実行</p><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  run_server(my_cgi(), port_number <span class="co"
+      >/* = 8080 */</span
+      >,<br
+       />             thread_num <span class="co"
+      >/* = 1 */</span
+      >, timeout <span class="co"
+      >/* = 10 */</span
+      >).start();<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>pfi::data</h3><ul><li>unordered_map&nbsp;/&nbsp;set</li><li>optional</li><li>LRU</li><li>SuffixArray</li><li>Digest&nbsp;/&nbsp;encoding<ul><li>MD5,&nbsp;base64,&nbsp;...</li></ul></li><li>Aho-Corasick</li><li>FenwickTree</li><li>FFT</li><li>...</li></ul></article><article><h3>pfi::data::serialization</h3><ul><li>シリアライザ</li><li>大体Boost互換のインターフェース</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="kw"
+      >class</span
+      > hoge {<br
+       /><span class="kw"
+      >public</span
+      >:<br
+       />  hoge() {}<br
+       /><span class="kw"
+      >private</span
+      >:<br
+       />  <span class="kw"
+      >friend</span
+      > <span class="kw"
+      >class</span
+      > pfi::data::serialization::access;<br
+       />  <span class="kw"
+      >template</span
+      > &lt;<span class="kw"
+      >class</span
+      > Ar&gt;<br
+       />  <span class="dt"
+      >void</span
+      > serialize(Ar &amp;ar) {<br
+       />    ar &amp; a &amp; s;<br
+       />  }<br
+       />  <span class="dt"
+      >int</span
+      > a;<br
+       />  string s;<br
+       />};</code
+    ></pre
+  ></html
+>
+</article><article><h3>serializationによるreflectionもどき</h3><ul><li>シリアライザは、データの値を書きだす</li><li>値の代わりに型を書きだせば<br>&nbsp;⇒&nbsp;reflectionもどき</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="kw"
+      >struct</span
+      > hoge {<br
+       />  <span class="kw"
+      >template</span
+      > &lt;<span class="kw"
+      >class</span
+      > Ar&gt; <span class="dt"
+      >void</span
+      > serialize(Ar &amp;ar) {<br
+       />    ar &amp; MEMBER(a) &amp; MEMBER(b);<br
+       />  }<br
+       />  string a;<br
+       />  vector&lt;<span class="dt"
+      >int</span
+      >&gt; b;<br
+       />};<br
+       /><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  shared_ptr&lt;type_rep&gt; typ = get_type&lt;hoge&gt;();<br
+       />  typ-&gt;print(cout); <span class="co"
+      >// =&gt; class(){string:a,array&lt;int(4)&gt;:b}</span
+      ><br
+       />  <span class="kw"
+      >return</span
+      > <span class="dv"
+      >0</span
+      >;<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>serialization応用いろいろ</h3><ul><li>ユーザ定義型をRPCで送れるようになる</li><li>ユーザ定義型をJSONに相互変換できるようになる</li><li>ユーザ定義型のメンバの列挙ができる<br>&nbsp;⇒&nbsp;RPCクライアントコード、テスタ自動生成など</li></ul><p><img src="./rpc-web.png" alt="" class="centered" /></p></article><article><h3>pfi::database</h3><ul><li>データベースサポート<ul><li>PostgreSQL&nbsp;/&nbsp;MySQL</li></ul></li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  shared_ptr&lt;connection&gt;<br
+       />    conn(mysql::<span class="kw"
+      >connect</span
+      >(<span class="st"
+      >&quot;localhost&quot;</span
+      >, <span class="dv"
+      >3306</span
+      >, <span class="st"
+      >&quot;dbname&quot;</span
+      >, <span class="st"
+      >&quot;user&quot;</span
+      >, <span class="st"
+      >&quot;passwd&quot;</span
+      >));<br
+       />  transaction(conn) { <span class="co"
+      >// auto commit if success, otherwise rollback.</span
+      ><br
+       />    shared_ptr&lt;statement&gt;<br
+       />      stat(conn-&gt;prepare(<span class="st"
+      >&quot;SELECT * from hoge where bar &gt; ?&quot;</span
+      >));<br
+       />    stat-&gt;execute(<span class="fl"
+      >3.14</span
+      >);<br
+       />    string name; <span class="dt"
+      >int</span
+      > val;<br
+       />    <span class="kw"
+      >while</span
+      > (stat-&gt;fetch_row(name, val)){ ... }<br
+       />    conn-&gt;run(<span class="st"
+      >&quot;INSERT INTO hoge (foo, bar) VALUES (?, ?)&quot;</span
+      >,<br
+       />              <span class="st"
+      >&quot;test&quot;</span
+      >, <span class="fl"
+      >1.23</span
+      >);<br
+       />  }<br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h3>pfi::text</h3><ul><li>JSON</li><li>CSV</li><li>HTML&nbsp;/&nbsp;XML</li><li>config&nbsp;file&nbsp;(.ini&nbsp;file)</li><li>...</li></ul></article><article><h3>pfi::text::json</h3><ul><li>ユーザ定義型の自動変換</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    ><span class="kw"
+      >struct</span
+      > foo {<br
+       />  <span class="dt"
+      >int</span
+      > a;<br
+       />  string b;<br
+       />  <span class="kw"
+      >template</span
+      > &lt;<span class="kw"
+      >class</span
+      > Archive&gt; <span class="dt"
+      >void</span
+      > serialize(Archive &amp;ar) {<br
+       />    ar &amp; MEMBER(a) &amp; MEMBER(b) &amp; MEMBER(c);<br
+       />  }<br
+       />};<br
+       /><br
+       /><span class="dt"
+      >int</span
+      > main()<br
+       />{<br
+       />  foo f; f.a = <span class="dv"
+      >123</span
+      >; f.b = <span class="st"
+      >&quot;test&quot;</span
+      >;<br
+       />  cout &lt;&lt; to_json(f) &lt;&lt; endl; <span class="co"
+      >// =&gt; { &quot;a&quot;: 123, &quot;b&quot;: &quot;test&quot; }</span
+      ><br
+       />}</code
+    ></pre
+  ></html
+>
+</article><article><h2>pficommonとMessagePack-RPC</h2></article><article><h3>MessagePackとは？</h3><ul><li>バイナリベースのオブジェクトシリアライズフォーマット&nbsp;<a href="http://msgpack.org/" alt="">http://msgpack.org/</a><ul><li>ほぼJSONと同様のデータが扱える</li></ul></li><li>シンプル・ハイパフォーマンス</li><li>様々な言語のライブラリ<ul><li>Ruby,&nbsp;Python,&nbsp;Perl,&nbsp;C/C+,&nbsp;Java,&nbsp;Haskell,&nbsp;...</li></ul></li></ul><p><img src="http://msgpack.org/index/speedtest.png" alt="" class="centered" /></p></article><article><h3>MessagePack-RPC</h3><ul><li>MessagePackフォーマットで通信を行うRPCが策定されている</li><li>シンプルなプロトコル</li><li>色々な言語での実装がある<ul><li><a href="https://github.com/msgpack/msgpack-rpc" alt="">https://github.com/msgpack/msgpack-rpc</a></li></ul></li><li>Jubatusでも採用</li></ul></article><article><h3>pficommonでのMessagePack-RPC</h3><ul><li>pficommonプロトコルのRPCと同じインターフェースで扱える</li><li>RPC_XXX&nbsp;=&gt;&nbsp;MPRPC_XXX&nbsp;に変えるだけ</li></ul><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode cpp"
+    >MPRPC_PROC(add, <span class="dt"
+      >int</span
+      >(<span class="dt"
+      >int</span
+      >, <span class="dt"
+      >int</span
+      >))    <span class="co"
+      >// method def</span
+      ><br
+       />MPRPC_PROC(hello, string(string)) <span class="co"
+      >// method def</span
+      ><br
+       />MPRPC_GEN(<span class="dv"
+      >0</span
+      > <span class="co"
+      >/* VERSION */</span
+      >, test <span class="co"
+      >/* NAME */</span
+      >,<br
+       />          add, hello) <span class="co"
+      >// METHODS</span
+      ></code
+    ></pre
+  ></html
+>
+<ul><li><a href="http://wiki.msgpack.org/display/MSGPACK/RPC+specification" alt="">本家MessagePack-RPC</a>&nbsp;とプロトコルの互換性あり</li></ul></article><article><h2>情報源など</h2></article><article><h3>Learn&nbsp;More</h3><ul><li>ドキュメント&nbsp;<a href="http://pfi.github.com/pficommon/" alt="">http://pfi.github.com/pficommon/</a><ul><li>(undocumentedな部分も多いです)</li></ul></li><li>Jubatus&nbsp;<a href="http://jubat.us/" alt="">http://jubat.us/</a><ul><li>実際の利用例</li></ul></li></ul></article><article><h3>Try&nbsp;it&nbsp;NOW!</h3><p>It&nbsp;is&nbsp;now&nbsp;open&nbsp;source!&nbsp;You&nbsp;can&nbsp;try&nbsp;it:</p><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><pre class="noprettyprint sourceCode"
+  ><code class="sourceCode bash"
+    >$ git clone git://github.com/pfi/pficommon.git<br
+       />$ <span class="kw"
+      >cd</span
+      > pficommon<br
+       />$ ./waf configure<br
+       />$ ./waf build<br
+       />$ <span class="kw"
+      >sudo</span
+      > ./waf <span class="kw"
+      >install</span
+      ></code
+    ></pre
+  ></html
+>
+<p><img src="http://tctechcrunch.files.wordpress.com/2010/07/github-logo.png?w=260" alt="" class="centered" /></p><div align="center">fork&nbsp;me!</div>
+</article><article><h3></h3><p><br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<strong>ご清聴ありがとうございました</strong></p></article></section></body></html>

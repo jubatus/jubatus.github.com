@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Tutorial &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,19 +31,19 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
-    <link rel="up" title="Jubatus : オンライン機械学習向け分散処理フレームワーク" href="index_ja.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="next" title="Tutorial in Distributed Mode" href="tutorial_distributed.html" />
     <link rel="prev" title="Overview" href="overview.html" /> 
 
@@ -78,28 +78,27 @@
   </head>
   <body>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
         <li class="right" >
           <a href="tutorial_distributed.html" title="Tutorial in Distributed Mode"
-             accesskey="N">next</a> |</li>
+             accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="overview.html" title="Overview"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" accesskey="U">Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li> 
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Tutorial</a><ul>
 <li><a class="reference internal" href="#scenario">Scenario</a></li>
@@ -114,20 +113,20 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
+  <h4>前のトピックへ</h4>
   <p class="topless"><a href="overview.html"
-                        title="previous chapter">Overview</a></p>
-  <h4>Next topic</h4>
+                        title="前の章へ">Overview</a></p>
+  <h4>次のトピックへ</h4>
   <p class="topless"><a href="tutorial_distributed.html"
-                        title="next chapter">Tutorial in Distributed Mode</a></p>
-  <h3>This Page</h3>
+                        title="次の章へ">Tutorial in Distributed Mode</a></p>
+  <h3>このページ</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/tutorial.txt"
-           rel="nofollow">Show Source</a></li>
+    <li><a href="_sources/tutorial.txt"
+           rel="nofollow">ソースコードを表示</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -177,10 +176,10 @@ new TWTR.Widget({
           <div class="body">
             
   <div class="section" id="tutorial">
-<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>チュートリアルを始める前に、Jubatus および Jubatus Python クライアントをインストールする必要があります。この手順については <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> を参照してください。</p>
 <div class="section" id="scenario">
-<h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
+<h2>Scenario<a class="headerlink" href="#scenario" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20</a> (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) を利用します。
 News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。</p>
@@ -197,10 +196,10 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 </ul>
 </div>
 <div class="section" id="run-tutorial">
-<h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h2>
+<h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>分類器の機能を提供する <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは <tt class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></tt> ディレクトリに格納されています。</p>
 <div class="highlight-python"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
-I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.0 RPC server at 192.168.0.1:9199
+I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.1 RPC server at 192.168.0.1:9199
     pid            : 1855
     user           : oda
     mode           : standalone mode
@@ -241,7 +240,7 @@ Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用し�
 </div>
 <p>Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> プロトコルを使用して通信します。</p>
 <div class="figure">
-<img alt="single client, single server" src="../_images/single_single1.png" style="width: 70%;" />
+<img alt="single client, single server" src="_images/single_single.png" style="width: 70%;" />
 </div>
 <p>それでは、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードしましょう。</p>
 <div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
@@ -258,9 +257,9 @@ $ jubaclassifier --configpath config.json</pre>
 <p>より詳しい説明は以下を参照してください。</p>
 </div>
 <div class="section" id="tutorial-in-detail">
-<h2>Tutorial in Detail<a class="headerlink" href="#tutorial-in-detail" title="Permalink to this headline">¶</a></h2>
+<h2>Tutorial in Detail<a class="headerlink" href="#tutorial-in-detail" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="dataset">
-<h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
+<h3>Dataset<a class="headerlink" href="#dataset" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt> を展開すると、以下のようになります。</p>
 <div class="highlight-python"><pre>20news-bydate-train
 |-- alt.atheism
@@ -317,7 +316,7 @@ preferably longer, of course, and worth being part of.)
 <p>このチュートリアルでは、これらのテキストを学習データとして利用します。</p>
 </div>
 <div class="section" id="server-configuration">
-<h3>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h3>
+<h3>Server Configuration<a class="headerlink" href="#server-configuration" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>分類器サービスを使用するためには JSONの設定ファイルを用いて <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> の動作を規定する必要があります。
 <tt class="docutils literal"><span class="pre">method</span></tt> と <tt class="docutils literal"><span class="pre">converter</span></tt> と <tt class="docutils literal"><span class="pre">parameter</span></tt> の 3 つの設定可能なパラメタがあります。
 これらのパラメタのサンプルを以下に示します。</p>
@@ -379,7 +378,7 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 </div>
 </div>
 <div class="section" id="use-of-classifier-api-train-classify">
-<h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
+<h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>分類器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> という API (RPC メソッド) を利用します。
 以下の例で、 <tt class="docutils literal"><span class="pre">d1</span></tt> はメッセージから作成された datum であり、 <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> はそのメッセージのラベル (ニュースグループの名前) です。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">datum</span><span class="p">([[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">]],</span> <span class="p">[])</span>
@@ -416,24 +415,23 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
       <div class="clearer"></div>
     </div>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
         <li class="right" >
           <a href="tutorial_distributed.html" title="Tutorial in Distributed Mode"
-             >next</a> |</li>
+             >次へ</a> |</li>
         <li class="right" >
           <a href="overview.html" title="Overview"
-             >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li> 
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011,2013 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

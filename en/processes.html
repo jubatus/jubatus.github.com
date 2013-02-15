@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Architecture &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,18 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Documentation" href="documentation.html" />
     <link rel="next" title="Data Conversion" href="fv_convert.html" />
     <link rel="prev" title="Documentation" href="documentation.html" /> 
@@ -81,7 +81,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="fv_convert.html" title="Data Conversion"
@@ -89,12 +89,12 @@
         <li class="right" >
           <a href="documentation.html" title="Documentation"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
@@ -107,12 +107,12 @@
                         title="next chapter">Data Conversion</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/processes.txt"
+    <li><a href="_sources/processes.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -166,7 +166,7 @@ new TWTR.Widget({
 <p>Jubatus has a client-server architecture.
 The simplest process configuration is single client process and single server process like following figure.</p>
 <div class="figure">
-<img alt="single client, single server" src="../_images/single_single.png" style="width: 70%;" />
+<img alt="single client, single server" src="_images/single_single.png" style="width: 70%;" />
 </div>
 <p>Jubatus can make use of multiple server processes in order to scale out the system.
 By throwing queries to Keepers, we can execute machine learning requests (update/analyze) with multiple server processes.</p>
@@ -175,17 +175,17 @@ Clients work as if it is communicating with just one server.
 In other words, clients don&#8217;t need to know whether it is connecting to a server or a keeper.</p>
 <p>Keepers use ZooKeeper to keep-aliving and load-balancing each Jubatus servers.</p>
 <div class="figure">
-<img alt="single client, multi servers" src="../_images/single_multi.png" style="width: 70%;" />
+<img alt="single client, multi servers" src="_images/single_multi.png" style="width: 70%;" />
 </div>
 <p>Sometimes we want to distribute clients because data size is huge, or source of data is far from server.
 Jubatus can achieve this by creating multiple keepers and assigning different keeper to each client.</p>
 <div class="figure">
-<img alt="multi clients, multi servers" src="../_images/multi_multi.png" style="width: 70%;" />
+<img alt="multi clients, multi servers" src="_images/multi_multi.png" style="width: 70%;" />
 </div>
 <p>The following picture describes how to run programs used by management process.
 Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;jubatus_classifier_server&#8221; is now called as &#8220;keeper&#8221;, &#8220;jubactl&#8221; and &#8220;jubaclassifier&#8221;, respectively.</p>
 <div class="figure">
-<img alt="relationship of processes" src="../_images/processes.png" style="width: 90%;" />
+<img alt="relationship of processes" src="_images/processes.png" style="width: 90%;" />
 </div>
 </div>
 
@@ -199,7 +199,7 @@ Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
           <a href="fv_convert.html" title="Data Conversion"
@@ -207,7 +207,7 @@ Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;
         <li class="right" >
           <a href="documentation.html" title="Documentation"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
       </ul>
     </div>

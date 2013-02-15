@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Recommender &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,19 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Anomaly" href="api_anomaly.html" />
     <link rel="prev" title="Regression" href="api_regression.html" /> 
@@ -78,30 +79,29 @@
   </head>
   <body>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
-             accesskey="N">next</a> |</li>
+             accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="api_regression.html" title="Regression"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Recommender</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -111,20 +111,20 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
+  <h4>前のトピックへ</h4>
   <p class="topless"><a href="api_regression.html"
-                        title="previous chapter">Regression</a></p>
-  <h4>Next topic</h4>
+                        title="前の章へ">Regression</a></p>
+  <h4>次のトピックへ</h4>
   <p class="topless"><a href="api_anomaly.html"
-                        title="next chapter">Anomaly</a></p>
-  <h3>This Page</h3>
+                        title="次の章へ">Anomaly</a></p>
+  <h3>このページ</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/api_recommender.txt"
-           rel="nofollow">Show Source</a></li>
+    <li><a href="_sources/api_recommender.txt"
+           rel="nofollow">ソースコードを表示</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -174,13 +174,13 @@ new TWTR.Widget({
           <div class="body">
             
   <div class="section" id="recommender">
-<h1>Recommender<a class="headerlink" href="#recommender" title="Permalink to this headline">¶</a></h1>
+<h1>Recommender<a class="headerlink" href="#recommender" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <ul class="simple">
 <li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/recommender.idl">IDL 定義</a> を参照してください。</li>
 <li>使用されているアルゴリズムの詳細については <a class="reference internal" href="method.html"><em>Methods</em></a> を参照してください。</li>
 </ul>
 <div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<h2>Configuration<a class="headerlink" href="#configuration" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>設定は単体の JSON で与えられる。
 JSON の各フィールドは以下のとおりである</p>
 <dl class="describe">
@@ -190,8 +190,8 @@ JSON の各フィールドは以下のとおりである</p>
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="31%" />
-<col width="69%" />
+<col width="30%" />
+<col width="70%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">設定値</th>
@@ -203,13 +203,13 @@ JSON の各フィールドは以下のとおりである</p>
 <td>転置インデックスを利用する。</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
-<td>MinHash を利用する。 [Li10]</td>
+<td>MinHash を利用する。 <a class="reference internal" href="method.html#ping2010">[Ping2010]</a></td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
 <td>Locality Sensitive Hashing を利用する。</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
-<td>Euclid 距離版の LSH を利用する。 [Andoni06]</td>
+<td>Euclid 距離版の LSH を利用する。 <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
 </tr>
 </tbody>
 </table>
@@ -314,10 +314,10 @@ JSON の各フィールドは以下のとおりである</p>
 </dl>
 </div>
 <div class="section" id="data-structures">
-<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
-<dl class="describe">
-<dt>
-<tt class="descname">similar_result</tt></dt>
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="type">
+<dt id="similar_result">
+<em class="property">type </em><tt class="descname">similar_result</tt><a class="headerlink" href="#similar_result" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>近傍性の結果を表す。
 string と float のタプルのリストである。
 string の値は行 ID であり、float の値はその ID に対応する近傍性である。
@@ -329,43 +329,52 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 
 </div>
 <div class="section" id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
-<dl class="function">
+<dl class="service">
 <dt>
-<tt class="descname">bool clear_row(0: string name, 1: string id)</tt></dt>
-<dd><dl class="docutils">
-<dt>引数</dt>
-<dd><ul class="first last simple">
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 削除する行 ID</li>
+<em class="property">service </em><tt class="descname">recommender</tt></dt>
+<dd><dl class="method">
+<dt id="recommender::clear_row__s.s">
+bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::clear_row__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>id</strong> &#8211; 削除する行 ID</li>
 </ul>
-</dd>
-<dt>戻り値</dt>
-<dd><ul class="first last simple">
-<li>行の削除に成功した場合 True</li>
-</ul>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">行の削除に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p><tt class="docutils literal"><span class="pre">id</span></tt> で指定される行を推薦テーブルから削除する。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">bool update_row(0: string name, 1: string id, 2: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
+<dl class="method">
+<dt id="recommender::update_row__s.s.datum">
+bool <tt class="descname">update_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em>, 2: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::update_row__s.s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>id</strong> &#8211; 行 ID</li>
+<li><strong>row</strong> &#8211; 行に対応する <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>モデルの更新に成功した場合 True</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">モデルの更新に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> のデータを <tt class="docutils literal"><span class="pre">row</span></tt> を利用して更新する。
 同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、その行が <tt class="docutils literal"><span class="pre">row</span></tt> で差分更新される。
 存在しない場合は、新しい行のエントリが作成される。
@@ -373,159 +382,197 @@ string の値は行 ID であり、float の値はその ID に対応する近�
 異なるサーバーであれば、mix 後に反映される。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">bool clear(0: string name)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<dl class="method">
+<dt id="recommender::clear__s">
+bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#recommender::clear__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>モデルの削除に成功した場合 True</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">モデルの削除に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>モデルを完全に消去する。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">datum complete_row_from_id(0: string name, 1: string id)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 行 ID</li>
+<dl class="method">
+<dt id="recommender::complete_row_from_id__s.s">
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">complete_row_from_id</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::complete_row_from_id__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>id</strong> &#8211; 行 ID</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> の近傍から未定義の値を補完したdatum</li>
-</ul>
-</li>
-</ul>
-<p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の中で欠けている値を近傍から予測し、補完された datum を返す。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">id</span></tt> の近傍から未定義の値を補完した <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の中で欠けている値を近傍から予測し、補完された <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を返す。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">datum complete_row_from_datum(0: string name, 1: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : 補完したい値が欠けたdatum</li>
+<dl class="method">
+<dt id="recommender::complete_row_from_datum__s.datum">
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">complete_row_from_datum</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::complete_row_from_datum__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>row</strong> &#8211; 補完したい値が欠けた <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>指定したdatumで構成されるrowの中で欠けている値を補完したdatum</li>
-</ul>
-</li>
-</ul>
-<p>指定した datum <tt class="docutils literal"><span class="pre">row</span></tt> で欠けている値を近傍から予測し、補完された datum を返す。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">指定した <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> で構成される row の中で欠けている値を補完した <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <tt class="docutils literal"><span class="pre">row</span></tt> で欠けている値を近傍から予測し、補完された <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を返す。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
-<li><tt class="docutils literal"><span class="pre">size</span></tt> : 返す近傍の数</li>
+<dl class="method">
+<dt id="recommender::similar_row_from_id__s.s.U">
+<a class="reference internal" href="#similar_result" title="similar_result">similar_result</a> <tt class="descname">similar_row_from_id</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em>, 2: uint <em>size</em><big>)</big><a class="headerlink" href="#recommender::similar_row_from_id__s.s.U" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>id</strong> &#8211; 推薦テーブル内の行を表すID</li>
+<li><strong>size</strong> &#8211; 返す近傍の数</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍のidとその近傍性の値のリスト</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍のidとその近傍性の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその近傍性のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">similar_result similar_row_from_datum(0: string name, 1: datum row, 2: uint size)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : 補完したいdatum</li>
-<li><tt class="docutils literal"><span class="pre">ret_num</span></tt> : 返す近傍の数</li>
+<dl class="method">
+<dt id="recommender::similar_row_from_datum__s.datum.U">
+<a class="reference internal" href="#similar_result" title="similar_result">similar_result</a> <tt class="descname">similar_row_from_datum</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 2: uint <em>size</em><big>)</big><a class="headerlink" href="#recommender::similar_row_from_datum__s.datum.U" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>row</strong> &#8211; 補完したい <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>size</strong> &#8211; 返す近傍の数</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> から構成された <tt class="docutils literal"><span class="pre">similar_result</span></tt></li>
-</ul>
-</li>
-</ul>
-<p>指定したdatum <tt class="docutils literal"><span class="pre">data</span></tt> に近い行とその近傍性のリストを <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">row</span></tt> から構成された <tt class="docutils literal"><span class="pre">similar_result</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <tt class="docutils literal"><span class="pre">row</span></tt> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を持つ行とその近傍性のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">datum decode_row(0: string name, 1: string id)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : 推薦テーブル内の行を表すID</li>
+<dl class="method">
+<dt id="recommender::decode_row__s.s">
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">decode_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::decode_row__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>id</strong> &#8211; 推薦テーブル内の行を表すID</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> に対応する datum</li>
-</ul>
-</li>
-</ul>
-<p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の <tt class="docutils literal"><span class="pre">datum</span></tt> 表現を返す。
-ただし、fv_converterで不可逆な処理を行なっている <tt class="docutils literal"><span class="pre">datum</span></tt> は復元されない。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">行 ID <tt class="docutils literal"><span class="pre">id</span></tt> に対応する <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>行 <tt class="docutils literal"><span class="pre">id</span></tt> の <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を返す。
+ただし、fv_converterで不可逆な処理を行なっている <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> は復元されない。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">list&lt;string&gt; get_all_rows(0:string name)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<dl class="method">
+<dt id="recommender::get_all_rows__s">
+list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#recommender::get_all_rows__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>すべての行の ID リスト</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">すべての行の ID リスト</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>すべての行の ID リストを返す。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">float calc_similarity(0: string name, 1: datum lhs, 2:datum rhs)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">lhs</span></tt> : datum</li>
-<li><tt class="docutils literal"><span class="pre">rhs</span></tt> : 別の datum</li>
+<dl class="method">
+<dt id="recommender::calc_similarity__s.datum.datum">
+float <tt class="descname">calc_similarity</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>lhs</em>, 2: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>rhs</em><big>)</big><a class="headerlink" href="#recommender::calc_similarity__s.datum.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>lhs</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>rhs</strong> &#8211; 別の <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li><tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> の類似度</li>
-</ul>
-</li>
-</ul>
-<p>指定した 2 つの datum の類似度を返す。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> の類似度</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した 2 つの <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> の類似度を返す。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">float calc_l2norm(0: string name, 1: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
+<dl class="method">
+<dt id="recommender::calc_l2norm__s.datum">
+float <tt class="descname">calc_l2norm</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::calc_l2norm__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> の L2 ノルム</li>
-</ul>
-</li>
-</ul>
-<p>指定した datum <tt class="docutils literal"><span class="pre">row</span></tt> の L2 ノルムを返す。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">row</span></tt> の L2 ノルム</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <tt class="docutils literal"><span class="pre">row</span></tt> の L2 ノルムを返す。</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -538,26 +585,25 @@ string の値は行 ID であり、float の値はその ID に対応する近�
       <div class="clearer"></div>
     </div>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
-             >next</a> |</li>
+             >次へ</a> |</li>
         <li class="right" >
           <a href="api_regression.html" title="Regression"
-             >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011,2013 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

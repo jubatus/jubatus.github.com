@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Stat &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,18 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Graph" href="api_graph.html" />
     <link rel="prev" title="Anomaly" href="api_anomaly.html" /> 
@@ -81,7 +81,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="api_graph.html" title="Graph"
@@ -89,18 +89,18 @@
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Stat</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -118,12 +118,12 @@
                         title="next chapter">Graph</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/api_stat.txt"
+    <li><a href="_sources/api_stat.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -206,46 +206,51 @@ We show each filed below:</p>
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
-<dl class="describe">
+<dl class="service">
 <dt>
-<tt class="descname">bool push(0: string name, 1: string key, 2: double value)</tt></dt>
+<em class="property">service </em><tt class="descname">stat</tt></dt>
+<dd><dl class="method">
+<dt id="stat::push__s.s.double">
+bool <tt class="descname">push</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em>, 2: double <em>val</em><big>)</big><a class="headerlink" href="#stat::push__s.s.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds value <tt class="docutils literal"><span class="pre">val</span></tt> to the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">double sum(0: string name, 1: string key)</tt></dt>
+<dl class="method">
+<dt id="stat::sum__s.s">
+double <tt class="descname">sum</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::sum__s.s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sum of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">double stddev(0: string name, 1: string key)</tt></dt>
+<dl class="method">
+<dt id="stat::stddev__s.s">
+double <tt class="descname">stddev</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::stddev__s.s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the standard deviation of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">double max(0: string name, 1: string key)</tt></dt>
+<dl class="method">
+<dt id="stat::max__s.s">
+double <tt class="descname">max</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::max__s.s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum value of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">double min(0: string name, 1: string key)</tt></dt>
+<dl class="method">
+<dt id="stat::min__s.s">
+double <tt class="descname">min</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::min__s.s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the minimum value of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">double entropy(0: string name, 1: string key)</tt></dt>
+<dl class="method">
+<dt id="stat::entropy__s.s">
+double <tt class="descname">entropy</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::entropy__s.s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the entropy of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">double moment(0: string name, 1: string key, 2: int degree, 3: double center)</tt></dt>
+<dl class="method">
+<dt id="stat::moment__s.s.i.double">
+double <tt class="descname">moment</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em>, 2: int <em>degree</em>, 3: double <em>center</em><big>)</big><a class="headerlink" href="#stat::moment__s.s.i.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the <tt class="docutils literal"><span class="pre">degree</span></tt>-th moment about <tt class="docutils literal"><span class="pre">center</span></tt> of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -261,7 +266,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
           <a href="api_graph.html" title="Graph"
@@ -269,7 +274,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>

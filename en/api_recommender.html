@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Recommender &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,18 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Anomaly" href="api_anomaly.html" />
     <link rel="prev" title="Regression" href="api_regression.html" /> 
@@ -81,7 +81,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
@@ -89,18 +89,18 @@
         <li class="right" >
           <a href="api_regression.html" title="Regression"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Recommender</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -118,12 +118,12 @@
                         title="next chapter">Anomaly</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/api_recommender.txt"
+    <li><a href="_sources/api_recommender.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -189,8 +189,8 @@ We show each filed below:</p>
 You can use these algorithms.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="36%" />
-<col width="64%" />
+<col width="34%" />
+<col width="66%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Value</th>
@@ -202,13 +202,13 @@ You can use these algorithms.</p>
 <td>Use Inverted Index.</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
-<td>Use MinHash. [Li10]</td>
+<td>Use MinHash. <a class="reference internal" href="method.html#ping2010">[Ping2010]</a></td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
 <td>Use Locality Sensitive Hashing.</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
-<td>Use Euclid-distance LSH. [Andoni06]</td>
+<td>Use Euclid-distance LSH. <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
 </tr>
 </tbody>
 </table>
@@ -255,7 +255,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 The bigger it is, the more accurate results you can get, but the fewer results you can find and the more memory is required.
 (Integer)</td>
 </tr>
-<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body">Number of tables
+<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body">Number of tables.
 The bigger it is, the mroe results you can find, but the more memory is required and the longer response time is required.
 (Integer)</td>
 </tr>
@@ -314,9 +314,9 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 </div>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
-<dl class="describe">
-<dt>
-<tt class="descname">similar_result</tt></dt>
+<dl class="type">
+<dt id="similar_result">
+<em class="property">type </em><tt class="descname">similar_result</tt><a class="headerlink" href="#similar_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a result of similarity methods.
 It is a list of tuple of string and float.
 The string value is a row ID and the float value is a similarity for the ID.
@@ -331,38 +331,49 @@ Higher similarity value means that they are more similar to each other.</p>
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
-<dl class="describe">
+<dl class="service">
 <dt>
-<tt class="descname">bool clear_row(0: string name, 1: string id)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID to be removed</li>
+<em class="property">service </em><tt class="descname">recommender</tt></dt>
+<dd><dl class="method">
+<dt id="recommender::clear_row__s.s">
+bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::clear_row__s.s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; row ID to be removed</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>True when the row was cleared successfully</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when the row was cleared successfully</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Removes the given row <tt class="docutils literal"><span class="pre">id</span></tt> from the recommendation table.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">bool update_row(0: string name, 1: string id, 2: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum for the row</li>
+<dl class="method">
+<dt id="recommender::update_row__s.s.datum">
+bool <tt class="descname">update_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em>, 2: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::update_row__s.s.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; row ID</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the row</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>True if this function updates models successfully</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if this function updates models successfully</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Updates the row whose id is <tt class="docutils literal"><span class="pre">id</span></tt> with given <tt class="docutils literal"><span class="pre">row</span></tt>.
 If the row with the same <tt class="docutils literal"><span class="pre">id</span></tt> already exists, the row is differential updated with <tt class="docutils literal"><span class="pre">row</span></tt>.
 Otherwise, new row entry will be created.
@@ -370,159 +381,197 @@ If the server that manages the row and the server that received this RPC request
 If not, update operation is reflected after mix.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">bool clear(0: string name)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<dl class="method">
+<dt id="recommender::clear__s">
+bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#recommender::clear__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>True when the model was cleared successfully</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when the model was cleared successfully</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Completely clears the model.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">datum complete_row_from_id(0: string name, 1: string id)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
+<dl class="method">
+<dt id="recommender::complete_row_from_id__s.s">
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">complete_row_from_id</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::complete_row_from_id__s.s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; row ID</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>datum stored in <tt class="docutils literal"><span class="pre">id</span></tt> row with missing value completed by predicted value</li>
-</ul>
-</li>
-</ul>
-<p>Returns the datum for the row <tt class="docutils literal"><span class="pre">id</span></tt>, with missing value completed by predicted value.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> stored in <tt class="docutils literal"><span class="pre">id</span></tt> row with missing value completed by predicted value</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the row <tt class="docutils literal"><span class="pre">id</span></tt>, with missing value completed by predicted value.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">datum complete_row_from_datum(0: string name, 1: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : original datum to be completed (possibly some values are missing).</li>
+<dl class="method">
+<dt id="recommender::complete_row_from_datum__s.datum">
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">complete_row_from_datum</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::complete_row_from_datum__s.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to be completed (possibly some values are missing)</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>datum constructed from the given datum with missing value completed by predicted value</li>
-</ul>
-</li>
-</ul>
-<p>Returns the datum constructed from datum <tt class="docutils literal"><span class="pre">d</span></tt>, with missing value completed by predicted value.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> constructed from the given <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> with missing value completed by predicted value</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> constructed from <tt class="docutils literal"><span class="pre">row</span></tt>, with missing value completed by predicted value.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
-<li><tt class="docutils literal"><span class="pre">size</span></tt> : number of rows to be returned</li>
+<dl class="method">
+<dt id="recommender::similar_row_from_id__s.s.U">
+<a class="reference internal" href="#similar_result" title="similar_result">similar_result</a> <tt class="descname">similar_row_from_id</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em>, 2: uint <em>size</em><big>)</big><a class="headerlink" href="#recommender::similar_row_from_id__s.s.U" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; row ID</li>
+<li><strong>size</strong> &#8211; number of rows to be returned</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>rows that are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt></li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) which are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">similar_result similar_row_from_datum(0: string name, 1: datum row, 2: uint size)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : original datum to be completed (possibly some values are missing)</li>
-<li><tt class="docutils literal"><span class="pre">size</span></tt> : number of rows to be returned</li>
+<dl class="method">
+<dt id="recommender::similar_row_from_datum__s.datum.U">
+<a class="reference internal" href="#similar_result" title="similar_result">similar_result</a> <tt class="descname">similar_row_from_datum</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 2: uint <em>size</em><big>)</big><a class="headerlink" href="#recommender::similar_row_from_datum__s.datum.U" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to be completed (possibly some values are missing)</li>
+<li><strong>size</strong> &#8211; number of rows to be returned</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>rows that most have a similar datum to <tt class="docutils literal"><span class="pre">row</span></tt></li>
-</ul>
-</li>
-</ul>
-<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that most have similar datum to datum <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">rows that most have a similar datum to <tt class="docutils literal"><span class="pre">row</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that most have similar <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">datum decode_row(0: string name, 1: string id)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : row ID</li>
+<dl class="method">
+<dt id="recommender::decode_row__s.s">
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">decode_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::decode_row__s.s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; row ID</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>datum for the given row <tt class="docutils literal"><span class="pre">id</span></tt></li>
-</ul>
-</li>
-</ul>
-<p>Returns the datum in the row <tt class="docutils literal"><span class="pre">id</span></tt>.
-Note that irreversibly converted datum (processed by <tt class="docutils literal"><span class="pre">fv_converter</span></tt>) will not be decoded.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the given row <tt class="docutils literal"><span class="pre">id</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> in the row <tt class="docutils literal"><span class="pre">id</span></tt>.
+Note that irreversibly converted <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> (processed by <tt class="docutils literal"><span class="pre">fv_converter</span></tt>) will not be decoded.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">list&lt;string&gt; get_all_rows(0:string name)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<dl class="method">
+<dt id="recommender::get_all_rows__s">
+list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#recommender::get_all_rows__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>list of all row IDs</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list of all row IDs</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Returns the list of all row IDs.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">float calc_similarity(0: string name, 1: datum lhs, 2:datum rhs)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">lhs</span></tt> : datum</li>
-<li><tt class="docutils literal"><span class="pre">rhs</span></tt> : another datum</li>
+<dl class="method">
+<dt id="recommender::calc_similarity__s.datum.datum">
+float <tt class="descname">calc_similarity</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>lhs</em>, 2: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>rhs</em><big>)</big><a class="headerlink" href="#recommender::calc_similarity__s.datum.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>lhs</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>rhs</strong> &#8211; another <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>similarity between <tt class="docutils literal"><span class="pre">lhs</span></tt> and <tt class="docutils literal"><span class="pre">rhs</span></tt></li>
-</ul>
-</li>
-</ul>
-<p>Returns the similarity between two datum.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">similarity between <tt class="docutils literal"><span class="pre">lhs</span></tt> and <tt class="docutils literal"><span class="pre">rhs</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the similarity between two <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">float calc_l2norm(0: string name, 1: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
+<dl class="method">
+<dt id="recommender::calc_l2norm__s.datum">
+float <tt class="descname">calc_l2norm</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::calc_l2norm__s.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>L2 norm for the given <tt class="docutils literal"><span class="pre">row</span></tt></li>
-</ul>
-</li>
-</ul>
-<p>Returns the value of L2 norm for the datum <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">L2 norm for the given <tt class="docutils literal"><span class="pre">row</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the value of L2 norm for the <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -538,7 +587,7 @@ Note that irreversibly converted datum (processed by <tt class="docutils literal
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
@@ -546,7 +595,7 @@ Note that irreversibly converted datum (processed by <tt class="docutils literal
         <li class="right" >
           <a href="api_regression.html" title="Regression"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>

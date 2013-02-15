@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Anomaly &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,18 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Stat" href="api_stat.html" />
     <link rel="prev" title="Recommender" href="api_recommender.html" /> 
@@ -81,7 +81,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="api_stat.html" title="Stat"
@@ -89,18 +89,18 @@
         <li class="right" >
           <a href="api_recommender.html" title="Recommender"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Anomaly</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -118,12 +118,12 @@
                         title="next chapter">Stat</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/api_anomaly.txt"
+    <li><a href="_sources/api_anomaly.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -198,7 +198,7 @@ You can use these algorithms.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lof&quot;</span></tt></td>
-<td>Use Local Outlier Factor. [Breunig2000]</td>
+<td>Use Local Outlier Factor. <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a></td>
 </tr>
 </tbody>
 </table>
@@ -289,105 +289,134 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
-<dl class="describe">
+<dl class="service">
 <dt>
-<tt class="descname">bool clear_row(0: string name, 1: string id)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : point ID to be removed</li>
+<em class="property">service </em><tt class="descname">anomaly</tt></dt>
+<dd><dl class="method">
+<dt id="anomaly::clear_row__s.s">
+bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#anomaly::clear_row__s.s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; point ID to be removed</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>True when the point was cleared successfully</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when the point was cleared successfully</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Clears a point data with ID <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">tuple&lt;string, float&gt; add(0: string name, 1: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
+<dl class="method">
+<dt id="anomaly::add__s.datum">
+tuple&lt;string, float&gt; <tt class="descname">add</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::add__s.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the point</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>Tuple of the point ID and the anomaly measure value</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple of the point ID and the anomaly measure value</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Adds a point data <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">float update(0: string name, 1: string id, 2: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">id</span></tt> : point ID to update</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : new value for the point</li>
+<dl class="method">
+<dt id="anomaly::update__s.s.datum">
+float <tt class="descname">update</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em>, 2: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::update__s.s.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>id</strong> &#8211; point ID to update</li>
+<li><strong>row</strong> &#8211; new <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the point</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>Anomaly measure value</li>
-</ul>
-</li>
-</ul>
-<p>Updates the point <tt class="docutils literal"><span class="pre">id</span></tt> with the given datum <tt class="docutils literal"><span class="pre">d</span></tt>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Anomaly measure value</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Updates the point <tt class="docutils literal"><span class="pre">id</span></tt> with the data <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">bool clear(0: string name)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<dl class="method">
+<dt id="anomaly::clear__s">
+bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#anomaly::clear__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>True when the model was cleared successfully</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when the model was cleared successfully</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Completely clears the model.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">float calc_score(0: string name, 1: datum row)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">row</span></tt> : datum</li>
+<dl class="method">
+<dt id="anomaly::calc_score__s.datum">
+float <tt class="descname">calc_score</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::calc_score__s.datum" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>Anomaly measure value</li>
-</ul>
-</li>
-</ul>
-<p>Calculates an anomaly measure value for datum <tt class="docutils literal"><span class="pre">row</span></tt> without adding a point.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Anomaly measure value for given <tt class="docutils literal"><span class="pre">row</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Calculates an anomaly measure value for the point data <tt class="docutils literal"><span class="pre">row</span></tt> without adding a point.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">list&lt;string&gt;  get_all_rows(0: string name)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<dl class="method">
+<dt id="anomaly::get_all_rows__s">
+list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#anomaly::get_all_rows__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>list of all point IDs</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of all point IDs</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Returns the list of all point IDs.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -403,7 +432,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
           <a href="api_stat.html" title="Stat"
@@ -411,7 +440,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
         <li class="right" >
           <a href="api_recommender.html" title="Recommender"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>

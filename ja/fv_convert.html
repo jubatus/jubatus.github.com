@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Data Conversion &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,19 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Documentation" href="documentation.html" />
     <link rel="next" title="Plugin Development" href="plugin.html" />
     <link rel="prev" title="Architecture" href="processes.html" /> 
@@ -78,29 +79,28 @@
   </head>
   <body>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
         <li class="right" >
           <a href="plugin.html" title="Plugin Development"
-             accesskey="N">next</a> |</li>
+             accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="processes.html" title="Architecture"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Data Conversion</a><ul>
 <li><a class="reference internal" href="#datum">Datum</a></li>
@@ -128,20 +128,20 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
+  <h4>前のトピックへ</h4>
   <p class="topless"><a href="processes.html"
-                        title="previous chapter">Architecture</a></p>
-  <h4>Next topic</h4>
+                        title="前の章へ">Architecture</a></p>
+  <h4>次のトピックへ</h4>
   <p class="topless"><a href="plugin.html"
-                        title="next chapter">Plugin Development</a></p>
-  <h3>This Page</h3>
+                        title="次の章へ">Plugin Development</a></p>
+  <h3>このページ</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/fv_convert.txt"
-           rel="nofollow">Show Source</a></li>
+    <li><a href="_sources/fv_convert.txt"
+           rel="nofollow">ソースコードを表示</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -191,7 +191,7 @@ new TWTR.Widget({
           <div class="body">
             
   <div class="section" id="data-conversion">
-<span id="conversion-ja"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="Permalink to this headline">¶</a></h1>
+<span id="conversion-ja"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>一般的に機械学習処理を行う場合、テキストなどの生の非定形データを直接扱うことはできない。
 こうしたデータは事前に特徴抽出というステップを経て、俗に特徴ベクトルと呼ばれる形式に変換される。
 特徴ベクトルの中身は、文字列をキー、数値型を値とするkey-value型としてよい。
@@ -222,7 +222,7 @@ Jubatusのデータ変換エンジンは、この特徴抽出処理を簡単な�
 </pre></div>
 </div>
 <div class="section" id="datum">
-<h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
+<h2>Datum<a class="headerlink" href="#datum" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatusで利用できるデータ形式は、datumと呼ばれる非常にシンプルなkey-valueデータ形式である。
 datumには2つのkey-valueが存在する。
 一つはキーも値も文字列の文字列データ (string_values) である。
@@ -249,7 +249,7 @@ datumには2つのkey-valueが存在する。
 ここでは、 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> をPython風のタプルで、 <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt> をPython風のリストで表している。</p>
 </div>
 <div class="section" id="flow-of-data-conversion">
-<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
+<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>大まかな処理の流れは以下のようになっている。</p>
 <p>datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。</p>
 <p>文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
@@ -258,12 +258,12 @@ datumには2つのkey-valueが存在する。
 その状態で、num_rulesによって数値データからの特徴量が抽出される。</p>
 <p>フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
 <div class="figure">
-<img alt="feature vector converter" src="../_images/convert_flow1.png" style="width: 90%;" />
+<img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" />
 <p class="caption">図: 変換エンジンの構成</p>
 </div>
 </div>
 <div class="section" id="filter">
-<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
+<h2>Filter<a class="headerlink" href="#filter" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatusはフィルターという機能を用いて、datum中のkey-valueペアを変換して、別の要素として追加することができる。
 例えば、元のデータがHTMLで書かれていたとしよう。
 この中のタグ文字列（&lt;a&gt; など）は、学習時には邪魔になることがおおく、そのため予めフィルタリングして使いたいことがある。
@@ -312,7 +312,7 @@ datumには2つのkey-valueが存在する。
 </div>
 <p>それぞれの要素について、詳細に説明する。</p>
 <div class="section" id="string-filter-types">
-<h3>string_filter_types<a class="headerlink" href="#string-filter-types" title="Permalink to this headline">¶</a></h3>
+<h3>string_filter_types<a class="headerlink" href="#string-filter-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>&lt;フィルター名&gt;: &lt;引数&gt;　からなる辞書を指定する。
 フィルター名は文字列、引数は文字列から文字列への辞書である。
 引数には必ず&#8221;method&#8221;を指定する。
@@ -362,7 +362,7 @@ datumには2つのkey-valueが存在する。
 
 </div>
 <div class="section" id="string-filter-rules">
-<h3>string_filter_rules<a class="headerlink" href="#string-filter-rules" title="Permalink to this headline">¶</a></h3>
+<h3>string_filter_rules<a class="headerlink" href="#string-filter-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>フィルターの適用規則を指定する。
 規則は指定された順に評価される。
 datum がある規則の条件を満たした場合、そのルールが適用され、変換後の値が datum に追加される。
@@ -418,7 +418,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </div></blockquote>
 </div>
 <div class="section" id="num-filter-types">
-<h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="Permalink to this headline">¶</a></h3>
+<h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>&#8220;string_filter_types&#8221; と同様、&lt;フィルター名&gt;: &lt;引数&gt; からなる辞書を指定する。
 利用の仕方はstring_filter_typesとほぼ同じである。
 &lt;フィルター名&gt; は文字列、引数は文字列から文字列への辞書である。
@@ -460,7 +460,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 
 </div>
 <div class="section" id="num-filter-rules">
-<h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="Permalink to this headline">¶</a></h3>
+<h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>こちらも、string_filter_rules同様、フィルターの適用規則を指定する。
 規則は複数からなり、各規則は&#8221;key&#8221;, &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
 <blockquote>
@@ -481,7 +481,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </div>
 </div>
 <div class="section" id="feature-extraction-from-strings">
-<span id="construct-ja"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="Permalink to this headline">¶</a></h2>
+<span id="construct-ja"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。
 以下に、設定の例を示す。
 この例では、&#8221;user/name&#8221;の値はそのまま特徴量として使用し、&#8221;message&#8221;は文字2グラムを特徴量とし、&#8221;message-detagged&#8221;はスペース文字で分割した単語を特徴量とする。</p>
@@ -496,7 +496,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </pre></div>
 </div>
 <div class="section" id="string-types">
-<h3>string_types<a class="headerlink" href="#string-types" title="Permalink to this headline">¶</a></h3>
+<h3>string_types<a class="headerlink" href="#string-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>string_typesで文字列特徴抽出器を定義する。
 主に、パスなどの引数を指定しなければならない特徴抽出器は、一度string_typesで指定してから利用しなければならない。
 string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; からなる辞書を指定する。
@@ -546,7 +546,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 
 </div>
 <div class="section" id="string-rules">
-<h3>string_rules<a class="headerlink" href="#string-rules" title="Permalink to this headline">¶</a></h3>
+<h3>string_rules<a class="headerlink" href="#string-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列特徴の抽出規則を指定する。
 string_filter_rulesなどと同様、複数の規則を羅列する。
 各規則は、&#8221;key&#8221;, &#8220;type&#8221;, &#8220;sample_weight&#8221;, &#8220;global_weight&#8221;からなる辞書で指定する。
@@ -658,7 +658,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </div>
 </div>
 <div class="section" id="feature-extraction-from-numbers">
-<h2>Feature Extraction from Numbers<a class="headerlink" href="#feature-extraction-from-numbers" title="Permalink to this headline">¶</a></h2>
+<h2>Feature Extraction from Numbers<a class="headerlink" href="#feature-extraction-from-numbers" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>数値型に対しても、文字列型同様変換ルールを記述する。
 また、数値型に関しても、ユーザー定義の変換器を定義することができる。</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -671,7 +671,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </pre></div>
 </div>
 <div class="section" id="num-types">
-<h3>num_types<a class="headerlink" href="#num-types" title="Permalink to this headline">¶</a></h3>
+<h3>num_types<a class="headerlink" href="#num-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>num_typesで数値データに対しる特徴抽出器を定義する。
 string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt;　からなる辞書を指定する。
 引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
@@ -697,7 +697,7 @@ string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt;　からな�
 
 </div>
 <div class="section" id="num-rules">
-<h3>num_rules<a class="headerlink" href="#num-rules" title="Permalink to this headline">¶</a></h3>
+<h3>num_rules<a class="headerlink" href="#num-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>数値特徴の抽出規則を指定する。
 string_rulesなどと同様、複数の規則を羅列する。
 各規則は、&#8221;key&#8221;, &#8220;type&#8221;からなる辞書で指定する。
@@ -711,7 +711,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。</p>
-<table border="1" class="docutils">
+<table border="1" class="last docutils">
 <colgroup>
 <col width="9%" />
 <col width="91%" />
@@ -743,16 +743,13 @@ string_rulesなどと同様、複数の規則を羅列する。
 </table>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body"><p class="first last">変換後の結果を格納するkeyのサフィックスを指定する。</p>
-</td>
-</tr>
 </tbody>
 </table>
 </div></blockquote>
 </div>
 </div>
 <div class="section" id="hashing-key-of-feature-vector">
-<h2>Hashing Key of Feature Vector<a class="headerlink" href="#hashing-key-of-feature-vector" title="Permalink to this headline">¶</a></h2>
+<h2>Hashing Key of Feature Vector<a class="headerlink" href="#hashing-key-of-feature-vector" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができる。
 特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができるが、ハッシュの衝突により学習精度の低下が発生する可能性がある。</p>
 <p>この機能はデフォルトでは無効である。
@@ -774,7 +771,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。</p>
 </div>
 <div class="section" id="plugins">
-<span id="conversion-plugin-ja"></span><h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<span id="conversion-plugin-ja"></span><h2>Plugins<a class="headerlink" href="#plugins" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>フィルターと抽出器では、それぞれプラグインを利用することができる。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
@@ -902,25 +899,24 @@ re2を利用して、与えられた文書から正規表現を利用してキ�
       <div class="clearer"></div>
     </div>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
         <li class="right" >
           <a href="plugin.html" title="Plugin Development"
-             >next</a> |</li>
+             >次へ</a> |</li>
         <li class="right" >
           <a href="processes.html" title="Architecture"
-             >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011,2013 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Classifier &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,19 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Regression" href="api_regression.html" />
     <link rel="prev" title="Common Data Structures and Methods" href="common_structs.html" /> 
@@ -78,30 +79,29 @@
   </head>
   <body>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
         <li class="right" >
           <a href="api_regression.html" title="Regression"
-             accesskey="N">next</a> |</li>
+             accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="common_structs.html" title="Common Data Structures and Methods"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Classifier</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -111,20 +111,20 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
+  <h4>前のトピックへ</h4>
   <p class="topless"><a href="common_structs.html"
-                        title="previous chapter">Common Data Structures and Methods</a></p>
-  <h4>Next topic</h4>
+                        title="前の章へ">Common Data Structures and Methods</a></p>
+  <h4>次のトピックへ</h4>
   <p class="topless"><a href="api_regression.html"
-                        title="next chapter">Regression</a></p>
-  <h3>This Page</h3>
+                        title="次の章へ">Regression</a></p>
+  <h3>このページ</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/ja/api_classifier.txt"
-           rel="nofollow">Show Source</a></li>
+    <li><a href="_sources/api_classifier.txt"
+           rel="nofollow">ソースコードを表示</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -174,13 +174,13 @@ new TWTR.Widget({
           <div class="body">
             
   <div class="section" id="classifier">
-<h1>Classifier<a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h1>
+<h1>Classifier<a class="headerlink" href="#classifier" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <ul class="simple">
 <li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl">IDL 定義</a> を参照してください。</li>
 <li>使用されているアルゴリズムの詳細については <a class="reference internal" href="method.html"><em>Methods</em></a> を参照してください。</li>
 </ul>
 <div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<h2>Configuration<a class="headerlink" href="#configuration" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>設定は単体の JSON で与えられる。
 JSON の各フィールドは以下のとおりである</p>
 <dl class="describe">
@@ -243,7 +243,7 @@ JSON の各フィールドは以下のとおりである</p>
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
-元論文 <a class="reference internal" href="method.html#crammer06">[Crammer06]</a> における <img class="math" src="../_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
+元論文 <a class="reference internal" href="method.html#crammer06">[Crammer06]</a> における <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
 (Float)</td>
 </tr>
 </tbody>
@@ -257,7 +257,7 @@ JSON の各フィールドは以下のとおりである</p>
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
-元論文 <a class="reference internal" href="method.html#crammer06">[Crammer06]</a> における <img class="math" src="../_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
+元論文 <a class="reference internal" href="method.html#crammer06">[Crammer06]</a> における <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
 (Float)</td>
 </tr>
 </tbody>
@@ -271,7 +271,7 @@ JSON の各フィールドは以下のとおりである</p>
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
-元論文 <a class="reference internal" href="method.html#dredze08">[Dredze08]</a> における <img class="math" src="../_images/math/2c175f60eecef1de7560c3bdea495d69f26f719d.png" alt="\phi"/> に相当する。
+元論文 <a class="reference internal" href="method.html#dredze08">[Dredze08]</a> における <img class="math" src="_images/math/2c175f60eecef1de7560c3bdea495d69f26f719d.png" alt="\phi"/> に相当する。
 (Float)</td>
 </tr>
 </tbody>
@@ -285,7 +285,7 @@ JSON の各フィールドは以下のとおりである</p>
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
-元論文 <a class="reference internal" href="method.html#crammer09b">[Crammer09b]</a> における <img class="math" src="../_images/math/47aef839c19ec285dbd400ba5b1fc7a35255f7ee.png" alt="1/r"/> に相当する。
+元論文 <a class="reference internal" href="method.html#crammer09b">[Crammer09b]</a> における <img class="math" src="_images/math/47aef839c19ec285dbd400ba5b1fc7a35255f7ee.png" alt="1/r"/> に相当する。
 (Float)</td>
 </tr>
 </tbody>
@@ -299,7 +299,7 @@ JSON の各フィールドは以下のとおりである</p>
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
-元論文 <a class="reference internal" href="method.html#crammer10">[Crammer10]</a> における <img class="math" src="../_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
+元論文 <a class="reference internal" href="method.html#crammer10">[Crammer10]</a> における <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
 (Float)</td>
 </tr>
 </tbody>
@@ -343,13 +343,24 @@ JSON の各フィールドは以下のとおりである</p>
 </dl>
 </div>
 <div class="section" id="data-structures">
-<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
-<dl class="describe">
-<dt>
-<tt class="descname">estimate_result</tt></dt>
-<dd><p>分類の結果を表す。
-<tt class="docutils literal"><span class="pre">label</span></tt> は推定されたラベル、 <tt class="docutils literal"><span class="pre">score</span></tt> はそのラベルに付けられた対する確からしさの値である。
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="message">
+<dt id="estimate_result">
+<em class="property">message </em><tt class="descname">estimate_result</tt><a class="headerlink" href="#estimate_result" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>分類の結果を表す。</p>
+<dl class="member">
+<dt id="estimate_result::label__s">
+0: string <tt class="descname">label</tt><a class="headerlink" href="#estimate_result::label__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>推定されたラベルを表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="estimate_result::score__double">
+1: double <tt class="descname">score</tt><a class="headerlink" href="#estimate_result::score__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ラベルに付けられた対する確からしさの値である。
 <tt class="docutils literal"><span class="pre">score</span></tt> の値が大きいほど、より推定されたラベルの信頼性が高いことを意味する。</p>
+</dd></dl>
+
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">estimate_result</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">label</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">score</span>
@@ -360,44 +371,57 @@ JSON の各フィールドは以下のとおりである</p>
 
 </div>
 <div class="section" id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
-<dl class="describe">
+<dl class="service">
 <dt>
-<tt class="descname">int train(0: string name, 1: list&lt;tuple&lt;string, datum&gt; &gt; data)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : labelとdatumで構成される組のリスト</li>
+<em class="property">service </em><tt class="descname">classifier</tt></dt>
+<dd><dl class="method">
+<dt id="classifier::train__s.l:tuple:s.datum::">
+int <tt class="descname">train</tt><big>(</big>0: string <em>name</em>, 1: list&lt;tuple&lt;string, <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt;&gt; <em>data</em><big>)</big><a class="headerlink" href="#classifier::train__s.l:tuple:s.datum::" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>data</strong> &#8211; label と <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> で構成される組のリスト</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>学習した件数 (<tt class="docutils literal"><span class="pre">data</span></tt> の長さに等しい)</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">学習した件数 (<tt class="docutils literal"><span class="pre">data</span></tt> の長さに等しい)</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>学習しモデルを更新する。
-<tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> は、datumとそのlabelの組である。
+<tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> は、 <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> とその label の組である。
 この API は <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">list&lt;list&lt;estimate_result&gt; &gt; classify(0: string name, 1: list&lt;datum&gt; data)</tt></dt>
-<dd><ul class="simple">
-<li>引数:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-<li><tt class="docutils literal"><span class="pre">data</span></tt> : 分類するdatumのリスト</li>
+<dl class="method">
+<dt id="classifier::classify__s.l:datum:">
+list&lt;list&lt;<a class="reference internal" href="#estimate_result" title="estimate_result">estimate_result</a>&gt;&gt; <tt class="descname">classify</tt><big>(</big>0: string <em>name</em>, 1: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>data</em><big>)</big><a class="headerlink" href="#classifier::classify__s.l:datum:" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>data</strong> &#8211; 分類する <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> のリスト</li>
 </ul>
-</li>
-<li>戻り値:<ul>
-<li>estimate_result のリストのリスト (入れられたdatumの順に並ぶ)</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#estimate_result" title="estimate_result"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">estimate_result</span></tt></a> のリストのリスト (入れられた <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> の順に並ぶ)</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>与えられた <tt class="docutils literal"><span class="pre">data</span></tt> から、ラベルを推定する。
-この API は、 <tt class="docutils literal"><span class="pre">datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク分類)。</p>
+この API は、 <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> をリスト形式でまとめて同時に受け付けることができる (バルク分類)。</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -410,26 +434,25 @@ JSON の各フィールドは以下のとおりである</p>
       <div class="clearer"></div>
     </div>
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>ナビゲーション</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
         <li class="right" >
           <a href="api_regression.html" title="Regression"
-             >next</a> |</li>
+             >次へ</a> |</li>
         <li class="right" >
           <a href="common_structs.html" title="Common Data Structures and Methods"
-             >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
-          <li><a href="index_ja.html" >Jubatus : オンライン機械学習向け分散処理フレームワーク</a> &raquo;</li>
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011,2013 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

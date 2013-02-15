@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Regression &mdash; Jubatus</title>
-    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
     
 <script type="text/javascript">
@@ -31,18 +31,18 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.4.0',
+        URL_ROOT:    '',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="../index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Recommender" href="api_recommender.html" />
     <link rel="prev" title="Classifier" href="api_classifier.html" /> 
@@ -81,7 +81,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="api_recommender.html" title="Recommender"
@@ -89,18 +89,18 @@
         <li class="right" >
           <a href="api_classifier.html" title="Classifier"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
-		<a href="../index.html">
+		<a href="index.html">
 			 <div class="title"></div>
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Regression</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -118,12 +118,12 @@
                         title="next chapter">Recommender</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/en/api_regression.txt"
+    <li><a href="_sources/api_regression.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
-              <form class="search" action="../search.html" method="get">
+              <form class="search" action="search.html" method="get">
                 <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
                 <input type="submit" value="Go" class="searchBtn" />
                 <input type="hidden" name="check_keywords" value="yes" />
@@ -199,7 +199,7 @@ You can use these algorithms.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;PA&quot;</span></tt></td>
-<td>Use Passive Agressive. <a class="reference internal" href="../ja/method.html#crammer06">[Crammer06]</a></td>
+<td>Use Passive Agressive. <a class="reference internal" href="method.html#crammer06">[Crammer06]</a></td>
 </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ The bigger it is, more robust to noise, but the more error remain.
 <tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">Sensitivity to learning rate.
 The bigger it is, the ealier you can train, but more sensitive to noise.
-It corresponds to <img class="math" src="../_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> in the original paper <a class="reference internal" href="../ja/method.html#crammer06">[Crammer06]</a>.
+It corresponds to <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> in the original paper <a class="reference internal" href="method.html#crammer06">[Crammer06]</a>.
 (Float)</td>
 </tr>
 </tbody>
@@ -275,41 +275,54 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
 When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
-<dl class="describe">
+<dl class="service">
 <dt>
-<tt class="descname">int train(0: string name, 1: list&lt;tuple&lt;float, datum&gt; &gt; train_data)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">train_data</span></tt> : list of tuple of label and datum</li>
+<em class="property">service </em><tt class="descname">regression</tt></dt>
+<dd><dl class="method">
+<dt id="regression::train__s.l:tuple:float.datum::">
+int <tt class="descname">train</tt><big>(</big>0: string <em>name</em>, 1: list&lt;tuple&lt;float, <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt;&gt; <em>train_data</em><big>)</big><a class="headerlink" href="#regression::train__s.l:tuple:float.datum::" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>train_data</strong> &#8211; list of tuple of label and <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>Number of trained datum (i.e., the length of the <tt class="docutils literal"><span class="pre">train_data</span></tt>)</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Number of trained datum (i.e., the length of the <tt class="docutils literal"><span class="pre">train_data</span></tt>)</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Trains and updates the model.
-<tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of datum and its value.
+<tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> and its value.
 This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt>.</p>
 </dd></dl>
 
-<dl class="describe">
-<dt>
-<tt class="descname">list&lt;float&gt;  estimate(0: string name, 1: list&lt;datum&gt;  estimate_data)</tt></dt>
-<dd><ul class="simple">
-<li>Parameters:<ul>
-<li><tt class="docutils literal"><span class="pre">name</span></tt> : string value to uniquely identifies a task in the ZooKeeper cluster</li>
-<li><tt class="docutils literal"><span class="pre">estimate_data</span></tt> : list of datum to estimate</li>
+<dl class="method">
+<dt id="regression::estimate__s.l:datum:">
+list&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>0: string <em>name</em>, 1: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>estimate_data</em><big>)</big><a class="headerlink" href="#regression::estimate__s.l:datum:" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+<li><strong>estimate_data</strong> &#8211; list of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to estimate</li>
 </ul>
-</li>
-<li>Returns:<ul>
-<li>List of estimated values, in order of given datum</li>
-</ul>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Reutrn :</th><td class="field-body"><p class="first last">List of estimated values, in order of given <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Estimates the value from given <tt class="docutils literal"><span class="pre">estimate_data</span></tt>.
-This API is designed to allow bulk estimation with list of <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
+This API is designed to allow bulk estimation with list of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -325,7 +338,7 @@ This API is designed to allow bulk estimation with list of <tt class="docutils l
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
           <a href="api_recommender.html" title="Recommender"
@@ -333,7 +346,7 @@ This API is designed to allow bulk estimation with list of <tt class="docutils l
         <li class="right" >
           <a href="api_classifier.html" title="Classifier"
              >previous</a> |</li>
-        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
           <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>
