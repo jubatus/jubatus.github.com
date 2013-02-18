@@ -2,7 +2,7 @@ Building Jubatus from Source
 ============================
 
 We recommend using binary packages (see :doc:`quickstart`) whenever possible, but you can of course build Jubatus from source.
-`jubatus-installer <https://github.com/odasatoshi/jubatus-installer>`_ may help your installation from source.
+`jubatus-installer <https://github.com/jubatus/jubatus-installer>`_ may help your installation from source.
 
 .. _requirements:
 
