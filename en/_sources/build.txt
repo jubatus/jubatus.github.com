@@ -11,13 +11,14 @@ Requirements
 
 You need ``gcc`` (version 4.4 or later), ``pkg-config`` (version 0.26 or later) and ``python`` (version 2.6 or later, used in ``waf``) to build Jubatus from source.
 In addition, following libraries are required.
+For supported version of libraries, refer to the `Jubatus Wiki <https://github.com/jubatus/jubatus/wiki/Supported-Library-Versions>`_.
 
 =================== ========== ========= ======================================================
 Software            Version    Mandatory Note
 =================== ========== ========= ======================================================
 msgpack             >= 0.5.7   ✔
-jubatus-mpio        master     ✔
-jubatus-msgpack-rpc master     ✔         C++ client library must be installed.
+jubatus-mpio        0.4.1      ✔
+jubatus-msgpack-rpc 0.4.0-p1   ✔         C++ client library must be installed.
 pficommon           master     ✔         msgpack-rpc (mprpc) must be enabled.
 google-glog         >= 0.3.2   ✔
 mecab               >= 0.99              Required when configured with ``--enable-mecab``.
@@ -47,24 +48,29 @@ Here's an example on Ubuntu 12.04 systems.
 
 ::
 
-  $ sudo aptitude install build-essential git-core
+  $ sudo apt-get install build-essential git-core pkg-config
 
-  $ sudo aptitude install libmsgpack-dev
+  $ sudo apt-get install libmsgpack-dev
 
-  $ git clone https://github.com/jubatus/jubatus-mpio.git
-  $ cd jubatus-mpio
-  $ ./bootstrap && ./configure && make
+  $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
+  $ tar xzf jubatus_mpio-0.4.1.tar.gz
+  $ cd jubatus_mpio-0.4.1
+  $ ./configure
+  $ make
   $ sudo make install
   $ cd ..
 
-  $ git clone https://github.com/jubatus/jubatus-msgpack-rpc.git
-  $ cd jubatus-msgpack-rpc/cpp
-  $ ./bootstrap && ./configure && make
+  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.0-p1.tar.gz
+  $ tar xzf jubatus_msgpack-rpc-0.4.0-p1.tar.gz
+  $ cd jubatus_msgpack-rpc-0.4.0-p1
+  $ ./configure
+  $ make
   $ sudo make install
   $ cd ..
 
-  $ git clone https://github.com/pfi/pficommon.git
-  $ cd pficommon
+  $ wget -O pficommon-master.tar.gz https://github.com/pfi/pficommon/archive/master.tar.gz
+  $ tar xzf pficommon-master.tar.gz
+  $ cd pficommon-master
   $ ./waf configure
     -> ensure that pficommon is configured with msgpack-rpc support enbabled ("MessagePack RPC module: yes")
   $ ./waf build
@@ -72,8 +78,10 @@ Here's an example on Ubuntu 12.04 systems.
   $ cd ..
 
   $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
+  $ tar xzf glog-0.3.2.tar.gz
   $ cd glog-0.3.2
-  $ ./configure && make
+  $ ./configure
+  $ make
   $ sudo make install
   $ cd ..
 
@@ -81,13 +89,15 @@ Now build Jubatus.
 
 ::
 
-  $ git clone https://github.com/jubatus/jubatus.git
-  $ cd jubatus
+  $ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
+  $ tar xzf jubatus-master.tar.gz
+  $ cd jubatus-master
   $ ./waf configure --disable-re2
   $ ./waf build
   $ sudo ./waf install
+  $ sudo ldconfig
 
-As this is a minimal configuration (see ``./waf configure --help`` for other configuration options available), some features like clustering and feature extraction plugins are not available.
+As this is a minimal configuration (see ``./waf configure --help`` for other configuration options available), some features like distributed mode and feature extraction plugins are not available.
 
 Other Environments
 ~~~~~~~~~~~~~~~~~~
