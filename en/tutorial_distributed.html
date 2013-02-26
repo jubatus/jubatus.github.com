@@ -290,8 +290,8 @@ In this tutorial, you will execute some processes on each server as shown in the
 [192.168.0.33]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon</pre>
 </div>
 <p>Now send commands from <tt class="docutils literal"><span class="pre">jubactl</span></tt> to <tt class="docutils literal"><span class="pre">jubavisor</span></tt>.</p>
-<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-[192.168.0.1]$ jubactl -c status --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+[192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
 active jubaclassifier_keeper members:
  192.168.0.101_9199
  192.168.0.102_9199
@@ -312,7 +312,7 @@ Now run clients simultaneously, from multiple hosts.</p>
 [192.168.0.103]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199</pre>
 </div>
 <p>You can also stop instance of Jubatus server from <tt class="docutils literal"><span class="pre">jubactl</span></tt>.</p>
-<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
 </div>
 </div>
 </div>

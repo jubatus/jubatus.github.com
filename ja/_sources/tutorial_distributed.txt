@@ -157,8 +157,8 @@ Jubavisor: Process Management Agent
 
 ::
 
-    [192.168.0.1]$ jubactl -c start  --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-    [192.168.0.1]$ jubactl -c status --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+    [192.168.0.1]$ jubactl -c start  --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+    [192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
     active jubaclassifier_keeper members:
      192.168.0.101_9199
      192.168.0.102_9199
@@ -185,4 +185,4 @@ members の表示から、サーバが起動していることが分かります
 
 ::
 
-    [192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+    [192.168.0.1]$ jubactl -c stop --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181

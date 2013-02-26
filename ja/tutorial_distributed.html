@@ -292,8 +292,8 @@ ZooKeeper のクライアントを用いて、3 つのプロセスが ZooKeeper 
 [192.168.0.33]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">jubactl</span></tt> から <tt class="docutils literal"><span class="pre">jubavisor</span></tt> に命令を送信してみましょう。</p>
-<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-[192.168.0.1]$ jubactl -c status --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+[192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
 active jubaclassifier_keeper members:
  192.168.0.101_9199
  192.168.0.102_9199
@@ -314,7 +314,7 @@ active tutorial members:
 [192.168.0.103]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199</pre>
 </div>
 <p>なお、Jubatus サーバの停止も <tt class="docutils literal"><span class="pre">jubactl</span></tt> から行うことができます。</p>
-<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=classifier --type=classifier --name=tutorial --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
 </div>
 </div>
 </div>
