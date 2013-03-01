@@ -99,6 +99,15 @@
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions (FAQs)</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#anomaly-detection">Anomaly detection</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="idl_support.html"
                         title="previous chapter">IDL Support Status (2013 Feb.)</a></p>
@@ -137,42 +146,82 @@
             
   <div class="section" id="frequently-asked-questions-faqs">
 <h1>Frequently Asked Questions (FAQs)<a class="headerlink" href="#frequently-asked-questions-faqs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Failed in <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configre</span></tt> with ...</li>
 </ul>
-<div class="highlight-python"><pre>...
-line 298, in load_tool
-     __import__(d)
-   File "/Users/oliner/tmp/jubatus/unittest_gtest.py", line 8
-     C1 = b'#XXX'
-              ^
-SyntaxError: invalid syntax</pre>
+<div class="highlight-python"><pre> ...
+ line 298, in load_tool
+      __import__(d)
+    File "/Users/oliner/tmp/jubatus/unittest_gtest.py", line 8
+      C1 = b'#XXX'
+               ^
+ SyntaxError: invalid syntax
+
+This error occurs when old python. Use python 2.7 or later.</pre>
 </div>
-<p>This error occurs when old python. Use python 2.7 or later.</p>
 <ul class="simple">
 <li>When using python client, &#8220;got socket.error: [Errno 99] Cannot assign requested address&#8221; (or kind of <tt class="docutils literal"><span class="pre">EADDRINUSE</span></tt>)</li>
 </ul>
 <blockquote>
-<div><ul class="simple">
-<li>sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1</li>
-</ul>
-</div></blockquote>
+<div>sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1</div></blockquote>
 <ul class="simple">
 <li>mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?</li>
 </ul>
 <blockquote>
-<div><ul class="simple">
-<li>check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.</li>
-</ul>
-</div></blockquote>
+<div>check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.</div></blockquote>
 <ul class="simple">
 <li>How does &#8216;jubatus&#8217; read?</li>
 </ul>
 <blockquote>
-<div><ul class="simple">
-<li>Please do not run &#8216;say&#8217; command in MacOS.</li>
+<div>Please do not run &#8216;say&#8217; command in MacOS.</div></blockquote>
+</div>
+<div class="section" id="anomaly-detection">
+<h2>Anomaly detection<a class="headerlink" href="#anomaly-detection" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>jubaanomaly only outputs 1.0 or infinity. Why?</li>
 </ul>
+<blockquote>
+<div><p>It might relate to the scaling problem of the input data, in which nearest neighbor search cannot work properly.</p>
+<p>jubaanomaly (as LOF algorithm) depends on euclid LSH which has many parameters related to the scale. If the scale is too large compared to the setting, LSH-based nearest neighbor fails and LOF model does not provide reasonable scores.</p>
+<p>You may avoid such situation by using the following techniques.</p>
+<ul class="simple">
+<li>1: Normalize each feature value</li>
+</ul>
+<p>Nearest neighbor search is affected by the difference in scales of the features. It is better to normalize all of the feature values (limited from 0.0 to 1.0) or starndardize them (to have about 1.0 standard deviation).</p>
+<ul class="simple">
+<li>2: Change parameters for underlying euclid LSH</li>
+</ul>
+<p>Especially, we recommend you to change the most important parameter <tt class="docutils literal"><span class="pre">bin_width</span></tt> for some values.</p>
 </div></blockquote>
+<ul class="simple">
+<li>Why jubaanomaly gets slow after adding many samples?</li>
+</ul>
+<blockquote>
+<div>jubaanomaly (as LOF algorithm) depends on iterations of nearest neighbor search and its default configuration uses euclid LSH for speed-up. However, updating the internal state of the LOF model still takes quadratic time at worst with respect to the number of ever-added samples. For more details, please refer to the original paper <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a> .</div></blockquote>
+<ul class="simple">
+<li>How to avoid such speed down?</li>
+</ul>
+<blockquote>
+<div><p>You can control the trade-off between speed and accuracy by using the following techniques.</p>
+<ul class="simple">
+<li>1: Modify baseline euclid LSH with lower accuracy and faster computation</li>
+</ul>
+<blockquote>
+<div>By reducing the parameters values of (euclid) LSH such as <tt class="docutils literal"><span class="pre">lsh_num</span></tt>, <tt class="docutils literal"><span class="pre">table_num</span></tt>, <tt class="docutils literal"><span class="pre">probe_num</span></tt>, or <tt class="docutils literal"><span class="pre">bin_width</span></tt>, you can make neighbor nearest computation faster with lower accuracy, in which some more nearest samples might be ignored. This may affect the final anomaly score in comparison with the ground truth in which everything is computed in batch-processing manner.</div></blockquote>
+<ul class="simple">
+<li>2: Use <tt class="docutils literal"><span class="pre">calc_score</span></tt> for just obtaining anomaly score</li>
+</ul>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">add</span></tt> function really appends the sample to the nearest neighbor storage, update the LOF model, and calculate its LOF value. On the other hand, <tt class="docutils literal"><span class="pre">calc_score</span></tt> function just computes an LOF value for the input sample based on the current LOF model, which works much faster. If you can assume that the data distribution is almost stable, we recommend you to use only <tt class="docutils literal"><span class="pre">add</span></tt> at the early stage to make a valid LOF model as early as possible, say, until 1000 samples are stored in the storage. Then you can swith two functions, with more freuquent <tt class="docutils literal"><span class="pre">calc_score</span></tt>. For example, it would work fine and much faster with the ratio <tt class="docutils literal"><span class="pre">add</span></tt> : <tt class="docutils literal"><span class="pre">calc_score</span></tt> = 1:100.</div></blockquote>
+<ul class="simple">
+<li>3: Decrease <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt></li>
+</ul>
+<blockquote>
+<div>It also reduces the computation time for LOF. However, the number should not be smaller than <tt class="docutils literal"><span class="pre">nearest_neighbornum</span></tt> .</div></blockquote>
+</div></blockquote>
+</div>
 </div>
 
 
