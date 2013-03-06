@@ -12,7 +12,7 @@ Jubatus is a distributed processing framework and streaming machine learning lib
 Get Jubatus
 -----------
 
-The latest version of Jubatus is |release|. Jubatus is distributed under LGPL v2.1.
+The latest version of Jubatus is |release| (`ChangeLog <https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst>`_). Jubatus is distributed under LGPL v2.1.
 
 * Download Source: `TAR <https://github.com/jubatus/jubatus/tarball/master>`_ / `ZIP <https://github.com/jubatus/jubatus/zipball/master>`_ / `Git <https://github.com/jubatus/jubatus.git>`_
 * Binary Packages: see :doc:`quickstart`

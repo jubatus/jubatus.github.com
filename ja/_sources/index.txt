@@ -12,7 +12,7 @@ Jubatus は以下の特徴を持ったオンライン機械学習向け分散処
 Get Jubatus
 -----------
 
-Jubatus の最新バージョンは |release| です。Jubatus は LGPL v2.1 の下で配布されています。
+Jubatus の最新バージョンは |release| (`ChangeLog <https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst>`_) です。Jubatus は LGPL v2.1 の下で配布されています。
 
 * ソースコードのダウンロード: `TAR <https://github.com/jubatus/jubatus/tarball/master>`_ / `ZIP <https://github.com/jubatus/jubatus/zipball/master>`_ / `Git <https://github.com/jubatus/jubatus.git>`_
 * バイナリパッケージ: :doc:`quickstart` をご覧ください。
