@@ -1,4 +1,4 @@
-.. _conversion-ja:
+.. _conversion:
 
 Data Conversion
 ===============
@@ -62,6 +62,8 @@ datumには2つのkey-valueが存在する。
       ("user/income", 100000)
     ]
   )
+
+キーの名前に "$" 記号を含めることはできない。
 
 例えばC++から利用する場合、datumは ``std::vector<std::pair<std::string, std::string> >`` と、 ``std::vector<std::pair<std::stirng, double> >`` の2つの要素からなっている。
 ここでは、 ``std::pair<T,U>`` をPython風のタプルで、 ``std::vector<T>`` をPython風のリストで表している。
@@ -161,7 +163,7 @@ string_filter_types
  正規表現にマッチした部分を、指定した文字列に変換する。このフィルターは ``--disable-re2`` 付きでコンパイルすると利用できない。
 
   :pattern:  マッチさせる正規表現を指定する。re2を利用するため、利用できる表現はre2のマニュアルを参照する。
-  :replace:  置き換え後の文字列を指定する。                                                                
+  :replace:  置き換え後の文字列を指定する。
 
  HTMLのすべてのタグを消すには、例えば以下のようなstring_filter_typeを宣言すればよいだろう。
 
@@ -180,7 +182,6 @@ string_filter_types
   :function:  プラグインの呼び出し関数を指定する。この値はプラグインによって異なる。
 
 
-
 string_filter_rules
 ~~~~~~~~~~~~~~~~~~~
 
@@ -188,16 +189,17 @@ string_filter_rules
 規則は指定された順に評価される。
 datum がある規則の条件を満たした場合、そのルールが適用され、変換後の値が datum に追加される。
 規則は、元の datum と、それまでにフィルター規則で追加された値の両方に適用される。
-各規則は"key", "type", "suffix"の要素からなる辞書を指定する。
+各規則は"key", "except" (オプション), "type", "suffix"の要素からなる辞書を指定する。
 
  :key:       datumの各要素のどのkeyとマッチさせるかを指定する。詳細は後述する。
+ :except:    key のマッチから除外するパターンを指定する。このパラメタは省略可能である。この詳細は後述する。
  :type:      利用するフィルター名を指定する。これは "string_filter_types" の項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。
  :suffix:    変換後の結果を格納するkeyのサフィックスを指定する。例えばsuffixに"-detagged"が指定され、"name"という名前のkeyに規則が適用された場合、結果は"name-detagged"という名前のkeyに格納される。
 
-"key"の要素は以下の内のいずれかのフォーマットで指定する。
+"key"および"except"の要素は以下のうちのいずれかのフォーマットで指定する。
 但し、datumの全要素に対して、すべての規則が適用されるかチェックされる。
 したがって、複数の規則がマッチした場合は両方の規則が適用されて、複数のフィルター済みの値が追加されることに注意する。
-なお、"key"に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。
+なお、"key"および"except"に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。
 
  ============= ====================
  値            意味
@@ -209,6 +211,8 @@ datum がある規則の条件を満たした場合、そのルールが適用�
  その他        以上のいずれでもない場合は、与えられた文字列と一致するkeyのみにマッチする。
  ============= ====================
 
+"except" が与えられ、かつ "key" と "except" の双方にマッチした場合は、そのルールはスキップされる。
+例えば、{"key": "*", "except": "foo", ... } のようにすれば「"foo" 以外のすべてのキーにマッチする規則」を定義することができる。
 
 num_filter_types
 ~~~~~~~~~~~~~~~~
@@ -237,15 +241,16 @@ num_filter_rules
 ~~~~~~~~~~~~~~~~
 
 こちらも、string_filter_rules同様、フィルターの適用規則を指定する。
-規則は複数からなり、各規則は"key", "type", "suffix"の要素からなる辞書を指定する。
+規則は複数からなり、各規則は"key", "except" (オプション), "type", "suffix"の要素からなる辞書を指定する。
 
  :key:       datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。
+ :except:    key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。
  :type:      利用するフィルター名を指定する。これはstring_filter_typesの項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。
  :suffix:    変換後の結果を格納するkeyのサフィックスを指定する。
 
-"key"の指定の仕方は、string_filter_rulesを参照のこと。
+"key"と"except"の指定の仕方は、string_filter_rulesを参照のこと。
 
-.. _construct-ja:
+.. _construct:
 
 Feature Extraction from Strings
 -------------------------------
@@ -272,6 +277,7 @@ string_types
 string_typesで文字列特徴抽出器を定義する。
 主に、パスなどの引数を指定しなければならない特徴抽出器は、一度string_typesで指定してから利用しなければならない。
 string_filter_typesなどと同様、<抽出器名>:<引数> からなる辞書を指定する。
+抽出器名に "@" 文字を含むことはできない。
 引数は文字列から文字列への辞書で、必ず"method"を指定する必要がある。
 それ以外に必要な引数は"method"に応じて異なる。
 指定できる"method"の値と、それぞれに対応した引数は以下のとおりである。
@@ -304,12 +310,13 @@ string_rules
 
 文字列特徴の抽出規則を指定する。
 string_filter_rulesなどと同様、複数の規則を羅列する。
-各規則は、"key", "type", "sample_weight", "global_weight"からなる辞書で指定する。
+各規則は、"key", "except" (オプション), "type", "sample_weight", "global_weight"からなる辞書で指定する。
 文字列データの場合、与えられた文字列から特徴量を抽出し、そこに対して重みを設定する必要がある。
 重みの設定の仕方を決めるのが、"sample_weight"と"global_weight"の2つのパラメータである。
 実際に利用する重みは、2つの重みの積を重み付けとして利用する。
 
  :key:            datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照。
+ :except:         key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。
  :type:           利用する抽出器名を指定する。これはstring_typesの項で作った抽出器名を指定する。また、以下の抽出器はデフォルトで利用できる。
 
     ============= =====================
@@ -381,16 +388,12 @@ num_rules
 
 数値特徴の抽出規則を指定する。
 string_rulesなどと同様、複数の規則を羅列する。
-各規則は、"key", "type"からなる辞書で指定する。
+各規則は、"key", "except" (オプション), "type"からなる辞書で指定する。
 重みの付け方や特徴名の指定の仕方もそれぞれの"type"ごとに異なる。
 
- :key:
-
-   datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。
-
- :type:
-
-   利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。
+ :key:    datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。
+ :except: key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。
+ :type:   利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。
 
    ============ =====================
    値           意味
@@ -427,7 +430,7 @@ Jubatus では特徴ベクトルのキーをハッシュ化することでメモ
 最適な ``hash_max_size`` の値は、使用するデータセットおよび環境により異なる。
 ``hash_max_size`` が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。
 
-.. _conversion_plugin-ja:
+.. _conversion_plugin:
 
 Plugins
 -------
@@ -447,11 +450,11 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
 .. describe:: libmecab_splitter.so
 
  string_typesで指定できる。
- MeCabを利用して文書を単語分割し、各単語を特徴量として利用する。 
+ `MeCab <http://code.google.com/p/mecab/>`_ を利用して文書を単語分割し、各単語を特徴量として利用する。
  ``--enable-mecab`` オプション付きでコンパイルした場合のみ利用可能である。
 
   :function:   "create"を指定する。
-  :arg:        MeCabエンジンに渡す引数を指定する。この指定がないと、MeCabのデフォルト設定で動作する。
+  :arg:        MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
                引数の指定の仕方は、 `MeCab のドキュメント <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ を参照すること。
 
  .. code-block:: js
@@ -468,12 +471,12 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
 .. describe:: libux_splitter.so
 
  string_typesで指定できる。
- ux-trieを利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
+ `ux-trie <http://code.google.com/p/ux-trie/>`_ を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
  単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
  ``--enable-ux`` オプション付きでコンパイルした場合のみ利用可能である。
 
   :function:   "create"を指定する。
-  :dict_path:  1行1キーワードで書かれた辞書ファイルの場所を、フルパスで指定する。
+  :dict_path:  1行1キーワードで書かれたテキスト形式の辞書ファイルを、フルパスで指定する。
 
  .. code-block:: js
 
@@ -482,16 +485,17 @@ Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグ
           "method": "dynamic",
           "path": "libux_splitter.so",
           "function": "create",
-          "dict_path": "/path/to/keyword/dic"
+          "dict_path": "/path/to/keyword/dic.txt"
         }
       }
 
 .. describe:: libre2_splitter.so
 
  string_typesで指定できる。
- re2を利用して、与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。
+ `re2 <http://code.google.com/p/re2/>`_ を利用して、与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。
  正規表現マッチは連続的に行われ、マッチした  箇所全てを特徴として使う。
- ``--disable-re2`` オプションを **指定せずに** でコンパイルした場合のみ利用可能である。
+ 利用可能な正規表現は `re2 のドキュメント <http://code.google.com/p/re2/wiki/Syntax>`_ を参照すること。
+ ``--disable-re2`` オプションを **指定せずに** コンパイルした場合のみ利用可能である。
 
   :function:  "create"を指定する。
   :pattern:    マッチさせる正規表現を指定する。

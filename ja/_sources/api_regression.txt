@@ -55,7 +55,7 @@ JSON の各フィールドは以下のとおりである
        "method": "PA",
        "parameter" : {
          "sensitivity" : 0.1,
-         "regularization_weight" : 1.0
+         "regularization_weight" : 3.402823e+38
        },
        "converter" : {
          "string_filter_types" : {},

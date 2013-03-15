@@ -1,4 +1,4 @@
-.. _how_to_get_clients-ja:
+.. _how_to_get_clients:
 
 How to Get Clients
 -------------------------------------

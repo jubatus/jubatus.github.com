@@ -18,7 +18,7 @@ Software            Version    Mandatory Note
 =================== ========== ========= ======================================================
 msgpack             >= 0.5.7   ✔
 jubatus-mpio        0.4.1      ✔
-jubatus-msgpack-rpc 0.4.0-p1   ✔         C++ client library must be installed.
+jubatus-msgpack-rpc 0.4.1      ✔         C++ client library must be installed.
 pficommon           master     ✔         msgpack-rpc (mprpc) must be enabled.
 google-glog         >= 0.3.2   ✔
 mecab               >= 0.99              Required when configured with ``--enable-mecab``.
@@ -60,9 +60,9 @@ Here's an example on Ubuntu 12.04 systems.
   $ sudo make install
   $ cd ..
 
-  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.0-p1.tar.gz
-  $ tar xzf jubatus_msgpack-rpc-0.4.0-p1.tar.gz
-  $ cd jubatus_msgpack-rpc-0.4.0-p1
+  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.1.tar.gz
+  $ tar xzf jubatus_msgpack-rpc-0.4.1.tar.gz
+  $ cd jubatus_msgpack-rpc-0.4.1
   $ ./configure
   $ make
   $ sudo make install

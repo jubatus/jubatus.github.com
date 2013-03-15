@@ -4,7 +4,6 @@ Classifier
 * 詳細な仕様は `IDL 定義 <https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl>`_ を参照してください。
 * 使用されているアルゴリズムの詳細については :doc:`method` を参照してください。
 
-
 Configuration
 ~~~~~~~~~~~~~
 
@@ -88,7 +87,7 @@ JSON の各フィールドは以下のとおりである
   .. code-block:: javascript
 
      {
-       "method" : "perceptron",
+       "method" : "AROW",
        "parameter" : {
          "regularization_weight" : 1.0
        },
@@ -107,7 +106,6 @@ JSON の各フィールドは以下のとおりである
          ]
        }
      }
-
 
 
 Data Structures

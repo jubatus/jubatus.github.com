@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -104,6 +104,7 @@
   <ul>
 <li><a class="reference internal" href="#">Common Data Structures and Methods</a><ul>
 <li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
@@ -159,7 +160,8 @@ See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em
 <dt id="datum::string_values__l:tuple:s.s::">
 0: list&lt;tuple&lt;string, string&gt;&gt; <tt class="descname">string_values</tt><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="Permalink to this definition">¶</a></dt>
 <dd><p>Input data represented in string.
-It is represented as key-value pairs of data.</p>
+It is represented as key-value pairs of data.
+Name of keys cannot contain &#8220;$&#8221; sign.</p>
 </dd></dl>
 
 <dl class="member">
@@ -177,6 +179,44 @@ It is represented as key-value pairs of data.</p>
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">constructor(string host, int port, int timeout_sec)</tt></dt>
+<dd><p>Creates a new RPC client instance.
+<tt class="docutils literal"><span class="pre">timeout_sec</span></tt> is a length of timeout between the RPC method invocation and response.</p>
+<p>Currently, you cannot specify <tt class="docutils literal"><span class="pre">timeout_sec</span></tt> for Python and Ruby clients.</p>
+<p>Example usage of constructors are as follows:</p>
+</dd></dl>
+
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">// C++</span>
+<span class="cp">#include &lt;jubatus/client.hpp&gt;</span>
+<span class="k">using</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">classifier</span><span class="o">::</span><span class="n">client</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+<span class="c1">// ...</span>
+<span class="n">classifier</span> <span class="n">client</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Python</span>
+<span class="kn">from</span> <span class="nn">jubatus.classifier.client</span> <span class="kn">import</span> <span class="n">classifier</span>
+<span class="c"># ...</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="sr">//</span> <span class="no">Ruby</span>
+<span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
+<span class="kp">include</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span><span class="sr"></span>
+<span class="sr">// ...</span>
+<span class="sr">client = Classifier.new(&quot;localhost&quot;, 9199)</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="c1">// Java</span>
+<span class="kn">import</span> <span class="nn">us.jubat.classifier.ClassifierClient</span><span class="o">;</span>
+<span class="c1">// ...</span>
+<span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">9199</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
@@ -225,6 +265,26 @@ bool <tt class="descname">load</tt><big>(</big>0: string <em>name</em>, 1: strin
 </dd></dl>
 
 <dl class="method">
+<dt id="clear__s">
+bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#clear__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when the model was cleared successfully</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Completely clears the model at <strong>ALL</strong> servers.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="get_config__s">
 string <tt class="descname">get_config</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#get_config__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -264,6 +324,23 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt
 </table>
 <p>Returns server status from <strong>ALL</strong> servers.
 Each server is represented by a pair of host name and port.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_client">
+mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#get_client" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">MessagePack-RPC client instance</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the reference to the raw MessagePack-RPC client instance which is used by Jubatus client libraries.
+This is not an RPC method.</p>
+<p>The common use case of this method is to close the TCP connection explicitly or to change the timeout.</p>
+<p><tt class="docutils literal"><span class="pre">mprpc_client</span></tt> is a type of MessagePack-RPC client that is different between languages (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>).</p>
 </dd></dl>
 
 </div>

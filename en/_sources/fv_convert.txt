@@ -63,6 +63,8 @@ The following is an example of a datum.
     ]
   )
 
+Name of keys cannot contain "$" sign.
+
 For example, a datum consists of ``std::vector<std::pair<std::string, std::string> >`` and  ``std::vector<std::pair<std::stirng, double> >`` in C++.
 ``std::pair<T,U>`` (resp.  ``std::vector<T>``) is to C++ what tuple (resp. vector) is to Python.
 
@@ -176,7 +178,6 @@ The followings are available values of "method" and keys that must be specified.
 
  Use a plugin. See below for further detail.
 
-
   :path:      Specifies a path to the plugin.
   :function:  Specifies a function to be called in a plugin. It depends on the plugin.
 
@@ -188,16 +189,17 @@ Specifies rules how to apply filters.
 The rules are checked in order.
 If a datum is matched to a rule, the corresponding filter is applied and a converted value is stored to the datum.
 Application is called recursively, that is, rest of filters is applied to the original values and the converted values.
-Each rule is represented as a dictionary whose keys are "key", "type" and "suffix".
+Each rule is represented as a dictionary whose keys are "key", "except" (optional), "type" and "suffix".
 
  :key:       Specifies to which keys in a datum we apply the rule. We describe it in datail later.
+ :except:    Specifies which keys to exclude from the match. This is an optional parameter. We describe it in datail later.
  :type:      Specidies the name of the filter used. This filter must de defined in "string_filter_types". No filters are available by default.
  :suffix:    Specifies a suffix of a key where the result of filtering is stored. For example, if "suffix" is "-detagged" and a filter is applied to "name" key in a datum, the result is stored in "name-detagged" key.
 
-"key" is specified in one of the following formats.
+"key" and "except" can be specified in one of the following formats.
 For each key in a datum, all rules checked to be applicable.
 It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
-Every "key" in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.
+Every "key" and "except" in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.
 
  ============= ====================
  Value         Meaning
@@ -209,6 +211,8 @@ Every "key" in this document is in the same format. Similarly, it happens that m
  otherwise     If the key is none of the above, it matches to keys that are identical to the given string.
  ============= ====================
 
+When "except" is specified and both "key" and "except" matched, the rule will be skipped.
+For example, by using {"key": "*", "except": "foo", ... }, you can define the rule which will be applied for every keys other than "foo".
 
 num_filter_types
 ~~~~~~~~~~~~~~~~
@@ -237,13 +241,14 @@ num_filter_rules
 ~~~~~~~~~~~~~~~~
 
 Like "string_filter_rules", it specifies rules how to apply filters.
-Each rule is a dictionary whose keys are "key", "type" and "suffix".
+Each rule is a dictionary whose keys are "key", "except" (optional), "type" and "suffix".
 
  :key:       Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
+ :except:    Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in "string_filter_rules" section.
  :type:      Specidies a name of a filter used. This filter must de defined in "string_filter_types". No filter is available if no filter is defined in "string_filter_types".
  :suffix:    Specifies a suffix of a key where the result of a filtering is stored. For example, if "suffix" is "-detagged" and a filter is applied to "name" key in a datum, the result is stored in "name-detagged" key.
 
-Format of "key" is written in "string_filter_rules" section.
+Format of "key" and "except" is written in "string_filter_rules" section.
 
 .. _construct:
 
@@ -272,6 +277,7 @@ string_types
 Feature extractors of strings are defined in "string_types".
 Some feature extractors must be defined in "string_types". An exapmle of such extractors is one which requires arguments such as path.
 As "string_filter_types", it specifies a dictionary which consists of <extractor name>:<argument>.
+Name of extractors cannot contain "@" sign.
 <argument> is a dictionary whose key and value are both strings and it must contain a key named "method".
 The rest of the keys in <argument> are dependent on the value of "method".
 The followings are available values of "method" and keys that must be specified.
@@ -304,12 +310,13 @@ string_rules
 
 Specifies how to extract string features.
 As "string_filter_rules", it consists of multiple rules.
-Each rule is a dictionary whose keys are "key", "type", "sample_weight" and "global_weight".
+Each rule is a dictionary whose keys are "key", "except" (optional), "type", "sample_weight" and "global_weight".
 These rules specifies how we extract rules from given strings and their weights used in calculating scores.
 A weight is calculated with two parameters, "sample_weight" and "global_weight".
 In concrete, the weight is the product of these two weights.
 
  :key:       Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
+ :except:    Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in "string_filter_rules" section.
  :type:      Specifies the name of an extractor in use. The extractor is either one defined in "string_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
 
     ============= =====================
@@ -381,16 +388,12 @@ num_rules
 
 Specifies how to extract numeric features.
 As "string_rules", it consists of multiple rules.
-Each rule is a dictionary whose keys are "key" and "type".
+Each rule is a dictionary whose keys are "key", "except" (optional) and "type".
 It depends on "type" how to specify weight and name features.
 
- :key:
- 
-   Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
-
- :type:
- 
-   Specifies the name of extractor in use. The extractor is either one defined in "num_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
+ :key:    Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
+ :except: Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in "string_filter_rules" section.
+ :type:   Specifies the name of extractor in use. The extractor is either one defined in "num_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
 
     ============= =====================
     Value         Meaning
@@ -447,11 +450,11 @@ Note that some plugins are not available depending on your compile options.
 .. describe:: libmecab_splitter.so
 
  We can specify this plugin in "string_types".
- Separate given Japanese document into words by MeCab and use each word as a feature.
+ Separate given Japanese document into words by `MeCab <http://code.google.com/p/mecab/>`_ and use each word as a feature.
  This plugin is available only when compiled with ``--enable-mecab``.
 
   :function:   Specify "create".
-  :arg:        Specify arguments to MeCab engine. "arg" is not specified, Mecab works with default configuration.
+  :arg:        Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). "arg" is not specified, Mecab works with default configuration.
                Refer to the `document of MeCab <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ about how to specify arguments.
 
  .. code-block:: js
@@ -468,12 +471,12 @@ Note that some plugins are not available depending on your compile options.
 .. describe:: libux_splitter.so
 
  We can specify this plugin in "string_types".
- Extract keywords from given document by way of dictionary matching with ux-trie and use each keyword as a feature.
+ Extract keywords from given document by way of dictionary matching with `ux-trie <http://code.google.com/p/ux-trie/>`_ and use each keyword as a feature.
  Matching is a simple longest matching. Note that it is fast but precision may be low. 
  This plugin is available only when compiled with ``--enable-ux``.
 
   :function:   Specifies "create".
-  :dict_path:  Specifies a full path of a dictionary file. The dictionary file consists of keywords, one keyword for one line.
+  :dict_path:  Specifies a full path of a dictionary file. The dictionary file is a text file that consists of keywords, one keyword per one line.
 
  .. code-block:: js
 
@@ -482,15 +485,16 @@ Note that some plugins are not available depending on your compile options.
           "method": "dynamic",
           "path": "libux_splitter.so",
           "function": "create",
-          "dict_path": "/path/to/keyword/dic"
+          "dict_path": "/path/to/keyword/dic.txt"
         }
       }
 
 .. describe:: libre2_splitter.so
 
  We can specify this plugin in "string_types".
- Extract keywords from given document by way of regular expression matching with re2 and use each keyword as a feature.
+ Extract keywords from given document by way of regular expression matching with `re2 <http://code.google.com/p/re2/>`_ and use each keyword as a feature.
  Matching is executed continuously, that is, every match is used as a feature.
+ For list of regular expressions available, refer to the `re2 documentation <http://code.google.com/p/re2/wiki/Syntax>`_.
  This plugin is available only when **NOT** compiled with ``--disable-re2``.
 
   :function:  Specifies "create".

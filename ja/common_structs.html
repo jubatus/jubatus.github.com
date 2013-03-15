@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -105,6 +105,7 @@
   <ul>
 <li><a class="reference internal" href="#">Common Data Structures and Methods</a><ul>
 <li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
@@ -160,7 +161,8 @@
 <dt id="datum::string_values__l:tuple:s.s::">
 0: list&lt;tuple&lt;string, string&gt;&gt; <tt class="descname">string_values</tt><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>文字列で表現される入力データである。
-データのキーと値のペアの集合として表現される。</p>
+データのキーと値のペアの集合として表現される。
+キーの名前に &#8220;$&#8221; 記号を含めることはできない。</p>
 </dd></dl>
 
 <dl class="member">
@@ -178,6 +180,44 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="describe">
+<dt>
+<tt class="descname">constructor(string host, int port, int timeout_sec)</tt></dt>
+<dd><p>新しい RPC クライアントのインスタンスを作成します。
+<tt class="docutils literal"><span class="pre">timeout_sec</span></tt> には RPC メソッドの実行からレスポンスまでのタイムアウト時間を指定します。</p>
+<p>現在、Python と Ruby クライアントでは <tt class="docutils literal"><span class="pre">timeout_sec</span></tt> を指定することができません。</p>
+<p>コンストラクタの利用方法を以下に示します:</p>
+</dd></dl>
+
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">// C++</span>
+<span class="cp">#include &lt;jubatus/client.hpp&gt;</span>
+<span class="k">using</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">classifier</span><span class="o">::</span><span class="n">client</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+<span class="c1">// ...</span>
+<span class="n">classifier</span> <span class="n">client</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Python</span>
+<span class="kn">from</span> <span class="nn">jubatus.classifier.client</span> <span class="kn">import</span> <span class="n">classifier</span>
+<span class="c"># ...</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="sr">//</span> <span class="no">Ruby</span>
+<span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
+<span class="kp">include</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span><span class="sr"></span>
+<span class="sr">// ...</span>
+<span class="sr">client = Classifier.new(&quot;localhost&quot;, 9199)</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="c1">// Java</span>
+<span class="kn">import</span> <span class="nn">us.jubat.classifier.ClassifierClient</span><span class="o">;</span>
+<span class="c1">// ...</span>
+<span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">9199</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -226,6 +266,26 @@ bool <tt class="descname">load</tt><big>(</big>0: string <em>name</em>, 1: strin
 </dd></dl>
 
 <dl class="method">
+<dt id="clear__s">
+bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#clear__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">モデルの削除に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>すべて</strong> のサーバで、モデルを完全に消去する。</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="get_config__s">
 string <tt class="descname">get_config</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#get_config__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -265,6 +325,23 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt
 </table>
 <p><strong>すべての</strong> サーバの内部状態を取得する。
 サーバはホスト名、ポート番号で識別する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_client">
+mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#get_client" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">MessagePack-RPC クライアントインスタンス</td>
+</tr>
+</tbody>
+</table>
+<p>Jubatus クライアントライブラリが利用している内部の MessagePack-RPC クライアントインスタンスに対する参照を返却します。
+これは RPC メソッドではありません。</p>
+<p>このメソッドは、主に TCP 接続を明示的に切断したり、タイムアウトを変更したりするために使用します。</p>
+<p><tt class="docutils literal"><span class="pre">mprpc_client</span></tt> は MessagePack-RPC クライアントの型で、言語により異なります (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>)。</p>
 </dd></dl>
 
 </div>

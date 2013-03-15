@@ -4,7 +4,7 @@ Building Jubatus from Source
 Jubatus をソースからビルドすることは可能ですが、できる限りバイナリパッケージ (:doc:`quickstart` 参照) を使用することを推奨します。
 ソースからビルドする場合は、 `jubatus-installer <https://github.com/jubatus/jubatus-installer>`_ が参考になるでしょう。
 
-.. _requirements-ja:
+.. _requirements:
 
 Requirements
 ------------
@@ -18,7 +18,7 @@ Jubatus をソースからビルドするには、 ``gcc`` (バージョン 4.4 
 =================== ========== ========= ======================================================
 msgpack             >= 0.5.7   ✔
 jubatus-mpio        0.4.1      ✔
-jubatus-msgpack-rpc 0.4.0-p1   ✔         C++ クライアントライブラリが必要である。
+jubatus-msgpack-rpc 0.4.1      ✔         C++ クライアントライブラリが必要である。
 pficommon           master     ✔         msgpack-rpc (mprpc) が有効であること。
 google-glog         >= 0.3.2   ✔
 mecab               >= 0.99              ``--enable-mecab`` ありでビルドする場合のみ。
@@ -60,9 +60,9 @@ Ubuntu 12.04 でのビルドを行う例です。
   $ sudo make install
   $ cd ..
 
-  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.0-p1.tar.gz
-  $ tar xzf jubatus_msgpack-rpc-0.4.0-p1.tar.gz
-  $ cd jubatus_msgpack-rpc-0.4.0-p1
+  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.1.tar.gz
+  $ tar xzf jubatus_msgpack-rpc-0.4.1.tar.gz
+  $ cd jubatus_msgpack-rpc-0.4.1
   $ ./configure
   $ make
   $ sudo make install

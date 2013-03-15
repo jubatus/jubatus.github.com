@@ -39,6 +39,8 @@ Jubatus サーバは機械学習の機能を提供する。
 
    RPC セッションのタイムアウト時間 (秒)。 [10]
 
+   ``0`` はタイムアウトを無効にすることを示す。
+
 .. option:: -d <dirpath>, --datadir <dirpath>
 
    ``save``/``load`` RPC リクエストを受信したときに学習モデルを保存/復元するディレクトリ。 [/tmp]
@@ -137,6 +139,8 @@ Jubatus Keeper は、分散環境においてクライアントからのリク�
 
    RPC セッションのタイムアウト時間 (秒)。 [10]
 
+   ``0`` はタイムアウトを無効にすることを示す。
+
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
@@ -152,6 +156,18 @@ Jubatus Keeper は、分散環境においてクライアントからのリク�
    出力するログの下限を指定する。 [0]
 
    INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。
+
+.. option:: -E <seconds>, --pool_expire <seconds>
+
+   セッション・プールのタイムアウト時間 (秒)。 [60]
+
+   ``0`` はセッションが 1秒以上 利用されなければ、破棄することを示す。
+
+.. option:: -S <num>, --pool_size <num>
+
+   スレッドごとに保持するセッション・プールの最大数。 [0]
+
+   ``0`` は制限を設定しないことを示す。
 
 .. option:: -v, --version
 
@@ -360,7 +376,7 @@ jubaconfig
 Utilities
 ---------
 
-.. _jubaconv-ja:
+.. _jubaconv:
 
 jubaconv
 ~~~~~~~~
@@ -414,7 +430,7 @@ jubaconv
 
    :option:`-o` に ``fv`` が指定されている場合のみ、このオプションを指定する必要がある。
 
-.. _jenerator-ja:
+.. _jenerator:
 
 jenerator
 ~~~~~~~~~

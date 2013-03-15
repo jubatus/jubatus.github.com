@@ -84,7 +84,10 @@ JSON の各フィールドは以下のとおりである
   .. code-block:: javascript
 
      {
-       "method": "inverted_index"
+       "method": "lsh",
+       "parameter" : {
+         "bit_num" : 64
+       },
        "converter" : {
          "string_filter_types": {},
          "string_filter_rules":[],
@@ -98,7 +101,7 @@ JSON の各フィールドは以下のとおりである
          "num_rules": [
            {"key" : "*", "type" : "num"}
          ]
-       },
+       }
      }
 
 
@@ -146,13 +149,6 @@ Methods
       存在しない場合は、新しい行のエントリが作成される。
       更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
       異なるサーバーであれば、mix 後に反映される。
-
-   .. mpidl:method:: bool clear(0: string name)
-
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
-      :return:     モデルの削除に成功した場合 True
-
-      モデルを完全に消去する。
 
    .. mpidl:method:: datum complete_row_from_id(0: string name, 1: string id)
 

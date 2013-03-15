@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -197,6 +197,7 @@ If you have only one ZooKeeper server, just specify <tt class="docutils literal"
 <dt id="cmdoption-server-t">
 <tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout of RPC in seconds. [10]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> means disable timeout.</p>
 </dd></dl>
 
 <dl class="option">
@@ -311,6 +312,7 @@ If you have only one ZooKeeper server, just specify <tt class="docutils literal"
 <dt id="cmdoption-keeper-t">
 <tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout of RPC in seconds. [10]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> means disable timeout.</p>
 </dd></dl>
 
 <dl class="option">
@@ -331,6 +333,20 @@ If you have only one ZooKeeper server, just specify <tt class="docutils literal"
 <tt class="descname">-e</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-keeper-e" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimal level of log to output. [0]</p>
 <p>INFO, WARNING, ERROR, FATAL corresponds to 0, 1, 2, 3, respectively.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-keeper-E">
+<tt class="descname">-E</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_expire</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>Session pool timeout in seconds. [60]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> means that the session is expired if not used for more than one second.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-keeper-S">
+<tt class="descname">-S</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_size</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-keeper-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum size of session pool for each thread. [0]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> means unlimited.</p>
 </dd></dl>
 
 <dl class="option">

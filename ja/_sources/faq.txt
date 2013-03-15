@@ -4,7 +4,9 @@ Frequently Asked Questions (FAQs)
 Installation
 ::::::::::::
 
-- Failed in ``./waf configre`` with ...
+- ``./waf configre`` が以下のエラーで失敗する
+
+ このエラーは古い Python を利用している場合に発生します。Python 2.7 以降を利用してください。
 
 ::
 
@@ -16,56 +18,86 @@ Installation
                 ^
   SyntaxError: invalid syntax
 
- This error occurs when old python. Use python 2.7 or later.
+- ``mecab_splitter.trivial`` と ``mecab_splitter_create.trivial`` の単体テストが通らない
 
-- When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of ``EADDRINUSE``)
+ mecab 辞書と mecab コマンドで UTF-8 が使えるようになっていることを確かめてください。
 
- sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1
+RPC Errors
+::::::::::
 
-- mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?
+- Python クライアントの利用時に、"got socket.error: [Errno 99] Cannot assign requested address" (または ``EADDRINUSE`` など) が発生する
 
- check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
+ このコマンドを試してください: ``sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1``
 
-- How does 'jubatus' read?
+- Jubatus クライアントライブラリが "1" というメッセージの例外を投げる
 
- Please do not run 'say' command in MacOS.
+ インストールした Jubatus クライアントライブラリと接続しようとしている Jubatus サーバのバージョンが非互換である可能性があります。
+ `Jubatus Wiki: Client Compatibility and Documentation <https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation>`_ で互換性情報を確認してください。
 
+ 技術的には、エラー "1" は「RPC サーバ上に指定したメソッドが存在しない」ことを意味しています。
+
+- Jubatus クライアントライブラリが "2" というメッセージの例外を投げる
+
+ このエラーは、クライアントとサーバで型が不一致であることを意味します。
+
+ よくある間違いとして ``num_values`` の値に float ではなく integer を使用してしまうケースがあります。
+ ``num_values`` の値は常に ``float`` にキャストしてください。
+ ``10`` のような数値リテラルは ``10.0`` に置き換えてください。
+ もう一つのよくある間違いは、vector のようなオブジェクトに対して ``NULL`` を代入してしまっているケースがあります。
+
+ このエラーは、インストールした Jubatus クライアントライブラリと接続しようとしている Jubatus サーバのバージョンが非互換である場合にも発生する可能性があります。
+ `Jubatus Wiki: Client Compatibility and Documentation <https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation>`_ で互換性情報を確認してください。
+
+- クライアントライブラリが時々 RPC タイムアウトエラーを投げる (サーバからクライアントが自動切断される)
+
+ Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ :option:`server -t` で設定される) が経過すると自動的に接続を切断します。
+ 接続を再確立するには RPC 呼出しを再実行する必要があります。
+
+ この自動切断機能を無効にするには、 :option:`server -t` を 0 (タイムアウトなし) に設定します。
+ この場合、クライアントは :mpidl:meth:`get_client` を使用して TCP 接続を明示的に切断する必要があります。
 
 Anomaly detection
 :::::::::::::::::
 
-- jubaanomaly only outputs 1.0 or infinity. Why?
+- jubaanomaly が常に 1.0 か無限値 (infinity) を返却する
 
- It might relate to the scaling problem of the input data, in which nearest neighbor search cannot work properly.
+ 入力データのスケールによって近傍探索が正しく動作していない可能性があります。
 
- jubaanomaly (as LOF algorithm) depends on euclid LSH which has many parameters related to the scale. If the scale is too large compared to the setting, LSH-based nearest neighbor fails and LOF model does not provide reasonable scores.
+ jubaanomaly (LOF アルゴリズム) はスケールに関連した様々なパラメタを持つ euclid LSH に依存しています。スケールが設定パラメタに比べて非常に大きい場合、LSH ベースの近傍探索は失敗し、LOF モデルが意味のある値を返却しなくなります。
 
- You may avoid such situation by using the following techniques.
+ 以下のような技法で、この問題を回避できることがあります。
 
- - 1: Normalize each feature value
+ - 1: それぞれの特徴値を正規化する
 
- Nearest neighbor search is affected by the difference in scales of the features. It is better to normalize all of the feature values (limited from 0.0 to 1.0) or starndardize them (to have about 1.0 standard deviation).
+ 近傍探索は各特徴のスケールの違いに影響されます。全ての特徴値を正規化 (0.0 から 1.0 に制限) するか、標準化 (標準偏差が約 1.0 となるように) するのが望ましいでしょう。
 
- - 2: Change parameters for underlying euclid LSH
+ - 2: euclid LSH 側のパラメタを変更する
 
- Especially, we recommend you to change the most important parameter ``bin_width`` for some values.
+ 特に、最も重要なパラメタである ``bin_width`` を変更するとよいでしょう。
 
-- Why jubaanomaly gets slow after adding many samples?
+- 多数のサンプルを投入すると jubaanomaly の動作速度が低下する
 
- jubaanomaly (as LOF algorithm) depends on iterations of nearest neighbor search and its default configuration uses euclid LSH for speed-up. However, updating the internal state of the LOF model still takes quadratic time at worst with respect to the number of ever-added samples. For more details, please refer to the original paper [Breunig2000]_ .
+ jubaanomaly (LOF アルゴリズム) は近傍探索を利用しており、デフォルトの設定では高速化のため euclid LSH が使用されます。しかし、LOF モデルの内部状態を更新するために必要な最悪時間計算量は、今までに追加されたサンプル数の二乗です。詳細については原著論文 [Breunig2000]_ を参照してください。
 
-- How to avoid such speed down?
+- このような速度低下を回避するにはどうすればよいか
 
- You can control the trade-off between speed and accuracy by using the following techniques. 
+ 速度と正確さのトレードオフは、以下のような技法で調整することができます。
 
- - 1: Modify baseline euclid LSH with lower accuracy and faster computation
+ - 1: euclid LSH 側のパラメタを低精度・高速演算するように変更する
 
-  By reducing the parameters values of (euclid) LSH such as ``lsh_num``, ``table_num``, ``probe_num``, or ``bin_width``, you can make neighbor nearest computation faster with lower accuracy, in which some more nearest samples might be ignored. This may affect the final anomaly score in comparison with the ground truth in which everything is computed in batch-processing manner.  
+  ``lsh_num``, ``table_num``, ``probe_num``, ``bin_width`` のような (euclid) LSH のパラメタを小さくすることで、近傍探索の演算が高速になります。ただし、より近傍にあるはずのサンプルが無視される場合があり、バッチ処理のような方式で計算された異常値スコアと比較して精度に影響が出ることがあります。
 
- - 2: Use ``calc_score`` for just obtaining anomaly score
+ - 2: 異常値だけを得たい場合は ``calc_score`` を使用する
 
-  ``add`` function really appends the sample to the nearest neighbor storage, update the LOF model, and calculate its LOF value. On the other hand, ``calc_score`` function just computes an LOF value for the input sample based on the current LOF model, which works much faster. If you can assume that the data distribution is almost stable, we recommend you to use only ``add`` at the early stage to make a valid LOF model as early as possible, say, until 1000 samples are stored in the storage. Then you can swith two functions, with more freuquent ``calc_score``. For example, it would work fine and much faster with the ratio ``add`` : ``calc_score`` = 1:100.
+  ``add`` 関数は実際に近傍探索ストレージにサンプルを追加し、LOF モデルを更新し、そして LOF 値を計算します。一方、 ``calc_score`` 関数は現在の LOF モデルを元に LOF 値を計算するため、高速に動作します。データの分散がほぼ安定していると仮定できるのであれば、初期段階にのみ (例えば最初の 1000 サンプルがストレージに格納されるまで) ``add`` を使用することで、正しい LOF モデルを高速に構築することができます。その後、 ``add`` と ``calc_score`` を切り替えながら (``calc_score`` をより頻繁に) 使用します。例えば、 ``add`` と ``calc_score`` の割合を 1:100 程度にしても高速かつ良好に動作するでしょう。
 
- - 3: Decrease ``reverse_nearest_neighbor_num``
+ - 3: ``reverse_nearest_neighbor_num`` を小さくする
 
-  It also reduces the computation time for LOF. However, the number should not be smaller than ``nearest_neighbornum`` .
+  LOF の計算時間を短縮することができます。ただし、 ``nearest_neighbor_num`` より小さい値にすることはできません。
+
+Miscellaneous
+:::::::::::::
+
+- How does 'jubatus' read?
+
+ Please do not run 'say' command in Mac OS.

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -266,7 +266,10 @@ JSON の各フィールドは以下のとおりである</p>
 <dl class="docutils">
 <dt>例:</dt>
 <dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;inverted_index&quot;</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;lsh&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;bit_num&quot;</span> <span class="o">:</span> <span class="mi">64</span>
+  <span class="p">},</span>
   <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
     <span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span><span class="p">[],</span>
@@ -280,7 +283,7 @@ JSON の各フィールドは以下のとおりである</p>
     <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
       <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
     <span class="p">]</span>
-  <span class="p">},</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -354,26 +357,6 @@ bool <tt class="descname">update_row</tt><big>(</big>0: string <em>name</em>, 1:
 存在しない場合は、新しい行のエントリが作成される。
 更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
 異なるサーバーであれば、mix 後に反映される。</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="recommender::clear__s">
-bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#recommender::clear__s" title="この定義へのパーマリンク">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">モデルの削除に成功した場合 True</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>モデルを完全に消去する。</p>
 </dd></dl>
 
 <dl class="method">

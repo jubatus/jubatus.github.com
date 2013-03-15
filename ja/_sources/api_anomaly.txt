@@ -57,16 +57,16 @@ JSON の各フィールドは以下のとおりである
      {
        "method" : "lof",
        "parameter" : {
-         "nearest_neighbor_num" : 100,
+         "nearest_neighbor_num" : 10,
          "reverse_nearest_neighbor_num" : 30,
          "method" : "euclid_lsh",
          "parameter" : {
-           "lsh_num" : 8,
-           "table_num" : 8,
-           "probe_num" : 8,
-           "bin_width" : 8.2,
-           "seed" : 1234,
-           "retain_projection" : true
+           "lsh_num" : 64,
+           "table_num" : 4,
+           "seed" : 1091,
+           "probe_num" : 64,
+           "bin_width" : 100,
+           "retain_projection" : false
          }
        },
        "converter" : {
@@ -84,7 +84,6 @@ JSON の各フィールドは以下のとおりである
          ]
        }
      }
-
 
 
 Data Structures
@@ -125,13 +124,6 @@ Methods
       :return:     異常値
 
       点 ``id`` をデータ ``row`` で更新する。
-
-   .. mpidl:method:: bool clear(0: string name)
-
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
-      :return:     モデルの削除に成功した場合 True
-
-      モデルを完全に消去する。
 
    .. mpidl:method:: float calc_score(0: string name, 1: datum row)
 

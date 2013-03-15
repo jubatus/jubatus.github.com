@@ -87,7 +87,7 @@ Example:
   .. code-block:: javascript
 
      {
-       "method" : "perceptron",
+       "method" : "AROW",
        "parameter" : {
          "regularization_weight" : 1.0
        },
@@ -106,7 +106,6 @@ Example:
          ]
        }
      }
-
 
 
 Data Structures

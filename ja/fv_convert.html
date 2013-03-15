@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -165,7 +165,7 @@
           <div class="body">
             
   <div class="section" id="data-conversion">
-<span id="conversion-ja"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="conversion"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>一般的に機械学習処理を行う場合、テキストなどの生の非定形データを直接扱うことはできない。
 こうしたデータは事前に特徴抽出というステップを経て、俗に特徴ベクトルと呼ばれる形式に変換される。
 特徴ベクトルの中身は、文字列をキー、数値型を値とするkey-value型としてよい。
@@ -219,6 +219,7 @@ datumには2つのkey-valueが存在する。
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>キーの名前に &#8220;$&#8221; 記号を含めることはできない。</p>
 <p>例えばC++から利用する場合、datumは <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> と、 <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> の2つの要素からなっている。
 ここでは、 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> をPython風のタプルで、 <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt> をPython風のリストで表している。</p>
 </div>
@@ -341,7 +342,7 @@ datumには2つのkey-valueが存在する。
 規則は指定された順に評価される。
 datum がある規則の条件を満たした場合、そのルールが適用され、変換後の値が datum に追加される。
 規則は、元の datum と、それまでにフィルター規則で追加された値の両方に適用される。
-各規則は&#8221;key&#8221;, &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
+各規則は&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -349,17 +350,19 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">datumの各要素のどのkeyとマッチさせるかを指定する。詳細は後述する。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body">利用するフィルター名を指定する。これは &#8220;string_filter_types&#8221; の項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。</td>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。この詳細は後述する。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body">変換後の結果を格納するkeyのサフィックスを指定する。例えばsuffixに&#8221;-detagged&#8221;が指定され、&#8221;name&#8221;という名前のkeyに規則が適用された場合、結果は&#8221;name-detagged&#8221;という名前のkeyに格納される。</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">利用するフィルター名を指定する。これは &#8220;string_filter_types&#8221; の項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">変換後の結果を格納するkeyのサフィックスを指定する。例えばsuffixに&#8221;-detagged&#8221;が指定され、&#8221;name&#8221;という名前のkeyに規則が適用された場合、結果は&#8221;name-detagged&#8221;という名前のkeyに格納される。</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;key&#8221;の要素は以下の内のいずれかのフォーマットで指定する。
+<p>&#8220;key&#8221;および&#8221;except&#8221;の要素は以下のうちのいずれかのフォーマットで指定する。
 但し、datumの全要素に対して、すべての規則が適用されるかチェックされる。
 したがって、複数の規則がマッチした場合は両方の規則が適用されて、複数のフィルター済みの値が追加されることに注意する。
-なお、&#8221;key&#8221;に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。</p>
+なお、&#8221;key&#8221;および&#8221;except&#8221;に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -390,6 +393,8 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </tbody>
 </table>
 </div></blockquote>
+<p>&#8220;except&#8221; が与えられ、かつ &#8220;key&#8221; と &#8220;except&#8221; の双方にマッチした場合は、そのルールはスキップされる。
+例えば、{&#8220;key&#8221;: &#8220;*&#8221;, &#8220;except&#8221;: &#8220;foo&#8221;, ... } のようにすれば「&#8221;foo&#8221; 以外のすべてのキーにマッチする規則」を定義することができる。</p>
 </div>
 <div class="section" id="num-filter-types">
 <h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -436,7 +441,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <div class="section" id="num-filter-rules">
 <h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>こちらも、string_filter_rules同様、フィルターの適用規則を指定する。
-規則は複数からなり、各規則は&#8221;key&#8221;, &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
+規則は複数からなり、各規則は&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -444,18 +449,20 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body">利用するフィルター名を指定する。これはstring_filter_typesの項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。</td>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body">変換後の結果を格納するkeyのサフィックスを指定する。</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">利用するフィルター名を指定する。これはstring_filter_typesの項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">変換後の結果を格納するkeyのサフィックスを指定する。</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;key&#8221;の指定の仕方は、string_filter_rulesを参照のこと。</p>
+<p>&#8220;key&#8221;と&#8221;except&#8221;の指定の仕方は、string_filter_rulesを参照のこと。</p>
 </div>
 </div>
 <div class="section" id="feature-extraction-from-strings">
-<span id="construct-ja"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<span id="construct"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。
 以下に、設定の例を示す。
 この例では、&#8221;user/name&#8221;の値はそのまま特徴量として使用し、&#8221;message&#8221;は文字2グラムを特徴量とし、&#8221;message-detagged&#8221;はスペース文字で分割した単語を特徴量とする。</p>
@@ -474,6 +481,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>string_typesで文字列特徴抽出器を定義する。
 主に、パスなどの引数を指定しなければならない特徴抽出器は、一度string_typesで指定してから利用しなければならない。
 string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; からなる辞書を指定する。
+抽出器名に &#8220;&#64;&#8221; 文字を含むことはできない。
 引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
 それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
 指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
@@ -523,7 +531,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 <h3>string_rules<a class="headerlink" href="#string-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列特徴の抽出規則を指定する。
 string_filter_rulesなどと同様、複数の規則を羅列する。
-各規則は、&#8221;key&#8221;, &#8220;type&#8221;, &#8220;sample_weight&#8221;, &#8220;global_weight&#8221;からなる辞書で指定する。
+各規則は、&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;, &#8220;sample_weight&#8221;, &#8220;global_weight&#8221;からなる辞書で指定する。
 文字列データの場合、与えられた文字列から特徴量を抽出し、そこに対して重みを設定する必要がある。
 重みの設定の仕方を決めるのが、&#8221;sample_weight&#8221;と&#8221;global_weight&#8221;の2つのパラメータである。
 実際に利用する重みは、2つの重みの積を重み付けとして利用する。</p>
@@ -535,7 +543,10 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照。</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはstring_typesの項で作った抽出器名を指定する。また、以下の抽出器はデフォルトで利用できる。</p>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはstring_typesの項で作った抽出器名を指定する。また、以下の抽出器はデフォルトで利用できる。</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -563,7 +574,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </table>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">各key-value毎の重み設定の仕方を指定する。これはkey-value一つに対して決定される重みである。</p>
+<tr class="field-even field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">各key-value毎の重み設定の仕方を指定する。これはkey-value一つに対して決定される重みである。</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -596,7 +607,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </table>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">今までの通算データをから算出される、大域的な重み付けを指定する。</p>
+<tr class="field-odd field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">今までの通算データをから算出される、大域的な重み付けを指定する。</p>
 <table border="1" class="last docutils">
 <colgroup>
 <col width="7%" />
@@ -674,7 +685,7 @@ string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt;　からな�
 <h3>num_rules<a class="headerlink" href="#num-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>数値特徴の抽出規則を指定する。
 string_rulesなどと同様、複数の規則を羅列する。
-各規則は、&#8221;key&#8221;, &#8220;type&#8221;からなる辞書で指定する。
+各規則は、&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;からなる辞書で指定する。
 重みの付け方や特徴名の指定の仕方もそれぞれの&#8221;type&#8221;ごとに異なる。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -684,7 +695,10 @@ string_rulesなどと同様、複数の規則を羅列する。
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。</p>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはnum_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。</p>
 <table border="1" class="last docutils">
 <colgroup>
 <col width="9%" />
@@ -745,7 +759,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。</p>
 </div>
 <div class="section" id="plugins">
-<span id="conversion-plugin-ja"></span><h2>Plugins<a class="headerlink" href="#plugins" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<span id="conversion-plugin"></span><h2>Plugins<a class="headerlink" href="#plugins" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>フィルターと抽出器では、それぞれプラグインを利用することができる。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
@@ -759,7 +773,7 @@ CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</sp
 <dt>
 <tt class="descname">libmecab_splitter.so</tt></dt>
 <dd><p>string_typesで指定できる。
-MeCabを利用して文書を単語分割し、各単語を特徴量として利用する。
+<a class="reference external" href="http://code.google.com/p/mecab/">MeCab</a> を利用して文書を単語分割し、各単語を特徴量として利用する。
 <tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -768,7 +782,7 @@ MeCabを利用して文書を単語分割し、各単語を特徴量として利
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&#8220;create&#8221;を指定する。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する。この指定がないと、MeCabのデフォルト設定で動作する。
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
 引数の指定の仕方は、 <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">MeCab のドキュメント</a> を参照すること。</td>
 </tr>
 </tbody>
@@ -790,7 +804,7 @@ MeCabを利用して文書を単語分割し、各単語を特徴量として利
 <dt>
 <tt class="descname">libux_splitter.so</tt></dt>
 <dd><p>string_typesで指定できる。
-ux-trieを利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
+<a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
 単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
 <tt class="docutils literal"><span class="pre">--enable-ux</span></tt> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
@@ -800,7 +814,7 @@ ux-trieを利用して、与えられた文書から最長一致で辞書マッ�
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&#8220;create&#8221;を指定する。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">1行1キーワードで書かれた辞書ファイルの場所を、フルパスで指定する。</td>
+<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">1行1キーワードで書かれたテキスト形式の辞書ファイルを、フルパスで指定する。</td>
 </tr>
 </tbody>
 </table>
@@ -810,7 +824,7 @@ ux-trieを利用して、与えられた文書から最長一致で辞書マッ�
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic&quot;</span>
+    <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic.txt&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -821,9 +835,10 @@ ux-trieを利用して、与えられた文書から最長一致で辞書マッ�
 <dt>
 <tt class="descname">libre2_splitter.so</tt></dt>
 <dd><p>string_typesで指定できる。
-re2を利用して、与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。
+<a class="reference external" href="http://code.google.com/p/re2/">re2</a> を利用して、与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。
 正規表現マッチは連続的に行われ、マッチした  箇所全てを特徴として使う。
-<tt class="docutils literal"><span class="pre">--disable-re2</span></tt> オプションを <strong>指定せずに</strong> でコンパイルした場合のみ利用可能である。</p>
+利用可能な正規表現は <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2 のドキュメント</a> を参照すること。
+<tt class="docutils literal"><span class="pre">--disable-re2</span></tt> オプションを <strong>指定せずに</strong> コンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

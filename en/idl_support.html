@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IDL Support Status (2013 Feb.) &mdash; Jubatus</title>
+    <title>IDL Support Status (2013 Mar.) &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -136,30 +136,32 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="idl-support-status-2013-feb">
-<h1>IDL Support Status (2013 Feb.)<a class="headerlink" href="#idl-support-status-2013-feb" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="idl-support-status-2013-mar">
+<h1>IDL Support Status (2013 Mar.)<a class="headerlink" href="#idl-support-status-2013-mar" title="Permalink to this headline">¶</a></h1>
 <p>Currently, Jubatus supports six machine learning services (Classifier, Regression, Recommender, Stat, Graph, Anomaly).
-As we mentioned in <a class="reference internal" href="howtogetclients.html#how-to-get-clients"><em>How to Get Clients</em></a> , clients of these services are generated from msgpack-idl.
-The followings are support status of msgpack-idl.</p>
+As we mentioned in <a class="reference internal" href="howtogetclients.html#how-to-get-clients"><em>How to Get Clients</em></a> , clients of these services are generated from <tt class="docutils literal"><span class="pre">jenerator</span></tt> and msgpack-idl.
+The followings are support status of <tt class="docutils literal"><span class="pre">jenerator</span></tt> and msgpack-idl.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="13%" />
-<col width="13%" />
+<col width="10%" />
+<col width="15%" />
+<col width="15%" />
+<col width="17%" />
 <col width="14%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col width="14%" />
+<col width="14%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
-<td>Classifier</td>
-<td>Regression</td>
-<td>Recommender</td>
-<td>Stat</td>
-<td>Graph</td>
-<td>Anomaly</td>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Classifier</th>
+<th class="head">Regression</th>
+<th class="head">Recommender</th>
+<th class="head">Stat</th>
+<th class="head">Graph</th>
+<th class="head">Anomaly</th>
 </tr>
+</thead>
+<tbody valign="top">
 <tr class="row-even"><td>C++</td>
 <td>ok</td>
 <td>ok</td>
@@ -177,30 +179,30 @@ The followings are support status of msgpack-idl.</p>
 <td>needs fix</td>
 </tr>
 <tr class="row-even"><td>Python</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
 </tr>
 <tr class="row-odd"><td>Ruby</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
-<td>ok</td>
 <td>needs fix</td>
-<td>ok</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
+<td>needs fix</td>
 </tr>
 </tbody>
 </table>
 <ul class="simple">
 <li>ok：We can use automatically generated clients.</li>
-<li>needs fix：We need to make some minor changes manually from automatically generated clients in order to interact with server.</li>
+<li>needs fix：We need to make some minor changes manually (see <tt class="docutils literal"><span class="pre">patch</span></tt> directory of each client repository) from automatically generated clients in order to interact with server.</li>
 </ul>
 <p>We tested these clients in the following condition</p>
 <ul class="simple">
-<li>Jubatus : Jubatus 0.4.1</li>
+<li>Jubatus : Jubatus 0.4.2</li>
 <li>Server : Built-in servers in repository</li>
 <li>Client : Generated client from IDL</li>
 <li>IDL : Built-in IDL in repository</li>

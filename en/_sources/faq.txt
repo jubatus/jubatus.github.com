@@ -4,7 +4,9 @@ Frequently Asked Questions (FAQs)
 Installation
 ::::::::::::
 
-- Failed in ``./waf configre`` with ...
+- Failed in ``./waf configre`` with the following error.
+
+ This error occurs when old python. Use python 2.7 or later.
 
 ::
 
@@ -16,21 +18,43 @@ Installation
                 ^
   SyntaxError: invalid syntax
 
- This error occurs when old python. Use python 2.7 or later.
+- ``mecab_splitter.trivial`` and ``mecab_splitter_create.trivial`` does not pass the unittest?
+
+ Check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
+
+RPC Errors
+::::::::::
 
 - When using python client, "got socket.error: [Errno 99] Cannot assign requested address" (or kind of ``EADDRINUSE``)
 
- sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1
+ Try this: ``sudo /sbin/sysctl -w net.ipv4.tcp_tw_recycle=1``
 
-- mecab_splitter.trivial and mecab_splitter_create.trivial does not pass the unittest?
+- I've got an exception with message "1" from Jubatus client library, why?
 
- check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
+ The version of the client library you installed is not compatible with the version of the Jubatus server you are connecting to.
+ See the `Jubatus Wiki: Client Compatibility and Documentation <https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation>`_ for the compatibility information.
 
-- How does 'jubatus' read?
+ Technically, the error "1" means "no such method on RPC server".
 
- Please do not run 'say' command in MacOS.
+- I've got an exception with message "2" from Jubatus client library, why?
 
+ This is a type mismatch error between clients and servers.
 
+ A common mistake is using integer instead of float in values of ``num_values``.
+ Always cast values in ``num_values`` as float.
+ If you are using literals like ``10``, replace it with ``10.0`` instead.
+ Another common mistake is assigning ``NULL`` for objects like vector.
+
+ This error may also occur if the version of the client library you installed is not compatible with the version of the Jubatus server you are connecting to.
+ Check out the `Jubatus Wiki: Client Compatibility and Documentation`_ for the compatibility information.
+
+- Client library occasionally throws RPC timeout errors; it seems that servers automatically disconnect clients. Why?
+
+ Jubatus servers automatically close connections when the idle timeout (given by the command line parameter :option:`server -t`) expires.
+ You need to retry the RPC call to re-establish the connection.
+
+ To disable this auto-disconnect feature, set :option:`server -t` to 0, which means "no timeout".
+ In this case, clients must explicitly close the TCP connection using :mpidl:meth:`get_client`.
 
 Anomaly detection
 :::::::::::::::::
@@ -69,4 +93,11 @@ Anomaly detection
 
  - 3: Decrease ``reverse_nearest_neighbor_num``
 
-  It also reduces the computation time for LOF. However, the number should not be smaller than ``nearest_neighbornum`` .
+  It also reduces the computation time for LOF. However, the number should not be smaller than ``nearest_neighbor_num`` .
+
+Miscellaneous
+:::::::::::::
+
+- How does 'jubatus' read?
+
+ Please do not run 'say' command in Mac OS.

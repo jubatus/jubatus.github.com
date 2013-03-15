@@ -262,11 +262,6 @@ When using standalone mode, this must be left blank (``""``).
       In a standalone mode, mix is not automatically called thus users must call this API by themselves.
 
 
-   .. mpidl:method:: bool clear(0: string name)
-
-      Clears the whole data.
-
-
    .. mpidl:method:: node get_node(0: string name, 1: string node_id)
 
       Gets the ``node`` for a node ``node_id``.

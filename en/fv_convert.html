@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -218,6 +218,7 @@ The following is an example of a datum.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>Name of keys cannot contain &#8220;$&#8221; sign.</p>
 <p>For example, a datum consists of <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> and  <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> in C++.
 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> (resp.  <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt>) is to C++ what tuple (resp. vector) is to Python.</p>
 </div>
@@ -340,7 +341,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 The rules are checked in order.
 If a datum is matched to a rule, the corresponding filter is applied and a converted value is stored to the datum.
 Application is called recursively, that is, rest of filters is applied to the original values and the converted values.
-Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional), &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -348,17 +349,19 @@ Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#822
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. We describe it in datail later.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body">Specidies the name of the filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filters are available by default.</td>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. We describe it in datail later.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specidies the name of the filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filters are available by default.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;key&#8221; is specified in one of the following formats.
+<p>&#8220;key&#8221; and &#8220;except&#8221; can be specified in one of the following formats.
 For each key in a datum, all rules checked to be applicable.
 It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
-Every &#8220;key&#8221; in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
+Every &#8220;key&#8221; and &#8220;except&#8221; in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -389,6 +392,8 @@ Every &#8220;key&#8221; in this document is in the same format. Similarly, it ha
 </tbody>
 </table>
 </div></blockquote>
+<p>When &#8220;except&#8221; is specified and both &#8220;key&#8221; and &#8220;except&#8221; matched, the rule will be skipped.
+For example, by using {&#8220;key&#8221;: &#8220;*&#8221;, &#8220;except&#8221;: &#8220;foo&#8221;, ... }, you can define the rule which will be applied for every keys other than &#8220;foo&#8221;.</p>
 </div>
 <div class="section" id="num-filter-types">
 <h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="Permalink to this headline">¶</a></h3>
@@ -435,7 +440,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <div class="section" id="num-filter-rules">
 <h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="Permalink to this headline">¶</a></h3>
 <p>Like &#8220;string_filter_rules&#8221;, it specifies rules how to apply filters.
-Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional), &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -443,14 +448,16 @@ Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221; a
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body">Specidies a name of a filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filter is available if no filter is defined in &#8220;string_filter_types&#8221;.</td>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of a filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specidies a name of a filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filter is available if no filter is defined in &#8220;string_filter_types&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of a filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>Format of &#8220;key&#8221; is written in &#8220;string_filter_rules&#8221; section.</p>
+<p>Format of &#8220;key&#8221; and &#8220;except&#8221; is written in &#8220;string_filter_rules&#8221; section.</p>
 </div>
 </div>
 <div class="section" id="feature-extraction-from-strings">
@@ -473,6 +480,7 @@ In this configuration, we use as features &#8220;user/name&#8221; itself, every 
 <p>Feature extractors of strings are defined in &#8220;string_types&#8221;.
 Some feature extractors must be defined in &#8220;string_types&#8221;. An exapmle of such extractors is one which requires arguments such as path.
 As &#8220;string_filter_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+Name of extractors cannot contain &#8220;&#64;&#8221; sign.
 &lt;argument&gt; is a dictionary whose key and value are both strings and it must contain a key named &#8220;method&#8221;.
 The rest of the keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
 The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
@@ -522,7 +530,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <h3>string_rules<a class="headerlink" href="#string-rules" title="Permalink to this headline">¶</a></h3>
 <p>Specifies how to extract string features.
 As &#8220;string_filter_rules&#8221;, it consists of multiple rules.
-Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;type&#8221;, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional), &#8220;type&#8221;, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
 These rules specifies how we extract rules from given strings and their weights used in calculating scores.
 A weight is calculated with two parameters, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
 In concrete, the weight is the product of these two weights.</p>
@@ -534,7 +542,10 @@ In concrete, the weight is the product of these two weights.</p>
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of an extractor in use. The extractor is either one defined in &#8220;string_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of an extractor in use. The extractor is either one defined in &#8220;string_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
@@ -562,7 +573,7 @@ In concrete, the weight is the product of these two weights.</p>
 </table>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">Specifies weight of each feature. Note that as term frequency is, &#8220;sample_weight&#8221; is uniquely defined if feature and datum are specified.</p>
+<tr class="field-even field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">Specifies weight of each feature. Note that as term frequency is, &#8220;sample_weight&#8221; is uniquely defined if feature and datum are specified.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="7%" />
@@ -595,7 +606,7 @@ In concrete, the weight is the product of these two weights.</p>
 </table>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">Specifies global weight calculated from data inputted so far.</p>
+<tr class="field-odd field"><th class="field-name">global_weight:</th><td class="field-body"><p class="first">Specifies global weight calculated from data inputted so far.</p>
 <table border="1" class="last docutils">
 <colgroup>
 <col width="4%" />
@@ -673,7 +684,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <h3>num_rules<a class="headerlink" href="#num-rules" title="Permalink to this headline">¶</a></h3>
 <p>Specifies how to extract numeric features.
 As &#8220;string_rules&#8221;, it consists of multiple rules.
-Each rule is a dictionary whose keys are &#8220;key&#8221; and &#8220;type&#8221;.
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional) and &#8220;type&#8221;.
 It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -683,9 +694,11 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 <tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. The extractor is either one defined in &#8220;num_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
-<blockquote class="last">
-<div><table border="1" class="docutils">
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. The extractor is either one defined in &#8220;num_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
+<table border="1" class="last docutils">
 <colgroup>
 <col width="9%" />
 <col width="91%" />
@@ -715,7 +728,6 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -760,7 +772,7 @@ Note that some plugins are not available depending on your compile options.</p>
 <dt>
 <tt class="descname">libmecab_splitter.so</tt></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Separate given Japanese document into words by MeCab and use each word as a feature.
+Separate given Japanese document into words by <a class="reference external" href="http://code.google.com/p/mecab/">MeCab</a> and use each word as a feature.
 This plugin is available only when compiled with <tt class="docutils literal"><span class="pre">--enable-mecab</span></tt>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -769,7 +781,7 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify &#8220;create&#8221;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine. &#8220;arg&#8221; is not specified, Mecab works with default configuration.
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). &#8220;arg&#8221; is not specified, Mecab works with default configuration.
 Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">document of MeCab</a> about how to specify arguments.</td>
 </tr>
 </tbody>
@@ -791,7 +803,7 @@ Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn
 <dt>
 <tt class="descname">libux_splitter.so</tt></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Extract keywords from given document by way of dictionary matching with ux-trie and use each keyword as a feature.
+Extract keywords from given document by way of dictionary matching with <a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> and use each keyword as a feature.
 Matching is a simple longest matching. Note that it is fast but precision may be low.
 This plugin is available only when compiled with <tt class="docutils literal"><span class="pre">--enable-ux</span></tt>.</p>
 <blockquote>
@@ -801,7 +813,7 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">Specifies a full path of a dictionary file. The dictionary file consists of keywords, one keyword for one line.</td>
+<tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">Specifies a full path of a dictionary file. The dictionary file is a text file that consists of keywords, one keyword per one line.</td>
 </tr>
 </tbody>
 </table>
@@ -811,7 +823,7 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic&quot;</span>
+    <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic.txt&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -822,8 +834,9 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
 <dt>
 <tt class="descname">libre2_splitter.so</tt></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Extract keywords from given document by way of regular expression matching with re2 and use each keyword as a feature.
+Extract keywords from given document by way of regular expression matching with <a class="reference external" href="http://code.google.com/p/re2/">re2</a> and use each keyword as a feature.
 Matching is executed continuously, that is, every match is used as a feature.
+For list of regular expressions available, refer to the <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2 documentation</a>.
 This plugin is available only when <strong>NOT</strong> compiled with <tt class="docutils literal"><span class="pre">--disable-re2</span></tt>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">

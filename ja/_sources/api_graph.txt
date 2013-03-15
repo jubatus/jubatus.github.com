@@ -262,11 +262,6 @@ Methods
       スタンドアローン環境では、mix は自動的に呼ばれないため、ユーザ自身でこの API を呼び出す必要がある。
 
 
-   .. mpidl:method:: bool clear(0: string name)
-
-      すべてのデータを削除する。
-
-
    .. mpidl:method:: node get_node(0: string name, 1: string node_id)
 
       ノード ``node_id`` の ``node`` を取得する。

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -198,6 +198,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dt id="cmdoption-server-t">
 <tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-t" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC セッションのタイムアウト時間 (秒)。 [10]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> はタイムアウトを無効にすることを示す。</p>
 </dd></dl>
 
 <dl class="option">
@@ -312,6 +313,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dt id="cmdoption-keeper-t">
 <tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-t" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC セッションのタイムアウト時間 (秒)。 [10]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> はタイムアウトを無効にすることを示す。</p>
 </dd></dl>
 
 <dl class="option">
@@ -332,6 +334,20 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <tt class="descname">-e</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-keeper-e" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>出力するログの下限を指定する。 [0]</p>
 <p>INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-keeper-E">
+<tt class="descname">-E</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_expire</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-E" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>セッション・プールのタイムアウト時間 (秒)。 [60]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> はセッションが 1秒以上 利用されなければ、破棄することを示す。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-keeper-S">
+<tt class="descname">-S</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_size</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-keeper-S" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スレッドごとに保持するセッション・プールの最大数。 [0]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> は制限を設定しないことを示す。</p>
 </dd></dl>
 
 <dl class="option">
@@ -615,7 +631,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <div class="section" id="utilities">
 <h2>Utilities<a class="headerlink" href="#utilities" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="jubaconv">
-<span id="jubaconv-ja"></span><h3>jubaconv<a class="headerlink" href="#jubaconv" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id1"></span><h3>jubaconv<a class="headerlink" href="#jubaconv" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jubaconv</span></tt> は fv_converter の設定をテストするためのツールである。</p>
 <p><tt class="docutils literal"><span class="pre">jubaconv</span></tt> は fv_converter 内部の動作をシミュレーションし、変換結果をコマンドラインで表示することができる。</p>
 <p>利用例を以下に示す:</p>
@@ -664,7 +680,7 @@ age@num: 31
 
 </div>
 <div class="section" id="jenerator">
-<span id="jenerator-ja"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id2"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Keeper の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は <a class="reference internal" href="server.html"><em>Using Code Generators</em></a> を参照すること。</p>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> はデフォルトではインストールされない (ソースの <tt class="docutils literal"><span class="pre">src/tools/jenerator</span></tt> ディレクトリを参照)。</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] &lt;idl-file&gt; ...
