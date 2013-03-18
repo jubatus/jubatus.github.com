@@ -201,7 +201,7 @@ datum has two key-value&#8217;s.
 One is &#8220;string_values&#8221;, whose key and value are both string data.
 The other is &#8220;num_values&#8221;, whose key is string data as string_values is, but value is numeric data.
 We can store in string_values arbitrary text data such as name, text, profession etc.
-And we can store in num_values arbitrary numeric data such as age, income, the number of access etc.
+And we can store in num_values arbitrary numeric data such as age, income, the number of access etc. as a floating value.
 The data-conversion module extracts features which are used in machine learning tasks from these two types of data.
 Each key-value is represented neither as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.</p>
@@ -212,8 +212,8 @@ The following is an example of a datum.</p>
     <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span> <span class="p">,</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -277,9 +277,9 @@ The example above indicates that we apply the &#8220;detag&#8221; filter defined
     <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="p">,</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>

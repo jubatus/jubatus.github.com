@@ -202,7 +202,7 @@ datumには2つのkey-valueが存在する。
 一つはキーも値も文字列の文字列データ (string_values) である。
 もう一方は、キーは同様に文字列だが、値は数値の数値データ (num_values) である。
 前者には名前、テキスト、職業など、任意のテキストデータを入れることができる。
-後者には年齢、年収、アクセス回数など、任意の数値データを入れることができる。
+後者には年齢、年収、アクセス回数など、任意の数値データを浮動小数点型として入れることができる。
 この2つのデータから、機械学習を行う際に必要となる特徴量を抽出するのが、このデータ変換モジュールである。
 また、効率を重視して、それぞれのkey-valueは、各言語のmap型や辞書型を利用せず、keyとvalueのペアの配列で表現される。
 以下に例を示す。</p>
@@ -213,8 +213,8 @@ datumには2つのkey-valueが存在する。
     <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span> <span class="p">,</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -278,9 +278,9 @@ datumには2つのkey-valueが存在する。
     <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="p">,</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>

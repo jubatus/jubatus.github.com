@@ -44,7 +44,7 @@ datum has two key-value's.
 One is "string_values", whose key and value are both string data.
 The other is "num_values", whose key is string data as string_values is, but value is numeric data.
 We can store in string_values arbitrary text data such as name, text, profession etc.
-And we can store in num_values arbitrary numeric data such as age, income, the number of access etc.
+And we can store in num_values arbitrary numeric data such as age, income, the number of access etc. as a floating value.
 The data-conversion module extracts features which are used in machine learning tasks from these two types of data.
 Each key-value is represented neither as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.
@@ -58,8 +58,8 @@ The following is an example of a datum.
       ("message", "<H>Hello World</H>")
     ],
     [
-      ("user/age", 29) ,
-      ("user/income", 100000)
+      ("user/age", 29.0),
+      ("user/income", 100000.0)
     ]
   )
 
@@ -141,9 +141,9 @@ By applying these two filters, we obtain the datum like this:
       ("message-detagged", "Hello World")
     ],
     [
-      ("user/age", 29),
-      ("user/age_kazoe", 30) ,
-      ("user/income", 100000)
+      ("user/age", 29.0),
+      ("user/age_kazoe", 30.0),
+      ("user/income", 100000.0)
     ]
   )
 
