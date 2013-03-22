@@ -8,7 +8,7 @@ Configuration
 ~~~~~~~~~~~~~
 
 設定は単体の JSON で与えられる。
-JSON の各フィールドは以下のとおりである
+JSON の各フィールドは以下のとおりである。
 
 .. describe:: method
 

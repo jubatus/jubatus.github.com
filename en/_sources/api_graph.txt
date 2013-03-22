@@ -32,7 +32,7 @@ We show each filed below:
      :damping_factor:
         Damping factor for PageRank.
         It adjusts scores for nodes with differenct degrees.
-        The bigger it is, the more sensitive to ghraph structure PageRank score is, but the larger  biases it causes.
+        The bigger it is, the more sensitive to graph structure PageRank score is, but the larger  biases it causes.
         In the original paper, 0.85 is good.
         (Float)
      :landmark_num:
