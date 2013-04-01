@@ -6,7 +6,7 @@ Installation
 
 - Failed in ``./waf configre`` with the following error.
 
- This error occurs when old python. Use python 2.7 or later.
+ This error occurs when old python. Use python 2.6 or later.
 
 ::
 

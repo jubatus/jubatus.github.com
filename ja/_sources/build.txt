@@ -19,8 +19,8 @@ Jubatus をソースからビルドするには、 ``gcc`` (バージョン 4.4 
 msgpack             >= 0.5.7   ✔
 jubatus-mpio        0.4.1      ✔
 jubatus-msgpack-rpc 0.4.1      ✔         C++ クライアントライブラリが必要である。
-pficommon           master     ✔         msgpack-rpc (mprpc) が有効であること。
-google-glog         >= 0.3.2   ✔
+pficommon           master     ✔
+google-glog         >= 0.3.3   ✔
 mecab               >= 0.99              ``--enable-mecab`` ありでビルドする場合のみ。
 re2                 master               ``--disable-re2`` *なし* でビルドする場合のみ。
 ux-trie             master               ``--enable-ux`` ありでビルドする場合のみ。
@@ -72,14 +72,13 @@ Ubuntu 12.04 でのビルドを行う例です。
   $ tar xzf pficommon-master.tar.gz
   $ cd pficommon-master
   $ ./waf configure
-    -> msgpack-rpc サポートが有効になっていることを確認してください ("MessagePack RPC module: yes")
   $ ./waf build
   $ sudo ./waf install
   $ cd ..
 
-  $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
-  $ tar xzf glog-0.3.2.tar.gz
-  $ cd glog-0.3.2
+  $ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
+  $ tar xzf glog-0.3.3.tar.gz
+  $ cd glog-0.3.3
   $ ./configure
   $ make
   $ sudo make install

@@ -19,8 +19,8 @@ Software            Version    Mandatory Note
 msgpack             >= 0.5.7   ✔
 jubatus-mpio        0.4.1      ✔
 jubatus-msgpack-rpc 0.4.1      ✔         C++ client library must be installed.
-pficommon           master     ✔         msgpack-rpc (mprpc) must be enabled.
-google-glog         >= 0.3.2   ✔
+pficommon           master     ✔
+google-glog         >= 0.3.3   ✔
 mecab               >= 0.99              Required when configured with ``--enable-mecab``.
 re2                 master               Required when configured *without* ``--disable-re2``
 ux-trie             master               Required when configured with ``--enable-ux``.
@@ -72,14 +72,13 @@ Here's an example on Ubuntu 12.04 systems.
   $ tar xzf pficommon-master.tar.gz
   $ cd pficommon-master
   $ ./waf configure
-    -> ensure that pficommon is configured with msgpack-rpc support enbabled ("MessagePack RPC module: yes")
   $ ./waf build
   $ sudo ./waf install
   $ cd ..
 
-  $ wget http://google-glog.googlecode.com/files/glog-0.3.2.tar.gz
-  $ tar xzf glog-0.3.2.tar.gz
-  $ cd glog-0.3.2
+  $ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
+  $ tar xzf glog-0.3.3.tar.gz
+  $ cd glog-0.3.3
   $ ./configure
   $ make
   $ sudo make install

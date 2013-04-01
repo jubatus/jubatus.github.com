@@ -35,12 +35,12 @@ Constructor
 
 .. describe:: constructor(string host, int port, int timeout_sec)
 
-   新しい RPC クライアントのインスタンスを作成します。
-   ``timeout_sec`` には RPC メソッドの実行からレスポンスまでのタイムアウト時間を指定します。
+   新しい RPC クライアントのインスタンスを作成する。
+   ``timeout_sec`` には RPC メソッドの実行からレスポンスまでのタイムアウト時間を指定する。
 
-   現在、Python と Ruby クライアントでは ``timeout_sec`` を指定することができません。
+   現在、Python と Ruby クライアントでは ``timeout_sec`` を指定することができない。
 
-   コンストラクタの利用方法を以下に示します:
+   コンストラクタの利用方法を以下に示す:
 
 .. code-block:: cpp
 
@@ -122,9 +122,9 @@ Methods
 
    :return: MessagePack-RPC クライアントインスタンス
 
-   Jubatus クライアントライブラリが利用している内部の MessagePack-RPC クライアントインスタンスに対する参照を返却します。
-   これは RPC メソッドではありません。
+   Jubatus クライアントライブラリが利用している内部の MessagePack-RPC クライアントインスタンスに対する参照を返却する。
+   これは RPC メソッドではない。
 
-   このメソッドは、主に TCP 接続を明示的に切断したり、タイムアウトを変更したりするために使用します。
+   このメソッドは、主に TCP 接続を明示的に切断したり、タイムアウトを変更したりするために使用する。
 
-   ``mprpc_client`` は MessagePack-RPC クライアントの型で、言語により異なります (`C++ <http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html>`_ / `Python <https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py>`_ / `Ruby <http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html>`_ / `Java <http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html>`_)。
+   ``mprpc_client`` は MessagePack-RPC クライアントの型で、言語により異なる (`C++ <http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html>`_ / `Python <https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py>`_ / `Ruby <http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html>`_ / `Java <http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html>`_)。
