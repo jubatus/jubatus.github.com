@@ -64,7 +64,7 @@ Python
 解説
 --------------------------------
 
-**train_route.json**
+**stat.json**
 
 設定は単体のJSONで与えられます。JSONの各フィールドは以下のとおりです。
 
@@ -73,9 +73,9 @@ Python
   保持する値の数を指定する。 (Integer)
   
 
-**stat.rb**
+**stat.py**
 
- stat.rbでは、csvから読み込んだフルーツの直径・重さ・値段の情報をJubatusサーバ与え、それぞれのフルーツごとに統計結果を出力します。使用するメソッドは以下になります。
+ stat.pyでは、csvから読み込んだフルーツの直径・重さ・値段の情報をJubatusサーバ与え、それぞれのフルーツごとに統計結果を出力します。使用するメソッドは以下になります。
  
  * bool push(0: string name, 1: string key, 2: double val)
 
