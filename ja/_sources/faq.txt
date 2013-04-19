@@ -37,7 +37,7 @@
   Cannot fetch index base URL http://pypi.python.org/simple/
   Could not find any downloads that satisfy the requirement jubatus
   No distributions at all found for jubatus
-  Storing complete log in /home/nttat/.pip/pip.log
+  Storing complete log in /home/jubatus/.pip/pip.log
 
  ::
 
