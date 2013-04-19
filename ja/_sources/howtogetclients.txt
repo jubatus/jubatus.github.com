@@ -1,6 +1,6 @@
 .. _how_to_get_clients:
 
-How to Get Clients
+クライアントの入手方法
 -------------------------------------
 
 各言語版のJubatusクライアントを取得する方法は、二種類あります。
@@ -11,13 +11,13 @@ How to Get Clients
 
 以降の章で、それぞれの方法を解説します。
 
-Use pre-generated client
+生成済みクライアントの利用
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 後述の通り、クライアントコードは msgpack-idl で生成されています。
 ただし、クライアント用コードを簡単に使いたいならば、パッケージ管理システムを使用してクライアントライブラリをインストールすることを推奨します。
 
-Generate clients from msgpack-idl
+msgpack-idl でクライアントを生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 新機能追加など、これまでのクライアントが利用できないなどの場合は、クライアントコードを `msgpack-idl <http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl>`_ のidlファイルを用いて生成することができます。

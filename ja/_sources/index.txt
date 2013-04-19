@@ -1,5 +1,12 @@
 Jubatus : オンライン機械学習向け分散処理フレームワーク
 =======================================================
+**Jubatusとは**
+
+Jubatusは「分散したデータ」を「常に素早く」「深く分析」することを狙った分散基盤技術です。
+
+Jubatusの名前の由来は、俊敏な動物であるチータの学術名からの命名で、「ユバタス」と読みます。株式会社Preferred InfrastructureとNTTソフトウェアイノベーションセンタが共同開発した、日本発のオープンソースプロダクトです。
+
+最終的に全ての人にスケーラブルなオンライン機械学習フレームワークを提供することがJubatusの目標です。
 
 Jubatus は以下の特徴を持ったオンライン機械学習向け分散処理フレームワークです。
 
@@ -8,6 +15,7 @@ Jubatus は以下の特徴を持ったオンライン機械学習向け分散処
 - フォルトトレラントな分散機械学習のためのフレームワーク
 
 `English documentation <../en/>`_ is also available.
+
 
 Get Jubatus
 -----------
@@ -24,7 +32,7 @@ Table of Contents
    :maxdepth: 3
 
    quickstart
-   overview
+   overview/summary
    tutorial
    tutorial_distributed
    documentation

@@ -1,0 +1,671 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Java &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Recommender" href="recommender.html" />
+    <link rel="next" title="Graph" href="graph.html" />
+    <link rel="prev" title="Ruby" href="recommender_ruby.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="graph.html" title="Graph"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="recommender_ruby.html" title="Ruby"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
+          <li><a href="recommender.html" accesskey="U">Recommender</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Java</a><ul>
+<li><a class="reference internal" href="#id1">ソースコード</a></li>
+<li><a class="reference internal" href="#id2">解説</a></li>
+<li><a class="reference internal" href="#id3">サンプルプログラムの実行</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="recommender_ruby.html"
+                        title="前の章へ">Ruby</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="graph.html"
+                        title="次の章へ">Graph</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/recommender_java.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="java">
+<h1>Java<a class="headerlink" href="#java" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ここではJava版のRecommenderサンプルプログラムの解説をします。</p>
+<div class="section" id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするnpb_similar_player.jsonと野手データの学習を行うUpdate.java、推薦を実行して結果を出力するAnalyze.java、
+また学習用データとしてbaseball.csvを使用します。
+以下にnpb_similar_player.jsonとUpdate.javaおよびAnalyze.javaのソースコードを記載します。</p>
+<p><strong>npb_similar_player.json</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mo">02</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;inverted_index&quot;</span><span class="p">,</span>
+<span class="mo">03</span> <span class="p">:</span>   <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mo">04</span> <span class="p">:</span>     <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mo">05</span> <span class="p">:</span>     <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mo">06</span> <span class="p">:</span>     <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mo">07</span> <span class="p">:</span>     <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">08</span> <span class="p">:</span>     <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">09</span> <span class="p">:</span>     <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">10</span> <span class="p">:</span>     <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">11</span> <span class="p">:</span>     <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">12</span> <span class="p">:</span>       <span class="p">{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}</span>
+<span class="mi">13</span> <span class="p">:</span>     <span class="p">]</span>
+<span class="mi">14</span> <span class="p">:</span>   <span class="p">},</span>
+<span class="mi">15</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="mi">16</span> <span class="p">:</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Update.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">package</span> <span class="n">NpbSimilarPlayer</span><span class="o">;</span>
+<span class="mi">002</span> <span class="o">:</span>
+<span class="mi">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="mi">004</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<span class="mi">005</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
+<span class="mi">006</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+<span class="mi">007</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="mi">008</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">009</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="mi">010</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mi">011</span> <span class="o">:</span>
+<span class="mi">012</span> <span class="o">:</span>
+<span class="mi">013</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.recommender.RecommenderClient</span><span class="o">;</span>
+<span class="mi">014</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.recommender.Datum</span><span class="o">;</span>
+<span class="mi">015</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.recommender.TupleStringDouble</span><span class="o">;</span>
+<span class="mi">016</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.recommender.TupleStringString</span><span class="o">;</span>
+<span class="mi">017</span> <span class="o">:</span>
+<span class="mi">018</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Update</span> <span class="o">{</span>
+<span class="mi">019</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">020</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">021</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;NpbSimilarPlayer&quot;</span><span class="o">;</span>
+<span class="mi">022</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CSV_PATH</span> <span class="o">=</span> <span class="s">&quot;./src/main/resources/baseball.csv&quot;</span><span class="o">;</span>
+<span class="mi">023</span> <span class="o">:</span>
+<span class="mi">024</span> <span class="o">:</span>  <span class="c1">// CSVのカラム名定義</span>
+<span class="mi">025</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">CSV_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">026</span> <span class="o">:</span>          <span class="s">&quot;名前&quot;</span><span class="o">,</span>
+<span class="mi">027</span> <span class="o">:</span>          <span class="s">&quot;チーム&quot;</span><span class="o">,</span>
+<span class="mi">028</span> <span class="o">:</span>          <span class="s">&quot;打率&quot;</span><span class="o">,</span>
+<span class="mi">029</span> <span class="o">:</span>          <span class="s">&quot;試合数&quot;</span><span class="o">,</span>
+<span class="mi">030</span> <span class="o">:</span>          <span class="s">&quot;打席&quot;</span><span class="o">,</span>
+<span class="mi">031</span> <span class="o">:</span>          <span class="s">&quot;打数&quot;</span><span class="o">,</span>
+<span class="mi">032</span> <span class="o">:</span>          <span class="s">&quot;安打&quot;</span><span class="o">,</span>
+<span class="mi">033</span> <span class="o">:</span>          <span class="s">&quot;本塁打&quot;</span><span class="o">,</span>
+<span class="mi">034</span> <span class="o">:</span>          <span class="s">&quot;打点&quot;</span><span class="o">,</span>
+<span class="mi">035</span> <span class="o">:</span>          <span class="s">&quot;盗塁&quot;</span><span class="o">,</span>
+<span class="mi">036</span> <span class="o">:</span>          <span class="s">&quot;四球&quot;</span><span class="o">,</span>
+<span class="mi">037</span> <span class="o">:</span>          <span class="s">&quot;死球&quot;</span><span class="o">,</span>
+<span class="mi">038</span> <span class="o">:</span>          <span class="s">&quot;三振&quot;</span><span class="o">,</span>
+<span class="mi">039</span> <span class="o">:</span>          <span class="s">&quot;犠打&quot;</span><span class="o">,</span>
+<span class="mi">040</span> <span class="o">:</span>          <span class="s">&quot;併殺打&quot;</span><span class="o">,</span>
+<span class="mi">041</span> <span class="o">:</span>          <span class="s">&quot;長打率&quot;</span><span class="o">,</span>
+<span class="mi">042</span> <span class="o">:</span>          <span class="s">&quot;出塁率&quot;</span><span class="o">,</span>
+<span class="mi">043</span> <span class="o">:</span>          <span class="s">&quot;OPS&quot;</span> <span class="o">,</span>
+<span class="mi">044</span> <span class="o">:</span>          <span class="s">&quot;RC27&quot;</span><span class="o">,</span>
+<span class="mi">045</span> <span class="o">:</span>          <span class="s">&quot;XR27&quot;</span>
+<span class="mi">046</span> <span class="o">:</span>          <span class="o">};</span>
+<span class="mi">047</span> <span class="o">:</span>
+<span class="mi">048</span> <span class="o">:</span>  <span class="c1">// String型のカラム定義</span>
+<span class="mi">049</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">STRING_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">050</span> <span class="o">:</span>          <span class="s">&quot;チーム&quot;</span>
+<span class="mi">051</span> <span class="o">:</span>          <span class="o">};</span>
+<span class="mi">052</span> <span class="o">:</span>
+<span class="mi">053</span> <span class="o">:</span>  <span class="c1">// Double型のカラム定義</span>
+<span class="mi">054</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">DOUBLE_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">055</span> <span class="o">:</span>          <span class="s">&quot;打率&quot;</span><span class="o">,</span>
+<span class="mi">056</span> <span class="o">:</span>          <span class="s">&quot;試合数&quot;</span><span class="o">,</span>
+<span class="mi">057</span> <span class="o">:</span>          <span class="s">&quot;打席&quot;</span><span class="o">,</span>
+<span class="mi">058</span> <span class="o">:</span>          <span class="s">&quot;打数&quot;</span><span class="o">,</span>
+<span class="mi">059</span> <span class="o">:</span>          <span class="s">&quot;安打&quot;</span><span class="o">,</span>
+<span class="mi">060</span> <span class="o">:</span>          <span class="s">&quot;本塁打&quot;</span><span class="o">,</span>
+<span class="mi">061</span> <span class="o">:</span>          <span class="s">&quot;打点&quot;</span><span class="o">,</span>
+<span class="mi">062</span> <span class="o">:</span>          <span class="s">&quot;盗塁&quot;</span><span class="o">,</span>
+<span class="mi">063</span> <span class="o">:</span>          <span class="s">&quot;四球&quot;</span><span class="o">,</span>
+<span class="mi">064</span> <span class="o">:</span>          <span class="s">&quot;死球&quot;</span><span class="o">,</span>
+<span class="mi">065</span> <span class="o">:</span>          <span class="s">&quot;三振&quot;</span><span class="o">,</span>
+<span class="mi">066</span> <span class="o">:</span>          <span class="s">&quot;犠打&quot;</span><span class="o">,</span>
+<span class="mi">067</span> <span class="o">:</span>          <span class="s">&quot;併殺打&quot;</span><span class="o">,</span>
+<span class="mi">068</span> <span class="o">:</span>          <span class="s">&quot;長打率&quot;</span><span class="o">,</span>
+<span class="mi">069</span> <span class="o">:</span>          <span class="s">&quot;出塁率&quot;</span><span class="o">,</span>
+<span class="mi">070</span> <span class="o">:</span>          <span class="s">&quot;OPS&quot;</span> <span class="o">,</span>
+<span class="mi">071</span> <span class="o">:</span>          <span class="s">&quot;RC27&quot;</span><span class="o">,</span>
+<span class="mi">072</span> <span class="o">:</span>          <span class="s">&quot;XR27&quot;</span>
+<span class="mi">073</span> <span class="o">:</span>          <span class="o">};</span>
+<span class="mi">074</span> <span class="o">:</span>
+<span class="mi">075</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">start</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">076</span> <span class="o">:</span>          <span class="c1">// 1. Jubatus Serverへの接続設定</span>
+<span class="mi">077</span> <span class="o">:</span>          <span class="n">RecommenderClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RecommenderClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="mi">078</span> <span class="o">:</span>
+<span class="mi">079</span> <span class="o">:</span>          <span class="c1">// 2. 学習用データの準備</span>
+<span class="mi">080</span> <span class="o">:</span>          <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">081</span> <span class="o">:</span>
+<span class="mi">082</span> <span class="o">:</span>          <span class="k">try</span> <span class="o">{</span>
+<span class="mi">083</span> <span class="o">:</span>                  <span class="n">File</span> <span class="n">csv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">CSV_PATH</span><span class="o">);</span> <span class="c1">// CSVデータファイル</span>
+<span class="mi">084</span> <span class="o">:</span>
+<span class="mi">085</span> <span class="o">:</span>                  <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">csv</span><span class="o">));</span>
+<span class="mi">086</span> <span class="o">:</span>                  <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">();</span>
+<span class="mi">087</span> <span class="o">:</span>                  <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">doubleList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">();</span>
+<span class="mi">088</span> <span class="o">:</span>
+<span class="mi">089</span> <span class="o">:</span>                  <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">090</span> <span class="o">:</span>
+<span class="mi">091</span> <span class="o">:</span>                  <span class="c1">// 最終行まで、1行ずつループでまわして読み込む</span>
+<span class="mi">092</span> <span class="o">:</span>                  <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">093</span> <span class="o">:</span>                          <span class="n">strList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+<span class="mi">094</span> <span class="o">:</span>                          <span class="n">doubleList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+<span class="mi">095</span> <span class="o">:</span>
+<span class="mi">096</span> <span class="o">:</span>                          <span class="c1">// 1行をデータの要素ごとに分割</span>
+<span class="mi">097</span> <span class="o">:</span>                          <span class="n">String</span><span class="o">[]</span> <span class="n">strAry</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">);</span>
+<span class="mi">098</span> <span class="o">:</span>
+<span class="mi">099</span> <span class="o">:</span>                          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">strAry</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">100</span> <span class="o">:</span>                                  <span class="k">if</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">STRING_COLUMN</span><span class="o">).</span><span class="na">contains</span><span class="o">(</span><span class="n">CSV_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">])){</span>
+<span class="mi">101</span> <span class="o">:</span>                                          <span class="n">strList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">strAry</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="mi">102</span> <span class="o">:</span>                                  <span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">DOUBLE_COLUMN</span><span class="o">).</span><span class="na">contains</span><span class="o">(</span><span class="n">CSV_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">])){</span>
+<span class="mi">103</span> <span class="o">:</span>                                          <span class="n">doubleList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">strAry</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="mi">104</span> <span class="o">:</span>                                  <span class="o">}</span>
+<span class="mi">105</span> <span class="o">:</span>                          <span class="o">}</span>
+<span class="mi">106</span> <span class="o">:</span>                          <span class="c1">// datumを作成</span>
+<span class="mi">107</span> <span class="o">:</span>                          <span class="n">datum</span> <span class="o">=</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">strList</span><span class="o">,</span> <span class="n">doubleList</span><span class="o">);</span>
+<span class="mi">108</span> <span class="o">:</span>                          <span class="c1">// 3. データの学習（学習モデルの更新）</span>
+<span class="mi">109</span> <span class="o">:</span>                          <span class="n">client</span><span class="o">.</span><span class="na">update_row</span><span class="o">(</span> <span class="n">NAME</span><span class="o">,</span> <span class="n">strAry</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">datum</span><span class="o">);</span>
+<span class="mi">110</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">111</span> <span class="o">:</span>                  <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="mi">112</span> <span class="o">:</span>
+<span class="mi">113</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">114</span> <span class="o">:</span>                   <span class="c1">// Fileオブジェクト生成時の例外捕捉</span>
+<span class="mi">115</span> <span class="o">:</span>                   <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">116</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">117</span> <span class="o">:</span>                   <span class="c1">// BufferedReaderオブジェクトのクローズ時の例外捕捉</span>
+<span class="mi">118</span> <span class="o">:</span>                   <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">119</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">120</span> <span class="o">:</span>          <span class="k">return</span><span class="o">;</span>
+<span class="mi">121</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">122</span> <span class="o">:</span>
+<span class="mi">123</span> <span class="o">:</span>  <span class="c1">// Datumを指定された名称で、リスト分作成</span>
+<span class="mi">124</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">Datum</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strList</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">doublelist</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">125</span> <span class="o">:</span>
+<span class="mi">126</span> <span class="o">:</span>          <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Datum</span><span class="o">();</span>
+<span class="mi">127</span> <span class="o">:</span>          <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringString</span><span class="o">&gt;();</span>
+<span class="mi">128</span> <span class="o">:</span>          <span class="n">datum</span><span class="o">.</span><span class="na">num_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringDouble</span><span class="o">&gt;();</span>
+<span class="mi">129</span> <span class="o">:</span>
+<span class="mi">130</span> <span class="o">:</span>          <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strList</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">131</span> <span class="o">:</span>                  <span class="n">TupleStringString</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringString</span><span class="o">();</span>
+<span class="mi">132</span> <span class="o">:</span>                  <span class="n">data</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">STRING_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="mi">133</span> <span class="o">:</span>                  <span class="n">data</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">strList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="mi">134</span> <span class="o">:</span>
+<span class="mi">135</span> <span class="o">:</span>                  <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="mi">136</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">137</span> <span class="o">:</span>
+<span class="mi">138</span> <span class="o">:</span>          <span class="k">try</span> <span class="o">{</span>
+<span class="mi">139</span> <span class="o">:</span>                  <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">doublelist</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">140</span> <span class="o">:</span>                          <span class="n">TupleStringDouble</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringDouble</span><span class="o">();</span>
+<span class="mi">141</span> <span class="o">:</span>                          <span class="n">data</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">DOUBLE_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="mi">142</span> <span class="o">:</span>                          <span class="n">data</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">doublelist</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+<span class="mi">143</span> <span class="o">:</span>
+<span class="mi">144</span> <span class="o">:</span>                          <span class="n">datum</span><span class="o">.</span><span class="na">num_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="mi">145</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">146</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">){</span>
+<span class="mi">147</span> <span class="o">:</span>                  <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">148</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">149</span> <span class="o">:</span>
+<span class="mi">150</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">datum</span><span class="o">;</span>
+<span class="mi">151</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">152</span> <span class="o">:</span>
+<span class="mi">153</span> <span class="o">:</span>
+<span class="mi">154</span> <span class="o">:</span>  <span class="c1">// メインメソッド</span>
+<span class="mi">155</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">156</span> <span class="o">:</span>          <span class="k">new</span> <span class="n">Update</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+<span class="mi">157</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">158</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">159</span> <span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>Analyze.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">01</span> <span class="o">:</span> <span class="kn">package</span> <span class="n">NpbSimilarPlayer</span><span class="o">;</span>
+<span class="mi">02</span> <span class="o">:</span>
+<span class="mi">03</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="mi">04</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<span class="mi">05</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
+<span class="mi">06</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+<span class="mi">07</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="mi">08</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">09</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mi">10</span> <span class="o">:</span>
+<span class="mi">11</span> <span class="o">:</span>
+<span class="mi">12</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.recommender.RecommenderClient</span><span class="o">;</span>
+<span class="mi">13</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.recommender.TupleStringFloat</span><span class="o">;</span>
+<span class="mi">14</span> <span class="o">:</span>
+<span class="mi">15</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Analyze</span> <span class="o">{</span>
+<span class="mi">16</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">17</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">18</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;NpbSimilarPlayer&quot;</span><span class="o">;</span>
+<span class="mi">19</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CSV_PATH</span> <span class="o">=</span> <span class="s">&quot;./src/main/resources/baseball.csv&quot;</span><span class="o">;</span>
+<span class="mi">20</span> <span class="o">:</span>
+<span class="mi">21</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kt">void</span> <span class="n">start</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">22</span> <span class="o">:</span>           <span class="c1">// 1. Jubatus Serverへの接続設定</span>
+<span class="mi">23</span> <span class="o">:</span>           <span class="n">RecommenderClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RecommenderClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="mi">24</span> <span class="o">:</span>
+<span class="mi">25</span> <span class="o">:</span>           <span class="c1">// 2. 推薦用データの準備</span>
+<span class="mi">26</span> <span class="o">:</span>            <span class="n">List</span><span class="o">&lt;</span><span class="n">TupleStringFloat</span><span class="o">&gt;</span> <span class="n">rec</span> <span class="o">=</span> <span class="k">new</span>  <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringFloat</span><span class="o">&gt;();</span>
+<span class="mi">27</span> <span class="o">:</span>
+<span class="mi">28</span> <span class="o">:</span>            <span class="k">try</span> <span class="o">{</span>
+<span class="mi">29</span> <span class="o">:</span>                   <span class="n">File</span> <span class="n">csv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">CSV_PATH</span><span class="o">);</span> <span class="c1">// CSVデータファイル</span>
+<span class="mi">30</span> <span class="o">:</span>
+<span class="mi">31</span> <span class="o">:</span>                   <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">csv</span><span class="o">));</span>
+<span class="mi">32</span> <span class="o">:</span>
+<span class="mi">33</span> <span class="o">:</span>                   <span class="c1">// 最終行まで読み込む</span>
+<span class="mi">34</span> <span class="o">:</span>                   <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">35</span> <span class="o">:</span>                   <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">36</span> <span class="o">:</span>
+<span class="mi">37</span> <span class="o">:</span>                           <span class="c1">// 1行をデータの要素に分割</span>
+<span class="mi">38</span> <span class="o">:</span>                           <span class="n">String</span><span class="o">[]</span> <span class="n">strAry</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">);</span>
+<span class="mi">39</span> <span class="o">:</span>
+<span class="mi">40</span> <span class="o">:</span>                           <span class="c1">// 3. 学習モデルに基づく推薦</span>
+<span class="mi">41</span> <span class="o">:</span>                           <span class="n">rec</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">similar_row_from_id</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">strAry</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="mi">4</span><span class="o">);</span>
+<span class="mi">42</span> <span class="o">:</span>
+<span class="mi">43</span> <span class="o">:</span>                           <span class="c1">// 4. 結果の出力</span>
+<span class="mi">44</span> <span class="o">:</span>                           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;player &quot;</span> <span class="o">+</span> <span class="n">strAry</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot; is similar to : &quot;</span> <span class="o">+</span> <span class="n">rec</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">first</span> <span class="o">+</span>
+<span class="mi">45</span> <span class="o">:</span>                                           <span class="s">&quot; &quot;</span> <span class="o">+</span>  <span class="n">rec</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="na">first</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">rec</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">3</span><span class="o">).</span><span class="na">first</span> <span class="o">);</span>
+<span class="mi">46</span> <span class="o">:</span>                           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="mi">47</span> <span class="o">:</span>                   <span class="o">}</span>
+<span class="mi">48</span> <span class="o">:</span>                   <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="mi">49</span> <span class="o">:</span>
+<span class="mi">50</span> <span class="o">:</span>            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">51</span> <span class="o">:</span>                    <span class="c1">// Fileオブジェクト生成時の例外捕捉</span>
+<span class="mi">52</span> <span class="o">:</span>                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">53</span> <span class="o">:</span>            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">54</span> <span class="o">:</span>                    <span class="c1">// BufferedReaderオブジェクトのクローズ時の例外捕捉</span>
+<span class="mi">55</span> <span class="o">:</span>                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">56</span> <span class="o">:</span>            <span class="o">}</span>
+<span class="mi">57</span> <span class="o">:</span>
+<span class="mi">58</span> <span class="o">:</span>           <span class="k">return</span><span class="o">;</span>
+<span class="mi">59</span> <span class="o">:</span>   <span class="o">}</span>
+<span class="mi">60</span> <span class="o">:</span>
+<span class="mi">61</span> <span class="o">:</span>   <span class="c1">// メインメソッド</span>
+<span class="mi">62</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">63</span> <span class="o">:</span>           <span class="k">new</span> <span class="n">Analyze</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+<span class="mi">64</span> <span class="o">:</span>           <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">65</span> <span class="o">:</span>   <span class="o">}</span>
+<span class="mi">66</span> <span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>解説<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>npb_similar_player.json</strong></p>
+<p>設定は単体のJSONで与えられます。JSONの各フィールドは以下の通りです。</p>
+<ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>分類に使用するアルコリズムを指定します。
+今回は、転置インデックスを利用したいので、&#8221;inverted_index&#8221;を指定します。
+Recommenderで指定できるアルゴリズムは上記以外に、&#8221;minhash&#8221;、&#8221;lsh&#8221;、&#8221;euclid_lsh&#8221;があります。</div></blockquote>
+<ul class="simple">
+<li>converter</li>
+</ul>
+<blockquote>
+<div><p>特徴変換の設定を指定します。
+ここでは、&#8221;num_rules&#8221;を設定をしています。</p>
+<p>&#8220;num_rules&#8221;は数値特徴の抽出規則を指定します。
+&#8220;key&#8221;は&#8221;*&#8221;つまり、すべての&#8221;key&#8221;に対して、&#8221;type&#8221;は&#8221;num&#8221;なので、指定された数値をそのまま重みに利用する設定です。
+具体的には、打率が&#8221;0.33&#8221;であれば&#8221;0.33&#8221;を、打点が&#8221;30&#8221;であれば&#8221;30&#8221;を重みとします。</p>
+<p>&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
+今回は文字列は使用しないので指定していません。</p>
+</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<blockquote>
+<div>アルゴリズムに渡すパラメータを指定します。methodに応じて渡すパラメータは異なります。
+methodで“inverted_index”を指定していますので、設定不要です。</div></blockquote>
+<p><strong>Update.java</strong></p>
+<blockquote>
+<div><p>学習と推薦の手順を説明します。</p>
+<p>Recommenderのクライアントプログラムは、us.jubat.Recommenderクラス内で定義されているRecommenderClientクラスを利用して作成します。
+使用するメソッドは、1データ分の学習を行うupdate_rowメソッドと、与えられたデータから推薦を行うestimateメソッドの2つです。</p>
+<ol class="arabic simple">
+<li>Jubatus Serverへの接続設定</li>
+</ol>
+<blockquote>
+<div>Jubatus Serverへの接続を行います（33行目）。
+Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号，接続待機時間を設定します。</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>学習用データの準備</li>
+</ol>
+<blockquote>
+<div><p>Jubatus Serverに学習させるデータDatumを作成します（80行目）。</p>
+<p>RecommenderClientでは、Datumを学習用データとして作成し、RecommenderClientのupdate_rowメソッドに与えることで、学習が行われます。
+今回はプロ野球データfreakというサイトの野手データ（CSVファイル）を元に学習用データを作成していきます。
+野手データの要素として、&#8221;名前&#8221;、&#8221;チーム&#8221;、&#8221;打率&#8221;、&#8221;打数&#8221;、&#8221;安打&#8221;などがあります。
+下図に、今回作成する学習用データの構造を示します。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="18%" />
+<col width="20%" />
+<col width="23%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="3">ID(String)</th>
+<th class="head" colspan="4">Datum</th>
+</tr>
+<tr class="row-even"><th class="head" colspan="2">TupleStringString(List)</th>
+<th class="head" colspan="2">TupleStringDoubel(List)</th>
+</tr>
+<tr class="row-odd"><th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(double)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;大島洋平&#8221;</td>
+<td>&#8220;チーム&#8221;</td>
+<td>&#8220;中日&#8221;</td>
+<td><div class="first last line-block">
+<div class="line">&#8220;打率&#8221;</div>
+<div class="line">&#8220;試合数&#8221;</div>
+<div class="line">&#8220;打席&#8221;</div>
+<div class="line">&#8220;打数&#8221;</div>
+<div class="line">&#8220;安打&#8221;</div>
+<div class="line">&#8220;本塁打&#8221;</div>
+<div class="line">&#8220;打点&#8221;</div>
+<div class="line">&#8220;盗塁&#8221;</div>
+<div class="line">&#8220;四球&#8221;</div>
+<div class="line">&#8220;死球&#8221;</div>
+<div class="line">&#8220;三振&#8221;</div>
+<div class="line">&#8220;犠打&#8221;</div>
+<div class="line">&#8220;併殺打&#8221;</div>
+<div class="line">&#8220;長打率&#8221;</div>
+<div class="line">&#8220;出塁率&#8221;</div>
+<div class="line">&#8220;OPS&#8221;</div>
+<div class="line">&#8220;RC27&#8221;</div>
+<div class="line">&#8220;XR27&#8221;</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">0.31</div>
+<div class="line">144</div>
+<div class="line">631</div>
+<div class="line">555</div>
+<div class="line">172</div>
+<div class="line">1</div>
+<div class="line">13</div>
+<div class="line">32</div>
+<div class="line">46</div>
+<div class="line">13</div>
+<div class="line">80</div>
+<div class="line">17</div>
+<div class="line">7</div>
+<div class="line">0.368</div>
+<div class="line">0.376</div>
+<div class="line">0.744</div>
+<div class="line">5.13</div>
+<div class="line">4.91</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>&#8220;高橋由伸&#8221;</td>
+<td>&#8220;チーム&#8221;</td>
+<td>&#8220;巨人&#8221;</td>
+<td><div class="first last line-block">
+<div class="line">&#8220;打率&#8221;</div>
+<div class="line">&#8220;試合数&#8221;</div>
+<div class="line">&#8220;打席&#8221;</div>
+<div class="line">&#8220;打数&#8221;</div>
+<div class="line">･･･</div>
+<div class="line">･･･</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">0.239</div>
+<div class="line">130</div>
+<div class="line">442</div>
+<div class="line">368</div>
+<div class="line">･･･</div>
+<div class="line">･･･</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Datumとは、Jubatusで利用できるkey-valueデータ形式のことです。Datumには2つのkey-valueが存在します。
+1つはキーも値も文字列の文字列データ（string_values）、もう一方は、キーは同様に文字列で、バリューは数値の数値データ（num_values）です。
+それぞれ、TupleStringStringクラスとTupleStringDoubleクラスで表します。</p>
+<div class="line-block">
+<div class="line">表の1つ目のデータを例に説明すると、&#8221;チーム&#8221;は文字列なのでTupleStringStringクラスの</div>
+<div class="line">1番目のListとしてキーに&#8221;チーム&#8221;、バリューに&#8221;中日&#8221;を設定します。</div>
+<div class="line">それ以外の項目は数値なので、TupleStringDoubleクラスの</div>
+<div class="line">1番目のListとしてキーに&#8221;打率&#8221;、バリューに&#8216;0.31&#8217;、</div>
+<div class="line">2番目のListとしてキーに&#8221;試合数&#8221;、バリューに&#8216;144&#8217;、</div>
+<div class="line">3番目のListとしてキーに&#8221;打席&#8221;、バリューに&#8216;631&#8217;、</div>
+<div class="line">4番目のListとしてキーに&#8221;打数&#8221;、バリューに&#8216;555&#8217;と</div>
+<div class="line">最後の要素&#8221;XR27&#8221;の項目までListを作成し設定します。</div>
+</div>
+<p>これらのListを保持したDatumをCSVの1行ずつ、つまり選手1人ずつ作成します。
+その、DatumとIDである選手の&#8221;名前&#8221;を学習用データとして使用します。</p>
+<p>このサンプルでの学習用データ作成の手順は下記の流れで行います。</p>
+<p>まず、学習用データの元となるCSVファイルを読み込みます。
+ここでは、FileReaderとBuffererdReaderを利用して1行ずつループで読み込んで処理します（83-112行目）。
+CSVファイルなので、取得した1行を&#8217;,&#8217;で分割し要素ごとに分けます（76行目）。
+定義したCSVファイルの項目リスト（CSV_COLUMN）とString項目リスト（STRING_COLUMN）、Double項目リスト（DOUBLE_COLUMN）を用い型ごとに分けてリストを作成します（99-105行目）。
+作成した 2 つのリストを引数としてDatumを作成するprivateメソッド「makeDatum」を呼び出します（107行目）。</p>
+<p>「makeDatum」では、引数のString項目のリストとDouble項目のリストから、String型はTupleStringStringのListを、Double型はTupleStringDoubleのListを作成します（124-151行目）。
+まず、Datumクラスを生成してDatumの要素であるstring_valuesとnum_valuesのListをそれぞれ生成します（126-128行目）。
+次に、定義しているString項目リスト（STRING_COLUMN）と引数のstrListの順番は対応しているので、ループでTupleStringStringを生成し、要素firstにキー（カラム名）をsecondにバリュー（値）を設定してstring_valuesのListに追加します（130-136行目）。
+Double項目リストもString項目と同様にループでTupleStringDoubleを生成し、要素を設定してからnum_valuesに追加します。ここで注意する点は、引数はString型ですがDatumのnum_valuesはDouble型の為、変換が必要になります（142行目）。
+これで、1人分の選手のデータが入ったDatumの作成が完了しました。</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>データの学習（学習モデルの更新）</li>
+</ol>
+<blockquote>
+<div>2.の工程で作成した学習用データを、update_rowメソッドに渡すことで学習が行われます（109行目）。
+update_rowメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します（スタンドアロン構成の場合、空文字（&#8221;&#8220;）を指定）。
+第2引数は、IDで学習データ内でユニークな名前を指定します。ここでは選手の&#8221;名前&#8221;をIDとして使用します。
+第3引数として、先ほど 2. で作成したDatumを指定します。
+これで、選手1人分のデータの学習が完了しました。ループ処理で 2. と 3. をCSVの行数分繰り返し実行すれば、データの学習は完了します。</div></blockquote>
+</div></blockquote>
+<p><strong>Analyze.java</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Jubatus Serverへの接続設定</li>
+</ol>
+<blockquote>
+<div>Update.javaと同様のため省略。</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>推薦用データの準備</li>
+</ol>
+<blockquote>
+<div>推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
+学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>学習モデルに基づく推薦</li>
+</ol>
+<blockquote>
+<div>2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のListを得ることができます（41行目）。
+similar_row_from_idメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します（スタンドアロン構成の場合、空文字（&#8221;&#8220;）を指定）。
+第2引数に、&#8221;名前&#8221;を指定します。
+第3引数は、似ているタイプを近傍順にいくつ出力するかを指定します。ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>結果の出力</li>
+</ol>
+<blockquote>
+<div>3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第3引数に&#8221;4&#8221;を指定したので、4つの要素を持ったListです。
+Listの1番目は自分自身なので、Listの2番目から4番目までを結果として出力します。
+Update.javaと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>サンプルプログラムの実行<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>［Jubatus Serverでの作業］</strong></p>
+<p>jubarecommenderを起動します。</p>
+<div class="highlight-python"><pre>$ jubarecommender --configpath npb_similar_player.json</pre>
+</div>
+<p><strong>［Jubatus Clientでの作業］</strong></p>
+<blockquote>
+<div>必要なパッケージとJavaクライアントを用意し、実行します。</div></blockquote>
+<p><strong>［実行結果］</strong></p>
+<div class="highlight-python"><pre>player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
+player 大島洋平 is similar to : 本多雄一 石川雄洋 荒波翔
+player 鳥谷敬 is similar to : サブロー 糸井嘉男 和田一浩
+player 坂本勇人 is similar to : 角中勝也 稲葉篤紀 秋山翔吾
+player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
+…
+…（以下略）</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="graph.html" title="Graph"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="recommender_ruby.html" title="Ruby"
+             >前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
+          <li><a href="recommender.html" >Recommender</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

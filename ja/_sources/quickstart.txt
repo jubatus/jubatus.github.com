@@ -1,16 +1,16 @@
-Quick Start
-===========
+クイックスタート
+=================
 
 
-Install Jubatus
----------------
+Jubatusのインストール
+---------------------
 
 Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 以降 (x86_64) が公式にサポートされています。
 
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
 その他のシステムでのインストールについては :doc:`build` を参照してください。
 
-Yum Repository (RHEL)
+Yumレポジトリ (RHEL)
 ~~~~~~~~~~~~~~~~~~~~~
 
 以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。
@@ -25,7 +25,7 @@ Yum Repository (RHEL)
 
   $ sudo yum install jubatus jubatus-client
 
-Apt Repository (Ubuntu)
+Apt レポジトリ (Ubuntu)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 以下の行を ``/etc/apt/sources.list.d/jubatus.list`` に記述して、Jubatus の Apt リポジトリをシステムに登録します。
@@ -63,8 +63,8 @@ csh または tcsh をお使いの場合は、こちらを使用してくださ�
   $ source /opt/jubatus/profile.csh
 
 
-Install Jubatus Client Libraries
---------------------------------
+Jubatus クライアントのインストール
+-----------------------------------
 
 Jubatus を使ったクライアントアプリケーションは C++, Python, Ruby または Java で記述することができます。
 クライアントアプリケーションから Jubatus を使うには、各言語のクライアントライブラリをインストールする必要があります。
@@ -114,7 +114,7 @@ Ubuntu では ``pip`` のインストールに ``python-pip`` パッケージを
 Ruby
 ~~~~
 
-クライアント (Ruby 1.9 以降が必要) は `RubyGems <http://rubygems.org/gems/jubatus>`_ で配布されています。
+クライアント (Ruby 1.9 が必要) は `RubyGems <http://rubygems.org/gems/jubatus>`_ で配布されています。
 
 ::
 
@@ -145,13 +145,13 @@ Java
    </dependencies>
 
 
-Try Tutorial
-------------
+チュートリアル
+---------------
 
 :doc:`tutorial` を試してみましょう (Python クライアントが必要です)。
 
 
-Write Your Application
+作ってみよう！
 ----------------------
 
 おめでとうございます!

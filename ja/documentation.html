@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Documentation &mdash; Jubatus</title>
+    <title>ドキュメント &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,8 +44,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="next" title="Architecture" href="processes.html" />
-    <link rel="prev" title="Tutorial in Distributed Mode" href="tutorial_distributed.html" /> 
+    <link rel="next" title="データ変換" href="fv_convert.html" />
+    <link rel="prev" title="分散モードでのセットアップ" href="tutorial_distributed.html" /> 
 
 <!--
 
@@ -84,10 +84,10 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="processes.html" title="Architecture"
+          <a href="fv_convert.html" title="データ変換"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="tutorial_distributed.html" title="Tutorial in Distributed Mode"
+          <a href="tutorial_distributed.html" title="分散モードでのセットアップ"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li> 
       </ul>
@@ -100,10 +100,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="tutorial_distributed.html"
-                        title="前の章へ">Tutorial in Distributed Mode</a></p>
+                        title="前の章へ">分散モードでのセットアップ</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="processes.html"
-                        title="次の章へ">Architecture</a></p>
+  <p class="topless"><a href="fv_convert.html"
+                        title="次の章へ">データ変換</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/documentation.txt"
@@ -134,48 +134,42 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="id1">
+<h1>ドキュメント<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="processes.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fv_convert.html">Data Conversion</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="fv_convert.html">データ変換</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#id2">概要</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fv_convert.html#datum">Datum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#flow-of-data-conversion">Flow of Data Conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#filter">Filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#feature-extraction-from-strings">Feature Extraction from Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#feature-extraction-from-numbers">Feature Extraction from Numbers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#id3">データ変換の流れ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#id4">フィルター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#construct">文字列からの特徴抽出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#id6">数値からの特徴抽出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#id7">特徴ベクトルのキーのハッシュ化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#conversion-plugin">プラグイン</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="plugin.html">Plugin Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plugin.html#plugin-for-data-conversion">Plugin for Data Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugin.html">プラグインの開発</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html#id2">データ変換プラグイン</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="admin.html">Cluster Administration Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#recommended-process-configuration">Recommended Process Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#managing-clusters">Managing Clusters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#monitoring">Monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#logging">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#save-and-load">Save and Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Jubatus をソースからビルドする</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#requirements">要件</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Building Jubatus from Source</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="build.html#requirements">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="framework.html">フレームワークの利用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="server.html">コード生成器の利用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html">クライアントの入手方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="idl_support.html">IDL のサポート状況 (2013/04)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="framework.html">Using Framework</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="server.html">Using Code Generators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html">How to Get Clients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="idl_support.html">IDL Support Status (2013 Mar.)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#rpc-errors">RPC Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#anomaly-detection">Anomaly detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">よくある質問と回答 (FAQs)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id1">インストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#rpc">RPC エラー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id3">分散環境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id4">学習モデル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id5">異常値検知</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id7">その他</a></li>
 </ul>
 </li>
 </ul>
@@ -195,10 +189,10 @@
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="processes.html" title="Architecture"
+          <a href="fv_convert.html" title="データ変換"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="tutorial_distributed.html" title="Tutorial in Distributed Mode"
+          <a href="tutorial_distributed.html" title="分散モードでのセットアップ"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li> 
       </ul>

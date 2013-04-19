@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>How to Get Clients &mdash; Jubatus</title>
+    <title>クライアントの入手方法 &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Using Framework" href="framework.html" />
-    <link rel="next" title="IDL Support Status (2013 Mar.)" href="idl_support.html" />
-    <link rel="prev" title="Using Code Generators" href="server.html" /> 
+    <link rel="up" title="フレームワークの利用" href="framework.html" />
+    <link rel="next" title="IDL のサポート状況 (2013/04)" href="idl_support.html" />
+    <link rel="prev" title="コード生成器の利用" href="server.html" /> 
 
 <!--
 
@@ -85,14 +85,14 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2013 Mar.)"
+          <a href="idl_support.html" title="IDL のサポート状況 (2013/04)"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="server.html" title="Using Code Generators"
+          <a href="server.html" title="コード生成器の利用"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li>
-          <li><a href="framework.html" accesskey="U">Using Framework</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li>
+          <li><a href="framework.html" accesskey="U">フレームワークの利用</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -103,19 +103,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">How to Get Clients</a><ul>
-<li><a class="reference internal" href="#use-pre-generated-client">Use pre-generated client</a></li>
-<li><a class="reference internal" href="#generate-clients-from-msgpack-idl">Generate clients from msgpack-idl</a></li>
+<li><a class="reference internal" href="#">クライアントの入手方法</a><ul>
+<li><a class="reference internal" href="#id2">生成済みクライアントの利用</a></li>
+<li><a class="reference internal" href="#msgpack-idl">msgpack-idl でクライアントを生成する</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="server.html"
-                        title="前の章へ">Using Code Generators</a></p>
+                        title="前の章へ">コード生成器の利用</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="idl_support.html"
-                        title="次の章へ">IDL Support Status (2013 Mar.)</a></p>
+                        title="次の章へ">IDL のサポート状況 (2013/04)</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/howtogetclients.txt"
@@ -147,20 +147,20 @@
           <div class="body">
             
   <div class="section" id="how-to-get-clients">
-<span id="id1"></span><h1>How to Get Clients<a class="headerlink" href="#how-to-get-clients" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<span id="id1"></span><h1>クライアントの入手方法<a class="headerlink" href="#how-to-get-clients" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>各言語版のJubatusクライアントを取得する方法は、二種類あります。</p>
 <ul class="simple">
-<li>パッケージ管理システムを使用する (<a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> 参照)。</li>
+<li>パッケージ管理システムを使用する (<a class="reference internal" href="quickstart.html"><em>クイックスタート</em></a> 参照)。</li>
 <li>msgpack-idl と .idl ファイルから生成する。</li>
 </ul>
 <p>以降の章で、それぞれの方法を解説します。</p>
-<div class="section" id="use-pre-generated-client">
-<h2>Use pre-generated client<a class="headerlink" href="#use-pre-generated-client" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>生成済みクライアントの利用<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>後述の通り、クライアントコードは msgpack-idl で生成されています。
 ただし、クライアント用コードを簡単に使いたいならば、パッケージ管理システムを使用してクライアントライブラリをインストールすることを推奨します。</p>
 </div>
-<div class="section" id="generate-clients-from-msgpack-idl">
-<h2>Generate clients from msgpack-idl<a class="headerlink" href="#generate-clients-from-msgpack-idl" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="msgpack-idl">
+<h2>msgpack-idl でクライアントを生成する<a class="headerlink" href="#msgpack-idl" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>新機能追加など、これまでのクライアントが利用できないなどの場合は、クライアントコードを <a class="reference external" href="http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl">msgpack-idl</a> のidlファイルを用いて生成することができます。
 msgpack-idl は、Haskellで書かれたIDLコンパイラで、idlファイルで定義されたインターフェイスを各言語に変換します。
 このプログラムは、ghc7とcabalを必要とします。classifierを生成するには、以下のように実行します。</p>
@@ -187,14 +187,14 @@ classifier_types.hpp classifier_client.hpp classifier_server.hpp</pre>
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2013 Mar.)"
+          <a href="idl_support.html" title="IDL のサポート状況 (2013/04)"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="server.html" title="Using Code Generators"
+          <a href="server.html" title="コード生成器の利用"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li>
-          <li><a href="framework.html" >Using Framework</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li>
+          <li><a href="framework.html" >フレームワークの利用</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -67,7 +67,7 @@ Run ``jubaclassifier`` program, which provides classification feature, specifyin
 
 Jubatus classification server is now started.
 Jubatus servers listen on TCP port 9199 by default.
-If you would like to use another port, specify it using ``--rcp-port`` option.
+If you would like to use another port, specify it using ``--rpc-port`` option.
 For example, to use port 19199:
 
 ::

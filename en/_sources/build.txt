@@ -9,7 +9,7 @@ We recommend using binary packages (see :doc:`quickstart`) whenever possible, bu
 Requirements
 ------------
 
-You need ``gcc`` (version 4.4 or later), ``pkg-config`` (version 0.26 or later) and ``python`` (version 2.6 or later, used in ``waf``) to build Jubatus from source.
+You need ``gcc`` (version 4.4 or later), ``pkg-config`` (version 0.26 or later) and ``python`` (version 2.4 or later, used in ``waf``) to build Jubatus from source.
 In addition, following libraries are required.
 For supported version of libraries, refer to the `Jubatus Wiki <https://github.com/jubatus/jubatus/wiki/Supported-Library-Versions>`_.
 

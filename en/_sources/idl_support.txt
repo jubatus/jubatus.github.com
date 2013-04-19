@@ -1,4 +1,4 @@
-IDL Support Status (2013 Mar.)
+IDL Support Status (2013 Apr.)
 ------------------------------
 
 Currently, Jubatus supports six machine learning services (Classifier, Regression, Recommender, Stat, Graph, Anomaly).
@@ -23,7 +23,7 @@ The followings are support status of ``jenerator`` and msgpack-idl.
 
 We tested these clients in the following condition
 
-- Jubatus : Jubatus 0.4.2
+- Jubatus : Jubatus 0.4.3
 
 - Server : Built-in servers in repository
 

@@ -1,7 +1,7 @@
-How to Contribute
-=================
+プロジェクトに貢献する
+========================
 
-We Welcome Your Contribution
+プロジェクトに貢献するには
 ----------------------------
 
 以下のようなコントリビューションをお待ちしています!
@@ -12,13 +12,13 @@ We Welcome Your Contribution
   - ドキュメントの改善: `website リポジトリ <https://github.com/jubatus/website>`_ に `pull-request <https://github.com/jubatus/website/pulls>`_ を送ってください。typo や表現の誤りの訂正など、小さな修正も歓迎します。
   - `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ にあるバグを修正したり、新しい機能をフレームワークに実装してください。
 
-Participate in the Mailing List
+メーリングリストへの参加
 -------------------------------
 
 ユーザと開発者のためのコミュニティとして、 `Google Groups <http://groups.google.com/group/jubatus>`_ にメーリングリストを用意しています。
 他のユーザや開発者と直接やり取りをすることができます。
 
-Repositories
+リポジトリ
 ------------
 
 - `Jubatus <http://github.com/jubatus/jubatus>`_
@@ -33,8 +33,8 @@ Repositories
 
  - このサイトの `Sphinx <http://sphinx.pocoo.org/>`_ ソースです。
 
-Tips for Contributors
----------------------
+コントリビュータのための Tips
+--------------------------------
 
 * Jubatus フレームワークにあなたのコードをコントリビュートする場合:
 

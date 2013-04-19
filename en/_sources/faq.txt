@@ -4,23 +4,15 @@ Frequently Asked Questions (FAQs)
 Installation
 ::::::::::::
 
-- Failed in ``./waf configre`` with the following error.
-
- This error occurs when old python. Use python 2.6 or later.
-
-::
-
-  ...
-  line 298, in load_tool
-       __import__(d)
-     File "/Users/oliner/tmp/jubatus/unittest_gtest.py", line 8
-       C1 = b'#XXX'
-                ^
-  SyntaxError: invalid syntax
-
 - ``mecab_splitter.trivial`` and ``mecab_splitter_create.trivial`` does not pass the unittest?
 
  Check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
+
+- Will Jubatus Ruby client work with Ruby 2.0?
+
+ Currently we are not testing clients against Ruby 2.0.
+
+ There is a known issue of msgpack 0.4.x (which Jubatus Ruby client indirectly depends on) that does not work with Ruby 2.0 when used from Rails application.
 
 RPC Errors
 ::::::::::

@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>アーキテクチャ概要 &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Jubatus Overview" href="summary.html" />
+    <link rel="next" title="分散学習機構Mixの概念説明" href="mix.html" />
+    <link rel="prev" title="Jubatusの機械学習ラインナップと利用シーン" href="machine_learning.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="mix.html" title="分散学習機構Mixの概念説明"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="machine_learning.html" title="Jubatusの機械学習ラインナップと利用シーン"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="summary.html" accesskey="U">Jubatus Overview</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">アーキテクチャ概要</a><ul>
+<li><a class="reference internal" href="#id2">システム構成</a></li>
+<li><a class="reference internal" href="#id3">学習モデルの共有</a></li>
+<li><a class="reference internal" href="#id4">計算モデル</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="machine_learning.html"
+                        title="前の章へ">Jubatusの機械学習ラインナップと利用シーン</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="mix.html"
+                        title="次の章へ">分散学習機構Mixの概念説明</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/overview/architecture.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>アーキテクチャ概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>本項では、Jubatusの構成に関する以下の3点について説明します。</p>
+<blockquote>
+<div><p>・ システム構成</p>
+<p>・ 学習モデルの共有</p>
+<p>・ 計算モデル</p>
+</div></blockquote>
+<div class="section" id="id2">
+<h2>システム構成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubatusには3種類のノードが存在します。分析を行うJubatusサーバ、Jubatusサーバに学習データを渡し、結果を受け取るクライアント、そして分散環境において仲介する管理ノード（Keeper）の3種類となります。</p>
+<p>Jubatus サーバはモデル情報を格納し、クライアントから受け取ったデータを用いて分析を行います。
+自分が保有しているモデル情報を他のJubatusサーバと共有するために、定期的にmix操作を呼出、自分のモデル情報を交換します。</p>
+<p>クライアントは、実際にデータをJubatus サーバに与え、処理結果を受け取るノードです。
+分散環境では、クライアントは管理ノードに問い合わせを行うことで、分散されたJubatusサーバを意識せずに処理を行うことができます。</p>
+<p>ここでは、classifierを例に解説します。
+他のタスクの場合は、classifierをrecommender, regressionのように読み替えてください。</p>
+<p><em>パターン1</em></p>
+<p>Jubatusの最も基本的なシステム構成は、以下の図に示すような単一のJubatusクライアントと単一のJubatusサーバ(jubaclassifier)の組み合わせとなります。</p>
+<p class="blockdiag">
+<img src="../_images/blockdiag-bfc94537d3d6a52034f27eddda26c7a849fdae95.png" alt="None" width="448" height="120" />
+</p>
+<p><em>パターン2</em></p>
+<p>JubatusではJubatus サーバ側の処理をスケールアウトさせるため、以下の図のように複数のJubatus サーバを使用した分散環境とし、分散処理を行うことができます。
+複数Jubatus サーバ間のプロセスは、Zookeeperを用いて協調動作します。
+クライアントは、jubaclassifier_keeperと呼ばれるプロセスにアクセスしますが、jubaclassifier_keeperはjubaclassifierと同じインターフェイスを持つように設計されています。そのため、クライアントは後ろで分散しているかどうかを気にする必要がありません。</p>
+<p class="blockdiag">
+<img src="../_images/blockdiag-19dd471804140d44fe1de2a8502d6808f9865d30.png" alt="None" width="640" height="280" />
+</p>
+<p><em>パターン3</em></p>
+<p>Jubatusでは、データ量が膨大である、データソースが離れているなどの理由でクライアントを分散させることも可能です。
+この場合は、以下の図のように複数のクライアントに対してそれぞれjubaclassifier_keeperを実行してください。</p>
+<p class="blockdiag">
+<img src="../_images/blockdiag-a03c1e2ae65546ff57db9b3ec3bef822e626eb4c.png" alt="None" width="640" height="280" />
+</p>
+<p>パターン2でクライアント側がボトルネックになっていたり、分散している場合にパターン3を使う、と考えてください。</p>
+<p><em>推奨するプロセス配置構成について</em></p>
+<p>Jubatusを高い信頼性のもとで提供するためには、分散環境で動作させる必要があります。また高いパフォーマンスを維持するためには、JubatusおよびJubatusに関連するプロセス配置構成に気をつける必要があります。
+以下の図に、推奨するプロセス配置構成を示します。</p>
+<p class="blockdiag">
+<img src="../_images/blockdiag-14d5f18ae16bc3274c768c84b7f5d9457c874fea.png" alt="None" width="832" height="360" />
+</p>
+<blockquote>
+<div><ul class="simple">
+<li>Jubatus Keeper</li>
+</ul>
+<blockquote>
+<div>jubaXXX_keeperという名前の実行ファイルの総称をJubatus Keeperと表記します。
+運用の容易さ、アプリケーションの実装の容易さから、クライアントアプリケーションと1:1の構成とし、クライアントアプリケーションと同一のサーバで動作させることを推奨します。
+クライアントアプリケーションからJubatus Keeperへ通信できない場合（プロセスがダウンしているなど）に対して、再度プロセスを起動し直すなどの制御が必要になるためです。</div></blockquote>
+<ul class="simple">
+<li>Jubatus Server</li>
+</ul>
+<blockquote>
+<div><p>jubaXXXという名前の実行ファイルをJubatus Serverと表記します。
+<tt class="docutils literal"><span class="pre">--name</span></tt> で同じ名前を指定することで、複数のサーバプロセスが協調動作します。Jubatusは、サーバプロセスが1つでも動作している限り、利用可能です。</p>
+<p>上の図では、マシンのN 台に障害が発生した場合でも、すべてのインスタンスが利用可能なよう、N+1台のマシンに分散してプロセスを配置しています。</p>
+<p>Jubatusはすべてのデータをメモリ上で処理するという特徴があります。マシンのリソース(特にメモリ)が不足しないよう、サーバプロセスの配置には注意する必要があります。</p>
+</div></blockquote>
+<ul class="simple">
+<li>ZooKeeper</li>
+</ul>
+<blockquote>
+<div><p>Jubatusを分散環境で動作させる際、必ずZooKeeperが利用できる必要があります。ZooKeeperを高い信頼性で動作させるために、以下のことを注意します。詳細はZooKeeperのドキュメントを参照して下さい。</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>奇数台のマシンによるクラスタ構成(アンサンブル)で運用します。</li>
+<li>ZooKeeperのパフォーマンスが低下し、Jubatusの動作が不安定になることを避けるため、ZooKeeper専用のマシンを用意することを推奨します。</li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>学習モデルの共有<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubatusはモデル情報を緩やかに共有し、同一時刻において同じモデルが全サーバノードで共有されていることが保証されていない、という割り切りをしています。</p>
+<p>一般にリアルタイム、大規模分散、深い分析の3つの特徴はトレードオフの関係にあり、全てを同時に満足させることは困難です。
+例えばMapReduceなどの基盤はバッチ処理に特化しており、クエリーの結果を瞬時に得ると言ったことは苦手です。またComplexEventProcessingなどにおいては複数のノードの情報を共有することは困難です。</p>
+<p>Jubatusはオンライン機械学習やオンラインアルゴリズムの積極的な活用、および緩やかなモデル情報の共有によりこれらの問題を解決しています。</p>
+</div>
+<div class="section" id="id4">
+<h2>計算モデル<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubatusでは、Update、Analyze、Mixと呼ばれる3つの種類の操作を定義することで、分散環境においてもさまざまなデータ分析を行えることを実現しています。
+これは、MapReduceがMapとReduceの2つの操作を定義することで分散処理を実現することと同様です。</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>・ Update</dt>
+<dd>Updateでは、データと現在のモデルが与えられた時、更新したモデル結果を返す操作です。この操作は各ローカルノード（各サーバノード）内において排他的に行う必要があります。</dd>
+<dt>・ Analyze</dt>
+<dd>Analyzeでは、現在のモデルに基づいて与えられたデータを分析し、分析結果を返す操作です。この操作はモデルを更新せず読み込み処理だけで実現でき、並列化することが可能です。</dd>
+<dt>・ Mix</dt>
+<dd>Mixは2つのモデルが与えられた時、それらを混ぜたモデルを返す操作です。多くの分類の学習問題など、凸最適化問題に帰着する問題においては、Mix操作は単純な平均操作で高速に収束することが知られています。</dd>
+</dl>
+</div></blockquote>
+<p>Update、Analyzeの2つの操作はユーザがクライアントノードから呼び出す操作であるのに対し、Mixはユーザから呼び出すことは無く、分析モデルにしたがってシステム側が裏で自動的に呼び出すようになっています。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="mix.html" title="分散学習機構Mixの概念説明"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="machine_learning.html" title="Jubatusの機械学習ラインナップと利用シーン"
+             >前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="summary.html" >Jubatus Overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

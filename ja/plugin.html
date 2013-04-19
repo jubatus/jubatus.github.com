@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Development &mdash; Jubatus</title>
+    <title>プラグインの開発 &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Cluster Administration Guide" href="admin.html" />
-    <link rel="prev" title="Data Conversion" href="fv_convert.html" /> 
+    <link rel="up" title="ドキュメント" href="documentation.html" />
+    <link rel="next" title="Jubatus をソースからビルドする" href="build.html" />
+    <link rel="prev" title="データ変換" href="fv_convert.html" /> 
 
 <!--
 
@@ -85,13 +85,13 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="admin.html" title="Cluster Administration Guide"
+          <a href="build.html" title="Jubatus をソースからビルドする"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="fv_convert.html" title="Data Conversion"
+          <a href="fv_convert.html" title="データ変換"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,18 +102,18 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Plugin Development</a><ul>
-<li><a class="reference internal" href="#plugin-for-data-conversion">Plugin for Data Conversion</a></li>
+<li><a class="reference internal" href="#">プラグインの開発</a><ul>
+<li><a class="reference internal" href="#id2">データ変換プラグイン</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="fv_convert.html"
-                        title="前の章へ">Data Conversion</a></p>
+                        title="前の章へ">データ変換</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="admin.html"
-                        title="次の章へ">Cluster Administration Guide</a></p>
+  <p class="topless"><a href="build.html"
+                        title="次の章へ">Jubatus をソースからビルドする</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/plugin.txt"
@@ -144,13 +144,13 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="plugin-development">
-<h1>Plugin Development<a class="headerlink" href="#plugin-development" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="id1">
+<h1>プラグインの開発<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>このページでは、プラグイン開発の方法を説明する。</p>
 <p>Jubatus はユーザーが C++ でプラグインを開発することで、様々な拡張ができるようになっている。</p>
 <p>特に、データ変換エンジンではユーザーが任意の変換ロジックを組み込めるように、各モジュール用のプラグインを作ることができる。</p>
-<div class="section" id="plugin-for-data-conversion">
-<h2>Plugin for Data Conversion<a class="headerlink" href="#plugin-for-data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>データ変換プラグイン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>fv_converter プラグインの開発は以下の手順で行う。</p>
 <ol class="arabic simple">
 <li><tt class="docutils literal"><span class="pre">jubatus/plugin.hpp</span></tt> をインクルードする。</li>
@@ -185,7 +185,7 @@
 </pre></div>
 </div>
 <p>上記のファイルをコンパイルし、 <tt class="docutils literal"><span class="pre">libjubaconverter.so</span></tt> とリンクすることで、プラグイン (共有ライブラリ (.so)) が作成される。
-プラグインとして利用する方法は、 <a class="reference internal" href="fv_convert.html#conversion-plugin"><em>Plugins</em></a> を参照のこと。</p>
+プラグインとして利用する方法は、 <a class="reference internal" href="fv_convert.html#conversion-plugin"><em>プラグイン</em></a> を参照のこと。</p>
 <p>その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。
 より具体的なソースの例に関しては、Jubatus ソース内の <tt class="docutils literal"><span class="pre">src/fv_converter</span></tt> 中の <tt class="docutils literal"><span class="pre">test_*.cpp</span></tt> を参照すること。</p>
 <p>プラグインの開発を行う場合、 <a class="reference external" href="https://github.com/jubatus/jubatus-plugin-skelton.git">プラグイン開発用スケルトンプロジェクト</a> を使用すると便利である。
@@ -206,13 +206,13 @@
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="admin.html" title="Cluster Administration Guide"
+          <a href="build.html" title="Jubatus をソースからビルドする"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="fv_convert.html" title="Data Conversion"
+          <a href="fv_convert.html" title="データ変換"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

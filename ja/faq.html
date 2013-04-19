@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions (FAQs) &mdash; Jubatus</title>
+    <title>よくある質問と回答 (FAQs) &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="up" title="ドキュメント" href="documentation.html" />
     <link rel="next" title="References" href="references.html" />
-    <link rel="prev" title="IDL Support Status (2013 Mar.)" href="idl_support.html" /> 
+    <link rel="prev" title="IDL のサポート状況 (2013/04)" href="idl_support.html" /> 
 
 <!--
 
@@ -88,10 +88,10 @@
           <a href="references.html" title="References"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2013 Mar.)"
+          <a href="idl_support.html" title="IDL のサポート状況 (2013/04)"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,18 +102,20 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Frequently Asked Questions (FAQs)</a><ul>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#rpc-errors">RPC Errors</a></li>
-<li><a class="reference internal" href="#anomaly-detection">Anomaly detection</a></li>
-<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li><a class="reference internal" href="#">よくある質問と回答 (FAQs)</a><ul>
+<li><a class="reference internal" href="#id1">インストール</a></li>
+<li><a class="reference internal" href="#rpc">RPC エラー</a></li>
+<li><a class="reference internal" href="#id3">分散環境</a></li>
+<li><a class="reference internal" href="#id4">学習モデル</a></li>
+<li><a class="reference internal" href="#id5">異常値検知</a></li>
+<li><a class="reference internal" href="#id7">その他</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="idl_support.html"
-                        title="前の章へ">IDL Support Status (2013 Mar.)</a></p>
+                        title="前の章へ">IDL のサポート状況 (2013/04)</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="references.html"
                         title="次の章へ">References</a></p>
@@ -147,31 +149,69 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="frequently-asked-questions-faqs">
-<h1>Frequently Asked Questions (FAQs)<a class="headerlink" href="#frequently-asked-questions-faqs" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configre</span></tt> が以下のエラーで失敗する</li>
-</ul>
-<blockquote>
-<div>このエラーは古い Python を利用している場合に発生します。Python 2.6 以降を利用してください。</div></blockquote>
-<div class="highlight-python"><pre>...
-line 298, in load_tool
-     __import__(d)
-   File "/Users/oliner/tmp/jubatus/unittest_gtest.py", line 8
-     C1 = b'#XXX'
-              ^
-SyntaxError: invalid syntax</pre>
-</div>
+  <div class="section" id="faqs">
+<h1>よくある質問と回答 (FAQs)<a class="headerlink" href="#faqs" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id1">
+<h2>インストール<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">mecab_splitter.trivial</span></tt> と <tt class="docutils literal"><span class="pre">mecab_splitter_create.trivial</span></tt> の単体テストが通らない</li>
 </ul>
 <blockquote>
 <div>mecab 辞書と mecab コマンドで UTF-8 が使えるようになっていることを確かめてください。</div></blockquote>
+<ul class="simple">
+<li>Jubatus Ruby クライアントは Ruby 2.0 で動作しますか?</li>
+</ul>
+<blockquote>
+<div><p>現在、Ruby 2.0 での動作確認は行っていません。</p>
+<p>msgpack 0.4.x (Jubatus Ruby クライアントが間接的に依存しているライブラリ) には、Ruby 2.0 で動作する Rails アプリケーションからの呼び出しに失敗するという既知の問題があります。</p>
+</div></blockquote>
+<ul class="simple">
+<li>プロキシを経由している場合のインストール方法は?</li>
+</ul>
+<blockquote>
+<div><p>Ubuntu環境のバイナリパッケージ(Apt)</p>
+<p>aptのプロキシ設定をしていないとエラーが出力されますので、 <tt class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></tt> に以下の行を追加してください。</p>
+<div class="highlight-python"><pre>$ sudo vi /etc/apt/apt.conf</pre>
 </div>
-<div class="section" id="rpc-errors">
-<h2>RPC Errors<a class="headerlink" href="#rpc-errors" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="highlight-python"><pre>Acquire::http::Proxy "http://username:password@proxy.example.com:port/";</pre>
+</div>
+<p>Python クライアント (pip)</p>
+<p>プロキシを経由している場合、以下のようなエラーが出力されることがあります。その場合はオプションでプロキシを指定して実行してください。</p>
+<div class="highlight-python"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
+Could not find any downloads that satisfy the requirement jubatus
+No distributions at all found for jubatus
+Storing complete log in /home/nttat/.pip/pip.log</pre>
+</div>
+<div class="highlight-python"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus</pre>
+</div>
+<p>以下のようなログが出力されればインストール完了です。</p>
+<div class="highlight-python"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+Cleaning up...</pre>
+</div>
+<p>Ruby クライアント (RubyGems) の場合</p>
+<p>以下の環境変数を設定してからインストールを実行してください。</p>
+<div class="highlight-python"><pre>export http_proxy=http://username:password@proxy.example.com:port/</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Javaのクライアントライブラリを利用した開発について</li>
+</ul>
+<blockquote>
+<div><p>JavaでJubatusクライアントの開発をする場合は、  <a class="reference external" href="https://github.com/jubatus/jubatus-java-skelton">GitHub</a> で公開されているスケルトンプロジェクト（Eclipseプロジェクトのテンプレート）を利用すると便利です。
+以下の手順に従って、Java開発用スケルトンを利用してください。</p>
+<ol class="arabic simple">
+<li>Eclipseを起動し、［File］－［Import…］を選択します。</li>
+<li>［Git］&gt;［Projects from Git］を選択し、［Next］ボタンをクリックします。</li>
+<li>［URI］を選択し、［Next］ボタンをクリックします。</li>
+<li>［URI］に「https://github.com/jubatus/jubatus-java-skelton.git」と入力し、［Next］ボタンをクリックします。</li>
+<li>ダイアログに従って操作を進め、[完了]ボタンをクリックします。</li>
+</ol>
+<p>一度、インポートが完了すれば、Mavenが自動的にJubatusクライアントライブラリをダウンロードします。
+<tt class="docutils literal"><span class="pre">src/main/java</span></tt>ディレクトリの(default package)配下には、Jubatus recommenderを利用した簡単なプログラム「Client.java」が配置してあります。</p>
+</div></blockquote>
+</div>
+<div class="section" id="rpc">
+<h2>RPC エラー<a class="headerlink" href="#rpc" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li>Python クライアントの利用時に、&#8221;got socket.error: [Errno 99] Cannot assign requested address&#8221; (または <tt class="docutils literal"><span class="pre">EADDRINUSE</span></tt> など) が発生する</li>
 </ul>
@@ -207,8 +247,44 @@ SyntaxError: invalid syntax</pre>
 この場合、クライアントは <a class="reference internal" href="common_structs.html#get_client" title="get_client"><tt class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></tt></a> を使用して TCP 接続を明示的に切断する必要があります。</p>
 </div></blockquote>
 </div>
-<div class="section" id="anomaly-detection">
-<h2>Anomaly detection<a class="headerlink" href="#anomaly-detection" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h2>分散環境<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>Jubatusサーバを複数台で分散させた場合、Mixが正常動作したか確認する方法はありますか?</li>
+</ul>
+<blockquote>
+<div><p>Mixの動作については、Jubatusサーバにおいて出力されるログにより確認することができます。以下のようなログが出力されます。</p>
+<blockquote>
+<div><div class="highlight-python"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
+I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
+I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
+I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
+I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>分散構成のJubatusを準備する場合、jubaclassifier、jubaclassifier_keeper/Client、ZooKeeperを1台のサーバにインストールし、その構成のサーバを複数用意しても問題ありませんか?</li>
+</ul>
+<blockquote>
+<div>問題ありません。
+但し、各プロセスを単独のサーバで動作させた場合と比べ、処理性能が低下する可能性があります。またZooKeeperは奇数台でアンサンブルを構成することを推奨します。</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h2>学習モデル<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>Classifier/Regression に学習させる場合、以下の違いによってモデルに差異は発生しますか?<ul>
+<li>学習データを一括してJubatusに渡し学習させる（バルク学習、trainメソッドを1度だけ呼び出す）</li>
+<li>学習データの数だけtrainメソッドを呼び出し、学習させる</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div>モデルに差異は発生しません。</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>異常値検知<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li>jubaanomaly が常に 1.0 か無限値 (infinity) を返却する</li>
 </ul>
@@ -252,8 +328,8 @@ SyntaxError: invalid syntax</pre>
 <div>LOF の計算時間を短縮することができます。ただし、 <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt> より小さい値にすることはできません。</div></blockquote>
 </div></blockquote>
 </div>
-<div class="section" id="miscellaneous">
-<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2>その他<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li>How does &#8216;jubatus&#8217; read?</li>
 </ul>
@@ -278,10 +354,10 @@ SyntaxError: invalid syntax</pre>
           <a href="references.html" title="References"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2013 Mar.)"
+          <a href="idl_support.html" title="IDL のサポート状況 (2013/04)"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

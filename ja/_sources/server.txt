@@ -1,11 +1,11 @@
-Using Code Generators
+コード生成器の利用
 =====================
 
 Jubatus フレームワークを利用した機械学習アルゴリズムの開発では、まず IDL と呼ばれる RPC インタフェース定義ファイルを作成する。
 Jubatus に付属するコード生成器 ``jenerator`` と、MessagePack-IDL のコード生成器 ``mpidl`` を使用することで、IDL から各部品 (サーバ, Keeper, 各言語版のクライアント) を生成することができる。
 これらの生成器を利用することで、フレームワークの利用者は機械学習アルゴリズムの実装に集中することができる。
 
-Flow of Development
+開発の流れ
 -------------------
 
 #. サービスが持つべきRPCインターフェースを IDL で定義する。
@@ -15,8 +15,8 @@ Flow of Development
 
 `スケルトンプロジェクト <https://github.com/jubatus/jubatus-service-skelton>`_ を利用すると、容易に開発を開始できる。
 
-Why We Use IDL
---------------
+IDL を使用する理由
+---------------------
 
 Jubatusは機械学習などのアルゴリズムをモジュール化し、容易に追加できることを目的にしているが、公開されている実装に対してrecommenderを追加しようとした場合、それぞれのRPCインターフェースをクライアントのヘッダと実装、Jubakeeperのヘッダと実装、サーバー本体のヘッダと実装の6箇所に定義する必要があった。さらにpficommonのMPRPC_GEN, MPRPC_PROC等、サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった。
 このような設計では、新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず、APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており、機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい。さらに、C++のマクロおよびテンプレートを多用しているため、コンパイルエラーが複雑なものとなり、Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた。
@@ -24,7 +24,7 @@ Jubatusは機械学習などのアルゴリズムをモジュール化し、容�
 IDL を利用することで、上記のフローで一連のシステムを作成することができることを確認した。
 実際に RPC 定義をするのは、7箇所から3箇所に削減された。これを用いて、recommender, classifier, regression, stat, graph が構成出来ることを確認した。
 
-Composition of Files
+ファイルの構成
 --------------------
 
 Jubatus フレームワークを利用した機械学習システムは、以下のファイルで構成される (*NAME* はサービスの名称である)。
@@ -37,7 +37,7 @@ Jubatus フレームワークを利用した機械学習システムは、以下
 - NAME_client.hpp: クライアントの実装 (``jenerator`` で自動生成)
 - NAME_types.hpp: RPC で使用する構造体や型の情報 (``jenerator`` で自動生成; サーバ/クライアント/Keeper で共用)
 
-``jenerator``: The Code Generator
+``jenerator``: コード生成器
 ---------------------------------
 
 RPC インターフェースは `MessagePack-IDL <https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md>`_ により定義する。
@@ -108,7 +108,7 @@ RPC インターフェースは `MessagePack-IDL <https://github.com/msgpack/msg
 
 ``get_status``, ``save``, ``load`` の 3 つは Jubatus サーバとしての仕様を満たすために記述しておく必要がある。
 
-Building ``jenerator``
+``jenerator`` のビルド
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ``jenerator`` のビルドには OCaml (findlib あり) および OMake が必要である。
@@ -123,7 +123,7 @@ Building ``jenerator``
 
 ヒント: Ubuntu を使用している場合、OCaml (``ocaml-native-compilers``), findlib (``ocaml-findlib``), OMake (``omake``) のバイナリパッケージが利用できる。
 
-Generating Server/Keeper from IDL
+サーバ/Keeper を IDL から生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 上に示した例が ``kvs.idl`` というファイルに書かれていると仮定して、以下の手順でコードを生成する。
@@ -134,7 +134,7 @@ Generating Server/Keeper from IDL
 
 ``jenerator`` の詳細な使い方については :ref:`jenerator` を参照すること。
 
-Implementing Server
+サーバの実装
 -------------------
 
 ``kvs_impl.cpp`` は、 ``kvs_serv`` クラスを利用してサーバーを構成する。
@@ -145,19 +145,19 @@ Implementing Server
 コマンドライン引数の仕様は Jubatus フレームワークを使用しているサーバの間ですべて共通である。
 オプションは ``--help`` で参照することができる。
 
-Mixable Class
-~~~~~~~~~~~~~
+Mixable クラス
+~~~~~~~~~~~~~~
 
 TBD.
 
-Implementing Keeper
+Keeper の実装
 -------------------
 
 Keeper に関しては、実装をする必要はない。 ``jenerator`` が生成した ``kvs_keeper.cpp`` をコンパイルすると Keeper が得られる。
 
 ``kvs_keeper.cpp`` には ``main`` 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。
 
-Future Works
+今後の課題
 ------------
 
 インターフェースと処理記述

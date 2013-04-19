@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Building Jubatus from Source &mdash; Jubatus</title>
+    <title>Jubatus をソースからビルドする &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Using Framework" href="framework.html" />
-    <link rel="prev" title="Cluster Administration Guide" href="admin.html" /> 
+    <link rel="up" title="ドキュメント" href="documentation.html" />
+    <link rel="next" title="フレームワークの利用" href="framework.html" />
+    <link rel="prev" title="プラグインの開発" href="plugin.html" /> 
 
 <!--
 
@@ -85,13 +85,13 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="framework.html" title="Using Framework"
+          <a href="framework.html" title="フレームワークの利用"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="admin.html" title="Cluster Administration Guide"
+          <a href="plugin.html" title="プラグインの開発"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,11 +102,11 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Building Jubatus from Source</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#">Jubatus をソースからビルドする</a><ul>
+<li><a class="reference internal" href="#requirements">要件</a><ul>
 <li><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
 <li><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
-<li><a class="reference internal" href="#other-environments">Other Environments</a></li>
+<li><a class="reference internal" href="#id2">その他の環境</a></li>
 </ul>
 </li>
 </ul>
@@ -114,11 +114,11 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="admin.html"
-                        title="前の章へ">Cluster Administration Guide</a></p>
+  <p class="topless"><a href="plugin.html"
+                        title="前の章へ">プラグインの開発</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="framework.html"
-                        title="次の章へ">Using Framework</a></p>
+                        title="次の章へ">フレームワークの利用</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/build.txt"
@@ -149,13 +149,13 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="building-jubatus-from-source">
-<h1>Building Jubatus from Source<a class="headerlink" href="#building-jubatus-from-source" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>Jubatus をソースからビルドすることは可能ですが、できる限りバイナリパッケージ (<a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> 参照) を使用することを推奨します。
+  <div class="section" id="jubatus">
+<h1>Jubatus をソースからビルドする<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Jubatus をソースからビルドすることは可能ですが、できる限りバイナリパッケージ (<a class="reference internal" href="quickstart.html"><em>クイックスタート</em></a> 参照) を使用することを推奨します。
 ソースからビルドする場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
 <div class="section" id="requirements">
-<span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Jubatus をソースからビルドするには、 <tt class="docutils literal"><span class="pre">gcc</span></tt> (バージョン 4.4 以降), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (バージョン 0.26 以降) および <tt class="docutils literal"><span class="pre">python</span></tt> (バージョン 2.6 以降,  <tt class="docutils literal"><span class="pre">waf</span></tt> で使用される) が必要です。
+<span id="id1"></span><h2>要件<a class="headerlink" href="#requirements" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubatus をソースからビルドするには、 <tt class="docutils literal"><span class="pre">gcc</span></tt> (バージョン 4.4 以降), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (バージョン 0.26 以降) および <tt class="docutils literal"><span class="pre">python</span></tt> (バージョン 2.4 以降,  <tt class="docutils literal"><span class="pre">waf</span></tt> で使用される) が必要です。
 加えて、以下のライブラリも必要になります。
 サポートされているライブラリのバージョンについては <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Supported-Library-Versions">Jubatus Wiki</a> をご覧ください。</p>
 <table border="1" class="docutils">
@@ -288,8 +288,8 @@ $ sudo ldconfig</pre>
 <p>Mac OS X では、スタンドアロンモードのビルドと実行が試験的にサポートされています。</p>
 <p><a class="reference external" href="https://github.com/jubatus/homebrew-jubatus">Homebrew tap リポジトリ</a> を使用すると簡単にインストールすることができます。</p>
 </div>
-<div class="section" id="other-environments">
-<h3>Other Environments<a class="headerlink" href="#other-environments" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id2">
+<h3>その他の環境<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li>Debian GNU/Linux では動作しています。</li>
 <li>Arch Linux ではスタンドアローンモードで動作しています。</li>
@@ -313,13 +313,13 @@ $ sudo ldconfig</pre>
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="framework.html" title="Using Framework"
+          <a href="framework.html" title="フレームワークの利用"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="admin.html" title="Cluster Administration Guide"
+          <a href="plugin.html" title="プラグインの開発"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

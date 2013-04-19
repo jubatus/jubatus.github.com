@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Java &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Classifier" href="classifier.html" />
+    <link rel="next" title="Regression" href="regression.html" />
+    <link rel="prev" title="Ruby" href="classifier_ruby.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="regression.html" title="Regression"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="classifier_ruby.html" title="Ruby"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
+          <li><a href="classifier.html" accesskey="U">Classifier</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Java</a><ul>
+<li><a class="reference internal" href="#id1">ソースコード</a></li>
+<li><a class="reference internal" href="#id2">解説</a></li>
+<li><a class="reference internal" href="#id3">サンプルプログラムの実行</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="classifier_ruby.html"
+                        title="前の章へ">Ruby</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="regression.html"
+                        title="次の章へ">Regression</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/classifier_java.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="java">
+<h1>Java<a class="headerlink" href="#java" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ここではJava版のClassifierサンプルプログラムの解説をします。</p>
+<div class="section" id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするshogun.jsonとデータの学習及び学習データに基づく予測を行うShogun.javaを利用します。以下にshogun.jsonとShogun.javaのソースコードを記載します。</p>
+<p><strong>shogun.json</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mo">02</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;AROW&quot;</span><span class="p">,</span>
+<span class="mo">03</span> <span class="p">:</span>   <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mo">04</span> <span class="p">:</span>     <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mo">05</span> <span class="p">:</span>     <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mo">06</span> <span class="p">:</span>     <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mo">07</span> <span class="p">:</span>     <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">08</span> <span class="p">:</span>     <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">09</span> <span class="p">:</span>     <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">10</span> <span class="p">:</span>     <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mi">11</span> <span class="p">:</span>       <span class="s">&quot;unigram&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;ngram&quot;</span><span class="p">,</span> <span class="s">&quot;char_num&quot;</span><span class="p">:</span> <span class="s">&quot;1&quot;</span> <span class="p">}</span>
+<span class="mi">12</span> <span class="p">:</span>     <span class="p">},</span>
+<span class="mi">13</span> <span class="p">:</span>     <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">14</span> <span class="p">:</span>       <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;unigram&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="nb">bin</span><span class="s">&quot; }</span>
+<span class="mi">15</span> <span class="p">:</span>     <span class="p">]</span>
+<span class="mi">16</span> <span class="p">:</span>   <span class="p">},</span>
+<span class="mi">17</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mi">18</span> <span class="p">:</span>     <span class="s">&quot;regularization_weight&quot;</span> <span class="p">:</span> <span class="mf">1.0</span>
+<span class="mi">19</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mi">20</span> <span class="p">:</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Shogun.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">002</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="mi">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mi">004</span> <span class="o">:</span>
+<span class="mi">005</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.ClassifierClient</span><span class="o">;</span>
+<span class="mi">006</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.Datum</span><span class="o">;</span>
+<span class="mi">007</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.EstimateResult</span><span class="o">;</span>
+<span class="mi">008</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.TupleStringDatum</span><span class="o">;</span>
+<span class="mi">009</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.TupleStringDouble</span><span class="o">;</span>
+<span class="mi">010</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.TupleStringString</span><span class="o">;</span>
+<span class="mi">011</span> <span class="o">:</span>
+<span class="mi">012</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Shogun</span> <span class="o">{</span>
+<span class="mi">013</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">014</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">015</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;shogun&quot;</span><span class="o">;</span>
+<span class="mi">016</span> <span class="o">:</span>
+<span class="mi">017</span> <span class="o">:</span>  <span class="n">String</span><span class="o">[]</span> <span class="n">data1</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">018</span> <span class="o">:</span>          <span class="s">&quot;家康&quot;</span><span class="o">,</span> <span class="s">&quot;秀忠&quot;</span><span class="o">,</span> <span class="s">&quot;家光&quot;</span><span class="o">,</span> <span class="s">&quot;家綱&quot;</span><span class="o">,</span> <span class="s">&quot;綱吉&quot;</span><span class="o">,</span>
+<span class="mi">019</span> <span class="o">:</span>          <span class="s">&quot;家宣&quot;</span><span class="o">,</span> <span class="s">&quot;家継&quot;</span><span class="o">,</span> <span class="s">&quot;吉宗&quot;</span><span class="o">,</span> <span class="s">&quot;家重&quot;</span><span class="o">,</span> <span class="s">&quot;家治&quot;</span><span class="o">,</span>
+<span class="mi">020</span> <span class="o">:</span>          <span class="s">&quot;家斉&quot;</span><span class="o">,</span> <span class="s">&quot;家慶&quot;</span><span class="o">,</span> <span class="s">&quot;家定&quot;</span><span class="o">,</span> <span class="s">&quot;家茂&quot;</span>
+<span class="mi">021</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mi">022</span> <span class="o">:</span>  <span class="n">String</span><span class="o">[]</span> <span class="n">data2</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">023</span> <span class="o">:</span>          <span class="s">&quot;尊氏&quot;</span><span class="o">,</span> <span class="s">&quot;義詮&quot;</span><span class="o">,</span> <span class="s">&quot;義満&quot;</span><span class="o">,</span> <span class="s">&quot;義持&quot;</span><span class="o">,</span> <span class="s">&quot;義量&quot;</span><span class="o">,</span>
+<span class="mi">024</span> <span class="o">:</span>          <span class="s">&quot;義教&quot;</span><span class="o">,</span> <span class="s">&quot;義勝&quot;</span><span class="o">,</span> <span class="s">&quot;義政&quot;</span><span class="o">,</span> <span class="s">&quot;義尚&quot;</span><span class="o">,</span> <span class="s">&quot;義稙&quot;</span><span class="o">,</span>
+<span class="mi">025</span> <span class="o">:</span>          <span class="s">&quot;義澄&quot;</span><span class="o">,</span> <span class="s">&quot;義稙&quot;</span><span class="o">,</span> <span class="s">&quot;義晴&quot;</span><span class="o">,</span> <span class="s">&quot;義輝&quot;</span><span class="o">,</span> <span class="s">&quot;義栄&quot;</span>
+<span class="mi">026</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mi">027</span> <span class="o">:</span>  <span class="n">String</span><span class="o">[]</span> <span class="n">data3</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">028</span> <span class="o">:</span>          <span class="s">&quot;時政&quot;</span><span class="o">,</span> <span class="s">&quot;義時&quot;</span><span class="o">,</span> <span class="s">&quot;泰時&quot;</span><span class="o">,</span> <span class="s">&quot;経時&quot;</span><span class="o">,</span> <span class="s">&quot;時頼&quot;</span><span class="o">,</span>
+<span class="mi">029</span> <span class="o">:</span>          <span class="s">&quot;長時&quot;</span><span class="o">,</span> <span class="s">&quot;政村&quot;</span><span class="o">,</span> <span class="s">&quot;時宗&quot;</span><span class="o">,</span> <span class="s">&quot;貞時&quot;</span><span class="o">,</span> <span class="s">&quot;師時&quot;</span><span class="o">,</span>
+<span class="mi">030</span> <span class="o">:</span>          <span class="s">&quot;宗宣&quot;</span><span class="o">,</span> <span class="s">&quot;煕時&quot;</span><span class="o">,</span> <span class="s">&quot;基時&quot;</span><span class="o">,</span> <span class="s">&quot;高時&quot;</span><span class="o">,</span> <span class="s">&quot;貞顕&quot;</span>
+<span class="mi">031</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mi">032</span> <span class="o">:</span>
+<span class="mi">033</span> <span class="o">:</span>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">void</span> <span class="n">start</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">034</span> <span class="o">:</span>          <span class="c1">// 1.Jubatus Serverへの接続設定</span>
+<span class="mi">035</span> <span class="o">:</span>          <span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="mi">036</span> <span class="o">:</span>
+<span class="mi">037</span> <span class="o">:</span>          <span class="c1">// 2.学習用データの準備</span>
+<span class="mi">038</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">TupleStringDatum</span><span class="o">&gt;</span> <span class="n">studyData</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">makeStudyData</span><span class="o">();</span>
+<span class="mi">039</span> <span class="o">:</span>
+<span class="mi">040</span> <span class="o">:</span>          <span class="c1">// 3.データの学習（学習モデルの更新）</span>
+<span class="mi">041</span> <span class="o">:</span>          <span class="n">client</span><span class="o">.</span><span class="na">train</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">studyData</span><span class="o">);</span>
+<span class="mi">042</span> <span class="o">:</span>
+<span class="mi">043</span> <span class="o">:</span>          <span class="c1">// 4.予測用データの準備</span>
+<span class="mi">044</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">Datum</span><span class="o">&gt;</span> <span class="n">exData</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">makeExData</span><span class="o">();</span>
+<span class="mi">045</span> <span class="o">:</span>
+<span class="mi">046</span> <span class="o">:</span>          <span class="c1">// 5.学習データに基づく予測</span>
+<span class="mi">047</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">EstimateResult</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">classify</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">exData</span><span class="o">);</span>
+<span class="mi">048</span> <span class="o">:</span>
+<span class="mi">049</span> <span class="o">:</span>          <span class="c1">// 6.結果の出力</span>
+<span class="mi">050</span> <span class="o">:</span>          <span class="k">this</span><span class="o">.</span><span class="na">output</span><span class="o">(</span><span class="n">exData</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+<span class="mi">051</span> <span class="o">:</span>
+<span class="mi">052</span> <span class="o">:</span>          <span class="k">return</span><span class="o">;</span>
+<span class="mi">053</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">054</span> <span class="o">:</span>
+<span class="mi">055</span> <span class="o">:</span>  <span class="c1">// 2.学習用データの準備</span>
+<span class="mi">056</span> <span class="o">:</span>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">TupleStringDatum</span><span class="o">&gt;</span> <span class="n">makeStudyData</span><span class="o">()</span> <span class="o">{</span>
+<span class="mi">057</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">TupleStringDatum</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringDatum</span><span class="o">&gt;();</span>
+<span class="mi">058</span> <span class="o">:</span>          <span class="n">String</span> <span class="n">familyName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">059</span> <span class="o">:</span>
+<span class="mi">060</span> <span class="o">:</span>          <span class="c1">// ループ処理にて、各将軍の姓と名のセットを作成</span>
+<span class="mi">061</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">062</span> <span class="o">:</span>                  <span class="n">String</span><span class="o">[]</span> <span class="n">nameList</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">063</span> <span class="o">:</span>                  <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">064</span> <span class="o">:</span>                  <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+<span class="mi">065</span> <span class="o">:</span>                          <span class="n">familyName</span> <span class="o">=</span> <span class="s">&quot;徳川&quot;</span><span class="o">;</span>
+<span class="mi">066</span> <span class="o">:</span>                          <span class="n">nameList</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">data1</span><span class="o">;</span>
+<span class="mi">067</span> <span class="o">:</span>                          <span class="k">break</span><span class="o">;</span>
+<span class="mi">068</span> <span class="o">:</span>                  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+<span class="mi">069</span> <span class="o">:</span>                          <span class="n">familyName</span> <span class="o">=</span> <span class="s">&quot;足利&quot;</span><span class="o">;</span>
+<span class="mi">070</span> <span class="o">:</span>                          <span class="n">nameList</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">data2</span><span class="o">;</span>
+<span class="mi">071</span> <span class="o">:</span>                          <span class="k">break</span><span class="o">;</span>
+<span class="mi">072</span> <span class="o">:</span>                  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+<span class="mi">073</span> <span class="o">:</span>                          <span class="n">familyName</span> <span class="o">=</span> <span class="s">&quot;北条&quot;</span><span class="o">;</span>
+<span class="mi">074</span> <span class="o">:</span>                          <span class="n">nameList</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">data3</span><span class="o">;</span>
+<span class="mi">075</span> <span class="o">:</span>                          <span class="k">break</span><span class="o">;</span>
+<span class="mi">076</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">077</span> <span class="o">:</span>
+<span class="mi">078</span> <span class="o">:</span>                  <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">name</span> <span class="o">:</span> <span class="n">nameList</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">079</span> <span class="o">:</span>                          <span class="n">TupleStringDatum</span> <span class="n">train</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringDatum</span><span class="o">();</span>
+<span class="mi">080</span> <span class="o">:</span>
+<span class="mi">081</span> <span class="o">:</span>                          <span class="c1">// datumを作成</span>
+<span class="mi">082</span> <span class="o">:</span>                          <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Datum</span><span class="o">();</span>
+<span class="mi">083</span> <span class="o">:</span>                          <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringString</span><span class="o">&gt;();</span>
+<span class="mi">084</span> <span class="o">:</span>                          <span class="n">datum</span><span class="o">.</span><span class="na">num_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringDouble</span><span class="o">&gt;();</span>
+<span class="mi">085</span> <span class="o">:</span>
+<span class="mi">086</span> <span class="o">:</span>                          <span class="c1">// インスタンス変数firstにkey、secondにvalueを格納</span>
+<span class="mi">087</span> <span class="o">:</span>                          <span class="n">TupleStringString</span> <span class="n">tss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringString</span><span class="o">();</span>
+<span class="mi">088</span> <span class="o">:</span>                          <span class="n">tss</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="s">&quot;name&quot;</span><span class="o">;</span>
+<span class="mi">089</span> <span class="o">:</span>                          <span class="n">tss</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+<span class="mi">090</span> <span class="o">:</span>
+<span class="mi">091</span> <span class="o">:</span>                          <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tss</span><span class="o">);</span>
+<span class="mi">092</span> <span class="o">:</span>
+<span class="mi">093</span> <span class="o">:</span>                          <span class="n">train</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">familyName</span><span class="o">;</span>
+<span class="mi">094</span> <span class="o">:</span>                          <span class="n">train</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">datum</span><span class="o">;</span>
+<span class="mi">095</span> <span class="o">:</span>
+<span class="mi">096</span> <span class="o">:</span>                          <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">train</span><span class="o">);</span>
+<span class="mi">097</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">098</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">099</span> <span class="o">:</span>          <span class="c1">// 学習用データをシャッフル</span>
+<span class="mi">100</span> <span class="o">:</span>          <span class="n">Collections</span><span class="o">.</span><span class="na">shuffle</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+<span class="mi">101</span> <span class="o">:</span>
+<span class="mi">102</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="mi">103</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">104</span> <span class="o">:</span>
+<span class="mi">105</span> <span class="o">:</span>  <span class="c1">// 4.予測用データの準備</span>
+<span class="mi">106</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Datum</span><span class="o">&gt;</span> <span class="n">makeExData</span><span class="o">()</span> <span class="o">{</span>
+<span class="mi">107</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">Datum</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Datum</span><span class="o">&gt;();</span>
+<span class="mi">108</span> <span class="o">:</span>
+<span class="mi">109</span> <span class="o">:</span>          <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">110</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">111</span> <span class="o">:</span>                  <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">112</span> <span class="o">:</span>                  <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+<span class="mi">113</span> <span class="o">:</span>                          <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;慶喜&quot;</span><span class="o">;</span>
+<span class="mi">114</span> <span class="o">:</span>                          <span class="k">break</span><span class="o">;</span>
+<span class="mi">115</span> <span class="o">:</span>                  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+<span class="mi">116</span> <span class="o">:</span>                          <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;義昭&quot;</span><span class="o">;</span>
+<span class="mi">117</span> <span class="o">:</span>                          <span class="k">break</span><span class="o">;</span>
+<span class="mi">118</span> <span class="o">:</span>                  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+<span class="mi">119</span> <span class="o">:</span>                          <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;守時&quot;</span><span class="o">;</span>
+<span class="mi">120</span> <span class="o">:</span>                          <span class="k">break</span><span class="o">;</span>
+<span class="mi">121</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">122</span> <span class="o">:</span>
+<span class="mi">123</span> <span class="o">:</span>                  <span class="c1">// datumを作成</span>
+<span class="mi">124</span> <span class="o">:</span>                  <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Datum</span><span class="o">();</span>
+<span class="mi">125</span> <span class="o">:</span>                  <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringString</span><span class="o">&gt;();</span>
+<span class="mi">126</span> <span class="o">:</span>                  <span class="n">datum</span><span class="o">.</span><span class="na">num_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringDouble</span><span class="o">&gt;();</span>
+<span class="mi">127</span> <span class="o">:</span>
+<span class="mi">128</span> <span class="o">:</span>                  <span class="n">TupleStringString</span> <span class="n">tss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringString</span><span class="o">();</span>
+<span class="mi">129</span> <span class="o">:</span>
+<span class="mi">130</span> <span class="o">:</span>                  <span class="c1">// インスタンス変数firstにkey、secondにvalueを格納</span>
+<span class="mi">131</span> <span class="o">:</span>                  <span class="n">tss</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="s">&quot;name&quot;</span><span class="o">;</span>
+<span class="mi">132</span> <span class="o">:</span>                  <span class="n">tss</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+<span class="mi">133</span> <span class="o">:</span>
+<span class="mi">134</span> <span class="o">:</span>                  <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tss</span><span class="o">);</span>
+<span class="mi">135</span> <span class="o">:</span>
+<span class="mi">136</span> <span class="o">:</span>                  <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">datum</span><span class="o">);</span>
+<span class="mi">137</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">138</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="mi">139</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">140</span> <span class="o">:</span>
+<span class="mi">141</span> <span class="o">:</span>  <span class="kd">private</span> <span class="kt">void</span> <span class="n">output</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Datum</span><span class="o">&gt;</span> <span class="n">exData</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">EstimateResult</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">142</span> <span class="o">:</span>          <span class="c1">// 結果の出力</span>
+<span class="mi">143</span> <span class="o">:</span>          <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="mi">144</span> <span class="o">:</span>          <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="mi">145</span> <span class="o">:</span>          <span class="kt">int</span> <span class="n">iMax</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="mi">146</span> <span class="o">:</span>          <span class="kt">double</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="mi">147</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">EstimateResult</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">:</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">148</span> <span class="o">:</span>                  <span class="c1">// 結果リストの中でscoreが最大のものを判定</span>
+<span class="mi">149</span> <span class="o">:</span>                  <span class="k">for</span> <span class="o">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">150</span> <span class="o">:</span>                          <span class="k">if</span> <span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">j</span><span class="o">).</span><span class="na">score</span> <span class="o">&gt;</span> <span class="n">max</span> <span class="o">||</span> <span class="n">max</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">151</span> <span class="o">:</span>                                  <span class="n">max</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">j</span><span class="o">).</span><span class="na">score</span><span class="o">;</span>
+<span class="mi">152</span> <span class="o">:</span>                                  <span class="n">iMax</span> <span class="o">=</span> <span class="n">j</span><span class="o">;</span>
+<span class="mi">153</span> <span class="o">:</span>                          <span class="o">}</span>
+<span class="mi">154</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">155</span> <span class="o">:</span>                  <span class="c1">// 結果表示</span>
+<span class="mi">156</span> <span class="o">:</span>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">iMax</span><span class="o">).</span><span class="na">label</span> <span class="o">+</span> <span class="s">&quot; &quot;</span>
+<span class="mi">157</span> <span class="o">:</span>                                  <span class="o">+</span> <span class="n">exData</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">string_values</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">second</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="o">);</span>
+<span class="mi">158</span> <span class="o">:</span>                  <span class="n">max</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="mi">159</span> <span class="o">:</span>                  <span class="n">i</span><span class="o">++;</span>
+<span class="mi">160</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">161</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="mi">162</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">163</span> <span class="o">:</span>
+<span class="mi">164</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">165</span> <span class="o">:</span>          <span class="k">new</span> <span class="n">Shogun</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+<span class="mi">166</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">167</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">168</span> <span class="o">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>解説<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>shogun.json</strong></p>
+<p>設定は単体のJSONで与えられます。JSONの各フィールドは以下の通りです。</p>
+<blockquote>
+<div><ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>分類に使用するアルコリズムを指定します。
+今回は、AROW (Adaptive Regularization of Weight vectors)を指定しています。</div></blockquote>
+<ul>
+<li><p class="first">converter</p>
+<p>特徴変換の設定を指定します。
+サンプルでは、将軍の名が&#8221;家康&#8221;の場合、&#8221;家&#8221;と&#8221;康&#8221;に分割し、これらの文字（漢字）を含む名の姓は&#8221;徳川&#8221;であるというようなグループ分けをしたいので、&#8221;string_types&#8221;でunigramを定義しています。また今回は、将軍の名を文字列データとして扱うので、数値型のフィルター及び特徴抽出器の設定はしていません。</p>
+</li>
+<li><p class="first">parameter</p>
+<p>アルゴリズムに渡すパラメータを指定します。
+methodに応じて渡すパラメータは異なります。今回はmethodで&#8221;AROW&#8221;を指定していますので、「&#8221;regularization_weight&#8221;: 1.0」を指定します。なお、各アルゴリズムのregularization_weightパラメータ（学習に対する感度パラメータ）はアルゴリズム中における役割が異なるため、アルゴリズム毎に適切な値は異なることに注意してください。regularization_weightパラメータは大きくすると学習が早くなりますが、代わりにノイズに弱くなります。</p>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>Shogun.java</strong></p>
+<p>学習と予測の手順を説明します。</p>
+<p>Classifierのクライアントプログラムは、us.jubat.classifierクラス内で定義されているClassifierClientクラスを利用して作成します。使用するメソッドは、学習を行うtrainメソッドと、与えられたデータから予測を行うclassifyメソッドの2つです。</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Jubatus Serverへの接続設定</li>
+</ol>
+<blockquote>
+<div>Jubatus Serverへの接続を行います（35行目）。
+Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号，接続待機時間を設定します。</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>学習用データの準備</li>
+</ol>
+<blockquote>
+<div><p>Jubatus Serverに学習させるデータList&lt;TupleStringDatum&gt;を作成します（38行目）。</p>
+<p>ClassifierClientでは、TupleStringDatumのArrayListを作成し、ClassifierClientのtrainメソッドに与えることで、学習が行われます。下図に、今回作成する学習データの構造を示します。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="18%" />
+<col width="21%" />
+<col width="18%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="5">TupleStringDatum</th>
+</tr>
+<tr class="row-even"><th class="head">label(String)</th>
+<th class="head" colspan="4">Datum</th>
+</tr>
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head" colspan="2">TupleStringString</th>
+<th class="head" colspan="2">TupleStringDoubel</th>
+</tr>
+<tr class="row-even"><th class="head">&nbsp;</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(double)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>&#8220;徳川&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;家康&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&#8220;徳川&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;秀忠&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;徳川&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;家光&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&#8220;徳川&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;家綱&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;足利&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;尊氏&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&#8220;足利&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;義詮&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;北条&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;時政&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&#8220;北条&#8221;</td>
+<td>&#8220;name&#8221;</td>
+<td>&#8220;義時&#8221;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>TupleStringDatumはDatumとそのlabelの組みです。サンプルでは、labelに将軍の姓を格納しています。Datumとは、Jubatus で利用できるkey-valueデータ形式のことです。特徴ベクトルに置き換えると、keyが特徴、valueが特徴量に相当します。Datumには2つのkey-valueが存在します。1つはキーも値も文字列の文字列データ（string_values）です。もう一方は、キーは同様に文字列で、値は数値の数値データ(num_values)です。それぞれ、TupleStringStringクラスとTupleStringDoubleクラスで表します。今回は、将軍の名から姓を当てるプログラムなので、string_valuesのkeyに文字列 &#8220;name&#8221;、valueに歴代将軍の名を格納します。今回のサンプルには含まれませんが、仮に&#8221;徳川&#8221;というグループに「徳川家の身長(height)は170cm以上である」という特徴を追加したい場合は、num_valuesのkeyに文字列 &#8220;height&#8221;、valueに170を格納します。</p>
+<p>このサンプルでの学習データ作成の手順は下記の流れで行います。</p>
+<p>学習データを作成するprivateメソッド「makeStudyData」（56-103行目）で、TupleStringDatumのArrayListを宣言します（57行目）。続いて、TupleStringDatumクラスで表される学習データを作成します。今回は、各時代の将軍データを作成するため、for文にて各将軍の姓ごとに作成していきます。（61-98行目）</p>
+<p>今回の場合、将軍の姓をlabel、歴代将軍の名をDatumとして扱います。まず、switch文にてループごとに使用するデータを設定します。具体的に、case0では姓は&#8221;徳川&#8221;で名前のリストはdata1を使用します。（63-76行目）</p>
+<p>次に、for文にて名前のリスト分（&#8221;徳川&#8221;の場合、data1のリスト分）ループ処理にて姓と名のセットを作成します。（78-97行目）セットに必要なTupleStringDatumクラス、Datumクラスをそれぞれ生成します。（79-82行目）続いて、Datumに格納するためのkeyとvalueのセットを作成します。TupleStringStringとTupleStringDoubleのListをそれぞれ宣言して、Datumに格納します（83,84行目）。今回は将軍の名を文字列データとして扱うため、TupleStringStringの、keyを文字列&#8221;name&#8221;として、valueに各将軍の名を格納し、Datumのstring_values（List&lt;TupleStringString&gt;）に追加します(87-91行目)。最後にTupleStringDatumのfirstに姓を、secondに先ほど作成したDatumを設定し、Listに格納しループ処理を続けます。（93-96行目）</p>
+<p>以上のようにして作成したList&lt;TuplestringDatum&gt;をシャッフルします。（100行目）これで、学習用データの作成が完了します。</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>データの学習（学習モデルの更新）</li>
+</ol>
+<blockquote>
+<div>2の工程で作成した学習データを、trainメソッドに渡すことで学習が行われます（41行目）。trainメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>予測用データの準備</li>
+</ol>
+<blockquote>
+<div>予測も学習時と同様に、入力データからDatumを作成します。DatumのArrayListをClassifierClientのclassifyメソッドに与えることで、予測が行われます。予測用データを作成するprivateメソッド「makeExData」で、DatumのArrayListを宣言します（107行目）。「nameが&#8221;慶喜&#8221;」の将軍の姓は何かを予測させるため、学習時と同様にDatumを作成し、作成したDatumをArrayListに追加します（109-131行目）。</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>学習データに基づく予測</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple" start="4">
+<li>で作成したDatumのArrayListを、classifyメソッドに渡すことで、予測値のListを得ることができます（47行目）。</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li>結果の出力</li>
+</ol>
+<blockquote>
+<div>結果出力用のprivateメソッド「output」に、5. で得たListを渡し、Listを参照することで予測値を見ることができます。サンプルでは、「確からしさの値」を表すscoreが最大であるlabel（姓）を判断し（149-154行目）、名と組み合わせて表示しています。</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>サンプルプログラムの実行<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="docutils">
+<dt>［Jubatus Serverでの作業］</dt>
+<dd>jubaclassifierを起動します。</dd>
+</dl>
+<div class="highlight-python"><pre>$ jubaclassifier --configpath shogun.json</pre>
+</div>
+<dl class="docutils">
+<dt>［Jubatus Clientでの作業］</dt>
+<dd>必要なパッケージとJavaクライアントを用意し、実行します。</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="regression.html" title="Regression"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="classifier_ruby.html" title="Ruby"
+             >前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
+          <li><a href="classifier.html" >Classifier</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

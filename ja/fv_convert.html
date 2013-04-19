@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Data Conversion &mdash; Jubatus</title>
+    <title>データ変換 &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Plugin Development" href="plugin.html" />
-    <link rel="prev" title="Architecture" href="processes.html" /> 
+    <link rel="up" title="ドキュメント" href="documentation.html" />
+    <link rel="next" title="プラグインの開発" href="plugin.html" />
+    <link rel="prev" title="ドキュメント" href="documentation.html" /> 
 
 <!--
 
@@ -85,13 +85,13 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="plugin.html" title="Plugin Development"
+          <a href="plugin.html" title="プラグインの開発"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="processes.html" title="Architecture"
+          <a href="documentation.html" title="ドキュメント"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,38 +102,39 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Data Conversion</a><ul>
+<li><a class="reference internal" href="#">データ変換</a><ul>
+<li><a class="reference internal" href="#id2">概要</a></li>
 <li><a class="reference internal" href="#datum">Datum</a></li>
-<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
-<li><a class="reference internal" href="#filter">Filter</a><ul>
+<li><a class="reference internal" href="#id3">データ変換の流れ</a></li>
+<li><a class="reference internal" href="#id4">フィルター</a><ul>
 <li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
 <li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
 <li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
 <li><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#feature-extraction-from-strings">Feature Extraction from Strings</a><ul>
+<li><a class="reference internal" href="#construct">文字列からの特徴抽出</a><ul>
 <li><a class="reference internal" href="#string-types">string_types</a></li>
 <li><a class="reference internal" href="#string-rules">string_rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#feature-extraction-from-numbers">Feature Extraction from Numbers</a><ul>
+<li><a class="reference internal" href="#id6">数値からの特徴抽出</a><ul>
 <li><a class="reference internal" href="#num-types">num_types</a></li>
 <li><a class="reference internal" href="#num-rules">num_rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
-<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#id7">特徴ベクトルのキーのハッシュ化</a></li>
+<li><a class="reference internal" href="#conversion-plugin">プラグイン</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="processes.html"
-                        title="前の章へ">Architecture</a></p>
+  <p class="topless"><a href="documentation.html"
+                        title="前の章へ">ドキュメント</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="plugin.html"
-                        title="次の章へ">Plugin Development</a></p>
+                        title="次の章へ">プラグインの開発</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/fv_convert.txt"
@@ -164,18 +165,25 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="data-conversion">
-<span id="conversion"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>一般的に機械学習処理を行う場合、テキストなどの生の非定形データを直接扱うことはできない。
-こうしたデータは事前に特徴抽出というステップを経て、俗に特徴ベクトルと呼ばれる形式に変換される。
-特徴ベクトルの中身は、文字列をキー、数値型を値とするkey-value型としてよい。
-この変換を行うことで、自然言語のデータ、画像データ、音声データなどの非定型の生データを統一的に扱うことができる。
-Jubatusのデータ変換エンジンは、この特徴抽出処理を簡単な設定ファイルを書くことで柔軟にカスタマイズすることを可能にする。</p>
-<p>データ変換は2段階に行われる。
-まず、フィルター処理によって、データを整形する。
+  <div class="section" id="conversion">
+<span id="id1"></span><h1>データ変換<a class="headerlink" href="#conversion" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>一般的に機械学習処理を行う場合、テキストなどの生の非定形データ（例えば HTML や Twitter のつぶやき情報など）を直接扱うことはできない。
+こうしたデータは事前に特徴抽出というステップを経て、一般に特徴ベクトルと呼ばれる形式に変換される。
+Jubatus における特徴ベクトルの中身は、文字列をキー、数値型を値とする key-value 型である。
+この変換を行うことで、自然言語のデータ、画像データ、音声データなどの非定型の生データを統一的に扱うことができる。</p>
+<p>Jubatus の特徴ベクトル変換器は、この特徴抽出処理を簡単な設定ファイルを書くことで柔軟にカスタマイズすることを可能にする。</p>
+<div class="section" id="id2">
+<h2>概要<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>データ変換は「フィルター」と「特徴抽出」の 2 段階で行われる。</p>
+<p>まず、フィルター処理によって、データを整形する。
 この処理は、例えばHTMLテキストのタグを除去したり、学習にとって不要であることが予めわかっている記号列などを取り除く。
-その次に、特徴抽出処理によって、非定形データから特徴を抽出する。</p>
-<p>一連の処理は、最もシンプルな設定によって多くの場合はうまく動くことが予想される。
+その次に、特徴抽出処理によって、フィルターされたデータから特徴を抽出する。</p>
+<p>例えば、フィルタリングの結果として、「世の中ではビッグデータというキーワードが注目されていますが、一口にビッグデータといっても立場や観点によって定義は様々です」という文字列が与えられたとする。
+ここからキーワードを抽出すると、「ビッグデータ」、「世の中」、「キーワード」、「定義」といった特徴が得られる。
+これらの特徴を出現頻度で重み付けをする（出現回数をカウントする）と、「ビッグデータ：2」、「世の中：1」、「キーワード：1」、「定義：1」という結果が得られる。
+この一連の流れの中で、与えられた文字列から特徴を抽出し、出現頻度等によって重み付けをするまでの処理を特徴抽出という。</p>
+<p>Jubatus では、「フィルタリングでデータからどのような要素を取り除くか」、「特徴抽出でどのように特徴の抽出を行い、どのように重み付けをするか」を、JSON形式の設定ファイルで定義することができる。
+一連の処理は、最もシンプルな設定によって多くの場合はうまく動くことが予想される。
 以下に最もシンプルな設定を記載する。
 この設定を利用すると、文字列データは全てスペース文字で分割してそれぞれの単語を特徴量とし、数値データはその値をそれぞれ特徴量として利用する。
 実際にアプリケーションを書くときに、より高い精度の学習結果を求める場合は、設定をチューニングすることで望ましい結果を得られる可能性がある。</p>
@@ -195,6 +203,7 @@ Jubatusのデータ変換エンジンは、この特徴抽出処理を簡単な�
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
 <div class="section" id="datum">
 <h2>Datum<a class="headerlink" href="#datum" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatusで利用できるデータ形式は、datumと呼ばれる非常にシンプルなkey-valueデータ形式である。
@@ -204,8 +213,8 @@ datumには2つのkey-valueが存在する。
 前者には名前、テキスト、職業など、任意のテキストデータを入れることができる。
 後者には年齢、年収、アクセス回数など、任意の数値データを浮動小数点型として入れることができる。
 この2つのデータから、機械学習を行う際に必要となる特徴量を抽出するのが、このデータ変換モジュールである。
-また、効率を重視して、それぞれのkey-valueは、各言語のmap型や辞書型を利用せず、keyとvalueのペアの配列で表現される。
-以下に例を示す。</p>
+また、効率を重視して、それぞれのkey-valueは、各言語のmap型や辞書型を利用せず、keyとvalueのペアの配列で表現される。</p>
+<p>以下に例を示す。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
   <span class="p">[</span>
     <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
@@ -223,8 +232,8 @@ datumには2つのkey-valueが存在する。
 <p>例えばC++から利用する場合、datumは <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> と、 <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> の2つの要素からなっている。
 ここでは、 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> をPython風のタプルで、 <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt> をPython風のリストで表している。</p>
 </div>
-<div class="section" id="flow-of-data-conversion">
-<h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h2>データ変換の流れ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>大まかな処理の流れは以下のようになっている。</p>
 <p>datumは文字列データと数値データの2つがあるため、それぞれが別々の処理フローを流れる。</p>
 <p>文字列データには、まずstring_filter_rulesが適用されて、フィルター済みデータが追加される。
@@ -237,8 +246,8 @@ datumには2つのkey-valueが存在する。
 <p class="caption">図: 変換エンジンの構成</p>
 </div>
 </div>
-<div class="section" id="filter">
-<h2>Filter<a class="headerlink" href="#filter" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>フィルター<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatusはフィルターという機能を用いて、datum中のkey-valueペアを変換して、別の要素として追加することができる。
 例えば、元のデータがHTMLで書かれていたとしよう。
 この中のタグ文字列（&lt;a&gt; など）は、学習時には邪魔になることがおおく、そのため予めフィルタリングして使いたいことがある。
@@ -461,10 +470,10 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>&#8220;key&#8221;と&#8221;except&#8221;の指定の仕方は、string_filter_rulesを参照のこと。</p>
 </div>
 </div>
-<div class="section" id="feature-extraction-from-strings">
-<span id="construct"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。
-以下に、設定の例を示す。
+<div class="section" id="construct">
+<span id="id5"></span><h2>文字列からの特徴抽出<a class="headerlink" href="#construct" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。</p>
+<p>以下に、設定の例を示す。
 この例では、&#8221;user/name&#8221;の値はそのまま特徴量として使用し、&#8221;message&#8221;は文字2グラムを特徴量とし、&#8221;message-detagged&#8221;はスペース文字で分割した単語を特徴量とする。</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
@@ -476,6 +485,137 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <span class="p">]</span>
 </pre></div>
 </div>
+<p>例えば、この規則を次のような datum に適用する。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="p">[]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>結果として得られる特徴抽出結果は、以下のようになる。
+&#8220;message&#8221; は &#8220;bigram&#8221; 設定なので2文字ずつに分割され、特徴量 &#8220;H&gt;&#8221; は文字列中に2度出てくるのでその重みは2になることがわかる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="37%" />
+<col width="23%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">キー</th>
+<th class="head">文字列</th>
+<th class="head">特徴量</th>
+<th class="head">重み</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;user/name&#8221;</td>
+<td>&#8220;Loren Ipsum&#8221;</td>
+<td>&#8220;Loren Ipsum&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&#8220;message&#8221;</td>
+<td>&#8220;&lt;H&gt;Hello World&lt;/H&gt;&#8221;</td>
+<td>&#8220;&lt;H&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;H&gt;&#8221;</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;&gt;H&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;He&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;el&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;ll&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;lo&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;o &#8220;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8221; W&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;Wo&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;or&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;rl&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;ld&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;d&lt;&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;&lt;/&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;/H&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;H&gt;&#8221;</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>&#8220;message-detagged&#8221;</td>
+<td>&#8220;Hello World&#8221;</td>
+<td>&#8220;Hello&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&#8220;World&#8221;</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="string-types">
 <h3>string_types<a class="headerlink" href="#string-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>string_typesで文字列特徴抽出器を定義する。
@@ -483,8 +623,8 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; からなる辞書を指定する。
 抽出器名に &#8220;&#64;&#8221; 文字を含むことはできない。
 引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
-それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
-指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。</p>
+<p>指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">ngram</tt></dt>
@@ -540,7 +680,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照。</p>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照のこと。なお、 &#8220;*&#8221; や &#8220;&#8221; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
@@ -577,8 +717,8 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <tr class="field-even field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">各key-value毎の重み設定の仕方を指定する。これはkey-value一つに対して決定される重みである。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col width="11%" />
+<col width="89%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head"><p class="first last">値</p>
@@ -595,12 +735,12 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 <tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;tf&quot;</span></tt></p>
 </td>
-<td><p class="first last">与えられた文字列中で出現する回数で重み付けをする。例えば5回&#8221;hello&#8221;が出現したら、重みを5にする、などである。</p>
+<td><p class="first last">与えられた文字列中で出現する回数で重み付けをする。例えば5回&#8221;hello&#8221;が出現したら、重みを5にする。</p>
 </td>
 </tr>
 <tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></tt></p>
 </td>
-<td><p class="first last">tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&#8221;hello&#8221;が出現したら、重みはlog(5 + 1)にする、などである。</p>
+<td><p class="first last">tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&#8221;hello&#8221;が出現したら、重みはlog(5 + 1)にする。</p>
 </td>
 </tr>
 </tbody>
@@ -628,7 +768,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 <tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;idf&quot;</span></tt></p>
 </td>
-<td><p class="first last">文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする、などである。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。</p>
+<td><p class="first last">文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。</p>
 </td>
 </tr>
 </tbody>
@@ -642,10 +782,11 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 また、例えば分類問題など重み自体を学習するケースでは、ともにbinにしておいても自動的に調整される。</p>
 </div>
 </div>
-<div class="section" id="feature-extraction-from-numbers">
-<h2>Feature Extraction from Numbers<a class="headerlink" href="#feature-extraction-from-numbers" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>数値からの特徴抽出<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>数値型に対しても、文字列型同様変換ルールを記述する。
 また、数値型に関しても、ユーザー定義の変換器を定義することができる。</p>
+<p>以下に、設定の例を示す。</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -655,10 +796,49 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <span class="p">]</span>
 </pre></div>
 </div>
+<p>例えば、この規則を次のような datum に適用する。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+  <span class="p">[],</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+  <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>結果として得られる特徴抽出結果は、以下のようになる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="32%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">キー</th>
+<th class="head">値</th>
+<th class="head">重み</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;user/age&#8221;</td>
+<td>29</td>
+<td>29</td>
+</tr>
+<tr class="row-odd"><td>&#8220;user/income&#8221;</td>
+<td>100000</td>
+<td>log(100000) = 5</td>
+</tr>
+<tr class="row-even"><td>&#8220;user/age_kazoe&#8221;</td>
+<td>30</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="num-types">
 <h3>num_types<a class="headerlink" href="#num-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>num_typesで数値データに対しる特徴抽出器を定義する。
-string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt;　からなる辞書を指定する。
+string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる辞書を指定する。
 引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
 それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
 指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
@@ -692,7 +872,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。</p>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。なお、&#8221;*&#8221; や &#8220;&#8221; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
@@ -736,8 +916,8 @@ string_rulesなどと同様、複数の規則を羅列する。
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="hashing-key-of-feature-vector">
-<h2>Hashing Key of Feature Vector<a class="headerlink" href="#hashing-key-of-feature-vector" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2>特徴ベクトルのキーのハッシュ化<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができる。
 特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができるが、ハッシュの衝突により学習精度の低下が発生する可能性がある。</p>
 <p>この機能はデフォルトでは無効である。
@@ -758,8 +938,8 @@ string_rulesなどと同様、複数の規則を羅列する。
 <p>最適な <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> の値は、使用するデータセットおよび環境により異なる。
 <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。</p>
 </div>
-<div class="section" id="plugins">
-<span id="conversion-plugin"></span><h2>Plugins<a class="headerlink" href="#plugins" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="conversion-plugin">
+<span id="id8"></span><h2>プラグイン<a class="headerlink" href="#conversion-plugin" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>フィルターと抽出器では、それぞれプラグインを利用することができる。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
@@ -894,13 +1074,13 @@ CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</sp
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="plugin.html" title="Plugin Development"
+          <a href="plugin.html" title="プラグインの開発"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="processes.html" title="Architecture"
+          <a href="documentation.html" title="ドキュメント"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -447,7 +447,7 @@ jenerator
 
 .. option:: -l <lang>
 
-   Language of the client code to generate. Currently only ``cpp`` is supported.
+   Language of the client code to generate. Currently ``cpp``, ``python``, and ``ruby`` are supported.
    Specify ``server`` if you need to generate servers and keepers.
 
 .. option:: -o <dirpath>
@@ -460,6 +460,7 @@ jenerator
 
    Use relative path for ``#include`` directives.
 
+   Effective only when generating C++ code (servers, keepers and C++ clients).
    This option is intended for use by Jubatus developers.
    You don't need this option except you're going to build generated code inside Jubatus source tree.
 
@@ -471,9 +472,13 @@ jenerator
 
    Generate server template.
 
+   Effective only when generating servers and keepers.
+
 .. option:: -g <guard>
 
    Prefix used for include guards in header files.
+
+   Effective only when generating C++ code (servers, keepers and C++ clients).
 
 .. option:: -help, --help
 

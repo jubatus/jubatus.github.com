@@ -1,9 +1,9 @@
-Common Data Structures and Methods
+データ構造と共通メソッド
 ----------------------------------
 
 以下のデータ構造とメソッドは各サーバで利用可能である。
 
-Data Structures
+データ構造
 ~~~~~~~~~~~~~~~
 
 .. mpidl:message:: datum

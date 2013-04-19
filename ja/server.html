@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Code Generators &mdash; Jubatus</title>
+    <title>コード生成器の利用 &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Using Framework" href="framework.html" />
-    <link rel="next" title="How to Get Clients" href="howtogetclients.html" />
-    <link rel="prev" title="Using Framework" href="framework.html" /> 
+    <link rel="up" title="フレームワークの利用" href="framework.html" />
+    <link rel="next" title="クライアントの入手方法" href="howtogetclients.html" />
+    <link rel="prev" title="フレームワークの利用" href="framework.html" /> 
 
 <!--
 
@@ -85,14 +85,14 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="howtogetclients.html" title="How to Get Clients"
+          <a href="howtogetclients.html" title="クライアントの入手方法"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="framework.html" title="Using Framework"
+          <a href="framework.html" title="フレームワークの利用"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li>
-          <li><a href="framework.html" accesskey="U">Using Framework</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li>
+          <li><a href="framework.html" accesskey="U">フレームワークの利用</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -103,22 +103,22 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Using Code Generators</a><ul>
-<li><a class="reference internal" href="#flow-of-development">Flow of Development</a></li>
-<li><a class="reference internal" href="#why-we-use-idl">Why We Use IDL</a></li>
-<li><a class="reference internal" href="#composition-of-files">Composition of Files</a></li>
-<li><a class="reference internal" href="#jenerator-the-code-generator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator</a><ul>
-<li><a class="reference internal" href="#building-jenerator">Building <tt class="docutils literal"><span class="pre">jenerator</span></tt></a></li>
-<li><a class="reference internal" href="#generating-server-keeper-from-idl">Generating Server/Keeper from IDL</a></li>
+<li><a class="reference internal" href="#">コード生成器の利用</a><ul>
+<li><a class="reference internal" href="#id2">開発の流れ</a></li>
+<li><a class="reference internal" href="#idl">IDL を使用する理由</a></li>
+<li><a class="reference internal" href="#id4">ファイルの構成</a></li>
+<li><a class="reference internal" href="#jenerator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: コード生成器</a><ul>
+<li><a class="reference internal" href="#id5"><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド</a></li>
+<li><a class="reference internal" href="#keeper-idl">サーバ/Keeper を IDL から生成する</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#implementing-server">Implementing Server</a><ul>
-<li><a class="reference internal" href="#mixable-class">Mixable Class</a></li>
+<li><a class="reference internal" href="#id6">サーバの実装</a><ul>
+<li><a class="reference internal" href="#mixable">Mixable クラス</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#implementing-keeper">Implementing Keeper</a></li>
-<li><a class="reference internal" href="#future-works">Future Works</a><ul>
-<li><a class="reference internal" href="#id2">インターフェースと処理記述</a></li>
+<li><a class="reference internal" href="#keeper">Keeper の実装</a></li>
+<li><a class="reference internal" href="#id7">今後の課題</a><ul>
+<li><a class="reference internal" href="#id8">インターフェースと処理記述</a></li>
 </ul>
 </li>
 </ul>
@@ -127,10 +127,10 @@
 
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="framework.html"
-                        title="前の章へ">Using Framework</a></p>
+                        title="前の章へ">フレームワークの利用</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="howtogetclients.html"
-                        title="次の章へ">How to Get Clients</a></p>
+                        title="次の章へ">クライアントの入手方法</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/server.txt"
@@ -161,13 +161,13 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="using-code-generators">
-<h1>Using Code Generators<a class="headerlink" href="#using-code-generators" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="id1">
+<h1>コード生成器の利用<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>Jubatus フレームワークを利用した機械学習アルゴリズムの開発では、まず IDL と呼ばれる RPC インタフェース定義ファイルを作成する。
 Jubatus に付属するコード生成器 <tt class="docutils literal"><span class="pre">jenerator</span></tt> と、MessagePack-IDL のコード生成器 <tt class="docutils literal"><span class="pre">mpidl</span></tt> を使用することで、IDL から各部品 (サーバ, Keeper, 各言語版のクライアント) を生成することができる。
 これらの生成器を利用することで、フレームワークの利用者は機械学習アルゴリズムの実装に集中することができる。</p>
-<div class="section" id="flow-of-development">
-<h2>Flow of Development<a class="headerlink" href="#flow-of-development" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>開発の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ol class="arabic simple">
 <li>サービスが持つべきRPCインターフェースを IDL で定義する。</li>
 <li><tt class="docutils literal"><span class="pre">jenerator</span></tt> を用いて、IDL から サーバー、Keeper のコード、共通のデータ構造、C++ クライアントを生成する。</li>
@@ -176,15 +176,15 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 </ol>
 <p><a class="reference external" href="https://github.com/jubatus/jubatus-service-skelton">スケルトンプロジェクト</a> を利用すると、容易に開発を開始できる。</p>
 </div>
-<div class="section" id="why-we-use-idl">
-<h2>Why We Use IDL<a class="headerlink" href="#why-we-use-idl" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="idl">
+<h2>IDL を使用する理由<a class="headerlink" href="#idl" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatusは機械学習などのアルゴリズムをモジュール化し、容易に追加できることを目的にしているが、公開されている実装に対してrecommenderを追加しようとした場合、それぞれのRPCインターフェースをクライアントのヘッダと実装、Jubakeeperのヘッダと実装、サーバー本体のヘッダと実装の6箇所に定義する必要があった。さらにpficommonのMPRPC_GEN, MPRPC_PROC等、サーバーへの関数登録などで合計7箇所に記述を繰り返す必要があることが明らかになった。
 このような設計では、新しい学習アルゴリズムを追加する度に同じRPC定義を7回繰り替えさなければならず、APIの仕様を変更するたびに同じような修正を繰り返さなくてはならないためバグが入り込む温床となっており、機械学習を分散環境で実装するためのフレームワークとして容易に追加できると言いがたい。さらに、C++のマクロおよびテンプレートを多用しているため、コンパイルエラーが複雑なものとなり、Jubatusを用いて機械学習を実装するにはJubatusの深い知識が必要となっていた。</p>
 <p>IDL を利用することで、上記のフローで一連のシステムを作成することができることを確認した。
 実際に RPC 定義をするのは、7箇所から3箇所に削減された。これを用いて、recommender, classifier, regression, stat, graph が構成出来ることを確認した。</p>
 </div>
-<div class="section" id="composition-of-files">
-<h2>Composition of Files<a class="headerlink" href="#composition-of-files" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>ファイルの構成<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus フレームワークを利用した機械学習システムは、以下のファイルで構成される (<em>NAME</em> はサービスの名称である)。</p>
 <ul class="simple">
 <li>NAME_serv.cpp: 機能を実装するソースファイル (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で生成されるテンプレートを編集)</li>
@@ -196,8 +196,8 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 <li>NAME_types.hpp: RPC で使用する構造体や型の情報 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成; サーバ/クライアント/Keeper で共用)</li>
 </ul>
 </div>
-<div class="section" id="jenerator-the-code-generator">
-<h2><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator<a class="headerlink" href="#jenerator-the-code-generator" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="jenerator">
+<h2><tt class="docutils literal"><span class="pre">jenerator</span></tt>: コード生成器<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>RPC インターフェースは <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MessagePack-IDL</a> により定義する。
 ただし、そのままJubatusのコードを生成するためには、MessagePack-IDL の文法とは別に、RPCサービスの各メソッドにアノテーションをつける必要がある。</p>
 <p>アノテーションは Jubatus のコードジェネレータである <tt class="docutils literal"><span class="pre">jenerator</span></tt> では解釈されるが、MessagePack-IDL ではコメントとして無視される。
@@ -259,8 +259,8 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 </pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">get_status</span></tt>, <tt class="docutils literal"><span class="pre">save</span></tt>, <tt class="docutils literal"><span class="pre">load</span></tt> の 3 つは Jubatus サーバとしての仕様を満たすために記述しておく必要がある。</p>
-<div class="section" id="building-jenerator">
-<h3>Building <tt class="docutils literal"><span class="pre">jenerator</span></tt><a class="headerlink" href="#building-jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id5">
+<h3><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml (findlib あり) および OMake が必要である。</p>
 <div class="highlight-python"><pre>$ cd jubatus/tools/jenerator/src
 $ omake
@@ -269,36 +269,36 @@ $ sudo omake install</pre>
 <p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> を行うと <tt class="docutils literal"><span class="pre">jenerator</span></tt> が <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> としてインストールされる (環境によりパスは異なる場合がある)。インストールを行わずに、ビルドされた <tt class="docutils literal"><span class="pre">jenerator</span></tt> のバイナリを直接使用してもよい。</p>
 <p>ヒント: Ubuntu を使用している場合、OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>), findlib (<tt class="docutils literal"><span class="pre">ocaml-findlib</span></tt>), OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) のバイナリパッケージが利用できる。</p>
 </div>
-<div class="section" id="generating-server-keeper-from-idl">
-<h3>Generating Server/Keeper from IDL<a class="headerlink" href="#generating-server-keeper-from-idl" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="keeper-idl">
+<h3>サーバ/Keeper を IDL から生成する<a class="headerlink" href="#keeper-idl" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>上に示した例が <tt class="docutils literal"><span class="pre">kvs.idl</span></tt> というファイルに書かれていると仮定して、以下の手順でコードを生成する。</p>
 <div class="highlight-python"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> の詳細な使い方については <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> を参照すること。</p>
 </div>
 </div>
-<div class="section" id="implementing-server">
-<h2>Implementing Server<a class="headerlink" href="#implementing-server" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>サーバの実装<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> は、 <tt class="docutils literal"><span class="pre">kvs_serv</span></tt> クラスを利用してサーバーを構成する。
 このクラスを <tt class="docutils literal"><span class="pre">kvs_serv.{cpp,hpp}</span></tt> に定義する必要がある。
 生成されたテンプレート (<tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt>) をリネームして利用することができる。</p>
 <p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> の中では <tt class="docutils literal"><span class="pre">main</span></tt> 関数も実装されており、ユーザは <tt class="docutils literal"><span class="pre">main</span></tt> を実装する必要はない。
 コマンドライン引数の仕様は Jubatus フレームワークを使用しているサーバの間ですべて共通である。
 オプションは <tt class="docutils literal"><span class="pre">--help</span></tt> で参照することができる。</p>
-<div class="section" id="mixable-class">
-<h3>Mixable Class<a class="headerlink" href="#mixable-class" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="mixable">
+<h3>Mixable クラス<a class="headerlink" href="#mixable" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TBD.</p>
 </div>
 </div>
-<div class="section" id="implementing-keeper">
-<h2>Implementing Keeper<a class="headerlink" href="#implementing-keeper" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="keeper">
+<h2>Keeper の実装<a class="headerlink" href="#keeper" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Keeper に関しては、実装をする必要はない。 <tt class="docutils literal"><span class="pre">jenerator</span></tt> が生成した <tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> をコンパイルすると Keeper が得られる。</p>
 <p><tt class="docutils literal"><span class="pre">kvs_keeper.cpp</span></tt> には <tt class="docutils literal"><span class="pre">main</span></tt> 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。</p>
 </div>
-<div class="section" id="future-works">
-<h2>Future Works<a class="headerlink" href="#future-works" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="section" id="id2">
-<h3>インターフェースと処理記述<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id7">
+<h2>今後の課題<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id8">
+<h3>インターフェースと処理記述<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>複数の機械学習を結合したり、特徴量変換と学習器本体を分離するためには、C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない。現状のジェネレータでは学習器のインターフェースしか記述することができない。アルゴリズム自体も抽象化された言語上で試行錯誤し、機械学習を実装するユーザが一台のマシン上でも、複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を、検討する必要がある。</p>
 </div>
 </div>
@@ -317,14 +317,14 @@ $ sudo omake install</pre>
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="howtogetclients.html" title="How to Get Clients"
+          <a href="howtogetclients.html" title="クライアントの入手方法"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="framework.html" title="Using Framework"
+          <a href="framework.html" title="フレームワークの利用"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li>
-          <li><a href="framework.html" >Using Framework</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li>
+          <li><a href="framework.html" >フレームワークの利用</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

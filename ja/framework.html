@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Framework &mdash; Jubatus</title>
+    <title>フレームワークの利用 &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,9 +44,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Using Code Generators" href="server.html" />
-    <link rel="prev" title="Building Jubatus from Source" href="build.html" /> 
+    <link rel="up" title="ドキュメント" href="documentation.html" />
+    <link rel="next" title="コード生成器の利用" href="server.html" />
+    <link rel="prev" title="Jubatus をソースからビルドする" href="build.html" /> 
 
 <!--
 
@@ -85,13 +85,13 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="server.html" title="Using Code Generators"
+          <a href="server.html" title="コード生成器の利用"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="build.html" title="Building Jubatus from Source"
+          <a href="build.html" title="Jubatus をソースからビルドする"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,10 +102,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="build.html"
-                        title="前の章へ">Building Jubatus from Source</a></p>
+                        title="前の章へ">Jubatus をソースからビルドする</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="server.html"
-                        title="次の章へ">Using Code Generators</a></p>
+                        title="次の章へ">コード生成器の利用</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/framework.txt"
@@ -136,38 +136,38 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="using-framework">
-<h1>Using Framework<a class="headerlink" href="#using-framework" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="id1">
+<h1>フレームワークの利用<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>Jubatus フレームワークを使用することで、分散型の機械学習システムを容易に実装することができる。</p>
 <p>本章では、Jubatus フレームワークを用いて mix を含む独自の機械学習アルゴリズムを実現する方法について記述する。</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Using Code Generators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="server.html#flow-of-development">Flow of Development</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html#why-we-use-idl">Why We Use IDL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html#composition-of-files">Composition of Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html#jenerator-the-code-generator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="server.html#building-jenerator">Building <tt class="docutils literal"><span class="pre">jenerator</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="server.html#generating-server-keeper-from-idl">Generating Server/Keeper from IDL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">コード生成器の利用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="server.html#id2">開発の流れ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#idl">IDL を使用する理由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#id4">ファイルの構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#jenerator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: コード生成器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="server.html#id5"><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server.html#keeper-idl">サーバ/Keeper を IDL から生成する</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="server.html#implementing-server">Implementing Server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="server.html#mixable-class">Mixable Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#id6">サーバの実装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="server.html#mixable">Mixable クラス</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="server.html#implementing-keeper">Implementing Keeper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html#future-works">Future Works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="server.html#id2">インターフェースと処理記述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#keeper">Keeper の実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#id7">今後の課題</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="server.html#id8">インターフェースと処理記述</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="howtogetclients.html">How to Get Clients</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html#use-pre-generated-client">Use pre-generated client</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html#generate-clients-from-msgpack-idl">Generate clients from msgpack-idl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtogetclients.html">クライアントの入手方法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html#id2">生成済みクライアントの利用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html#msgpack-idl">msgpack-idl でクライアントを生成する</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="idl_support.html">IDL Support Status (2013 Mar.)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="idl_support.html">IDL のサポート状況 (2013/04)</a></li>
 </ul>
 </div>
 </div>
@@ -185,13 +185,13 @@
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="server.html" title="Using Code Generators"
+          <a href="server.html" title="コード生成器の利用"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="build.html" title="Building Jubatus from Source"
+          <a href="build.html" title="Jubatus をソースからビルドする"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Quick Start &mdash; Jubatus</title>
+    <title>クイックスタート &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.2',
+        VERSION:     '0.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -44,7 +44,7 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="next" title="Overview" href="overview.html" />
+    <link rel="next" title="Jubatus Overview" href="overview/summary.html" />
     <link rel="prev" title="Jubatus : オンライン機械学習向け分散処理フレームワーク" href="index.html" /> 
 
 <!--
@@ -84,7 +84,7 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="overview.html" title="Overview"
+          <a href="overview/summary.html" title="Jubatus Overview"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="index.html" title="Jubatus : オンライン機械学習向け分散処理フレームワーク"
@@ -100,21 +100,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Quick Start</a><ul>
-<li><a class="reference internal" href="#install-jubatus">Install Jubatus</a><ul>
-<li><a class="reference internal" href="#yum-repository-rhel">Yum Repository (RHEL)</a></li>
-<li><a class="reference internal" href="#apt-repository-ubuntu">Apt Repository (Ubuntu)</a></li>
+<li><a class="reference internal" href="#">クイックスタート</a><ul>
+<li><a class="reference internal" href="#jubatus">Jubatusのインストール</a><ul>
+<li><a class="reference internal" href="#yum-rhel">Yumレポジトリ (RHEL)</a></li>
+<li><a class="reference internal" href="#apt-ubuntu">Apt レポジトリ (Ubuntu)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#install-jubatus-client-libraries">Install Jubatus Client Libraries</a><ul>
+<li><a class="reference internal" href="#id2">Jubatus クライアントのインストール</a><ul>
 <li><a class="reference internal" href="#c">C++</a></li>
 <li><a class="reference internal" href="#python">Python</a></li>
 <li><a class="reference internal" href="#ruby">Ruby</a></li>
 <li><a class="reference internal" href="#java">Java</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#try-tutorial">Try Tutorial</a></li>
-<li><a class="reference internal" href="#write-your-application">Write Your Application</a></li>
+<li><a class="reference internal" href="#id3">チュートリアル</a></li>
+<li><a class="reference internal" href="#id4">作ってみよう！</a></li>
 </ul>
 </li>
 </ul>
@@ -123,8 +123,8 @@
   <p class="topless"><a href="index.html"
                         title="前の章へ">Jubatus : オンライン機械学習向け分散処理フレームワーク</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="overview.html"
-                        title="次の章へ">Overview</a></p>
+  <p class="topless"><a href="overview/summary.html"
+                        title="次の章へ">Jubatus Overview</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/quickstart.txt"
@@ -155,15 +155,15 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="quick-start">
-<h1>Quick Start<a class="headerlink" href="#quick-start" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="install-jubatus">
-<h2>Install Jubatus<a class="headerlink" href="#install-jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
+  <div class="section" id="id1">
+<h1>クイックスタート<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="jubatus">
+<h2>Jubatusのインストール<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 以降 (x86_64) が公式にサポートされています。</p>
 <p>これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
-その他のシステムでのインストールについては <a class="reference internal" href="build.html"><em>Building Jubatus from Source</em></a> を参照してください。</p>
-<div class="section" id="yum-repository-rhel">
-<h3>Yum Repository (RHEL)<a class="headerlink" href="#yum-repository-rhel" title="このヘッドラインへのパーマリンク">¶</a></h3>
+その他のシステムでのインストールについては <a class="reference internal" href="build.html"><em>Jubatus をソースからビルドする</em></a> を参照してください。</p>
+<div class="section" id="yum-rhel">
+<h3>Yumレポジトリ (RHEL)<a class="headerlink" href="#yum-rhel" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
 <div class="highlight-python"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm</pre>
 </div>
@@ -171,8 +171,8 @@
 <div class="highlight-python"><pre>$ sudo yum install jubatus jubatus-client</pre>
 </div>
 </div>
-<div class="section" id="apt-repository-ubuntu">
-<h3>Apt Repository (Ubuntu)<a class="headerlink" href="#apt-repository-ubuntu" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="apt-ubuntu">
+<h3>Apt レポジトリ (Ubuntu)<a class="headerlink" href="#apt-ubuntu" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下の行を <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></tt> に記述して、Jubatus の Apt リポジトリをシステムに登録します。</p>
 <div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
 </div>
@@ -193,12 +193,12 @@ $ sudo apt-get install jubatus</pre>
 </div>
 </div>
 </div>
-<div class="section" id="install-jubatus-client-libraries">
-<h2>Install Jubatus Client Libraries<a class="headerlink" href="#install-jubatus-client-libraries" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>Jubatus クライアントのインストール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus を使ったクライアントアプリケーションは C++, Python, Ruby または Java で記述することができます。
 クライアントアプリケーションから Jubatus を使うには、各言語のクライアントライブラリをインストールする必要があります。
 クライアントライブラリは MIT License の下で配布されています。</p>
-<p><a class="reference internal" href="tutorial.html"><em>Tutorial</em></a> を試す場合は、Python クライアントだけをインストールすれば十分です。</p>
+<p><a class="reference internal" href="tutorial.html"><em>チュートリアル</em></a> を試す場合は、Python クライアントだけをインストールすれば十分です。</p>
 <p>Jubatus と Jubatus クライアントのバージョンは異なることがあります。これは、Jubatus の API が変更されない場合はクライアント側のアップデートが不要なためです。</p>
 <div class="section" id="c">
 <h3>C++<a class="headerlink" href="#c" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -225,7 +225,7 @@ $ sudo easy_install pip</pre>
 </div>
 <div class="section" id="ruby">
 <h3>Ruby<a class="headerlink" href="#ruby" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>クライアント (Ruby 1.9 以降が必要) は <a class="reference external" href="http://rubygems.org/gems/jubatus">RubyGems</a> で配布されています。</p>
+<p>クライアント (Ruby 1.9 が必要) は <a class="reference external" href="http://rubygems.org/gems/jubatus">RubyGems</a> で配布されています。</p>
 <div class="highlight-python"><pre>$ sudo gem install jubatus</pre>
 </div>
 </div>
@@ -252,12 +252,12 @@ $ sudo easy_install pip</pre>
 </div>
 </div>
 </div>
-<div class="section" id="try-tutorial">
-<h2>Try Tutorial<a class="headerlink" href="#try-tutorial" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><a class="reference internal" href="tutorial.html"><em>Tutorial</em></a> を試してみましょう (Python クライアントが必要です)。</p>
+<div class="section" id="id3">
+<h2>チュートリアル<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><a class="reference internal" href="tutorial.html"><em>チュートリアル</em></a> を試してみましょう (Python クライアントが必要です)。</p>
 </div>
-<div class="section" id="write-your-application">
-<h2>Write Your Application<a class="headerlink" href="#write-your-application" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>作ってみよう！<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>おめでとうございます!
 これで、Jubatus を使ってあなた独自のアプリケーションを書く準備ができました。
 Jubatus がどのような機能を持っているか知るには、 <a class="reference internal" href="api.html"><em>Client API</em></a> をチェックしてください。</p>
@@ -284,7 +284,7 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="overview.html" title="Overview"
+          <a href="overview/summary.html" title="Jubatus Overview"
              >次へ</a> |</li>
         <li class="right" >
           <a href="index.html" title="Jubatus : オンライン機械学習向け分散処理フレームワーク"

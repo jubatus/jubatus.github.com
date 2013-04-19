@@ -1,7 +1,7 @@
-Miscellaneous
+その他の情報
 =============
 
-Publications
+発表
 ------------
 
 - 2011/11/7 `Jubatus Workshop Tokyo <http://www.zusaar.com/event/165003>`_ (All slide are in Japanese)
@@ -21,7 +21,7 @@ Publications
  - `NTT <http://www.ntt.co.jp/news2011/1110/111026a.html>`_
  - `Press Release Slides <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
 
-Contributions (Thanks a lot!)
+これまでの貢献
 -----------------------------
 
 - `MacPorts <http://d.hatena.ne.jp/hjym_u/20111107/1320647557>`_

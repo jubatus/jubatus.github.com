@@ -1,11 +1,11 @@
-Tutorial
-========
+チュートリアル
+===============
 
 チュートリアルを始める前に、Jubatus および Jubatus Python クライアントをインストールする必要があります。この手順については :doc:`quickstart` を参照してください。
 
 
-Scenario
---------
+シナリオ
+----------
 
 このチュートリアルでは、自然言語の分類に対する評価用データとして有名な `News20 <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ (``20news-bydate.tar.gz``) を利用します。
 News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
@@ -17,15 +17,15 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 
 * Jubatus サーバをスタンドアローン構成で起動する
 
-  * 分散環境での動作に興味がある方は、このチュートリアルの *後で* :doc:`tutorial_distributed` をご覧ください。
+  * 分散環境での動作に興味がある方は、このチュートリアルの *後で* :`tutorial_distributed` をご覧ください。
 
 * Jubatus サーバを JSON スタイル で設定する
 * Jubatus の分類器を ``train`` と ``classify`` API で使用する
 * 分類に関する基本的なコンセプト
 
 
-Run Tutorial
-------------
+動作させてみる
+----------------
 
 分類器の機能を提供する ``jubaclassifier`` プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは ``$PREFIX/share/jubatus/example/config`` ディレクトリに格納されています。
 
@@ -67,7 +67,7 @@ Run Tutorial
 
 Jubatus の分類器サーバが起動しました。
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
-その他のポートを使用したい場合は、 ``--rcp-port`` オプションで指定することができます。
+その他のポートを使用したい場合は、 ``--rpc-port`` オプションで指定することができます。
 例えば、19199 番ポートを使用するには、次のようにします。
 
 ::
@@ -76,9 +76,24 @@ Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用し�
 
 Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で `MessagePack-RPC <http://msgpack.org>`_ プロトコルを使用して通信します。
 
-.. figure:: ../_static/single_single.png
-   :width: 70 %
-   :alt: single client, single server
+.. blockdiag::
+
+    blockdiag single_single {
+      group classifier{
+      color = "#77FF77"
+      jubaclassifier;
+      }
+
+      group client{
+      color = "#FF7777"
+      client;
+      }
+
+      client -> jubaclassifier;
+    }
+
+
+
 
 それでは、 `チュートリアルプログラム <https://github.com/jubatus/jubatus-tutorial-python>`_ とデータセットをダウンロードしましょう。
 
@@ -102,8 +117,8 @@ Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で `
 より詳しい説明は以下を参照してください。
 
 
-Tutorial in Detail
-------------------
+チュートリアルの詳細
+----------------------
 
 Dataset
 ~~~~~~~
@@ -169,7 +184,7 @@ Dataset
 
 このチュートリアルでは、これらのテキストを学習データとして利用します。
 
-Server Configuration
+サーバの設定
 ~~~~~~~~~~~~~~~~~~~~
 
 分類器サービスを使用するためには JSONの設定ファイルを用いて ``jubaclassifier`` の動作を規定する必要があります。
@@ -238,8 +253,8 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
     "num_rules": []
   }
 
-Use of Classifier API: Train & Classify
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Classifier API: 学習(train) と 分類(classify)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 分類器に学習させる場合は、 ``train`` という API (RPC メソッド) を利用します。
 以下の例で、 ``d1`` はメッセージから作成された datum であり、 ``"comp.sys.mac.hardware"`` はそのメッセージのラベル (ニュースグループの名前) です。
@@ -273,3 +288,19 @@ Use of Classifier API: Train & Classify
    ]]
 
 メッセージ ``d2`` は ``"comp.sys.mac.hardware"`` に投稿された可能性が高いことが分かりました。
+
+その他のチュートリアル
+-------------------------
+
+本項では、Jubatus Clientの使い方を、サンプルプログラムを利用して解説します。
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorial/classifier
+   tutorial/regression
+   tutorial/recommender
+   tutorial/graph
+   tutorial/stat
+   tutorial/anomaly
+
