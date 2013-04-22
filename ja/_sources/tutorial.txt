@@ -17,7 +17,7 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 
 * Jubatus サーバをスタンドアローン構成で起動する
 
-  * 分散環境での動作に興味がある方は、このチュートリアルの *後で* :`tutorial_distributed` をご覧ください。
+  * 分散環境での動作に興味がある方は、このチュートリアルの *後で* :doc:`tutorial_distributed` をご覧ください。
 
 * Jubatus サーバを JSON スタイル で設定する
 * Jubatus の分類器を ``train`` と ``classify`` API で使用する
