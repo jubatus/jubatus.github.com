@@ -26,7 +26,7 @@ Java
  11 :       "unigram": { "method": "ngram", "char_num": "1" }
  12 :     },
  13 :     "string_rules": [
- 14 :       { "key": "*", "type": "unigram", "sample_weight": "bin", "global_weight": bin" }
+ 14 :       { "key": "*", "type": "unigram", "sample_weight": "bin", "global_weight": "bin" }
  15 :     ]
  16 :   },
  17 :   "parameter": {

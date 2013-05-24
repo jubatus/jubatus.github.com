@@ -4,22 +4,33 @@ Miscellaneous
 Publications
 ------------
 
-- 2011/11/7 `Jubatus Workshop Tokyo <http://www.zusaar.com/event/165003>`_ (All slide are in Japanese)
+`Japanese publicatoins are available here <http://jubat.us/ja/misc.html>`__
 
- - `"An overview and roadmap of Jubatus" <http://www.slideshare.net/JubatusOfficial/overview-and-roadmap>`_ by Daisuke OKANOHARA
- - `"Feature extraction and liniar classifiers of Jubatus" <http://www.slideshare.net/JubatusOfficial/jubatus-10066854>`_ by Yuya UNNO
- - `"How Jubatus works in Distributed environment" <http://www.slideshare.net/JubatusOfficial/jubatus-workshop>`_ by Kota UENISHI
- - "Jubatus' application and handson" by Satoshi ODA
- - "Estimating nergy consumption using Jubatus" by Shinta NAKAYAMA
- - `"pficommon and MessagePack-RPC" <_static/tanakh/presen.html>`_ by Hideyuki TANAKA
+2013
+~~~~
 
-- 岡野原，他 "大規模分散リアルタイム学習支える技術と今後の展望"， WebDB forum 2011, Tokyo.
+2013/06/26-27
+  Shohei Hido, **Jubatus: real-time and highly-scalable machine learning platform**, Hadoop Summit 2013, San Jose. [`link <http://hadoopsummit2013.uservoice.com/forums/196822-future-of-apache-hadoop/suggestions/3714873-jubatus-real-time-and-highly-scalable-machine-lea>`__] *To Appear*
 
-- 2011/10/26 Press Relase
+2012
+~~~~
 
- - `PFI (in Japanese) <http://preferred.jp/news/?id=278>`_
- - `NTT <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_
- - `Press Release Slides (in Japanese) <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
+2012/10/20
+  Daisuke Okanohara, **Jubatus: Realtime deep analytics for BigData**,  Rakuten Technology Conference 2012, Tokyo. [`video <http://www.youtube.com/watch?v=fIQs5aDMlr0>`__ , `slide <http://www.slideshare.net/pfi/rakutentech-2012-jubatus-okanohara>`__]
+2012/06/22
+  Shohei Hido, **Distributed Online Machine Learning Framework for Big Data**, XLDB Asia Invited talk, 2012, Beijing. [`slide <http://www.slideshare.net/JubatusOfficial/distributed-online-machine-learning-framework-for-big-data>`__]
+2012/06
+  Satoshi Oda, et al., **Jubatus: Scalable Distributed Processing Framework for Realtime Analysis of Big Data**, NTT Technical Review. [`link <https://www.ntt-review.jp/archive/ntttechnical.php?contents=ntr201206ra2_s.html>`__]
+2012/02/16-17
+  **Jubatus: "Scalable Distributed Computing Framework for Realtime Analysis of Big Data"**, NTT R&D Forum 2012. [`slide <http://www.slideshare.net/JubatusOfficial/jubatus-presentation-on-rd-forum-2011>`__]
+
+2011
+~~~~
+
+2011/10/26 Press Relase
+  - `PFI (in Japanese) <http://preferred.jp/news/?id=278>`_
+  - `NTT <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_
+  - `Press Release Slides (in Japanese) <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
 
 Contributions (Thanks a lot!)
 -----------------------------

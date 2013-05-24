@@ -161,7 +161,7 @@ Ruby
 * method
 
  分類に使用するアルコリズムを指定します。
- Regressionで指定できるのは、現在"PA"のみなので"PA"（Passive Agressive）を指定します。
+ Regressionで指定できるのは、現在"PA"のみなので"PA"（Passive Aggressive）を指定します。
 
 
 * converter
