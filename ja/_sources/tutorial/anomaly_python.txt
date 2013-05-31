@@ -50,8 +50,8 @@ Python
  01 : # -*- coding: utf-8 -*-
  02 : 
  03 : import sys, json
- 04 : from anomaly import client
- 05 : from anomaly import types
+ 04 : from jubatus.anomaly import client
+ 05 : from jubatus.anomaly import types
  06 : 
  07 : NAME = "anom_kddcup";
  08 : 

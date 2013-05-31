@@ -11,6 +11,8 @@ Publications
 
 2013/06/26-27
   Shohei Hido, **Jubatus: real-time and highly-scalable machine learning platform**, Hadoop Summit 2013, San Jose. [`link <http://hadoopsummit2013.uservoice.com/forums/196822-future-of-apache-hadoop/suggestions/3714873-jubatus-real-time-and-highly-scalable-machine-lea>`__] *To Appear*
+2013/03/22
+  **Smarter instant analysis of "Current" with big data: Jubatus** [`video <http://www.youtube.com/watch?v=HOEqnZqvtUI>`__]
 
 2012
 ~~~~

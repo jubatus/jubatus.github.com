@@ -1,7 +1,7 @@
 Anomaly
 =================
 
-ここではJubatusの外れ値検知である、jubaanomaryを使用した、Jubatus Clientの使い方を説明します。
+ここではJubatusの外れ値検知である、jubaanomalyを使用した、Jubatus Clientの使い方を説明します。
 
 Jubatusでの外れ値検知では、LOF（Local Outlier Factor)をサポートしています。
 LOFとは、N次元空間で、近く（近傍）にある点がどの程度あるかを調べる事で、外れ値を検出する方法です。
