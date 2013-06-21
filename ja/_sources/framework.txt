@@ -9,4 +9,3 @@ Jubatus フレームワークを使用することで、分散型の機械学習
 
    server
    howtogetclients
-   idl_support

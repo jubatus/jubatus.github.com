@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Java &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Classifier" href="classifier.html" />
+    <link rel="next" title="Regression" href="regression.html" />
+    <link rel="prev" title="Ruby" href="classifier_ruby.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="regression.html" title="Regression"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="classifier_ruby.html" title="Ruby"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="classifier.html" accesskey="U">Classifier</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Java</a><ul>
+<li><a class="reference internal" href="#source-code">Source_code</a></li>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="classifier_ruby.html"
+                        title="previous chapter">Ruby</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="regression.html"
+                        title="next chapter">Regression</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/classifier_java.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="java">
+<h1>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h1>
+<p>Here we explain the sample program of Classifier.</p>
+<div class="section" id="source-code">
+<h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;gender.json&#8217;; 2) how to learn the training data and make predictions based on them, with the example file ‘GenderMain.java’. Here are the source codes of &#8216;gender.json&#8217; and &#8216;GenderMain.java&#8217;.</p>
+<p><strong>gender.json</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">01</span><span class="o">:</span> <span class="o">{</span>
+<span class="mi">02</span><span class="o">:</span>   <span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;AROW&quot;</span><span class="o">,</span>
+<span class="mi">03</span><span class="o">:</span>   <span class="s">&quot;converter&quot;</span><span class="o">:</span> <span class="o">{</span>
+<span class="mi">04</span><span class="o">:</span>     <span class="s">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">05</span><span class="o">:</span>     <span class="s">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="o">[],</span>
+<span class="mi">06</span><span class="o">:</span>     <span class="s">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">07</span><span class="o">:</span>     <span class="s">&quot;string_filter_rules&quot;</span><span class="o">:</span> <span class="o">[],</span>
+<span class="mi">08</span><span class="o">:</span>     <span class="s">&quot;num_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">09</span><span class="o">:</span>     <span class="s">&quot;num_rules&quot;</span><span class="o">:</span> <span class="o">[</span>
+<span class="mi">10</span><span class="o">:</span>        <span class="o">{</span> <span class="s">&quot;key&quot;</span><span class="o">:</span> <span class="s">&quot;*&quot;</span><span class="o">,</span> <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;num&quot;</span><span class="o">}</span>
+<span class="mi">11</span><span class="o">:</span>         <span class="o">],</span>
+<span class="mi">12</span><span class="o">:</span>    <span class="s">&quot;string_types&quot;</span><span class="o">:</span> <span class="o">{</span>
+<span class="mi">13</span><span class="o">:</span>         <span class="o">},</span>
+<span class="mi">14</span><span class="o">:</span>    <span class="s">&quot;string_rules&quot;</span><span class="o">:</span> <span class="o">[</span>
+<span class="mi">15</span><span class="o">:</span>        <span class="o">{</span> <span class="s">&quot;key&quot;</span><span class="o">:</span> <span class="s">&quot;*&quot;</span><span class="o">,</span> <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;str&quot;</span><span class="o">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s">&quot;bin&quot;</span><span class="o">,</span> <span class="s">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s">&quot;bin&quot;</span> <span class="o">}</span>
+<span class="mi">16</span><span class="o">:</span>         <span class="o">]</span>
+<span class="mi">17</span><span class="o">:</span>     <span class="o">},</span>
+<span class="mi">18</span><span class="o">:</span>   <span class="s">&quot;parameter&quot;</span><span class="o">:</span> <span class="o">{</span>
+<span class="mi">19</span><span class="o">:</span>     <span class="s">&quot;regularization_weight&quot;</span> <span class="o">:</span> <span class="mf">1.0</span>
+<span class="mi">20</span><span class="o">:</span>     <span class="o">}</span>
+<span class="mi">21</span><span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>GenderMain.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span><span class="o">:</span> <span class="kn">package</span> <span class="n">us</span><span class="o">.</span><span class="na">jubat</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">gender</span><span class="o">;</span>
+
+<span class="mi">002</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">003</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="mi">004</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="mi">005</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.ClassifierClient</span><span class="o">;</span>
+<span class="mi">006</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.Datum</span><span class="o">;</span>
+<span class="mi">007</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.EstimateResult</span><span class="o">;</span>
+<span class="mi">008</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.TupleStringDatum</span><span class="o">;</span>
+<span class="mi">009</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.TupleStringDouble</span><span class="o">;</span>
+<span class="mi">010</span><span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.classifier.TupleStringString</span><span class="o">;</span>
+
+<span class="mi">011</span><span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GenderMain</span> <span class="o">{</span>
+
+<span class="mi">012</span><span class="o">:</span>   <span class="kd">private</span> <span class="kd">static</span> <span class="n">TupleStringString</span> <span class="n">makeStringTuple</span><span class="o">(</span><span class="n">String</span> <span class="n">first</span><span class="o">,</span> <span class="n">String</span> <span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">013</span><span class="o">:</span>           <span class="n">TupleStringString</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringString</span><span class="o">();</span>
+<span class="mi">014</span><span class="o">:</span>           <span class="n">t</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+<span class="mi">015</span><span class="o">:</span>           <span class="n">t</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">second</span><span class="o">;</span>
+<span class="mi">016</span><span class="o">:</span>           <span class="k">return</span> <span class="n">t</span><span class="o">;</span>
+<span class="mi">017</span><span class="o">:</span>   <span class="o">}</span>
+
+<span class="mi">018</span><span class="o">:</span>   <span class="kd">private</span> <span class="kd">static</span> <span class="n">TupleStringDouble</span> <span class="n">makeDoubleTuple</span><span class="o">(</span><span class="n">String</span> <span class="n">first</span><span class="o">,</span> <span class="kt">double</span> <span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">019</span><span class="o">:</span>           <span class="n">TupleStringDouble</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringDouble</span><span class="o">();</span>
+<span class="mi">020</span><span class="o">:</span>           <span class="n">t</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+<span class="mi">021</span><span class="o">:</span>           <span class="n">t</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">second</span><span class="o">;</span>
+<span class="mi">022</span><span class="o">:</span>           <span class="k">return</span> <span class="n">t</span><span class="o">;</span>
+<span class="mi">023</span><span class="o">:</span>   <span class="o">}</span>
+
+<span class="mi">024</span><span class="o">:</span>   <span class="kd">private</span> <span class="kd">static</span> <span class="n">Datum</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">String</span> <span class="n">hair</span><span class="o">,</span> <span class="n">String</span> <span class="n">top</span><span class="o">,</span> <span class="n">String</span> <span class="n">bottom</span><span class="o">,</span>
+<span class="mi">025</span><span class="o">:</span>                   <span class="kt">double</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">026</span><span class="o">:</span>           <span class="n">Datum</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Datum</span><span class="o">();</span>
+<span class="mi">027</span><span class="o">:</span>           <span class="n">d</span><span class="o">.</span><span class="na">string_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringString</span><span class="o">&gt;();</span>
+<span class="mi">028</span><span class="o">:</span>           <span class="n">d</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeStringTuple</span><span class="o">(</span><span class="s">&quot;hair&quot;</span><span class="o">,</span> <span class="n">hair</span><span class="o">));</span>
+<span class="mi">029</span><span class="o">:</span>           <span class="n">d</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeStringTuple</span><span class="o">(</span><span class="s">&quot;top&quot;</span><span class="o">,</span> <span class="n">top</span><span class="o">));</span>
+<span class="mi">030</span><span class="o">:</span>           <span class="n">d</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeStringTuple</span><span class="o">(</span><span class="s">&quot;bottom&quot;</span><span class="o">,</span> <span class="n">bottom</span><span class="o">));</span>
+
+<span class="mi">031</span><span class="o">:</span>           <span class="n">d</span><span class="o">.</span><span class="na">num_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringDouble</span><span class="o">&gt;();</span>
+<span class="mi">032</span><span class="o">:</span>           <span class="n">d</span><span class="o">.</span><span class="na">num_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeDoubleTuple</span><span class="o">(</span><span class="s">&quot;height&quot;</span><span class="o">,</span> <span class="n">height</span><span class="o">));</span>
+<span class="mi">033</span><span class="o">:</span>           <span class="k">return</span> <span class="n">d</span><span class="o">;</span>
+<span class="mi">034</span><span class="o">:</span>   <span class="o">}</span>
+
+<span class="mi">035</span><span class="o">:</span>   <span class="kd">private</span> <span class="kd">static</span> <span class="n">TupleStringDatum</span> <span class="n">makeTrainDatum</span><span class="o">(</span><span class="n">String</span> <span class="n">label</span><span class="o">,</span> <span class="n">String</span> <span class="n">hair</span><span class="o">,</span>
+<span class="mi">036</span><span class="o">:</span>                   <span class="n">String</span> <span class="n">top</span><span class="o">,</span> <span class="n">String</span> <span class="n">bottom</span><span class="o">,</span> <span class="kt">double</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">037</span><span class="o">:</span>           <span class="n">TupleStringDatum</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringDatum</span><span class="o">();</span>
+<span class="mi">038</span><span class="o">:</span>           <span class="n">t</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">label</span><span class="o">;</span>
+<span class="mi">039</span><span class="o">:</span>           <span class="n">t</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">hair</span><span class="o">,</span> <span class="n">top</span><span class="o">,</span> <span class="n">bottom</span><span class="o">,</span> <span class="n">height</span><span class="o">);</span>
+<span class="mi">040</span><span class="o">:</span>           <span class="k">return</span> <span class="n">t</span><span class="o">;</span>
+<span class="mi">041</span><span class="o">:</span>   <span class="o">}</span>
+
+<span class="mi">042</span><span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">043</span><span class="o">:</span>           <span class="n">String</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">044</span><span class="o">:</span>           <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">045</span><span class="o">:</span>           <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span><span class="o">;</span>
+
+<span class="mi">046</span><span class="o">:</span>           <span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">,</span> <span class="mf">1.0</span><span class="o">);</span>
+
+<span class="mi">047</span><span class="o">:</span>           <span class="n">TupleStringDatum</span><span class="o">[]</span> <span class="n">trainData</span> <span class="o">=</span> <span class="o">{</span> <span class="c1">//</span>
+<span class="mi">048</span><span class="o">:</span>                           <span class="n">makeTrainDatum</span><span class="o">(</span><span class="s">&quot;male&quot;</span><span class="o">,</span> <span class="s">&quot;short&quot;</span><span class="o">,</span> <span class="s">&quot;sweater&quot;</span><span class="o">,</span> <span class="s">&quot;jeans&quot;</span><span class="o">,</span> <span class="mf">1.70</span><span class="o">),</span>
+<span class="mi">049</span><span class="o">:</span>                           <span class="n">makeTrainDatum</span><span class="o">(</span><span class="s">&quot;female&quot;</span><span class="o">,</span> <span class="s">&quot;long&quot;</span><span class="o">,</span> <span class="s">&quot;shirt&quot;</span><span class="o">,</span> <span class="s">&quot;skirt&quot;</span><span class="o">,</span> <span class="mf">1.56</span><span class="o">),</span>
+<span class="mi">050</span><span class="o">:</span>                           <span class="n">makeTrainDatum</span><span class="o">(</span><span class="s">&quot;male&quot;</span><span class="o">,</span> <span class="s">&quot;short&quot;</span><span class="o">,</span> <span class="s">&quot;jacket&quot;</span><span class="o">,</span> <span class="s">&quot;chino&quot;</span><span class="o">,</span> <span class="mf">1.65</span><span class="o">),</span>
+<span class="mi">051</span><span class="o">:</span>                           <span class="n">makeTrainDatum</span><span class="o">(</span><span class="s">&quot;female&quot;</span><span class="o">,</span> <span class="s">&quot;short&quot;</span><span class="o">,</span> <span class="s">&quot;T shirt&quot;</span><span class="o">,</span> <span class="s">&quot;jeans&quot;</span><span class="o">,</span> <span class="mf">1.72</span><span class="o">),</span>
+<span class="mi">052</span><span class="o">:</span>                           <span class="n">makeTrainDatum</span><span class="o">(</span><span class="s">&quot;male&quot;</span><span class="o">,</span> <span class="s">&quot;long&quot;</span><span class="o">,</span> <span class="s">&quot;T shirt&quot;</span><span class="o">,</span> <span class="s">&quot;jeans&quot;</span><span class="o">,</span> <span class="mf">1.82</span><span class="o">),</span>
+<span class="mi">053</span><span class="o">:</span>                           <span class="n">makeTrainDatum</span><span class="o">(</span><span class="s">&quot;female&quot;</span><span class="o">,</span> <span class="s">&quot;long&quot;</span><span class="o">,</span> <span class="s">&quot;jacket&quot;</span><span class="o">,</span> <span class="s">&quot;skirt&quot;</span><span class="o">,</span> <span class="mf">1.43</span><span class="o">),</span>
+<span class="mi">054</span><span class="o">:</span>                           <span class="c1">// makeTrainDatum(&quot;male&quot;, &quot;short&quot;, &quot;jacket&quot;, &quot;jeans&quot;, 1.76),</span>
+<span class="mi">055</span><span class="o">:</span>                           <span class="c1">// makeTrainDatum(&quot;female&quot;, &quot;long&quot;, &quot;sweater&quot;, &quot;skirt&quot;, 1.52),</span>
+<span class="mi">056</span><span class="o">:</span>                           <span class="o">};</span>
+
+<span class="mi">057</span><span class="o">:</span>           <span class="n">client</span><span class="o">.</span><span class="na">train</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">trainData</span><span class="o">));</span>
+
+<span class="mi">058</span><span class="o">:</span>           <span class="n">Datum</span><span class="o">[]</span> <span class="n">testData</span> <span class="o">=</span> <span class="o">{</span> <span class="c1">//</span>
+<span class="mi">059</span><span class="o">:</span>           <span class="n">makeDatum</span><span class="o">(</span><span class="s">&quot;short&quot;</span><span class="o">,</span> <span class="s">&quot;T shirt&quot;</span><span class="o">,</span> <span class="s">&quot;jeans&quot;</span><span class="o">,</span> <span class="mf">1.81</span><span class="o">),</span>
+<span class="mi">060</span><span class="o">:</span>                           <span class="n">makeDatum</span><span class="o">(</span><span class="s">&quot;long&quot;</span><span class="o">,</span> <span class="s">&quot;shirt&quot;</span><span class="o">,</span> <span class="s">&quot;skirt&quot;</span><span class="o">,</span> <span class="mf">1.50</span><span class="o">),</span> <span class="o">};</span>
+
+<span class="mi">061</span><span class="o">:</span>           <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">EstimateResult</span><span class="o">&gt;&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">classify</span><span class="o">(</span><span class="n">name</span><span class="o">,</span>
+<span class="mi">062</span><span class="o">:</span>                           <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">testData</span><span class="o">));</span>
+
+<span class="mi">063</span><span class="o">:</span>           <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">EstimateResult</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">:</span> <span class="n">results</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">064</span><span class="o">:</span>                   <span class="k">for</span> <span class="o">(</span><span class="n">EstimateResult</span> <span class="n">r</span> <span class="o">:</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">065</span><span class="o">:</span>                           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">&quot;%s %f\n&quot;</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">label</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">score</span><span class="o">);</span>
+<span class="mi">066</span><span class="o">:</span>                   <span class="o">}</span>
+<span class="mi">067</span><span class="o">:</span>                   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="mi">068</span><span class="o">:</span>           <span class="o">}</span>
+
+<span class="mi">069</span><span class="o">:</span>           <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">070</span><span class="o">:</span>   <span class="o">}</span>
+<span class="mi">071</span><span class="o">:}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p><strong>gender.json</strong></p>
+<p>The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.</p>
+<blockquote>
+<div><ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.</div></blockquote>
+<ul class="simple">
+<li>converter</li>
+</ul>
+<blockquote>
+<div>Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of &#8216;length of hair&#8217;, &#8216;top clothes&#8217;, &#8216;bottom clothese&#8217; and &#8216;height&#8217;. The &#8220;string_values&#8221; and &#8220;num_values&#8221; are stored in key-value pairs without using &#8220;*_filter_types&#8221; configuration.</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<blockquote>
+<div>Specify the parameter that passed to the algorithm. The parameter varis when the method is changed. In this example, the method is specified as &#8216;AROW&#8217;, with [regularization_weight: 1.0]. In addition, the parameter &#8216;regularization_weight&#8217; in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When &#8216;regularization_weight&#8217; parameter becomes bigger, the learning spead will increase, while the noice will decrease.</div></blockquote>
+</div></blockquote>
+<p><strong>GenderMain.java</strong></p>
+<p>We explain the learning and prediction processes in this example codes.</p>
+<p>First of all, to write the Client program for Classifier, we can use the ClassifierClient class defined in &#8216;us.jubat.classifier&#8217;. There are two methods used in this program. The &#8216;train&#8217; method for learning process, and the &#8216;classify&#8217; method for prediction with the data learnt.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>How to connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 46).
+Setting the IP addr., RPC port of Jubatus Server, and the connection waiting time.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Prepare the learning data</li>
+</ol>
+<blockquote>
+<div><p>Make a dataset for the data to be learnt &lt;TupleStringDatum&gt;(Row 47).</p>
+<p>The dataset is input into the train() method in ClassifierClient, for the learning process. The figure below shows the structure of the data being leant.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="9">TupleStringDatum</th>
+</tr>
+<tr class="row-even"><th class="head">label(String)</th>
+<th class="head" colspan="8">Datum</th>
+</tr>
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head" colspan="2">TupleStringString</th>
+<th class="head" colspan="2">TupleStringDoubel</th>
+<th class="head" colspan="2">TupleStringString</th>
+<th class="head" colspan="2">TupleStringDoubel</th>
+</tr>
+<tr class="row-even"><th class="head">&nbsp;</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(double)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>&#8220;Male&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;short&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;sweater&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;jeans&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.70</td>
+</tr>
+<tr class="row-even"><td>&#8220;Female&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;long&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;shirt&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;skirt&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.56</td>
+</tr>
+<tr class="row-odd"><td>&#8220;Male&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;short&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;jacket&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;chino&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.65</td>
+</tr>
+<tr class="row-even"><td>&#8220;Female&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;short&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;T shirt&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;jeans&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.72</td>
+</tr>
+<tr class="row-odd"><td>&#8220;Male&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;long&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;T shirt&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;jeans&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.82</td>
+</tr>
+</tbody>
+</table>
+<p>TupleStringDatum contains the Datum and its label. In this sample, the label demonstrates the class name each Datum belongs to. Each Datum stores the data in key-value pairs, which is the format readable by Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are two kinds of key-value lists, string_values and num_values, which are defined by the TupleStringString class and TupleStringDouble class. For example, the &#8220;hair&#8221;, &#8220;top&#8221;, &#8220;bottom&#8221; values are in string format, thus these data are stored within the string_values list. While the &#8220;height&#8220;&#8216;s value is stored in num_values list.</p>
+<p>Here is the procedure of making study data.</p>
+<p>To make study data, the private method &#8220;makeTrainDatum&#8221; is used (Row 47-56). An arrayList of TupleStringDatum is declared (Row 37). Then the data in the format as defined in TupleStringDatum class is generated.</p>
+<p>TupleStringString and TupleStringDouble lists are declared in line Row 27 and 31, respectively, and stored in &#8220;Datum&#8221;. Then, by using the method &#8220;makeDatum&#8221;, data to be studied is stored in the two key-value lists, due to their different data types (Row 24-34).</p>
+<p>In this example, the key-value lists in TupleStringString format have the kyes of &#8220;hair&#8221;, &#8220;top&#8221;, and &#8220;bottom&#8221;; and their values, for example, are &#8220;short&#8221;, &#8220;sweater&#8221;, and &#8220;jeans&#8221;. The key-value list in TupleStringDatum format have the key of &#8220;height&#8221;, and its value, for example, &#8220;1.70&#8221; (Row 48).</p>
+<p>According to the flow above, the training data is generated (Row 47-56).</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Model training (update learning model)</li>
+</ol>
+<blockquote>
+<div>We train our learning model by using the method train() at Row 57, with the data generated in step.2 above. The first parameter in train() is the unique name for task identification in Zookeeper.</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Prepare the prediction data</li>
+</ol>
+<blockquote>
+<div>Different from training data, prediction data does not contain &#8220;lable&#8221;, and it is only stored in the Datum unit by using makeDatum() (Row 58-60).</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>Data prediction</li>
+</ol>
+<blockquote>
+<div>By inputting the testdata arraylist generated in step.4 into the classify() method of ClassifierClient (Row 61-62), the prediction result will be stored in the EstimateResult list (Row 63), and each r.label, r.score stands for the prediction result and the confidence of each input testdata respectively (Row 65).</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="run-the-sample-program">
+<h2>Run the sample program<a class="headerlink" href="#run-the-sample-program" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>［At Jubatus Server］</dt>
+<dd>start &#8220;jubaclassifier&#8221; process.</dd>
+</dl>
+<div class="highlight-python"><pre>$ jubaclassifier --configpath gender.json</pre>
+</div>
+<dl class="docutils">
+<dt>［At Jubatus Client］</dt>
+<dd>Get the required package and Java client ready.
+Run!</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="regression.html" title="Regression"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="classifier_ruby.html" title="Ruby"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="classifier.html" >Classifier</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

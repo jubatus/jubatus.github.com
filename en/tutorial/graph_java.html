@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Java &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Graph" href="graph.html" />
+    <link rel="next" title="Stat" href="stat.html" />
+    <link rel="prev" title="Ruby" href="graph_ruby.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stat.html" title="Stat"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="graph_ruby.html" title="Ruby"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="graph.html" accesskey="U">Graph</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Java</a><ul>
+<li><a class="reference internal" href="#source-code">Source_code</a></li>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="graph_ruby.html"
+                        title="previous chapter">Ruby</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stat.html"
+                        title="next chapter">Stat</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/graph_java.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="java">
+<h1>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h1>
+<p>Here we explain the sample program of Graph in Java.</p>
+<div class="section" id="source-code">
+<h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;train_route.json&#8217;; 2) how to learn the training data and calculate the shortest path with the example file ‘SearchRoute.java’. Here are the source codes of &#8216;train_route.json&#8217; and &#8216;SearchRoute.java&#8217;.</p>
+<p><strong>train_route.json</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mi">2</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;graph_wo_index&quot;</span><span class="p">,</span>
+<span class="mi">3</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mi">4</span> <span class="p">:</span>     <span class="s">&quot;damping_factor&quot;</span> <span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+<span class="mi">5</span> <span class="p">:</span>     <span class="s">&quot;landmark_num&quot;</span> <span class="p">:</span> <span class="mi">256</span>
+<span class="mi">6</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mi">7</span> <span class="p">:</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>CreateGraph.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="mi">002</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.net.Authenticator</span><span class="o">;</span>
+<span class="mi">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="mi">004</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.net.PasswordAuthentication</span><span class="o">;</span>
+<span class="mi">005</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="mi">006</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">007</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="mi">008</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Comparator</span><span class="o">;</span>
+<span class="mi">009</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="mi">010</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mi">011</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="mi">012</span> <span class="o">:</span>
+<span class="mi">013</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">javax.xml.parsers.DocumentBuilder</span><span class="o">;</span>
+<span class="mi">014</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">javax.xml.parsers.DocumentBuilderFactory</span><span class="o">;</span>
+<span class="mi">015</span> <span class="o">:</span>
+<span class="mi">016</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">org.w3c.dom.Document</span><span class="o">;</span>
+<span class="mi">017</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">org.w3c.dom.Node</span><span class="o">;</span>
+<span class="mi">018</span> <span class="o">:</span>
+<span class="mi">019</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.Edge</span><span class="o">;</span>
+<span class="mi">020</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.GraphClient</span><span class="o">;</span>
+<span class="mi">021</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.PresetQuery</span><span class="o">;</span>
+<span class="mi">022</span> <span class="o">:</span>
+<span class="mi">023</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CreateGraph</span> <span class="o">{</span>
+<span class="mi">024</span> <span class="o">:</span>
+<span class="mi">025</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">026</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">027</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;trainRoute&quot;</span><span class="o">;</span>
+<span class="mi">028</span> <span class="o">:</span>
+<span class="mi">029</span> <span class="o">:</span>  <span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">stations</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+<span class="mi">030</span> <span class="o">:</span>
+<span class="mi">031</span> <span class="o">:</span>  <span class="kd">private</span> <span class="kd">class</span> <span class="nc">StationJoin</span> <span class="o">{</span>
+<span class="mi">032</span> <span class="o">:</span>          <span class="kd">public</span> <span class="n">String</span> <span class="n">station1</span><span class="o">;</span>
+<span class="mi">033</span> <span class="o">:</span>          <span class="kd">public</span> <span class="n">String</span> <span class="n">station2</span><span class="o">;</span>
+<span class="mi">034</span> <span class="o">:</span>
+<span class="mi">035</span> <span class="o">:</span>          <span class="kd">public</span> <span class="n">StationJoin</span><span class="o">(</span><span class="n">String</span> <span class="n">station1</span><span class="o">,</span> <span class="n">String</span> <span class="n">station2</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">036</span> <span class="o">:</span>                  <span class="k">this</span><span class="o">.</span><span class="na">station1</span> <span class="o">=</span> <span class="n">station1</span><span class="o">;</span>
+<span class="mi">037</span> <span class="o">:</span>                  <span class="k">this</span><span class="o">.</span><span class="na">station2</span> <span class="o">=</span> <span class="n">station2</span><span class="o">;</span>
+<span class="mi">038</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">039</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">040</span> <span class="o">:</span>
+<span class="mi">041</span> <span class="o">:</span>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">void</span> <span class="n">start</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">042</span> <span class="o">:</span>          <span class="c1">// 1. Connect to Jubatus Server</span>
+<span class="mi">043</span> <span class="o">:</span>          <span class="n">GraphClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GraphClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="mi">044</span> <span class="o">:</span>
+<span class="mi">045</span> <span class="o">:</span>          <span class="c1">// 2. Regist the preset query</span>
+<span class="mi">046</span> <span class="o">:</span>          <span class="n">PresetQuery</span> <span class="n">pq</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PresetQuery</span><span class="o">();</span>
+<span class="mi">047</span> <span class="o">:</span>          <span class="n">pq</span><span class="o">.</span><span class="na">edge_query</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="mi">048</span> <span class="o">:</span>          <span class="n">pq</span><span class="o">.</span><span class="na">node_query</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="mi">049</span> <span class="o">:</span>          <span class="n">client</span><span class="o">.</span><span class="na">add_shortest_path_query</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">pq</span><span class="o">);</span>
+<span class="mi">050</span> <span class="o">:</span>
+<span class="mi">051</span> <span class="o">:</span>          <span class="c1">// 3. Generate the graph</span>
+<span class="mi">052</span> <span class="o">:</span>          <span class="k">this</span><span class="o">.</span><span class="na">createGraph</span><span class="o">(</span><span class="n">client</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">getStationJoin</span><span class="o">(</span><span class="mi">11302</span><span class="o">));</span> <span class="c1">// 山手線</span>
+<span class="mi">053</span> <span class="o">:</span>          <span class="k">this</span><span class="o">.</span><span class="na">createGraph</span><span class="o">(</span><span class="n">client</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">getStationJoin</span><span class="o">(</span><span class="mi">11312</span><span class="o">));</span> <span class="c1">// 中央線</span>
+<span class="mi">054</span> <span class="o">:</span>
+<span class="mi">055</span> <span class="o">:</span>          <span class="c1">// 4. Show the Station IDs</span>
+<span class="mi">056</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== Station IDs ===&quot;</span><span class="o">);</span>
+<span class="mi">057</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&gt;</span> <span class="n">entries</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&gt;(</span><span class="n">stations</span><span class="o">.</span><span class="na">entrySet</span><span class="o">());</span>
+<span class="mi">058</span> <span class="o">:</span>          <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">entries</span><span class="o">,</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">()</span> <span class="o">{</span>
+<span class="mi">059</span> <span class="o">:</span>                  <span class="nd">@Override</span>
+<span class="mi">060</span> <span class="o">:</span>                  <span class="kd">public</span> <span class="kt">int</span> <span class="n">compare</span><span class="o">(</span><span class="n">Object</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">061</span> <span class="o">:</span>                          <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">e1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span> <span class="n">o1</span><span class="o">;</span>
+<span class="mi">062</span> <span class="o">:</span>                          <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">e2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span> <span class="n">o2</span><span class="o">;</span>
+<span class="mi">063</span> <span class="o">:</span>                          <span class="k">return</span> <span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">((</span><span class="n">String</span><span class="o">)</span> <span class="n">e1</span><span class="o">.</span><span class="na">getValue</span><span class="o">())).</span><span class="na">compareTo</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">((</span><span class="n">String</span><span class="o">)</span> <span class="n">e2</span><span class="o">.</span><span class="na">getValue</span><span class="o">()));</span>
+<span class="mi">064</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">065</span> <span class="o">:</span>          <span class="o">});</span>
+<span class="mi">066</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">e</span> <span class="o">:</span> <span class="n">entries</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">067</span> <span class="o">:</span>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;\t: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+<span class="mi">068</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">069</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">070</span> <span class="o">:</span>
+<span class="mi">071</span> <span class="o">:</span>  <span class="c1">// Generate the combination list of 2 stations</span>
+<span class="mi">072</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">StationJoin</span><span class="o">&gt;</span> <span class="n">getStationJoin</span><span class="o">(</span><span class="kt">int</span> <span class="n">lineCd</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">073</span> <span class="o">:</span>          <span class="c1">// Return list</span>
+<span class="mi">074</span> <span class="o">:</span>          <span class="n">List</span><span class="o">&lt;</span><span class="n">StationJoin</span><span class="o">&gt;</span> <span class="n">joinList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">StationJoin</span><span class="o">&gt;();</span>
+<span class="mi">075</span> <span class="o">:</span>
+<span class="mi">076</span> <span class="o">:</span>          <span class="c1">// Read the XML file</span>
+<span class="mi">077</span> <span class="o">:</span>          <span class="n">Document</span> <span class="n">document</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getXml</span><span class="o">(</span><span class="n">lineCd</span><span class="o">);</span>
+<span class="mi">078</span> <span class="o">:</span>
+<span class="mi">079</span> <span class="o">:</span>          <span class="c1">// Repeat for the number of &lt;station_join&gt; tags in XML file</span>
+<span class="mi">080</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">document</span><span class="o">.</span><span class="na">getElementsByTagName</span><span class="o">(</span><span class="s">&quot;station_join&quot;</span><span class="o">).</span><span class="na">getLength</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">081</span> <span class="o">:</span>                  <span class="n">String</span> <span class="n">station1</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">082</span> <span class="o">:</span>                  <span class="n">String</span> <span class="n">station2</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">083</span> <span class="o">:</span>                  <span class="c1">// Repeat for the number of childnodes surrounded by the &lt;station_join&gt; tags</span>
+<span class="mi">084</span> <span class="o">:</span>                  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">document</span><span class="o">.</span><span class="na">getElementsByTagName</span><span class="o">(</span><span class="s">&quot;station_join&quot;</span><span class="o">).</span><span class="na">item</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getChildNodes</span><span class="o">().</span><span class="na">getLength</span><span class="o">();</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">085</span> <span class="o">:</span>                          <span class="n">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="na">getElementsByTagName</span><span class="o">(</span><span class="s">&quot;station_join&quot;</span><span class="o">).</span><span class="na">item</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getChildNodes</span><span class="o">().</span><span class="na">item</span><span class="o">(</span><span class="n">j</span><span class="o">);</span>
+<span class="mi">086</span> <span class="o">:</span>                          <span class="n">String</span> <span class="n">nodeName</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getNodeName</span><span class="o">();</span>
+<span class="mi">087</span> <span class="o">:</span>                          <span class="n">String</span> <span class="n">nodeValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">088</span> <span class="o">:</span>                          <span class="c1">// Get the values of station_name1 and station_name2</span>
+<span class="mi">089</span> <span class="o">:</span>                          <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">getFirstChild</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">090</span> <span class="o">:</span>                                  <span class="n">nodeValue</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getFirstChild</span><span class="o">().</span><span class="na">getNodeValue</span><span class="o">();</span>
+<span class="mi">091</span> <span class="o">:</span>                          <span class="o">}</span>
+<span class="mi">092</span> <span class="o">:</span>                          <span class="k">if</span> <span class="o">(</span><span class="n">nodeName</span> <span class="o">==</span> <span class="s">&quot;station_name1&quot;</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">093</span> <span class="o">:</span>                                  <span class="n">station1</span> <span class="o">=</span> <span class="n">nodeValue</span><span class="o">;</span>
+<span class="mi">094</span> <span class="o">:</span>                          <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">nodeName</span> <span class="o">==</span> <span class="s">&quot;station_name2&quot;</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">095</span> <span class="o">:</span>                                  <span class="n">station2</span> <span class="o">=</span> <span class="n">nodeValue</span><span class="o">;</span>
+<span class="mi">096</span> <span class="o">:</span>                          <span class="o">}</span>
+<span class="mi">097</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">098</span> <span class="o">:</span>                  <span class="n">joinList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">StationJoin</span><span class="o">(</span><span class="n">station1</span><span class="o">,</span> <span class="n">station2</span><span class="o">));</span>
+<span class="mi">099</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">100</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">joinList</span><span class="o">;</span>
+<span class="mi">101</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">102</span> <span class="o">:</span>
+<span class="mi">103</span> <span class="o">:</span>  <span class="c1">// Read the XML file</span>
+<span class="mi">104</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">Document</span> <span class="n">getXml</span><span class="o">(</span><span class="kt">int</span> <span class="n">lineCd</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">105</span> <span class="o">:</span>          <span class="c1">// Set the proxy</span>
+<span class="mi">106</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;proxySet&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+<span class="mi">107</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;proxyHost&quot;</span><span class="o">,</span> <span class="s">&quot;192.168.00.0&quot;</span><span class="o">);</span>
+<span class="mi">108</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;proxyPort&quot;</span><span class="o">,</span> <span class="s">&quot;8080&quot;</span><span class="o">);</span>
+<span class="mi">109</span> <span class="o">:</span>
+<span class="mi">110</span> <span class="o">:</span>          <span class="c1">// Set the BASIC certification</span>
+<span class="mi">111</span> <span class="o">:</span>          <span class="kd">final</span> <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;user&quot;</span><span class="o">;</span>
+<span class="mi">112</span> <span class="o">:</span>          <span class="kd">final</span> <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;password&quot;</span><span class="o">;</span>
+<span class="mi">113</span> <span class="o">:</span>          <span class="n">Authenticator</span><span class="o">.</span><span class="na">setDefault</span><span class="o">(</span><span class="k">new</span> <span class="n">Authenticator</span><span class="o">()</span> <span class="o">{</span>
+<span class="mi">114</span> <span class="o">:</span>                  <span class="nd">@Override</span>
+<span class="mi">115</span> <span class="o">:</span>                  <span class="kd">protected</span> <span class="n">PasswordAuthentication</span> <span class="n">getPasswordAuthentication</span><span class="o">()</span> <span class="o">{</span>
+<span class="mi">116</span> <span class="o">:</span>                          <span class="k">return</span> <span class="k">new</span> <span class="n">PasswordAuthentication</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">());</span>
+<span class="mi">117</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">118</span> <span class="o">:</span>          <span class="o">});</span>
+<span class="mi">119</span> <span class="o">:</span>
+<span class="mi">120</span> <span class="o">:</span>          <span class="c1">// Read the XML file from WEB</span>
+<span class="mi">121</span> <span class="o">:</span>          <span class="n">String</span> <span class="n">urlStr</span> <span class="o">=</span> <span class="s">&quot;http://www.ekidata.jp/api/n/&quot;</span> <span class="o">+</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">lineCd</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;.xml&quot;</span><span class="o">;</span>
+<span class="mi">122</span> <span class="o">:</span>          <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">urlStr</span><span class="o">);</span>
+<span class="mi">123</span> <span class="o">:</span>          <span class="n">HttpURLConnection</span> <span class="n">connection</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="mi">124</span> <span class="o">:</span>          <span class="n">connection</span><span class="o">.</span><span class="na">setDoOutput</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="mi">125</span> <span class="o">:</span>          <span class="n">connection</span><span class="o">.</span><span class="na">setUseCaches</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<span class="mi">126</span> <span class="o">:</span>          <span class="n">connection</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">&quot;GET&quot;</span><span class="o">);</span>
+<span class="mi">127</span> <span class="o">:</span>          <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+<span class="mi">128</span> <span class="o">:</span>          <span class="n">DocumentBuilder</span> <span class="n">docBuilder</span> <span class="o">=</span> <span class="n">DocumentBuilderFactory</span><span class="o">.</span><span class="na">newInstance</span><span class="o">().</span><span class="na">newDocumentBuilder</span><span class="o">();</span>
+<span class="mi">129</span> <span class="o">:</span>          <span class="n">Document</span> <span class="n">document</span> <span class="o">=</span> <span class="n">docBuilder</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
+<span class="mi">130</span> <span class="o">:</span>
+<span class="mi">131</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">document</span><span class="o">;</span>
+<span class="mi">132</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">133</span> <span class="o">:</span>
+<span class="mi">134</span> <span class="o">:</span>  <span class="c1">// 3. Generate the Graph</span>
+<span class="mi">135</span> <span class="o">:</span>  <span class="kd">private</span> <span class="kt">void</span> <span class="n">createGraph</span><span class="o">(</span><span class="n">GraphClient</span> <span class="n">client</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">StationJoin</span><span class="o">&gt;</span> <span class="n">stationJoin</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">136</span> <span class="o">:</span>          <span class="c1">// Repeat for the number of two-stations&#39; combination lists that got from XML list</span>
+<span class="mi">137</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="n">StationJoin</span> <span class="n">join</span> <span class="o">:</span> <span class="n">stationJoin</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">138</span> <span class="o">:</span>                  <span class="c1">// 3-1. Get the station information and ID</span>
+<span class="mi">139</span> <span class="o">:</span>                  <span class="n">String</span> <span class="n">s1_node_id</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">addStation</span><span class="o">(</span><span class="n">client</span><span class="o">,</span> <span class="n">join</span><span class="o">.</span><span class="na">station1</span><span class="o">);</span>
+<span class="mi">140</span> <span class="o">:</span>                  <span class="n">String</span> <span class="n">s2_node_id</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">addStation</span><span class="o">(</span><span class="n">client</span><span class="o">,</span> <span class="n">join</span><span class="o">.</span><span class="na">station2</span><span class="o">);</span>
+<span class="mi">141</span> <span class="o">:</span>
+<span class="mi">142</span> <span class="o">:</span>                  <span class="c1">// 3-2. Make bi-links between new added two stations</span>
+<span class="mi">143</span> <span class="o">:</span>                  <span class="n">Edge</span> <span class="n">edge1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Edge</span><span class="o">();</span>
+<span class="mi">144</span> <span class="o">:</span>                  <span class="n">edge1</span><span class="o">.</span><span class="na">property</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="mi">145</span> <span class="o">:</span>                  <span class="n">edge1</span><span class="o">.</span><span class="na">source</span> <span class="o">=</span> <span class="n">s1_node_id</span><span class="o">;</span>
+<span class="mi">146</span> <span class="o">:</span>                  <span class="n">edge1</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">s2_node_id</span><span class="o">;</span>
+<span class="mi">147</span> <span class="o">:</span>                  <span class="n">Edge</span> <span class="n">edge2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Edge</span><span class="o">();</span>
+<span class="mi">148</span> <span class="o">:</span>                  <span class="n">edge2</span><span class="o">.</span><span class="na">property</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="mi">149</span> <span class="o">:</span>                  <span class="n">edge2</span><span class="o">.</span><span class="na">source</span> <span class="o">=</span> <span class="n">s2_node_id</span><span class="o">;</span>
+<span class="mi">150</span> <span class="o">:</span>                  <span class="n">edge2</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">s1_node_id</span><span class="o">;</span>
+<span class="mi">151</span> <span class="o">:</span>                  <span class="n">client</span><span class="o">.</span><span class="na">create_edge</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">s1_node_id</span><span class="o">,</span> <span class="n">edge1</span><span class="o">);</span>
+<span class="mi">152</span> <span class="o">:</span>                  <span class="n">client</span><span class="o">.</span><span class="na">create_edge</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">s2_node_id</span><span class="o">,</span> <span class="n">edge2</span><span class="o">);</span>
+<span class="mi">153</span> <span class="o">:</span>
+<span class="mi">154</span> <span class="o">:</span>                  <span class="n">client</span><span class="o">.</span><span class="na">update_index</span><span class="o">(</span><span class="n">NAME</span><span class="o">);</span>
+<span class="mi">155</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">156</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">157</span> <span class="o">:</span>
+<span class="mi">158</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">String</span> <span class="n">addStation</span><span class="o">(</span><span class="n">GraphClient</span> <span class="n">client</span><span class="o">,</span> <span class="n">String</span> <span class="n">station</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">159</span> <span class="o">:</span>          <span class="n">String</span> <span class="n">nodeId</span><span class="o">;</span>
+<span class="mi">160</span> <span class="o">:</span>          <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">property</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+<span class="mi">161</span> <span class="o">:</span>          <span class="c1">// Check whether the &#39;station&#39;, as the argument, has be stored in the Map or not.</span>
+<span class="mi">162</span> <span class="o">:</span>          <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">stations</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">station</span><span class="o">))</span> <span class="o">{</span>
+<span class="mi">163</span> <span class="o">:</span>                  <span class="c1">// If yes, return the ID</span>
+<span class="mi">164</span> <span class="o">:</span>                  <span class="n">nodeId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">stations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">station</span><span class="o">);</span>
+<span class="mi">165</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+<span class="mi">166</span> <span class="o">:</span>                  <span class="c1">// If no, create a new node for the station, and return its ID.</span>
+<span class="mi">167</span> <span class="o">:</span>                  <span class="n">nodeId</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">create_node</span><span class="o">(</span><span class="n">NAME</span><span class="o">);</span>
+<span class="mi">168</span> <span class="o">:</span>                  <span class="n">property</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">,</span> <span class="n">station</span><span class="o">);</span>
+<span class="mi">169</span> <span class="o">:</span>                  <span class="n">client</span><span class="o">.</span><span class="na">update_node</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">nodeId</span><span class="o">,</span> <span class="n">property</span><span class="o">);</span>
+<span class="mi">170</span> <span class="o">:</span>                  <span class="c1">// Store the created node into the Map of stations</span>
+<span class="mi">171</span> <span class="o">:</span>                  <span class="k">this</span><span class="o">.</span><span class="na">stations</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">station</span><span class="o">,</span> <span class="n">nodeId</span><span class="o">);</span>
+<span class="mi">172</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">173</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">nodeId</span><span class="o">;</span>
+<span class="mi">174</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">175</span> <span class="o">:</span>
+<span class="mi">176</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">177</span> <span class="o">:</span>          <span class="k">new</span> <span class="n">CreateGraph</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+<span class="mi">178</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">179</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">180</span> <span class="o">:</span>
+<span class="mi">181</span> <span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>SearchRoute.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">01</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">02</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mi">03</span> <span class="o">:</span>
+<span class="mi">04</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.GraphClient</span><span class="o">;</span>
+<span class="mi">05</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.Node</span><span class="o">;</span>
+<span class="mi">06</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.PresetQuery</span><span class="o">;</span>
+<span class="mi">07</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.graph.ShortestPathQuery</span><span class="o">;</span>
+<span class="mi">08</span> <span class="o">:</span>
+<span class="mi">09</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SearchRoute</span> <span class="o">{</span>
+<span class="mi">10</span> <span class="o">:</span>
+<span class="mi">11</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">12</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">13</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;trainRoute&quot;</span><span class="o">;</span>
+<span class="mi">14</span> <span class="o">:</span>
+<span class="mi">15</span> <span class="o">:</span>   <span class="kd">private</span> <span class="kd">final</span> <span class="kt">void</span> <span class="n">start</span><span class="o">(</span><span class="n">String</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">target</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">16</span> <span class="o">:</span>           <span class="c1">// 1. Connect to Jubatus Server</span>
+<span class="mi">17</span> <span class="o">:</span>           <span class="n">GraphClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GraphClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="mi">18</span> <span class="o">:</span>
+<span class="mi">19</span> <span class="o">:</span>           <span class="c1">// 2. Prepare the query</span>
+<span class="mi">20</span> <span class="o">:</span>           <span class="n">PresetQuery</span> <span class="n">pq</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PresetQuery</span><span class="o">();</span>
+<span class="mi">21</span> <span class="o">:</span>           <span class="n">pq</span><span class="o">.</span><span class="na">edge_query</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="mi">22</span> <span class="o">:</span>           <span class="n">pq</span><span class="o">.</span><span class="na">node_query</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="mi">23</span> <span class="o">:</span>
+<span class="mi">24</span> <span class="o">:</span>           <span class="n">ShortestPathQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShortestPathQuery</span><span class="o">();</span>
+<span class="mi">25</span> <span class="o">:</span>           <span class="n">query</span><span class="o">.</span><span class="na">source</span> <span class="o">=</span> <span class="n">source</span><span class="o">;</span>
+<span class="mi">26</span> <span class="o">:</span>           <span class="n">query</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">;</span>
+<span class="mi">27</span> <span class="o">:</span>           <span class="n">query</span><span class="o">.</span><span class="na">max_hop</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+<span class="mi">28</span> <span class="o">:</span>           <span class="n">query</span><span class="o">.</span><span class="na">query</span> <span class="o">=</span> <span class="n">pq</span><span class="o">;</span>
+<span class="mi">29</span> <span class="o">:</span>
+<span class="mi">30</span> <span class="o">:</span>           <span class="c1">// 3. Calculate the shortest path</span>
+<span class="mi">31</span> <span class="o">:</span>           <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stations</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">get_shortest_path</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">query</span><span class="o">);</span>
+<span class="mi">32</span> <span class="o">:</span>
+<span class="mi">33</span> <span class="o">:</span>           <span class="c1">// 4. Return the results</span>
+<span class="mi">34</span> <span class="o">:</span>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Pseudo-Shortest Path (hops) from &quot;</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="na">source</span> <span class="o">+</span> <span class="s">&quot;to &quot;</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="na">target</span><span class="o">);</span>
+<span class="mi">35</span> <span class="o">:</span>           <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">station</span> <span class="o">:</span> <span class="n">stations</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">36</span> <span class="o">:</span>                   <span class="n">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">get_node</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">station</span><span class="o">);</span>
+<span class="mi">37</span> <span class="o">:</span>                   <span class="n">String</span> <span class="n">stationName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">38</span> <span class="o">:</span>                   <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">property</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">))</span> <span class="o">{</span>
+<span class="mi">39</span> <span class="o">:</span>                           <span class="n">stationName</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">property</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
+<span class="mi">40</span> <span class="o">:</span>                   <span class="o">}</span>
+<span class="mi">41</span> <span class="o">:</span>                   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">station</span> <span class="o">+</span> <span class="s">&quot;\t: &quot;</span> <span class="o">+</span> <span class="n">stationName</span><span class="o">);</span>
+<span class="mi">42</span> <span class="o">:</span>           <span class="o">}</span>
+<span class="mi">43</span> <span class="o">:</span>   <span class="o">}</span>
+<span class="mi">44</span> <span class="o">:</span>
+<span class="mi">45</span> <span class="o">:</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">46</span> <span class="o">:</span>           <span class="k">new</span> <span class="n">SearchRoute</span><span class="o">().</span><span class="na">start</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+<span class="mi">47</span> <span class="o">:</span>           <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">48</span> <span class="o">:</span>   <span class="o">}</span>
+<span class="mi">49</span> <span class="o">:</span>
+<span class="mi">50</span> <span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p><strong>train_route.json</strong></p>
+<p>The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.</p>
+<blockquote>
+<div><ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>Specify the algorithm used in graph mining. In this example, we use the graph without indexing, so we specify it with &#8220;graph_wo_index&#8221;.</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<blockquote>
+<div>Specify the parameters to be passed to the algorithm.
+We specify two parameter here, &#8220;damping_factor&#8221; and &#8220;landmark_num&#8221;.
+&#8220;damping_factor&#8221; is the damping factor used in PageRank calculation. It adjusts scores for nodes with differenct degrees.The bigger it is, the more sensitive to graph structure PageRank score is, but the larger biases it causes. In the original paper, 0.85 is good.
+&#8220;landmark_num&#8221; is used for shortest path calculation. The bigger it is, more accurate value you can get, but the more memory is required.</div></blockquote>
+</div></blockquote>
+<p><strong>CreateGraph.java</strong></p>
+<blockquote>
+<div><p>CreateGraph.java generates a graph composed of Yamanote-line and Chuou-line. The client program in Graph will use the &#8216;GraphClient&#8217; class defined in &#8216;us.jubat.graph&#8217;. Here are the 5 methods used in the sample.</p>
+<ul class="simple">
+<li>add_shortest_path_query(String name, PresetQuery query)</li>
+</ul>
+<blockquote>
+<div>Regist the shortest-path calculation query that to be used.</div></blockquote>
+<ul class="simple">
+<li>create_node(String name)</li>
+</ul>
+<blockquote>
+<div>Add one node into graph.</div></blockquote>
+<ul class="simple">
+<li>update_node(String name, String node_id, Map&lt;String, String&gt; property)</li>
+</ul>
+<blockquote>
+<div>Update a node&#8217;s &#8216;node_id&#8217; attribute in property map.</div></blockquote>
+<ul class="simple">
+<li>create_edge(String name, String node_id, Edge e)</li>
+</ul>
+<blockquote>
+<div>Make the link from e.source to e.target.</div></blockquote>
+<ul class="simple">
+<li>get_shortest_path(String name, ShortestPathQuery query)</li>
+</ul>
+<blockquote>
+<div>Calculates (from the precomputed data) a shortest path from query.source to query.target that matches the preset query.</div></blockquote>
+<ol class="arabic simple">
+<li>Connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 33).
+Setting the IP addr., RPC port of Jubatus Server, and the connection waiting time.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Regist the preset query</li>
+</ol>
+<blockquote>
+<div>The &#8216;add_shortest_path_query&#8217; method must be registered beforehand. Therefore, the &#8216;PresetQuery&#8217; is made (Row 46), and its pq.edge_query and pq.node_query are filled with the newly declared ArrayList (Row 47, 48). Finally, the query made by &#8216;add_shortest_path_query&#8217; is registed (Row 49).</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Generate the graph</li>
+</ol>
+<blockquote>
+<div><p>Make the graph composed of Yamanote-line and Chuou-line.
+Firstly, private method [createGraph] is called at (Row 52, 53).
+The first parameter in [createGraph] is the GraphClient made in Step. 1.
+The second prarmeter is the return value from private method [getStationJoin].</p>
+<p>Private method [getStationJoin] makes the combination list of two neighbor stations.
+At first, the ArrayList of inner class [StationJoin] is made (Row 74).
+Then, set the instance variable, station1 and station2, in [StationJoin] Class (Row 31-39).
+After setting the two stations&#8217; name, method [getStationJoin] will make the combination list.</p>
+<p>Next, we get the station information from the Web. Private method [getXml] is called to download the XML file (Row 77).
+The same parameter is passed from [getStationJoin] to [getXml] method.
+This parameter is used to make the URL, from which to download XML file.
+Proxy for the private method [getXml] is set in (Row 106-118). Please comment out them if not needed.
+Codes in (Row 121-129) are the processes for reading the XML file.
+Contents of the XML file likes below.
+In this sample program, we ignore the factor of &#8216;distance&#8217;, and only consider the connections between stations. So, the values in &lt;station_name1&gt;, &lt;station_name2&gt; are not used in the program.</p>
+<div class="highlight-python"><pre>&lt;ekidata version="ekidata.jp station_join api 1.0"&gt;
+&lt;station_join&gt;
+ &lt;station_cd1&gt;1131231&lt;/station_cd1&gt;
+ &lt;station_cd2&gt;1131232&lt;/station_cd2&gt;
+ &lt;station_name1&gt;Nichi-Hachioji&lt;/station_name1&gt;
+ &lt;station_name2&gt;Takao&lt;/station_name2&gt;
+ &lt;lat1&gt;35.656621&lt;/lat1&gt;
+ &lt;lon1&gt;139.31264&lt;/lon1&gt;
+ &lt;lat2&gt;35.642026&lt;/lat2&gt;
+ &lt;lon2&gt;139.282288&lt;/lon2&gt;
+&lt;/station_join&gt;
+&lt;station_join&gt;
+ &lt;station_cd1&gt;1131230&lt;/station_cd1&gt;
+ &lt;station_cd2&gt;1131231&lt;/station_cd2&gt;
+ &lt;station_name1&gt;Hachioji&lt;/station_name1&gt;
+ &lt;station_name2&gt;Nichi-Hachioji&lt;/station_name2&gt;
+ &lt;lat1&gt;35.655555&lt;/lat1&gt;
+ &lt;lon1&gt;139.338998&lt;/lon1&gt;
+ &lt;lat2&gt;35.656621&lt;/lat2&gt;
+ &lt;lon2&gt;139.31264&lt;/lon2&gt;
+&lt;/station_join&gt;
+&lt;station_join&gt;
+ &lt;station_cd1&gt;1131229&lt;/station_cd1&gt;
+ &lt;station_cd2&gt;1131230&lt;/station_cd2&gt;
+ &lt;station_name1&gt;Toyota&lt;/station_name1&gt;
+ &lt;station_name2&gt;Hachioji&lt;/station_name2&gt;
+ &lt;lat1&gt;35.659502&lt;/lat1&gt;
+ &lt;lon1&gt;139.381495&lt;/lon1&gt;
+ &lt;lat2&gt;35.655555&lt;/lat2&gt;
+ &lt;lon2&gt;139.338998&lt;/lon2&gt;
+&lt;/station_join&gt;
+-Snip-</pre>
+</div>
+<p>Now, we input the value of &lt;station_cd1&gt; in the XML file into the instance variable &#8216;station1&#8217; in [StationJoin] class, and the value of &lt;station_cd2&gt; in to &#8216;station2&#8217;.
+The number of instance created in [StationJoin] is the same as the number of &lt;station_join&gt; tags, and they are sotred in the ArrayList that created at Row 74 （Row 80-99).</p>
+<p>Next, we make the graph by using the ArrayList&lt;StationJoin&gt; created above (Row 135-156).
+The private method [createGraph] performs the following task.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>3-1. Add station information and ID.</dt>
+<dd>Insert node into graph. Here, a node means a station. (eg. Shinagawa, Ochanomizu, Tokyo, etc.)</dd>
+<dt>3-2. Create links between the added two neighbor stations</dt>
+<dd>Make the bi-link between the registed station to its neighbor stations. Here, a link means a route. (eg. Harajuku &lt;-&gt; Shibuya, etc.)</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>3-1. Add station information and ID.</dt>
+<dd>Private method [addStation] is called (Row 139-140), to add every pair of neighboring nodes &lt;station1, station2&gt; in to the graph.
+Method [addStation] will check the instance variable &#8216;stations&#8217; (of HashMap&lt;String, String&gt; type). If the HashMap contains the specified station, the station_id will be returned; Otherwise, a new node is created, and its ID is returned after storing the nodeID and station name into the &#8216;stations&#8217; Hashmap (Row 158-174).
+Mehods [create_node] and [update_node] in GraphClient regist the new node (Row 167-169).
+At first, [create_node] method is called with its argument set by an unique task name in the ZooKeeper cluster, and the returned value is the nodeId (Row 167).
+After that, a node is added into the graph. Then, we regist the key-value &lt;name, &#8220;station name&#8221;&gt; into the &#8216;property&#8217; (Row 168), which is the instance of HashMap&lt;String, String&gt; created at Row 160.
+Finally, [update_node] method updates the &#8216;property&#8217; with the node created at Row 167 (Row 169).</dd>
+<dt>3-2. Create links between the added two neighbor stations</dt>
+<dd>After adding the two neighbor stations by method [addStation], we create the bi-links between station1 and station2 (Row 143-152).
+Method [create_edge] is used to create the bi-links.
+The second argument means the start node&#8217;s ID. The third argument is an instance of Edge class, which stores the nodeID of both start and end nodes in the edge.</dd>
+</dl>
+<p>The [update_index] method in Row 154 is used for locally Mix operation, do not use it in distributed environment.</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Show the stations</li>
+</ol>
+<blockquote>
+<div>In step 3-1, station name and station ID(nodeID) are stored into the &#8220;stations&#8221;. Here, we output the stations names by the ascending order of their IDs (Row 56-68).</div></blockquote>
+<p><strong>SearchRoute.java</strong></p>
+<p>SearchRoute.java finds the shortest path between every 2 stations from the graph that made by CreateGraph.java.
+The method it used is the &#8220;get_shortest_path&#8221;.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 17).
+Setting the IP addr., RPC port of Jubatus Server, and the connection waiting time.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Prepare the query</li>
+</ol>
+<blockquote>
+<div>Prepare the query for the shortest path calculation (Row 20-28).
+Create the ShortestPathQuery required by the [get_shortest_path] method (Row 24).
+Store the start node&#8217;s &amp; end node&#8217;s nodeIDs into the source &amp; target variables in the &#8216;ShortestPathQuery&#8217;.
+The process will be truncated if it fails to find the route within the specified number of &#8216;maxhop&#8217;.
+Also note, the query should be registed by &#8220;add_shortest_path_query&#8221; beforehand.</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Calculate the shortes path</li>
+</ol>
+<blockquote>
+<div>By specifying the &#8220;ShortestPathQuery&#8221; that created in Step.2, get_shortest_path(String name, ShortestPathQuery query)method will find the shortest path (Row 31). It calculates (from the precomputed data) the shortest path from query.source to query.target that matches the preset query.</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Show the results</li>
+</ol>
+<blockquote>
+<div>Show the ID of stations that on the shortes path calculated in Step 3 (Row 34-42).</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="run-the-sample-program">
+<h2>Run the sample program<a class="headerlink" href="#run-the-sample-program" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>［At Jubatus Server］</dt>
+<dd><p class="first">start &#8220;jubagraph&#8221; process.</p>
+<div class="last highlight-python"><pre>$ jubagraph --configpath train_route.json</pre>
+</div>
+</dd>
+<dt>［At Jubatus Client］</dt>
+<dd><p class="first">Get the required package and Java client ready.
+Run create_graph.java!</p>
+<div class="highlight-python"><pre>$ java CreateGraph
+
+=== Station IDs ===
+0       Shinagawa
+1       Osaki
+4       Tamachi
+...
+139     Nagano
+144     Yotsuya
+147     Ochanomizu</pre>
+</div>
+<p>Output of the station name, and their station ID (node ID on graph).</p>
+<p>Search the shortest path between 2 stations.</p>
+<div class="last highlight-python"><pre>$ java SearchRoute 0 144
+
+Pseudo-Shortest Path (hops) from 0 to 144:
+0     Shinagawa
+4     Tamachi
+7     Hamamatsucho
+10    Shinbashi
+13    Yurakucho
+16    Tokyo
+19    Kanda
+147   Ochanomizu
+144   Yotsuya</pre>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stat.html" title="Stat"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="graph_ruby.html" title="Ruby"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="graph.html" >Graph</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

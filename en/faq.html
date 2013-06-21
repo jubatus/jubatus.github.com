@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.3',
+        VERSION:     '0.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Documentation" href="documentation.html" />
     <link rel="next" title="References" href="references.html" />
-    <link rel="prev" title="IDL Support Status (2013 Apr.)" href="idl_support.html" /> 
+    <link rel="prev" title="RPC Error Handling" href="faq_rpc_err_workaround.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="references.html" title="References"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2013 Apr.)"
+          <a href="faq_rpc_err_workaround.html" title="RPC Error Handling"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
@@ -104,6 +104,8 @@
 <li><a class="reference internal" href="#">Frequently Asked Questions (FAQs)</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#rpc-errors">RPC Errors</a></li>
+<li><a class="reference internal" href="#distributed-environment">Distributed Environment</a></li>
+<li><a class="reference internal" href="#learning-model">Learning Model</a></li>
 <li><a class="reference internal" href="#anomaly-detection">Anomaly detection</a></li>
 <li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
 </ul>
@@ -111,8 +113,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="idl_support.html"
-                        title="previous chapter">IDL Support Status (2013 Apr.)</a></p>
+  <p class="topless"><a href="faq_rpc_err_workaround.html"
+                        title="previous chapter">RPC Error Handling</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="references.html"
                         title="next chapter">References</a></p>
@@ -162,6 +164,50 @@
 <div><p>Currently we are not testing clients against Ruby 2.0.</p>
 <p>There is a known issue of msgpack 0.4.x (which Jubatus Ruby client indirectly depends on) that does not work with Ruby 2.0 when used from Rails application.</p>
 </div></blockquote>
+<ul class="simple">
+<li>How to install through Proxy?</li>
+</ul>
+<blockquote>
+<div><p>Binary Package (Apt) in Ubuntu Environment</p>
+<p>Error turns out when Proxy in apt is not added. Insert the line below into <tt class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></tt>.</p>
+<div class="highlight-python"><pre>$ sudo vi /etc/apt/apt.conf</pre>
+</div>
+<div class="highlight-python"><pre>Acquire::http::Proxy "http://username:password@proxy.example.com:port/";</pre>
+</div>
+<p>Python Client (pip)</p>
+<p>Errors like below may come out when Proxy is required. In this case, please specify the Proxy option when execute your command.</p>
+<div class="highlight-python"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
+Could not find any downloads that satisfy the requirement jubatus
+No distributions at all found for jubatus
+Storing complete log in /home/jubatus/.pip/pip.log</pre>
+</div>
+<div class="highlight-python"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus</pre>
+</div>
+<p>The installation completes when logs like below come out.</p>
+<div class="highlight-python"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+Cleaning up...</pre>
+</div>
+<p>Ruby Client (RubyGems)</p>
+<p>Please set your environment variables like below before your installation.</p>
+<div class="highlight-python"><pre>export http_proxy=http://username:password@proxy.example.com:port/</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>How to develop by Java with client library</li>
+</ul>
+<blockquote>
+<div><p>It is much convenient to use the skeleton project, which published at <cite>GitHub &lt;https://github.com/jubatus/jubatus-java-skelton&gt;</cite> (template for Eclipse project), when developing Jubatus client with Java.
+Please follow the instructions below to use the Java skeleton for your development.</p>
+<ol class="arabic simple">
+<li>Start Eclipse, select [File]&gt;[Import].</li>
+<li>Select [Git] &gt; [Projects from Git], click the [Next] button.</li>
+<li>Select [URI], click the [Next] button.</li>
+<li>Input &#8220;<a class="reference external" href="https://github.com/jubatus/jubatus-java-skelton.git">https://github.com/jubatus/jubatus-java-skelton.git</a>&#8221; into [URI], click the [Next] button.</li>
+<li>Forward through the dialogs operations, and click the [Finish] button.</li>
+</ol>
+<p>Once the import is finished, Maven will download the Jubatus client library automatically.
+Under <tt class="docutils literal"><span class="pre">src/main/java</span></tt>Directory(default package), there will be a simple program <cite>Client.java</cite> which using Jubatus recommender function.</p>
+</div></blockquote>
 </div>
 <div class="section" id="rpc-errors">
 <h2>RPC Errors<a class="headerlink" href="#rpc-errors" title="Permalink to this headline">¶</a></h2>
@@ -195,10 +241,49 @@ Check out the <a class="reference external" href="https://github.com/jubatus/jub
 </ul>
 <blockquote>
 <div><p>Jubatus servers automatically close connections when the idle timeout (given by the command line parameter <a class="reference internal" href="commands.html#cmdoption-server-t"><em class="xref std std-option">server -t</em></a>) expires.
-You need to retry the RPC call to re-establish the connection.</p>
+You need to retry the RPC call to re-establish the connection.
+Please refer <a class="reference internal" href="faq_rpc_err_workaround.html"><em>RPC Error Handling</em></a> to handle RPC errors including timeout error
+caused by server&#8217;s auto session-closing.</p>
 <p>To disable this auto-disconnect feature, set <a class="reference internal" href="commands.html#cmdoption-server-t"><em class="xref std std-option">server -t</em></a> to 0, which means &#8220;no timeout&#8221;.
-In this case, clients must explicitly close the TCP connection using <a class="reference internal" href="common_structs.html#get_client" title="get_client"><tt class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></tt></a>.</p>
+In this case, clients must explicitly close the TCP connection using <a class="reference internal" href="common_structs.html#get_client" title="get_client"><tt class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></tt></a>.
+Or, please set timeout enough longer than a client&#8217;s connection lifetime.</p>
 </div></blockquote>
+</div>
+<div class="section" id="distributed-environment">
+<h2>Distributed Environment<a class="headerlink" href="#distributed-environment" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The confirm/check methods for MIX operations, when Jubatus works in distributed model</li>
+</ul>
+<blockquote>
+<div><p>Information about the Mix operations is recorded in the log files at Jubatus servers, which seems like below.</p>
+<blockquote>
+<div><div class="highlight-python"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
+I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
+I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
+I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
+I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>Is it appropriate to use only a single server for all these processes, including jubaclassifier, jubaclassifier_keeper/Client and ZooKeeper, even in distributed model.</li>
+</ul>
+<blockquote>
+<div>No Problem.
+However, comparing with the environment where each process has its privately owned server, the overall performance may decrease. In addition, we recommend an odd number of the ZooKeeper servers for the better ensemble.</div></blockquote>
+</div>
+<div class="section" id="learning-model">
+<h2>Learning Model<a class="headerlink" href="#learning-model" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In Classifier/Regression learning process, will the model learnt turns to be different due to the two different training methods below,<ul>
+<li>Input the training data into Jubatus in a patch way. (Bulk learning, the train method is called only by one time)</li>
+<li>The train method is called every time when learning each piece of training data.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div>No difference in the final result of trained model.</div></blockquote>
 </div>
 <div class="section" id="anomaly-detection">
 <h2>Anomaly detection<a class="headerlink" href="#anomaly-detection" title="Permalink to this headline">¶</a></h2>
@@ -271,7 +356,7 @@ In this case, clients must explicitly close the TCP connection using <a class="r
           <a href="references.html" title="References"
              >next</a> |</li>
         <li class="right" >
-          <a href="idl_support.html" title="IDL Support Status (2013 Apr.)"
+          <a href="faq_rpc_err_workaround.html" title="RPC Error Handling"
              >previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" >Documentation</a> &raquo;</li> 

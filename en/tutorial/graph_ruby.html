@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ruby &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Graph" href="graph.html" />
+    <link rel="next" title="Java" href="graph_java.html" />
+    <link rel="prev" title="Python" href="graph_python.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="graph_java.html" title="Java"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="graph_python.html" title="Python"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="graph.html" accesskey="U">Graph</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ruby</a><ul>
+<li><a class="reference internal" href="#source-code">Source_code</a></li>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="graph_python.html"
+                        title="previous chapter">Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="graph_java.html"
+                        title="next chapter">Java</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/graph_ruby.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ruby">
+<h1>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h1>
+<p>Here we explain the sample program of Graph in Ruby.</p>
+<div class="section" id="source-code">
+<h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;train_route.json&#8217;; 2) how to create the graph with &#8216;create_graph.rb&#8217;, and how to learn the training data and calculate the shortest path with the example file ‘search_route.rb’. Here are the source codes.</p>
+<p><strong>train_route.json</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mi">2</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;graph_wo_index&quot;</span><span class="p">,</span>
+<span class="mi">3</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mi">4</span> <span class="p">:</span>     <span class="s">&quot;damping_factor&quot;</span> <span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+<span class="mi">5</span> <span class="p">:</span>     <span class="s">&quot;landmark_num&quot;</span> <span class="p">:</span> <span class="mi">256</span>
+<span class="mi">6</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mi">7</span> <span class="p">:</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>create_graph.rb</strong></p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="mo">001</span> <span class="p">:</span> <span class="c1">#!/usr/bin/env ruby</span>
+<span class="mo">002</span> <span class="p">:</span> <span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="mo">003</span> <span class="p">:</span>
+<span class="mo">004</span> <span class="p">:</span> <span class="vg">$host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="mo">005</span> <span class="p">:</span> <span class="vg">$port</span> <span class="o">=</span> <span class="mi">9199</span>
+<span class="mo">006</span> <span class="p">:</span> <span class="vg">$name</span> <span class="o">=</span> <span class="s2">&quot;trainRoute&quot;</span>
+<span class="mo">007</span> <span class="p">:</span>
+<span class="mo">00</span><span class="mi">8</span> <span class="p">:</span> <span class="vi">@stations</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="mo">00</span><span class="mi">9</span> <span class="p">:</span>
+<span class="mo">010</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+<span class="mo">011</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+<span class="mo">012</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;rexml/document&#39;</span>
+<span class="mo">013</span> <span class="p">:</span>
+<span class="mo">014</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;jubatus/graph/client&#39;</span>
+<span class="mo">015</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;jubatus/graph/types&#39;</span>
+<span class="mo">016</span> <span class="p">:</span>
+<span class="mo">017</span> <span class="p">:</span> <span class="k">class</span> <span class="nc">Station_join</span>
+<span class="mo">01</span><span class="mi">8</span> <span class="p">:</span>   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">)</span>
+<span class="mo">01</span><span class="mi">9</span> <span class="p">:</span>     <span class="vi">@station1</span> <span class="o">=</span> <span class="n">station1</span>
+<span class="mo">020</span> <span class="p">:</span>     <span class="vi">@station2</span> <span class="o">=</span> <span class="n">station2</span>
+<span class="mo">021</span> <span class="p">:</span>   <span class="k">end</span>
+<span class="mo">022</span> <span class="p">:</span>   <span class="kp">attr_accessor</span> <span class="ss">:station1</span><span class="p">,</span> <span class="ss">:station2</span>
+<span class="mo">023</span> <span class="p">:</span> <span class="k">end</span>
+<span class="mo">024</span> <span class="p">:</span>
+<span class="mo">025</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">get_station_join</span><span class="p">(</span><span class="n">line_cd</span><span class="p">)</span>
+<span class="mo">026</span> <span class="p">:</span>   <span class="n">join_list</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="mo">027</span> <span class="p">:</span>
+<span class="mo">02</span><span class="mi">8</span> <span class="p">:</span>   <span class="c1"># Set the proxy</span>
+<span class="mo">02</span><span class="mi">9</span> <span class="p">:</span>   <span class="n">pxy</span> <span class="o">=</span> <span class="s2">&quot;http://proxyHost:proxyPort&quot;</span>
+<span class="mo">030</span> <span class="p">:</span>   <span class="n">usr</span> <span class="o">=</span> <span class="s2">&quot;user&quot;</span>
+<span class="mo">031</span> <span class="p">:</span>   <span class="n">pss</span> <span class="o">=</span> <span class="s2">&quot;password&quot;</span>
+<span class="mo">032</span> <span class="p">:</span>
+<span class="mo">033</span> <span class="p">:</span>   <span class="n">options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:proxy_http_basic_authentication</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="n">pxy</span><span class="p">,</span> <span class="n">usr</span><span class="p">,</span> <span class="n">pss</span><span class="o">]</span><span class="p">}</span>
+<span class="mo">034</span> <span class="p">:</span>   <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.ekidata.jp/api/n/&quot;</span> <span class="o">+</span> <span class="n">line_cd</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;.xml&quot;</span>
+<span class="mo">035</span> <span class="p">:</span>   <span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span>
+<span class="mo">036</span> <span class="p">:</span>     <span class="n">doc</span> <span class="o">=</span> <span class="no">REXML</span><span class="o">::</span><span class="no">Document</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="mo">037</span> <span class="p">:</span>     <span class="n">doc</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="s2">&quot;ekidata/station_join&quot;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">station_join</span><span class="o">|</span>
+<span class="mo">03</span><span class="mi">8</span> <span class="p">:</span>       <span class="n">station1</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="mo">03</span><span class="mi">9</span> <span class="p">:</span>       <span class="n">station2</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="mo">040</span> <span class="p">:</span>       <span class="n">station_join</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">child</span><span class="o">|</span>
+<span class="mo">041</span> <span class="p">:</span>         <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;station_name1&quot;</span>
+<span class="mo">042</span> <span class="p">:</span>           <span class="n">station1</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">text</span>
+<span class="mo">043</span> <span class="p">:</span>         <span class="k">elsif</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;station_name2&quot;</span>
+<span class="mo">044</span> <span class="p">:</span>           <span class="n">station2</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">text</span>
+<span class="mo">045</span> <span class="p">:</span>         <span class="k">end</span>
+<span class="mo">046</span> <span class="p">:</span>       <span class="p">}</span>
+<span class="mo">047</span> <span class="p">:</span>       <span class="n">join_list</span> <span class="o">&lt;&lt;</span>  <span class="no">Station_join</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">)</span>
+<span class="mo">04</span><span class="mi">8</span> <span class="p">:</span>     <span class="p">}</span>
+<span class="mo">04</span><span class="mi">9</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mo">050</span> <span class="p">:</span>   <span class="k">return</span> <span class="n">join_list</span>
+<span class="mo">051</span> <span class="p">:</span> <span class="k">end</span>
+<span class="mo">052</span> <span class="p">:</span>
+<span class="mo">053</span> <span class="p">:</span> <span class="c1"># 3. generate graph</span>
+<span class="mo">054</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join_list</span><span class="p">)</span>
+<span class="mo">055</span> <span class="p">:</span>   <span class="k">for</span> <span class="n">join</span> <span class="k">in</span> <span class="n">join_list</span> <span class="k">do</span>
+<span class="mo">056</span> <span class="p">:</span>     <span class="n">s1_node_id</span> <span class="o">=</span> <span class="n">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join</span><span class="o">.</span><span class="n">station1</span><span class="p">)</span>
+<span class="mo">057</span> <span class="p">:</span>     <span class="n">s2_node_id</span> <span class="o">=</span> <span class="n">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join</span><span class="o">.</span><span class="n">station2</span><span class="p">)</span>
+<span class="mo">05</span><span class="mi">8</span> <span class="p">:</span>
+<span class="mo">05</span><span class="mi">9</span> <span class="p">:</span>     <span class="n">edge1</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Edge</span><span class="o">.</span><span class="n">new</span><span class="p">({},</span> <span class="n">s1_node_id</span><span class="p">,</span> <span class="n">s2_node_id</span><span class="p">)</span>
+<span class="mo">060</span> <span class="p">:</span>     <span class="n">edge2</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Edge</span><span class="o">.</span><span class="n">new</span><span class="p">({},</span> <span class="n">s2_node_id</span><span class="p">,</span> <span class="n">s1_node_id</span><span class="p">)</span>
+<span class="mo">061</span> <span class="p">:</span>     <span class="n">c</span><span class="o">.</span><span class="n">create_edge</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">s1_node_id</span><span class="p">,</span> <span class="n">edge1</span><span class="p">)</span>
+<span class="mo">062</span> <span class="p">:</span>     <span class="n">c</span><span class="o">.</span><span class="n">create_edge</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">s2_node_id</span><span class="p">,</span> <span class="n">edge2</span><span class="p">)</span>
+<span class="mo">063</span> <span class="p">:</span>
+<span class="mo">064</span> <span class="p">:</span>     <span class="n">c</span><span class="o">.</span><span class="n">update_index</span><span class="p">(</span><span class="vg">$name</span><span class="p">)</span>
+<span class="mo">065</span> <span class="p">:</span>   <span class="k">end</span>
+<span class="mo">066</span> <span class="p">:</span> <span class="k">end</span>
+<span class="mo">067</span> <span class="p">:</span>
+<span class="mo">06</span><span class="mi">8</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
+<span class="mo">06</span><span class="mi">9</span> <span class="p">:</span>   <span class="n">node_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="mo">070</span> <span class="p">:</span>   <span class="k">if</span> <span class="vi">@stations</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+<span class="mo">071</span> <span class="p">:</span>     <span class="n">node_id</span> <span class="o">=</span> <span class="vi">@stations</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span>
+<span class="mo">072</span> <span class="p">:</span>   <span class="k">else</span>
+<span class="mo">073</span> <span class="p">:</span>     <span class="n">node_id</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="vg">$name</span><span class="p">)</span>
+<span class="mo">074</span> <span class="p">:</span>     <span class="n">c</span><span class="o">.</span><span class="n">update_node</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span> <span class="o">=&gt;</span> <span class="nb">name</span><span class="p">})</span>
+<span class="mo">075</span> <span class="p">:</span>     <span class="vi">@stations</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">node_id</span>
+<span class="mo">076</span> <span class="p">:</span>   <span class="k">end</span>
+<span class="mo">077</span> <span class="p">:</span>   <span class="k">return</span> <span class="n">node_id</span>
+<span class="mo">07</span><span class="mi">8</span> <span class="p">:</span> <span class="k">end</span>
+<span class="mo">07</span><span class="mi">9</span> <span class="p">:</span>
+<span class="mi">080</span> <span class="p">:</span> <span class="c1"># 4. Show the Station ID</span>
+<span class="mi">081</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">print_stations</span><span class="p">()</span>
+<span class="mi">082</span> <span class="p">:</span>   <span class="vi">@stations</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span>
+<span class="mi">083</span> <span class="p">:</span>     <span class="p">(</span><span class="n">b</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">&lt;=&gt;</span> <span class="n">a</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span>
+<span class="mi">084</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mi">085</span> <span class="p">:</span>   <span class="vi">@stations</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span>
+<span class="mi">086</span> <span class="p">:</span>     <span class="nb">print</span> <span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">value</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="mi">087</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mi">088</span> <span class="p">:</span> <span class="k">end</span>
+<span class="mi">089</span> <span class="p">:</span>
+<span class="mi">090</span> <span class="p">:</span>
+<span class="mi">091</span> <span class="p">:</span> <span class="c1"># 1. Connect to Jubatus Server</span>
+<span class="mi">092</span> <span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Graph</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vg">$host</span><span class="p">,</span> <span class="vg">$port</span><span class="p">)</span>
+<span class="mi">093</span> <span class="p">:</span>
+<span class="mi">094</span> <span class="p">:</span> <span class="c1"># 2. Regist preset query</span>
+<span class="mi">095</span> <span class="p">:</span> <span class="n">pq</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Preset_query</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[]</span><span class="p">,</span> <span class="o">[]</span><span class="p">)</span>
+<span class="mi">096</span> <span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">add_shortest_path_query</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">pq</span><span class="p">)</span>
+<span class="mi">097</span> <span class="p">:</span>
+<span class="mi">098</span> <span class="p">:</span> <span class="c1"># 3. Create graph</span>
+<span class="mi">099</span> <span class="p">:</span> <span class="n">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">get_station_join</span><span class="p">(</span><span class="mi">11302</span><span class="p">))</span>
+<span class="mi">100</span> <span class="p">:</span> <span class="n">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">get_station_join</span><span class="p">(</span><span class="mi">11312</span><span class="p">))</span>
+<span class="mi">101</span> <span class="p">:</span>
+<span class="mi">102</span> <span class="p">:</span> <span class="c1"># 4. Show the station ID</span>
+<span class="mi">103</span> <span class="p">:</span> <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;=== Station IDs ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="mi">104</span> <span class="p">:</span> <span class="n">print_stations</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>search_route.rb</strong></p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="c1">#!/usr/bin/env ruby</span>
+<span class="mo">02</span> <span class="p">:</span> <span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="mo">03</span> <span class="p">:</span>
+<span class="mo">04</span> <span class="p">:</span> <span class="vg">$host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="mo">05</span> <span class="p">:</span> <span class="vg">$port</span> <span class="o">=</span> <span class="mi">9199</span>
+<span class="mo">06</span> <span class="p">:</span> <span class="vg">$name</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
+<span class="mo">07</span> <span class="p">:</span>
+<span class="mi">08</span> <span class="p">:</span> <span class="vi">@stations</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="mi">09</span> <span class="p">:</span>
+<span class="mi">10</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+<span class="mi">11</span> <span class="p">:</span>
+<span class="mi">12</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;jubatus/graph/client&#39;</span>
+<span class="mi">13</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;jubatus/graph/types&#39;</span>
+<span class="mi">14</span> <span class="p">:</span>
+<span class="mi">15</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">search_route</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">)</span>
+<span class="mi">16</span> <span class="p">:</span>   <span class="c1"># 1. Connect to Jubatus Server</span>
+<span class="mi">17</span> <span class="p">:</span>   <span class="n">c</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Graph</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vg">$host</span><span class="p">,</span> <span class="vg">$port</span><span class="p">)</span>
+<span class="mi">18</span> <span class="p">:</span>
+<span class="mi">19</span> <span class="p">:</span>   <span class="c1"># 2. Prepare query</span>
+<span class="mi">20</span> <span class="p">:</span>   <span class="n">pq</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Preset_query</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[]</span><span class="p">,</span> <span class="o">[]</span><span class="p">)</span>
+<span class="mi">21</span> <span class="p">:</span>   <span class="n">spreq</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Graph</span><span class="o">::</span><span class="no">Shortest_path_query</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">pq</span><span class="p">)</span>
+<span class="mi">22</span> <span class="p">:</span>
+<span class="mi">23</span> <span class="p">:</span>   <span class="c1"># 3. Calculate the shortest path</span>
+<span class="mi">24</span> <span class="p">:</span>   <span class="n">stations</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_shortest_path</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">spreq</span><span class="p">)</span>
+<span class="mi">25</span> <span class="p">:</span>
+<span class="mi">26</span> <span class="p">:</span>   <span class="c1"># 4. Show the result</span>
+<span class="mi">27</span> <span class="p">:</span>   <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Pseudo-Shortest Path (hops) from &quot;</span> <span class="o">+</span> <span class="n">from_id</span> <span class="o">+</span> <span class="s2">&quot; to &quot;</span> <span class="o">+</span> <span class="n">to_id</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="mi">28</span> <span class="p">:</span>   <span class="n">stations</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">station</span><span class="o">|</span>
+<span class="mi">29</span> <span class="p">:</span>     <span class="n">node</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">station</span><span class="p">)</span>
+<span class="mi">30</span> <span class="p">:</span>     <span class="n">station_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="mi">31</span> <span class="p">:</span>     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+<span class="mi">32</span> <span class="p">:</span>       <span class="n">station_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="o">[</span><span class="s2">&quot;name&quot;</span><span class="o">]</span>
+<span class="mi">33</span> <span class="p">:</span>     <span class="k">end</span>
+<span class="mi">34</span> <span class="p">:</span>     <span class="nb">print</span> <span class="p">(</span><span class="n">station</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">station_name</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="mi">35</span> <span class="p">:</span>   <span class="p">}</span>
+<span class="mi">36</span> <span class="p">:</span>
+<span class="mi">37</span> <span class="p">:</span> <span class="k">end</span>
+<span class="mi">38</span> <span class="p">:</span>
+<span class="mi">39</span> <span class="p">:</span> <span class="k">if</span> <span class="p">(</span><span class="no">ARGV</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">40</span> <span class="p">:</span>   <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Usage: from_station_id to station_id&quot;</span><span class="p">)</span>
+<span class="mi">41</span> <span class="p">:</span>   <span class="nb">exit</span><span class="p">()</span>
+<span class="mi">42</span> <span class="p">:</span> <span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p>The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.</p>
+<blockquote>
+<div><ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>Specify the algorithm used in graph mining. Currently, In this example, we use the graph without indexing, so we specify it &#8220;graph_wo_index&#8221;.</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<blockquote>
+<div>Specify the parameters to be passed to the algorithm.
+We specify two parameter here, &#8220;damping_factor&#8221; and &#8220;landmark_num&#8221;.
+&#8220;damping_factor&#8221; is the damping factor used in PageRank calculation. It adjusts scores for nodes with differenct degrees.The bigger it is, the more sensitive to graph structure PageRank score is, but the larger biases it causes. In the original paper, 0.85 is good.
+&#8220;landmark_num&#8221; is used for shortest path calculation. The bigger it is, more accurate value you can get, but the more memory is required.</div></blockquote>
+</div></blockquote>
+<p><strong>create_graph.rb</strong></p>
+<blockquote>
+<div><p>create_graph.rb generates a graph composed of Yamanote-line and Chuou-line. The client program in Graph will use the &#8216;GraphClient&#8217; class defined in &#8216;jubatus.graph&#8217;. Here are the 5 methods used in the sample.</p>
+<ol class="arabic simple">
+<li>Connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 92).
+Setting the IP addr., RPC port of Jubatus Server.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Regist the preset query</li>
+</ol>
+<blockquote>
+<div>The &#8216;add_shortest_path_query&#8217; method must be registered beforehand. Therefore, the &#8216;PresetQuery&#8217; is made (Row 95) and registed by &#8216;add_shortest_path_query&#8217; (Row 96).</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Generate the graph</li>
+</ol>
+<blockquote>
+<div><p>Make the graph composed of Yamanote-line and Chuou-line.
+Firstly, the private method [create_graph] is called at (Row 99-100).
+The first argument in [create_graph] is the GraphClient made in Step. 1.
+The second argument is the return value from method [get_station_join].</p>
+<p>Method [get_station_join] makes the combination list of two neighbor stations.
+The station XML file is downloaded from Web (Row 28-49).
+Contents of the XML file likes below.
+In this sample program, we ignore the factor of &#8216;distance&#8217;, and only consider the connections between stations. So, the values in &lt;station_name1&gt;, &lt;station_name2&gt; are not used in the program.</p>
+<div class="highlight-python"><pre>&lt;ekidata version="ekidata.jp station_join api 1.0"&gt;
+&lt;station_join&gt;
+ &lt;station_cd1&gt;1131231&lt;/station_cd1&gt;
+ &lt;station_cd2&gt;1131232&lt;/station_cd2&gt;
+ &lt;station_name1&gt;Nichi-Hachioji&lt;/station_name1&gt;
+ &lt;station_name2&gt;Takao&lt;/station_name2&gt;
+ &lt;lat1&gt;35.656621&lt;/lat1&gt;
+ &lt;lon1&gt;139.31264&lt;/lon1&gt;
+ &lt;lat2&gt;35.642026&lt;/lat2&gt;
+ &lt;lon2&gt;139.282288&lt;/lon2&gt;
+&lt;/station_join&gt;
+&lt;station_join&gt;
+ &lt;station_cd1&gt;1131230&lt;/station_cd1&gt;
+ &lt;station_cd2&gt;1131231&lt;/station_cd2&gt;
+ &lt;station_name1&gt;Hachioji&lt;/station_name1&gt;
+ &lt;station_name2&gt;Nichi-Hachioji&lt;/station_name2&gt;
+ &lt;lat1&gt;35.655555&lt;/lat1&gt;
+ &lt;lon1&gt;139.338998&lt;/lon1&gt;
+ &lt;lat2&gt;35.656621&lt;/lat2&gt;
+ &lt;lon2&gt;139.31264&lt;/lon2&gt;
+&lt;/station_join&gt;
+&lt;station_join&gt;
+ &lt;station_cd1&gt;1131229&lt;/station_cd1&gt;
+ &lt;station_cd2&gt;1131230&lt;/station_cd2&gt;
+ &lt;station_name1&gt;Toyota&lt;/station_name1&gt;
+ &lt;station_name2&gt;Hachioji&lt;/station_name2&gt;
+ &lt;lat1&gt;35.659502&lt;/lat1&gt;
+ &lt;lon1&gt;139.381495&lt;/lon1&gt;
+ &lt;lat2&gt;35.655555&lt;/lat2&gt;
+ &lt;lon2&gt;139.338998&lt;/lon2&gt;
+&lt;/station_join&gt;
+-Snip-</pre>
+</div>
+<p>Now, we input the value of &lt;station_cd1&gt; in the XML file into the instance variable &#8216;station1&#8217; in [StationJoin] class, and the value of &lt;station_cd2&gt; in to &#8216;station2&#8217;.
+The number of instance created in [StationJoin] is the same as the number of &lt;station_join&gt; tags, and they are sotred in the ArrayList that created at Row 26 （Row 37-48).</p>
+<p>Next, we make the graph by using the list created above (Row 54-66).
+The method [create_graph] performs the following task.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>3-1. Add station information and ID.</dt>
+<dd>Insert node into graph. Here, a node means a station. (eg. Shinagawa, Ochanomizu, Tokyo, etc.)</dd>
+<dt>3-2. Create links between the added two neighbor stations</dt>
+<dd>Make the bi-link between the registed station to its neighbor stations. Here, a link means a route. (eg. Harajuku &lt;-&gt; Shibuya, etc.)</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>3-1. Add station information and ID.</dt>
+<dd>Method [add_station] is called (Row 56-57), to add every pair of neighboring nodes &lt;station1, station2&gt; in to the graph.
+Method [add_station] will check the map of &#8216;stations&#8217;. If the map contains the specified station, the station_id will be returned; Otherwise, a new node is created, and its ID is returned after storing the nodeID and station name into the &#8216;stations&#8217; map (Row 68-78).
+Mehods [create_node] and [update_node] in GraphClient regist the new node.
+At first, [create_node] method is called with its argument set by an unique task name in the ZooKeeper cluster, and the returned value is the nodeId.
+After that, a node is added into the graph. Then, we regist the key-value &lt;name, &#8220;station name&#8221;&gt; into the &#8216;property&#8217; (Row 73).
+Finally, [update_node] method updates the &#8216;property&#8217; with the node created at Row 73 (Row 74).</dd>
+<dt>3-2. Create links between the added two neighbor stations</dt>
+<dd>After adding the two neighbor stations by method [addStation], we create the bi-links between station1 and station2 (Row 59-62).
+Method [create_edge] is used to create the bi-links.
+The second argument means the start node&#8217;s ID. The third argument is an edge instance, which has the nodeID of both start and end nodes of the edge.</dd>
+</dl>
+<p>The [update_index] method in Row 64 is used for locally Mix operation, do not use it in distributed environment.</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Show the stations</li>
+</ol>
+<blockquote>
+<div>In step 3-1, station name and station ID(nodeID) are stored into the &#8220;stations&#8221;. Here, we output the stations names by the ascending order of their IDs (Row 81-88).</div></blockquote>
+<p><strong>search_route.rb</strong></p>
+<p>&#8216;search_route.rb&#8217; finds the shortest path between every 2 stations from the graph that made by create_graph.rb.
+The method it used is the &#8220;get_shortest_path&#8221;.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 17).
+Setting the IP addr., RPC port of Jubatus Server.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Prepare the query</li>
+</ol>
+<blockquote>
+<div>Prepare the query for the shortest path calculation (Row 20-21).
+Create the shortest_path_query required by the [get_shortest_path] method (Row 20).
+Store the start node&#8217;s &amp; end node&#8217;s nodeIDs into the first &amp; second arguments in the &#8216;types.shortest_path_query&#8217;. The third argument is the number of &#8216;maxhop&#8217;, the search process will be truncated if it fails to find the route within the specified number of &#8216;maxhop&#8217;.
+Also note, the query should be registed by &#8220;add_shortest_path_query&#8221; beforehand.</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Calculate the shortes path</li>
+</ol>
+<blockquote>
+<div>By specifying the &#8220;shortest_path_query&#8221; that created in Step.2, [get_shortest_path] method will find the shortest path (Row 24).</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Show the results</li>
+</ol>
+<blockquote>
+<div>Show the ID of stations that on the shortes path calculated in Step 3 (Row 27-35).</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="run-the-sample-program">
+<h2>Run the sample program<a class="headerlink" href="#run-the-sample-program" title="Permalink to this headline">¶</a></h2>
+<p>［At Jubatus Server］</p>
+<p><strong>Start server</strong></p>
+<p>start &#8220;jubagraph&#8221; process.</p>
+<div class="highlight-python"><pre>$ jubagraph --configpath train_route.json</pre>
+</div>
+<p>［At Jubatus Client］</p>
+<p>Install the Jubatus 0.4.0 + Python client.</p>
+<p><strong>Create graph</strong></p>
+<p>Make the railway route graph.</p>
+<div class="highlight-python"><pre>$ ruby create_graph.rb
+=== Station IDs ===
+0       Shinagawa
+1       Osaki
+4       Tamachi
+...
+139     Nagano
+144     Yotsuya
+147     Ochanomizu
+```</pre>
+</div>
+<p>Output of the station name, and their station ID (node ID on graph).</p>
+<p><strong>Search the shortest path</strong></p>
+<p>Search the shortest path between 2 stations.</p>
+<div class="highlight-python"><pre>$ ruby search_route.rb 0 144
+Pseudo-Shortest Path (hops) from 0 to 144:
+  0     Shinagawa
+  4     Tamachi
+  7     Hamamatsucho
+  10    Shinbashi
+  13    Yurakucho
+  16    Tokyo
+  19    Kanda
+  147   Ochanomizu
+  144   Yotsuya</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="graph_java.html" title="Java"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="graph_python.html" title="Python"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="graph.html" >Graph</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

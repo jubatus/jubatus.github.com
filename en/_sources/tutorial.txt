@@ -273,3 +273,21 @@ The result is as follows.
    ]]
 
 So, it seems that the message ``d2`` was posted to ``"comp.sys.mac.hardware"``.
+
+
+Other Tutorials
+-------------------------
+
+We provide tutorial for using different functions through Jubatus Client here.
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorial/classifier
+   tutorial/regression
+   tutorial/graph
+   tutorial/stat
+   tutorial/anomaly
+
+Currently we don't have a recommender tutorial in English.
+So far, please refer to the `movielens example <https://github.com/jubatus/jubatus-example/tree/master/movielens>`_.

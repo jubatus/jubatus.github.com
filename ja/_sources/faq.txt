@@ -60,13 +60,13 @@
 
 - Javaのクライアントライブラリを利用した開発について
 
- JavaでJubatusクライアントの開発をする場合は、  `GitHub <https://github.com/jubatus/jubatus-java-skelton>`_ で公開されているスケルトンプロジェクト（Eclipseプロジェクトのテンプレート）を利用すると便利です。
+ JavaでJubatusクライアントの開発をする場合は、  `GitHub <https://github.com/jubatus/jubatus-java-skeleton>`_ で公開されているスケルトンプロジェクト（Eclipseプロジェクトのテンプレート）を利用すると便利です。
  以下の手順に従って、Java開発用スケルトンを利用してください。
 
  #. Eclipseを起動し、［File］－［Import…］を選択します。
  #. ［Git］>［Projects from Git］を選択し、［Next］ボタンをクリックします。
  #. ［URI］を選択し、［Next］ボタンをクリックします。
- #. ［URI］に「https://github.com/jubatus/jubatus-java-skelton.git」と入力し、［Next］ボタンをクリックします。
+ #. ［URI］に「https://github.com/jubatus/jubatus-java-skeleton.git」と入力し、［Next］ボタンをクリックします。
  #. ダイアログに従って操作を進め、[完了]ボタンをクリックします。
 
  一度、インポートが完了すれば、Mavenが自動的にJubatusクライアントライブラリをダウンロードします。
@@ -102,10 +102,11 @@ RPC エラー
 - クライアントライブラリが時々 RPC タイムアウトエラーを投げる (サーバからクライアントが自動切断される)
 
  Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ :option:`server -t` で設定される) が経過すると自動的に接続を切断します。
- 接続を再確立するには RPC 呼出しを再実行する必要があります。
+ RPC呼び出しを再度実行することで接続が再確立されます。サーバによる接続自動切断に起因するタイムアウトを含むRPCエラーのハンドリングについては :doc:`faq_rpc_err_workaround` 参照してください。
 
  この自動切断機能を無効にするには、 :option:`server -t` を 0 (タイムアウトなし) に設定します。
  この場合、クライアントは :mpidl:meth:`get_client` を使用して TCP 接続を明示的に切断する必要があります。
+ もしくは、想定するクライアントの一接続毎の処理時間より十分長い時間を設定してください。
 
 分散環境
 ::::::::::::::::::::::

@@ -14,6 +14,66 @@ Installation
 
  There is a known issue of msgpack 0.4.x (which Jubatus Ruby client indirectly depends on) that does not work with Ruby 2.0 when used from Rails application.
 
+- How to install through Proxy?
+
+ Binary Package (Apt) in Ubuntu Environment
+
+ Error turns out when Proxy in apt is not added. Insert the line below into ``/etc/apt/apt.conf``.
+
+ ::
+
+  $ sudo vi /etc/apt/apt.conf
+
+ ::
+
+  Acquire::http::Proxy "http://username:password@proxy.example.com:port/";
+
+ Python Client (pip)
+
+ Errors like below may come out when Proxy is required. In this case, please specify the Proxy option when execute your command. 
+
+ ::
+
+  Cannot fetch index base URL http://pypi.python.org/simple/
+  Could not find any downloads that satisfy the requirement jubatus
+  No distributions at all found for jubatus
+  Storing complete log in /home/jubatus/.pip/pip.log
+
+ ::
+
+  $ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus
+
+ The installation completes when logs like below come out.
+
+ ::
+
+  Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+  Cleaning up...
+
+ Ruby Client (RubyGems) 
+
+ Please set your environment variables like below before your installation.
+
+ ::
+
+  export http_proxy=http://username:password@proxy.example.com:port/
+
+- How to develop by Java with client library
+
+ It is much convenient to use the skeleton project, which published at `GitHub <https://github.com/jubatus/jubatus-java-skelton>` (template for Eclipse project), when developing Jubatus client with Java.
+ Please follow the instructions below to use the Java skeleton for your development.
+
+ #. Start Eclipse, select [File]>[Import].
+ #. Select [Git] > [Projects from Git], click the [Next] button.
+ #. Select [URI], click the [Next] button.
+ #. Input "https://github.com/jubatus/jubatus-java-skelton.git" into [URI], click the [Next] button.
+ #. Forward through the dialogs operations, and click the [Finish] button.
+
+ Once the import is finished, Maven will download the Jubatus client library automatically.
+ Under \ ``src/main/java``\ Directory(default package), there will be a simple program `Client.java` which using Jubatus recommender function.
+
+
+
 RPC Errors
 ::::::::::
 
@@ -44,9 +104,43 @@ RPC Errors
 
  Jubatus servers automatically close connections when the idle timeout (given by the command line parameter :option:`server -t`) expires.
  You need to retry the RPC call to re-establish the connection.
+ Please refer :doc:`faq_rpc_err_workaround` to handle RPC errors including timeout error
+ caused by server's auto session-closing.
 
  To disable this auto-disconnect feature, set :option:`server -t` to 0, which means "no timeout".
  In this case, clients must explicitly close the TCP connection using :mpidl:meth:`get_client`.
+ Or, please set timeout enough longer than a client's connection lifetime.
+
+Distributed Environment 
+::::::::::::::::::::::::
+
+- The confirm/check methods for MIX operations, when Jubatus works in distributed model
+
+ Information about the Mix operations is recorded in the log files at Jubatus servers, which seems like below. 
+
+  ::
+
+    I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+    I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
+    I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
+    I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
+    I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
+    I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
+
+- Is it appropriate to use only a single server for all these processes, including jubaclassifier, jubaclassifier_keeper/Client and ZooKeeper, even in distributed model.
+
+ No Problem. 
+ However, comparing with the environment where each process has its privately owned server, the overall performance may decrease. In addition, we recommend an odd number of the ZooKeeper servers for the better ensemble.
+
+Learning Model 
+::::::::::::::
+
+- In Classifier/Regression learning process, will the model learnt turns to be different due to the two different training methods below, 
+
+  - Input the training data into Jubatus in a patch way. (Bulk learning, the train method is called only by one time)
+  - The train method is called every time when learning each piece of training data.
+
+ No difference in the final result of trained model.
 
 Anomaly detection
 :::::::::::::::::

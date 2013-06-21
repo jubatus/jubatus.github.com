@@ -1,7 +1,7 @@
 Anomaly
 -------
 
-* See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/anomaly.idl>`_ for detailed specification.
+* See `IDL definition <https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/anomaly.idl>`_ for detailed specification.
 
 
 Configuration

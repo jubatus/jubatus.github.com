@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Anomaly &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Tutorial" href="../tutorial.html" />
+    <link rel="next" title="Python" href="anomaly_python.html" />
+    <link rel="prev" title="Java" href="stat_java.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="anomaly_python.html" title="Python"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stat_java.html" title="Java"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Anomaly</a><ul>
+<li><a class="reference internal" href="#abstract-of-sample-program">Abstract of sample program</a></li>
+<li><a class="reference internal" href="#processing-flow">Processing flow</a></li>
+<li><a class="reference internal" href="#sample-program">Sample Program</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stat_java.html"
+                        title="previous chapter">Java</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="anomaly_python.html"
+                        title="next chapter">Python</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/anomaly.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="anomaly">
+<h1>Anomaly<a class="headerlink" href="#anomaly" title="Permalink to this headline">¶</a></h1>
+<p>In this sample program, we will introduce how to detect anomaly values by using the jubaanomaly function from Jubatus Client.</p>
+<p>Jubatus uses LOF（Local Outlier Factor) algorithm to support its anomaly detection.
+The key idea of LOF is comparing the local density of a point&#8217;s neighborhood with the local density of its neighbors. Points that have a substantially lower density than their neighbors are considered to be outliers.
+LOF can be used for fraud detectin, fault detection, etc.</p>
+<div class="section" id="abstract-of-sample-program">
+<h2>Abstract of sample program<a class="headerlink" href="#abstract-of-sample-program" title="Permalink to this headline">¶</a></h2>
+<p>In this sample, we use the KDD Cup（Knowledge Discovery and Data Mining Cup） data for learning and detection.
+At first, the data input from client side will be extracted and sent to server side for learning. Then, client will have a return value for each data as the judgement of anomaly detection, and demonstrate the results to the users.
+KDD Cup data <tt class="docutils literal"><span class="pre">kddcup.data_10_percent.gz</span></tt> is available from <a class="reference external" href="http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html">KDD Cup 1999 Data</a>. Please decompress it after download.</p>
+</div>
+<div class="section" id="processing-flow">
+<h2>Processing flow<a class="headerlink" href="#processing-flow" title="Permalink to this headline">¶</a></h2>
+<p>Main flow of using Jubatus Client</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Connection settings to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Setting the HOST, RPC port of Jubatus Server</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Prepare the learning data</li>
+</ol>
+<blockquote>
+<div>Read the data from kddcup.data_10_percent.txt line by line.</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Model training（Update learning model）</li>
+</ol>
+<blockquote>
+<div>Using the add() method to send the learning data to server side, and training the learning model there.</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Output the result</li>
+</ol>
+<blockquote>
+<div>The return result in add() method is the judgement from the detection model at server side.</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="sample-program">
+<h2>Sample Program<a class="headerlink" href="#sample-program" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_python.html">Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_python.html#source-code">Source_code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_python.html#explanation">Explanation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_python.html#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_ruby.html">Ruby</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_ruby.html#source-code">Source_code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_ruby.html#explanation">Explanation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_ruby.html#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_java.html">Java</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_java.html#source-code">Source_code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_java.html#explanation">Explanation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly_java.html#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="anomaly_python.html" title="Python"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stat_java.html" title="Java"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

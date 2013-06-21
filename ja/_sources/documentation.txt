@@ -8,4 +8,5 @@
    plugin
    build
    framework
+   faq_rpc_err_workaround
    faq

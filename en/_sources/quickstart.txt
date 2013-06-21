@@ -158,10 +158,11 @@ Congratulations!
 Now you can write your own application using Jubatus.
 See the :doc:`api` for what Jubatus can do.
 
-For C++ and Java users, skeleton projects are available:
+Skeleton projects are also available:
 
-- `C++ Client Development Skelton <https://github.com/jubatus/jubatus-cpp-skelton>`_
-- `Java Client Development Skelton <https://github.com/jubatus/jubatus-java-skelton>`_ (Eclipse project template)
-- For Python users, see the `tutorial repository <https://github.com/jubatus/jubatus-tutorial-python>`_.
+- `C++ Client Development Skeleton <https://github.com/jubatus/jubatus-cpp-skeleton>`_
+- `Python Client Develoment Skeleton <https://github.com/jubatus/jubatus-python-skeleton>`_
+- `Ruby Client Develoment Skeleton <https://github.com/jubatus/jubatus-ruby-skeleton>`_
+- `Java Client Development Skeleton <https://github.com/jubatus/jubatus-java-skeleton>`_ (Eclipse project template)
 
 In the `jubatus-example <https://github.com/jubatus/jubatus-example>`_ repository, you can see applications using Jubatus.

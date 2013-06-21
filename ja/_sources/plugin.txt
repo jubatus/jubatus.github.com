@@ -51,7 +51,7 @@ fv_converter プラグインの開発は以下の手順で行う。
 プラグインとして利用する方法は、 :ref:`conversion_plugin` を参照のこと。
 
 その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。
-より具体的なソースの例に関しては、Jubatus ソース内の ``src/fv_converter`` 中の ``test_*.cpp`` を参照すること。
+より具体的なソースの例に関しては、Jubatus ソース内の ``jubatus/core/fv_converter`` 中の ``test_*.cpp`` を参照すること。
 
-プラグインの開発を行う場合、 `プラグイン開発用スケルトンプロジェクト <https://github.com/jubatus/jubatus-plugin-skelton.git>`_ を使用すると便利である。
+プラグインの開発を行う場合、 `プラグイン開発用スケルトンプロジェクト <https://github.com/jubatus/jubatus-plugin-skeleton>`_ を使用すると便利である。
 このスケルトンでは、渡された文字列から ASCII 文字列を特徴量として抽出する機能が既に実装されている。

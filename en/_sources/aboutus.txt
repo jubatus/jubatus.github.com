@@ -110,3 +110,26 @@ Jubatus Team Members
   :name: Gentaro Watanabe
   :role: Developer
   :github: gwtnb
+
+.. jubamember::
+  :name: Takashi Abe
+  :role: Developer
+  :github: t-abe
+  :twitter: tabe2314
+  :email: tabe@preferred.jp
+
+.. jubamember::
+  :name: Hiroaki Murase 
+  :role: Developer
+  :github: murasehiroaki
+
+.. jubamember::
+  :name: Min Luo
+  :role: Developer
+  :expertise: Distributed DBMS System 
+  :contrib: Development, Documentation
+  :goal: Expanding Realtime(Jubatus) market by combining with DWH. Improving Jubatus performance by techniques in DBMS field.
+  :github: luomin
+  :email: luo.min@lab.ntt.co.jp
+
+

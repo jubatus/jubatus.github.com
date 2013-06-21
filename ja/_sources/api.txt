@@ -5,7 +5,7 @@ Client API
 クライアント側の実装は、MessagePack-RPC ライブラリが提供されている任意の言語を利用することができる。
 現在、C++ / Python / Ruby / Java のクライアントが公式に提供されている (:doc:`quickstart` を参照)。
 
-インタフェースは MessagePack-IDL フォーマットで記述されたファイル (.idl のファイル拡張子を持つ) によって表記されており、 `リポジトリ <https://github.com/jubatus/jubatus/tree/master/src/server>`_  で参照可能である。
+インタフェースは MessagePack-IDL フォーマットで記述されたファイル (.idl のファイル拡張子を持つ) によって表記されており、 `リポジトリ <https://github.com/jubatus/jubatus/tree/master/jubatus/server/server>`_  で参照可能である。
 クライアントはこれらの IDL ファイルから自動生成されている。
 
 本 API リファレンスでは、各サーバのインタフェースを MessagePack-IDL 表記で記述する。

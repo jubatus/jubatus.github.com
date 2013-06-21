@@ -227,8 +227,8 @@ jubactl
    ========= =====================================================================================
    start     Start Jubatus servers
    stop      Stop Jubatus servers
-   save      Save the model to directory specified by :option:`server -t`
-   load      Load the model from directory specified by :option:`server -t`
+   save      Save the model to directory specified by :option:`server -d`
+   load      Load the model from directory specified by :option:`server -d`
    status    Print the status of servers, keepers and jubavisors
    ========= =====================================================================================
 
@@ -257,6 +257,14 @@ jubactl
    List of ZooKeeper server(s).
 
    If not specified, environment variable ``ZK`` will be used.
+
+.. option:: -i <id>, --id <id>
+
+   ID of file name to save or load.
+
+   Effective only when used with ``--cmd save`` and ``--cmd load``.
+
+   If not specified, the value that specified by ``--name`` will be used.
 
 .. option:: -B <interface>, --listen_if <interface>
 
@@ -437,7 +445,7 @@ jenerator
 
 ``jenerator`` generates implementation of keeper, server template and C++ client from extended MessagePack-IDL file. See :doc:`server` for details.
 
-``jenerator`` is not installed by default (see ``src/tools/jenerator`` in the source tree).
+``jenerator`` is not installed by default (see ``tools/jenerator`` in the source tree).
 
 .. code-block:: none
 
@@ -447,7 +455,7 @@ jenerator
 
 .. option:: -l <lang>
 
-   Language of the client code to generate. Currently ``cpp``, ``python``, and ``ruby`` are supported.
+   Language of the client code to generate. Currently ``cpp``, ``java``, ``python``, and ``ruby`` are supported.
    Specify ``server`` if you need to generate servers and keepers.
 
 .. option:: -o <dirpath>

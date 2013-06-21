@@ -1,0 +1,529 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Java &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Anomaly" href="anomaly.html" />
+    <link rel="next" title="Tutorial in Distributed Mode" href="../tutorial_distributed.html" />
+    <link rel="prev" title="Ruby" href="anomaly_ruby.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../tutorial_distributed.html" title="Tutorial in Distributed Mode"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="anomaly_ruby.html" title="Ruby"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="anomaly.html" accesskey="U">Anomaly</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Java</a><ul>
+<li><a class="reference internal" href="#source-code">Source_code</a></li>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="anomaly_ruby.html"
+                        title="previous chapter">Ruby</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../tutorial_distributed.html"
+                        title="next chapter">Tutorial in Distributed Mode</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/anomaly_java.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="java">
+<h1>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h1>
+<p>Here we explain the java sample program of anomaly detection.</p>
+<div class="section" id="source-code">
+<h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms in Jubatus with the config file &#8216;config.json&#8217;; 2) how to detect the anomaly data with the example file ‘lof.java’. Here are the source codes of &#8216;config.json&#8217; and &#8216;lof.java&#8217;.</p>
+<p><strong>config.json</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">01</span> <span class="o">:</span> <span class="o">{</span>
+<span class="mi">02</span> <span class="o">:</span>  <span class="s">&quot;method&quot;</span> <span class="o">:</span> <span class="s">&quot;lof&quot;</span><span class="o">,</span>
+<span class="mi">03</span> <span class="o">:</span>  <span class="s">&quot;parameter&quot;</span> <span class="o">:</span> <span class="o">{</span>
+<span class="mi">04</span> <span class="o">:</span>   <span class="s">&quot;nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="o">,</span>
+<span class="mi">05</span> <span class="o">:</span>   <span class="s">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">30</span><span class="o">,</span>
+<span class="mi">06</span> <span class="o">:</span>   <span class="s">&quot;method&quot;</span> <span class="o">:</span> <span class="s">&quot;euclid_lsh&quot;</span><span class="o">,</span>
+<span class="mi">07</span> <span class="o">:</span>   <span class="s">&quot;parameter&quot;</span> <span class="o">:</span> <span class="o">{</span>
+<span class="mi">08</span> <span class="o">:</span>    <span class="s">&quot;lsh_num&quot;</span> <span class="o">:</span> <span class="mi">8</span><span class="o">,</span>
+<span class="mi">09</span> <span class="o">:</span>    <span class="s">&quot;table_num&quot;</span> <span class="o">:</span> <span class="mi">16</span><span class="o">,</span>
+<span class="mi">10</span> <span class="o">:</span>    <span class="s">&quot;probe_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="o">,</span>
+<span class="mi">11</span> <span class="o">:</span>    <span class="s">&quot;bin_width&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="o">,</span>
+<span class="mi">12</span> <span class="o">:</span>    <span class="s">&quot;seed&quot;</span> <span class="o">:</span> <span class="mi">1234</span><span class="o">,</span>
+<span class="mi">13</span> <span class="o">:</span>    <span class="s">&quot;retain_projection&quot;</span> <span class="o">:</span> <span class="kc">true</span>
+<span class="mi">14</span> <span class="o">:</span>   <span class="o">}</span>
+<span class="mi">15</span> <span class="o">:</span>  <span class="o">},</span>
+<span class="mi">16</span> <span class="o">:</span>
+<span class="mi">17</span> <span class="o">:</span>  <span class="s">&quot;converter&quot;</span> <span class="o">:</span> <span class="o">{</span>
+<span class="mi">18</span> <span class="o">:</span>   <span class="s">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">19</span> <span class="o">:</span>   <span class="s">&quot;string_filter_rules&quot;</span><span class="o">:</span> <span class="o">[],</span>
+<span class="mi">20</span> <span class="o">:</span>   <span class="s">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">21</span> <span class="o">:</span>   <span class="s">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="o">[],</span>
+<span class="mi">22</span> <span class="o">:</span>   <span class="s">&quot;string_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">23</span> <span class="o">:</span>   <span class="s">&quot;string_rules&quot;</span><span class="o">:</span> <span class="o">[{</span><span class="s">&quot;key&quot;</span><span class="o">:</span><span class="s">&quot;*&quot;</span><span class="o">,</span> <span class="s">&quot;type&quot;</span><span class="o">:</span><span class="s">&quot;str&quot;</span><span class="o">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="o">:</span> <span class="s">&quot;bin&quot;</span><span class="o">,</span> <span class="s">&quot;sample_weight&quot;</span> <span class="o">:</span> <span class="s">&quot;bin&quot;</span><span class="o">}],</span>
+<span class="mi">24</span> <span class="o">:</span>   <span class="s">&quot;num_types&quot;</span><span class="o">:</span> <span class="o">{},</span>
+<span class="mi">25</span> <span class="o">:</span>   <span class="s">&quot;num_rules&quot;</span><span class="o">:</span> <span class="o">[{</span><span class="s">&quot;key&quot;</span> <span class="o">:</span> <span class="s">&quot;*&quot;</span><span class="o">,</span> <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="s">&quot;num&quot;</span><span class="o">}]</span>
+<span class="mi">26</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">27</span> <span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>anomaly.java</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">package</span> <span class="n">lof</span><span class="o">;</span>
+<span class="mi">002</span> <span class="o">:</span>
+<span class="mi">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="mi">004</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
+<span class="mi">005</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+<span class="mi">006</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="mi">007</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mi">008</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="mi">009</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mi">010</span> <span class="o">:</span>
+<span class="mi">011</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.anomaly.*</span><span class="o">;</span>
+<span class="mi">012</span> <span class="o">:</span>
+<span class="mi">013</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lof</span> <span class="o">{</span>
+<span class="mi">014</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mi">015</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mi">016</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;anom_kddcup&quot;</span><span class="o">;</span>
+<span class="mi">017</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FILE_PATH</span> <span class="o">=</span> <span class="s">&quot;./src/main/resources/&quot;</span><span class="o">;</span>
+<span class="mi">018</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TEXT_NAME</span> <span class="o">=</span> <span class="s">&quot;kddcup.data_10_percent.txt&quot;</span><span class="o">;</span>
+<span class="mi">019</span> <span class="o">:</span>
+<span class="mi">020</span> <span class="o">:</span>  <span class="c1">// declare all the data items consisted in each piece of training data</span>
+<span class="mi">021</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">TEXT_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">022</span> <span class="o">:</span>          <span class="s">&quot;duration&quot;</span><span class="o">,</span>
+<span class="mi">023</span> <span class="o">:</span>          <span class="s">&quot;protocol_type&quot;</span><span class="o">,</span>
+<span class="mi">024</span> <span class="o">:</span>          <span class="s">&quot;service&quot;</span><span class="o">,</span>
+<span class="mi">025</span> <span class="o">:</span>          <span class="s">&quot;flag&quot;</span><span class="o">,</span>
+<span class="mi">026</span> <span class="o">:</span>          <span class="s">&quot;src_bytes&quot;</span><span class="o">,</span>
+<span class="mi">027</span> <span class="o">:</span>          <span class="s">&quot;dst_bytes&quot;</span><span class="o">,</span>
+<span class="mi">028</span> <span class="o">:</span>          <span class="s">&quot;land&quot;</span><span class="o">,</span>
+<span class="mi">029</span> <span class="o">:</span>          <span class="s">&quot;wrong_fragment&quot;</span><span class="o">,</span>
+<span class="mi">030</span> <span class="o">:</span>          <span class="s">&quot;urgent&quot;</span><span class="o">,</span>
+<span class="mi">031</span> <span class="o">:</span>          <span class="s">&quot;hot&quot;</span><span class="o">,</span>
+<span class="mi">032</span> <span class="o">:</span>          <span class="s">&quot;num_failed_logins&quot;</span><span class="o">,</span>
+<span class="mi">033</span> <span class="o">:</span>          <span class="s">&quot;logged_in&quot;</span><span class="o">,</span>
+<span class="mi">034</span> <span class="o">:</span>          <span class="s">&quot;num_compromised&quot;</span><span class="o">,</span>
+<span class="mi">035</span> <span class="o">:</span>          <span class="s">&quot;root_shell&quot;</span><span class="o">,</span>
+<span class="mi">036</span> <span class="o">:</span>          <span class="s">&quot;su_attempted&quot;</span><span class="o">,</span>
+<span class="mi">037</span> <span class="o">:</span>          <span class="s">&quot;num_root&quot;</span><span class="o">,</span>
+<span class="mi">038</span> <span class="o">:</span>          <span class="s">&quot;num_file_creations&quot;</span><span class="o">,</span>
+<span class="mi">039</span> <span class="o">:</span>          <span class="s">&quot;num_shells&quot;</span><span class="o">,</span>
+<span class="mi">040</span> <span class="o">:</span>          <span class="s">&quot;num_access_files&quot;</span><span class="o">,</span>
+<span class="mi">041</span> <span class="o">:</span>          <span class="s">&quot;num_outbound_cmds&quot;</span><span class="o">,</span>
+<span class="mi">042</span> <span class="o">:</span>          <span class="s">&quot;is_host_login&quot;</span><span class="o">,</span>
+<span class="mi">043</span> <span class="o">:</span>          <span class="s">&quot;is_guest_login&quot;</span><span class="o">,</span>
+<span class="mi">044</span> <span class="o">:</span>          <span class="s">&quot;count&quot;</span><span class="o">,</span>
+<span class="mi">045</span> <span class="o">:</span>          <span class="s">&quot;srv_count&quot;</span><span class="o">,</span>
+<span class="mi">046</span> <span class="o">:</span>          <span class="s">&quot;serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">047</span> <span class="o">:</span>          <span class="s">&quot;srv_serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">048</span> <span class="o">:</span>          <span class="s">&quot;rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">049</span> <span class="o">:</span>          <span class="s">&quot;srv_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">050</span> <span class="o">:</span>          <span class="s">&quot;same_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">051</span> <span class="o">:</span>          <span class="s">&quot;diff_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">052</span> <span class="o">:</span>          <span class="s">&quot;srv_diff_host_rate&quot;</span><span class="o">,</span>
+<span class="mi">053</span> <span class="o">:</span>          <span class="s">&quot;dst_host_count&quot;</span><span class="o">,</span>
+<span class="mi">054</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_count&quot;</span><span class="o">,</span>
+<span class="mi">055</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">056</span> <span class="o">:</span>          <span class="s">&quot;dst_host_diff_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">057</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_src_port_rate&quot;</span><span class="o">,</span>
+<span class="mi">058</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="o">,</span>
+<span class="mi">059</span> <span class="o">:</span>          <span class="s">&quot;dst_host_serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">060</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">061</span> <span class="o">:</span>          <span class="s">&quot;dst_host_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">062</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">063</span> <span class="o">:</span>          <span class="s">&quot;label&quot;</span>
+<span class="mi">064</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mi">065</span> <span class="o">:</span>
+<span class="mi">066</span> <span class="o">:</span>  <span class="c1">// items in String type</span>
+<span class="mi">067</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">STRING_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">068</span> <span class="o">:</span>          <span class="s">&quot;protocol_type&quot;</span><span class="o">,</span>
+<span class="mi">069</span> <span class="o">:</span>          <span class="s">&quot;service&quot;</span><span class="o">,</span>
+<span class="mi">070</span> <span class="o">:</span>          <span class="s">&quot;flag&quot;</span><span class="o">,</span>
+<span class="mi">071</span> <span class="o">:</span>          <span class="s">&quot;land&quot;</span><span class="o">,</span>
+<span class="mi">072</span> <span class="o">:</span>          <span class="s">&quot;logged_in&quot;</span><span class="o">,</span>
+<span class="mi">073</span> <span class="o">:</span>          <span class="s">&quot;is_host_login&quot;</span><span class="o">,</span>
+<span class="mi">074</span> <span class="o">:</span>          <span class="s">&quot;is_guest_login&quot;</span>
+<span class="mi">075</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mi">076</span> <span class="o">:</span>
+<span class="mi">077</span> <span class="o">:</span>  <span class="c1">// items in Double type</span>
+<span class="mi">078</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">DOUBLE_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mi">079</span> <span class="o">:</span>          <span class="s">&quot;duration&quot;</span><span class="o">,</span>
+<span class="mi">080</span> <span class="o">:</span>          <span class="s">&quot;src_bytes&quot;</span><span class="o">,</span>
+<span class="mi">081</span> <span class="o">:</span>          <span class="s">&quot;dst_bytes&quot;</span><span class="o">,</span>
+<span class="mi">082</span> <span class="o">:</span>          <span class="s">&quot;wrong_fragment&quot;</span><span class="o">,</span>
+<span class="mi">083</span> <span class="o">:</span>          <span class="s">&quot;urgent&quot;</span><span class="o">,</span>
+<span class="mi">084</span> <span class="o">:</span>          <span class="s">&quot;hot&quot;</span><span class="o">,</span>
+<span class="mi">085</span> <span class="o">:</span>          <span class="s">&quot;num_failed_logins&quot;</span><span class="o">,</span>
+<span class="mi">086</span> <span class="o">:</span>          <span class="s">&quot;num_compromised&quot;</span><span class="o">,</span>
+<span class="mi">087</span> <span class="o">:</span>          <span class="s">&quot;root_shell&quot;</span><span class="o">,</span>
+<span class="mi">088</span> <span class="o">:</span>          <span class="s">&quot;su_attempted&quot;</span><span class="o">,</span>
+<span class="mi">089</span> <span class="o">:</span>          <span class="s">&quot;num_root&quot;</span><span class="o">,</span>
+<span class="mi">090</span> <span class="o">:</span>          <span class="s">&quot;num_file_creations&quot;</span><span class="o">,</span>
+<span class="mi">091</span> <span class="o">:</span>          <span class="s">&quot;num_shells&quot;</span><span class="o">,</span>
+<span class="mi">092</span> <span class="o">:</span>          <span class="s">&quot;num_access_files&quot;</span><span class="o">,</span>
+<span class="mi">093</span> <span class="o">:</span>          <span class="s">&quot;num_outbound_cmds&quot;</span><span class="o">,</span>
+<span class="mi">094</span> <span class="o">:</span>          <span class="s">&quot;count&quot;</span><span class="o">,</span>
+<span class="mi">095</span> <span class="o">:</span>          <span class="s">&quot;srv_count&quot;</span><span class="o">,</span>
+<span class="mi">096</span> <span class="o">:</span>          <span class="s">&quot;serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">097</span> <span class="o">:</span>          <span class="s">&quot;srv_serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">098</span> <span class="o">:</span>          <span class="s">&quot;rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">099</span> <span class="o">:</span>          <span class="s">&quot;srv_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">100</span> <span class="o">:</span>          <span class="s">&quot;same_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">101</span> <span class="o">:</span>          <span class="s">&quot;diff_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">102</span> <span class="o">:</span>          <span class="s">&quot;srv_diff_host_rate&quot;</span><span class="o">,</span>
+<span class="mi">103</span> <span class="o">:</span>          <span class="s">&quot;dst_host_count&quot;</span><span class="o">,</span>
+<span class="mi">104</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_count&quot;</span><span class="o">,</span>
+<span class="mi">105</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">106</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_src_port_rate&quot;</span><span class="o">,</span>
+<span class="mi">107</span> <span class="o">:</span>          <span class="s">&quot;dst_host_diff_srv_rate&quot;</span><span class="o">,</span>
+<span class="mi">108</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="o">,</span>
+<span class="mi">109</span> <span class="o">:</span>          <span class="s">&quot;dst_host_serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">110</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_serror_rate&quot;</span><span class="o">,</span>
+<span class="mi">111</span> <span class="o">:</span>          <span class="s">&quot;dst_host_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mi">112</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_rerror_rate&quot;</span>
+<span class="mi">113</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mi">114</span> <span class="o">:</span>
+<span class="mi">115</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">116</span> <span class="o">:</span>          <span class="c1">// 1. Connect to Jubatus Server</span>
+<span class="mi">117</span> <span class="o">:</span>          <span class="n">AnomalyClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnomalyClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="mi">118</span> <span class="o">:</span>
+<span class="mi">119</span> <span class="o">:</span>          <span class="c1">// 2. Prepare learning data</span>
+<span class="mi">120</span> <span class="o">:</span>          <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">121</span> <span class="o">:</span>          <span class="n">TupleStringFloat</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">122</span> <span class="o">:</span>
+<span class="mi">123</span> <span class="o">:</span>          <span class="k">try</span> <span class="o">{</span>
+<span class="mi">124</span> <span class="o">:</span>                  <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">FILE_PATH</span> <span class="o">+</span> <span class="n">TEXT_NAME</span><span class="o">));</span>
+<span class="mi">125</span> <span class="o">:</span>
+<span class="mi">126</span> <span class="o">:</span>                  <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+<span class="mi">127</span> <span class="o">:</span>                  <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">doubleList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+<span class="mi">128</span> <span class="o">:</span>
+<span class="mi">129</span> <span class="o">:</span>                  <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+<span class="mi">130</span> <span class="o">:</span>
+<span class="mi">131</span> <span class="o">:</span>                  <span class="c1">// read the data row by row until the last one</span>
+<span class="mi">132</span> <span class="o">:</span>                  <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">133</span> <span class="o">:</span>                          <span class="n">strList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+<span class="mi">134</span> <span class="o">:</span>                          <span class="n">doubleList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+<span class="mi">135</span> <span class="o">:</span>
+<span class="mi">136</span> <span class="o">:</span>                          <span class="c1">// split the data items in each row</span>
+<span class="mi">137</span> <span class="o">:</span>                          <span class="n">String</span><span class="o">[]</span> <span class="n">strAry</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">);</span>
+<span class="mi">138</span> <span class="o">:</span>
+<span class="mi">139</span> <span class="o">:</span>                          <span class="c1">// make the String and Double Lists to store the data items</span>
+<span class="mi">140</span> <span class="o">:</span>                          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strAry</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">141</span> <span class="o">:</span>                                  <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">STRING_COLUMN</span><span class="o">).</span><span class="na">contains</span><span class="o">(</span><span class="n">TEXT_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">]))</span> <span class="o">{</span>
+<span class="mi">142</span> <span class="o">:</span>                                          <span class="n">strList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">strAry</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="mi">143</span> <span class="o">:</span>                                  <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">DOUBLE_COLUMN</span><span class="o">).</span><span class="na">contains</span><span class="o">(</span><span class="n">TEXT_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">]))</span> <span class="o">{</span>
+<span class="mi">144</span> <span class="o">:</span>                                          <span class="n">doubleList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">strAry</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="mi">145</span> <span class="o">:</span>                                  <span class="o">}</span>
+<span class="mi">146</span> <span class="o">:</span>                          <span class="o">}</span>
+<span class="mi">147</span> <span class="o">:</span>                          <span class="c1">// make the datum</span>
+<span class="mi">148</span> <span class="o">:</span>                          <span class="n">datum</span> <span class="o">=</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">strList</span><span class="o">,</span> <span class="n">doubleList</span><span class="o">);</span>
+<span class="mi">149</span> <span class="o">:</span>
+<span class="mi">150</span> <span class="o">:</span>                          <span class="c1">// 3. Model training(update learning model)</span>
+<span class="mi">151</span> <span class="o">:</span>                          <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="n">datum</span><span class="o">);</span>
+<span class="mi">152</span> <span class="o">:</span>
+<span class="mi">153</span> <span class="o">:</span>                          <span class="c1">// 4. Display result</span>
+<span class="mi">154</span> <span class="o">:</span>                          <span class="k">if</span> <span class="o">(</span> <span class="o">!(</span><span class="n">Float</span><span class="o">.</span><span class="na">isInfinite</span><span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">second</span><span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="n">result</span><span class="o">.</span><span class="na">second</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">155</span> <span class="o">:</span>                                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span> <span class="s">&quot;(&#39;&quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="na">first</span> <span class="o">+</span> <span class="s">&quot;&#39;, &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="na">second</span> <span class="o">+</span> <span class="s">&quot;) &quot;</span> <span class="o">+</span> <span class="n">strAry</span><span class="o">[</span><span class="n">strAry</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span> <span class="o">);</span>
+<span class="mi">156</span> <span class="o">:</span>                          <span class="o">}</span>
+<span class="mi">157</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">158</span> <span class="o">:</span>                  <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="mi">159</span> <span class="o">:</span>
+<span class="mi">160</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">161</span> <span class="o">:</span>                  <span class="c1">// capture the exception in File object creation</span>
+<span class="mi">162</span> <span class="o">:</span>                  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">163</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">164</span> <span class="o">:</span>                  <span class="c1">// capture the exception in closing BufferedReader object</span>
+<span class="mi">165</span> <span class="o">:</span>                  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">166</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">167</span> <span class="o">:</span>          <span class="k">return</span><span class="o">;</span>
+<span class="mi">168</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">169</span> <span class="o">:</span>
+<span class="mi">170</span> <span class="o">:</span>
+<span class="mi">171</span> <span class="o">:</span>  <span class="c1">// Make the Datum with the assigned lists</span>
+<span class="mi">172</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">Datum</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strList</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">doubleList</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">173</span> <span class="o">:</span>
+<span class="mi">174</span> <span class="o">:</span>          <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Datum</span><span class="o">();</span>
+<span class="mi">175</span> <span class="o">:</span>          <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringString</span><span class="o">&gt;();</span>
+<span class="mi">176</span> <span class="o">:</span>          <span class="n">datum</span><span class="o">.</span><span class="na">num_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringDouble</span><span class="o">&gt;();</span>
+<span class="mi">177</span> <span class="o">:</span>
+<span class="mi">178</span> <span class="o">:</span>          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">179</span> <span class="o">:</span>                  <span class="n">TupleStringString</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringString</span><span class="o">();</span>
+<span class="mi">180</span> <span class="o">:</span>                  <span class="n">data</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">STRING_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="mi">181</span> <span class="o">:</span>                  <span class="n">data</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">strList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="mi">182</span> <span class="o">:</span>
+<span class="mi">183</span> <span class="o">:</span>                  <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="mi">184</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">185</span> <span class="o">:</span>
+<span class="mi">186</span> <span class="o">:</span>          <span class="k">try</span> <span class="o">{</span>
+<span class="mi">187</span> <span class="o">:</span>                  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">doubleList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="mi">188</span> <span class="o">:</span>                          <span class="n">TupleStringDouble</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TupleStringDouble</span><span class="o">();</span>
+<span class="mi">189</span> <span class="o">:</span>                          <span class="n">data</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">DOUBLE_COLUMN</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="mi">190</span> <span class="o">:</span>                          <span class="n">data</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">doubleList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+<span class="mi">191</span> <span class="o">:</span>
+<span class="mi">192</span> <span class="o">:</span>                          <span class="n">datum</span><span class="o">.</span><span class="na">num_values</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="mi">193</span> <span class="o">:</span>                  <span class="o">}</span>
+<span class="mi">194</span> <span class="o">:</span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">195</span> <span class="o">:</span>                  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="mi">196</span> <span class="o">:</span>                  <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="mi">197</span> <span class="o">:</span>          <span class="o">}</span>
+<span class="mi">198</span> <span class="o">:</span>
+<span class="mi">199</span> <span class="o">:</span>          <span class="k">return</span> <span class="n">datum</span><span class="o">;</span>
+<span class="mi">200</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">201</span> <span class="o">:</span>
+<span class="mi">202</span> <span class="o">:</span>  <span class="c1">// main method</span>
+<span class="mi">203</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">204</span> <span class="o">:</span>
+<span class="mi">205</span> <span class="o">:</span>          <span class="k">new</span> <span class="n">Lof</span><span class="o">().</span><span class="na">execute</span><span class="o">();</span>
+<span class="mi">206</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="mi">207</span> <span class="o">:</span>  <span class="o">}</span>
+<span class="mi">208</span> <span class="o">:</span> <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p><strong>config.json</strong></p>
+<p>The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.</p>
+<blockquote>
+<div><ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>Specify the algorithm used in anomaly detection. Currently, &#8220;LOF&#8221;(Local Outlier Factor) is the only one algorithm for anomaly detection, so, we write &#8220;LOF&#8221; here.</div></blockquote>
+<ul class="simple">
+<li>converter</li>
+</ul>
+<blockquote>
+<div><p>Specify the configurations in feature converter. In this sample, we will set &#8220;num_rules&#8221; and &#8220;string_rules&#8221;.</p>
+<p>&#8220;num_rules&#8221; specifies the value extracting rules for values in numerical format.
+&#8220;key&#8221; is set as &#8220;*&#8221; here, which means all the &#8220;key&#8221; will be taken into account. &#8220;type&#8221; is set as &#8220;num&#8221;, which means each value has its weight as equal as the value itself. For example, if data&#8217;s value i &#8220;2&#8221;, its weight is set as 2; if data&#8217;s value is &#8220;6&#8221;, its weight is set as 6.</p>
+<p>&#8220;string_rules&#8221; specifies the value extracting rules for values in string format.
+Here, &#8220;key&#8221; is set as &#8220;*&#8221;, &#8220;type&#8221; is &#8220;str&#8221;, &#8220;sample_weight&#8221; is &#8220;bin&#8221;, and &#8220;global_weight&#8221; is &#8220;bin&#8221;.
+This means, all the &#8220;key&#8221; will be taken into account, the features in strings values will be used without convertion, the weight of each key-value will be calculated throughout the whole data have been used, and the global weight is a constant value of &#8220;1&#8221;.</p>
+</div></blockquote>
+<ul class="simple">
+<li>parameter(could be modified)</li>
+</ul>
+<p>･･･</p>
+</div></blockquote>
+<p><strong>anomaly.java</strong></p>
+<blockquote>
+<div><p>anomaly.java will extract the data from text file, send them to Jubatus server, and get their anomaly detection result from the server.</p>
+<ol class="arabic simple">
+<li>Connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 117).
+Setting the IP addr., RPC port of Jubatus Server, and the connection waiting time.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Prepare the learning data</li>
+</ol>
+<blockquote>
+<div><p>AnomalyClient will send the Datum to Jubatus server for data learning or anomaly detection, by using its &#8220;add&#8221; method.
+In this example, the result-data in KDD Cup(Knowledge Discovery and Data Mining Cup) is used as the trainning data. At first, the program read the training data from the TEXT file, one line at a time, by using FileReader() and BuffererdReader() methods (Row 132-157). The data in TEXT file are seperated by commas, so we split the items by ’,’ (Row 137).
+By using the whole items definition list: TEXT file(TEXT_COLUMN); as well as the &#8220;String&#8221; and &#8220;Double&#8221; items definition list (STRING_COLUMN、DOUBLE_COLUMN), we store the items in different list due to their types (Row 140-145).
+Put the two lists into one Datum unit and add arguments for each items in the lists, as done by the private method [makeDatum](Row 171).</p>
+<p>In the [makeDatum], we will store the data items into the string-list and double-list, which are in the format of TupleStringString and TupleStringDouble (Row 172-200).
+At first, we generate the string_values and num_values lists, as the factors required in a Datum class (Row 174-176).
+Then, we combine the corresponding items in &#8220;STRING_COLUMN&#8221; and &#8220;strList&#8221; as key-value pairs to generate the TupleStringString list (Row 178-184). And combine the corresponding items in &#8220;Double_COLUMN&#8221; and &#8220;doubleList&#8221; as key-value pairs to generate the TupleStringDouble list. Note that, because the data in doublelist is in String format, data convertion is required when put it into Datum unit (Row 190).</p>
+<p>Now, our learning data is ready in the Datum format.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Model training (update learning model)</li>
+</ol>
+<blockquote>
+<div>Input the training data generated in step.2 into the add() method of AnomalyClient (Row 151).
+The first parameter in add() is the unique name for task identification in Zookeeper.
+(use null charactor &#8220;&#8221; for the stand-alone mode)
+The second parameter specifies the Datum generated in step.2.
+The returned result &lt;string, float&gt; is consisted of the data ID and its estimated anomaly value.</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Display result</li>
+</ol>
+<blockquote>
+<div>Display the returned value from add() method after a correction checking (Row 154).
+The anomaly value should not be infinity or　1.0　(Row 155).</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="run-the-sample-program">
+<h2>Run the sample program<a class="headerlink" href="#run-the-sample-program" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><strong>［At Jubatus Server］</strong></dt>
+<dd>start &#8220;jubaanomaly&#8221; process.</dd>
+</dl>
+<div class="highlight-python"><pre>$ jubaanomaly --configpath config.json</pre>
+</div>
+<dl class="docutils">
+<dt><strong>［At Jubatus Client］</strong></dt>
+<dd>Get the required package and Java client ready.
+Run!</dd>
+</dl>
+<p><strong>［Result］</strong></p>
+<div class="highlight-python"><pre>('574', 0.99721104) normal.
+('697', 1.4958459) normal.
+('1127', 0.79527026) normal.
+('1148', 1.1487594) normal.
+('1149', 1.2) normal.
+('2382', 0.9994011) normal.
+('2553', 1.2638165) normal.
+('2985', 1.4081864) normal.
+('3547', 1.275244) normal.
+('3557', 0.90432936) normal.
+('3572', 0.75777346) normal.
+('3806', 0.9943142) normal.
+('3816', 1.0017062) normal.
+('3906', 0.5671135) normal.
+…
+…(omitted)</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../tutorial_distributed.html" title="Tutorial in Distributed Mode"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="anomaly_ruby.html" title="Ruby"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="anomaly.html" >Anomaly</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

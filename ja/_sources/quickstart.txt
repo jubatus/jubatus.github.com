@@ -160,8 +160,9 @@ Jubatus がどのような機能を持っているか知るには、 :doc:`api` 
 
 C++ または Java でクライアントを開発する場合は、以下のスケルトンプロジェクトを使用すると便利です。
 
-- `C++ クライアント開発用スケルトン <https://github.com/jubatus/jubatus-cpp-skelton>`_
-- `Java クライアント開発用スケルトン <https://github.com/jubatus/jubatus-java-skelton>`_ (Eclipse プロジェクトのテンプレート)
-- Python をお使いの方は、 `チュートリアルのリポジトリ <https://github.com/jubatus/jubatus-tutorial-python>`_ をご覧ください。
+- `C++ クライアント開発用スケルトン <https://github.com/jubatus/jubatus-cpp-skeleton>`_
+- `Python クライアント開発用スケルトン <https://github.com/jubatus/jubatus-python-skeleton>`_
+- `Ruby クライアント開発用スケルトン <https://github.com/jubatus/jubatus-ruby-skeleton>`_
+- `Java クライアント開発用スケルトン <https://github.com/jubatus/jubatus-java-skeleton>`_ (Eclipse プロジェクトのテンプレート)
 
 `jubatus-example <https://github.com/jubatus/jubatus-example>`_ リポジトリでは、Jubatus を利用したアプリケーションの実例を見ることができます。

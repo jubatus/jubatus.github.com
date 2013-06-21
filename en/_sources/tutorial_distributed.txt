@@ -184,3 +184,5 @@ You can also stop instance of Jubatus server from ``jubactl``.
 ::
 
     [192.168.0.1]$ jubactl -c stop --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+
+

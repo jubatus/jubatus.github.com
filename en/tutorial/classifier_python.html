@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="Classifier" href="classifier.html" />
+    <link rel="next" title="Ruby" href="classifier_ruby.html" />
+    <link rel="prev" title="Classifier" href="classifier.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="classifier_ruby.html" title="Ruby"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="classifier.html" title="Classifier"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="classifier.html" accesskey="U">Classifier</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python</a><ul>
+<li><a class="reference internal" href="#source-code">Source_code</a></li>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#run-the-sample-program">Run the sample program</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="classifier.html"
+                        title="previous chapter">Classifier</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="classifier_ruby.html"
+                        title="next chapter">Ruby</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorial/classifier_python.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="python">
+<h1>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<p>Here we explain the Python sample program of Classifier.</p>
+<div class="section" id="source-code">
+<h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;gender.json&#8217;; 2) how to learn the training data and make predictions based on them, with the example file ‘gender.py’. Here are the source codes of &#8216;gender.json&#8217; and &#8216;gender.py&#8217;.</p>
+<p><strong>gender.json</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span><span class="p">:</span> <span class="p">{</span>
+<span class="mo">02</span><span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;AROW&quot;</span><span class="p">,</span>
+<span class="mo">03</span><span class="p">:</span>   <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mo">04</span><span class="p">:</span>     <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mo">05</span><span class="p">:</span>     <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mo">06</span><span class="p">:</span>     <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mo">07</span><span class="p">:</span>     <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">08</span><span class="p">:</span>     <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">09</span><span class="p">:</span>     <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">10</span><span class="p">:</span>        <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}</span>
+<span class="mi">11</span><span class="p">:</span>         <span class="p">],</span>
+<span class="mi">12</span><span class="p">:</span>    <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mi">13</span><span class="p">:</span>         <span class="p">},</span>
+<span class="mi">14</span><span class="p">:</span>    <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">15</span><span class="p">:</span>        <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="mi">16</span><span class="p">:</span>         <span class="p">]</span>
+<span class="mi">17</span><span class="p">:</span>     <span class="p">},</span>
+<span class="mi">18</span><span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="mi">19</span><span class="p">:</span>     <span class="s">&quot;regularization_weight&quot;</span> <span class="p">:</span> <span class="mf">1.0</span>
+<span class="mi">20</span><span class="p">:</span>     <span class="p">}</span>
+<span class="mi">21</span><span class="p">:</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>gender.py</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span><span class="p">:</span> <span class="c">#!/usr/bin/env python</span>
+<span class="mo">02</span><span class="p">:</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+<span class="mo">03</span><span class="p">:</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span>
+<span class="mo">04</span><span class="p">:</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;test&#39;</span>
+
+<span class="mo">05</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">jubatus</span>
+<span class="mo">06</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.classifier.types</span> <span class="kn">import</span> <span class="n">datum</span>
+
+<span class="mo">07</span><span class="p">:</span> <span class="n">client</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+<span class="mi">08</span><span class="p">:</span> <span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span>
+<span class="mi">09</span><span class="p">:</span>     <span class="p">(</span><span class="s">&#39;male&#39;</span><span class="p">,</span>   <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;short&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;sweater&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;jeans&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.70</span><span class="p">)])),</span>
+<span class="mi">10</span><span class="p">:</span>     <span class="p">(</span><span class="s">&#39;female&#39;</span><span class="p">,</span> <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;long&#39;</span><span class="p">),</span>  <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;shirt&#39;</span><span class="p">),</span>   <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;skirt&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.56</span><span class="p">)])),</span>
+<span class="mi">11</span><span class="p">:</span>     <span class="p">(</span><span class="s">&#39;male&#39;</span><span class="p">,</span>   <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;short&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;jacket&#39;</span><span class="p">),</span>  <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;chino&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.65</span><span class="p">)])),</span>
+<span class="mi">12</span><span class="p">:</span>     <span class="p">(</span><span class="s">&#39;female&#39;</span><span class="p">,</span> <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;short&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;T shirt&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;jeans&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.72</span><span class="p">)])),</span>
+<span class="mi">13</span><span class="p">:</span>     <span class="p">(</span><span class="s">&#39;male&#39;</span><span class="p">,</span>   <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;long&#39;</span><span class="p">),</span>  <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;T shirt&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;jeans&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.82</span><span class="p">)])),</span>
+<span class="mi">14</span><span class="p">:</span>     <span class="p">(</span><span class="s">&#39;female&#39;</span><span class="p">,</span> <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;long&#39;</span><span class="p">),</span>  <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;jacket&#39;</span><span class="p">),</span>  <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;skirt&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.43</span><span class="p">)])),</span>
+<span class="mi">15</span><span class="p">:</span> <span class="c">#    (&#39;male&#39;,   datum([(&#39;hair&#39;, &#39;short&#39;), (&#39;top&#39;, &#39;jacket&#39;),  (&#39;bottom&#39;, &#39;jeans&#39;)], [(&#39;height&#39;, 1.76)])),</span>
+<span class="mi">16</span><span class="p">:</span> <span class="c">#    (&#39;female&#39;, datum([(&#39;hair&#39;, &#39;long&#39;),  (&#39;top&#39;, &#39;sweater&#39;), (&#39;bottom&#39;, &#39;skirt&#39;)], [(&#39;height&#39;, 1.52)])),</span>
+<span class="mi">17</span><span class="p">:</span>     <span class="p">]</span>
+
+<span class="mi">18</span><span class="p">:</span> <span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">train_data</span><span class="p">)</span>
+
+<span class="mi">19</span><span class="p">:</span> <span class="n">test_data</span> <span class="o">=</span> <span class="p">[</span>
+<span class="mi">20</span><span class="p">:</span>    <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;short&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;T shirt&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;jeans&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.81</span><span class="p">)]),</span>
+<span class="mi">21</span><span class="p">:</span>    <span class="n">datum</span><span class="p">([(</span><span class="s">&#39;hair&#39;</span><span class="p">,</span> <span class="s">&#39;long&#39;</span><span class="p">),</span>  <span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span> <span class="s">&#39;shirt&#39;</span><span class="p">),</span>   <span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="s">&#39;skirt&#39;</span><span class="p">)],</span> <span class="p">[(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="mf">1.50</span><span class="p">)]),</span>
+<span class="mi">22</span><span class="p">:</span> <span class="p">]</span>
+
+<span class="mi">23</span><span class="p">:</span> <span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">test_data</span><span class="p">)</span>
+
+<span class="mi">24</span><span class="p">:</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+<span class="mi">25</span><span class="p">:</span>     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+<span class="mi">26</span><span class="p">:</span>        <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">score</span>
+<span class="mi">27</span><span class="p">:</span>     <span class="k">print</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p><strong>gender.json</strong></p>
+<p>The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.</p>
+<blockquote>
+<div><ul class="simple">
+<li>method</li>
+</ul>
+<blockquote>
+<div>Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.</div></blockquote>
+<ul class="simple">
+<li>converter</li>
+</ul>
+<blockquote>
+<div>Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of &#8216;length of hair&#8217;, &#8216;top clothes&#8217;, &#8216;bottom clothese&#8217; and &#8216;height&#8217;. The &#8220;string_values&#8221; and &#8220;num_values&#8221; are stored in key-value pairs without using &#8220;*_filter_types&#8221; configuration.</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<blockquote>
+<div>Specify the parameter that passed to the algorithm. The parameter varis when the method is changed. In this example, the method is specified as &#8216;AROW&#8217;, with [regularization_weight: 1.0]. In addition, the parameter &#8216;regularization_weight&#8217; in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When &#8216;regularization_weight&#8217; parameter becomes bigger, the learning spead will increase, while the noice will decrease.</div></blockquote>
+</div></blockquote>
+<p><strong>gender.py</strong></p>
+<p>We explain the learning and prediction processes in this example codes.</p>
+<p>First of all, to write the Client program for Classifier, we can use the ClassifierClient class defined in &#8216;jubatus.classifier&#8217;. There are two methods used in this program. The &#8216;train&#8217; method for learning process, and the &#8216;classify&#8217; method for prediction with the data learnt.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>How to connect to Jubatus Server</li>
+</ol>
+<blockquote>
+<div>Connect to Jubatus Server (Row 7).
+Setting the IP addr., RPC port of Jubatus Server.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Prepare the learning data</li>
+</ol>
+<blockquote>
+<div><p>Make a train_data array list for the data to be learnt (Row 8-17).</p>
+<p>The dataset is input into the train() method (Row 18), for the learning process. The figure below shows the structure of the data being leant.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="9">TupleStringDatum</th>
+</tr>
+<tr class="row-even"><th class="head">label(String)</th>
+<th class="head" colspan="8">Datum</th>
+</tr>
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head" colspan="2">TupleStringString</th>
+<th class="head" colspan="2">TupleStringDoubel</th>
+<th class="head" colspan="2">TupleStringString</th>
+<th class="head" colspan="2">TupleStringDoubel</th>
+</tr>
+<tr class="row-even"><th class="head">&nbsp;</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(String)</th>
+<th class="head">key(String)</th>
+<th class="head">value(double)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>&#8220;Male&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;short&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;sweater&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;jeans&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.70</td>
+</tr>
+<tr class="row-even"><td>&#8220;Female&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;long&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;shirt&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;skirt&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.56</td>
+</tr>
+<tr class="row-odd"><td>&#8220;Male&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;short&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;jacket&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;chino&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.65</td>
+</tr>
+<tr class="row-even"><td>&#8220;Female&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;short&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;T shirt&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;jeans&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.72</td>
+</tr>
+<tr class="row-odd"><td>&#8220;Male&#8221;</td>
+<td>&#8220;hair&#8221;</td>
+<td>&#8220;long&#8221;</td>
+<td>&#8220;top&#8221;</td>
+<td>&#8220;T shirt&#8221;</td>
+<td>&#8220;bottom&#8221;</td>
+<td>&#8220;jeans&#8221;</td>
+<td>&#8220;height&#8221;</td>
+<td>1.82</td>
+</tr>
+</tbody>
+</table>
+<p>TupleStringDatum contains the Datum and its label. In this sample, the label demonstrates the class name each Datum belongs to. Each Datum stores the data in key-value pairs, which is the format readable by Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are two kinds of key-value lists, string_values and num_values. For example, the &#8220;hair&#8221;, &#8220;top&#8221;, &#8220;bottom&#8221; values are in string format, While the &#8220;height&#8220;&#8216;s value is in interger format. Therefore, they are stored sepeately inside each datum.</p>
+<p>Here is the procedure of making study data.</p>
+<p>To make study data, the train_data is generated (Row 8-17).</p>
+<p>In this example, each data has its &#8220;label&#8221; at the begining, and followed by the datum parts including the key-value lists in String:String format and String:Integer format, respecitively.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Model training (update learning model)</li>
+</ol>
+<blockquote>
+<div>We train our learning model by using the method train() at Row 18, with the data generated in step.2 above. The first parameter in train() is the unique name for task identification in Zookeeper.</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Prepare the prediction data</li>
+</ol>
+<blockquote>
+<div>Different from training data, prediction data does not contain its &#8220;lable&#8221;, and it is only stored in the datum unit (Row 19-22).</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>Data prediction</li>
+</ol>
+<blockquote>
+<div>By inputting the testdata arraylist generated in step.4 into the classify() method (Row 23), the prediction result will be stored in the result list (Row 24), and each r.label, r.score stands for the prediction result and the confidence of each input testdata respectively (Row 26).</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="run-the-sample-program">
+<h2>Run the sample program<a class="headerlink" href="#run-the-sample-program" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>［At Jubatus Server］</dt>
+<dd>start &#8220;jubaclassifier&#8221; process.</dd>
+</dl>
+<div class="highlight-python"><pre>$ jubaclassifier --configpath gender.json</pre>
+</div>
+<p>［At Jubatus Client］</p>
+<div class="highlight-python"><pre>$ python gender.py</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="classifier_ruby.html" title="Ruby"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="classifier.html" title="Classifier"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li>
+          <li><a href="classifier.html" >Classifier</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

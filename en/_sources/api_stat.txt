@@ -1,7 +1,7 @@
 Stat
 ----
 
-* See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/stat.idl>`_ for detailed specification.
+* See `IDL definition <https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/stat.idl>`_ for detailed specification.
 
 Configuration
 ~~~~~~~~~~~~~

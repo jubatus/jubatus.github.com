@@ -6,44 +6,68 @@
 
 以下のようなコントリビューションをお待ちしています!
 
-  - バグリポートを投稿してください。Jubatus では `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ を課題追跡システムとして使用しています。
-  - お使いの環境で Jubatus がビルド/実行できたかどうか、 `メーリングリスト <http://groups.google.com/group/jubatus>`_ で教えてください (CPU の種類、OS/コンパイラのバージョンなど)。
-  - フィードバック (コメント、発生した問題、機能の要望など) や、あなたが Jubatus をどのように活用しているか/しようと思っているかを `メーリングリスト`_ で教えてください。
+  - バグリポートや機能要望などを投稿してください。Jubatus では `GitHub Issues <https://github.com/jubatus/jubatus/issues>`_ を課題追跡システムとして使用しています (詳細は以下を参照)。
+  - GitHub issue として登録されているバグを修正したり、フレームワークに新しい機能を実装してください。
   - ドキュメントの改善: `website リポジトリ <https://github.com/jubatus/website>`_ に `pull-request <https://github.com/jubatus/website/pulls>`_ を送ってください。typo や表現の誤りの訂正など、小さな修正も歓迎します。
-  - `GitHub issues <https://github.com/jubatus/jubatus/issues>`_ にあるバグを修正したり、新しい機能をフレームワークに実装してください。
+  - あなたのニーズを  `メーリングリスト <http://groups.google.com/group/jubatus>`_ に投稿してください。
+  - お使いの環境で Jubatus がビルド/実行できたかどうか、 `メーリングリスト`_ で教えてください (CPU の種類、OS/コンパイラのバージョンなど)。
+  - フィードバック (コメント、発生した問題、機能の要望など) や、あなたが Jubatus をどのように活用しているか/しようと思っているかを `メーリングリスト`_ で教えてください。
 
-メーリングリストへの参加
+コミュニティへの参加
 -------------------------------
 
-ユーザと開発者のためのコミュニティとして、 `Google Groups <http://groups.google.com/group/jubatus>`_ にメーリングリストを用意しています。
-他のユーザや開発者と直接やり取りをすることができます。
+次のような、他のユーザや開発者と直接やり取りをすることのできるコミュニティが用意されています。
 
-リポジトリ
-------------
+* `GitHub Issues`_
+* メーリングリスト: `Google Groups <http://groups.google.com/group/jubatus>`_
+* IRC チャンネル (英語: `#jubatus <http://webchat.freenode.net/?channels=jubatus>`_, 日本語: `#jubatusjp <http://webchat.freenode.net/?channels=jubatusjp>`_)
 
-- `Jubatus <http://github.com/jubatus/jubatus>`_
+  * ホスト: chat.freenode.net / ポート: 6667 / UTF-8
 
- - Jubatus フレームワーク
- - ブランチ - `A successful Git branching model <http://nvie.com/posts/a-successful-git-branching-model/>`_ に基づいて `git-flow <https://github.com/nvie/gitflow>`_ を使用しています。
+Issue の書き方
+-------------------------
 
-  - ``master``  : リリース用ブランチ。
-  - ``develop`` : 開発用ブランチ。最新機能はここで公開されています。
+Issue を効率的に処理するため、以下のガイドラインを参考に記入してください。
 
-- `Website <http://github.com/jubatus/website>`_
+* バグリポートについては、開発者がバグの内容を理解して再現できるレベルで記述してください。
 
- - このサイトの `Sphinx <http://sphinx.pocoo.org/>`_ ソースです。
+* それ以外の内容 (機能要望など) については、「なぜその機能が必要なのか」「どういったユーザが利用するのか」などを記述してください。
+
+  * これらは Jubatus コミッタが優先度を判断する基準になります。
+
+Pull-Request ポリシー
+-----------------------
+
+コード/ドキュメントに対する Pull-Request も歓迎しています。
+
+* Pull-Request はすべて、一人以上の Jubatus コミッタがレビューします。 `レビュアー <https://github.com/jubatus/jubatus/wiki/Policy:Reviewers-(ja)>`_ は担当領域ごとに決められています。
+
+* レビューが終わると、Pull-Request は次のいずれかの状態になります:
+
+  * **ACCEPTED**: Pull-Request されたコードがマージされます。コミッタが、マージ後に微調整 (コーディングスタイルの修正など) を行うことがあります。
+
+  * **NEED FIX**: バグや機能上の問題があるか、単体テストが書かれていないため、そのままではマージできません。レビュアーがどのように改善すべきかを提示します。
+
+  * **REJECTED**: 例えば、Jubatus のロードマップに一致しない、または第三者の権利を侵害している可能性があるなどの場合は、Pull-Request をリジェクトすることがあります。このような事態を避けるために、特に大きな変更を加えようとしている場合は、実際に作業を始める前に Jubatus コミッタと取り組もうとする内容についてディスカッションすることをおすすめします。
+
+* Jubatus のロードマップによって、場合によっては Pull-Request のマージに時間がかかる場合もあります。
+
 
 コントリビュータのための Tips
---------------------------------
+----------------------------------
 
-* Jubatus フレームワークにあなたのコードをコントリビュートする場合:
+コードをコントリビュートする場合は、Pull-Request を送る前に以下のポイントを確認してください:
 
- * ``develop`` ブランチをフォークしてから作業を始めてください。
- * pull-request を送る前に、既存の機能が破壊されていないことを確認してください - ``./waf --checkall`` を実行するとすべてのユニットテストが実行されます。
- * ユニットテストを実行するには、ソースコードから Jubatus をビルドできる環境が必要です。
+* 単体テストをパスしていること (``./waf --checkall`` を実行)
 
-  * 必要なツールやライブラリについては :doc:`build` をご覧ください。
-  * Jubatus バイナリパッケージを RHEL で使用している場合は、以下のコマンドでビルド環境がセットアップできます: ``sudo yum install msgpack-devel glog-devel jubatus-mpio-devel jubatus-msgpack-rpc-devel pficommon-devel zookeeper-client-devel mecab-devel ux-devel re2-devel`` 。
-  * Jubatus バイナリパッケージを Ubuntu で使用している場合は、すでにビルド環境が整っています。
+  * 単体テストを実行するには Jubatus のビルド環境が必要です。必要なツールやライブラリについては :doc:`build` を参照してください。
 
- * pull-request は、 ``master`` ではなく ``develop`` ブランチに送ってください。
+* コーディングスタイルのテストをパスしていること (``./waf cpplint`` を実行)
+
+* 該当する場合は、単体テストが追加されていること。Jubatus では単体テストフレームワークとして `Google Test <http://code.google.com/p/googletest/>`_ を使用しています。
+
+* 既存の Issue を修正した場合は、コミットログに "#XXX" の形で Issue No を含めてください。
+
+* 新しいアルゴリズムを実装した場合は、Pull-Request の説明文に参照した論文の情報を含めてください。
+
+* 作業を develop ブランチから開始していることを確認してください。pull-request は、 ``master`` ではなく ``develop`` ブランチに送る必要があります。

@@ -9,4 +9,3 @@ This section describes how to realize your own machine learning algorithms with 
 
    server
    howtogetclients
-   idl_support

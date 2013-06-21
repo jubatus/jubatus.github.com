@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.3',
+        VERSION:     '0.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -429,10 +429,10 @@ If you have only one ZooKeeper server, just specify <tt class="docutils literal"
 <td>Stop Jubatus servers</td>
 </tr>
 <tr class="row-even"><td>save</td>
-<td>Save the model to directory specified by <a class="reference internal" href="#cmdoption-server-t"><em class="xref std std-option">server -t</em></a></td>
+<td>Save the model to directory specified by <a class="reference internal" href="#cmdoption-server-d"><em class="xref std std-option">server -d</em></a></td>
 </tr>
 <tr class="row-odd"><td>load</td>
-<td>Load the model from directory specified by <a class="reference internal" href="#cmdoption-server-t"><em class="xref std std-option">server -t</em></a></td>
+<td>Load the model from directory specified by <a class="reference internal" href="#cmdoption-server-d"><em class="xref std std-option">server -d</em></a></td>
 </tr>
 <tr class="row-even"><td>status</td>
 <td>Print the status of servers, keepers and jubavisors</td>
@@ -472,6 +472,14 @@ If you have only one ZooKeeper server, just specify <tt class="docutils literal"
 <tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ZooKeeper server(s).</p>
 <p>If not specified, environment variable <tt class="docutils literal"><span class="pre">ZK</span></tt> will be used.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-i">
+<tt class="descname">-i</tt><tt class="descclassname"> &lt;id&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--id</tt><tt class="descclassname"> &lt;id&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID of file name to save or load.</p>
+<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">save</span></tt> and <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">load</span></tt>.</p>
+<p>If not specified, the value that specified by <tt class="docutils literal"><span class="pre">--name</span></tt> will be used.</p>
 </dd></dl>
 
 <dl class="option">
@@ -681,14 +689,14 @@ age@num: 31
 <div class="section" id="jenerator">
 <span id="id2"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> generates implementation of keeper, server template and C++ client from extended MessagePack-IDL file. See <a class="reference internal" href="server.html"><em>Using Code Generators</em></a> for details.</p>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> is not installed by default (see <tt class="docutils literal"><span class="pre">src/tools/jenerator</span></tt> in the source tree).</p>
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> is not installed by default (see <tt class="docutils literal"><span class="pre">tools/jenerator</span></tt> in the source tree).</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] idl ...
 </pre></div>
 </div>
 <dl class="option">
 <dt id="cmdoption-jenerator-l">
 <tt class="descname">-l</tt><tt class="descclassname"> &lt;lang&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Language of the client code to generate. Currently <tt class="docutils literal"><span class="pre">cpp</span></tt>, <tt class="docutils literal"><span class="pre">python</span></tt>, and <tt class="docutils literal"><span class="pre">ruby</span></tt> are supported.
+<dd><p>Language of the client code to generate. Currently <tt class="docutils literal"><span class="pre">cpp</span></tt>, <tt class="docutils literal"><span class="pre">java</span></tt>, <tt class="docutils literal"><span class="pre">python</span></tt>, and <tt class="docutils literal"><span class="pre">ruby</span></tt> are supported.
 Specify <tt class="docutils literal"><span class="pre">server</span></tt> if you need to generate servers and keepers.</p>
 </dd></dl>
 

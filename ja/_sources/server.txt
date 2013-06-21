@@ -2,18 +2,17 @@
 =====================
 
 Jubatus フレームワークを利用した機械学習アルゴリズムの開発では、まず IDL と呼ばれる RPC インタフェース定義ファイルを作成する。
-Jubatus に付属するコード生成器 ``jenerator`` と、MessagePack-IDL のコード生成器 ``mpidl`` を使用することで、IDL から各部品 (サーバ, Keeper, 各言語版のクライアント) を生成することができる。
+Jubatus に付属するコード生成器 ``jenerator`` を使用することで、IDL から各部品 (サーバ, Keeper, 各言語版のクライアント) を生成することができる。
 これらの生成器を利用することで、フレームワークの利用者は機械学習アルゴリズムの実装に集中することができる。
 
 開発の流れ
 -------------------
 
 #. サービスが持つべきRPCインターフェースを IDL で定義する。
-#. ``jenerator`` を用いて、IDL から サーバー、Keeper のコード、共通のデータ構造、C++ クライアントを生成する。
-#. ``mpidl`` を用いて、IDL から C++ 以外の言語 (Python/Ruby/Java など) のクライアントを生成する。
+#. ``jenerator`` を用いて、IDL から サーバー、Keeper のコード、共通のデータ構造、各言語（C++/Python/Ruby/Java）のクライアントを生成する。
 #. RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体、および必要に応じてmix操作を作成する。
 
-`スケルトンプロジェクト <https://github.com/jubatus/jubatus-service-skelton>`_ を利用すると、容易に開発を開始できる。
+`スケルトンプロジェクト <https://github.com/jubatus/jubatus-service-skeleton>`_ を利用すると、容易に開発を開始できる。
 
 IDL を使用する理由
 ---------------------
@@ -68,7 +67,7 @@ RPC インターフェースは `MessagePack-IDL <https://github.com/msgpack/msg
   - ``nolock`` ではロックは行われない。
 
 - "結合方法" には、API 呼び出しに対する複数のサーバからの結果を結合する方法を定義する。
-  利用可能なアグリゲータは `aggregators.hpp <https://github.com/jubatus/jubatus/blob/master/src/framework/aggregators.hpp>`_ に掲載されている。
+  利用可能なアグリゲータは `aggregators.hpp <https://github.com/jubatus/jubatus/blob/master/jubatus/server/framework/aggregators.hpp>`_ に掲載されている。
 
 なお、メソッドの戻り値型に ``void`` は利用できない。
 返り値が必要ない場合は、意味のない ``int`` や ``bool`` 型などを指定する必要がある。

@@ -1,7 +1,7 @@
 Classifier
 ----------
 
-* See `IDL definition <https://github.com/jubatus/jubatus/blob/master/src/server/classifier.idl>`_ for detailed specification.
+* See `IDL definition <https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/classifier.idl>`_ for detailed specification.
 * See :doc:`method` for detailed description of algorithms used in this server.
 
 Configuration
@@ -21,7 +21,7 @@ We show each filed below:
       Value            Method
       ================ ===================================
       ``"perceptron"`` Use perceptron.
-      ``"PA"``         Use Passive Agressive (PA). [Crammer06]_
+      ``"PA"``         Use Passive Aggressive (PA). [Crammer06]_
       ``"PA1"``        Use PA-I. [Crammer06]_
       ``"PA2"``        Use PA-II. [Crammer06]_
       ``"CW"``         Use Confidence Weighted Learning. [Dredze08]_

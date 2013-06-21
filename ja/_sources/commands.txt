@@ -227,8 +227,8 @@ jubactl
    ========= =====================================================================================
    start     Jubatus サーバを起動する
    stop      Jubatus サーバを停止する
-   save      :option:`server -t` で指定されたディレクトリに学習モデルを保存する
-   load      :option:`server -t` で指定されたディレクトリから学習モデルを復元する
+   save      :option:`server -d` で指定されたディレクトリに学習モデルを保存する
+   load      :option:`server -d` で指定されたディレクトリから学習モデルを復元する
    status    サーバ、Keeper および jubavisor の状態を表示する
    ========= =====================================================================================
 
@@ -257,6 +257,14 @@ jubactl
    ZooKeeper サーバの一覧。
 
    指定されない場合は、環境変数 ``ZK`` が使用される。
+
+.. option:: -i <id>, --id <id>
+
+   学習モデルの保存、復元時に利用するファイル名のID。
+
+   ``--cmd save`` または ``--cmd load`` を指定した場合のみ有効である。
+
+   指定されない場合は、``--name` で指定した値が使用される。
 
 .. option:: -B <interface>, --listen_if <interface>
 
@@ -437,7 +445,7 @@ jenerator
 
 ``jenerator`` は拡張 MessagePack-IDL ファイルから、Keeper の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は :doc:`server` を参照すること。
 
-``jenerator`` はデフォルトではインストールされない (ソースの ``src/tools/jenerator`` ディレクトリを参照)。
+``jenerator`` はデフォルトではインストールされない (ソースの ``tools/jenerator`` ディレクトリを参照)。
 
 .. code-block:: none
 
@@ -447,7 +455,7 @@ jenerator
 
 .. option:: -l <lang>
 
-   生成するクライアントコードの言語。現在は ``cpp``, ``python``, ``ruby`` がサポートされている。
+   生成するクライアントコードの言語。現在は ``cpp``, ``java``, ``python``, ``ruby`` がサポートされている。
    ただし、サーバ/Keeper を生成したい場合は ``server`` を指定する。
 
 .. option:: -o <dirpath>

@@ -1,7 +1,7 @@
 Regression
 ----------
 
-* 詳細な仕様は `IDL 定義 <https://github.com/jubatus/jubatus/blob/master/src/server/regression.idl>`_ を参照してください。
+* 詳細な仕様は `IDL 定義 <https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/regression.idl>`_ を参照してください。
 * 使用されているアルゴリズムの詳細については :doc:`method` を参照してください。
 
 
@@ -21,7 +21,7 @@ JSON の各フィールドは以下のとおりである。
       ================ ===================================
       設定値           手法
       ================ ===================================
-      ``"PA"``          Passive Agressive を利用する。 [Crammer06]_
+      ``"PA"``          Passive Aggressive を利用する。 [Crammer06]_
       ================ ===================================
 
 
