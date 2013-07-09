@@ -60,7 +60,7 @@ When contributing your code, check the following points before sending a pull-re
 
 * Pass the unit tests. (run ``./waf --checkall``) 
 
-  * You will need Jubatus build environment to run unit tests. Refer to : doc `#build <https://github.com/jubatus/website/blob/develop/source/en/build.rst>`_ for required tools and libraries.
+  * You will need Jubatus build environment to run unit tests. Refer to :doc:`build` for required tools and libraries.
 
 * Pass the coding style test. (run ``./waf cpplint``)
 
