@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.4',
+        VERSION:     '0.4.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -229,25 +229,25 @@ If the return value is not needed, you must add meaningless type such as <tt cla
 <span class="p">}</span>
 
 <span class="n">service</span> <span class="n">kvs</span> <span class="p">{</span>
-<span class="cp">  #@cht(2) #@update #@pass</span>
+  <span class="cp">#@cht(2) #@update #@pass</span>
   <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="cp">  #@cht(2) #@analysis #@pass</span>
+  <span class="cp">#@cht(2) #@analysis #@pass</span>
   <span class="n">entry</span> <span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">)</span>
 
-<span class="cp">  #@cht(2) #@update #@pass</span>
+  <span class="cp">#@cht(2) #@update #@pass</span>
   <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span><span class="p">)</span>
 
-<span class="cp">  #@broadcast #@update #@pass</span>
+  <span class="cp">#@broadcast #@update #@pass</span>
   <span class="kt">int</span> <span class="n">clear</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">)</span>
 
-<span class="cp">  #@broadcast #@analysis #@merge</span>
+  <span class="cp">#@broadcast #@analysis #@merge</span>
   <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">get_status</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">)</span>
 
-<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="cp">#@broadcast #@update #@all_and</span>
   <span class="kt">bool</span> <span class="n">save</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
 
-<span class="cp">  #@broadcast #@update #@all_and</span>
+  <span class="cp">#@broadcast #@update #@all_and</span>
   <span class="kt">bool</span> <span class="n">load</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
