@@ -95,6 +95,14 @@ Jubatus server provides the machine learning feature.
 
    The update is counted when API that updates the training model (such as ``train`` in the classifier) is called.
 
+.. option:: -Z <seconds>, --zookeeper_timeout <seconds>
+
+   Session timeout between ZooKeeper and Jubatus Server in seconds. [10]
+
+.. option:: -I <seconds>, --interconnect_timeout <seconds>
+
+   Timeout of RPC between Jubatus Servers in seconds. [10]
+
 .. option:: -v, --version
 
    Print the version of Jubatus server.
@@ -140,6 +148,14 @@ In distributed environment, Jubatus Keeper distributes requests from clients to 
    Session timeout of RPC in seconds. [10]
 
    ``0`` means disable timeout.
+
+.. option:: -Z <seconds>, --zookeeper_timeout <seconds>
+
+   Session timeout between ZooKeeper and Jubatus Keeper in seconds. [10]
+
+.. option:: -I <seconds>, --interconnect_timeout <seconds>
+
+   Timeout of RPC between Jubatus Keeper and Jubatus Servers in seconds. [10]
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -317,6 +333,18 @@ jubactl
 .. option:: -I <count>, --interval_count <count>
 
    Option given when starting new server process (:option:`server -i`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -Z <seconds>, --zookeeper_timeout <seconds>
+
+   Option given when starting new server process (:option:`server -Z`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -R <seconds>, --interconnect_timeout <seconds>
+
+   Option given when starting new server process (:option:`server -I`).
 
    Effective only when used with ``--cmd start``.
 

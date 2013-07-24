@@ -132,4 +132,9 @@ Jubatus Team Members
   :github: luomin
   :email: luo.min@lab.ntt.co.jp
 
-
+.. jubamember::
+  :name: Takaya Saito
+  :role: Developer
+  :github: gintenlabo
+  :twitter: SubaruG
+  :email: saito_takaya_u4@lab.ntt.co.jp

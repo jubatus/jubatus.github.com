@@ -142,3 +142,11 @@ Jubatus チームメンバ
   :goal: Expanding Realtime(Jubatus) market by combining with DWH. Improving Jubatus performance by techniques in DBMS field.
   :github: luomin
   :email: luo.min@lab.ntt.co.jp
+
+.. jubamember::
+  :name: 齋藤 昂也
+  :role: Developer
+  :goal: コード整理，プラグイン機能の追加
+  :github: gintenlabo
+  :twitter: SubaruG
+  :email: saito_takaya_u4@lab.ntt.co.jp

@@ -111,7 +111,7 @@
 <li><a class="reference internal" href="#jubaconfig">jubaconfig</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">ユーティリティ</a><ul>
+<li><a class="reference internal" href="#id2">ユーティリティ</a><ul>
 <li><a class="reference internal" href="#jubaconv">jubaconv</a></li>
 <li><a class="reference internal" href="#jenerator">jenerator</a></li>
 </ul>
@@ -265,6 +265,18 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 </dd></dl>
 
 <dl class="option">
+<dt id="cmdoption-server-Z">
+<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-Z" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ZooKeeper セッションのタイムアウト時間 (秒)。 [10]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-server-I">
+<tt class="descname">-I</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-I" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Jubatus サーバ間で利用する RPC リクエストのタイムアウト時間 (秒)。 [10]</p>
+</dd></dl>
+
+<dl class="option">
 <dt id="cmdoption-server-v">
 <tt class="descname">-v</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-server-v" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>Jubatus サーバのバージョンを表示する。</p>
@@ -314,6 +326,18 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-t" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC セッションのタイムアウト時間 (秒)。 [10]</p>
 <p><tt class="docutils literal"><span class="pre">0</span></tt> はタイムアウトを無効にすることを示す。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-keeper-Z">
+<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-Z" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ZooKeeper セッションのタイムアウト時間 (秒)。 [10]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-keeper-I">
+<tt class="descname">-I</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-I" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Jubatus Keeper と Jubatus サーバ間の RPC リクエストのタイムアウト時間 (秒)。 [10]</p>
 </dd></dl>
 
 <dl class="option">
@@ -480,7 +504,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <tt class="descname">-i</tt><tt class="descclassname"> &lt;id&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--id</tt><tt class="descclassname"> &lt;id&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>学習モデルの保存、復元時に利用するファイル名のID。</p>
 <p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">save</span></tt> または <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">load</span></tt> を指定した場合のみ有効である。</p>
-<p>指定されない場合は、<a href="#id2"><span class="problematic" id="id3">``</span></a>&#8211;name` で指定した値が使用される。</p>
+<p>指定されない場合は、 <tt class="docutils literal"><span class="pre">--name</span></tt> で指定した値が使用される。</p>
 </dd></dl>
 
 <dl class="option">
@@ -543,6 +567,20 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dt id="cmdoption-jubactl-I">
 <tt class="descname">-I</tt><tt class="descclassname"> &lt;count&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname"> &lt;count&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-I" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-i"><em class="xref std std-option">server -i</em></a>).</p>
+<p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-Z">
+<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-Z" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-Z"><em class="xref std std-option">server -Z</em></a>).</p>
+<p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-R">
+<tt class="descname">-R</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-R" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-I"><em class="xref std std-option">server -I</em></a>).</p>
 <p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
 </dd></dl>
 
@@ -636,10 +674,10 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 
 </div>
 </div>
-<div class="section" id="id4">
-<h2>ユーティリティ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>ユーティリティ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="jubaconv">
-<span id="id5"></span><h3>jubaconv<a class="headerlink" href="#jubaconv" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id3"></span><h3>jubaconv<a class="headerlink" href="#jubaconv" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jubaconv</span></tt> は fv_converter の設定をテストするためのツールである。</p>
 <p><tt class="docutils literal"><span class="pre">jubaconv</span></tt> は fv_converter 内部の動作をシミュレーションし、変換結果をコマンドラインで表示することができる。</p>
 <p>利用例を以下に示す:</p>
@@ -688,7 +726,7 @@ age@num: 31
 
 </div>
 <div class="section" id="jenerator">
-<span id="id6"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id4"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Keeper の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は <a class="reference internal" href="server.html"><em>コード生成器の利用</em></a> を参照すること。</p>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> はデフォルトではインストールされない (ソースの <tt class="docutils literal"><span class="pre">tools/jenerator</span></tt> ディレクトリを参照)。</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] &lt;idl-file&gt; ...
