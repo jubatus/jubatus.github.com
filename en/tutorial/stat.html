@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Tutorial" href="../tutorial.html" />
     <link rel="next" title="Python" href="stat_python.html" />
-    <link rel="prev" title="Java" href="graph_java.html" /> 
+    <link rel="prev" title="Python" href="graph_python.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="stat_python.html" title="Python"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="graph_java.html" title="Java"
+          <a href="graph_python.html" title="Python"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
@@ -112,8 +112,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="graph_java.html"
-                        title="previous chapter">Java</a></p>
+  <p class="topless"><a href="graph_python.html"
+                        title="previous chapter">Python</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="stat_python.html"
                         title="next chapter">Python</a></p>
@@ -149,39 +149,43 @@
             
   <div class="section" id="stat">
 <h1>Stat<a class="headerlink" href="#stat" title="Permalink to this headline">¶</a></h1>
-<p>In this sample program, we will introduce how to use the statistical analysis function &#8216;stat&#8217; through the Jubatus Client.</p>
-<p>By setting windows on time-series data for the statistical analysis, you can utilize the abnormal data detection and sensor monitoring, and etc.</p>
+<p>In this sample program, we will introduce how to use the statistical analysis function <tt class="docutils literal"><span class="pre">jubastat</span></tt> through the Jubatus Client.</p>
+<p>By setting windows on time-series data for the statistical analysis, you can utilize the abnormal data detection, sensor monitoring and etc.</p>
 <div class="section" id="abstract-of-sample-program">
 <h2>Abstract of sample program<a class="headerlink" href="#abstract-of-sample-program" title="Permalink to this headline">¶</a></h2>
-<p>In this sample, we will study the &#8216;price&#8217;, &#8216;weight&#8217;, &#8216;diameter&#8217; of orange, apples and melon. Program [trivial_stat] is used for the statistical analysis, such as standard deviation and tatal value of the parameter, in each fruit.</p>
-<p>At first, please download the artificially created fruit-data from (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/trivial_stat/dat/fruit.csv">fruit.csv</a>). It is used to training the statistical model at the server site.</p>
-<p>Next, StatClient methods will be called to return the total value and the standard deviation of each fruit.</p>
+<p>In this sample, we will study the &#8216;price&#8217;, &#8216;weight&#8217;, &#8216;diameter&#8217; of orange, apples and melon. Program <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/trivial_stat">trivial_stat</a> is used for the statistical analysis, such as standard deviation and total value of the parameter, in each fruit.</p>
+<p>At first, please download the artificially created fruit-data from (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/trivial_stat/dat/fruit.csv">fruit.csv</a>). It is used to training the statistical model in <tt class="docutils literal"><span class="pre">jubastat</span></tt> .</p>
+<p>Next, we will call methods to get the total value and the standard deviation of each fruit.</p>
 </div>
 <div class="section" id="processing-flow">
 <h2>Processing flow<a class="headerlink" href="#processing-flow" title="Permalink to this headline">¶</a></h2>
-<p>Main flow of using Jubatus Client</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Connection settings to Jubatus Server</li>
+<p>The flow of development using Jubatus Client is following:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Connection settings to <tt class="docutils literal"><span class="pre">jubastat</span></tt></dt>
+<dd><p class="first last">Setting the HOST and RPC port of <tt class="docutils literal"><span class="pre">jubastat</span></tt> .</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Prepare the training data</dt>
+<dd><p class="first last">Read the fruit-data from the downloaded CSV file line by line.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Data training (update the model)</dt>
+<dd><p class="first last">Use the <tt class="docutils literal"><span class="pre">push</span></tt> method to send the fruit-data to <tt class="docutils literal"><span class="pre">jubastat</span></tt> and training the model there.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Output the result</dt>
+<dd><p class="first last">Use the methods to get total-value, standard deviation, etc. And output them.</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>Setting the HOST, RPC port of Jubatus Server</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>Prepare the training data</li>
-</ol>
-<blockquote>
-<div>Read the fruit-data from the downloaded .CSV file line by line.</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>Data training (update the model)</li>
-</ol>
-<blockquote>
-<div>Use the push() method to send the fruit-data to the server site and training the model there.</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>Output the result</li>
-</ol>
-<blockquote>
-<div>Use the methods in statClient to get total-value, standard deviation, etc.; and output the result</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="sample-program">
 <h2>Sample Program<a class="headerlink" href="#sample-program" title="Permalink to this headline">¶</a></h2>
@@ -193,20 +197,9 @@
 <li class="toctree-l2"><a class="reference internal" href="stat_python.html#run-the-sample-program">Run the sample program</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="stat_ruby.html">Ruby</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="stat_ruby.html#source-code">Source_code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_ruby.html#explanation">Explanation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_ruby.html#run-the-sample-program">Run the sample program</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="stat_java.html">Java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="stat_java.html#source-code">Source_code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_java.html#explanation">Explanation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_java.html#run-the-sample-program">Run the sample program</a></li>
-</ul>
-</li>
 </ul>
 </div>
+<p>Currently, we have no sample programs except Python. (We welcome your contribution!)</p>
 </div>
 </div>
 
@@ -226,7 +219,7 @@
           <a href="stat_python.html" title="Python"
              >next</a> |</li>
         <li class="right" >
-          <a href="graph_java.html" title="Java"
+          <a href="graph_python.html" title="Python"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li> 

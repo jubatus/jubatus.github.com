@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
-    <link rel="next" title="Graph" href="api_graph.html" />
+    <link rel="next" title="Clustering" href="api_clustering.html" />
     <link rel="prev" title="Anomaly" href="api_anomaly.html" /> 
 
 <!--
@@ -85,7 +85,7 @@
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="api_graph.html" title="Graph"
+          <a href="api_clustering.html" title="Clustering"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"
@@ -115,8 +115,8 @@
   <p class="topless"><a href="api_anomaly.html"
                         title="前の章へ">Anomaly</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="api_graph.html"
-                        title="次の章へ">Graph</a></p>
+  <p class="topless"><a href="api_clustering.html"
+                        title="次の章へ">Clustering</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/api_stat.txt"
@@ -179,50 +179,48 @@ JSON の各フィールドは以下のとおりである。</p>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
 <dl class="service">
 <dt>
 <em class="property">service </em><tt class="descname">stat</tt></dt>
 <dd><dl class="method">
-<dt id="stat::push__s.s.double">
-bool <tt class="descname">push</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em>, 2: double <em>val</em><big>)</big><a class="headerlink" href="#stat::push__s.s.double" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::push__s.double">
+bool <tt class="descname">push</tt><big>(</big>0: string <em>key</em>, 1: double <em>value</em><big>)</big><a class="headerlink" href="#stat::push__s.double" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> の値 <tt class="docutils literal"><span class="pre">val</span></tt> を与える。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::sum__s.s">
-double <tt class="descname">sum</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::sum__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::sum__s">
+double <tt class="descname">sum</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::sum__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の合計値を返す。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::stddev__s.s">
-double <tt class="descname">stddev</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::stddev__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::stddev__s">
+double <tt class="descname">stddev</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::stddev__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の標準偏差を返す。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::max__s.s">
-double <tt class="descname">max</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::max__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::max__s">
+double <tt class="descname">max</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::max__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最大値を返す。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::min__s.s">
-double <tt class="descname">min</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::min__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::min__s">
+double <tt class="descname">min</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::min__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の最小値を返す。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::entropy__s.s">
-double <tt class="descname">entropy</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::entropy__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::entropy__s">
+double <tt class="descname">entropy</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::entropy__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値のエントロピーを返す。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::moment__s.s.i.double">
-double <tt class="descname">moment</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em>, 2: int <em>degree</em>, 3: double <em>center</em><big>)</big><a class="headerlink" href="#stat::moment__s.s.i.double" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="stat::moment__s.i.double">
+double <tt class="descname">moment</tt><big>(</big>0: string <em>key</em>, 1: int <em>degree</em>, 2: double <em>center</em><big>)</big><a class="headerlink" href="#stat::moment__s.i.double" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>属性情報 <tt class="docutils literal"><span class="pre">key</span></tt> を持つ値の <tt class="docutils literal"><span class="pre">center</span></tt> を中心とした <tt class="docutils literal"><span class="pre">degree</span></tt> 次のモーメントを返す。</p>
 </dd></dl>
 
@@ -244,7 +242,7 @@ double <tt class="descname">moment</tt><big>(</big>0: string <em>name</em>, 1: s
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="api_graph.html" title="Graph"
+          <a href="api_clustering.html" title="Clustering"
              >次へ</a> |</li>
         <li class="right" >
           <a href="api_anomaly.html" title="Anomaly"

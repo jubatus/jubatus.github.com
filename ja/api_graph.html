@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -46,7 +46,7 @@
     <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Methods" href="method.html" />
-    <link rel="prev" title="Stat" href="api_stat.html" /> 
+    <link rel="prev" title="Clustering" href="api_clustering.html" /> 
 
 <!--
 
@@ -88,7 +88,7 @@
           <a href="method.html" title="Methods"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="api_stat.html" title="Stat"
+          <a href="api_clustering.html" title="Clustering"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -113,8 +113,8 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="api_stat.html"
-                        title="前の章へ">Stat</a></p>
+  <p class="topless"><a href="api_clustering.html"
+                        title="前の章へ">Clustering</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="method.html"
                         title="次の章へ">Methods</a></p>
@@ -254,13 +254,45 @@ JSON の各フィールドは以下のとおりである。</p>
 </dd></dl>
 
 <dl class="message">
+<dt id="query">
+<em class="property">message </em><tt class="descname">query</tt><a class="headerlink" href="#query" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>1つのクエリーを表す。</p>
+<dl class="member">
+<dt id="query::from_id__s">
+0: string <tt class="descname">from_id</tt><a class="headerlink" href="#query::from_id__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="query::to_id__s">
+1: string <tt class="descname">to_id</tt><a class="headerlink" href="#query::to_id__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">query</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">from_id</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">to_id</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="message">
 <dt id="preset_query">
 <em class="property">message </em><tt class="descname">preset_query</tt><a class="headerlink" href="#preset_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>プリセットクエリーを表す。
 詳細は以下の説明を参照すること。</p>
+<dl class="member">
+<dt id="preset_query::edge_query__l:query:">
+0: list&lt;<a class="reference internal" href="#query" title="query">query</a>&gt; <tt class="descname">edge_query</tt><a class="headerlink" href="#preset_query::edge_query__l:query:" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="preset_query::node_query__l:query:">
+1: list&lt;<a class="reference internal" href="#query" title="query">query</a>&gt; <tt class="descname">node_query</tt><a class="headerlink" href="#preset_query::node_query__l:query:" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">preset_query</span> <span class="p">{</span>
-  <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">edge_query</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">node_query</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">query</span><span class="o">&gt;</span> <span class="n">edge_query</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">query</span><span class="o">&gt;</span> <span class="n">node_query</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -301,7 +333,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <dt id="shortest_path_query">
 <em class="property">message </em><tt class="descname">shortest_path_query</tt><a class="headerlink" href="#shortest_path_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>最短パスリクエストの情報を表す。
-詳細は <tt class="docutils literal"><span class="pre">shortest_path</span></tt> メソッドの説明を参照すること。</p>
+詳細は <tt class="docutils literal"><span class="pre">get_shortest_path</span></tt> メソッドの説明を参照すること。</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">shortest_path_query</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">source</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">target</span>
@@ -339,27 +371,27 @@ property: { 'key' : 'value', 'foo' : 'bar' }</pre>
 <dt>
 <em class="property">service </em><tt class="descname">graph</tt></dt>
 <dd><dl class="method">
-<dt id="graph::create_node__s">
-string <tt class="descname">create_node</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#graph::create_node__s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::create_node">
+string <tt class="descname">create_node</tt><big>(</big><big>)</big><a class="headerlink" href="#graph::create_node" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>グラフ内にノードを一つ追加する。
 ノードの ID をstring形式で返す。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::remove_node__s.s">
-bool <tt class="descname">remove_node</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em><big>)</big><a class="headerlink" href="#graph::remove_node__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::remove_node__s">
+bool <tt class="descname">remove_node</tt><big>(</big>0: string <em>node_id</em><big>)</big><a class="headerlink" href="#graph::remove_node__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ノード <tt class="docutils literal"><span class="pre">node_id</span></tt> をグラフ内から削除する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::update_node__s.s.m:s.s:">
-bool <tt class="descname">update_node</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em>, 2: map&lt;string, string&gt; <em>property</em><big>)</big><a class="headerlink" href="#graph::update_node__s.s.m:s.s:" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::update_node__s.m:s.s:">
+bool <tt class="descname">update_node</tt><big>(</big>0: string <em>node_id</em>, 1: map&lt;string, string&gt; <em>property</em><big>)</big><a class="headerlink" href="#graph::update_node__s.m:s.s:" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ノード <tt class="docutils literal"><span class="pre">node_id</span></tt> の属性を <tt class="docutils literal"><span class="pre">property</span></tt> に更新する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::create_edge__s.s.edge">
-ulong <tt class="descname">create_edge</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em>, 2: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><big>)</big><a class="headerlink" href="#graph::create_edge__s.s.edge" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::create_edge__s.edge">
+ulong <tt class="descname">create_edge</tt><big>(</big>0: string <em>node_id</em>, 1: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><big>)</big><a class="headerlink" href="#graph::create_edge__s.edge" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p><tt class="docutils literal"><span class="pre">e.source</span></tt> から <tt class="docutils literal"><span class="pre">e.target</span></tt> に向けたエッジを張る。
 エッジの ID を unsigned long integer 形式で返す。</p>
 <p>このエッジは方向を持つ。
@@ -369,23 +401,23 @@ ulong <tt class="descname">create_edge</tt><big>(</big>0: string <em>name</em>, 
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::update_edge__s.s.L.edge">
-bool <tt class="descname">update_edge</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em>, 2: ulong <em>edge_id</em>, 3: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><big>)</big><a class="headerlink" href="#graph::update_edge__s.s.L.edge" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::update_edge__s.L.edge">
+bool <tt class="descname">update_edge</tt><big>(</big>0: string <em>node_id</em>, 1: ulong <em>edge_id</em>, 2: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><big>)</big><a class="headerlink" href="#graph::update_edge__s.L.edge" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>エッジ <tt class="docutils literal"><span class="pre">edge_id</span></tt> の属性 <tt class="docutils literal"><span class="pre">e</span></tt> で更新する。
 属性は上書きされる。</p>
 <p><tt class="docutils literal"><span class="pre">node_id</span></tt> には <tt class="docutils literal"><span class="pre">e.source</span></tt> と同じ値を指定する必要がある。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::remove_edge__s.s.L">
-bool <tt class="descname">remove_edge</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em>, 2: ulong <em>edge_id</em><big>)</big><a class="headerlink" href="#graph::remove_edge__s.s.L" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::remove_edge__s.L">
+bool <tt class="descname">remove_edge</tt><big>(</big>0: string <em>node_id</em>, 1: ulong <em>edge_id</em><big>)</big><a class="headerlink" href="#graph::remove_edge__s.L" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>指定したエッジ <tt class="docutils literal"><span class="pre">edge_id</span></tt> を取り除く。
 <tt class="docutils literal"><span class="pre">node_id</span></tt> にはエッジ <tt class="docutils literal"><span class="pre">edge_id</span></tt> の接続元のノードの ID を指定する必要がある。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::get_centrality__s.s.i.preset_query">
-double <tt class="descname">get_centrality</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em>, 2: int <em>centrality_type</em>, 3: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::get_centrality__s.s.i.preset_query" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::get_centrality__s.i.preset_query">
+double <tt class="descname">get_centrality</tt><big>(</big>0: string <em>node_id</em>, 1: int <em>centrality_type</em>, 2: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::get_centrality__s.i.preset_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>プリセットクエリー <tt class="docutils literal"><span class="pre">query</span></tt> にマッチする、ノード ID <tt class="docutils literal"><span class="pre">node_id</span></tt> の中心性を計算 (予め算出された値を取得) する。
 クエリーはあらかじめ <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt> で登録しておく必要がある。</p>
 <p><tt class="docutils literal"><span class="pre">centrality_type</span></tt> には中心性の種類を指定する。
@@ -395,32 +427,32 @@ double <tt class="descname">get_centrality</tt><big>(</big>0: string <em>name</e
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::add_centrality_query__s.preset_query">
-bool <tt class="descname">add_centrality_query</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::add_centrality_query__s.preset_query" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::add_centrality_query__preset_query">
+bool <tt class="descname">add_centrality_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::add_centrality_query__preset_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>中心性の算出に使用したいクエリー <tt class="docutils literal"><span class="pre">query</span></tt> を新たに登録する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::add_shortest_path_query__s.preset_query">
-bool <tt class="descname">add_shortest_path_query</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::add_shortest_path_query__s.preset_query" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::add_shortest_path_query__preset_query">
+bool <tt class="descname">add_shortest_path_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::add_shortest_path_query__preset_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>最短パスの算出に使用したいクエリー <tt class="docutils literal"><span class="pre">query</span></tt> を新たに登録する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::remove_centrality_query__s.preset_query">
-bool <tt class="descname">remove_centrality_query</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::remove_centrality_query__s.preset_query" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::remove_centrality_query__preset_query">
+bool <tt class="descname">remove_centrality_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::remove_centrality_query__preset_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>登録済みのクエリー <tt class="docutils literal"><span class="pre">query</span></tt> を削除する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::remove_shortest_path_query__s.preset_query">
-bool <tt class="descname">remove_shortest_path_query</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::remove_shortest_path_query__s.preset_query" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::remove_shortest_path_query__preset_query">
+bool <tt class="descname">remove_shortest_path_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::remove_shortest_path_query__preset_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>登録済みのクエリー <tt class="docutils literal"><span class="pre">query</span></tt> を削除する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::get_shortest_path__s.shortest_path_query">
-list&lt;string&gt; <tt class="descname">get_shortest_path</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="#shortest_path_query" title="shortest_path_query">shortest_path_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::get_shortest_path__s.shortest_path_query" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::get_shortest_path__shortest_path_query">
+list&lt;string&gt; <tt class="descname">get_shortest_path</tt><big>(</big>0: <a class="reference internal" href="#shortest_path_query" title="shortest_path_query">shortest_path_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::get_shortest_path__shortest_path_query" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>プリセットクエリー <tt class="docutils literal"><span class="pre">query.query</span></tt> にマッチする、 <tt class="docutils literal"><span class="pre">query.source</span></tt> から <tt class="docutils literal"><span class="pre">query.target</span></tt> への最短パスを (予め算出された値から) 計算する。
 クエリーはあらかじめ <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt> で登録しておく必要がある。
 <tt class="docutils literal"><span class="pre">query.source</span></tt> から <tt class="docutils literal"><span class="pre">query.target</span></tt> までの経路のノード ID のリストを返す。</p>
@@ -430,22 +462,22 @@ list&lt;string&gt; <tt class="descname">get_shortest_path</tt><big>(</big>0: str
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::update_index__s">
-bool <tt class="descname">update_index</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#graph::update_index__s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::update_index">
+bool <tt class="descname">update_index</tt><big>(</big><big>)</big><a class="headerlink" href="#graph::update_index" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>mix をローカルで実行する。 <strong>この関数は分散環境で利用してはならない。</strong></p>
 <p><tt class="docutils literal"><span class="pre">get_centrality</span></tt> や <tt class="docutils literal"><span class="pre">get_shortest_path</span></tt> などの関数は mix のタイミングでアップデートされるインデックスを参照する。
 スタンドアローン環境では、mix は自動的に呼ばれないため、ユーザ自身でこの API を呼び出す必要がある。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::get_node__s.s">
-<a class="reference internal" href="#node" title="node">node</a> <tt class="descname">get_node</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em><big>)</big><a class="headerlink" href="#graph::get_node__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::get_node__s">
+<a class="reference internal" href="#node" title="node">node</a> <tt class="descname">get_node</tt><big>(</big>0: string <em>node_id</em><big>)</big><a class="headerlink" href="#graph::get_node__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ノード <tt class="docutils literal"><span class="pre">node_id</span></tt> の <tt class="docutils literal"><span class="pre">node</span></tt> を取得する。</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="graph::get_edge__s.s.L">
-<a class="reference internal" href="#edge" title="edge">edge</a> <tt class="descname">get_edge</tt><big>(</big>0: string <em>name</em>, 1: string <em>node_id</em>, 2: ulong <em>edge_id</em><big>)</big><a class="headerlink" href="#graph::get_edge__s.s.L" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="graph::get_edge__s.L">
+<a class="reference internal" href="#edge" title="edge">edge</a> <tt class="descname">get_edge</tt><big>(</big>0: string <em>node_id</em>, 1: ulong <em>edge_id</em><big>)</big><a class="headerlink" href="#graph::get_edge__s.L" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>エッジ <tt class="docutils literal"><span class="pre">edge_id</span></tt> の <tt class="docutils literal"><span class="pre">edge</span></tt> を取得する。
 <tt class="docutils literal"><span class="pre">node_id</span></tt> にはエッジ <tt class="docutils literal"><span class="pre">edge_id</span></tt> の接続元のノードの ID を指定する必要がある。</p>
 </dd></dl>
@@ -471,7 +503,7 @@ bool <tt class="descname">update_index</tt><big>(</big>0: string <em>name</em><b
           <a href="method.html" title="Methods"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="api_stat.html" title="Stat"
+          <a href="api_clustering.html" title="Clustering"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>

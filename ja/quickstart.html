@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -101,9 +101,11 @@
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">クイックスタート</a><ul>
-<li><a class="reference internal" href="#jubatus">Jubatusのインストール</a><ul>
-<li><a class="reference internal" href="#yum-rhel">Yumレポジトリ (RHEL)</a></li>
-<li><a class="reference internal" href="#apt-ubuntu">Apt レポジトリ (Ubuntu)</a></li>
+<li><a class="reference internal" href="#jubatus">Jubatus のインストール</a><ul>
+<li><a class="reference internal" href="#red-hat-enterprise-linux-6-2-64-bit">Red Hat Enterprise Linux 6.2 以降 (64-bit)</a></li>
+<li><a class="reference internal" href="#ubuntu-server-12-04-lts-64-bit">Ubuntu Server 12.04 LTS (64-bit)</a></li>
+<li><a class="reference internal" href="#linux-32-bit">その他の Linux 環境 (32-bit を含む)</a></li>
+<li><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id2">Jubatus クライアントのインストール</a><ul>
@@ -158,21 +160,26 @@
   <div class="section" id="id1">
 <h1>クイックスタート<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="jubatus">
-<h2>Jubatusのインストール<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Ubuntu Server 12.04 LTS (x86_64) と Red Hat Enterprise Linux 6.2 以降 (x86_64) が公式にサポートされています。</p>
-<p>これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
-その他のシステムでのインストールについては <a class="reference internal" href="build.html"><em>Jubatus をソースからビルドする</em></a> を参照してください。</p>
-<div class="section" id="yum-rhel">
-<h3>Yumレポジトリ (RHEL)<a class="headerlink" href="#yum-rhel" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>Jubatus のインストール<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Red Hat Enterprise Linux 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS (64-bit) を公式にサポートしています。
+これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。</p>
+<p>また、その他の Linux 環境 (32-bit を含む) と Mac OS X が試験的にサポートされています。</p>
+<div class="section" id="red-hat-enterprise-linux-6-2-64-bit">
+<h3>Red Hat Enterprise Linux 6.2 以降 (64-bit)<a class="headerlink" href="#red-hat-enterprise-linux-6-2-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
 <div class="highlight-python"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">jubatus</span></tt> と <tt class="docutils literal"><span class="pre">jubatus-client</span></tt> のパッケージをインストールします。</p>
-<div class="highlight-python"><pre>$ sudo yum install jubatus jubatus-client</pre>
+<div class="highlight-python"><pre>// RHEL の場合
+$ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
+
+// RHEL クローン (CentOS, Scientific Linux など) の場合
+$ sudo yum install jubatus jubatus-client</pre>
 </div>
+<p>RHEL では、依存パッケージ (<tt class="docutils literal"><span class="pre">oniguruma</span></tt>) のインストールに <tt class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></tt> リポジトリを使用している点に注意してください。</p>
 </div>
-<div class="section" id="apt-ubuntu">
-<h3>Apt レポジトリ (Ubuntu)<a class="headerlink" href="#apt-ubuntu" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="ubuntu-server-12-04-lts-64-bit">
+<h3>Ubuntu Server 12.04 LTS (64-bit)<a class="headerlink" href="#ubuntu-server-12-04-lts-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下の行を <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></tt> に記述して、Jubatus の Apt リポジトリをシステムに登録します。</p>
 <div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
 </div>
@@ -191,6 +198,15 @@ $ sudo apt-get install jubatus</pre>
 <p>csh または tcsh をお使いの場合は、こちらを使用してください。</p>
 <div class="highlight-python"><pre>$ source /opt/jubatus/profile.csh</pre>
 </div>
+</div>
+<div class="section" id="linux-32-bit">
+<h3>その他の Linux 環境 (32-bit を含む)<a class="headerlink" href="#linux-32-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><a class="reference external" href="https://github.com/jubatus/jubatus-installer">jubatus-installer</a> を使用するか、 <a class="reference internal" href="build.html"><em>Jubatus をソースからビルドする</em></a> を参照してソースからビルドしてください。</p>
+</div>
+<div class="section" id="mac-os-x">
+<h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Homebrew をお使いの場合は、 <a class="reference external" href="https://github.com/jubatus/homebrew-jubatus">tap リポジトリ</a> を使用すると簡単にインストールが行えます。</p>
+<p>それ以外の場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus-installer">jubatus-installer</a> を使用するか、 <a class="reference internal" href="build.html"><em>Jubatus をソースからビルドする</em></a> を参照してソースからビルドしてください。</p>
 </div>
 </div>
 <div class="section" id="id2">
@@ -245,7 +261,7 @@ $ sudo easy_install pip</pre>
   <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>us.jubat<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>jubatus<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.4.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.5.0<span class="nt">&lt;/version&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;/dependencies&gt;</span>
 </pre></div>

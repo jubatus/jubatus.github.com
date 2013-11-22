@@ -69,6 +69,10 @@ Jubatus サーバは機械学習の機能を提供する。
 
    指定されていない場合、Jubatus サーバはスタンドアローンモードで動作する。
 
+.. option:: -m <model>, --model_file <model>
+
+   サーバ起動時に読み込むモデルファイルへのパスを指定する。
+
 .. option:: -n <name>, --name <name>
 
    インスタンス名 (タスクを識別する ZooKeeper クラスタ内でユニークな名前)。
@@ -76,6 +80,13 @@ Jubatus サーバは機械学習の機能を提供する。
    ``--zookeeper`` が指定されている場合のみ、このオプションを指定する必要がある。
 
    ``<name>`` には、ZooKeeper のノード名として使用できない文字 (``/`` など) を使用することはできない。
+
+.. option:: -x <mixer>, --mixer <mixer>
+
+   MIX ノードの選択に使用する MIX 戦略を指定する。 [linear_mixer]
+
+   ``linear_mixer``, ``random_mixer``, ``broadcast_mixer``, ``skip_mixer`` のいずれかが指定できる。
+   エンジンによって、使用可能な MIX 戦略は異なる。
 
 .. option:: -j, --join
 
@@ -97,7 +108,7 @@ Jubatus サーバは機械学習の機能を提供する。
 
 .. option:: -Z <seconds>, --zookeeper_timeout <seconds>
 
-   ZooKeeper セッションのタイムアウト時間 (秒)。 [10]
+   ZooKeeper と Jubatus サーバ間のセッションのタイムアウト時間 (秒)。 [10]
 
 .. option:: -I <seconds>, --interconnect_timeout <seconds>
 
@@ -114,12 +125,12 @@ Jubatus サーバは機械学習の機能を提供する。
 分散環境
 -----------------------
 
-Jubatus Keepers
-~~~~~~~~~~~~~~~
+Jubatus Proxy
+~~~~~~~~~~~~~
 
-Jubatus Keeper は、分散環境においてクライアントからのリクエストをサーバ間で分散する。
+Jubatus Proxy は、分散環境においてクライアントからのリクエストをサーバ間で分散する。
 
-.. program:: keeper
+.. program:: proxy
 
 .. option:: -p <port>, --rpc-port <port>
 
@@ -151,11 +162,11 @@ Jubatus Keeper は、分散環境においてクライアントからのリク�
 
 .. option:: -Z <seconds>, --zookeeper_timeout <seconds>
 
-   ZooKeeper セッションのタイムアウト時間 (秒)。 [10]
+   ZooKeeper と Jubatus Proxy 間のセッションのタイムアウト時間 (秒)。 [10]
 
 .. option:: -I <seconds>, --interconnect_timeout <seconds>
 
-   Jubatus Keeper と Jubatus サーバ間の RPC リクエストのタイムアウト時間 (秒)。 [10]
+   Jubatus Proxy と Jubatus サーバ間の RPC リクエストのタイムアウト時間 (秒)。 [10]
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -187,7 +198,7 @@ Jubatus Keeper は、分散環境においてクライアントからのリク�
 
 .. option:: -v, --version
 
-   Jubatus Keeper のバージョンを表示する。
+   Jubatus Proxy のバージョンを表示する。
 
 .. option:: -?, --help
 
@@ -245,7 +256,7 @@ jubactl
    stop      Jubatus サーバを停止する
    save      :option:`server -d` で指定されたディレクトリに学習モデルを保存する
    load      :option:`server -d` で指定されたディレクトリから学習モデルを復元する
-   status    サーバ、Keeper および jubavisor の状態を表示する
+   status    サーバ、Proxy および jubavisor の状態を表示する
    ========= =====================================================================================
 
 .. option:: -s <program>, --server <program>
@@ -315,6 +326,12 @@ jubactl
 .. option:: -E <level>, --loglevel <level>
 
    サーバプロセスの開始時のオプションを指定する (:option:`server -e`).
+
+   ``--cmd start`` を指定した場合のみ有効である。
+
+.. option:: -X, --mixer
+
+   サーバプロセスの開始時のオプションを指定する (:option:`server -x`).
 
    ``--cmd start`` を指定した場合のみ有効である。
 
@@ -471,7 +488,7 @@ jubaconv
 jenerator
 ~~~~~~~~~
 
-``jenerator`` は拡張 MessagePack-IDL ファイルから、Keeper の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は :doc:`server` を参照すること。
+``jenerator`` は拡張 MessagePack-IDL ファイルから、Proxy の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は :doc:`server` を参照すること。
 
 ``jenerator`` はデフォルトではインストールされない (ソースの ``tools/jenerator`` ディレクトリを参照)。
 
@@ -484,7 +501,7 @@ jenerator
 .. option:: -l <lang>
 
    生成するクライアントコードの言語。現在は ``cpp``, ``java``, ``python``, ``ruby`` がサポートされている。
-   ただし、サーバ/Keeper を生成したい場合は ``server`` を指定する。
+   サーバ/Proxy を生成したい場合は ``server`` を指定する。
 
 .. option:: -o <dirpath>
 
@@ -496,7 +513,7 @@ jenerator
 
    ``#include`` 命令に相対パスを使用する。
 
-   C++ コード (サーバ/Keeper/C++ クライアント) を生成する場合のみ有効である。
+   C++ コード (サーバ/Proxy/C++ クライアント) を生成する場合のみ有効である。
    このオプションは Jubatus 開発者による利用を想定している。
    生成されたコードを Jubatus のソースツリー内でビルドする場合を除き、指定する必要はない。
 
@@ -508,13 +525,13 @@ jenerator
 
    サーバのテンプレートを生成する。
 
-   サーバ/Keeper を生成する場合のみ有効である。
+   サーバ/Proxy を生成する場合のみ有効である。
 
 .. option:: -g <guard>
 
    ヘッダファイルに使用するインクルードガードのプレフィックスを指定する。
 
-   C++ コード (サーバ/Keeper/C++ クライアント) を生成する場合のみ有効である。
+   C++ コード (サーバ/Proxy/C++ クライアント) を生成する場合のみ有効である。
 
 .. option:: -help, --help
 

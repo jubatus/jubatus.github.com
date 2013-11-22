@@ -1,7 +1,7 @@
 Python
 ==========================
 
-Here we explain the Python sample program of Classifier. 
+Here we explain the Python sample program of Classifier.
 
 --------------------------------
 Source_code
@@ -12,77 +12,72 @@ In this sample program, we will explain 1) how to configure the learning-algorit
 
 **gender.json**
 
-.. code-block:: python
+.. code-block:: js
+ :linenos:
 
-
- 01: {
- 02:   "method": "AROW",
- 03:   "converter": {
- 04:     "num_filter_types": {},
- 05:     "num_filter_rules": [],
- 06:     "string_filter_types": {},
- 07:     "string_filter_rules": [],
- 08:     "num_types": {},
- 09:     "num_rules": [
- 10:        { "key": "*", "type": "num"}
- 11:         ],
- 12:    "string_types": {
- 13:         },
- 14:    "string_rules": [
- 15:        { "key": "*", "type": "str", "sample_weight": "bin", "global_weight": "bin" }
- 16:         ]
- 17:     },
- 18:   "parameter": {
- 19:     "regularization_weight" : 1.0
- 20:     }
- 21: }
-
-
-
+ {
+   "method": "AROW",
+   "converter": {
+     "num_filter_types": {},
+     "num_filter_rules": [],
+     "string_filter_types": {},
+     "string_filter_rules": [],
+     "num_types": {},
+     "num_rules": [],
+     "string_types": {
+       "unigram": { "method": "ngram", "char_num": "1" }
+     },
+     "string_rules": [
+       { "key": "*", "type": "unigram", "sample_weight": "bin", "global_weight": "bin" }
+     ]
+   },
+   "parameter": {
+     "regularization_weight" : 1.0
+   }
+ }
 
 **gender.py**
 
 .. code-block:: python
+ :linenos:
 
- 01: #!/usr/bin/env python 
- 02: host = '127.0.0.1' 
- 03: port = 9199 
- 04: name = 'test' 
+ #!/usr/bin/env python
 
- 05: import jubatus 
- 06: from jubatus.classifier.types import datum
+ host = '127.0.0.1'
+ port = 9199
+ name = 'test'
 
- 07: client = jubatus.Classifier(host, port)
+ import jubatus
+ from jubatus.common import Datum
 
- 08: train_data = [
- 09:     ('male',   datum([('hair', 'short'), ('top', 'sweater'), ('bottom', 'jeans')], [('height', 1.70)])),
- 10:     ('female', datum([('hair', 'long'),  ('top', 'shirt'),   ('bottom', 'skirt')], [('height', 1.56)])),
- 11:     ('male',   datum([('hair', 'short'), ('top', 'jacket'),  ('bottom', 'chino')], [('height', 1.65)])),
- 12:     ('female', datum([('hair', 'short'), ('top', 'T shirt'), ('bottom', 'jeans')], [('height', 1.72)])),
- 13:     ('male',   datum([('hair', 'long'),  ('top', 'T shirt'), ('bottom', 'jeans')], [('height', 1.82)])),
- 14:     ('female', datum([('hair', 'long'),  ('top', 'jacket'),  ('bottom', 'skirt')], [('height', 1.43)])),
- 15: #    ('male',   datum([('hair', 'short'), ('top', 'jacket'),  ('bottom', 'jeans')], [('height', 1.76)])),
- 16: #    ('female', datum([('hair', 'long'),  ('top', 'sweater'), ('bottom', 'skirt')], [('height', 1.52)])),
- 17:     ]
+ client = jubatus.Classifier(host, port, name)
 
- 18: client.train(name, train_data)
+ train_data = [
+     (   ('male',   Datum({'hair': 'short', 'top': 'sweater', 'bottom': 'jeans', 'height': 1.70})),
+     ('female', Datum({'hair': 'long',  'top': 'shirt',   'bottom': 'skirt', 'height': 1.56})),
+     ('male',   Datum({'hair': 'short', 'top': 'jacket',  'bottom': 'chino', 'height': 1.65})),
+     ('female', Datum({'hair': 'short', 'top': 'T shirt', 'bottom': 'jeans', 'height': 1.72})),
+     ('male',   Datum({'hair': 'long',  'top': 'T shirt', 'bottom': 'jeans', 'height': 1.82})),
+     ('female', Datum({'hair': 'long',  'top': 'jacket',  'bottom': 'skirt', 'height': 1.43})),
+ #    ('male',   Datum({'hair': 'short', 'top': 'jacket',  'bottom': 'jeans', 'height': 1.76})),
+ #    ('female', Datum({'hair': 'long',  'top': 'sweater', 'bottom': 'skirt', 'height': 1.52})),
+     ]
 
- 19: test_data = [
- 20:    datum([('hair', 'short'), ('top', 'T shirt'), ('bottom', 'jeans')], [('height', 1.81)]),
- 21:    datum([('hair', 'long'),  ('top', 'shirt'),   ('bottom', 'skirt')], [('height', 1.50)]),
- 22: ]
+ client.train(train_data)
 
- 23: results = client.classify(name, test_data)
+ test_data = [
+      Datum({'hair': 'short', 'top': 'T shirt', 'bottom': 'jeans', 'height': 1.81}),
+      Datum({'hair': 'long',  'top': 'shirt',   'bottom': 'skirt', 'height': 1.50}),
+ ]
 
- 24: for result in results:
- 25:     for r in result:
- 26:        print r.label, r.score
- 27:     print
+ results = client.classify(test_data)
+
+ for result in results:
+     for r in result:
+         print(r.label, r.score)
+     print
 
 
- 
-
- 
 --------------------------------
 Explanation
 --------------------------------
@@ -91,93 +86,89 @@ Explanation
 
 The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.
 
- * method
- 
-  Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.
+* method
+    Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.
 
- * converter
- 
-  Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of 'length of hair', 'top clothes', 'bottom clothese' and 'height'. The "string_values" and "num_values" are stored in key-value pairs without using "\*_filter_types" configuration.
-   
- * parameter
+* converter
+    Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of 'length of hair', 'top clothes', 'bottom clothese' and 'height'. The "string_values" and "num_values" are stored in key-value pairs without using "\*_filter_types" configuration.
 
-  Specify the parameter that passed to the algorithm. The parameter varis when the method is changed. In this example, the method is specified as 'AROW', with [regularization_weight: 1.0]. In addition, the parameter 'regularization_weight' in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When 'regularization_weight' parameter becomes bigger, the learning spead will increase, while the noice will decrease.
-   
-   
-   
+* parameter
+    Specify the parameter that passed to the algorithm. The parameter varies when the method is changed. In this example, the method is specified as 'AROW', with [regularization_weight: 1.0]. In addition, the parameter 'regularization_weight' in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When 'regularization_weight' parameter becomes bigger, the learning spead will increase, while the noice will decrease.
+
 **gender.py**
 
 We explain the learning and prediction processes in this example codes.
 
-First of all, to write the Client program for Classifier, we can use the ClassifierClient class defined in 'jubatus.classifier'. There are two methods used in this program. The 'train' method for learning process, and the 'classify' method for prediction with the data learnt.
+First of all, to write the Client program for Classifier, we can use the ClassifierClient class defined in 'jubatus.Classifier'. There are two methods used in this program. The 'train' method for learning process, and the 'classify' method for prediction with the data learnt.
 
- 1. How to connect to Jubatus Server
+1. How to connect to Jubatus Server
+    Connect to Jubatus Server (Line 10).
 
-  Connect to Jubatus Server (Row 7).
-  Setting the IP addr., RPC port of Jubatus Server.
+    Setting the IP addr, RPC port of Jubatus Server and the unique name for task identification in Zookeeper.
 
- 2. Prepare the learning data
+2. Prepare the learning data
+    Make a train_data array list for the data to be learnt (Line 12-21).
 
-  Make a train_data array list for the data to be learnt (Row 8-17).
-  
-  The dataset is input into the train() method (Row 18), for the learning process. The figure below shows the structure of the data being leant.
+    The dataset is input into the train() method (Line 23), for the learning process. The figure below shows the structure of the data being leant.
 
+    +----------------------------------------------------------------------------------------------------+
+    |list<tuple<string, Datum>>                                                                          |
+    +-------------+--------------------------------------------------------------------------------------+
+    |label(string)|Datum                                                                                 |
+    +-------------+----------------------------+----------------------------+----------------------------+
+    |             |list<tuple<string, string>> |list<tuple<string, double>> |list<tuple<string, string>> |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |             |key(string) |value(string)  |key(string) |value(double)  |key(string) |value(string)  |
+    +=============+============+===============+============+===============+============+===============+
+    |"male"       | | "hair"   | | "short"     | "height"   | 1.70          |            |               |
+    |             | | "top"    | | "sweater"   |            |               |            |               |
+    |             | | "bottom" | | "jeans"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"female"     | | "hair"   | | "long"      | "height"   | 1.56          |            |               |
+    |             | | "top"    | | "shirt"     |            |               |            |               |
+    |             | | "bottom" | | "skirt"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"male"       | | "hair"   | | "short"     | "height"   | 1.65          |            |               |
+    |             | | "top"    | | "jacket"    |            |               |            |               |
+    |             | | "bottom" | | "chino"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"female"     | | "hair"   | | "short"     | "height"   | 1.72          |            |               |
+    |             | | "top"    | | "T shirt"   |            |               |            |               |
+    |             | | "bottom" | | "jeans"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"male"       | | "hair"   | | "long"      | "height"   | 1.82          |            |               |
+    |             | | "top"    | | "T shirt"   |            |               |            |               |
+    |             | | "bottom" | | "jeans"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"female"     | | "hair"   | | "long"      | "height"   | 1.43          |            |               |
+    |             | | "top"    | | "jacket"    |            |               |            |               |
+    |             | | "bottom" | | "skirt"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
 
-  +---------------------------------------------------------------------------------------------------------------------+
-  |                                                 TupleStringDatum                                                    |
-  +-------------+-------------------------------------------------------------------------------------------------------+
-  |label(String)|                                                  Datum                                                |
-  +-------------+-------------------------+-------------------------+-------------------------+-------------------------+
-  |             |TupleStringString        |TupleStringDoubel        |TupleStringString        |TupleStringDoubel        |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |             |key(String)|value(String)|key(String)|value(String)|key(String)|value(String)|key(String)|value(double)|
-  +=============+===========+=============+===========+=============+===========+=============+===========+=============+
-  |"Male"       |"hair"     |"short"      |"top"      | "sweater"   |"bottom"   |"jeans"      | "height"  |    1.70     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Female"     |"hair"     |"long"       |"top"      | "shirt"     |"bottom"   |"skirt"      | "height"  |    1.56     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Male"       |"hair"     |"short"      |"top"      | "jacket"    |"bottom"   |"chino"      | "height"  |    1.65     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Female"     |"hair"     |"short"      |"top"      | "T shirt"   |"bottom"   |"jeans"      | "height"  |    1.72     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Male"       |"hair"     |"long"       |"top"      | "T shirt"   |"bottom"   |"jeans"      | "height"  |    1.82     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
+    train_data is the list of Datum and its label. In this sample, the label demonstrates the class name each Datum belongs to. Each Datum stores the data in key-value pairs, which is the format readable by Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are 3 kinds of key-value lists, string_values, num_values and binary_values. For example, the "hair", "top", "bottom" values are in string format, While the "height" value is in numeric format. Therefore, they are stored separately inside each Datum.
 
-  TupleStringDatum contains the Datum and its label. In this sample, the label demonstrates the class name each Datum belongs to. Each Datum stores the data in key-value pairs, which is the format readable by Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are two kinds of key-value lists, string_values and num_values. For example, the "hair", "top", "bottom" values are in string format, While the "height"'s value is in interger format. Therefore, they are stored sepeately inside each datum.
-  
-  Here is the procedure of making study data.
+3. Model training (update learning model)
+    We train our learning model by using the method train() at Line 23, with the data generated in step.2 above.
 
-  To make study data, the train_data is generated (Row 8-17).
+4. Prepare the prediction data
+    Different from training data, prediction data does not contain its "lable", and it is only stored in the Datum unit (Line 25-28).
 
-  In this example, each data has its "label" at the begining, and followed by the datum parts including the key-value lists in String:String format and String:Integer format, respecitively. 
-
- 3. Model training (update learning model)
-
-  We train our learning model by using the method train() at Row 18, with the data generated in step.2 above. The first parameter in train() is the unique name for task identification in Zookeeper.
-
- 4. Prepare the prediction data
-
-  Different from training data, prediction data does not contain its "lable", and it is only stored in the datum unit (Row 19-22). 
-
- 5. Data prediction
-
-  By inputting the testdata arraylist generated in step.4 into the classify() method (Row 23), the prediction result will be stored in the result list (Row 24), and each r.label, r.score stands for the prediction result and the confidence of each input testdata respectively (Row 26).
+5. Data prediction
+    By inputting the test_data list generated in step.4 into the classify() method (Line 30), the prediction result will be stored in the result list (Line 32). The prediction result contains label and score means the confidence of each label (Line 34).
 
 
 ------------------------------------
 Run the sample program
 ------------------------------------
 
-［At Jubatus Server］
- start "jubaclassifier" process.
+* At Jubatus Server
+    start "jubaclassifier" process.
 
-::
+    ::
 
- $ jubaclassifier --configpath gender.json
+     $ jubaclassifier --configpath gender.json
 
-［At Jubatus Client］
+* At Jubatus Client
+    ::
 
-::
-
- $ python gender.py
-
+     $ python gender.py

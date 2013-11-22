@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -106,7 +106,7 @@
 <li><a class="reference internal" href="#requirements">要件</a><ul>
 <li><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
 <li><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
-<li><a class="reference internal" href="#id2">その他の環境</a></li>
+<li><a class="reference internal" href="#id5">その他の環境</a></li>
 </ul>
 </li>
 </ul>
@@ -188,25 +188,25 @@
 <td>✔</td>
 <td>C++ クライアントライブラリが必要である。</td>
 </tr>
-<tr class="row-odd"><td>pficommon</td>
-<td>master</td>
-<td>✔</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>google-glog</td>
+<tr class="row-odd"><td>google-glog</td>
 <td>&gt;= 0.3.3</td>
 <td>✔</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>mecab</td>
+<tr class="row-even"><td>oniguruma</td>
+<td>&gt;= 5.9</td>
+<td><a class="footnote-reference" href="#id4" id="id2">[1]</a></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>re2</td>
+<td>master</td>
+<td><a class="footnote-reference" href="#id4" id="id3">[1]</a></td>
+<td><tt class="docutils literal"><span class="pre">--enable-re2</span></tt> ありでビルドする場合のみ。</td>
+</tr>
+<tr class="row-even"><td>mecab</td>
 <td>&gt;= 0.99</td>
 <td>&nbsp;</td>
 <td><tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> ありでビルドする場合のみ。</td>
-</tr>
-<tr class="row-even"><td>re2</td>
-<td>master</td>
-<td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--disable-re2</span></tt> <em>なし</em> でビルドする場合のみ。</td>
 </tr>
 <tr class="row-odd"><td>ux-trie</td>
 <td>master</td>
@@ -221,15 +221,22 @@ C クライアントライブラリが必要である。</td>
 </tr>
 </tbody>
 </table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> 正規表現ライブラリとして、oniguruma または re2 のいずれかが必須です。
+ビルド時に <tt class="docutils literal"><span class="pre">--enable-re2</span></tt> が指定されない限り、oniguruma が使用されます。</td></tr>
+</tbody>
+</table>
 <p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
 バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
 <a class="reference external" href="http://msgpack.org/">msgpack</a>,
 <a class="reference external" href="https://github.com/jubatus/jubatus-mpio">jubatus-mpio</a>,
 <a class="reference external" href="https://github.com/jubatus/jubatus-msgpack-rpc">jubatus-msgpack-rpc</a>,
-<a class="reference external" href="https://github.com/pfi/pficommon">pficommon</a>,
 <a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a>,
-<a class="reference external" href="http://code.google.com/p/mecab/">mecab</a>,
+<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">oniguruma</a>,
 <a class="reference external" href="http://code.google.com/p/re2/">re2</a>,
+<a class="reference external" href="http://code.google.com/p/mecab/">mecab</a>,
 <a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a>,
 <a class="reference external" href="http://zookeeper.apache.org/">zookeeper</a>
 )。</p>
@@ -238,7 +245,7 @@ C クライアントライブラリが必要である。</td>
 <p>Ubuntu 12.04 でのビルドを行う例です。</p>
 <div class="highlight-python"><pre>$ sudo apt-get install build-essential git-core pkg-config
 
-$ sudo apt-get install libmsgpack-dev
+$ sudo apt-get install libmsgpack-dev libonig-dev
 
 $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
 $ tar xzf jubatus_mpio-0.4.1.tar.gz
@@ -256,14 +263,6 @@ $ make
 $ sudo make install
 $ cd ..
 
-$ wget -O pficommon-master.tar.gz https://github.com/pfi/pficommon/archive/master.tar.gz
-$ tar xzf pficommon-master.tar.gz
-$ cd pficommon-master
-$ ./waf configure
-$ ./waf build
-$ sudo ./waf install
-$ cd ..
-
 $ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
 $ tar xzf glog-0.3.3.tar.gz
 $ cd glog-0.3.3
@@ -276,7 +275,7 @@ $ cd ..</pre>
 <div class="highlight-python"><pre>$ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
 $ tar xzf jubatus-master.tar.gz
 $ cd jubatus-master
-$ ./waf configure --disable-re2
+$ ./waf configure
 $ ./waf build
 $ sudo ./waf install
 $ sudo ldconfig</pre>
@@ -288,12 +287,11 @@ $ sudo ldconfig</pre>
 <p>Mac OS X では、スタンドアロンモードのビルドと実行が試験的にサポートされています。</p>
 <p><a class="reference external" href="https://github.com/jubatus/homebrew-jubatus">Homebrew tap リポジトリ</a> を使用すると簡単にインストールすることができます。</p>
 </div>
-<div class="section" id="id2">
-<h3>その他の環境<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id5">
+<h3>その他の環境<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li>Debian GNU/Linux では動作しています。</li>
 <li>Arch Linux ではスタンドアローンモードで動作しています。</li>
-<li>FreeBSD では動作していません。pficommon を修正する必要があります。</li>
 <li>他の *BSD systems や Solarisでの動作報告をお待ちしています。</li>
 </ul>
 </div>

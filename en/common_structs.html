@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -156,6 +156,71 @@
 <em class="property">message </em><tt class="descname">datum</tt><a class="headerlink" href="#datum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a set of data used for machine learning in Jubatus.
 See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
+<p>You can change internal values of a datum with these methods.</p>
+<dl class="method">
+<dt id="datum::add_string__s.s">
+<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_string</tt><big>(</big>0: string <em>key</em>, 1: string <em>value</em><big>)</big><a class="headerlink" href="#datum::add_string__s.s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The key of the value to add. Cannot contain &#8220;$&#8221;.</li>
+<li><strong>value</strong> &#8211; The value to add.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a pointer to itself.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Add a string value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="datum::add_number__s.double">
+<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_number</tt><big>(</big>0: string <em>key</em>, 1: double <em>value</em><big>)</big><a class="headerlink" href="#datum::add_number__s.double" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The key of the value to add.</li>
+<li><strong>value</strong> &#8211; The value to add.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a pointer to itself.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Add a numeric value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="datum::add_binary__s.raw">
+<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_binary</tt><big>(</big>0: string <em>key</em>, 1: raw <em>value</em><big>)</big><a class="headerlink" href="#datum::add_binary__s.raw" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The key of the value to add.</li>
+<li><strong>value</strong> &#8211; The value to add.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a pointer to itself.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Add a binary value.</p>
+</dd></dl>
+
+<p>Internal representation of a datum is below:</p>
 <dl class="member">
 <dt id="datum::string_values__l:tuple:s.s::">
 0: list&lt;tuple&lt;string, string&gt;&gt; <tt class="descname">string_values</tt><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="Permalink to this definition">¶</a></dt>
@@ -171,9 +236,17 @@ Name of keys cannot contain &#8220;$&#8221; sign.</p>
 It is represented as key-value pairs of data.</p>
 </dd></dl>
 
+<dl class="member">
+<dt id="datum::binary_values__l:tuple:s.raw::">
+2: list&lt;tuple&lt;string, raw&gt;&gt; <tt class="descname">binary_values</tt><a class="headerlink" href="#datum::binary_values__l:tuple:s.raw::" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input data represented in binary value.
+It is represented as key-value pairs of data.</p>
+</dd></dl>
+
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">datum</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">string_values</span>
   <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">num_values</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">raw</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">binary_values</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -184,53 +257,51 @@ It is represented as key-value pairs of data.</p>
 <h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">constructor(string host, int port, int timeout_sec)</tt></dt>
+<tt class="descname">constructor(string host, int port, string name, int timeout_sec)</tt></dt>
 <dd><p>Creates a new RPC client instance.
+<tt class="docutils literal"><span class="pre">name</span></tt> is a string value to uniquely identify a task in the ZooKeeper cluster.
+When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).
 <tt class="docutils literal"><span class="pre">timeout_sec</span></tt> is a length of timeout between the RPC method invocation and response.</p>
-<p>Currently, you cannot specify <tt class="docutils literal"><span class="pre">timeout_sec</span></tt> for Python and Ruby clients.</p>
 <p>Example usage of constructors are as follows:</p>
 </dd></dl>
 
-<div class="highlight-cpp"><div class="highlight"><pre><span class="cp">// C++</span>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// C++</span>
 <span class="cp">#include &lt;jubatus/client.hpp&gt;</span>
 <span class="k">using</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">classifier</span><span class="o">::</span><span class="n">client</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
 <span class="c1">// ...</span>
-<span class="n">classifier</span> <span class="n">client</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="n">classifier</span> <span class="nf">client</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Python</span>
 <span class="kn">from</span> <span class="nn">jubatus.classifier.client</span> <span class="kn">import</span> <span class="n">classifier</span>
 <span class="c"># ...</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">);</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="highlight-ruby"><div class="highlight"><pre><span class="sr">//</span> <span class="no">Ruby</span>
 <span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
-<span class="kp">include</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span><span class="sr"></span>
-<span class="sr">// ...</span>
-<span class="sr">client = Classifier.new(&quot;localhost&quot;, 9199)</span>
+<span class="kp">include</span> <span class="ss">Jubatus</span><span class="p">:</span><span class="ss">:Classifier</span><span class="o">::</span><span class="no">Client</span>
+<span class="sr">//</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Classifier</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="c1">// Java</span>
 <span class="kn">import</span> <span class="nn">us.jubat.classifier.ClassifierClient</span><span class="o">;</span>
 <span class="c1">// ...</span>
-<span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">9199</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+<span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">9199</span><span class="o">,</span> <span class="s">&quot;cluster&quot;</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="method">
-<dt id="save__s.s">
-bool <tt class="descname">save</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#save__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="save__s">
+bool <tt class="descname">save</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#save__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 <li><strong>id</strong> &#8211; file name to save</li>
 </ul>
 </td>
@@ -244,14 +315,13 @@ bool <tt class="descname">save</tt><big>(</big>0: string <em>name</em>, 1: strin
 </dd></dl>
 
 <dl class="method">
-<dt id="load__s.s">
-bool <tt class="descname">load</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#load__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="load__s">
+bool <tt class="descname">load</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#load__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 <li><strong>id</strong> &#8211; file name to load</li>
 </ul>
 </td>
@@ -265,19 +335,13 @@ bool <tt class="descname">load</tt><big>(</big>0: string <em>name</em>, 1: strin
 </dd></dl>
 
 <dl class="method">
-<dt id="clear__s">
-bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#clear__s" title="Permalink to this definition">¶</a></dt>
+<dt id="clear">
+bool <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#clear" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when the model was cleared successfully</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True when the model was cleared successfully</td>
 </tr>
 </tbody>
 </table>
@@ -285,19 +349,13 @@ bool <tt class="descname">clear</tt><big>(</big>0: string <em>name</em><big>)</b
 </dd></dl>
 
 <dl class="method">
-<dt id="get_config__s">
-string <tt class="descname">get_config</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#get_config__s" title="Permalink to this definition">¶</a></dt>
+<dt id="get_config">
+string <tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#get_config" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">server configuration set on initialization</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">server configuration set on initialization</td>
 </tr>
 </tbody>
 </table>
@@ -306,19 +364,13 @@ For format of configuration, see API reference of each services.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="get_status__s">
-map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#get_status__s" title="Permalink to this definition">¶</a></dt>
+<dt id="get_status">
+map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_status" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Internal state for each servers. The key of most outer map is in form of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for each servers. The key of most outer map is in form of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</td>
 </tr>
 </tbody>
 </table>

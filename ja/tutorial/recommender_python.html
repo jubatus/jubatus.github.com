@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -152,166 +152,234 @@
 <p>ここではPython版のRecommenderサンプルプログラムの解説をします。</p>
 <div class="section" id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするnpb_similar_player.jsonと野手データの学習を行うUpdate.py、推薦を実行して結果を出力するAnalyze.py、
-また学習用データとしてbaseball.csvを使用します。
-以下にnpb_similar_player.jsonとUpdate.pyおよびAnalyze.pyのソースコードを記載します。</p>
+<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするnpb_similar_player.jsonと野手データの学習を行うupdate.py、推薦を実行して結果を出力するanalyze.py、また学習用データとしてbaseball.csvを使用します。
+以下にnpb_similar_player.jsonとupdate.pyおよびanalyze.pyのソースコードを記載します。</p>
 <p><strong>npb_similar_player.json</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="p">{</span>
-<span class="mo">02</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;inverted_index&quot;</span><span class="p">,</span>
-<span class="mo">03</span> <span class="p">:</span>   <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
-<span class="mo">04</span> <span class="p">:</span>     <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mo">05</span> <span class="p">:</span>     <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-<span class="mo">06</span> <span class="p">:</span>     <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mo">07</span> <span class="p">:</span>     <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-<span class="mi">08</span> <span class="p">:</span>     <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mi">09</span> <span class="p">:</span>     <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-<span class="mi">10</span> <span class="p">:</span>     <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mi">11</span> <span class="p">:</span>     <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-<span class="mi">12</span> <span class="p">:</span>       <span class="p">{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}</span>
-<span class="mi">13</span> <span class="p">:</span>     <span class="p">]</span>
-<span class="mi">14</span> <span class="p">:</span>   <span class="p">},</span>
-<span class="mi">15</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
-<span class="mi">16</span> <span class="p">:</span> <span class="p">}</span>
+<div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;inverted_index&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;converter&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;parameter&quot;</span><span class="o">:</span> <span class="p">{}</span>
+<span class="p">}</span>
 </pre></div>
-</div>
-<p><strong>Update.py</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="c">#!/usr/bin/env python</span>
-<span class="mo">02</span> <span class="p">:</span> <span class="c"># -*- coding: utf-8 -*-</span>
-<span class="mo">03</span> <span class="p">:</span>
-<span class="mo">04</span> <span class="p">:</span> <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">json</span>
-<span class="mo">05</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">client</span>
-<span class="mo">06</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">types</span>
-<span class="mo">07</span> <span class="p">:</span>
-<span class="mi">08</span> <span class="p">:</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;recommender_baseball&quot;</span><span class="p">;</span>
-<span class="mi">09</span> <span class="p">:</span>
-<span class="mi">10</span> <span class="p">:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-<span class="mi">11</span> <span class="p">:</span>     <span class="c"># 1. Jubatus Serverへの接続設定</span>
-<span class="mi">12</span> <span class="p">:</span>     <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">recommender</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="mi">9199</span><span class="p">)</span>
-<span class="mi">13</span> <span class="p">:</span>     <span class="c"># 2. 学習用データの準備</span>
-<span class="mi">14</span> <span class="p">:</span>     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
-<span class="mi">15</span> <span class="p">:</span>         <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
-<span class="mi">16</span> <span class="p">:</span>         <span class="n">datum</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">datum</span><span class="p">(</span>
-<span class="mi">17</span> <span class="p">:</span>         <span class="p">[</span>
-<span class="mi">18</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;チーム&quot;</span><span class="p">,</span> <span class="n">team</span><span class="p">]</span>
-<span class="mi">19</span> <span class="p">:</span>         <span class="p">],</span>
-<span class="mi">20</span> <span class="p">:</span>         <span class="p">[</span>
-<span class="mi">21</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;打率&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">bave</span><span class="p">)],</span>
-<span class="mi">22</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;試合数&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">games</span><span class="p">)],</span>
-<span class="mi">23</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;打席&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">pa</span><span class="p">)],</span>
-<span class="mi">24</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;打数&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">atbat</span><span class="p">)],</span>
-<span class="mi">25</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;安打&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">hit</span><span class="p">)],</span>
-<span class="mi">26</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;本塁打&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">homerun</span><span class="p">)],</span>
-<span class="mi">27</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;打点&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">runsbat</span><span class="p">)],</span>
-<span class="mi">28</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;盗塁&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stolen</span><span class="p">)],</span>
-<span class="mi">29</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;四球&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">bob</span><span class="p">)],</span>
-<span class="mi">30</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;死球&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">hbp</span><span class="p">)],</span>
-<span class="mi">31</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;三振&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">strikeout</span><span class="p">)],</span>
-<span class="mi">32</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;犠打&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">sacrifice</span><span class="p">)],</span>
-<span class="mi">33</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;併殺打&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dp</span><span class="p">)],</span>
-<span class="mi">34</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;長打率&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">slg</span><span class="p">)],</span>
-<span class="mi">35</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;出塁率&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">obp</span><span class="p">)],</span>
-<span class="mi">36</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;OPS&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">ops</span><span class="p">)],</span>
-<span class="mi">37</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;RC27&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">rc27</span><span class="p">)],</span>
-<span class="mi">38</span> <span class="p">:</span>           <span class="p">[</span><span class="s">&quot;XR27&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">xr27</span><span class="p">)]</span>
-<span class="mi">39</span> <span class="p">:</span>         <span class="p">]</span>
-<span class="mi">40</span> <span class="p">:</span>         <span class="p">)</span>
-<span class="mi">41</span> <span class="p">:</span>         <span class="c"># 3. データの学習（学習モデルの更新）</span>
-<span class="mi">42</span> <span class="p">:</span>         <span class="n">recommender</span><span class="o">.</span><span class="n">update_row</span><span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span> <span class="n">datum</span><span class="p">)</span>
-<span class="mi">43</span> <span class="p">:</span>
+</td></tr></table></div>
+<p><strong>update.py</strong></p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">client</span>
+<span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">types</span>
+<span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
+
+<span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;recommender_baseball&quot;</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
+        <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span>
+          <span class="s">&quot;チーム&quot;</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
+          <span class="s">&quot;打率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">bave</span><span class="p">),</span>
+          <span class="s">&quot;試合数&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">games</span><span class="p">),</span>
+          <span class="s">&quot;打席&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">pa</span><span class="p">),</span>
+          <span class="s">&quot;打数&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">atbat</span><span class="p">),</span>
+          <span class="s">&quot;安打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">hit</span><span class="p">),</span>
+          <span class="s">&quot;本塁打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">homerun</span><span class="p">),</span>
+          <span class="s">&quot;打点&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">runsbat</span><span class="p">),</span>
+          <span class="s">&quot;盗塁&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">stolen</span><span class="p">),</span>
+          <span class="s">&quot;四球&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">bob</span><span class="p">),</span>
+          <span class="s">&quot;死球&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">hbp</span><span class="p">),</span>
+          <span class="s">&quot;三振&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">strikeout</span><span class="p">),</span>
+          <span class="s">&quot;犠打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">sacrifice</span><span class="p">),</span>
+          <span class="s">&quot;併殺打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span>
+          <span class="s">&quot;長打率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">slg</span><span class="p">),</span>
+          <span class="s">&quot;出塁率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">obp</span><span class="p">),</span>
+          <span class="s">&quot;OPS&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">ops</span><span class="p">),</span>
+          <span class="s">&quot;RC27&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">rc27</span><span class="p">),</span>
+          <span class="s">&quot;XR27&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">xr27</span><span class="p">)</span>
+          <span class="p">})</span>
+        <span class="n">recommender</span><span class="o">.</span><span class="n">update_row</span><span class="p">(</span><span class="n">pname</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 </pre></div>
-</div>
-<p><strong>Analyze.py</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="c">#!/usr/bin/env python</span>
-<span class="mo">02</span> <span class="p">:</span> <span class="c"># -*- coding: utf-8 -*-</span>
-<span class="mo">03</span> <span class="p">:</span>
-<span class="mo">04</span> <span class="p">:</span> <span class="kn">import</span> <span class="nn">sys</span>
-<span class="mo">05</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">client</span>
-<span class="mo">06</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">types</span>
-<span class="mo">07</span> <span class="p">:</span>
-<span class="mi">08</span> <span class="p">:</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;recommender_baseball&quot;</span><span class="p">;</span>
-<span class="mi">09</span> <span class="p">:</span>
-<span class="mi">10</span> <span class="p">:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-<span class="mi">11</span> <span class="p">:</span>     <span class="c"># 1. Jubatus Serverへの接続設定</span>
-<span class="mi">12</span> <span class="p">:</span>     <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">recommender</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="mi">9199</span><span class="p">)</span>
-<span class="mi">13</span> <span class="p">:</span>     <span class="c"># 2. 推薦用データの準備</span>
-<span class="mi">14</span> <span class="p">:</span>     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
-<span class="mi">15</span> <span class="p">:</span>       <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
-<span class="mi">16</span> <span class="p">:</span>       <span class="c"># 3. 学習モデルに基づく推薦</span>
-<span class="mi">17</span> <span class="p">:</span>       <span class="n">sr</span> <span class="o">=</span> <span class="n">recommender</span><span class="o">.</span><span class="n">similar_row_from_id</span><span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">pname</span> <span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="mi">18</span> <span class="p">:</span>       <span class="c"># 4. 結果の出力</span>
-<span class="mi">19</span> <span class="p">:</span>       <span class="k">print</span> <span class="s">&quot;player &quot;</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span>  <span class="s">&quot; is similar to :&quot;</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sr</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sr</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="mi">20</span> <span class="p">:</span>
+</td></tr></table></div>
+<p><strong>analyze.py</strong></p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">client</span>
+<span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">types</span>
+
+<span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;recommender_baseball&quot;</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
+      <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+      <span class="n">sr</span> <span class="o">=</span> <span class="n">recommender</span><span class="o">.</span><span class="n">similar_row_from_id</span><span class="p">(</span><span class="n">pname</span> <span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+      <span class="k">print</span> <span class="s">&quot;player &quot;</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span>  <span class="s">&quot; is similar to :&quot;</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="id2">
 <h2>解説<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><strong>npb_similar_player.json</strong></p>
 <p>設定は単体のJSONで与えられます。JSONの各フィールドは以下の通りです。</p>
-<ul class="simple">
-<li>method</li>
-</ul>
-<blockquote>
-<div>分類に使用するアルコリズムを指定します。
+<ul>
+<li><dl class="first docutils">
+<dt>method</dt>
+<dd><p class="first last">分類に使用するアルコリズムを指定します。
 今回は、転置インデックスを利用したいので、&#8221;inverted_index&#8221;を指定します。
-Recommenderで指定できるアルゴリズムは上記以外に、&#8221;minhash&#8221;、&#8221;lsh&#8221;、&#8221;euclid_lsh&#8221;があります。</div></blockquote>
-<ul class="simple">
-<li>converter</li>
-</ul>
-<blockquote>
-<div><p>特徴変換の設定を指定します。
+Recommenderで指定できるアルゴリズムは上記以外に、&#8221;minhash&#8221;、&#8221;lsh&#8221;、&#8221;euclid_lsh&#8221;があります。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>converter</dt>
+<dd><p class="first">特徴変換の設定を指定します。
 ここでは、&#8221;num_rules&#8221;を設定をしています。</p>
 <p>&#8220;num_rules&#8221;は数値特徴の抽出規則を指定します。
 &#8220;key&#8221;は&#8221;*&#8221;つまり、すべての&#8221;key&#8221;に対して、&#8221;type&#8221;は&#8221;num&#8221;なので、指定された数値をそのまま重みに利用する設定です。
 具体的には、打率が&#8221;0.33&#8221;であれば&#8221;0.33&#8221;を、打点が&#8221;30&#8221;であれば&#8221;30&#8221;を重みとします。</p>
-<p>&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
+<p class="last">&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
 今回は文字列は使用しないので指定していません。</p>
-</div></blockquote>
-<ul class="simple">
-<li>parameter</li>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>parameter</dt>
+<dd><p class="first">アルゴリズムに渡すパラメータを指定します。
+methodに応じて渡すパラメータは異なります。</p>
+<p class="last">methodで“inverted_index”を指定していますので、設定不要です。</p>
+</dd>
+</dl>
+</li>
 </ul>
-<blockquote>
-<div>アルゴリズムに渡すパラメータを指定します。methodに応じて渡すパラメータは異なります。
-methodで“inverted_index”を指定していますので、設定不要です。</div></blockquote>
-<p><strong>Update.py</strong></p>
-<blockquote>
-<div><p>学習と推薦の手順を説明します。</p>
-<p>Recommenderのクライアントプログラムは、jubatus.Recommenderクラス内で定義されているRecommenderClientクラスを利用して作成します。
-使用するメソッドは、1データ分の学習を行うupdate_rowメソッドと、与えられたデータから推薦を行うestimateメソッドの2つです。</p>
-<ol class="arabic simple">
-<li>Jubatus Serverへの接続設定</li>
-</ol>
-<blockquote>
-<div>Jubatus Serverへの接続を行います（33行目）。
-Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号，接続待機時間を設定します。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>学習用データの準備</li>
-</ol>
-<blockquote>
-<div><p>Jubatus Serverに学習させるデータDatumを作成します。</p>
+<p><strong>update.py</strong></p>
+<p>学習の手順を説明します。</p>
+<p>Recommenderのクライアントプログラムは、jubatus.Recommenderクラスを利用して作成します。
+使用するメソッドは、1データ分の学習を行うupdate_rowメソッドです。</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Jubatus Serverへの接続設定</dt>
+<dd><p class="first">Jubatus Serverへの接続を行います（13行目）。</p>
+<p class="last">Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスクを識別するZookeeperクラスタ内でユニークな名前を設定します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>学習用データの準備</dt>
+<dd><p class="first">Jubatus Serverに学習させるデータDatumを作成します。</p>
 <p>RecommenderClientでは、Datumを学習用データとして作成し、RecommenderClientのupdate_rowメソッドに与えることで、学習が行われます。
 今回はプロ野球データfreakというサイトの野手データ（CSVファイル）を元に学習用データを作成していきます。
 野手データの要素として、&#8221;名前&#8221;、&#8221;チーム&#8221;、&#8221;打率&#8221;、&#8221;打数&#8221;、&#8221;安打&#8221;などがあります。
 下図に、今回作成する学習用データの構造を示します。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="20%" />
-<col width="18%" />
-<col width="20%" />
-<col width="23%" />
-<col width="20%" />
+<col width="14%" />
+<col width="13%" />
+<col width="16%" />
+<col width="16%" />
+<col width="14%" />
+<col width="13%" />
+<col width="16%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head" rowspan="3">ID(String)</th>
-<th class="head" colspan="4">Datum</th>
+<tr class="row-odd"><th class="head" rowspan="3">ID(string)</th>
+<th class="head" colspan="6">Datum</th>
 </tr>
-<tr class="row-even"><th class="head" colspan="2">TupleStringString(List)</th>
-<th class="head" colspan="2">TupleStringDoubel(List)</th>
+<tr class="row-even"><th class="head" colspan="2">list&lt;tuple&lt;string, string&gt;&gt;</th>
+<th class="head" colspan="2">list&lt;tuple&lt;string, double&gt;&gt;</th>
+<th class="head" colspan="2">list&lt;tuple&lt;string, string&gt;&gt;</th>
 </tr>
-<tr class="row-odd"><th class="head">key(String)</th>
-<th class="head">value(String)</th>
-<th class="head">key(String)</th>
+<tr class="row-odd"><th class="head">key(string)</th>
+<th class="head">value(string)</th>
+<th class="head">key(string)</th>
 <th class="head">value(double)</th>
+<th class="head">key(string)</th>
+<th class="head">value(string)</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -360,6 +428,8 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号，接続�
 <div class="line">4.91</div>
 </div>
 </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;高橋由伸&#8221;</td>
 <td>&#8220;チーム&#8221;</td>
@@ -382,91 +452,118 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号，接続�
 <div class="line">･･･</div>
 </div>
 </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
-<p>Datumとは、Jubatusで利用できるkey-valueデータ形式のことです。Datumには2つのkey-valueが存在します。
-1つはキーも値も文字列の文字列データ（string_values）、もう一方は、キーは同様に文字列で、バリューは数値の数値データ（num_values）です。
-それぞれ、TupleStringStringクラスとTupleStringDoubleクラスで表します。</p>
+<p>Datumとは、Jubatusで利用できるkey-valueデータ形式のことです。
+Datumには3つのkey-valueが存在します。</p>
+<p>1つはキーも値も文字列の文字列データ（string_values）です。
+1つはキーは同様に文字列で、値は数値の数値データ(num_values)です。
+もう1つは、キーは同様に文字列で、値は文字列のバイナリデータ(binary_values)です。</p>
+<p>Datumのコンストラクタ引数で指定したdictのvalueが文字列の場合は、string_valuesに、valueが数値の場合はnum_valuesに値がセットされます。</p>
 <div class="line-block">
-<div class="line">表の1つ目のデータを例に説明すると、&#8221;チーム&#8221;は文字列なのでTupleStringStringクラスの</div>
-<div class="line">1番目のListとしてキーに&#8221;チーム&#8221;、バリューに&#8221;中日&#8221;を設定します。</div>
-<div class="line">それ以外の項目は数値なので、TupleStringDoubleクラスの</div>
-<div class="line">1番目のListとしてキーに&#8221;打率&#8221;、バリューに&#8216;0.31&#8217;、</div>
-<div class="line">2番目のListとしてキーに&#8221;試合数&#8221;、バリューに&#8216;144&#8217;、</div>
-<div class="line">3番目のListとしてキーに&#8221;打席&#8221;、バリューに&#8216;631&#8217;、</div>
-<div class="line">4番目のListとしてキーに&#8221;打数&#8221;、バリューに&#8216;555&#8217;と</div>
-<div class="line">最後の要素&#8221;XR27&#8221;の項目までListを作成し設定します。</div>
+<div class="line">表の1つ目のデータを例に説明すると、&#8221;チーム&#8221;は文字列なのでstring_valuesとしてkeyに&#8221;チーム&#8221;、valueに&#8221;中日&#8221;をセットします。</div>
+<div class="line">それ以外の項目は数値なので、num_valuesに</div>
+<div class="line-block">
+<div class="line">keyに&#8221;打率&#8221;、valueに&#8216;0.31&#8217;、</div>
+<div class="line">keyに&#8221;試合数&#8221;、valueに&#8216;144&#8217;、</div>
+<div class="line">keyに&#8221;打席&#8221;、valueに&#8216;631&#8217;、</div>
+<div class="line">keyに&#8221;打数&#8221;、valueに&#8216;555&#8217;と</div>
 </div>
-<p>これらのListを保持したDatumをCSVの1行ずつ、つまり選手1人ずつ作成します。
+<div class="line">&#8220;XR27&#8221;の項目までをセットします。</div>
+</div>
+<p>これらの情報を保持したDatumをCSVの1行ずつ、つまり選手1人ずつ作成します。
 その、DatumとIDである選手の&#8221;名前&#8221;を学習用データとして使用します。</p>
 <p>このサンプルでの学習用データ作成の手順は下記の流れで行います。</p>
-<p>まず、学習用データの元となるCSVファイルを読み込みます（14行目）。
-for文にて1行ずつループで読み込んで処理します（14-42行目）。
-CSVファイルなので、取得した1行を’,’で分割し要素ごとに分け、それぞれ変数に代入します（15行目）。
-types関数にて、引数にそれぞれの要素を設定しDatumを作成します（16-40行目）。
-これで、1人分の選手のデータが入ったDatumの作成が完了しました。</p>
-</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>データの学習（学習モデルの更新）</li>
+<p class="last">まず、学習用データの元となるCSVファイルを読み込みます（15行目）。
+for文にて1行ずつループで読み込んで処理します（15-38行目）。
+CSVファイルなので、取得した1行を’,’で分割し要素ごとに分け、それぞれ変数に代入します（16行目）。
+コンストラクタにて、引数にそれぞれの要素を設定しDatumを作成します（17-37行目）。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>データの学習（学習モデルの更新）</dt>
+<dd><p class="first">2.の工程で作成した学習用データを、update_rowメソッドに渡すことで学習が行われます（38行目）。
+第1引数は、IDで学習データ内でユニークな名前を指定します。
+ここでは選手の&#8221;名前&#8221;をIDとして使用します。
+第2引数として、先ほど 2. で作成したDatumを指定します。</p>
+<p class="last">これで、選手1人分のデータの学習が完了しました。
+ループ処理で 2. と 3. をCSVの行数分繰り返し実行すれば、データの学習は完了します。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>2.の工程で作成した学習用データを、update_rowメソッドに渡すことで学習が行われます（42行目）。
-update_rowメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（&#8221;&#8220;）を指定）
-第2引数は、IDで学習データ内でユニークな名前を指定します。ここでは選手の&#8221;名前&#8221;をIDとして使用します。
-第3引数として、先ほど 2. で作成したDatumを指定します。
-これで、選手1人分のデータの学習が完了しました。ループ処理で 2. と 3. をCSVの行数分繰り返し実行すれば、データの学習は完了します。</div></blockquote>
-</div></blockquote>
-<p><strong>Analyze.py</strong></p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Jubatus Serverへの接続設定</li>
+<p><strong>analyze.py</strong></p>
+<p>推薦の手順を説明します。</p>
+<p>学習と同様にクライアントプログラムは、jubatus.Recommenderクラスを利用して作成します。
+使用するメソッドは、与えられたデータから推薦を行うsimilar_row_from_idメソッドです。</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Jubatus Serverへの接続設定</dt>
+<dd><p class="first last">update.pyと同様のため省略。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>推薦用データの準備</dt>
+<dd><p class="first last">推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
+学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>学習モデルに基づく推薦</dt>
+<dd><p class="first last">2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のlistを得ることができます（16行目）。
+第1引数に、&#8221;名前&#8221;を指定します。
+第2引数は、似ているタイプを近傍順にいくつ出力するかを指定します。
+ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。
+なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>結果の出力</dt>
+<dd><p class="first last">3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったlistです。
+listの1番目は自分自身なので、2番目から4番目までを結果として出力します。
+update.pyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>Update.pyと同様のため省略。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>推薦用データの準備</li>
-</ol>
-<blockquote>
-<div>推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
-学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>学習モデルに基づく推薦</li>
-</ol>
-<blockquote>
-<div>2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のListを得ることができます（17行目）。
-similar_row_from_idメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（&#8221;&#8220;）を指定）
-第2引数に、&#8221;名前&#8221;を指定します。
-第3引数は、似ているタイプを近傍順にいくつ出力するかを指定します。ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>結果の出力</li>
-</ol>
-<blockquote>
-<div>3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第3引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったListです。
-Listの1番目は自分自身なので、Listの2番目から4番目までを結果として出力します。
-Update.pyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラムの実行<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><strong>［Jubatus Serverでの作業］</strong></p>
-<p>jubarecommenderを起動します。</p>
-<div class="highlight-python"><pre>$ jubarecommender --configpath npb_similar_player.json</pre>
+<ul>
+<li><dl class="first docutils">
+<dt>Jubatus Serverでの作業</dt>
+<dd><p class="first">jubarecommenderを起動します。</p>
+<div class="last highlight-python"><pre>$ jubarecommender --configpath npb_similar_player.json</pre>
 </div>
-<p><strong>［Jubatus Clientでの作業］</strong></p>
-<p>下記のコマンドで実行します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Jubatus Clientでの作業</dt>
+<dd><p class="first">下記のコマンドで実行します。</p>
 <div class="highlight-python"><pre>$ python update.py
 $ python analyze.py</pre>
 </div>
-<p><strong>［実行結果］</strong></p>
-<div class="highlight-python"><pre>player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
+<p>実行結果:</p>
+<div class="last highlight-python"><pre>player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
 player 大島洋平 is similar to : 本多雄一 石川雄洋 荒波翔
 player 鳥谷敬 is similar to : サブロー 糸井嘉男 和田一浩
 player 坂本勇人 is similar to : 角中勝也 稲葉篤紀 秋山翔吾
 player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
-…
-…（以下略）</pre>
+...
+...（以下略）</pre>
 </div>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 </div>
 

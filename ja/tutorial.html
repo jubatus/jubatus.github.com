@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -176,22 +176,24 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 <h2>動作させてみる<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>分類器の機能を提供する <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは <tt class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></tt> ディレクトリに格納されています。</p>
 <div class="highlight-python"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
-I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.2 RPC server at 192.168.0.1:9199
-    pid            : 1855
-    user           : oda
-    mode           : standalone mode
-    timeout        : 10
-    thread         : 2
-    datadir        : /tmp
-    logdir         :
-    loglevel       : INFO(0)
-    zookeeper      :
-    name           :
-    join           : false
-    interval sec   : 16
-    interval count : 512
-I0110 13:43:07.789721  1855 server_util.cpp:69] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
-I0110 13:43:07.790897  1855 classifier_serv.cpp:110] config loaded: {
+I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
+    pid                  : 1855
+    user                 : oda
+    mode                 : standalone mode
+    timeout              : 10
+    thread               : 2
+    datadir              : /tmp
+    logdir               :
+    loglevel             : INFO(0)
+    zookeeper            :
+    name                 :
+    join                 : false
+    interval sec         : 16
+    interval count       : 512
+    zookeeper timeout    : 10
+    interconnect timeout : 10
+I0110 13:43:07.789721  1855 server_util.cpp:77] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
+I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
   "converter" : {
     "string_filter_types" : {},
     "string_filter_rules" : [],
@@ -358,15 +360,15 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 <h3>Classifier API: 学習(train) と 分類(classify)<a class="headerlink" href="#classifier-api-train-classify" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>分類器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> という API (RPC メソッド) を利用します。
 以下の例で、 <tt class="docutils literal"><span class="pre">d1</span></tt> はメッセージから作成された datum であり、 <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> はそのメッセージのラベル (ニュースグループの名前) です。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">datum</span><span class="p">([[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">]],</span> <span class="p">[])</span>
-<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
+<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>この要領で、ラベルとメッセージの組み合わせを多数学習させます。</p>
 <p>学習結果を使って分類を行う場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> という API を利用します。
 <tt class="docutils literal"><span class="pre">d2</span></tt> はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">datum</span><span class="p">([[</span><span class="s">&quot;message&quot;</span> <span class="p">,</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">]],</span> <span class="p">[])</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">d2</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d2</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>その結果、以下のような値が得られます。</p>
@@ -389,13 +391,15 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/classifier.html">Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/regression.html">Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/recommender.html">Recommender</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/regression.html">Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/graph.html">Graph</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/stat.html">Stat</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/anomaly.html">Anomaly</a></li>
 </ul>
 </div>
+<div class="toctree-wrapper compound">
+</div>
+<p>Anomaly、Nearnest_Neighbor、Clustering のチュートリアルは、現在準備中です。</p>
 </div>
 </div>
 

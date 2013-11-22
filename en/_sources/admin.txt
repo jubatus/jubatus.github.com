@@ -17,15 +17,15 @@ This is the process configuration that we recommend.
    :width: 90 %
    :alt: process configuration
 
-Jubatus Keepers
+Jubatus Proxies
 ~~~~~~~~~~~~~~~
 
-To keep operation and implementation of the client application simple, we recommend assigning one keeper for each instance of the application.
+To keep operation and implementation of the client application simple, we recommend assigning one Jubatus Proxy for each instance of the application.
 
-In case that the client application cannot connect to the keeper (e.g., the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:
+In case that the client application cannot connect to the Jubatus Proxy (e.g., the Jubatus Proxy is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:
 
-#. Monitor the keeper processes. When the keeper goes down, block the access to the application from users.
-#. Switch over to another keeper.
+#. Monitor the Jubatus Proxy processes. When the Jubatus Proxy goes down, block the access to the application from users.
+#. Switch over to another Jubatus Proxy.
 
 Jubatus Servers
 ~~~~~~~~~~~~~~~

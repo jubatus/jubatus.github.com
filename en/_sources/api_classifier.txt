@@ -131,28 +131,42 @@ Data Structures
         1: double score
       }
 
+.. mpidl:message:: labeled_datum
+
+   Represents a datum with its label.
+
+   .. mpidl:member:: 0: string label
+
+      Represents a label of this datum.
+
+   .. mpidl:member:: 1: datum data
+
+      Represents a datum.
+
+   .. code-block:: c++
+
+      message labeled_datum {
+        0: string label
+        1: datum data
+      }
+
 
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (``""``).
-
 .. mpidl:service:: classifier
 
-   .. mpidl:method:: int train(0: string name, 1: list<tuple<string, datum> > data)
+   .. mpidl:method:: int train(0: list<labeled_datum> data)
 
-      :param name:  string value to uniquely identifies a task in the ZooKeeper cluster
       :param data:  list of tuple of label and :mpidl:type:`datum`
       :return:      Number of trained datum (i.e., the length of the ``data``)
 
       Trains and updates the model.
-      ``tuple<string, datum>`` is a tuple of :mpidl:type:`datum` and its label.
-      This API is designed to accept bulk update with list of ``tuple<string, datum>``.
+      ``labeled_datum`` is a tuple of :mpidl:type:`datum` and its label.
+      This API is designed to accept bulk update with list of ``labeled_datum``.
 
-   .. mpidl:method:: list<list<estimate_result> > classify(0: string name, 1: list<datum> data)
+   .. mpidl:method:: list<list<estimate_result> > classify(0: list<datum> data)
 
-      :param name:  string value to uniquely identifies a task in the ZooKeeper cluster
       :param data:  list of datum to classify
       :return:      List of list of :mpidl:type:`estimate_result`, in order of given :mpidl:type:`datum`
 

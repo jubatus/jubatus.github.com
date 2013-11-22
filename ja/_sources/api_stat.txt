@@ -32,35 +32,32 @@ Data Structures
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (``""``) を指定する。
-
 .. mpidl:service:: stat
 
-   .. mpidl:method:: bool push(0: string name, 1: string key, 2: double val)
+   .. mpidl:method:: bool push(0: string key, 1: double value)
 
       属性情報 ``key`` の値 ``val`` を与える。
 
-   .. mpidl:method:: double sum(0: string name, 1: string key)
+   .. mpidl:method:: double sum(0: string key)
 
       属性情報 ``key`` を持つ値の合計値を返す。
 
-   .. mpidl:method:: double stddev(0: string name, 1: string key)
+   .. mpidl:method:: double stddev(0: string key)
 
       属性情報 ``key`` を持つ値の標準偏差を返す。
 
-   .. mpidl:method:: double max(0: string name, 1: string key)
+   .. mpidl:method:: double max(0: string key)
 
       属性情報 ``key`` を持つ値の最大値を返す。
 
-   .. mpidl:method:: double min(0: string name, 1: string key)
+   .. mpidl:method:: double min(0: string key)
 
       属性情報 ``key`` を持つ値の最小値を返す。
 
-   .. mpidl:method:: double entropy(0: string name, 1: string key)
+   .. mpidl:method:: double entropy(0: string key)
 
       属性情報 ``key`` を持つ値のエントロピーを返す。
 
-   .. mpidl:method:: double moment(0: string name, 1: string key, 2: int degree, 3: double center)
+   .. mpidl:method:: double moment(0: string key, 1: int degree, 2: double center)
 
       属性情報 ``key`` を持つ値の ``center`` を中心とした ``degree`` 次のモーメントを返す。

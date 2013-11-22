@@ -69,6 +69,10 @@ Jubatus server provides the machine learning feature.
 
    If not specified, Jubatus servers run in standalone mode.
 
+.. option:: -m <model>, --model_file <model>
+
+   Path of the model file to load at startup.
+
 .. option:: -n <name>, --name <name>
 
    The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.
@@ -76,6 +80,13 @@ Jubatus server provides the machine learning feature.
    This option must be given only if ``--zookeeper`` is specified.
 
    ``<name>`` should not contain characters that cannot be used as ZooKeeper node name (such as ``/``).
+
+.. option:: -x <mixer>, --mixer <mixer>
+
+   MIX strategy used when choosing MIX node. [linear_mixer]
+
+   One of ``linear_mixer``, ``random_mixer``, ``broadcast_mixer``, or ``skip_mixer`` can be specified.
+   MIX strategies available may differ depending on the engine.
 
 .. option:: -j, --join
 
@@ -114,12 +125,12 @@ Jubatus server provides the machine learning feature.
 Distributed Environment
 -----------------------
 
-Jubatus Keepers
+Jubatus Proxies
 ~~~~~~~~~~~~~~~
 
-In distributed environment, Jubatus Keeper distributes requests from clients to servers.
+In distributed environment, Jubatus Proxy distributes requests from clients to servers.
 
-.. program:: keeper
+.. program:: proxy
 
 .. option:: -p <port>, --rpc-port <port>
 
@@ -151,11 +162,11 @@ In distributed environment, Jubatus Keeper distributes requests from clients to 
 
 .. option:: -Z <seconds>, --zookeeper_timeout <seconds>
 
-   Session timeout between ZooKeeper and Jubatus Keeper in seconds. [10]
+   Session timeout between ZooKeeper and Jubatus Proxy in seconds. [10]
 
 .. option:: -I <seconds>, --interconnect_timeout <seconds>
 
-   Timeout of RPC between Jubatus Keeper and Jubatus Servers in seconds. [10]
+   Timeout of RPC between Jubatus Proxy and Jubatus Servers in seconds. [10]
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -187,7 +198,7 @@ In distributed environment, Jubatus Keeper distributes requests from clients to 
 
 .. option:: -v, --version
 
-   Print the version of Jubatus keeper.
+   Print the version of Jubatus Proxy.
 
 .. option:: -?, --help
 
@@ -245,7 +256,7 @@ jubactl
    stop      Stop Jubatus servers
    save      Save the model to directory specified by :option:`server -d`
    load      Load the model from directory specified by :option:`server -d`
-   status    Print the status of servers, keepers and jubavisors
+   status    Print the status of servers, proxies and jubavisors
    ========= =====================================================================================
 
 .. option:: -s <program>, --server <program>
@@ -315,6 +326,12 @@ jubactl
 .. option:: -E <level>, --loglevel <level>
 
    Option given when starting new server process (:option:`server -e`).
+
+   Effective only when used with ``--cmd start``.
+
+.. option:: -X, --mixer
+
+   Option given when starting new server process (:option:`server -x`).
 
    Effective only when used with ``--cmd start``.
 
@@ -471,7 +488,7 @@ Example of usage is as shown below:
 jenerator
 ~~~~~~~~~
 
-``jenerator`` generates implementation of keeper, server template and C++ client from extended MessagePack-IDL file. See :doc:`server` for details.
+``jenerator`` generates implementation of proxy, server template and C++ client from extended MessagePack-IDL file. See :doc:`server` for details.
 
 ``jenerator`` is not installed by default (see ``tools/jenerator`` in the source tree).
 
@@ -484,7 +501,7 @@ jenerator
 .. option:: -l <lang>
 
    Language of the client code to generate. Currently ``cpp``, ``java``, ``python``, and ``ruby`` are supported.
-   Specify ``server`` if you need to generate servers and keepers.
+   Specify ``server`` if you need to generate servers and proxies.
 
 .. option:: -o <dirpath>
 
@@ -496,7 +513,7 @@ jenerator
 
    Use relative path for ``#include`` directives.
 
-   Effective only when generating C++ code (servers, keepers and C++ clients).
+   Effective only when generating C++ code (servers, proxies and C++ clients).
    This option is intended for use by Jubatus developers.
    You don't need this option except you're going to build generated code inside Jubatus source tree.
 
@@ -508,13 +525,13 @@ jenerator
 
    Generate server template.
 
-   Effective only when generating servers and keepers.
+   Effective only when generating servers and proxies.
 
 .. option:: -g <guard>
 
    Prefix used for include guards in header files.
 
-   Effective only when generating C++ code (servers, keepers and C++ clients).
+   Effective only when generating C++ code (servers, proxies and C++ clients).
 
 .. option:: -help, --help
 

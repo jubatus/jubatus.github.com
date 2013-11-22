@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Graph" href="graph.html" />
-    <link rel="next" title="Ruby" href="graph_ruby.html" />
+    <link rel="next" title="Stat" href="stat.html" />
     <link rel="prev" title="Graph" href="graph.html" /> 
 
 <!--
@@ -85,7 +85,7 @@
           <a href="../genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="graph_ruby.html" title="Ruby"
+          <a href="stat.html" title="Stat"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="graph.html" title="Graph"
@@ -115,8 +115,8 @@
   <p class="topless"><a href="graph.html"
                         title="前の章へ">Graph</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="graph_ruby.html"
-                        title="次の章へ">Ruby</a></p>
+  <p class="topless"><a href="stat.html"
+                        title="次の章へ">Stat</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/tutorial/graph_python.txt"
@@ -152,299 +152,448 @@
 <p>ここではPython版のGraphサンプルプログラムの解説をします。</p>
 <div class="section" id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするtrain_route.json、グラフ作成を行うcreate_graph.py、最短経路を計算するsearch_route.pyを利用します。以下にソースコードを記載します。</p>
+<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするtrain_route.json、グラフ作成を行うcreate_graph.py、最短経路を計算するsearch_route.pyを利用します。
+以下にソースコードを記載します。</p>
 <p><strong>train_route.json</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="p">:</span> <span class="p">{</span>
-<span class="mi">2</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;graph_wo_index&quot;</span><span class="p">,</span>
-<span class="mi">3</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{</span>
-<span class="mi">4</span> <span class="p">:</span>     <span class="s">&quot;damping_factor&quot;</span> <span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
-<span class="mi">5</span> <span class="p">:</span>     <span class="s">&quot;landmark_num&quot;</span> <span class="p">:</span> <span class="mi">256</span>
-<span class="mi">6</span> <span class="p">:</span>   <span class="p">}</span>
-<span class="mi">7</span> <span class="p">:</span> <span class="p">}</span>
+<div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;graph_wo_index&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;parameter&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;damping_factor&quot;</span> <span class="o">:</span> <span class="mf">0.9</span><span class="p">,</span>
+    <span class="s2">&quot;landmark_num&quot;</span> <span class="o">:</span> <span class="mi">256</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><strong>create_graph.py</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="c">#!/usr/bin/env python</span>
-<span class="mo">02</span> <span class="p">:</span> <span class="c"># -*- coding: utf-8 -*-</span>
-<span class="mo">03</span> <span class="p">:</span>
-<span class="mo">04</span> <span class="p">:</span> <span class="kn">import</span> <span class="nn">urllib</span>
-<span class="mo">05</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">xml.dom</span> <span class="kn">import</span> <span class="n">minidom</span><span class="p">,</span> <span class="n">Node</span>
-<span class="mo">06</span> <span class="p">:</span>
-<span class="mo">07</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.graph</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">types</span>
-<span class="mi">08</span> <span class="p">:</span>
-<span class="mi">09</span> <span class="p">:</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
-<span class="mi">10</span> <span class="p">:</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span>
-<span class="mi">11</span> <span class="p">:</span> <span class="n">instance_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="mi">12</span> <span class="p">:</span>
-<span class="mi">13</span> <span class="p">:</span> <span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="mi">14</span> <span class="p">:</span>
-<span class="mi">15</span> <span class="p">:</span> <span class="k">class</span> <span class="nc">station_join</span><span class="p">():</span>
-<span class="mi">16</span> <span class="p">:</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
-<span class="mi">17</span> <span class="p">:</span>         <span class="bp">self</span><span class="o">.</span><span class="n">station1</span> <span class="o">=</span> <span class="n">station1</span>
-<span class="mi">18</span> <span class="p">:</span>         <span class="bp">self</span><span class="o">.</span><span class="n">station2</span> <span class="o">=</span> <span class="n">station2</span>
-<span class="mi">19</span> <span class="p">:</span>
-<span class="mi">20</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">get_station_join</span><span class="p">(</span><span class="n">line_cd</span><span class="p">):</span>
-<span class="mi">21</span> <span class="p">:</span>     <span class="s">&#39;&#39;&#39;</span>
-<span class="s">22 :     Create array of `station_join` that represents which stations are connected.</span>
-<span class="s">23 :</span>
-<span class="s">24 :     In this example, we are connecting stations BY NAME, i.e., two stations</span>
-<span class="s">25 :     with the same name are regarded as connected and can be transferred to</span>
-<span class="s">26 :     each other.</span>
-<span class="s">27 :     &#39;&#39;&#39;</span>
-<span class="mi">28</span> <span class="p">:</span>     <span class="n">join_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="mi">29</span> <span class="p">:</span>     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://www.ekidata.jp/api/n/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">line_cd</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.xml&#39;</span>
-<span class="mi">30</span> <span class="p">:</span>     <span class="n">dom</span> <span class="o">=</span> <span class="n">minidom</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
-<span class="mi">31</span> <span class="p">:</span>     <span class="k">for</span> <span class="n">join_node</span> <span class="ow">in</span> <span class="n">dom</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;station_join&#39;</span><span class="p">):</span>
-<span class="mi">32</span> <span class="p">:</span>         <span class="k">for</span> <span class="n">join_node_child</span> <span class="ow">in</span> <span class="n">join_node</span><span class="o">.</span><span class="n">childNodes</span><span class="p">:</span>
-<span class="mi">33</span> <span class="p">:</span>             <span class="k">if</span> <span class="n">join_node_child</span><span class="o">.</span><span class="n">nodeType</span> <span class="o">==</span> <span class="n">Node</span><span class="o">.</span><span class="n">TEXT_NODE</span><span class="p">:</span>
-<span class="mi">34</span> <span class="p">:</span>                 <span class="k">continue</span>
-<span class="mi">35</span> <span class="p">:</span>             <span class="n">name</span> <span class="o">=</span> <span class="n">join_node_child</span><span class="o">.</span><span class="n">nodeName</span>
-<span class="mi">36</span> <span class="p">:</span>             <span class="n">value</span> <span class="o">=</span> <span class="n">join_node_child</span><span class="o">.</span><span class="n">childNodes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">nodeValue</span>
-<span class="mi">37</span> <span class="p">:</span>             <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;station_name1&#39;</span><span class="p">:</span>
-<span class="mi">38</span> <span class="p">:</span>                 <span class="n">station_name1</span> <span class="o">=</span> <span class="n">value</span>
-<span class="mi">39</span> <span class="p">:</span>             <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;station_name2&#39;</span><span class="p">:</span>
-<span class="mi">40</span> <span class="p">:</span>                 <span class="n">station_name2</span> <span class="o">=</span> <span class="n">value</span>
-<span class="mi">41</span> <span class="p">:</span>         <span class="n">join_list</span> <span class="o">+=</span> <span class="p">[</span> <span class="n">station_join</span><span class="p">(</span><span class="n">station_name1</span><span class="p">,</span> <span class="n">station_name2</span><span class="p">)</span> <span class="p">]</span>
-<span class="mi">42</span> <span class="p">:</span>     <span class="k">return</span> <span class="n">join_list</span>
-<span class="mi">43</span> <span class="p">:</span>
-<span class="mi">44</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join_list</span><span class="p">):</span>
-<span class="mi">45</span> <span class="p">:</span>     <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">join_list</span><span class="p">:</span>
-<span class="mi">46</span> <span class="p">:</span>         <span class="c"># Create nodes for stations.</span>
-<span class="mi">47</span> <span class="p">:</span>         <span class="n">s1_node_id</span> <span class="o">=</span> <span class="n">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join</span><span class="o">.</span><span class="n">station1</span><span class="p">)</span>
-<span class="mi">48</span> <span class="p">:</span>         <span class="n">s2_node_id</span> <span class="o">=</span> <span class="n">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join</span><span class="o">.</span><span class="n">station2</span><span class="p">)</span>
-<span class="mi">49</span> <span class="p">:</span>
-<span class="mi">50</span> <span class="p">:</span>         <span class="c"># Create bi-directional edge between two nodes.</span>
-<span class="mi">51</span> <span class="p">:</span>         <span class="n">edge_1</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">edge</span><span class="p">({},</span> <span class="n">s1_node_id</span><span class="p">,</span> <span class="n">s2_node_id</span><span class="p">)</span>
-<span class="mi">52</span> <span class="p">:</span>         <span class="n">edge_2</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">edge</span><span class="p">({},</span> <span class="n">s2_node_id</span><span class="p">,</span> <span class="n">s1_node_id</span><span class="p">)</span>
-<span class="mi">53</span> <span class="p">:</span>         <span class="n">c</span><span class="o">.</span><span class="n">create_edge</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="n">s1_node_id</span><span class="p">,</span> <span class="n">edge_1</span><span class="p">)</span>
-<span class="mi">54</span> <span class="p">:</span>         <span class="n">c</span><span class="o">.</span><span class="n">create_edge</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="n">s2_node_id</span><span class="p">,</span> <span class="n">edge_2</span><span class="p">)</span>
-<span class="mi">55</span> <span class="p">:</span>
-<span class="mi">56</span> <span class="p">:</span>         <span class="c"># Comment-out this line if you&#39;re running in distributed mode.</span>
-<span class="mi">57</span> <span class="p">:</span>         <span class="n">c</span><span class="o">.</span><span class="n">update_index</span><span class="p">(</span><span class="n">instance_name</span><span class="p">)</span>
-<span class="mi">58</span> <span class="p">:</span>
-<span class="mi">59</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="mi">60</span> <span class="p">:</span>     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
-<span class="mi">61</span> <span class="p">:</span>         <span class="n">node_id</span> <span class="o">=</span> <span class="n">stations</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-<span class="mi">62</span> <span class="p">:</span>     <span class="k">else</span><span class="p">:</span>
-<span class="mi">63</span> <span class="p">:</span>         <span class="n">node_id</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">instance_name</span><span class="p">)</span>
-<span class="mi">64</span> <span class="p">:</span>         <span class="n">c</span><span class="o">.</span><span class="n">update_node</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
-<span class="mi">65</span> <span class="p">:</span>         <span class="n">stations</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_id</span>
-<span class="mi">66</span> <span class="p">:</span>     <span class="k">return</span> <span class="n">node_id</span>
-<span class="mi">67</span> <span class="p">:</span>
-<span class="mi">68</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">print_stations</span><span class="p">():</span>
-<span class="mi">69</span> <span class="p">:</span>     <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
-<span class="mi">70</span> <span class="p">:</span>         <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">station</span><span class="p">)</span>
-<span class="mi">71</span> <span class="p">:</span>
-<span class="mi">72</span> <span class="p">:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-<span class="mi">73</span> <span class="p">:</span>     <span class="c"># 1. Jubatus Server への接続設定</span>
-<span class="mi">74</span> <span class="p">:</span>     <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
-<span class="mi">75</span> <span class="p">:</span>
-<span class="mi">76</span> <span class="p">:</span>     <span class="c"># 2. プリセットクエリーを登録</span>
-<span class="mi">77</span> <span class="p">:</span>     <span class="n">pq</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">preset_query</span><span class="p">([],</span> <span class="p">[])</span>
-<span class="mi">78</span> <span class="p">:</span>     <span class="n">c</span><span class="o">.</span><span class="n">add_shortest_path_query</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="n">pq</span><span class="p">)</span>
-<span class="mi">79</span> <span class="p">:</span>
-<span class="mi">80</span> <span class="p">:</span>     <span class="c"># 3. グラフの作成</span>
-<span class="mi">81</span> <span class="p">:</span>     <span class="n">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">get_station_join</span><span class="p">(</span><span class="mi">11302</span><span class="p">))</span> <span class="c"># 山手線</span>
-<span class="mi">82</span> <span class="p">:</span>     <span class="n">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">get_station_join</span><span class="p">(</span><span class="mi">11312</span><span class="p">))</span> <span class="c"># 中央線</span>
-<span class="mi">83</span> <span class="p">:</span>
-<span class="mi">84</span> <span class="p">:</span>     <span class="c"># 4. 駅IDの表示</span>
-<span class="mi">85</span> <span class="p">:</span>     <span class="k">print</span> <span class="s">&quot;=== Station IDs ===&quot;</span>
-<span class="mi">86</span> <span class="p">:</span>     <span class="n">print_stations</span><span class="p">()</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">from</span> <span class="nn">xml.dom</span> <span class="kn">import</span> <span class="n">minidom</span><span class="p">,</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">jubatus.graph</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">types</span>
+
+<span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span>
+<span class="n">instance_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">class</span> <span class="nc">station_join</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">station1</span> <span class="o">=</span> <span class="n">station1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">station2</span> <span class="o">=</span> <span class="n">station2</span>
+
+<span class="k">def</span> <span class="nf">get_station_join</span><span class="p">(</span><span class="n">line_cd</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Create array of `station_join` that represents which stations are connected.</span>
+
+<span class="sd">    In this example, we are connecting stations BY NAME, i.e., two stations</span>
+<span class="sd">    with the same name are regarded as connected and can be transferred to</span>
+<span class="sd">    each other.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">join_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://www.ekidata.jp/api/n/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">line_cd</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.xml&#39;</span>
+    <span class="n">dom</span> <span class="o">=</span> <span class="n">minidom</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">join_node</span> <span class="ow">in</span> <span class="n">dom</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;station_join&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">join_node_child</span> <span class="ow">in</span> <span class="n">join_node</span><span class="o">.</span><span class="n">childNodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">join_node_child</span><span class="o">.</span><span class="n">nodeType</span> <span class="o">==</span> <span class="n">Node</span><span class="o">.</span><span class="n">TEXT_NODE</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">join_node_child</span><span class="o">.</span><span class="n">nodeName</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">join_node_child</span><span class="o">.</span><span class="n">childNodes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">nodeValue</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;station_name1&#39;</span><span class="p">:</span>
+                <span class="n">station_name1</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;station_name2&#39;</span><span class="p">:</span>
+                <span class="n">station_name2</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">join_list</span> <span class="o">+=</span> <span class="p">[</span> <span class="n">station_join</span><span class="p">(</span><span class="n">station_name1</span><span class="p">,</span> <span class="n">station_name2</span><span class="p">)</span> <span class="p">]</span>
+    <span class="k">return</span> <span class="n">join_list</span>
+
+<span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join_list</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">join</span> <span class="ow">in</span> <span class="n">join_list</span><span class="p">:</span>
+        <span class="c"># Create nodes for stations.</span>
+        <span class="n">s1_node_id</span> <span class="o">=</span> <span class="n">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join</span><span class="o">.</span><span class="n">station1</span><span class="p">)</span>
+        <span class="n">s2_node_id</span> <span class="o">=</span> <span class="n">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">join</span><span class="o">.</span><span class="n">station2</span><span class="p">)</span>
+
+        <span class="c"># Create bi-directional edge between two nodes.</span>
+        <span class="n">edge_1</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">Edge</span><span class="p">({},</span> <span class="n">s1_node_id</span><span class="p">,</span> <span class="n">s2_node_id</span><span class="p">)</span>
+        <span class="n">edge_2</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">Edge</span><span class="p">({},</span> <span class="n">s2_node_id</span><span class="p">,</span> <span class="n">s1_node_id</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">create_edge</span><span class="p">(</span><span class="n">s1_node_id</span><span class="p">,</span> <span class="n">edge_1</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">create_edge</span><span class="p">(</span><span class="n">s2_node_id</span><span class="p">,</span> <span class="n">edge_2</span><span class="p">)</span>
+
+        <span class="c"># Comment-out this line if you&#39;re running in distributed mode.</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">update_index</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">add_station</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="n">stations</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">create_node</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">update_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+        <span class="n">stations</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_id</span>
+    <span class="k">return</span> <span class="n">node_id</span>
+
+<span class="k">def</span> <span class="nf">print_stations</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">station</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c"># Create jubagraph client.</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
+
+    <span class="c"># Prepare query.</span>
+    <span class="n">pq</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">PresetQuery</span><span class="p">([],</span> <span class="p">[])</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add_shortest_path_query</span><span class="p">(</span><span class="n">pq</span><span class="p">)</span>
+
+    <span class="c"># Register stations in each line.</span>
+    <span class="c"># Do not add too much lines to prevent causing heavy load to the API server.</span>
+    <span class="n">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">get_station_join</span><span class="p">(</span><span class="mi">11302</span><span class="p">))</span> <span class="c"># 山手線</span>
+    <span class="n">create_graph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">get_station_join</span><span class="p">(</span><span class="mi">11312</span><span class="p">))</span> <span class="c"># 中央線</span>
+
+    <span class="c"># Print station IDs; you need the ID to search route.</span>
+    <span class="k">print</span> <span class="s">&quot;=== Station IDs ===&quot;</span>
+    <span class="n">print_stations</span><span class="p">()</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><strong>search_route.py</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="c">#!/usr/bin/env python</span>
-<span class="mo">02</span> <span class="p">:</span> <span class="c"># -*- coding: utf-8 -*-</span>
-<span class="mo">03</span> <span class="p">:</span>
-<span class="mo">04</span> <span class="p">:</span> <span class="kn">import</span> <span class="nn">sys</span>
-<span class="mo">05</span> <span class="p">:</span> <span class="kn">from</span> <span class="nn">jubatus.graph</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">types</span>
-<span class="mo">06</span> <span class="p">:</span>
-<span class="mo">07</span> <span class="p">:</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
-<span class="mi">08</span> <span class="p">:</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span>
-<span class="mi">09</span> <span class="p">:</span> <span class="n">instance_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="mi">10</span> <span class="p">:</span>
-<span class="mi">11</span> <span class="p">:</span> <span class="k">def</span> <span class="nf">search_route</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">):</span>
-<span class="mi">12</span> <span class="p">:</span>     <span class="c"># 1. Jubatus Server への接続設定</span>
-<span class="mi">13</span> <span class="p">:</span>     <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
-<span class="mi">14</span> <span class="p">:</span>
-<span class="mi">15</span> <span class="p">:</span>     <span class="c"># 2. クエリーの準備</span>
-<span class="mi">16</span> <span class="p">:</span>     <span class="n">pq</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">preset_query</span><span class="p">([],</span> <span class="p">[])</span>
-<span class="mi">17</span> <span class="p">:</span>     <span class="n">spreq</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">shortest_path_query</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">pq</span><span class="p">)</span>
-<span class="mi">18</span> <span class="p">:</span>
-<span class="mi">19</span> <span class="p">:</span>     <span class="c"># 3. 最短経路を計算</span>
-<span class="mi">20</span> <span class="p">:</span>     <span class="n">stations</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_shortest_path</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="n">spreq</span><span class="p">)</span>
-<span class="mi">21</span> <span class="p">:</span>
-<span class="mi">22</span> <span class="p">:</span>     <span class="c"># 4. 結果の表示</span>
-<span class="mi">23</span> <span class="p">:</span>     <span class="k">print</span> <span class="s">&quot;Pseudo-Shortest Path (hops) from </span><span class="si">%s</span><span class="s"> to </span><span class="si">%s</span><span class="s">:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">)</span>
-<span class="mi">24</span> <span class="p">:</span>     <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
-<span class="mi">25</span> <span class="p">:</span>         <span class="n">node</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="n">station</span><span class="p">)</span>
-<span class="mi">26</span> <span class="p">:</span>         <span class="n">station_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="mi">27</span> <span class="p">:</span>         <span class="k">if</span> <span class="s">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">:</span>
-<span class="mi">28</span> <span class="p">:</span>             <span class="n">station_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
-<span class="mi">29</span> <span class="p">:</span>         <span class="k">print</span> <span class="s">&quot;  </span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">station</span><span class="p">,</span> <span class="n">station_name</span><span class="p">)</span>
-<span class="mi">30</span> <span class="p">:</span>
-<span class="mi">31</span> <span class="p">:</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-<span class="mi">32</span> <span class="p">:</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-<span class="mi">33</span> <span class="p">:</span>         <span class="k">print</span> <span class="s">&quot;Usage: </span><span class="si">%s</span><span class="s"> from_station_id to_station_id&quot;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="mi">34</span> <span class="p">:</span>         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="mi">35</span> <span class="p">:</span>     <span class="n">search_route</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">jubatus.graph</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">types</span>
+
+<span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span>
+<span class="n">instance_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">search_route</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
+
+    <span class="n">pq</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">PresetQuery</span><span class="p">([],</span> <span class="p">[])</span>
+    <span class="n">spreq</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ShortestPathQuery</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">pq</span><span class="p">)</span>
+    <span class="n">stations</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_shortest_path</span><span class="p">(</span><span class="n">spreq</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="s">&quot;Pseudo-Shortest Path (hops) from </span><span class="si">%s</span><span class="s"> to </span><span class="si">%s</span><span class="s">:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">station</span><span class="p">)</span>
+        <span class="n">station_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="k">if</span> <span class="s">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">:</span>
+            <span class="n">station_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+        <span class="k">print</span> <span class="s">&quot;  </span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">station</span><span class="p">,</span> <span class="n">station_name</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Usage: </span><span class="si">%s</span><span class="s"> from_station_id to_station_id&quot;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">search_route</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="id2">
 <h2>解説<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><strong>train_route.json</strong></p>
-<p>設定は単体のJSONで与えられます。JSONの各フィールドは以下のとおりです。</p>
-<blockquote>
-<div><ul class="simple">
-<li>method</li>
+<p>設定は単体のJSONで与えられます。
+JSONの各フィールドは以下のとおりです。</p>
+<ul>
+<li><dl class="first docutils">
+<dt>method</dt>
+<dd><p class="first">グラフ解析に使用するアルゴリズムを指定します。</p>
+<p class="last">ここでは、インデックスのないグラフを利用するための &#8220;graph_wo_index&#8221; を指定します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>parameter</dt>
+<dd><p class="first">アルゴリズムに渡すパラメータを指定します。</p>
+<p>ここでは2つのパラメータ、&#8221;damping_factor&#8221; と &#8220;landmark_num&#8221; を指定しています。</p>
+<p class="last">&#8220;damping_factor&#8221; は、PageRank の計算におけるdamping factorで、次数の異なるノードのスコアを調整します。
+大きくすると構造をよく反映したスコアを出す代わりに、スコアに極端な偏りが発生します。
+&#8220;landmark_num&#8221; は最短パスにおいてランドマークの総数を指定します。
+大きくすると正確な最短パスに近づく代わりに、多くのメモリを消費します。</p>
+</dd>
+</dl>
+</li>
 </ul>
-<blockquote>
-<div>グラフ解析に使用するアルゴリズムを指定します。
-ここでは、インデックスのないグラフを利用するための &#8220;graph_wo_index&#8221; を指定します。</div></blockquote>
-<ul class="simple">
-<li>parameter</li>
-</ul>
-<blockquote>
-<div>アルゴリズムに渡すパラメータを指定します。
-ここでは2つのパラメータ、&#8221;damping_factor&#8221; と &#8220;landmark_num&#8221; を指定しています。
-&#8220;damping_factor&#8221; は、PageRank の計算におけるdamping factorで、次数の異なるノードのスコアを調整します。大きくすると構造をよく反映したスコアを出す代わりに、スコアに極端な偏りが発生します。
-&#8220;landmark_num&#8221; は最短パスにおいてランドマークの総数を指定します。大きくすると正確な最短パスに近づく代わりに、多くのメモリを消費します。</div></blockquote>
-</div></blockquote>
 <p><strong>create_graph.py</strong></p>
-<blockquote>
-<div><p>create_graph.pyでは、山手線と中央線の接続を表すグラフを作成します。Graphのクライアントプログラムは、jubatus.graphクラス内で定義されているGraphClientクラスを利用して作成します。サンプルで使用するメソッドは、以下の5つです。</p>
-<ol class="arabic simple">
-<li>Jubatus Serverへの接続設定</li>
-</ol>
-<blockquote>
-<div>Jubatus Serverへの接続を行います（74行目）。
-Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号を設定します。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>プリセットクエリーを登録</li>
-</ol>
-<blockquote>
-<div>最短経路を計算するために、クエリーをあらかじめadd_shortest_path_queryメソッドで登録しておく必要があります。
+<p>create_graph.pyでは、山手線と中央線の接続を表すグラフを作成します。
+Graphのクライアントプログラムは、jubatus.Graphを利用して作成します。</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Jubatus Serverへの接続設定</dt>
+<dd><p class="first">Jubatus Serverへの接続を行います（74行目）。</p>
+<p class="last">Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスクを識別するZookeeperクラスタ内でユニークな名前を設定します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>プリセットクエリーを登録</dt>
+<dd><p class="first last">最短経路を計算するために、クエリーをあらかじめadd_shortest_path_queryメソッドで登録しておく必要があります。
 そのためのクエリーを作成します(77行目)。
-add_shortest_path_queryメソッドで作成したクエリーを登録します(78行目)。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>グラフの作成</li>
-</ol>
-<blockquote>
-<div><p>山手線と中央線の接続を表すグラフを作成します。
-ここでは、create_graphメソッドを呼び出します(81, 82行目)。
+add_shortest_path_queryメソッドで作成したクエリーを登録します(78行目)。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>グラフの作成</dt>
+<dd><p class="first">山手線と中央線の接続を表すグラフを作成します。
+ここでは、create_graphメソッドを呼び出します(82, 83行目)。
 create_graphメソッドの第1引数は 1. で作成したクライアントです。
 第2引数には get_station_joinメソッドの戻り値を指定します。</p>
 <p>get_station_joinメソッドでは接続する2駅を組み合わせたリストを作成します。
 駅情報をWEB上にあるXMLファイルから取得します(29, 30行目)
 取得したXMLファイルの構造は下記のようになっています。
 今回のプログラムでは駅間の距離などは考慮せず、駅の接続情報のみ用いるため、下記XMLファイルの&lt;station_name1&gt;、&lt;station_name2&gt;の値しかプログラム中では扱いません。</p>
-<div class="highlight-python"><pre>&lt;ekidata version="ekidata.jp station_join api 1.0"&gt;
-&lt;station_join&gt;
- &lt;station_cd1&gt;1131231&lt;/station_cd1&gt;
- &lt;station_cd2&gt;1131232&lt;/station_cd2&gt;
- &lt;station_name1&gt;西八王子&lt;/station_name1&gt;
- &lt;station_name2&gt;高尾&lt;/station_name2&gt;
- &lt;lat1&gt;35.656621&lt;/lat1&gt;
- &lt;lon1&gt;139.31264&lt;/lon1&gt;
- &lt;lat2&gt;35.642026&lt;/lat2&gt;
- &lt;lon2&gt;139.282288&lt;/lon2&gt;
-&lt;/station_join&gt;
-&lt;station_join&gt;
- &lt;station_cd1&gt;1131230&lt;/station_cd1&gt;
- &lt;station_cd2&gt;1131231&lt;/station_cd2&gt;
- &lt;station_name1&gt;八王子&lt;/station_name1&gt;
- &lt;station_name2&gt;西八王子&lt;/station_name2&gt;
- &lt;lat1&gt;35.655555&lt;/lat1&gt;
- &lt;lon1&gt;139.338998&lt;/lon1&gt;
- &lt;lat2&gt;35.656621&lt;/lat2&gt;
- &lt;lon2&gt;139.31264&lt;/lon2&gt;
-&lt;/station_join&gt;
-&lt;station_join&gt;
- &lt;station_cd1&gt;1131229&lt;/station_cd1&gt;
- &lt;station_cd2&gt;1131230&lt;/station_cd2&gt;
- &lt;station_name1&gt;豊田&lt;/station_name1&gt;
- &lt;station_name2&gt;八王子&lt;/station_name2&gt;
- &lt;lat1&gt;35.659502&lt;/lat1&gt;
- &lt;lon1&gt;139.381495&lt;/lon1&gt;
- &lt;lat2&gt;35.655555&lt;/lat2&gt;
- &lt;lon2&gt;139.338998&lt;/lon2&gt;
-&lt;/station_join&gt;
--以下略-</pre>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ekidata</span> <span class="na">version=</span><span class="s">&quot;ekidata.jp station_join api 1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;station_join&gt;</span>
+ <span class="nt">&lt;station_cd1&gt;</span>1131231<span class="nt">&lt;/station_cd1&gt;</span>
+ <span class="nt">&lt;station_cd2&gt;</span>1131232<span class="nt">&lt;/station_cd2&gt;</span>
+ <span class="nt">&lt;station_name1&gt;</span>西八王子<span class="nt">&lt;/station_name1&gt;</span>
+ <span class="nt">&lt;station_name2&gt;</span>高尾<span class="nt">&lt;/station_name2&gt;</span>
+ <span class="nt">&lt;lat1&gt;</span>35.656621<span class="nt">&lt;/lat1&gt;</span>
+ <span class="nt">&lt;lon1&gt;</span>139.31264<span class="nt">&lt;/lon1&gt;</span>
+ <span class="nt">&lt;lat2&gt;</span>35.642026<span class="nt">&lt;/lat2&gt;</span>
+ <span class="nt">&lt;lon2&gt;</span>139.282288<span class="nt">&lt;/lon2&gt;</span>
+<span class="nt">&lt;/station_join&gt;</span>
+<span class="nt">&lt;station_join&gt;</span>
+ <span class="nt">&lt;station_cd1&gt;</span>1131230<span class="nt">&lt;/station_cd1&gt;</span>
+ <span class="nt">&lt;station_cd2&gt;</span>1131231<span class="nt">&lt;/station_cd2&gt;</span>
+ <span class="nt">&lt;station_name1&gt;</span>八王子<span class="nt">&lt;/station_name1&gt;</span>
+ <span class="nt">&lt;station_name2&gt;</span>西八王子<span class="nt">&lt;/station_name2&gt;</span>
+ <span class="nt">&lt;lat1&gt;</span>35.655555<span class="nt">&lt;/lat1&gt;</span>
+ <span class="nt">&lt;lon1&gt;</span>139.338998<span class="nt">&lt;/lon1&gt;</span>
+ <span class="nt">&lt;lat2&gt;</span>35.656621<span class="nt">&lt;/lat2&gt;</span>
+ <span class="nt">&lt;lon2&gt;</span>139.31264<span class="nt">&lt;/lon2&gt;</span>
+<span class="nt">&lt;/station_join&gt;</span>
+<span class="nt">&lt;station_join&gt;</span>
+ <span class="nt">&lt;station_cd1&gt;</span>1131229<span class="nt">&lt;/station_cd1&gt;</span>
+ <span class="nt">&lt;station_cd2&gt;</span>1131230<span class="nt">&lt;/station_cd2&gt;</span>
+ <span class="nt">&lt;station_name1&gt;</span>豊田<span class="nt">&lt;/station_name1&gt;</span>
+ <span class="nt">&lt;station_name2&gt;</span>八王子<span class="nt">&lt;/station_name2&gt;</span>
+ <span class="nt">&lt;lat1&gt;</span>35.659502<span class="nt">&lt;/lat1&gt;</span>
+ <span class="nt">&lt;lon1&gt;</span>139.381495<span class="nt">&lt;/lon1&gt;</span>
+ <span class="nt">&lt;lat2&gt;</span>35.655555<span class="nt">&lt;/lat2&gt;</span>
+ <span class="nt">&lt;lon2&gt;</span>139.338998<span class="nt">&lt;/lon2&gt;</span>
+<span class="nt">&lt;/station_join&gt;</span>
+-以下略-
+</pre></div>
 </div>
 <p>次に取得した駅情報のXMLファイルの&lt;station_cd1&gt;の値をstation_joinクラスのインスタンス変数station1に、&lt;station_cd2&gt;の値をstation2に格納します。
 タグ&lt;station_join&gt;の数だけstation_joinクラスのインスタンスを作成し、28行目で作成したリストに格納していきます（31-41行目）。</p>
 <p>上記で作成したリストを用いて、グラフを作成します(44-57行目)。
 create_graphメソッドでは、以下の作業を行います。</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>3-1. 駅情報の追加と駅IDの取得</dt>
-<dd>グラフ内にノードを追加します。ここでのノードは駅に相当します。（例. 品川駅、御茶ノ水駅、東京駅など）</dd>
-<dt>3-2. 追加した2駅の相互にエッジを張る</dt>
-<dd>登録した駅から隣接する駅へエッジを張ります。ここでのエッジは線路に相当します。（例.原宿⇒渋谷など）</dd>
+<ul>
+<li><dl class="first docutils">
+<dt>駅情報の追加と駅IDの取得</dt>
+<dd><p class="first last">グラフ内にノードを追加します。
+ここでのノードは駅に相当します。（例. 品川駅、御茶ノ水駅、東京駅など）</p>
+</dd>
 </dl>
-</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>追加した2駅の相互にエッジを張る</dt>
+<dd><p class="first last">登録した駅から隣接する駅へエッジを張ります。
+ここでのエッジは線路に相当します。（例. 原宿 =&gt; 渋谷など）</p>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="docutils">
 <dt>3-1. 駅情報の追加と駅IDの取得</dt>
-<dd>取得したリストの1要素から隣接する2駅station1とstation2をそれぞれノードとしてグラフ内に追加するため、add_stationメソッドを呼び出します（47, 48行目）。
+<dd><p class="first last">取得したリストの1要素から隣接する2駅station1とstation2をそれぞれノードとしてグラフ内に追加するため、add_stationメソッドを呼び出します（47, 48行目）。
 add_stationメソッドではマップstationsに、引数に指定した駅が含まれているかを確認し、含まれている場合はその駅のID nodeIdを返却し、含まれない場合は新たにノードを登録して駅名とnodeIdをstationsに格納した後にnodeIdを返却します（59-66行目）。
 ノードの登録はcreate_nodeメソッドとupdate_nodeメソッドで行います。
-まず、create_nodeメソッドを、引数にタスクを識別するZooKeeperクラスタ内でユニークな名前nameを指定して呼び出し、その戻り値をnodeIdとします(63行目)。
-そしてupdate_nodeメソッドで、63行目で作成したノードの属性を更新します(64行目)。</dd>
+まず、create_nodeメソッドを呼び出し、その戻り値をnodeIdとします(63行目)。
+そしてupdate_nodeメソッドで、63行目で作成したノードの属性を更新します(64行目)。</p>
+</dd>
 <dt>3-2. 追加した2駅の相互にエッジを張る</dt>
-<dd>add_stationメソッドで隣接する2駅station1とstation2を追加した後に、station1からstation2へ向けたエッジとstation2からstation1へ向けたエッジを張ります（51-54行目）。
+<dd><p class="first last">add_stationメソッドで隣接する2駅station1とstation2を追加した後に、station1からstation2へ向けたエッジとstation2からstation1へ向けたエッジを張ります（51-54行目）。
 エッジを張るためにはcreate_edgeメソッドを利用します。
-第2引数に接続元のnodeIDを指定し、第3引数には接続元と接続先のnodeIDを格納したエッジを指定します。</dd>
+第2引数に接続元のnodeIDを指定し、第3引数には接続元と接続先のnodeIDを格納したエッジを指定します。</p>
+</dd>
 </dl>
-<p>57行目のupdate_indexメソッドはmixをローカルで実行するものです。分散環境では利用しないでください。</p>
-</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>駅IDの表示</li>
+<p class="last">57行目のupdate_indexメソッドはmixをローカルで実行するものです。
+分散環境では利用しないでください。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>駅IDの表示</dt>
+<dd><p class="first last">3-1.で駅名と駅ID(nodeID)をstationsに格納しました。ここでは駅名を駅IDの昇順に並び替えて表示しています(68-70行目)。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>3-1.で駅名と駅ID(nodeID)をstationsに格納しました。ここでは駅名を駅IDの昇順に並び替えて表示しています(68-70行目)。</div></blockquote>
 <p><strong>search_route.py</strong></p>
 <p>search_route.pyでは、create_graph.pyで作成したグラフから2駅間の最短経路を計算します。
 使用するメソッドは、最短経路を計算するためのget_shortest_pathメソッドです。</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Jubatus Serverへの接続設定</li>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Jubatus Serverへの接続設定</dt>
+<dd><p class="first">Jubatus Serverへの接続を行います（12行目）。</p>
+<p class="last">Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスクを識別するZookeeperクラスタ内でユニークな名前を設定します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>クエリーの準備</dt>
+<dd><p class="first last">最短経路を計算するためのクエリーを準備します(14, 15行目)。
+最短経路を計算するためのget_shortest_pathメソッドに必要なShortestPathQueryを作成します(15行目)。
+types.ShortestPathQueryの第1引数に接続元の駅ID、第2引数に接続先の駅IDを設定します。第3引数で指定したホップ以内に発見できなかった場合、結果は切り詰められます。
+またクエリーはあらかじめadd_shortest_path_queryで登録しておく必要があります。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>最短経路の計算</dt>
+<dd><p class="first last">2.で作成したShortestPathQueryを指定して、get_shortest_pathを呼び出し、最短経路の計算をします(16行目)。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>結果の表示</dt>
+<dd><p class="first last">3.で取得した最短経路で通過する駅を駅IDと関連付けて表示しています(18-24行目)。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>Jubatus Serverへの接続を行います（13行目）。
-Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号を設定します。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>クエリーの準備</li>
-</ol>
-<blockquote>
-<div>最短経路を計算するためのクエリーを準備します(16, 17行目)。
-最短経路を計算するためのget_shortest_pathメソッドに必要なshortest_path_queryを作成します(17行目)。
-types.shortest_path_queryの第1引数に接続元の駅ID、第2引数に接続先の駅IDを設定します。第3引数で指定したホップ以内に発見できなかった場合、結果は切り詰められます。
-またクエリーはあらかじめadd_shortest_path_queryで登録しておく必要があります。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>最短経路の計算</li>
-</ol>
-<blockquote>
-<div>2.で作成したshortest_path_queryを指定して、get_shortest_pathを呼び出し、最短経路の計算をします(20行目)。</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>結果の表示</li>
-</ol>
-<blockquote>
-<div>3.で取得した最短経路で通過する駅を駅IDと関連付けて表示しています(23-29行目)。</div></blockquote>
-</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラムの実行<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>［Jubatus Serverでの作業］</p>
-<p><strong>サーバの起動</strong></p>
-<p>jubagraphを起動します。</p>
-<div class="highlight-python"><pre>$ jubagraph --configpath train_route.json</pre>
+<ul>
+<li><dl class="first docutils">
+<dt>Jubatus Serverでの作業</dt>
+<dd><p class="first">jubagraphを起動します。</p>
+<div class="last highlight-python"><pre>$ jubagraph --configpath train_route.json</pre>
 </div>
-<p>［Jubatus Clientでの作業］</p>
-<p>Jubatus 0.4.0 + Pythonクライアントをインストールしてください。</p>
-<p><strong>グラフの作成</strong></p>
-<p>鉄道の接続を表すグラフを作成します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Jubatus Clientでの作業</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>グラフの作成</dt>
+<dd><p class="first">鉄道の接続を表すグラフを作成します。</p>
 <div class="highlight-python"><pre>$ ./create_graph.py
 === Station IDs ===
 0       品川
@@ -453,13 +602,16 @@ types.shortest_path_queryの第1引数に接続元の駅ID、第2引数に接続
 ...
 139     中野
 144     四ツ谷
-147     御茶ノ水
-```</pre>
+147     御茶ノ水</pre>
 </div>
-<p>駅名に対応する駅ID(グラフ上のnode ID) が出力されます。</p>
-<p><strong>経路の探索</strong></p>
-<p>2つの駅IDから最短経路を検索します。</p>
-<div class="highlight-python"><pre>$ ./search_route.py 0 144
+<p class="last">駅名に対応する駅ID(グラフ上のnode ID) が出力されます。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>経路の探索</dt>
+<dd><p class="first">2つの駅IDから最短経路を検索します。</p>
+<div class="last highlight-python"><pre>$ ./search_route.py 0 144
 Pseudo-Shortest Path (hops) from 0 to 144:
   0     品川
   4     田町
@@ -471,6 +623,14 @@ Pseudo-Shortest Path (hops) from 0 to 144:
   147   御茶ノ水
   144   四ツ谷</pre>
 </div>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 </div>
 
@@ -487,7 +647,7 @@ Pseudo-Shortest Path (hops) from 0 to 144:
           <a href="../genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="graph_ruby.html" title="Ruby"
+          <a href="stat.html" title="Stat"
              >次へ</a> |</li>
         <li class="right" >
           <a href="graph.html" title="Graph"

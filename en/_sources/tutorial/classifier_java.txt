@@ -1,7 +1,7 @@
 Java
 ==========================
 
-Here we explain the sample program of Classifier. 
+Here we explain the Java sample program of Classifier.
 
 --------------------------------
 Source_code
@@ -11,222 +11,207 @@ In this sample program, we will explain 1) how to configure the learning-algorit
 
 **gender.json**
 
-.. code-block:: java
+.. code-block:: js
+ :linenos:
 
- 01: {
- 02:   "method": "AROW",
- 03:   "converter": {
- 04:     "num_filter_types": {},
- 05:     "num_filter_rules": [],
- 06:     "string_filter_types": {},
- 07:     "string_filter_rules": [],
- 08:     "num_types": {},
- 09:     "num_rules": [
- 10:        { "key": "*", "type": "num"}
- 11:         ],
- 12:    "string_types": {
- 13:         },
- 14:    "string_rules": [
- 15:        { "key": "*", "type": "str", "sample_weight": "bin", "global_weight": "bin" }
- 16:         ]
- 17:     },
- 18:   "parameter": {
- 19:     "regularization_weight" : 1.0
- 20:     }
- 21: }
+ {
+   "method": "AROW",
+   "converter": {
+     "num_filter_types": {},
+     "num_filter_rules": [],
+     "string_filter_types": {},
+     "string_filter_rules": [],
+     "num_types": {},
+     "num_rules": [],
+     "string_types": {
+       "unigram": { "method": "ngram", "char_num": "1" }
+     },
+     "string_rules": [
+       { "key": "*", "type": "unigram", "sample_weight": "bin", "global_weight": "bin" }
+     ]
+   },
+   "parameter": {
+     "regularization_weight" : 1.0
+   }
+ }
 
 **GenderMain.java**
 
 .. code-block:: java
+ :linenos:
 
- 001: package us.jubat.example.gender;
- 
- 002: import java.util.ArrayList;
- 003: import java.util.Arrays;
- 004: import java.util.List; 
+ package us.jubat.example.gender;
 
- 005: import us.jubat.classifier.ClassifierClient;
- 006: import us.jubat.classifier.Datum;
- 007: import us.jubat.classifier.EstimateResult;
- 008: import us.jubat.classifier.TupleStringDatum;
- 009: import us.jubat.classifier.TupleStringDouble;
- 010: import us.jubat.classifier.TupleStringString;
- 
- 011: public class GenderMain {
- 
- 012: 	private static TupleStringString makeStringTuple(String first, String second) {
- 013:		TupleStringString t = new TupleStringString();
- 014:		t.first = first;
- 015:		t.second = second;
- 016:		return t;
- 017:	} 
- 
- 018:	private static TupleStringDouble makeDoubleTuple(String first, double second) {
- 019:		TupleStringDouble t = new TupleStringDouble();
- 020:		t.first = first;
- 021:		t.second = second;
- 022:		return t;
- 023:	}   
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
 
- 024:	private static Datum makeDatum(String hair, String top, String bottom,
- 025:			double height) {
- 026:		Datum d = new Datum();
- 027:		d.string_values = new ArrayList<TupleStringString>();
- 028:		d.string_values.add(makeStringTuple("hair", hair));
- 029:		d.string_values.add(makeStringTuple("top", top));
- 030:		d.string_values.add(makeStringTuple("bottom", bottom));
+ import us.jubat.classifier.ClassifierClient;
+ import us.jubat.classifier.EstimateResult;
+ import us.jubat.classifier.LabeledDatum;
+ import us.jubat.common.Datum;
 
- 031:		d.num_values = new ArrayList<TupleStringDouble>();
- 032:		d.num_values.add(makeDoubleTuple("height", height));
- 033:		return d;
- 034:	}
+ public class GenderMain {
 
- 035:	private static TupleStringDatum makeTrainDatum(String label, String hair,
- 036:			String top, String bottom, double height) {
- 037:		TupleStringDatum t = new TupleStringDatum();
- 038:		t.first = label;
- 039:		t.second = makeDatum(hair, top, bottom, height);
- 040:		return t;
- 041:	}
+     private static Datum makeDatum(String hair, String top, String bottom,
+             double height) {
+         return new Datum().addString("hair", hair)
+             .addString("top", top)
+             .addString("bottom", bottom)
+             .addNumber("height", height);
+     }
 
- 042:	public static void main(String[] args) throws Exception {
- 043:		String host = "127.0.0.1";
- 044:		int port = 9199;
- 045:		String name = "test";
+     private static LabeledDatum makeTrainDatum(String label, String hair,
+             String top, String bottom, double height) {
+         return new LabeledDatum(label, makeDatum(hair, top, bottom, height));
+     }
 
- 046:		ClassifierClient client = new ClassifierClient(host, port, 1.0);
+     public static void main(String[] args) throws Exception {
+         String host = "127.0.0.1";
+         int port = 9199;
+         String name = "test";
 
- 047:		TupleStringDatum[] trainData = { //
- 048:				makeTrainDatum("male", "short", "sweater", "jeans", 1.70),
- 049:				makeTrainDatum("female", "long", "shirt", "skirt", 1.56),
- 050:				makeTrainDatum("male", "short", "jacket", "chino", 1.65),
- 051:				makeTrainDatum("female", "short", "T shirt", "jeans", 1.72),
- 052:				makeTrainDatum("male", "long", "T shirt", "jeans", 1.82),
- 053:				makeTrainDatum("female", "long", "jacket", "skirt", 1.43),
- 054:				// makeTrainDatum("male", "short", "jacket", "jeans", 1.76),
- 055:				// makeTrainDatum("female", "long", "sweater", "skirt", 1.52),
- 056:				};
+         ClassifierClient client = new ClassifierClient(host, port, name, 1);
 
- 057:		client.train(name, Arrays.asList(trainData));
+         LabeledDatum[] trainData = { //
+         makeTrainDatum("male", "short", "sweater", "jeans", 1.70),
+                 makeTrainDatum("female", "long", "shirt", "skirt", 1.56),
+                 makeTrainDatum("male", "short", "jacket", "chino", 1.65),
+                 makeTrainDatum("female", "short", "T shirt", "jeans", 1.72),
+                 makeTrainDatum("male", "long", "T shirt", "jeans", 1.82),
+                 makeTrainDatum("female", "long", "jacket", "skirt", 1.43),
+                 // makeTrainDatum("male", "short", "jacket", "jeans", 1.76),
+                 // makeTrainDatum("female", "long", "sweater", "skirt", 1.52),
+                 };
 
- 058:		Datum[] testData = { //
- 059:		makeDatum("short", "T shirt", "jeans", 1.81),
- 060:				makeDatum("long", "shirt", "skirt", 1.50), };
+         client.train(Arrays.asList(trainData));
 
- 061:		List<List<EstimateResult>> results = client.classify(name,
- 062:				Arrays.asList(testData));
+         Datum[] testData = { //
+         makeDatum("short", "T shirt", "jeans", 1.81),
+                 makeDatum("long", "shirt", "skirt", 1.50), };
 
- 063:		for (List<EstimateResult> result : results) {
- 064:			for (EstimateResult r : result) {
- 065:				System.out.printf("%s %f\n", r.label, r.score);
- 066:			}
- 067:			System.out.println();
- 068:		}
-		
- 069:		System.exit(0);
- 070:	}
- 071:}
+         List<List<EstimateResult>> results = client.classify(
+                 Arrays.asList(testData));
 
- 
+         for (List<EstimateResult> result : results) {
+             for (EstimateResult r : result) {
+                 System.out.printf("%s %f\n", r.label, r.score);
+             }
+             System.out.println();
+         }
+
+         System.exit(0);
+     }
+ }
+
 --------------------------------
 Explanation
 --------------------------------
 
 **gender.json**
 
-The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.
+This JSON file give the configuration information. Here are the meanings of the JSON fields.
 
- * method
- 
-  Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.
+* method
+    Specify the algorithm used in classification. In this example, the AROW (Adaptive Regularization of Weight vectors) algorithm is used.
+    Note that this part is irrelevant to the client methods in the Java code.
 
- * converter
- 
-  Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of 'length of hair', 'top clothes', 'bottom clothese' and 'height'. The "string_values" and "num_values" are stored in key-value pairs without using "\*_filter_types" configuration.
+* converter
+    Specify the configurations in feature converter.
 
- * parameter
+    In this sample, we will classify a person into male or female based on the features of 'length of hair', 'top clothes', 'bottom clothese' and 'height'. The "string_values" and "num_values" are stored in key-value pairs without using "\*_filter_types" configuration.
+    Note that we do not have configuration for"binary_values" since there is no binary feature.
 
-  Specify the parameter that passed to the algorithm. The parameter varis when the method is changed. In this example, the method is specified as 'AROW', with [regularization_weight: 1.0]. In addition, the parameter 'regularization_weight' in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When 'regularization_weight' parameter becomes bigger, the learning spead will increase, while the noice will decrease.
-   
-   
+* parameter
+    Specify the parameter that is passed to the algorithm.
+
+    The parameter set varies depending on the selected method. Since we use 'AROW' in this example, we set [regularization_weight: 1.0]. 
+
+    Note that the parameter 'regularization_weight', which represents sensitivity to model change, plays different roles and affects differently among different algorithms. Pay attention to choose an appopriate value for each algorithm. 
+    In general, when the 'regularization_weight' parameter is large. the model fast converges to a better model, while it is also poor at handling noise.
+
 **GenderMain.java**
 
-We explain the learning and prediction processes in this example codes.
+We explain the learning and prediction processes.
 
-First of all, to write the Client program for Classifier, we can use the ClassifierClient class defined in 'us.jubat.classifier'. There are two methods used in this program. The 'train' method for learning process, and the 'classify' method for prediction with the data learnt.
+To write the Client program for Classifier, we can use the ClassifierClient class defined in 'us.jubat.classifier' package. There are two important client methods used in this program, 'train' method for learning process, and 'classify' method for prediction with the trained model.
 
- 1. How to connect to Jubatus Server
+1. How to connect to Jubatus Server
+    Connect to Jubatus Server (Line 32).
 
-  Connect to Jubatus Server (Row 46).
-  Setting the IP addr., RPC port of Jubatus Server, and the connection waiting time.
+    Setting the IP addr, RPC port number of Jubatus Server, the unique name for task identification in Zookeeper, and the request timeout.
 
- 2. Prepare the learning data
+2. Prepare the training data
+    Make a training dataset (Line 34-43).
 
-  Make a dataset for the data to be learnt <TupleStringDatum>(Row 47).
-  
-  The dataset is input into the train() method in ClassifierClient, for the learning process. The figure below shows the structure of the data being leant.
+    The dataset is input into the train() method in ClassifierClient, for the learning process. The figure below shows the structure of the training data.
 
-  +---------------------------------------------------------------------------------------------------------------------+
-  |                                                 TupleStringDatum                                                    |
-  +-------------+-------------------------------------------------------------------------------------------------------+
-  |label(String)|                                                  Datum                                                |
-  +-------------+-------------------------+-------------------------+-------------------------+-------------------------+
-  |             |TupleStringString        |TupleStringDoubel        |TupleStringString        |TupleStringDoubel        |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |             |key(String)|value(String)|key(String)|value(String)|key(String)|value(String)|key(String)|value(double)|
-  +=============+===========+=============+===========+=============+===========+=============+===========+=============+
-  |"Male"       |"hair"     |"short"      |"top"      | "sweater"   |"bottom"   |"jeans"      | "height"  |    1.70     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Female"     |"hair"     |"long"       |"top"      | "shirt"     |"bottom"   |"skirt"      | "height"  |    1.56     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Male"       |"hair"     |"short"      |"top"      | "jacket"    |"bottom"   |"chino"      | "height"  |    1.65     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Female"     |"hair"     |"short"      |"top"      | "T shirt"   |"bottom"   |"jeans"      | "height"  |    1.72     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
-  |"Male"       |"hair"     |"long"       |"top"      | "T shirt"   |"bottom"   |"jeans"      | "height"  |    1.82     |
-  +-------------+-----------+-------------+-----------+-------------+-----------+-------------+-----------+-------------+
+    +----------------------------------------------------------------------------------------------------+
+    |LabeledDatum[]                                                                                      |
+    +-------------+--------------------------------------------------------------------------------------+
+    |label(String)|Datum                                                                                 |
+    +-------------+----------------------------+----------------------------+----------------------------+
+    |             |List<StringValue>           |List<NumValue>              |List<BinaryValue>           |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |             |key(String) |value(String)  |key(String) |value(double)  |key(String) |value(byte[])  |
+    +=============+============+===============+============+===============+============+===============+
+    |"male"       | | "hair"   | | "short"     | "height"   | 1.70          |            |               |
+    |             | | "top"    | | "sweater"   |            |               |            |               |
+    |             | | "bottom" | | "jeans"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"female"     | | "hair"   | | "long"      | "height"   | 1.56          |            |               |
+    |             | | "top"    | | "shirt"     |            |               |            |               |
+    |             | | "bottom" | | "skirt"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"male"       | | "hair"   | | "short"     | "height"   | 1.65          |            |               |
+    |             | | "top"    | | "jacket"    |            |               |            |               |
+    |             | | "bottom" | | "chino"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"female"     | | "hair"   | | "short"     | "height"   | 1.72          |            |               |
+    |             | | "top"    | | "T shirt"   |            |               |            |               |
+    |             | | "bottom" | | "jeans"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"male"       | | "hair"   | | "long"      | "height"   | 1.82          |            |               |
+    |             | | "top"    | | "T shirt"   |            |               |            |               |
+    |             | | "bottom" | | "jeans"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
+    |"female"     | | "hair"   | | "long"      | "height"   | 1.43          |            |               |
+    |             | | "top"    | | "jacket"    |            |               |            |               |
+    |             | | "bottom" | | "skirt"     |            |               |            |               |
+    +-------------+------------+---------------+------------+---------------+------------+---------------+
 
+    trainData is an array of LabeledDatum. LabeledDatum is a pair of Datum and its class label. In this sample, the label demonstrates the class name to which each Datum belongs. Each Datum is represented as key-value pairs, which are the data format that Jubatus can read. The key can be recognized as the name of the feature, and the value is the feature value. Inside the Datum, there can be three kinds of key-value lists, string_values, num_values and binary_values. They use the StringValue class, the NumValue class, and the BinaryValue class, respectively. For example, the "hair", "top", and "bottom" values are StringValue, while the "height" value is NumValue. Therefore, they are stored separately inside the Datum.
 
+    Here is the procedure of making training data.
 
-  TupleStringDatum contains the Datum and its label. In this sample, the label demonstrates the class name each Datum belongs to. Each Datum stores the data in key-value pairs, which is the format readable by Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are two kinds of key-value lists, string_values and num_values, which are defined by the TupleStringString class and TupleStringDouble class. For example, the "hair", "top", "bottom" values are in string format, thus these data are stored within the string_values list. While the "height"'s value is stored in num_values list.
-  
-  Here is the procedure of making study data.
+    To make training data, the private method "makeTrainDatum" is used (Line 22-25).
 
-  To make study data, the private method "makeTrainDatum" is used (Row 47-56). An arrayList of TupleStringDatum is declared (Row 37). Then the data in the format as defined in TupleStringDatum class is generated.
+    In this example, the key-value lists for string_values have the keys of "hair", "top", and "bottom". Their string values are registered in addString method. for instance, "short", "sweater", and "jeans", respectively. In addition, the key-value list for num_values has the key of "height", and its double type value is registered in addNumber method, for instance, 1.70 (Line 16-19).
 
-  TupleStringString and TupleStringDouble lists are declared in line Row 27 and 31, respectively, and stored in "Datum". Then, by using the method "makeDatum", data to be studied is stored in the two key-value lists, due to their different data types (Row 24-34).
+    Based on this flow, the training dataset is generated.
 
-  In this example, the key-value lists in TupleStringString format have the kyes of "hair", "top", and "bottom"; and their values, for example, are "short", "sweater", and "jeans". The key-value list in TupleStringDatum format have the key of "height", and its value, for example, "1.70" (Row 48). 
+3. Model training (update learning model)
+    We train our model by using the client method train() (Line 45), with the data generated in Step 2.
 
-  According to the flow above, the training data is generated (Row 47-56). 
+4. Prepare the test data
+    We generate test dataset in the same way with Step 2.
 
-  
- 3. Model training (update learning model)
+    Different from the training data, test data does not contain class label, so that only Datum unit is generated by using makeDatum() (Line 14-20).
 
-  We train our learning model by using the method train() at Row 57, with the data generated in step.2 above. The first parameter in train() is the unique name for task identification in Zookeeper.
-
- 4. Prepare the prediction data
-
-  Different from training data, prediction data does not contain "lable", and it is only stored in the Datum unit by using makeDatum() (Row 58-60). 
-
- 5. Data prediction
-
-  By inputting the testdata arraylist generated in step.4 into the classify() method of ClassifierClient (Row 61-62), the prediction result will be stored in the EstimateResult list (Row 63), and each r.label, r.score stands for the prediction result and the confidence of each input testdata respectively (Row 65).
-
+5. Prediction based on trained model
+    By inputting the test tata generated in Step 4 into the classify() method of ClassifierClient (Line 51-52), the prediction result will be stored in the list of EstimateResult (Line 55). Each EstimateResult contains a pair of label and score that represents the confidence of belonging to the label, for all of the labels (Line 56).
 
 
 ------------------------------------
 Run the sample program
 ------------------------------------
 
-［At Jubatus Server］
- start "jubaclassifier" process.
+* For Jubatus Server
+    start "jubaclassifier" process.
 
-::
+    ::
 
- $ jubaclassifier --configpath gender.json
+     $ jubaclassifier --configpath gender.json
 
-［At Jubatus Client］
- Get the required package and Java client ready.
- Run!
-
+* For Jubatus Client
+    Get the required package and Java client ready and run.

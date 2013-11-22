@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -139,25 +139,25 @@
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
 <p>Jubatus has a client-server architecture.
 The simplest process configuration is single client process and single server process like following figure.</p>
-<div class="figure">
-<img alt="single client, single server" src="_images/single_single.png" style="width: 70%;" />
-</div>
+<p class="blockdiag">
+<img src="_images/blockdiag-cb07631b3758b32d22e039525fcaa548205eed0d.png" alt="None" width="448" height="120" />
+</p>
 <p>Jubatus can make use of multiple server processes in order to scale out the system.
-By throwing queries to Keepers, we can execute machine learning requests (update/analyze) with multiple server processes.</p>
-<p>Keepers proxy queries from clients to appropriate server(s).
+By throwing queries to Jubatus Proxy, we can execute machine learning requests (update/analyze) with multiple server processes.</p>
+<p>Jubatus Proxy proxy queries from clients to appropriate server(s).
 Clients work as if it is communicating with just one server.
-In other words, clients don&#8217;t need to know whether it is connecting to a server or a keeper.</p>
-<p>Keepers use ZooKeeper to keep-aliving and load-balancing each Jubatus servers.</p>
-<div class="figure">
-<img alt="single client, multi servers" src="_images/single_multi.png" style="width: 70%;" />
-</div>
+In other words, clients don&#8217;t need to know whether it is connecting to a server or a Jubatus Proxy.</p>
+<p>Jubatus Proxy use ZooKeeper to keep-aliving and load-balancing each Jubatus servers.</p>
+<p class="blockdiag">
+<img src="_images/blockdiag-0b47b09550aab64297de2dae0bb42bb96e9c4314.png" alt="None" width="640" height="280" />
+</p>
 <p>Sometimes we want to distribute clients because data size is huge, or source of data is far from server.
-Jubatus can achieve this by creating multiple keepers and assigning different keeper to each client.</p>
-<div class="figure">
-<img alt="multi clients, multi servers" src="_images/multi_multi.png" style="width: 70%;" />
-</div>
+Jubatus can achieve this by creating multiple Jubatus Proxy and assigning different Jubatu Proxy to each client.</p>
+<p class="blockdiag">
+<img src="_images/blockdiag-52c7162452245223d479f0cac422c5f4c9975d30.png" alt="None" width="640" height="280" />
+</p>
 <p>The following picture describes how to run programs used by management process.
-Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;jubatus_classifier_server&#8221; is now called as &#8220;keeper&#8221;, &#8220;jubactl&#8221; and &#8220;jubaclassifier&#8221;, respectively.</p>
+Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;jubatus_classifier_server&#8221; is now called as &#8220;jubaclassifier_proxy&#8221;, &#8220;jubactl&#8221; and &#8220;jubaclassifier&#8221;, respectively.</p>
 <div class="figure">
 <img alt="relationship of processes" src="_images/processes.png" style="width: 90%;" />
 </div>

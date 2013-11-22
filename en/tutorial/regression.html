@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -149,50 +149,56 @@
             
   <div class="section" id="regression">
 <h1>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h1>
-<p>In this sample program, we will introduce how to use the linear regression function &#8216;jubaregression&#8217; through the Jubatus Client.</p>
+<p>In this sample program, we will introduce how to use the linear regression function <tt class="docutils literal"><span class="pre">jubaregression</span></tt> through the Jubatus Client.</p>
 <p>By using linear regression, we can estimate the output from the input data. This is useful for the power consumption forecast, stock price prediction, and etc.</p>
 <div class="section" id="abstract-of-sample-program">
 <h2>Abstract of sample program<a class="headerlink" href="#abstract-of-sample-program" title="Permalink to this headline">¶</a></h2>
-<p>In this sample, we will use a [rent] program to estimate the rent of a house, from the condition of the distance from the station, space; age, etc.</p>
-<p>At first, please download the rent-data, from (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>). It is used to training the regression model at the server site.</p>
-<p>Next, housing data for the estimation are read from an external file (of YAML format). The Jubatus server will predict the rent for each house by using the model train, and return the predicted value the the client site.</p>
+<p>In this sample, we will use a <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/rent">rent</a> program to estimate the rent of a house, from the condition of the distance from the station, space, age, etc.</p>
+<p>At first, please download the rent-data, from (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>). It is used to training the regression model in <tt class="docutils literal"><span class="pre">jubaregression</span></tt> .</p>
+<p>Next, housing data for the estimation are read from an external file (of YAML format). <tt class="docutils literal"><span class="pre">jubaregression</span></tt> will predict the rent by using the model trained, and return the predicted value for client.</p>
 <p>For example, once client input a housing data of [(distance from station: 15min); (space: 32 m^2); (age: 15 years)], the estimated rent 80,000 JPY will be returned.</p>
 </div>
 <div class="section" id="processing-flow">
 <h2>Processing flow<a class="headerlink" href="#processing-flow" title="Permalink to this headline">¶</a></h2>
-<p>Main flow of using Jubatus Client</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Connection settings to Jubatus Server</li>
+<p>The flow of development using Jubatus Client is following:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Connection settings to <tt class="docutils literal"><span class="pre">jubaregression</span></tt></dt>
+<dd><p class="first last">Setting the HOST and RPC port of <tt class="docutils literal"><span class="pre">jubaregression</span></tt> .</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Prepare the training data</dt>
+<dd><p class="first last">Get the rent-data from the downloaded CSV file.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Data training (update the model)</dt>
+<dd><p class="first last">Use the <tt class="docutils literal"><span class="pre">train</span></tt> method to send the rent-data to <tt class="docutils literal"><span class="pre">jubaregression</span></tt> and training the model there.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Prepare the data for estimation</dt>
+<dd><p class="first last">Pre-process and send the estimation data to <tt class="docutils literal"><span class="pre">jubaregression</span></tt> .</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Predict the data</dt>
+<dd><p class="first last">Use the <tt class="docutils literal"><span class="pre">estimate</span></tt> method to predict the input data (step.4) by using the model trained at step.3.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Return the result</dt>
+<dd><p class="first last">Output the return value of <tt class="docutils literal"><span class="pre">estimate</span></tt> as the results.</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>Setting the HOST, RPC port of Jubatus Server</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>Prepare the training data</li>
-</ol>
-<blockquote>
-<div>Get the rent-data from the downloaded .CSV file.</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>Data training (update the model)</li>
-</ol>
-<blockquote>
-<div>Use the train() method to send the rent-data to the server site and training the model there.</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>Prepare the data for estimation</li>
-</ol>
-<blockquote>
-<div>Pre-process and send the estimation data to the server site.</div></blockquote>
-<ol class="arabic simple" start="5">
-<li>Predict the data</li>
-</ol>
-<blockquote>
-<div>Use the estimate() method to predict the input data (step 4) by using the model trained at step.3.</div></blockquote>
-<ol class="arabic simple" start="6">
-<li>Return the result</li>
-</ol>
-<blockquote>
-<div>Output the return value of estimate() as the results.</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="sample-program">
 <h2>Sample Program<a class="headerlink" href="#sample-program" title="Permalink to this headline">¶</a></h2>
@@ -204,20 +210,9 @@
 <li class="toctree-l2"><a class="reference internal" href="regression_python.html#run-the-sample-program">Run the sample program</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="regression_ruby.html">Ruby</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="regression_ruby.html#source-code">Source_code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_ruby.html#explanation">Explanation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_ruby.html#run-the-sample-program">Run the sample program</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="regression_java.html">Java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="regression_java.html#source-code">Source_code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_java.html#explanation">Explanation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_java.html#run-the-sample-program">Run the sample program</a></li>
-</ul>
-</li>
 </ul>
 </div>
+<p>Currently, we have no sample programs except Python. (We welcome your contribution!)</p>
 </div>
 </div>
 

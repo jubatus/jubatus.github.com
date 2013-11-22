@@ -15,7 +15,7 @@
 システム構成
 ==================================================
 
-Jubatusには3種類のノードが存在します。分析を行うJubatusサーバ、Jubatusサーバに学習データを渡し、結果を受け取るクライアント、そして分散環境において仲介する管理ノード（Keeper）の3種類となります。
+Jubatusには3種類のノードが存在します。分析を行うJubatusサーバ、Jubatusサーバに学習データを渡し、結果を受け取るクライアント、そして分散環境において仲介する管理ノード（Proxy）の3種類となります。
 
 Jubatus サーバはモデル情報を格納し、クライアントから受け取ったデータを用いて分析を行います。
 自分が保有しているモデル情報を他のJubatusサーバと共有するために、定期的にmix操作を呼出、自分のモデル情報を交換します。
@@ -50,8 +50,8 @@ Jubatusの最も基本的なシステム構成は、以下の図に示すよう�
 *パターン2*
 
 JubatusではJubatus サーバ側の処理をスケールアウトさせるため、以下の図のように複数のJubatus サーバを使用した分散環境とし、分散処理を行うことができます。
-複数Jubatus サーバ間のプロセスは、Zookeeperを用いて協調動作します。
-クライアントは、jubaclassifier_keeperと呼ばれるプロセスにアクセスしますが、jubaclassifier_keeperはjubaclassifierと同じインターフェイスを持つように設計されています。そのため、クライアントは後ろで分散しているかどうかを気にする必要がありません。
+複数Jubatus サーバ間のプロセスは、ZooKeeperを用いて協調動作します。
+クライアントは、jubaclassifier_proxyと呼ばれるプロセスにアクセスしますが、jubaclassifier_proxyはjubaclassifierと同じインターフェイスを持つように設計されています。そのため、クライアントは後ろで分散しているかどうかを気にする必要がありません。
 
 .. blockdiag::
 
@@ -68,17 +68,17 @@ JubatusではJubatus サーバ側の処理をスケールアウトさせるた�
       client;
       }
 
-      group keeper{
+      group proxy{
       color = "#7777FF"
-      jubaclassifier_keeper;
+      jubaclassifier_proxy;
       }
-      client -> jubaclassifier_keeper -> jubaclassifier1, jubaclassifier2, jubaclassifier3;
+      client -> jubaclassifier_proxy -> jubaclassifier1, jubaclassifier2, jubaclassifier3;
     }
 
 *パターン3*
 
 Jubatusでは、データ量が膨大である、データソースが離れているなどの理由でクライアントを分散させることも可能です。
-この場合は、以下の図のように複数のクライアントに対してそれぞれjubaclassifier_keeperを実行してください。
+この場合は、以下の図のように複数のクライアントに対してそれぞれjubaclassifier_proxyを実行してください。
 
 .. blockdiag::
 
@@ -95,22 +95,22 @@ Jubatusでは、データ量が膨大である、データソースが離れて�
       client3;
       }
 
-      group keeper{
+      group proxy{
       color = "#7777FF"
-      jubaclassifier_keeper1;
-      jubaclassifier_keeper2;
-      jubaclassifier_keeper3;
+      jubaclassifier_proxy1;
+      jubaclassifier_proxy2;
+      jubaclassifier_proxy3;
       }
       
-      client1 -> jubaclassifier_keeper1 -> jubaclassifier1;
-                 jubaclassifier_keeper1 -> jubaclassifier2;
-                 jubaclassifier_keeper1 -> jubaclassifier3;
-      client2 -> jubaclassifier_keeper2 -> jubaclassifier1;
-                 jubaclassifier_keeper2 -> jubaclassifier2;
-                 jubaclassifier_keeper2 -> jubaclassifier3;
-      client3 -> jubaclassifier_keeper3 -> jubaclassifier1;
-                 jubaclassifier_keeper3 -> jubaclassifier2;
-                 jubaclassifier_keeper3 -> jubaclassifier3;
+      client1 -> jubaclassifier_proxy1 -> jubaclassifier1;
+                 jubaclassifier_proxy1 -> jubaclassifier2;
+                 jubaclassifier_proxy1 -> jubaclassifier3;
+      client2 -> jubaclassifier_proxy2 -> jubaclassifier1;
+                 jubaclassifier_proxy2 -> jubaclassifier2;
+                 jubaclassifier_proxy2 -> jubaclassifier3;
+      client3 -> jubaclassifier_proxy3 -> jubaclassifier1;
+                 jubaclassifier_proxy3 -> jubaclassifier2;
+                 jubaclassifier_proxy3 -> jubaclassifier3;
       }
 
 
@@ -134,7 +134,7 @@ Jubatusを高い信頼性のもとで提供するためには、分散環境で�
       shape = line;
       style = dashed;
       AP1;
-      Keeper1;
+      Proxy1;
       }
 
       group m2{
@@ -142,7 +142,7 @@ Jubatusを高い信頼性のもとで提供するためには、分散環境で�
       shape = line;
       style = dashed;
       AP2;
-      Keeper2;
+      Proxy2;
       }
 
       group m3{
@@ -150,40 +150,40 @@ Jubatusを高い信頼性のもとで提供するためには、分散環境で�
       shape = line;
       style = dashed;
       AP3;
-      Keeper3;
+      Proxy3;
       }
 
       LB -> AP1;
       LB -> AP2;
       LB -> AP3;
 
-      AP1 -> Keeper1 -> Server1;
-             Keeper1 -> Server2;
-             Keeper1 -> Server3;
-      AP2 -> Keeper2 -> Server1;
-             Keeper2 -> Server2;
-             Keeper2 -> Server3;
-      AP3 -> Keeper3 -> Server1;
-             Keeper3 -> Server2;
-             Keeper3 -> Server3;   
-             
-      Zookeeper -> Keeper1;
-      Zookeeper -> Keeper2;
-      Zookeeper -> Keeper3;
+      AP1 -> Proxy1 -> Server1;
+             Proxy1 -> Server2;
+             Proxy1 -> Server3;
+      AP2 -> Proxy2 -> Server1;
+             Proxy2 -> Server2;
+             Proxy2 -> Server3;
+      AP3 -> Proxy3 -> Server1;
+             Proxy3 -> Server2;
+             Proxy3 -> Server3;
 
-      Zookeeper -> Server1;
-      Zookeeper -> Server2;
-      Zookeeper -> Server3;
+      ZooKeeper -> Proxy1;
+      ZooKeeper -> Proxy2;
+      ZooKeeper -> Proxy3;
+
+      ZooKeeper -> Server1;
+      ZooKeeper -> Server2;
+      ZooKeeper -> Server3;
 
     }
 ..
 
 
- - Jubatus Keeper
+ - Jubatus Proxy
 
-  jubaXXX_keeperという名前の実行ファイルの総称をJubatus Keeperと表記します。
+  jubaXXX_proxyという名前の実行ファイルの総称をJubatus Proxyと表記します。
   運用の容易さ、アプリケーションの実装の容易さから、クライアントアプリケーションと1:1の構成とし、クライアントアプリケーションと同一のサーバで動作させることを推奨します。   
-  クライアントアプリケーションからJubatus Keeperへ通信できない場合（プロセスがダウンしているなど）に対して、再度プロセスを起動し直すなどの制御が必要になるためです。
+  クライアントアプリケーションからJubatus Proxyへ通信できない場合（プロセスがダウンしているなど）に対して、再度プロセスを起動し直すなどの制御が必要になるためです。
 
  - Jubatus Server
 

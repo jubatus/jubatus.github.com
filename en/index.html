@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -142,14 +142,14 @@
 <h1>Jubatus : Distributed Online Machine Learning Framework<a class="headerlink" href="#jubatus-distributed-online-machine-learning-framework" title="Permalink to this headline">¶</a></h1>
 <p>Jubatus is a distributed processing framework and streaming machine learning library. Jubatus includes these functionalities:</p>
 <ul class="simple">
-<li>Online Machine Learning Library: Classification, Regression, Recommendation, Graph Mining, Anomaly Detection</li>
+<li>Online Machine Learning Library: Classification, Regression, Recommendation (Nearest Neighbor Search), Graph Mining, Anomaly Detection, Clustering</li>
 <li>Feature Vector Converter (fv_converter): Data Preprocess and Feature Extraction</li>
 <li>Framework for Distributed Online Machine Learning with Fault Tolerance</li>
 </ul>
 <p><a class="reference external" href="../ja/">Japanese documentation</a> is also available.</p>
 <div class="section" id="get-jubatus">
 <h2>Get Jubatus<a class="headerlink" href="#get-jubatus" title="Permalink to this headline">¶</a></h2>
-<p>The latest version of Jubatus is 0.4.5 (<a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst">ChangeLog</a>). Jubatus is distributed under LGPL v2.1.</p>
+<p>The latest version of Jubatus is 0.5.0 (<a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst">ChangeLog</a>). Jubatus is distributed under LGPL v2.1.</p>
 <ul class="simple">
 <li>Download Source: <a class="reference external" href="https://github.com/jubatus/jubatus/tarball/master">TAR</a> / <a class="reference external" href="https://github.com/jubatus/jubatus/zipball/master">ZIP</a> / <a class="reference external" href="https://github.com/jubatus/jubatus.git">Git</a></li>
 <li>Binary Packages: see <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a></li>
@@ -161,8 +161,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#install-jubatus">Install Jubatus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#yum-repository-rhel">Yum Repository (RHEL)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#apt-repository-ubuntu">Apt Repository (Ubuntu)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#red-hat-enterprise-linux-6-2-or-later-64-bit">Red Hat Enterprise Linux 6.2 or later (64-bit)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#ubuntu-server-12-04-lts-64-bit">Ubuntu Server 12.04 LTS (64-bit)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#other-linux-distributions-including-32-bit">Other Linux Distributions (including 32-bit)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#mac-os-x">Mac OS X</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#install-jubatus-client-libraries">Install Jubatus Client Libraries</a><ul>
@@ -197,22 +199,21 @@
 <li class="toctree-l3"><a class="reference internal" href="tutorial/regression.html">Regression</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorial/graph.html">Graph</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorial/stat.html">Stat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial/anomaly.html">Anomaly</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_distributed.html">Tutorial in Distributed Mode</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_distributed.html">Setup in Distributed Mode</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_distributed.html#distributed-mode">Distributed Mode</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#setup-zookeeper">Setup ZooKeeper</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#register-configuration-file-to-zookeeper">Register configuration file to ZooKeeper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#jubatus-keeper">Jubatus Keeper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#jubatus-proxy">Jubatus Proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#join-jubatus-servers-to-cluster">Join Jubatus Servers to Cluster</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#run-tutorial">Run Tutorial</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_distributed.html#cluster-management-in-jubatus">Cluster Management in Jubatus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#zookeepers-jubatus-keepers">ZooKeepers &amp; Jubatus Keepers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#zookeepers-jubatus-proxies">ZooKeepers &amp; Jubatus Proxies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorial_distributed.html#jubavisor-process-management-agent">Jubavisor: Process Management Agent</a></li>
 </ul>
 </li>
@@ -226,6 +227,7 @@
 <li class="toctree-l3"><a class="reference internal" href="fv_convert.html#filter">Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fv_convert.html#feature-extraction-from-strings">Feature Extraction from Strings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fv_convert.html#feature-extraction-from-numbers">Feature Extraction from Numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fv_convert.html#feature-extraction-from-binary-data">Feature Extraction from Binary Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fv_convert.html#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fv_convert.html#plugins">Plugins</a></li>
 </ul>
@@ -256,6 +258,10 @@
 <li class="toctree-l3"><a class="reference internal" href="faq_rpc_err_workaround.html#recommendation-for-each-client-languages">Recommendation for each client languages</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="backup_and_recovery.html">Backup and Recovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="backup_and_recovery.html#save-and-load">Save and Load</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="faq.html#installation">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="faq.html#rpc-errors">RPC Errors</a></li>
@@ -279,7 +285,9 @@
 <li class="toctree-l3"><a class="reference internal" href="api_classifier.html">Classifier</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_regression.html">Regression</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_recommender.html">Recommender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_nearest_neighbor.html">Nearest Neighbor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_anomaly.html">Anomaly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_clustering.html">Clustering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_stat.html">Stat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_graph.html">Graph</a></li>
 </ul>

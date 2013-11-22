@@ -77,30 +77,41 @@ Example:
 Data Structures
 ~~~~~~~~~~~~~~~
 
-None.
+.. mpidl:message:: scored_datum
+
+   Represents a datum with its label.
+
+   .. mpidl:member:: 0: float score
+
+      Represents a label of this datum.
+
+   .. mpidl:member:: 1: datum data
+
+      Represents a datum.
+
+   .. code-block:: c++
+
+      message scored_datum {
+        0: float score
+        1: datum data
+      }
 
 
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (``""``).
-
 .. mpidl:service:: regression
 
-   .. mpidl:method:: int train(0: string name, 1: list<tuple<float, datum> > train_data)
+   .. mpidl:method:: int train(0: list<scored_datum> train_data)
 
-      :param name:       string value to uniquely identifies a task in the ZooKeeper cluster
       :param train_data: list of tuple of label and :mpidl:type:`datum`
       :return:           Number of trained datum (i.e., the length of the ``train_data``)
 
       Trains and updates the model.
-      ``tuple<float, datum>`` is a tuple of :mpidl:type:`datum` and its value.
-      This function is designed to allow bulk update with list of ``tuple<float, datum>``.
+      This function is designed to allow bulk update with list of ``scored_datum``.
 
-   .. mpidl:method:: list<float>  estimate(0: string name, 1: list<datum>  estimate_data)
+   .. mpidl:method:: list<float>  estimate(0: list<datum>  estimate_data)
 
-      :param name:          string value to uniquely identifies a task in the ZooKeeper cluster
       :param estimate_data: list of :mpidl:type:`datum` to estimate
       :reutrn:              List of estimated values, in order of given :mpidl:type:`datum`
 

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -149,36 +149,62 @@
             
   <div class="section" id="classifier">
 <h1>Classifier<a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h1>
-<p>In this section, we will introduce how to use <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> through the Jubatus Client.</p>
-<p>Classifier is the function to classify given data. For example, You can use Classifier to detection of spam mail.</p>
+<p>In this section, we introduce a way to use <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> through a Jubatus client.</p>
+<p>Classifier is a module to classify given data. For example, you can use Classifier to detect spam e-mails.</p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The sample program is <tt class="docutils literal"><span class="pre">gender</span></tt>. This program will classify data into male or female through the features of hair style, height and clothes.</p>
-<p>As a first step, update model in jubaclassifier using the training data.</p>
-<p>The training data is a pair of class(male or female) and features(hair style, height, clothes). You will prepare some training data and make jubaclassifier learn those data.</p>
-<p>Next, analyze the test data using model in jubaclassifier.</p>
-<p>You will prepare features as a test data, jubaclassifier will classifiy this into male or female using model.</p>
-<p>For example, you give the feature data [&#8220;hair&#8221; : &#8220;long&#8221;, &#8220;top&#8221; : &#8220;shirt&#8221;, &#8220;bottom&#8221; : &#8220;skirt&#8221;, &#8220;height&#8221; : 1.50], jubaclassifier will return &#8220;famale&#8221;.</p>
+<p>Let&#8217;s use <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/gender">gender</a> as a sample program using Classifier. This program classifies a person into male or female through the features of his/her hair style, height and clothes.</p>
+<p>As a first step, the program updates the model of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using the training data. A training data is a pair of a class (male or female) and features (hair style, height, clothes). After preparing some training data, the program makes <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> learn them.</p>
+<p>Next, the program analyzes the test data using model of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> . It prepares test data, and then <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> classifies each of them into male or female using the learned model.</p>
+<p>For example, if you give the feature data as following to <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt>, it will return &#8220;female&#8221;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;hair&quot;</span> <span class="ow">is</span> <span class="s">&quot;long&quot;</span>
+<span class="s">&quot;top&quot;</span> <span class="ow">is</span> <span class="s">&quot;shirt&quot;</span>
+<span class="s">&quot;bottom&quot;</span> <span class="ow">is</span> <span class="s">&quot;skirt&quot;</span>
+<span class="s">&quot;height&quot;</span> <span class="ow">is</span> <span class="mf">1.50</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="scenario">
 <h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
-<p>The flow of development using Jubatus Client is following:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>1.Connection settings to jubaclassifier</dt>
-<dd>Setting the HOST and RPC port of jubaclassifier.</dd>
-<dt>2.Prepare the training data</dt>
-<dd>Make some pair of class and features.</dd>
-<dt>3.Data training (update the model)</dt>
-<dd>Send the training data to jubaclassifier using <tt class="docutils literal"><span class="pre">train</span></tt> method.</dd>
-<dt>4.Prepare the test data</dt>
-<dd>Make the feature data.</dd>
-<dt>5.Classify the test data</dt>
-<dd>Send the test data to jubaclassifier using <tt class="docutils literal"><span class="pre">classify</span></tt> method.</dd>
-<dt>6.Output the result</dt>
-<dd>Compare the score value of each classes. And output the class score is larger.</dd>
+<p>The following is a typical flow of development using Jubatus Client:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Sets a connection configuration to <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt></dt>
+<dd><p class="first last">Setting the HOST, RPC port and the instance name of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> .</p>
+</dd>
 </dl>
-</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>Prepare training data</dt>
+<dd><p class="first last">Make some pairs of classes and feature sets.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Train the model using prepared data (update the model)</dt>
+<dd><p class="first last">Send the training data to <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using <tt class="docutils literal"><span class="pre">train</span></tt> method.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Prepare the test data</dt>
+<dd><p class="first last">Make a set of feature data.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Classify the test data</dt>
+<dd><p class="first last">Send the test data to <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> using <tt class="docutils literal"><span class="pre">classify</span></tt> method.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Output the result</dt>
+<dd><p class="first last">Compare the score value of each class, and output the class of the highest score.</p>
+</dd>
+</dl>
+</li>
+</ol>
 </div>
 <div class="section" id="sample-program">
 <h2>Sample Program<a class="headerlink" href="#sample-program" title="Permalink to this headline">¶</a></h2>

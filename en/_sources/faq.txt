@@ -127,10 +127,15 @@ Distributed Environment
     I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
     I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
 
-- Is it appropriate to use only a single server for all these processes, including jubaclassifier, jubaclassifier_keeper/Client and ZooKeeper, even in distributed model.
+- Is it appropriate to use only a single server for all these processes, including jubaclassifier, jubaclassifier_proxy/Client and ZooKeeper, even in distributed model.
 
  No Problem. 
  However, comparing with the environment where each process has its privately owned server, the overall performance may decrease. In addition, we recommend an odd number of the ZooKeeper servers for the better ensemble.
+
+- What's the difference between Jubatus Keeper and Proxy?
+
+ Keeper is renamed to Proxy in version 0.5.0
+ The role of proxies is same as the role of keepers in 0.4.x or before.
 
 Learning Model 
 ::::::::::::::

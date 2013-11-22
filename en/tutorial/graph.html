@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="Tutorial" href="../tutorial.html" />
     <link rel="next" title="Python" href="graph_python.html" />
-    <link rel="prev" title="Java" href="regression_java.html" /> 
+    <link rel="prev" title="Python" href="regression_python.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="graph_python.html" title="Python"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="regression_java.html" title="Java"
+          <a href="regression_python.html" title="Python"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
@@ -112,8 +112,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="regression_java.html"
-                        title="previous chapter">Java</a></p>
+  <p class="topless"><a href="regression_python.html"
+                        title="previous chapter">Python</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="graph_python.html"
                         title="next chapter">Python</a></p>
@@ -149,68 +149,62 @@
             
   <div class="section" id="graph">
 <h1>Graph<a class="headerlink" href="#graph" title="Permalink to this headline">¶</a></h1>
-<p>In this sample program, we will introduce how to do graph mining by using jubagraph function from Jubatus Client.</p>
-<p>By using graph mining function, we can find the center node or the shortest path in a graph structure. This is useful for the analysis of social community, network structure, and etc.</p>
+<p>In this sample program, we will introduce how to do graph mining by using <tt class="docutils literal"><span class="pre">jubagraph</span></tt> function from Jubatus Client.</p>
+<p>By using graph mining function, we can find the center node or the shortest path in a graph structure. This is useful for the analysis of social community, network structure and etc.</p>
 <div class="section" id="abstract-of-sample-program">
 <h2>Abstract of sample program<a class="headerlink" href="#abstract-of-sample-program" title="Permalink to this headline">¶</a></h2>
-<p>In this sample, we will describe the Jubagraph usage through a program of the shortest path detection for train routes.</p>
-<p>At first, we will create the train_route graph by using the CreateGraph() function. And in this example, we build the graph with the train_route of Yamanote-line and Chuou-line, in Tokyo, Japan.</p>
-<p>When the graph is built, we can find the shortest path between any 2 stations, when we input the station_id into the SearchRoute() function.</p>
-<p>For example, to find the route between &#8220;Shinagawa-Station&#8221; on Yamanote-line and &#8220;Ochanomizu-Station&#8221; on Chuou-line, basically we can get 2 patterns. One is transfer at &#8220;Shinjuku-Station&#8221; for Chuou-line (clockwise), another one is transfer at &#8220;Tokyo-Station&#8221; for Chuou-line (counterclockwise). By using this program, the route of the least stations to pass is returned. In other words, only the route by &#8220;Tokyo-Station&#8221; will be returned.</p>
+<p>In this sample, we will describe the <tt class="docutils literal"><span class="pre">jubagraph</span></tt> usage through a program of the shortest path detection for train routes (<a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/train_route">train_route</a>).</p>
+<p>At first, we will create the train route. In this example, we build the graph with the train route of Yamanote-line and Chuo-line, in Tokyo, Japan.</p>
+<p>After the graph is built, we can find the shortest path between any two stations by inputting station_id.</p>
+<p>For example, to find the route between &#8220;Shinagawa-Station&#8221; on Yamanote-line and &#8220;Ochanomizu-Station&#8221; on Chuo-line, basically we can get 2 patterns. One is transfer at &#8220;Shinjuku-Station&#8221; for Chuo-line (clockwise), another one is transfer at &#8220;Tokyo-Station&#8221; for Chuo-line (counterclockwise). By using this program, the route of the least stations to pass is returned. In other words, only the route via &#8220;Tokyo-Station&#8221; will be returned.</p>
 </div>
 <div class="section" id="processing-flow">
 <h2>Processing flow<a class="headerlink" href="#processing-flow" title="Permalink to this headline">¶</a></h2>
-<p>Main flow of using Jubatus Client</p>
-<ul class="simple">
-<li>CreateGraph</li>
-</ul>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Connection settings to Jubatus Server</li>
+<p>The flow of development using Jubatus Client is following:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Connection settings to <tt class="docutils literal"><span class="pre">jubagraph</span></tt></dt>
+<dd><p class="first last">Setting the HOST and RPC port of <tt class="docutils literal"><span class="pre">jubagraph</span></tt> .</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Register the pre-set query</dt>
+<dd><p class="first last">Register the queries which to be used for the shortest path calculation.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Create graph</dt>
+<dd><p class="first last">Get the stations information in Yamanote-line and Chuo-line，and create the route-graph.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Set station ID</dt>
+<dd><p class="first last">Display the stations in route-graph by their station_id.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Prepare the query</dt>
+<dd><p class="first last">Prepare the query for the shortest path calculation.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Get the shortest path</dt>
+<dd><p class="first last">Calculate the shortest path between the two stations assigned in the query at step.5.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Display the result</dt>
+<dd><p class="first last">Display the result in step.6.</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>Setting the HOST, RPC port of Jubatus Server</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>Register the pre-set query</li>
-</ol>
-<blockquote>
-<div>Register the queries which to be used for the shortest path calculation.</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>Create graph</li>
-</ol>
-<blockquote>
-<div>Get the stations information in Yamanote-line and Chuou-line， and create the route-graph.</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>Set station ID</li>
-</ol>
-<blockquote>
-<div>Display the stations in route-graph by their station_id.</div></blockquote>
-</div></blockquote>
-<ul class="simple">
-<li>SearchRoute</li>
-</ul>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Connection settings to Jubatus Server</li>
-</ol>
-<blockquote>
-<div>Setting the HOST, RPC port of Jubatus Server</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>Prepare the query</li>
-</ol>
-<blockquote>
-<div>Prepare the query for the shortest path calculation.</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>Get the shortest path</li>
-</ol>
-<blockquote>
-<div>Calculate the shortest path between the two stations assigned in the query at step. 2.</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>Display the result</li>
-</ol>
-<blockquote>
-<div>Display the result in step. 3.</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="sample-program">
 <h2>Sample Program<a class="headerlink" href="#sample-program" title="Permalink to this headline">¶</a></h2>
@@ -222,20 +216,9 @@
 <li class="toctree-l2"><a class="reference internal" href="graph_python.html#run-the-sample-program">Run the sample program</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="graph_ruby.html">Ruby</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="graph_ruby.html#source-code">Source_code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_ruby.html#explanation">Explanation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_ruby.html#run-the-sample-program">Run the sample program</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="graph_java.html">Java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="graph_java.html#source-code">Source_code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_java.html#explanation">Explanation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_java.html#run-the-sample-program">Run the sample program</a></li>
-</ul>
-</li>
 </ul>
 </div>
+<p>Currently, we have no sample programs except Python. (We welcome your contribution!)</p>
 </div>
 </div>
 
@@ -255,7 +238,7 @@
           <a href="graph_python.html" title="Python"
              >next</a> |</li>
         <li class="right" >
-          <a href="regression_java.html" title="Java"
+          <a href="regression_python.html" title="Python"
              >previous</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >Tutorial</a> &raquo;</li> 

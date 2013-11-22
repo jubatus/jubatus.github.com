@@ -124,10 +124,15 @@ RPC エラー
     I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
     I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
 
-- 分散構成のJubatusを準備する場合、jubaclassifier、jubaclassifier_keeper/Client、ZooKeeperを1台のサーバにインストールし、その構成のサーバを複数用意しても問題ありませんか?
+- 分散構成のJubatusを準備する場合、jubaclassifier、jubaclassifier_proxy/Client、ZooKeeperを1台のサーバにインストールし、その構成のサーバを複数用意しても問題ありませんか?
 
  問題ありません。
  但し、各プロセスを単独のサーバで動作させた場合と比べ、処理性能が低下する可能性があります。またZooKeeperは奇数台でアンサンブルを構成することを推奨します。
+
+- Jubatus Keeper と Proxy の違いは？
+
+ バージョン 0.5.0 より、Keeper は Proxy に名称が変更されました。
+ Proxy の役割は、0.4.x 以前の Keeper と同様です。
 
 学習モデル
 :::::::::::

@@ -77,30 +77,41 @@ JSON の各フィールドは以下のとおりである。
 Data Structures
 ~~~~~~~~~~~~~~~
 
-なし。
+.. mpidl:message:: scored_datum
+
+   スコア付きのデータを表す。
+
+   .. mpidl:member:: 0: float score
+
+      このデータに紐付けられたスコアを表す。このスコアを当てるのが、回帰問題の目的となる。
+
+   .. mpidl:member:: 1: datum data
+
+      ラベルに紐付けられたデータを表す。
+
+   .. code-block:: c++
+
+      message scored_datum {
+        0: float score
+        1: datum data
+      }
 
 
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (``""``) を指定する。
-
 .. mpidl:service:: regression
 
-   .. mpidl:method:: int train(0: string name, 1: list<tuple<float, datum> > train_data)
+   .. mpidl:method:: int train(0: list<scored_datum> train_data)
 
-      :param name:       タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param train_data: float と :mpidl:type:`datum` で構成される組のリスト
       :return:           学習した件数 (``train_data`` の長さに等しい)
 
       学習し、モデルを更新する。
-      ``tuple<float, datum>`` は、 :mpidl:type:`datum` とその値の組である。
-      この関数は ``tuple<float, datum>`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
+      この関数は ``scored_datum`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
 
-   .. mpidl:method:: list<float>  estimate(0: string name, 1: list<datum>  estimate_data)
+   .. mpidl:method:: list<float>  estimate(0: list<datum>  estimate_data)
 
-      :param name:          タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param estimate_data: 推定する :mpidl:type:`datum` のリスト
       :return:              推定値のリスト (入れられた :mpidl:type:`datum` の順に並ぶ)
 

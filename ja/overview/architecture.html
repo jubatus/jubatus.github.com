@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -156,7 +156,7 @@
 </div></blockquote>
 <div class="section" id="id2">
 <h2>システム構成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Jubatusには3種類のノードが存在します。分析を行うJubatusサーバ、Jubatusサーバに学習データを渡し、結果を受け取るクライアント、そして分散環境において仲介する管理ノード（Keeper）の3種類となります。</p>
+<p>Jubatusには3種類のノードが存在します。分析を行うJubatusサーバ、Jubatusサーバに学習データを渡し、結果を受け取るクライアント、そして分散環境において仲介する管理ノード（Proxy）の3種類となります。</p>
 <p>Jubatus サーバはモデル情報を格納し、クライアントから受け取ったデータを用いて分析を行います。
 自分が保有しているモデル情報を他のJubatusサーバと共有するために、定期的にmix操作を呼出、自分のモデル情報を交換します。</p>
 <p>クライアントは、実際にデータをJubatus サーバに与え、処理結果を受け取るノードです。
@@ -170,32 +170,32 @@
 </p>
 <p><em>パターン2</em></p>
 <p>JubatusではJubatus サーバ側の処理をスケールアウトさせるため、以下の図のように複数のJubatus サーバを使用した分散環境とし、分散処理を行うことができます。
-複数Jubatus サーバ間のプロセスは、Zookeeperを用いて協調動作します。
-クライアントは、jubaclassifier_keeperと呼ばれるプロセスにアクセスしますが、jubaclassifier_keeperはjubaclassifierと同じインターフェイスを持つように設計されています。そのため、クライアントは後ろで分散しているかどうかを気にする必要がありません。</p>
+複数Jubatus サーバ間のプロセスは、ZooKeeperを用いて協調動作します。
+クライアントは、jubaclassifier_proxyと呼ばれるプロセスにアクセスしますが、jubaclassifier_proxyはjubaclassifierと同じインターフェイスを持つように設計されています。そのため、クライアントは後ろで分散しているかどうかを気にする必要がありません。</p>
 <p class="blockdiag">
-<img src="../_images/blockdiag-19dd471804140d44fe1de2a8502d6808f9865d30.png" alt="None" width="640" height="280" />
+<img src="../_images/blockdiag-0b47b09550aab64297de2dae0bb42bb96e9c4314.png" alt="None" width="640" height="280" />
 </p>
 <p><em>パターン3</em></p>
 <p>Jubatusでは、データ量が膨大である、データソースが離れているなどの理由でクライアントを分散させることも可能です。
-この場合は、以下の図のように複数のクライアントに対してそれぞれjubaclassifier_keeperを実行してください。</p>
+この場合は、以下の図のように複数のクライアントに対してそれぞれjubaclassifier_proxyを実行してください。</p>
 <p class="blockdiag">
-<img src="../_images/blockdiag-a03c1e2ae65546ff57db9b3ec3bef822e626eb4c.png" alt="None" width="640" height="280" />
+<img src="../_images/blockdiag-52c7162452245223d479f0cac422c5f4c9975d30.png" alt="None" width="640" height="280" />
 </p>
 <p>パターン2でクライアント側がボトルネックになっていたり、分散している場合にパターン3を使う、と考えてください。</p>
 <p><em>推奨するプロセス配置構成について</em></p>
 <p>Jubatusを高い信頼性のもとで提供するためには、分散環境で動作させる必要があります。また高いパフォーマンスを維持するためには、JubatusおよびJubatusに関連するプロセス配置構成に気をつける必要があります。
 以下の図に、推奨するプロセス配置構成を示します。</p>
 <p class="blockdiag">
-<img src="../_images/blockdiag-14d5f18ae16bc3274c768c84b7f5d9457c874fea.png" alt="None" width="832" height="360" />
+<img src="../_images/blockdiag-37df7b3febece5cf93d534f3bd0bde4ff4002a4a.png" alt="None" width="832" height="360" />
 </p>
 <blockquote>
 <div><ul class="simple">
-<li>Jubatus Keeper</li>
+<li>Jubatus Proxy</li>
 </ul>
 <blockquote>
-<div>jubaXXX_keeperという名前の実行ファイルの総称をJubatus Keeperと表記します。
+<div>jubaXXX_proxyという名前の実行ファイルの総称をJubatus Proxyと表記します。
 運用の容易さ、アプリケーションの実装の容易さから、クライアントアプリケーションと1:1の構成とし、クライアントアプリケーションと同一のサーバで動作させることを推奨します。
-クライアントアプリケーションからJubatus Keeperへ通信できない場合（プロセスがダウンしているなど）に対して、再度プロセスを起動し直すなどの制御が必要になるためです。</div></blockquote>
+クライアントアプリケーションからJubatus Proxyへ通信できない場合（プロセスがダウンしているなど）に対して、再度プロセスを起動し直すなどの制御が必要になるためです。</div></blockquote>
 <ul class="simple">
 <li>Jubatus Server</li>
 </ul>

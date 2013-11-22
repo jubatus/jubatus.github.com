@@ -131,28 +131,42 @@ Data Structures
         1: double score
       }
 
+.. mpidl:message:: labeled_datum
+
+   ラベル付きのデータを表す。
+
+   .. mpidl:member:: 0: string label
+
+      このデータに紐付けられたラベルを表す。
+
+   .. mpidl:member:: 1: datum data
+
+      ラベルに紐付けられたデータを表す。
+
+   .. code-block:: c++
+
+      message labeled_datum {
+        0: string label
+        1: datum data
+      }
+
 
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (``""``) を指定する。
-
 .. mpidl:service:: classifier
 
-   .. mpidl:method:: int train(0: string name, 1: list<tuple<string, datum> > data)
+   .. mpidl:method:: int train(0: list<labeled_datum> data)
 
-      :param name:  タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param data:  label と :mpidl:type:`datum` で構成される組のリスト
       :return:      学習した件数 (``data`` の長さに等しい)
 
       学習しモデルを更新する。
-      ``tuple<string, datum>`` は、 :mpidl:type:`datum` とその label の組である。
-      この API は ``tuple<string, datum>`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
+      ``labeled_datum`` は、 :mpidl:type:`datum` とその label の組である。
+      この API は ``labeled_datum`` をリスト形式でまとめて同時に受け付けることができる (バルク更新)。
 
-   .. mpidl:method:: list<list<estimate_result> > classify(0: string name, 1: list<datum> data)
+   .. mpidl:method:: list<list<estimate_result> > classify(0: list<datum> data)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param data: 分類する :mpidl:type:`datum` のリスト
       :return:     :mpidl:type:`estimate_result` のリストのリスト (入れられた :mpidl:type:`datum` の順に並ぶ)
 

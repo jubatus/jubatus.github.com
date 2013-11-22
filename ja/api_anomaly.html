@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -46,7 +46,7 @@
     <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Stat" href="api_stat.html" />
-    <link rel="prev" title="Recommender" href="api_recommender.html" /> 
+    <link rel="prev" title="Nearest Neighbor" href="api_nearest_neighbor.html" /> 
 
 <!--
 
@@ -88,7 +88,7 @@
           <a href="api_stat.html" title="Stat"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="api_recommender.html" title="Recommender"
+          <a href="api_nearest_neighbor.html" title="Nearest Neighbor"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -112,8 +112,8 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="api_recommender.html"
-                        title="前の章へ">Recommender</a></p>
+  <p class="topless"><a href="api_nearest_neighbor.html"
+                        title="前の章へ">Nearest Neighbor</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="api_stat.html"
                         title="次の章へ">Stat</a></p>
@@ -163,8 +163,8 @@ JSON の各フィールドは以下のとおりである。</p>
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="29%" />
-<col width="71%" />
+<col width="23%" />
+<col width="77%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">設定値</th>
@@ -173,7 +173,10 @@ JSON の各フィールドは以下のとおりである。</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lof&quot;</span></tt></td>
-<td>Local Outlier Factor を利用する。 <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a></td>
+<td>Recommenderベースの Local Outlier Factor を利用する。 <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;light_lof&quot;</span></tt></td>
+<td>Nearest Neighborベースの LOF を利用する。</td>
 </tr>
 </tbody>
 </table>
@@ -209,6 +212,30 @@ JSON の各フィールドは以下のとおりである。</p>
 </tbody>
 </table>
 </dd>
+<dt>light_lof</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">対象データに対する近傍の数を指定する。
+大きくすると誤検出が減る代わりに、検出漏れが増える。
+(Integer)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">reverse_nearest_neighbor_num:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">異常値の情報更新する際に、逆近傍候補の個数を指定する。
+大きくすると検出が正確になる代わりに、更新に時間がかかる。
+(Integer)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">method:</th><td class="field-body">近傍探索に利用する近傍探索器のアルゴリズムを指定する。
+<a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> で説明される <tt class="docutils literal"><span class="pre">method</span></tt> を指定する。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
+<a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> で説明される <tt class="docutils literal"><span class="pre">parameter</span></tt> を指定する。</td>
+</tr>
+</tbody>
+</table>
+</dd>
 </dl>
 </dd></dl>
 
@@ -228,7 +255,7 @@ JSON の各フィールドは以下のとおりである。</p>
     <span class="s2">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
     <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;euclid_lsh&quot;</span><span class="p">,</span>
     <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;lsh_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
+      <span class="s2">&quot;hash_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
       <span class="s2">&quot;table_num&quot;</span> <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
       <span class="s2">&quot;seed&quot;</span> <span class="o">:</span> <span class="mi">1091</span><span class="p">,</span>
       <span class="s2">&quot;probe_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
@@ -258,24 +285,44 @@ JSON の各フィールドは以下のとおりである。</p>
 </div>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>なし。</p>
+<dl class="message">
+<dt id="id_with_score">
+<em class="property">message </em><tt class="descname">id_with_score</tt><a class="headerlink" href="#id_with_score" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スコア付きのデータIDを表す。</p>
+<dl class="member">
+<dt id="id_with_score::id__s">
+0: string <tt class="descname">id</tt><a class="headerlink" href="#id_with_score::id__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>データのIDを表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="id_with_score::score__float">
+1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>IDに対して紐付かれたスコアを表す。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>各メソッドの最初のパラメタ <tt class="docutils literal"><span class="pre">name</span></tt> は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。</p>
 <dl class="service">
 <dt>
 <em class="property">service </em><tt class="descname">anomaly</tt></dt>
 <dd><dl class="method">
-<dt id="anomaly::clear_row__s.s">
-bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em><big>)</big><a class="headerlink" href="#anomaly::clear_row__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="anomaly::clear_row__s">
+bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#anomaly::clear_row__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><strong>id</strong> &#8211; 削除する点 ID</li>
 </ul>
 </td>
@@ -289,14 +336,13 @@ bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>name</em>, 1: 
 </dd></dl>
 
 <dl class="method">
-<dt id="anomaly::add__s.datum">
-tuple&lt;string, float&gt; <tt class="descname">add</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::add__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="anomaly::add__datum">
+<a class="reference internal" href="#id_with_score" title="id_with_score">id_with_score</a> <tt class="descname">add</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::add__datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><strong>row</strong> &#8211; 点の <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
 </td>
@@ -310,14 +356,13 @@ tuple&lt;string, float&gt; <tt class="descname">add</tt><big>(</big>0: string <e
 </dd></dl>
 
 <dl class="method">
-<dt id="anomaly::update__s.s.datum">
-float <tt class="descname">update</tt><big>(</big>0: string <em>name</em>, 1: string <em>id</em>, 2: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::update__s.s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="anomaly::update__s.datum">
+float <tt class="descname">update</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::update__s.datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><strong>id</strong> &#8211; 更新する点 ID</li>
 <li><strong>row</strong> &#8211; 点の新しい <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
@@ -332,14 +377,34 @@ float <tt class="descname">update</tt><big>(</big>0: string <em>name</em>, 1: st
 </dd></dl>
 
 <dl class="method">
-<dt id="anomaly::calc_score__s.datum">
-float <tt class="descname">calc_score</tt><big>(</big>0: string <em>name</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::calc_score__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="anomaly::overwrite__s.datum">
+float <tt class="descname">overwrite</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::overwrite__s.datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
+<li><strong>id</strong> &#8211; 更新する点 ID</li>
+<li><strong>row</strong> &#8211; 点の新しい <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">異常値</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>点 <tt class="docutils literal"><span class="pre">id</span></tt> をデータ <tt class="docutils literal"><span class="pre">row</span></tt> で上書き更新する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anomaly::calc_score__datum">
+float <tt class="descname">calc_score</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::calc_score__datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
 <li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
 </td>
@@ -353,19 +418,13 @@ float <tt class="descname">calc_score</tt><big>(</big>0: string <em>name</em>, 1
 </dd></dl>
 
 <dl class="method">
-<dt id="anomaly::get_all_rows__s">
-list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big>0: string <em>name</em><big>)</big><a class="headerlink" href="#anomaly::get_all_rows__s" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="anomaly::get_all_rows">
+list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big><a class="headerlink" href="#anomaly::get_all_rows" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">すべての点の ID リスト</p>
-</td>
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">すべての点の ID リスト</td>
 </tr>
 </tbody>
 </table>
@@ -393,7 +452,7 @@ list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big>0: string <
           <a href="api_stat.html" title="Stat"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="api_recommender.html" title="Recommender"
+          <a href="api_nearest_neighbor.html" title="Nearest Neighbor"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>

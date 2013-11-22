@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -103,7 +103,7 @@
   <ul>
 <li><a class="reference internal" href="#">Cluster Administration Guide</a><ul>
 <li><a class="reference internal" href="#recommended-process-configuration">Recommended Process Configuration</a><ul>
-<li><a class="reference internal" href="#jubatus-keepers">Jubatus Keepers</a></li>
+<li><a class="reference internal" href="#jubatus-proxies">Jubatus Proxies</a></li>
 <li><a class="reference internal" href="#jubatus-servers">Jubatus Servers</a></li>
 <li><a class="reference internal" href="#zookeeper">ZooKeeper</a></li>
 </ul>
@@ -163,13 +163,13 @@ Additionally, to ensure high performance, you should carefully plan the process 
 <div class="figure">
 <img alt="process configuration" src="_images/process_configuration.png" style="width: 90%;" />
 </div>
-<div class="section" id="jubatus-keepers">
-<h3>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="Permalink to this headline">¶</a></h3>
-<p>To keep operation and implementation of the client application simple, we recommend assigning one keeper for each instance of the application.</p>
-<p>In case that the client application cannot connect to the keeper (e.g., the keeper is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:</p>
+<div class="section" id="jubatus-proxies">
+<h3>Jubatus Proxies<a class="headerlink" href="#jubatus-proxies" title="Permalink to this headline">¶</a></h3>
+<p>To keep operation and implementation of the client application simple, we recommend assigning one Jubatus Proxy for each instance of the application.</p>
+<p>In case that the client application cannot connect to the Jubatus Proxy (e.g., the Jubatus Proxy is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:</p>
 <ol class="arabic simple">
-<li>Monitor the keeper processes. When the keeper goes down, block the access to the application from users.</li>
-<li>Switch over to another keeper.</li>
+<li>Monitor the Jubatus Proxy processes. When the Jubatus Proxy goes down, block the access to the application from users.</li>
+<li>Switch over to another Jubatus Proxy.</li>
 </ol>
 </div>
 <div class="section" id="jubatus-servers">

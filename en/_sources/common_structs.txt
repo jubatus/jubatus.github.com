@@ -11,6 +11,34 @@ Data Structures
    Represents a set of data used for machine learning in Jubatus.
    See :doc:`fv_convert` for details.
 
+   You can change internal values of a datum with these methods.
+
+   .. mpidl:method:: datum add_string(0: string key, 1: string value)
+
+      :param key: The key of the value to add. Cannot contain "$".
+      :param value: The value to add.
+      :return:     Returns a pointer to itself.
+
+      Add a string value.
+
+   .. mpidl:method:: datum add_number(0: string key, 1: double value)
+
+      :param key: The key of the value to add.
+      :param value: The value to add.
+      :return:     Returns a pointer to itself.
+
+      Add a numeric value.
+
+   .. mpidl:method:: datum add_binary(0: string key, 1: raw value)
+
+      :param key: The key of the value to add.
+      :param value: The value to add.
+      :return:     Returns a pointer to itself.
+
+      Add a binary value.
+
+   Internal representation of a datum is below:
+
    .. mpidl:member:: 0: list<tuple<string, string> > string_values
 
       Input data represented in string.
@@ -22,23 +50,29 @@ Data Structures
       Input data represented in numeric value.
       It is represented as key-value pairs of data.
 
+   .. mpidl:member:: 2: list<tuple<string, raw> > binary_values
+
+      Input data represented in binary value.
+      It is represented as key-value pairs of data.
+
    .. code-block:: c++
 
       message datum {
         0: list<tuple<string, string> > string_values
         1: list<tuple<string, double> > num_values
+        2: list<tuple<string, raw> > binary_values
       }
 
 
 Constructor
 ~~~~~~~~~~~
 
-.. describe:: constructor(string host, int port, int timeout_sec)
+.. describe:: constructor(string host, int port, string name, int timeout_sec)
 
    Creates a new RPC client instance.
+   ``name`` is a string value to uniquely identify a task in the ZooKeeper cluster.
+   When using standalone mode, this must be left blank (``""``).
    ``timeout_sec`` is a length of timeout between the RPC method invocation and response.
-
-   Currently, you cannot specify ``timeout_sec`` for Python and Ruby clients.
 
    Example usage of constructors are as follows:
 
@@ -48,14 +82,14 @@ Constructor
    #include <jubatus/client.hpp>
    using jubatus::classifier::client::classifier;
    // ...
-   classifier client("localhost", 9199, 10);
+   classifier client("localhost", 9199, "cluster", 10);
 
 .. code-block:: python
 
    # Python
    from jubatus.classifier.client import classifier
    # ...
-   client = classifier("localhost", 9199);
+   client = classifier("localhost", 9199, "cluster", 10);
 
 .. code-block:: ruby
 
@@ -63,56 +97,48 @@ Constructor
    require 'jubatus/classifier/client'
    include Jubatus::Classifier::Client
    // ...
-   client = Classifier.new("localhost", 9199)
+   client = Classifier.new("localhost", 9199, "cluster", 10)
 
 .. code-block:: java
 
    // Java
    import us.jubat.classifier.ClassifierClient;
    // ...
-   ClassifierClient client = new ClassifierClient("localhost", 9199, 10);
+   ClassifierClient client = new ClassifierClient("localhost", 9199, "cluster", 10);
 
 
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (``""``).
+.. mpidl:method:: bool save(0: string id)
 
-.. mpidl:method:: bool save(0: string name, 1: string id)
-
-   :param name: string value to uniquely identifies a task in the ZooKeeper cluster
    :param id:   file name to save
    :return:     True if this function saves files successfully at all servers
 
    Store the learing model to the local disk at **ALL** servers.
 
-.. mpidl:method:: bool load(0: string name, 1: string id)
+.. mpidl:method:: bool load(0: string id)
 
-   :param name: string value to uniquely identifies a task in the ZooKeeper cluster
    :param id:   file name to load
    :return:     True if this function loads files successfully at all servers
 
    Restore the saved model from local disk at **ALL** servers.
 
-.. mpidl:method:: bool clear(0: string name)
+.. mpidl:method:: bool clear()
 
-   :param name: string value to uniquely identifies a task in the ZooKeeper cluster
    :return:     True when the model was cleared successfully
 
    Completely clears the model at **ALL** servers.
 
-.. mpidl:method:: string get_config(0: string name)
+.. mpidl:method:: string get_config()
 
-   :param name: string value to uniquely identifies a task in the ZooKeeper cluster
    :return:     server configuration set on initialization
 
    Returns server configuration from a server.
    For format of configuration, see API reference of each services.
 
-.. mpidl:method:: map<string, map<string, string> >  get_status(0: string name)
+.. mpidl:method:: map<string, map<string, string> >  get_status()
 
-   :param name: string value to uniquely identifies a task in the ZooKeeper cluster
    :return:     Internal state for each servers. The key of most outer map is in form of ``hostname_portnumber``.
 
    Returns server status from **ALL** servers.

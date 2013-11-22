@@ -1,23 +1,42 @@
-Tutorial in Distributed Mode
+Setup in Distributed Mode
 ============================
 
-We recommend trying this tutorial after you experience :doc:`tutorial` in standalone mode.
+In this page, we describe how to setup Jubatus distributed in multiple nodes.
 
+We recommend trying this tutorial after you experience :doc:`tutorial` in standalone mode.
 
 Distributed Mode
 ----------------
 
-You can run Jubatus in a distributed environment using ZooKeeper and Jubatus keepers.
+You can run Jubatus in a distributed environment using ZooKeeper and Jubatus proxies.
 
-.. figure:: ../_static/single_multi.png
-   :width: 70 %
-   :alt: single client, multi servers
+.. blockdiag::
+
+    blockdiag single_multi {
+      group classifier{
+      color = "#77FF77"
+      jubaclassifier1;
+      jubaclassifier2;
+      jubaclassifier3;
+      }
+
+      group client{
+      color = "#FF7777"
+      client;
+      }
+
+      group proxy{
+      color = "#7777FF"
+      jubaclassifier_proxy;
+      }
+      client -> jubaclassifier_proxy -> jubaclassifier1, jubaclassifier2, jubaclassifier3;
+    }
 
 Setup ZooKeeper
 ~~~~~~~~~~~~~~~
 
 `ZooKeeper <http://zookeeper.apache.org/>`_ is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
-Jubatus in cluster mode uses ZooKeeper to manage Jubatus servers and keepers in cluster environment.
+Jubatus in cluster mode uses ZooKeeper to manage Jubatus servers and proxies in cluster environment.
 
 Run ZooKeeper server like this:
 
@@ -40,20 +59,20 @@ In distributed environment, register configuration file on the local file system
 
     $ jubaconfig --cmd write --zookeeper=localhost:2181 --file config.json --name tutorial --type classifier
 
-Jubatus Keeper
-~~~~~~~~~~~~~~
+Jubatus Proxy
+~~~~~~~~~~~~~
 
-Jubatus keepers proxy RPC requests from clients to servers.
-In distributed environment, make RPC requests from clients to keepers, not directly to servers.
+Jubatus proxies proxy RPC requests from clients to servers.
+In distributed environment, make RPC requests from clients to proxies, not directly to servers.
 
-Jubatus keepers are provided for each Jubatus servers.
-For the classifier, ``jubaclassifier_keeper`` is the corresponding keeper.
+Jubatus proxies are provided for each Jubatus servers.
+For the classifier, ``jubaclassifier_keeper`` is the corresponding proxy.
 
 ::
 
-    $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
+    $ jubaclassifier_proxy --zookeeper=localhost:2181 --rpc-port=9198
 
-Now ``jubaclassifier_keeper`` started listening on TCP port 9198 for RPC requests.
+Now ``jubaclassifier_proxy`` started listening on TCP port 9198 for RPC requests.
 
 Join Jubatus Servers to Cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,8 +100,8 @@ You can verify that three server processes are registered to ZooKeeper system by
 Run Tutorial
 ~~~~~~~~~~~~
 
-Run the tutorial program again, but this time we use options to specify port to connect to keepers instead of servers.
-In cluster mode, you also need to specify the cluster name when making RPC request to keepers.
+Run the tutorial program again, but this time we use options to specify port to connect to proxies instead of servers.
+In cluster mode, you also need to specify the cluster name when making RPC request to proxies.
 
 ::
 
@@ -104,9 +123,9 @@ IP Address     Processes
 192.168.0.11   jubaclassifier - 1
 192.168.0.12   jubaclassifier - 2
 192.168.0.13   jubaclassifier - 3
-192.168.0.101  jubaclassifier_keeper/client - 1
-192.168.0.102  jubaclassifier_keeper/client - 2
-192.168.0.103  jubaclassifier_keeper/client - 3
+192.168.0.101  jubaclassifier_proxy/client - 1
+192.168.0.102  jubaclassifier_proxy/client - 2
+192.168.0.103  jubaclassifier_proxy/client - 3
 192.168.0.211  ZooKeeper - 1
 192.168.0.212  ZooKeeper - 2
 192.168.0.213  ZooKeeper - 3
@@ -114,11 +133,40 @@ IP Address     Processes
 
 For the best practices, see :doc:`admin`.
 
-.. figure:: ../_static/multi_multi.png
-   :width: 70 %
-   :alt: multi clients, multi servers
+.. blockdiag::
 
-ZooKeepers & Jubatus Keepers
+    blockdiag multi_multi {
+      group classifier{
+      color = "#77FF77"
+      jubaclassifier1; jubaclassifier2; jubaclassifier3
+      }
+
+      group client{
+      color = "#FF7777"
+      client1;
+      client2;
+      client3;
+      }
+
+      group proxy{
+      color = "#7777FF"
+      jubaclassifier_proxy1;
+      jubaclassifier_proxy2;
+      jubaclassifier_proxy3;
+      }
+      
+      client1 -> jubaclassifier_proxy1 -> jubaclassifier1;
+                 jubaclassifier_proxy1 -> jubaclassifier2;
+                 jubaclassifier_proxy1 -> jubaclassifier3;
+      client2 -> jubaclassifier_proxy2 -> jubaclassifier1;
+                 jubaclassifier_proxy2 -> jubaclassifier2;
+                 jubaclassifier_proxy2 -> jubaclassifier3;
+      client3 -> jubaclassifier_proxy3 -> jubaclassifier1;
+                 jubaclassifier_proxy3 -> jubaclassifier2;
+                 jubaclassifier_proxy3 -> jubaclassifier3;
+      }
+
+ZooKeepers & Jubatus Proxies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Start ZooKeeper servers (make sure you configure an ensemble between them).
@@ -129,13 +177,13 @@ Start ZooKeeper servers (make sure you configure an ensemble between them).
     [192.168.0.212]$ bin/zkServer.sh start
     [192.168.0.213]$ bin/zkServer.sh start
 
-Start ``jubaclassifier_keeper`` processes. ``jubaclassifier_keeper`` uses TCP port 9199 by default.
+Start ``jubaclassifier_proxy`` processes. ``jubaclassifier_proxy`` uses TCP port 9199 by default.
 
 ::
 
-    [192.168.0.101]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-    [192.168.0.102]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-    [192.168.0.103]$ jubaclassifier_keeper --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+    [192.168.0.101]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+    [192.168.0.102]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+    [192.168.0.103]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
 
 Jubavisor: Process Management Agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,7 +205,7 @@ Now send commands from ``jubactl`` to ``jubavisor``.
 
     [192.168.0.1]$ jubactl -c start  --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
     [192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-    active jubaclassifier_keeper members:
+    active jubaclassifier_proxy members:
      192.168.0.101_9199
      192.168.0.102_9199
      192.168.0.103_9199

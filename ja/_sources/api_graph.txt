@@ -80,16 +80,35 @@ Data Structures
         2: list<ulong>  out_edges
       }
 
+.. mpidl:message:: query
+
+   1つのクエリーを表す。
+
+   .. mpidl:member:: 0: string from_id
+
+   .. mpidl:member:: 1: string to_id
+
+   .. code-block:: c++
+
+      message query {
+        0: string from_id
+        1: string to_id
+      }
+
 .. mpidl:message:: preset_query
 
    プリセットクエリーを表す。
    詳細は以下の説明を参照すること。
 
+   .. mpidl:member:: 0: list<query> edge_query
+
+   .. mpidl:member:: 1: list<query> node_query
+
    .. code-block:: c++
 
       message preset_query {
-        0: list<tuple<string, string> > edge_query
-        1: list<tuple<string, string> > node_query
+        0: list<query> edge_query
+        1: list<query> node_query
       }
 
 .. mpidl:message:: edge
@@ -119,7 +138,7 @@ Data Structures
 .. mpidl:message:: shortest_path_query
 
    最短パスリクエストの情報を表す。
-   詳細は ``shortest_path`` メソッドの説明を参照すること。
+   詳細は ``get_shortest_path`` メソッドの説明を参照すること。
 
    .. code-block:: c++
 
@@ -168,23 +187,23 @@ Methods
 
 .. mpidl:service:: graph
 
-   .. mpidl:method:: string create_node(0: string name)
+   .. mpidl:method:: string create_node()
 
       グラフ内にノードを一つ追加する。
       ノードの ID をstring形式で返す。
 
 
-   .. mpidl:method:: bool remove_node(0: string name, 1: string node_id)
+   .. mpidl:method:: bool remove_node(0: string node_id)
 
       ノード ``node_id`` をグラフ内から削除する。
 
 
-   .. mpidl:method:: bool update_node(0: string name, 1: string node_id, 2: map<string, string> property)
+   .. mpidl:method:: bool update_node(0: string node_id, 1: map<string, string> property)
 
       ノード ``node_id`` の属性を ``property`` に更新する。
 
 
-   .. mpidl:method:: ulong create_edge(0: string name, 1: string node_id, 2: edge e)
+   .. mpidl:method:: ulong create_edge(0: string node_id, 1: edge e)
 
       ``e.source`` から ``e.target`` に向けたエッジを張る。
       エッジの ID を unsigned long integer 形式で返す。
@@ -196,7 +215,7 @@ Methods
       ``node_id`` には ``e.source`` と同じ値を指定する必要がある。
 
 
-   .. mpidl:method:: bool update_edge(0: string name, 1: string node_id, 2: ulong edge_id, 3: edge e)
+   .. mpidl:method:: bool update_edge(0: string node_id, 1: ulong edge_id, 2: edge e)
 
       エッジ ``edge_id`` の属性 ``e`` で更新する。
       属性は上書きされる。
@@ -204,13 +223,13 @@ Methods
       ``node_id`` には ``e.source`` と同じ値を指定する必要がある。
 
 
-   .. mpidl:method:: bool remove_edge(0: string name, 1: string node_id, 2: ulong edge_id)
+   .. mpidl:method:: bool remove_edge(0: string node_id, 1: ulong edge_id)
 
       指定したエッジ ``edge_id`` を取り除く。
       ``node_id`` にはエッジ ``edge_id`` の接続元のノードの ID を指定する必要がある。
 
 
-   .. mpidl:method:: double get_centrality(0: string name, 1: string node_id, 2: int centrality_type, 3: preset_query query)
+   .. mpidl:method:: double get_centrality(0: string node_id, 1: int centrality_type, 2: preset_query query)
 
       プリセットクエリー ``query`` にマッチする、ノード ID ``node_id`` の中心性を計算 (予め算出された値を取得) する。
       クエリーはあらかじめ ``add_centrality_query`` で登録しておく必要がある。
@@ -222,27 +241,27 @@ Methods
       ``update_index`` の説明も参照すること。
 
 
-   .. mpidl:method:: bool add_centrality_query(0: string name, 1: preset_query query)
+   .. mpidl:method:: bool add_centrality_query(0: preset_query query)
 
       中心性の算出に使用したいクエリー ``query`` を新たに登録する。
 
 
-   .. mpidl:method:: bool add_shortest_path_query(0: string name, 1: preset_query query)
+   .. mpidl:method:: bool add_shortest_path_query(0: preset_query query)
 
       最短パスの算出に使用したいクエリー ``query`` を新たに登録する。
 
 
-   .. mpidl:method:: bool remove_centrality_query(0: string name, 1: preset_query query)
+   .. mpidl:method:: bool remove_centrality_query(0: preset_query query)
 
       登録済みのクエリー ``query`` を削除する。
 
 
-   .. mpidl:method:: bool remove_shortest_path_query(0: string name, 1: preset_query query)
+   .. mpidl:method:: bool remove_shortest_path_query(0: preset_query query)
 
       登録済みのクエリー ``query`` を削除する。
 
 
-   .. mpidl:method:: list<string> get_shortest_path(0: string name, 1: shortest_path_query query)
+   .. mpidl:method:: list<string> get_shortest_path(0: shortest_path_query query)
 
       プリセットクエリー ``query.query`` にマッチする、 ``query.source`` から ``query.target`` への最短パスを (予め算出された値から) 計算する。
       クエリーはあらかじめ ``add_shortest_path_query`` で登録しておく必要がある。
@@ -254,7 +273,7 @@ Methods
       ``update_index`` の説明も参照すること。
 
 
-   .. mpidl:method:: bool update_index(0: string name)
+   .. mpidl:method:: bool update_index()
 
       mix をローカルで実行する。 **この関数は分散環境で利用してはならない。**
 
@@ -262,12 +281,12 @@ Methods
       スタンドアローン環境では、mix は自動的に呼ばれないため、ユーザ自身でこの API を呼び出す必要がある。
 
 
-   .. mpidl:method:: node get_node(0: string name, 1: string node_id)
+   .. mpidl:method:: node get_node(0: string node_id)
 
       ノード ``node_id`` の ``node`` を取得する。
 
 
-   .. mpidl:method:: edge get_edge(0: string name, 1: string node_id, 2: ulong edge_id)
+   .. mpidl:method:: edge get_edge(0: string node_id, 1: ulong edge_id)
 
       エッジ ``edge_id`` の ``edge`` を取得する。
       ``node_id`` にはエッジ ``edge_id`` の接続元のノードの ID を指定する必要がある。

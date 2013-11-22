@@ -7,128 +7,84 @@ Ruby
 ソースコード
 -----------------------------------
 
-このサンプルプログラムでは、学習アルゴリズム等の設定をするnpb_similar_player.jsonと野手データの学習を行うUpdate.rb、推薦を実行して結果を出力するAnalyze.rb、
-また学習用データとしてbaseball.csvを使用します。
-以下にnpb_similar_player.jsonとUpdate.rbおよびAnalyze.rbのソースコードを記載します。
+このサンプルプログラムでは、学習アルゴリズム等の設定をするnpb_similar_player.jsonと野手データの学習を行うupdate.rb、推薦を実行して結果を出力するanalyze.rb、また学習用データとしてbaseball.csvを使用します。
+以下にnpb_similar_player.jsonとupdate.rbおよびanalyze.rbのソースコードを記載します。
 
 **npb_similar_player.json**
 
-.. code-block:: python
+.. code-block:: js
+ :linenos:
 
- 01 : {
- 02 :   "method": "inverted_index",
- 03 :   "converter": {
- 04 :     "string_filter_types": {},
- 05 :     "string_filter_rules": [],
- 06 :     "num_filter_types": {},
- 07 :     "num_filter_rules": [],
- 08 :     "string_types": {},
- 09 :     "string_rules": [],
- 10 :     "num_types": {},
- 11 :     "num_rules": [
- 12 :       {"key" : "*", "type" : "num"}
- 13 :     ]
- 14 :   },
- 15 :   "parameter": {}
- 16 : }
+ {
+   "method": "inverted_index",
+   "converter": {
+     "string_filter_types": {},
+     "string_filter_rules": [],
+     "num_filter_types": {},
+     "num_filter_rules": [],
+     "string_types": {},
+     "string_rules": [],
+     "num_types": {},
+     "num_rules": [
+       {"key" : "*", "type" : "num"}
+     ]
+   },
+   "parameter": {}
+ }
 
-
-**Update.rb**
-
-.. code-block:: ruby
-
- 01 : #!/usr/bin/env ruby
- 02 : # -*- coding: utf-8 -*-
- 03 : 
- 04 : $host = "127.0.0.1"
- 05 : $port = 9199
- 06 : $name = "recommender_baseball"
- 07 : 
- 08 : require 'json'
- 09 : require 'csv'
- 10 : 
- 11 : require 'jubatus/recommender/client'
- 12 : require 'jubatus/recommender/types'
- 13 : 
- 14 : def update(client)
- 15 :   # 2. 学習用データの準備
- 16 :   CSV.open("dat/baseball.csv", "r") do |row|
- 17 :     row.each do |item|
- 18 :       pname, team, bave, games, pa, atbat, hit, homerun, runsbat, stolen, bob, hbp, strikeout, sacrifice, dp, slg, obp, ops, rc27, xr27 = item
- 19 :       datum = Jubatus::Recommender::Datum.new(
- 20 :        [
- 21 :          ["チーム", team]
- 22 :        ],
- 23 :        [
- 24 :          ["打率", bave.to_f],
- 25 :          ["試合数", games.to_f],
- 26 :          ["打席", pa.to_f],
- 27 :          ["打数", atbat.to_f],
- 28 :          ["安打", hit.to_f],
- 29 :          ["本塁打", homerun.to_f],
- 30 :          ["打点", runsbat.to_f],
- 31 :          ["盗塁", stolen.to_f],
- 32 :          ["四球", bob.to_f],
- 33 :          ["死球", hbp.to_f],
- 34 :          ["三振", strikeout.to_f],
- 35 :          ["犠打", sacrifice.to_f],
- 36 :          ["併殺打", dp.to_f],
- 37 :          ["長打率", slg.to_f],
- 38 :          ["出塁率", obp.to_f],
- 39 :          ["OPS", ops.to_f],
- 40 :          ["RC27", rc27.to_f],
- 41 :          ["XR27", xr27.to_f]
- 42 :        ]
- 43 :       )
- 44 :     # 3. データの学習（学習モデルの更新）
- 45 :     client.update_row($name, pname, datum)
- 46 :     end
- 47 :   end
- 48 : end
- 49 : 
- 50 : # 1. Jubatus Serverへの接続設定
- 51 : client = Jubatus::Recommender::Client::Recommender.new($host, $port)
- 52 : 
- 53 : update(client)
- 54 : 
-
-
-**Analyze.rb**
+**update.rb**
 
 .. code-block:: ruby
+ :linenos:
 
- 01 : #!/usr/bin/env ruby
- 02 : # -*- coding: utf-8 -*-
- 03 : 
- 04 : $host = "127.0.0.1"
- 05 : $port = 9199
- 06 : $name = "recommender_baseball"
- 07 : 
- 08 : require 'json'
- 09 : require 'csv'
- 10 : 
- 11 : require 'jubatus/recommender/client'
- 12 : require 'jubatus/recommender/types'
- 13 : 
- 14 : def analyze(client)
- 15 :   # 2. 推薦用データの準備
- 16 :   CSV.open("dat/baseball.csv", "r") do |row|
- 17 :     row.each do |item|
- 18 :       # 3. 学習モデルに基づく推薦
- 19 :       sr = client.similar_row_from_id($name, item[0], 4)
- 20 :       # 4. 結果の出力
- 21 :       print ("player " + item[0] + " is similar to : " + sr[1][0]+ "," + sr[2][0] +","+ sr[3][0] + "\n")
- 22 :     end
- 23 :   end
- 24 : end
- 25 : 
- 26 : # 1. Jubatus Serverへの接続設定
- 27 : client = Jubatus::Recommender::Client::Recommender.new($host, $port)
- 28 : 
- 29 : analyze(client)
- 30 : 
+ #!/usr/bin/env ruby 
+ # -*- coding: utf-8 -*-
 
+ HOST = "127.0.0.1"
+ PORT = 9199
+ NAME = "recommender_baseball";
 
+ require 'json'
+ require 'jubatus/recommender/client'
+
+ File.open("dat/baseball.csv") {|f|
+   recommender = Jubatus::Recommender::Client::Recommender.new(HOST, PORT, NAME)
+   columns = ["打率", "試合数", "打席", "打数", "安打", "本塁打", "打点", "盗塁", "四球", "死球", "三振", "犠打", "併殺打", "長打率", "出塁率", "OPS", "RC27", "XR27"]
+   f.each {|line|
+     pname, team = line.split(",")
+     parameters = { "チーム" => team }
+     columns.zip(line.split(",")[2..-1])
+       .each{|key, value| parameters[key] = value.to_f }
+     datum = Jubatus::Common::Datum.new(parameters)
+     recommender.update_row(pname, datum)
+     puts "set #{pname}: #{columns.slice(0..4).map{ |key| parameters[key]}}..."
+   }
+ }
+
+**analyze.rb**
+
+.. code-block:: ruby
+ :linenos:
+
+ #!/usr/bin/env ruby
+ # -*- coding: utf-8 -*-
+
+ HOST = "127.0.0.1"
+ PORT = 9199
+ NAME = "recommender_baseball"
+ require 'jubatus/recommender/client'
+
+ recommender =
+   Jubatus::Recommender::Client::Recommender.new(HOST, PORT, NAME)
+ File.open("dat/baseball.csv") {|f|
+   f.each{|line|
+     pname, team, bave, games, pa, atbat, hit, homerun, runsbat,
+       stolen, bob, hbp, strikeout, sacrifice, dp, slg, obp,
+       ops, rc27, xr27 = line.split(",")
+     sr = recommender.similar_row_from_id(pname, 4)
+     puts("player #{pname} is similar to : #{sr[1].id} #{sr[2].id} #{sr[3].id}")
+   }
+ }
 
 --------------------------------
 解説
@@ -139,174 +95,177 @@ Ruby
 設定は単体のJSONで与えられます。JSONの各フィールドは以下の通りです。
 
 * method
+    分類に使用するアルコリズムを指定します。
 
- 分類に使用するアルコリズムを指定します。
- 今回は、転置インデックスを利用したいので、"inverted_index"を指定します。
- Recommenderで指定できるアルゴリズムは上記以外に、"minhash"、"lsh"、"euclid_lsh"があります。
+    今回は、転置インデックスを利用したいので、"inverted_index"を指定します。
+    Recommenderで指定できるアルゴリズムは上記以外に、"minhash"、"lsh"、"euclid_lsh"があります。
 
 * converter
+    特徴変換の設定を指定します。
 
- 特徴変換の設定を指定します。
- ここでは、"num_rules"を設定をしています。
+    ここでは、"num_rules"を設定をしています。
 
- "num_rules"は数値特徴の抽出規則を指定します。
- "key"は"*"つまり、すべての"key"に対して、"type"は"num"なので、指定された数値をそのまま重みに利用する設定です。
- 具体的には、打率が"0.33"であれば"0.33"を、打点が"30"であれば"30"を重みとします。
+    "num_rules"は数値特徴の抽出規則を指定します。
+    "key"は"*"つまり、すべての"key"に対して、"type"は"num"なので、指定された数値をそのまま重みに利用する設定です。
+    具体的には、打率が"0.33"であれば"0.33"を、打点が"30"であれば"30"を重みとします。
 
- "string_rules"は文字列特徴の抽出規則を指定します。
- 今回は文字列は使用しないので指定していません。
- 
+    "string_rules"は文字列特徴の抽出規則を指定します。
+    今回は文字列は使用しないので指定していません。
+
 * parameter
+    アルゴリズムに渡すパラメータを指定します。
+    methodに応じて渡すパラメータは異なります。
 
- アルゴリズムに渡すパラメータを指定します。methodに応じて渡すパラメータは異なります。
- methodで“inverted_index”を指定していますので、設定不要です。
- 
-
-**Update.rb**
-
- 学習と推薦の手順を説明します。
-
- Recommenderのクライアントプログラムは、jubatus.Recommenderクラス内で定義されているRecommenderClientクラスを利用して作成します。
- 使用するメソッドは、1データ分の学習を行うupdate_rowメソッドと、与えられたデータから推薦を行うestimateメソッドの2つです。
-
- 1. Jubatus Serverへの接続設定
-
-  Jubatus Serverへの接続を行います（51行目）。
-  Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号，接続待機時間を設定します。
-
- 2. 学習用データの準備
-
-  Jubatus Serverに学習させるデータDatumを作成します。
-  
-  RecommenderClientでは、Datumを学習用データとして作成し、RecommenderClientのupdate_rowメソッドに与えることで、学習が行われます。
-  今回はプロ野球データfreakというサイトの野手データ（CSVファイル）を元に学習用データを作成していきます。
-  野手データの要素として、"名前"、"チーム"、"打率"、"打数"、"安打"などがあります。
-  下図に、今回作成する学習用データの構造を示します。
-  
-
-  +-------------+--------------------------------------------------------+
-  |ID(String)   |Datum                                                   |
-  |             +--------------------------+-----------------------------+
-  |             |TupleStringString(List)   |TupleStringDoubel(List)      |
-  |             +------------+-------------+---------------+-------------+
-  |             |key(String) |value(String)|key(String)    |value(double)|
-  +=============+============+=============+===============+=============+
-  |"大島洋平"   |"チーム"    |"中日"       | | "打率"      | | 0.31      |
-  |             |            |             | | "試合数"    | | 144       |
-  |             |            |             | | "打席"      | | 631       |
-  |             |            |             | | "打数"      | | 555       |
-  |             |            |             | | "安打"      | | 172       |
-  |             |            |             | | "本塁打"    | | 1         |
-  |             |            |             | | "打点"      | | 13        |
-  |             |            |             | | "盗塁"      | | 32        |
-  |             |            |             | | "四球"      | | 46        |
-  |             |            |             | | "死球"      | | 13        |
-  |             |            |             | | "三振"      | | 80        |
-  |             |            |             | | "犠打"      | | 17        |
-  |             |            |             | | "併殺打"    | | 7         |
-  |             |            |             | | "長打率"    | | 0.368     |
-  |             |            |             | | "出塁率"    | | 0.376     |
-  |             |            |             | | "OPS"       | | 0.744     |
-  |             |            |             | | "RC27"      | | 5.13      |
-  |             |            |             | | "XR27"      | | 4.91      |
-  +-------------+------------+-------------+---------------+-------------+
-  |"高橋由伸"   |"チーム"    |"巨人"       | | "打率"      | | 0.239     |
-  |             |            |             | | "試合数"    | | 130       |
-  |             |            |             | | "打席"      | | 442       |
-  |             |            |             | | "打数"      | | 368       |
-  |             |            |             | | ･･･         | | ･･･       |
-  |             |            |             | | ･･･         | | ･･･       |
-  +-------------+------------+-------------+---------------+-------------+
+    methodで“inverted_index”を指定していますので、設定不要です。
 
 
-  Datumとは、Jubatusで利用できるkey-valueデータ形式のことです。Datumには2つのkey-valueが存在します。
-  1つはキーも値も文字列の文字列データ（string_values）、もう一方は、キーは同様に文字列で、バリューは数値の数値データ（num_values）です。
-  それぞれ、TupleStringStringクラスとTupleStringDoubleクラスで表します。
-  
-  | 表の1つ目のデータを例に説明すると、"チーム"は文字列なのでTupleStringStringクラスの
-  | 1番目のListとしてキーに"チーム"、バリューに"中日"を設定します。
-  | それ以外の項目は数値なので、TupleStringDoubleクラスの
-  | 1番目のListとしてキーに"打率"、バリューに'0.31'、
-  | 2番目のListとしてキーに"試合数"、バリューに'144'、
-  | 3番目のListとしてキーに"打席"、バリューに'631'、
-  | 4番目のListとしてキーに"打数"、バリューに'555'と
-  | 最後の要素"XR27"の項目までListを作成し設定します。
-  
-  これらのListを保持したDatumをCSVの1行ずつ、つまり選手1人ずつ作成します。
-  その、DatumとIDである選手の"名前"を学習用データとして使用します。
+**update.rb**
 
-  このサンプルでの学習用データ作成の手順は下記の流れで行います。
+学習の手順を説明します。
 
-  まず、学習用データの元となるCSVファイルを読み込みます（16行目）。
-  each文にて1行ずつループで読み込んで処理します（17-46行目）。
-  CSVファイルなので、取得した1行を要素ごとに分け、それぞれ変数に代入します（18行目）。
-  それぞれの要素を設定しDatumを作成します（16-40行目）。
-  これで、1人分の選手のデータが入ったDatumの作成が完了しました。
+Recommenderのクライアントプログラムは、Jubatus::Recommender::Client::Recommenderを利用して作成します。
+使用するメソッドは、1データ分の学習を行うupdate_rowメソッドです。
 
- 3. データの学習（学習モデルの更新）
+1. Jubatus Serverへの接続設定
+    Jubatus Serverへの接続を行います（12行目）。
 
-  2.の工程で作成した学習用データを、update_rowメソッドに渡すことで学習が行われます（45行目）。
-  update_rowメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（""）を指定）
-  第2引数は、IDで学習データ内でユニークな名前を指定します。ここでは選手の"名前"をIDとして使用します。
-  第3引数として、先ほど 2. で作成したDatumを指定します。
-  これで、選手1人分のデータの学習が完了しました。ループ処理で 2. と 3. をCSVの行数分繰り返し実行すれば、データの学習は完了します。
+    Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスクを識別するZookeeperクラスタ内でユニークな名前を設定します。
 
-**Analyze.rb**
+2. 学習用データの準備
+    Jubatus Serverに学習させるデータDatumを作成します。
 
- 1. Jubatus Serverへの接続設定
+    RecommenderClientでは、Datumを学習用データとして作成し、RecommenderClientのupdate_rowメソッドに与えることで、学習が行われます。
+    今回はプロ野球データfreakというサイトの野手データ（CSVファイル）を元に学習用データを作成していきます。
+    野手データの要素として、"名前"、"チーム"、"打率"、"打数"、"安打"などがあります。
+    下図に、今回作成する学習用データの構造を示します。
 
-  Update.rbと同様のため省略。
-  
- 2. 推薦用データの準備
+    +-------------+-----------------------------------------------------------------------------------------+
+    |ID(String)   |Datum                                                                                    |
+    |             +-----------------------------+-----------------------------+-----------------------------+
+    |             |Array<Array<String, String>> |Array<Array<String, Float>>  |Array<Array<String, String>> |
+    |             +------------+----------------+---------------+-------------+------------+----------------+
+    |             |key(String) |value(String)   |key(String)    |value(Float) |key(String) |value(String)   |
+    +=============+============+================+===============+=============+============+================+
+    |"大島洋平"   |"チーム"    |"中日"          | | "打率"      | | 0.31      |            |                |
+    |             |            |                | | "試合数"    | | 144       |            |                |
+    |             |            |                | | "打席"      | | 631       |            |                |
+    |             |            |                | | "打数"      | | 555       |            |                |
+    |             |            |                | | "安打"      | | 172       |            |                |
+    |             |            |                | | "本塁打"    | | 1         |            |                |
+    |             |            |                | | "打点"      | | 13        |            |                |
+    |             |            |                | | "盗塁"      | | 32        |            |                |
+    |             |            |                | | "四球"      | | 46        |            |                |
+    |             |            |                | | "死球"      | | 13        |            |                |
+    |             |            |                | | "三振"      | | 80        |            |                |
+    |             |            |                | | "犠打"      | | 17        |            |                |
+    |             |            |                | | "併殺打"    | | 7         |            |                |
+    |             |            |                | | "長打率"    | | 0.368     |            |                |
+    |             |            |                | | "出塁率"    | | 0.376     |            |                |
+    |             |            |                | | "OPS"       | | 0.744     |            |                |
+    |             |            |                | | "RC27"      | | 5.13      |            |                |
+    |             |            |                | | "XR27"      | | 4.91      |            |                |
+    +-------------+------------+----------------+---------------+-------------+------------+----------------+
+    |"高橋由伸"   |"チーム"    |"巨人"          | | "打率"      | | 0.239     |            |                |
+    |             |            |                | | "試合数"    | | 130       |            |                |
+    |             |            |                | | "打席"      | | 442       |            |                |
+    |             |            |                | | "打数"      | | 368       |            |                |
+    |             |            |                | | ･･･         | | ･･･       |            |                |
+    |             |            |                | | ･･･         | | ･･･       |            |                |
+    +-------------+------------+----------------+---------------+-------------+------------+----------------+
 
-  推薦で必要なデータは先ほど学習でIDに指定した選手の"名前"になります。
-  学習時と同じ要領で、カラムの1番目である"名前"を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。
+    Datumとは、Jubatusで利用できるkey-valueデータ形式のことです。
+    Datumには3つのkey-valueが存在します。
 
- 3. 学習モデルに基づく推薦
+    1つはキーも値も文字列の文字列データ（string_values）です。
+    1つはキーは同様に文字列で、値は数値の数値データ(num_values)です。
+    もう1つは、キーは同様に文字列で、値は文字列のバイナリデータ(binary_values)です。
 
-  2.で取得した選手の"名前"を、similar_row_from_idメソッドに渡すことで、推薦結果のListを得ることができます（17行目）。
-  similar_row_from_idメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（""）を指定）
-  第2引数に、"名前"を指定します。
-  第3引数は、似ているタイプを近傍順にいくつ出力するかを指定します。ここでは、トップ3まで出力するので"4"を指定します。なぜ、"4"かというとトップは自身が出力される為です。
+    Datumのコンストラクタ引数で指定したvalueが文字列の場合は、string_valuesに、valueが数値の場合はnum_valuesに値がセットされます。
 
- 4. 結果の出力
+    | 表の1つ目のデータを例に説明すると、"チーム"は文字列なのでstring_valuesとしてkeyに"チーム"、valueに"中日"をセットします。
+    | それ以外の項目は数値なので、num_valuesに
+    |  keyに"打率"、valueに'0.31'、
+    |  keyに"試合数"、valueに'144'、
+    |  keyに"打席"、valueに'631'、
+    |  keyに"打数"、valueに'555'と
+    | "XR27"の項目までをセットします。
 
-  3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第3引数に"4"を指定したので、4 つの要素を持ったListです。
-  Listの1番目は自分自身なので、Listの2番目から4番目までを結果として出力します。
-  Update.rbと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。
+    これらの情報を保持したDatumをCSVの1行ずつ、つまり選手1人ずつ作成します。
+    その、DatumとIDである選手の"名前"を学習用データとして使用します。
+
+    このサンプルでの学習用データ作成の手順は下記の流れで行います。
+
+    まず、学習用データの元となるCSVファイルを読み込みます（11行目）。
+    each文にて1行ずつループで読み込んで処理します（14-22行目）。
+    CSVファイルなので、取得した1行を要素ごとに分け、それぞれ変数に代入します（17-18行目）。
+    それぞれの要素を設定しDatumを作成します（16-18行目）。
+
+    これで、1人分の選手のデータが入ったDatumの作成が完了しました。
+
+3. データの学習（学習モデルの更新）
+    2\.の工程で作成した学習用データを、update_rowメソッドに渡すことで学習が行われます（20行目）。
+    第1引数は、IDで学習データ内でユニークな名前を指定します。
+    ここでは選手の"名前"をIDとして使用します。
+    第2引数として、先ほど 2. で作成したDatumを指定します。
+
+    これで、選手1人分のデータの学習が完了しました。
+    ループ処理で 2. と 3. をCSVの行数分繰り返し実行すれば、データの学習は完了します。
+
+**analyze.rb**
+
+推薦の手順を説明します。
+
+学習と同様にクライアントプログラムは、Jubatus::Recommender::Client::Recommenderを利用して作成します。
+使用するメソッドは、与えられたデータから推薦を行うsimilar_row_from_idメソッドです。
+
+1. Jubatus Serverへの接続設定
+    update.rbと同様のため省略。
+
+2. 推薦用データの準備
+    推薦で必要なデータは先ほど学習でIDに指定した選手の"名前"になります。
+    学習時と同じ要領で、カラムの1番目である"名前"を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。
+
+3. 学習モデルに基づく推薦
+    2\.で取得した選手の"名前"を、similar_row_from_idメソッドに渡すことで、推薦結果のArrayを得ることができます（16行目）。
+    第1引数に、"名前"を指定します。
+    第2引数は、似ているタイプを近傍順にいくつ出力するかを指定します。
+    ここでは、トップ3まで出力するので"4"を指定します。
+    なぜ、"4"かというとトップは自身が出力される為です。
+
+4. 結果の出力
+    3\.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第2引数に"4"を指定したので、4 つの要素を持ったArrayです。
+    Arrayの1番目は自分自身なので、2番目から4番目までを結果として出力します。
+    update.rbと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。
+
 
 ------------------------------------
 サンプルプログラムの実行
 ------------------------------------
 
+* Jubatus Serverでの作業
+    jubarecommenderを起動します。
 
-**［Jubatus Serverでの作業］**
+    ::
 
-jubarecommenderを起動します。
-
-::
-
- $ jubarecommender --configpath npb_similar_player.json
+     $ jubarecommender --configpath npb_similar_player.json
 
 
-**［Jubatus Clientでの作業］**
+* Jubatus Clientでの作業
+    下記のコマンドで実行します。
 
-下記のコマンドで実行します。
+    ::
 
-::
+     $ ruby update.rb
+     $ ruby analyze.rb
 
- $ ruby update.rb
- $ ruby analyze.rb
+    実行結果:
 
-**［実行結果］**
+    ::
 
-::
-
- player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
- player 大島洋平 is similar to : 本多雄一 石川雄洋 荒波翔
- player 鳥谷敬 is similar to : サブロー 糸井嘉男 和田一浩
- player 坂本勇人 is similar to : 角中勝也 稲葉篤紀 秋山翔吾
- player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
- …
- …（以下略）
-
+     player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
+     player 大島洋平 is similar to : 本多雄一 石川雄洋 荒波翔
+     player 鳥谷敬 is similar to : サブロー 糸井嘉男 和田一浩
+     player 坂本勇人 is similar to : 角中勝也 稲葉篤紀 秋山翔吾
+     player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
+     ...
+     ...（以下略）

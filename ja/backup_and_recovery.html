@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>学習モデルのバックアップとリカバリ &mdash; Jubatus</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
+    <link rel="up" title="ドキュメント" href="documentation.html" />
+    <link rel="next" title="よくある質問と回答 (FAQs)" href="faq.html" />
+    <link rel="prev" title="RPC エラーのハンドリング" href="faq_rpc_err_workaround.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="faq.html" title="よくある質問と回答 (FAQs)"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="faq_rpc_err_workaround.html" title="RPC エラーのハンドリング"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">学習モデルのバックアップとリカバリ</a><ul>
+<li><a class="reference internal" href="#save-and-load">Save and Load</a><ul>
+<li><a class="reference internal" href="#save">Save</a></li>
+<li><a class="reference internal" href="#load">Load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="faq_rpc_err_workaround.html"
+                        title="前の章へ">RPC エラーのハンドリング</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="faq.html"
+                        title="次の章へ">よくある質問と回答 (FAQs)</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/backup_and_recovery.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>学習モデルのバックアップとリカバリ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>サーバープロセスは、メモリ上で機械学習に関するデータを管理しています。 メモリ上でデータを管理するという性質上、サーバープロセスの終了とともに Jubatus 上のデータは失われます。</p>
+<p>Jubatus では、予期せぬプロセスの終了や誤ったオペレーションに備え、バックアップとリカバリのための機能を提供しています。</p>
+<p>現在、Jubatus では、以下の手段を提供しています。</p>
+<div class="section" id="save-and-load">
+<h2>Save and Load<a class="headerlink" href="#save-and-load" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>サーバープロセスの学習モデルをファイルに保存し、そのファイルを読み込むことで、サーバープロセスの学習モデルを復元する機能です。</p>
+<p>Jubatus では、この機能をクライアント向けに MessagePack-RPC インタフェースで提供しています。</p>
+<p><strong>現在、学習モデルを保存した環境と異なる環境(Jubatusのバージョン、クラスタ構成台数、configファイルの内容)への復元はサポートしていません。</strong></p>
+<div class="section" id="save">
+<h3>Save<a class="headerlink" href="#save" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Save は、クライアントからの <tt class="docutils literal"><span class="pre">save</span></tt> という RPCメソッド の呼び出しによりサーバープロセスの学習モデルをファイル出力する機能です。</p>
+<p>ファイルの出力先は、サーバープロセスの起動オプション <tt class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></tt> で指定することができ、標準では <tt class="docutils literal"><span class="pre">/tmp</span></tt> が設定されます。</p>
+<p>ファイルは、以下の命名規則に従ったファイル名で出力されます。すでに同じ名前のファイルが存在する場合、ファイルの上書きを行うため、<tt class="docutils literal"><span class="pre">save</span></tt> メソッドの引数には十分に注意する必要があります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="k">${</span><span class="nv">IPADDR</span><span class="k">}</span>_<span class="k">${</span><span class="nv">PORT</span><span class="k">}</span>_<span class="k">${</span><span class="nv">TYPE</span><span class="k">}</span>_<span class="k">${</span><span class="nv">ID</span><span class="k">}</span>.jubatus
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>${IPADDR}</td>
+<td>Jubatus サーバが RPCリクエストを受け付ける Ipv4 アドレス</td>
+</tr>
+<tr class="row-even"><td>${PORT}</td>
+<td>Jubatus サーバが RPCリクエストを受け付ける ポート番号</td>
+</tr>
+<tr class="row-odd"><td>${TYPE}</td>
+<td>サーバプログラムの種類 (classifier, recommender, ...)</td>
+</tr>
+<tr class="row-even"><td>${ID}</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">save</span></tt> メソッドの引数</div>
+<div class="line">a-zA-Z0-9_- からなる 100文字</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Save で出力されたファイルは、Jubatus のバージョンに依存する形式で出力され、互換性のあるバージョンの Jubatus でしか後述する Load を行うことができません。</p>
+<p>Save による出力されたファイルの構造に関しては、 <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Save-and-Load-Policy-(ja)">開発者向けWikiの該当ページ</a> を参照してください。</p>
+</div>
+<div class="section" id="load">
+<h3>Load<a class="headerlink" href="#load" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Load は、Save で作成されたファイルを読み込み、サーバープロセスの学習モデルをファイルに保存された状態へ復元する機能です。
+クライアントからの <tt class="docutils literal"><span class="pre">load</span></tt> メソッドコールにより実行されます。</p>
+<p>ファイルの読込先は、Jubatus サーバの起動オプション <tt class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></tt> で指定することができ、標準では <tt class="docutils literal"><span class="pre">/tmp</span></tt> が設定されます。</p>
+<p><tt class="docutils literal"><span class="pre">save</span></tt> メソッドでの引数で指定した <tt class="docutils literal"><span class="pre">${ID}</span></tt> を <tt class="docutils literal"><span class="pre">load</span></tt> メソッドの引数に指定することで、読み込み対象のファイルを指定します。</p>
+<p>ファイルの読み込み時、サーバープロセスは保存されたデータに対しバージョンの互換換性や設定内容のチェックを行います。</p>
+<p>保存データが復元先と異なるバージョンのJubatusで保存されていた場合や、復元先と設定ファイルの内容が異なる環境で保存された場合、保存データの復元には失敗します。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="faq.html" title="よくある質問と回答 (FAQs)"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="faq_rpc_err_workaround.html" title="RPC エラーのハンドリング"
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

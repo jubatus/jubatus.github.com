@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -243,24 +243,44 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 </div>
 <div class="section" id="data-structures">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
-<p>None.</p>
+<dl class="message">
+<dt id="scored_datum">
+<em class="property">message </em><tt class="descname">scored_datum</tt><a class="headerlink" href="#scored_datum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a datum with its label.</p>
+<dl class="member">
+<dt id="scored_datum::score__float">
+0: float <tt class="descname">score</tt><a class="headerlink" href="#scored_datum::score__float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a label of this datum.</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="scored_datum::data__datum">
+1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">data</tt><a class="headerlink" href="#scored_datum::data__datum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a datum.</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">scored_datum</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">datum</span> <span class="n">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="service">
 <dt>
 <em class="property">service </em><tt class="descname">regression</tt></dt>
 <dd><dl class="method">
-<dt id="regression::train__s.l:tuple:float.datum::">
-int <tt class="descname">train</tt><big>(</big>0: string <em>name</em>, 1: list&lt;tuple&lt;float, <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt;&gt; <em>train_data</em><big>)</big><a class="headerlink" href="#regression::train__s.l:tuple:float.datum::" title="Permalink to this definition">¶</a></dt>
+<dt id="regression::train__l:scored_datum:">
+int <tt class="descname">train</tt><big>(</big>0: list&lt;<a class="reference internal" href="#scored_datum" title="scored_datum">scored_datum</a>&gt; <em>train_data</em><big>)</big><a class="headerlink" href="#regression::train__l:scored_datum:" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 <li><strong>train_data</strong> &#8211; list of tuple of label and <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
 </td>
@@ -271,19 +291,17 @@ int <tt class="descname">train</tt><big>(</big>0: string <em>name</em>, 1: list&
 </tbody>
 </table>
 <p>Trains and updates the model.
-<tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt> is a tuple of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> and its value.
-This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;float,</span> <span class="pre">datum&gt;</span></tt>.</p>
+This function is designed to allow bulk update with list of <tt class="docutils literal"><span class="pre">scored_datum</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="regression::estimate__s.l:datum:">
-list&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>0: string <em>name</em>, 1: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>estimate_data</em><big>)</big><a class="headerlink" href="#regression::estimate__s.l:datum:" title="Permalink to this definition">¶</a></dt>
+<dt id="regression::estimate__l:datum:">
+list&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>estimate_data</em><big>)</big><a class="headerlink" href="#regression::estimate__l:datum:" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 <li><strong>estimate_data</strong> &#8211; list of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to estimate</li>
 </ul>
 </td>

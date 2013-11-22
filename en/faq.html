@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Documentation" href="documentation.html" />
     <link rel="next" title="References" href="references.html" />
-    <link rel="prev" title="RPC Error Handling" href="faq_rpc_err_workaround.html" /> 
+    <link rel="prev" title="Backup and Recovery" href="backup_and_recovery.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="references.html" title="References"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="faq_rpc_err_workaround.html" title="RPC Error Handling"
+          <a href="backup_and_recovery.html" title="Backup and Recovery"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
@@ -113,8 +113,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="faq_rpc_err_workaround.html"
-                        title="previous chapter">RPC Error Handling</a></p>
+  <p class="topless"><a href="backup_and_recovery.html"
+                        title="previous chapter">Backup and Recovery</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="references.html"
                         title="next chapter">References</a></p>
@@ -267,11 +267,17 @@ I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
 </div></blockquote>
 </div></blockquote>
 <ul class="simple">
-<li>Is it appropriate to use only a single server for all these processes, including jubaclassifier, jubaclassifier_keeper/Client and ZooKeeper, even in distributed model.</li>
+<li>Is it appropriate to use only a single server for all these processes, including jubaclassifier, jubaclassifier_proxy/Client and ZooKeeper, even in distributed model.</li>
 </ul>
 <blockquote>
 <div>No Problem.
 However, comparing with the environment where each process has its privately owned server, the overall performance may decrease. In addition, we recommend an odd number of the ZooKeeper servers for the better ensemble.</div></blockquote>
+<ul class="simple">
+<li>What&#8217;s the difference between Jubatus Keeper and Proxy?</li>
+</ul>
+<blockquote>
+<div>Keeper is renamed to Proxy in version 0.5.0
+The role of proxies is same as the role of keepers in 0.4.x or before.</div></blockquote>
 </div>
 <div class="section" id="learning-model">
 <h2>Learning Model<a class="headerlink" href="#learning-model" title="Permalink to this headline">¶</a></h2>
@@ -356,7 +362,7 @@ However, comparing with the environment where each process has its privately own
           <a href="references.html" title="References"
              >next</a> |</li>
         <li class="right" >
-          <a href="faq_rpc_err_workaround.html" title="RPC Error Handling"
+          <a href="backup_and_recovery.html" title="Backup and Recovery"
              >previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="documentation.html" >Documentation</a> &raquo;</li> 

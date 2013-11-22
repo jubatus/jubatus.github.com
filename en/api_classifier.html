@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -342,23 +342,44 @@ Higher <tt class="docutils literal"><span class="pre">score</span></tt> value me
 </div>
 </dd></dl>
 
+<dl class="message">
+<dt id="labeled_datum">
+<em class="property">message </em><tt class="descname">labeled_datum</tt><a class="headerlink" href="#labeled_datum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a datum with its label.</p>
+<dl class="member">
+<dt id="labeled_datum::label__s">
+0: string <tt class="descname">label</tt><a class="headerlink" href="#labeled_datum::label__s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a label of this datum.</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="labeled_datum::data__datum">
+1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">data</tt><a class="headerlink" href="#labeled_datum::data__datum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a datum.</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">labeled_datum</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">label</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">datum</span> <span class="n">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="service">
 <dt>
 <em class="property">service </em><tt class="descname">classifier</tt></dt>
 <dd><dl class="method">
-<dt id="classifier::train__s.l:tuple:s.datum::">
-int <tt class="descname">train</tt><big>(</big>0: string <em>name</em>, 1: list&lt;tuple&lt;string, <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt;&gt; <em>data</em><big>)</big><a class="headerlink" href="#classifier::train__s.l:tuple:s.datum::" title="Permalink to this definition">¶</a></dt>
+<dt id="classifier::train__l:labeled_datum:">
+int <tt class="descname">train</tt><big>(</big>0: list&lt;<a class="reference internal" href="#labeled_datum" title="labeled_datum">labeled_datum</a>&gt; <em>data</em><big>)</big><a class="headerlink" href="#classifier::train__l:labeled_datum:" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 <li><strong>data</strong> &#8211; list of tuple of label and <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
 </ul>
 </td>
@@ -369,19 +390,18 @@ int <tt class="descname">train</tt><big>(</big>0: string <em>name</em>, 1: list&
 </tbody>
 </table>
 <p>Trains and updates the model.
-<tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt> is a tuple of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> and its label.
-This API is designed to accept bulk update with list of <tt class="docutils literal"><span class="pre">tuple&lt;string,</span> <span class="pre">datum&gt;</span></tt>.</p>
+<tt class="docutils literal"><span class="pre">labeled_datum</span></tt> is a tuple of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> and its label.
+This API is designed to accept bulk update with list of <tt class="docutils literal"><span class="pre">labeled_datum</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="classifier::classify__s.l:datum:">
-list&lt;list&lt;<a class="reference internal" href="#estimate_result" title="estimate_result">estimate_result</a>&gt;&gt; <tt class="descname">classify</tt><big>(</big>0: string <em>name</em>, 1: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>data</em><big>)</big><a class="headerlink" href="#classifier::classify__s.l:datum:" title="Permalink to this definition">¶</a></dt>
+<dt id="classifier::classify__l:datum:">
+list&lt;list&lt;<a class="reference internal" href="#estimate_result" title="estimate_result">estimate_result</a>&gt;&gt; <tt class="descname">classify</tt><big>(</big>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>data</em><big>)</big><a class="headerlink" href="#classifier::classify__l:datum:" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; string value to uniquely identifies a task in the ZooKeeper cluster</li>
 <li><strong>data</strong> &#8211; list of datum to classify</li>
 </ul>
 </td>

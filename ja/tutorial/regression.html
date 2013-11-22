@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -46,7 +46,7 @@
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="チュートリアル" href="../tutorial.html" />
     <link rel="next" title="Python" href="regression_python.html" />
-    <link rel="prev" title="Java" href="classifier_java.html" /> 
+    <link rel="prev" title="Ruby" href="recommender_ruby.html" /> 
 
 <!--
 
@@ -88,7 +88,7 @@
           <a href="regression_python.html" title="Python"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="classifier_java.html" title="Java"
+          <a href="recommender_ruby.html" title="Ruby"
              accesskey="P">前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" accesskey="U">チュートリアル</a> &raquo;</li> 
@@ -113,8 +113,8 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="classifier_java.html"
-                        title="前の章へ">Java</a></p>
+  <p class="topless"><a href="recommender_ruby.html"
+                        title="前の章へ">Ruby</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="regression_python.html"
                         title="次の章へ">Python</a></p>
@@ -150,50 +150,57 @@
             
   <div class="section" id="regression">
 <h1>Regression<a class="headerlink" href="#regression" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ここではJubatusの線形回帰機能（Regression）である、jubaregressionを使用した、Jubatus Clientの使い方を説明します。</p>
+<p>ここではJubatusの線形回帰機能（Regression）である <tt class="docutils literal"><span class="pre">jubaregression</span></tt> を使用した、Jubatus Clientの使い方を説明します。</p>
 <p>線形回帰機能（Regression）とは、入力データから、出力データを推定する機能であり、株価予測や消費電力予測などに利用することができます。</p>
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>サンプルとして、駅からの距離、専有面積、築年数等の条件から家賃を推測するプログラム「rent」を用いて説明していきます。</p>
-<p>最初に、賃貸情報サイトから取得した「S町の1Rマンション」の賃貸情報 (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>) をクライアント側で用意し、推定するためのモデルをサーバ側に学習させます。</p>
-<p>次に、推定用の入力データとして外部ファイル（今回はYAML形式を使用する）に物件の条件を入力し、サーバ側では先ほど学習したモデルを用い、条件にふさわしい家賃を推定して返却し、クライアント側で受け取った結果を出力するプログラムとなっています。</p>
-<p>例えば、推定用の入力データとして「駅からの距離（distance）は5分、占有面積（space）は32.0㎡、築年数（age）は15年」と入力すると、8.0万円と推定家賃が返却されます。</p>
+<p>サンプルとして、駅からの距離、専有面積、築年数等の条件から家賃を推測するプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/rent">rent</a> 」を用いて説明していきます。</p>
+<p>最初に、賃貸情報サイトから取得した「S町の1Rマンション」の賃貸情報 (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>) をクライアント側で用意し、推定するためのモデルを <tt class="docutils literal"><span class="pre">jubaregression</span></tt> に学習させます。</p>
+<p>次に、推定用の入力データとして外部ファイル（今回はYAML形式を使用する）に物件の条件を入力し、 <tt class="docutils literal"><span class="pre">jubaregression</span></tt> に与えます。
+<tt class="docutils literal"><span class="pre">jubaregression</span></tt> は先ほど学習したモデルを用い、条件にふさわしい家賃を推定して返却するので、クライアント側で受け取った結果を出力します。</p>
+<p>例えば、推定用の入力データとして「駅からの距離は5分、占有面積は32.0㎡、築年数は15年」と入力すると、8.0万円と推定家賃が出力されます。</p>
 </div>
 <div class="section" id="id2">
 <h2>処理の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Jubatus Clientを使ったコーディングは、主に以下の流れになります。</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Jubatus Serverへの接続設定</li>
+<p>Jubatus Client を使ったコーディングは、主に以下の流れになります。</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">jubaregression</span></tt> への接続設定</dt>
+<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubaregression</span></tt> のホストやポート番号を指定し、接続設定をします。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>学習用データの準備</dt>
+<dd><p class="first last">賃貸情報CSVから家賃（rent）ごとに学習用データを作成します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>データの学習（学習モデルの更新）</dt>
+<dd><p class="first last">2. で作成した学習用データを <tt class="docutils literal"><span class="pre">train</span></tt> メソッドで <tt class="docutils literal"><span class="pre">jubaregression</span></tt> に与え、学習を行います。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>推定用データの準備</dt>
+<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubaregression</span></tt> に推定させる物件情報のデータを作成します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>学習モデルに基づく推定</dt>
+<dd><p class="first last">4. で作成した推定用データを入力値とし、 <tt class="docutils literal"><span class="pre">estimate</span></tt> メソッドで 3. の学習に基づいた推定をします。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>結果の出力</dt>
+<dd><p class="first last"><tt class="docutils literal"><span class="pre">estimate</span></tt> メソッドの戻り値である推定結果を出力します。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>サーバ側で起動しているJubatus ServerのHOSTやPORTを指定し、接続設定をします。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>学習用データの準備</li>
-</ol>
-<blockquote>
-<div>賃貸情報CSVから家賃（rent）ごとに学習用データを作成します。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>データの学習（学習モデルの更新）</li>
-</ol>
-<blockquote>
-<div>2.で作成した学習用データをtrainメソッドでサーバ側に与え、学習を行います。</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>推定用データの準備</li>
-</ol>
-<blockquote>
-<div>推定用にサーバ側に投げる、物件情報のデータを作成します。</div></blockquote>
-<ol class="arabic simple" start="5">
-<li>学習モデルに基づく推定</li>
-</ol>
-<blockquote>
-<div>4.で作成した推定用データを入力値とし、estimateメソッドで③の学習に基づいた推定をします。</div></blockquote>
-<ol class="arabic simple" start="6">
-<li>結果の出力</li>
-</ol>
-<blockquote>
-<div>estimateメソッドの戻り値である推定結果を出力します。</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラム<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -205,20 +212,9 @@
 <li class="toctree-l2"><a class="reference internal" href="regression_python.html#id3">サンプルプログラムの実行</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="regression_ruby.html">Ruby</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="regression_ruby.html#id1">ソースコード</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_ruby.html#id2">解説</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_ruby.html#id3">サンプルプログラムの実行</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="regression_java.html">Java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="regression_java.html#id1">ソースコード</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_java.html#id2">解説</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regression_java.html#id3">サンプルプログラムの実行</a></li>
-</ul>
-</li>
 </ul>
 </div>
+<p>現在、Python 以外の言語のサンプルプログラムはありません。(みなさまのコントリビューションをお待ちしています!)</p>
 </div>
 </div>
 
@@ -238,7 +234,7 @@
           <a href="regression_python.html" title="Python"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="classifier_java.html" title="Java"
+          <a href="recommender_ruby.html" title="Ruby"
              >前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li> 

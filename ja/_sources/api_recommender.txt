@@ -18,14 +18,15 @@ JSON の各フィールドは以下のとおりである。
 
    .. table::
 
-      ==================== ===================================
-      設定値               手法
-      ==================== ===================================
-      ``"inverted_index"`` 転置インデックスを利用する。
-      ``"minhash"``        MinHash を利用する。 [Ping2010]_
-      ``"lsh"``            Locality Sensitive Hashing を利用する。
-      ``"euclid_lsh"``     Euclid 距離版の LSH を利用する。 [Andoni2005]_
-      ==================== ===================================
+      ======================= ===================================
+      設定値                  手法
+      ======================= ===================================
+      ``"inverted_index"``    転置インデックスを利用する。
+      ``"minhash"``           MinHash を利用する。 [Ping2010]_
+      ``"lsh"``               Locality Sensitive Hashing を利用する。
+      ``"euclid_lsh"``        Euclid 距離版の LSH を利用する。 [Andoni2005]_
+      ``"nearest_neighbor:*`` ``nearest_neighbor`` 実装を利用する。 ``*`` に近傍探索のアルゴリズム名を入れる。
+      ======================= ===================================
 
 
 .. describe:: parameter
@@ -43,13 +44,13 @@ JSON の各フィールドは以下のとおりである。
         (Integer)
 
    lsh
-     :bit_num:
+     :hash_num:
         ハッシュ値のビット数を指定する。
         大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
         (Integer)
 
    euclid_lsh
-     :lsh_num:
+     :hash_num:
         ハッシュの数を指定する。
         大きくすると正確な値に近づく代わりに、再現率が低下し、また多くのメモリを消費する。
         (Integer)
@@ -73,6 +74,10 @@ JSON の各フィールドは以下のとおりである。
         レスポンス時間が低下する代わりに、メモリを消費する。
         (Boolean)
 
+   nearest_neighbor:*
+      ``*`` に入れた近傍探索器のパラメータを記述する。
+      詳細は :doc:`api_nearest_neighbor` を参照。
+
 
 .. describe:: converter
 
@@ -86,7 +91,7 @@ JSON の各フィールドは以下のとおりである。
      {
        "method": "lsh",
        "parameter" : {
-         "bit_num" : 64
+         "hash_num" : 64
        },
        "converter" : {
          "string_filter_types": {},
@@ -108,16 +113,25 @@ JSON の各フィールドは以下のとおりである。
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. mpidl:type:: similar_result
+.. mpidl:message:: id_with_score
 
-   近傍性の結果を表す。
-   string と float のタプルのリストである。
-   string の値は行 ID であり、float の値はその ID に対応する近傍性である。
-   近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。
+   スコア付きのデータIDを表す。 
+
+   .. mpidl:member:: 0: string id
+
+      データのIDを表す。
+
+   .. mpidl:member:: 1: float score
+
+      IDに対して紐付かれた近傍性のスコアを表す。
+      近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。
 
    .. code-block:: c++
 
-      type similar_result = list<tuple<string, float> >
+      message id_with_score {
+        0: string id
+        1: float score
+      }
 
 
 Methods
@@ -128,18 +142,16 @@ Methods
 
 .. mpidl:service:: recommender
 
-   .. mpidl:method:: bool clear_row(0: string name, 1: string id)
+   .. mpidl:method:: bool clear_row(0: string id)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param id:   削除する行 ID
       :return:     行の削除に成功した場合 True
 
       ``id`` で指定される行を推薦テーブルから削除する。
 
 
-   .. mpidl:method:: bool update_row(0: string name, 1: string id, 2: datum row)
+   .. mpidl:method:: bool update_row(0: string id, 1: datum row)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param id:   行 ID
       :param row:  行に対応する :mpidl:type:`datum`
       :return:     モデルの更新に成功した場合 True
@@ -150,68 +162,60 @@ Methods
       更新操作を受け付けたサーバが当該行を持つサーバーと同一であれば、操作は即次反映される。
       異なるサーバーであれば、mix 後に反映される。
 
-   .. mpidl:method:: datum complete_row_from_id(0: string name, 1: string id)
+   .. mpidl:method:: datum complete_row_from_id(0: string id)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param id:   行 ID
       :return:     ``id`` の近傍から未定義の値を補完した :mpidl:type:`datum`
 
       行 ``id`` の中で欠けている値を近傍から予測し、補完された :mpidl:type:`datum` を返す。
 
-   .. mpidl:method:: datum complete_row_from_datum(0: string name, 1: datum row)
+   .. mpidl:method:: datum complete_row_from_datum(0: datum row)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param row:  補完したい値が欠けた :mpidl:type:`datum`
       :return:     指定した :mpidl:type:`datum` で構成される row の中で欠けている値を補完した :mpidl:type:`datum`
 
       指定した ``row`` で欠けている値を近傍から予測し、補完された :mpidl:type:`datum` を返す。
 
-   .. mpidl:method:: similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)
+   .. mpidl:method:: list<id_with_score> similar_row_from_id(0: string id, 1: uint size)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param id:   推薦テーブル内の行を表すID
       :param size: 返す近傍の数
       :return:     ``id`` で指定した近傍のidとその近傍性の値のリスト
 
       指定した行 ``id`` に近い行とその近傍性のリストを (最大で) ``size`` 個返す。
 
-   .. mpidl:method:: similar_result similar_row_from_datum(0: string name, 1: datum row, 2: uint size)
+   .. mpidl:method:: list<id_with_score> similar_row_from_datum(0: datum row, 1: uint size)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param row:  補完したい :mpidl:type:`datum`
       :param size: 返す近傍の数
       :return:     ``row`` から構成された ``similar_result``
 
       指定した ``row`` に近い :mpidl:type:`datum` を持つ行とその近傍性のリストを (最大で) ``size`` 個返す。
 
-   .. mpidl:method:: datum decode_row(0: string name, 1: string id)
+   .. mpidl:method:: datum decode_row(0: string id)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param id:   推薦テーブル内の行を表すID
       :return:     行 ID ``id`` に対応する :mpidl:type:`datum`
 
       行 ``id`` の :mpidl:type:`datum` を返す。
       ただし、fv_converterで不可逆な処理を行なっている :mpidl:type:`datum` は復元されない。
 
-   .. mpidl:method:: list<string> get_all_rows(0:string name)
+   .. mpidl:method:: list<string> get_all_rows()
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :return:     すべての行の ID リスト
 
       すべての行の ID リストを返す。
 
-   .. mpidl:method:: float calc_similarity(0: string name, 1: datum lhs, 2:datum rhs)
+   .. mpidl:method:: float calc_similarity(0: datum lhs, 1:datum rhs)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param lhs:  :mpidl:type:`datum`
       :param rhs:  別の :mpidl:type:`datum`
       :return:     ``lhs`` と ``rhs`` の類似度
 
       指定した 2 つの :mpidl:type:`datum` の類似度を返す。
 
-   .. mpidl:method:: float calc_l2norm(0: string name, 1: datum row)
+   .. mpidl:method:: float calc_l2norm(0: datum row)
 
-      :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
       :param row:  :mpidl:type:`datum`
       :return:     ``row`` の L2 ノルム
 

@@ -32,22 +32,24 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 ::
 
   $ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
-  I0110 13:43:07.789201  1855 server_util.cpp:196] starting jubaclassifier 0.4.2 RPC server at 192.168.0.1:9199
-      pid            : 1855
-      user           : oda
-      mode           : standalone mode
-      timeout        : 10
-      thread         : 2
-      datadir        : /tmp
-      logdir         : 
-      loglevel       : INFO(0)
-      zookeeper      : 
-      name           : 
-      join           : false
-      interval sec   : 16
-      interval count : 512
-  I0110 13:43:07.789721  1855 server_util.cpp:69] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
-  I0110 13:43:07.790897  1855 classifier_serv.cpp:110] config loaded: {
+  I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
+      pid                  : 1855
+      user                 : oda
+      mode                 : standalone mode
+      timeout              : 10
+      thread               : 2
+      datadir              : /tmp
+      logdir               : 
+      loglevel             : INFO(0)
+      zookeeper            : 
+      name                 : 
+      join                 : false
+      interval sec         : 16
+      interval count       : 512
+      zookeeper timeout    : 10
+      interconnect timeout : 10
+  I0110 13:43:07.789721  1855 server_util.cpp:77] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
+  I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
     "converter" : {
       "string_filter_types" : {},
       "string_filter_rules" : [],
@@ -261,8 +263,8 @@ Classifier API: 学習(train) と 分類(classify)
 
 .. code-block:: python
 
-  d1 = types.datum([["message" , "I want to buy mac book air..."]], [])
-  client.train("", [("comp.sys.mac.hardware", d1)])
+  d1 = Datum({"message" : "I want to buy mac book air..."})
+  client.train([("comp.sys.mac.hardware", d1)])
 
 この要領で、ラベルとメッセージの組み合わせを多数学習させます。
 
@@ -271,8 +273,8 @@ Classifier API: 学習(train) と 分類(classify)
 
 .. code-block:: python
 
-  d2 = types.datum([["message" , "Just bought a new mac book air..."]], [])
-  result = client.classify("", [d2])
+  d2 = Datum({"message" : "Just bought a new mac book air..."})
+  result = client.classify([d2])
 
 その結果、以下のような値が得られます。
 
@@ -298,9 +300,14 @@ Classifier API: 学習(train) と 分類(classify)
    :maxdepth: 1
 
    tutorial/classifier
-   tutorial/regression
    tutorial/recommender
+   tutorial/regression
    tutorial/graph
    tutorial/stat
+
+.. toctree::
+   :hidden:
+
    tutorial/anomaly
 
+Anomaly、Nearnest_Neighbor、Clustering のチュートリアルは、現在準備中です。

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -133,6 +133,24 @@
 </li>
 <li><a class="reference internal" href="#anomaly">Anomaly</a><ul>
 <li><a class="reference internal" href="#id13">References</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nearest-neighbor">Nearest Neighbor</a><ul>
+<li><a class="reference internal" href="#id14">Overview</a></li>
+<li><a class="reference internal" href="#data-structure">Data Structure</a></li>
+<li><a class="reference internal" href="#algorithm">Algorithm</a><ul>
+<li><a class="reference internal" href="#id15">lsh</a></li>
+<li><a class="reference internal" href="#id16">minhash</a></li>
+<li><a class="reference internal" href="#id17">euclid_lsh</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clustering">Clustering</a><ul>
+<li><a class="reference internal" href="#id18">Overview</a></li>
+<li><a class="reference internal" href="#coreset-on-jubatus">Coreset on Jubatus</a></li>
+<li><a class="reference internal" href="#clustering-algorithms">Clustering algorithms</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
 </ul>
@@ -327,7 +345,7 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <img class=
 <div class="section" id="euclid-lsh">
 <h3>euclid_lsh<a class="headerlink" href="#euclid-lsh" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ユークリッド距離のための局所近傍ハッシュを利用したレコメンダである．複数テーブルを用いた効率的な探索と，cos類似度の局所近傍ハッシュとユークリッドノルム値を用いたリランキングによってユークリッド空間における近傍探索を実現する．</p>
-<p>ユークリッド空間における局所近傍ハッシュは <a class="reference internal" href="#datar2004">[Datar2004]</a> で提案されたものを用いる．cos類似度の局所近傍ハッシュと同様に <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個のランダムなベクトルとの内積を取った後，それぞれを適当な幅 <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> 以下のランダムな量子化幅で整数値に量子化し，得られた <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の整数を <img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> 個に等分して，別々のハッシュテーブルに記録する．探索の際には同様に <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の整数を計算し，:math:<cite>L</cite> 個のハッシュテーブルから表引きを行う．実際には実装上の工夫 <a class="reference internal" href="#andoni2005">[Andoni2005]</a> によりこの操作を単一のハッシュテーブルで実現する．また，小さな <img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> に対しても高い再現率を達成するために，各ハッシュ値が１だけ異なるようなエントリーも見るマルチプローブ探索 <a class="reference internal" href="#lv2007">[Lv2007]</a> を実装している．</p>
+<p>ユークリッド空間における局所近傍ハッシュは <a class="reference internal" href="#datar2004">[Datar2004]</a> で提案されたものを用いる．cos類似度の局所近傍ハッシュと同様に <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個のランダムなベクトルとの内積を取った後，それぞれを適当な幅 <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> 以下のランダムな量子化幅で整数値に量子化し，得られた <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の整数を <img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> 個に等分して，別々のハッシュテーブルに記録する．探索の際には同様に <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の整数を計算し，<img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> 個のハッシュテーブルから表引きを行う．実際には実装上の工夫 <a class="reference internal" href="#andoni2005">[Andoni2005]</a> によりこの操作を単一のハッシュテーブルで実現する．また，小さな <img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> に対しても高い再現率を達成するために，各ハッシュ値が１だけ異なるようなエントリーも見るマルチプローブ探索 <a class="reference internal" href="#lv2007">[Lv2007]</a> を実装している．</p>
 <p><a class="reference internal" href="#datar2004">[Datar2004]</a> の手法では得られたデータと入力データとの間のユークリッド距離が得られない．そこでJubatusの実装では，最初に計算した <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の内積値を正負でビット化したもの（cos類似度のハッシュ値と同じもの）と元のベクトルのユークリッドノルムも保存しておく．cos類似度のハッシュを用いることで，表引きによって得られたデータ <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> と入力データ <img class="math" src="_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> の間のcos類似度 <img class="math" src="_images/math/dd378f0fe4ea51d776756e3bc44cda713346581f.png" alt="\cos(x, q)"/> が推定できる．さらにそれぞれのユークリッドノルム <img class="math" src="_images/math/050da5a799ac489b4f6e7e0a5f4180fa1023b09a.png" alt="\lVert x\lVert, \lVert q\lVert"/> を用いると，これらの間のユークリッド距離は式 <img class="math" src="_images/math/6619dc923b7593d6bc9d69714205e3293b305937.png" alt="\lVert x-q\lVert^2=\lVert x\lVert^2+\lVert q\lVert^2-2\cos(x, q)"/> によって計算できる．こうして得られたユークリッド距離の推定値を用いて，表引きして得られたデータ集合をソートし直す．</p>
 <p>ユークリッド距離は類似度ではなく距離であり，値が小さくなるほど近いという意味になる．対応する類似度に標準的なものがないため，Jubatusではユークリッド距離に <img class="math" src="_images/math/bae5aba07d37ff6ff813107e76260fb31ad5794e.png" alt="-1"/> を掛けたものを類似度として用いる．</p>
 </div>
@@ -400,6 +418,97 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <img class=
 </table>
 </dd>
 </dl>
+</div>
+</div>
+<div class="section" id="nearest-neighbor">
+<h1>Nearest Neighbor<a class="headerlink" href="#nearest-neighbor" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id14">
+<h2>Overview<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>近傍探索は，登録されたデータ集合の中から，クエリとして与えられたデータに類似したものを高速に取り出す問題である．
+この問題はレコメンダを用いても解くことができるが，近傍探索のみが目的ならば，登録時のもともとのデータ表現など推薦に必要な一部の情報を保存する必要がない．
+そこでレコメンダから近傍探索に必要ない推薦に関する機能を削ったものがJubatusの近傍探索器である．</p>
+<p>近傍探索のアルゴリズム実装もレコメンダのアルゴリズムとは異なる．
+特に近傍探索のアルゴリズムはpush/pull型のMIXをサポートしている．</p>
+</div>
+<div class="section" id="data-structure">
+<h2>Data Structure<a class="headerlink" href="#data-structure" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>近傍探索のアルゴリズムはすべてハッシュ法をベースにしている．
+カラム指向のデータ構造を用いており，各アイテムごとにバージョン情報を保持している．
+push/pull型のMIXにおいて，アイテム単位のバージョン情報を用いてモデルの差分を生成してプロセス間で交換する。</p>
+</div>
+<div class="section" id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id15">
+<h3>lsh<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>コサイン類似度を近似する局所近傍ハッシュ(Locality Sensitive Hash, LSH)を利用した近傍探索器である．アルゴリズムの詳細はレコメンダのlshと同様である．</p>
+</div>
+<div class="section" id="id16">
+<h3>minhash<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>b-Bit Minwise Hashを用いた近傍探索記である。アルゴリズムの詳細はレコメンダのminhashと同様である。</p>
+</div>
+<div class="section" id="id17">
+<h3>euclid_lsh<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ユークリッド距離について類似するアイテムを取得するための近傍探索器である．近傍探索器のeuclid_lshはレコメンダのものとは大きく実装が異なる．</p>
+<p>近傍探索器のeuclid_lshではコサイン類似度を近似するLSHを用いてユークリッド距離を近似計算する．登録された各データに対してLSHが出力するビット列とデータベクトルのユークリッドノルム値を保存する．データベクトル <img class="math" src="_images/math/ccada11db7b2b90693e2fac4f887a57fce6f96bf.png" alt="x_1"/> と <img class="math" src="_images/math/6a7d010bbff66a0c41e43310a51efbaa6bf63396.png" alt="x_2"/> のなす角 <img class="math" src="_images/math/93d29a56629b8d27d3c068d44ecbf460371fac86.png" alt="\theta(x_1, x_2)"/> は，これらの <img class="math" src="_images/math/b55ca7a0aa88ab7d58f4fc035317fdac39b17861.png" alt="r"/> ビットLSH値の間のハミング距離を <img class="math" src="_images/math/792c4fae5cf9f0ee78ea23d801d7a142c6b275c2.png" alt="d_H(x_1, x_2)"/> として <img class="math" src="_images/math/c6fd128707a755e759645fb066db63f89a13b6b9.png" alt="\theta(x_1, x_2)\simeq{d_H(x_1, x_2)\over r}\cdot2\pi"/> で近似できる．これとデータベクトルのユークリッドノルム <img class="math" src="_images/math/8057cecb4d00ee71d00949f14c713de294f93c3b.png" alt="\lVert x_1\lVert"/>, <img class="math" src="_images/math/90850f580552f33d1d72de0736d4f6651f9a94fc.png" alt="\lVert x_2\lVert"/> を用いて次式でユークリッド距離を計算することができる．</p>
+<div class="math">
+<p><img src="_images/math/e7c98409e3658fae52ef4b096225acf5ddf06d7d.png" alt="\lVert x_1-x_2\lVert^2 = \lVert x_1\lVert^2 + \lVert x_2\lVert^2 - 2\lVert x_1\lVert \lVert x_2\lVert \cos\theta(x_1, x_2)."/></p>
+</div><p>nearest_neighborにおけるeuclid_lshは，各データごとにLSHのハッシュ値とノルム値を保存する．クエリ時には全ハッシュ値・ノルム値を走査して上式に従ってユークリッド距離を計算し，距離が小さいものから指定した個数だけ取得する．</p>
+</div>
+</div>
+</div>
+<div class="section" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id18">
+<h2>Overview<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>クラスタリング問題とはデータ集合を類似したデータの部分集合（クラスタ）に分割する問題である．
+Jubatusではコアセットと呼ばれる技術を用いてオンライン分散のクラスタリングを実現している．
+コアセット法では，データ集合から少数のデータ（コアセット）を上手にサンプリングする．
+この操作をここではコアセットの圧縮と呼ぶことにする．
+圧縮されたコアセットに対してクラスタリングを行うことで，計算コストを抑えながら良い精度のクラスタリングを実現する．</p>
+<p>Jubatusではk-平均法と混合ガウスモデル(GMM)の二種類のクラスタリング手法をサポートしている．</p>
+</div>
+<div class="section" id="coreset-on-jubatus">
+<h2>Coreset on Jubatus<a class="headerlink" href="#coreset-on-jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コアセットは，データ集合を要約するような部分集合である．クラスタリングに用いるコアセット法では，小さな部分集合に対するクラスタリングがもとのデータ全集合に対するクラスタリングを近似するように部分集合（コアセット）を選ぶ．
+コアセットを用いたクラスタリングについては， <a class="reference internal" href="#feldman2011b">[Feldman2011b]</a> において混合ガウスモデルへの適用が提案されており，さらに <a class="reference internal" href="#feldman2011a">[Feldman2011a]</a> においてより広い範囲のクラスタリング問題に適用できる理論が構築されている．</p>
+<p>コアセットを用いたクラスタリングをオンラインで学習するために，Jubatusでは次のようにしてコアセットを階層的に構築する．
+始めは1段目のコアセットを構築する．一定数データが貯まる度にそれらを圧縮してコアセットを作る．
+コアセットが一定数集まったら，それらを圧縮して2段目のコアセットを作る．
+さらに2段目のコアセットが一定数集まったらそれらを圧縮して3段目のコアセットを作る．
+この操作を繰り返して，多段にコアセットを構築していく．
+このとき総データ数に対してコアセット全体のサイズは漸近的に対数オーダーで成長する．
+Jubatusのコアセットクラスタリングでは，さらにコアセットの階層数の上限を設定することができる．
+この場合，最終段（N段目とする）で構築されたコアセットは(N+1)段目に回さず，同じ段にとどめ続ける．</p>
+<p>コアセットのMIXでは単純にプロセス間でコアセットを交換する．他プロセスから受け取ったコアセットは上記のオンライン更新には用いられず，後述のクラスタリングにのみ利用される．</p>
+</div>
+<div class="section" id="clustering-algorithms">
+<h2>Clustering algorithms<a class="headerlink" href="#clustering-algorithms" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コアセットを圧縮するタイミングで，圧縮後のコアセットを用いてクラスタリングを実行する．
+クラスタリングの際には，既存のコアセットや他プロセスからMIXで受け取ったコアセットも用いる．
+Jubatusではこうして得られたクラスタリング結果（クラスタ中心や重みの情報）を保持して，ANALYZEの際にはこれを用いる．</p>
+<p>コアセットを用いた混合ガウスモデルは <a class="reference internal" href="#feldman2011b">[Feldman2011b]</a> で提案されている手法である．
+k-平均法はこれを参考にしながら， <a class="reference internal" href="#feldman2011a">[Feldman2011a]</a> で構築されたより一般的な理論をk-平均法に適用したものを実装している．</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils citation" frame="void" id="feldman2011a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Feldman2011a]</td><td><em>(<a class="fn-backref" href="#id20">1</a>, <a class="fn-backref" href="#id22">2</a>)</em> <ol class="last upperalpha simple" start="4">
+<li>Feldman, M. Langberg. &#8220;A Unified Framework for Approximating and Clustering Data.&#8221; STOC &#8216;11: Proceedings of the 43rd annual ACM Symposium on Theory of Computing, pp. 569-578.</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="feldman2011b" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Feldman2011b]</td><td><em>(<a class="fn-backref" href="#id19">1</a>, <a class="fn-backref" href="#id21">2</a>)</em> <ol class="last upperalpha simple" start="4">
+<li>Feldman, M. Faulkner, A. Krause. &#8220;Scalable Training of Mixture Models via Coresets.&#8221; Advances in Neural Information Processing Systems 24, 2011.</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 

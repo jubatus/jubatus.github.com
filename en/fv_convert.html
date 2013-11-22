@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -121,6 +121,11 @@
 <li><a class="reference internal" href="#num-rules">num_rules</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#feature-extraction-from-binary-data">Feature Extraction from Binary Data</a><ul>
+<li><a class="reference internal" href="#binary-types">binary_types</a></li>
+<li><a class="reference internal" href="#binary-rules">binary_rules</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
 <li><a class="reference internal" href="#plugins">Plugins</a></li>
 </ul>
@@ -190,19 +195,23 @@ It is probable that doing some tuning this configuration to obtain training mode
   <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span>  <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;num&quot;</span> <span class="p">}</span>
-  <span class="p">]</span>
+  <span class="p">],</span>
+  <span class="s">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="datum">
 <h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
 <p>It is very simple key-value called &#8220;datum&#8221; that we can use as a data type in Jubatus.
-datum has two key-value&#8217;s.
+datum has three key-value&#8217;s.
 One is &#8220;string_values&#8221;, whose key and value are both string data.
-The other is &#8220;num_values&#8221;, whose key is string data as string_values is, but value is numeric data.
+The second is &#8220;num_values&#8221;, whose key is string data as string_values is, but value is numeric data.
+The last is &#8220;binary_values&#8221;, whose key is string data as string_values is, but value is arbitrary binary data.
 We can store in string_values arbitrary text data such as name, text, profession etc.
-And we can store in num_values arbitrary numeric data such as age, income, the number of access etc. as a floating value.
-The data-conversion module extracts features which are used in machine learning tasks from these two types of data.
+We can store in num_values arbitrary numeric data such as age, income, the number of access etc. as a floating value.
+And, we can store in binary_values arbitrary binary data such as multimedia data like images and sounds.
+The data-conversion module extracts features which are used in machine learning tasks from these three types of data.
 Each key-value is represented neither as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
@@ -214,22 +223,26 @@ The following is an example of a datum.</p>
   <span class="p">[</span>
     <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s">&quot;user/image&quot;</span><span class="p">,</span> <span class="s">&quot;xxxxxxxx&quot;</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Name of keys cannot contain &#8220;$&#8221; sign.</p>
-<p>For example, a datum consists of <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> and  <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> in C++.
+<p>For example, a datum consists of <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> ,  <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::stirng,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> and <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> in C++.
 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> (resp.  <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt>) is to C++ what tuple (resp. vector) is to Python.</p>
 </div>
 <div class="section" id="flow-of-data-conversion">
 <h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
 <p>The following is the overview of data conversion.</p>
-<p>As datum consists of string data and numeric data, there are flows of processing for each type of data.</p>
+<p>As datum consists of string data, numeric data and binary data, there are flows of processing for each type of data.</p>
 <p>For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
 Then, features are extracted from string data with &#8220;string_rules&#8221;.</p>
 <p>For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to the datum.
 Then, features are extracted from string data with &#8220;num_rules&#8221;.</p>
+<p>For binary data, features are extracted from binary data with &#8220;binary_rules&#8221;.</p>
 <p>As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
 <div class="figure">
 <img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" />
@@ -284,7 +297,9 @@ The example above indicates that we apply the &#8220;detag&#8221; filter defined
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Next section is devoted to more precise explanations of each filter.</p>
+<p>These &#8220;types&#8221; and &#8220;rules&#8221; are optional.
+When you don&#8217;t specify these configurations, they are regarded as empty lists.
+Next section is devoted to more precise explanations of each filter.</p>
 <div class="section" id="string-filter-types">
 <h3>string_filter_types<a class="headerlink" href="#string-filter-types" title="Permalink to this headline">¶</a></h3>
 <p>Specifies a dictionary that consists of &lt;filter name&gt;:&lt;argument&gt;.
@@ -295,19 +310,21 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <dl class="describe">
 <dt>
 <tt class="descname">regexp</tt></dt>
-<dd><p>This filter converts substrings that a specified regular expression matches to a specified string. It is unavailable if compiled with <tt class="docutils literal"><span class="pre">--disable-re2</span></tt>.</p>
+<dd><p>This filter converts substrings that a specified regular expression matches to a specified string.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">pattern:</th><td class="field-body">Specifies a regular expression to match. This filter uses re2. For available expressions, please refer to documents of re2.</td>
+<tr class="field-odd field"><th class="field-name">pattern:</th><td class="field-body">Specifies a regular expression to match.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">replace:</th><td class="field-body">Specifies a string to replace with.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
+<p>For list of regular expressions available, refer to the documentation of the regular expression engine (<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt">oniguruma</a> or <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2</a>).
+The regular expression engine can be selected at compile time (oniguruma is used when using binary packages).</p>
 <p>For example, in order to remove all HTML tags, we should define such a string_filter_type.</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
@@ -365,8 +382,8 @@ Every &#8220;key&#8221; and &#8220;except&#8221; in this document is in the same
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="9%" />
-<col width="91%" />
+<col width="13%" />
+<col width="88%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Value</th>
@@ -384,7 +401,7 @@ Every &#8220;key&#8221; and &#8220;except&#8221; in this document is in the same
 <td>Matches keys whose suffixes are &#8220;XXX&#8221;.</td>
 </tr>
 <tr class="row-odd"><td>&#8220;/XXX/&#8221;</td>
-<td>&#8220;XXX&#8221; is interpreted as a regular expression. Matches keys that the expression matches. It is unavailable if compiled with &#8211;disable-re2.</td>
+<td>&#8220;XXX&#8221; is interpreted as a regular expression. Matches keys that the expression matches.</td>
 </tr>
 <tr class="row-even"><td>otherwise</td>
 <td>If the key is none of the above, it matches to keys that are identical to the given string.</td>
@@ -509,6 +526,47 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 
 <dl class="describe">
 <dt>
+<tt class="descname">regexp</tt></dt>
+<dd><p>Extract keywords from given document by way of regular expression matching with and use each keyword as a feature.
+Matching is executed continuously, that is, every match is used as a feature.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">pattern:</th><td class="field-body">Specifies mathing pattrn.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">group:</th><td class="field-body">Specifies group to be extracted as a keyword. If this value is 0, whole match is used as a keyword. If value is positive integer, only specified group extracted with () is used. Default value is 0. &#8220;group&#8221; must be specified with string type (e.g. &#8220;2&#8221;), not numeric type (e.g. 2).</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>For list of regular expressions available, refer to the documentation of the regular expression engine (<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt">oniguruma</a> or <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2</a>).
+The regular expression engine can be selected at compile time (oniguruma is used when using binary packages).</p>
+<p>The following is simplest example in which we extract every representation of date (YYYY/MM/DD).</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;[0-9]{4}/[0-9]{2}/[0-9]{2}&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we use only a part of the matches, we make use of &#8220;group&#8221; argument. For example, representation of age may be extracted with such a configuration.</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;group&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="describe">
+<dt>
 <tt class="descname">dynamic</tt></dt>
 <dd><p>Use a plugin. See below for further detail.</p>
 <blockquote>
@@ -552,22 +610,16 @@ In concrete, the weight is the product of these two weights.</p>
 <col width="85%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><p class="first last">Value</p>
-</th>
-<th class="head"><p class="first last">Meaning</p>
-</th>
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></p>
-</td>
-<td><p class="first last">Use given string itself as a feature without separating it.</p>
-</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></td>
+<td>Use given string itself as a feature without separating it.</td>
 </tr>
-<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;space&quot;</span></tt></p>
-</td>
-<td><p class="first last">Separate given string by spaces and use a set of substrings as features.</p>
-</td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;space&quot;</span></tt></td>
+<td>Separate given string by spaces and use a set of substrings as features.</td>
 </tr>
 </tbody>
 </table>
@@ -580,27 +632,19 @@ In concrete, the weight is the product of these two weights.</p>
 <col width="93%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><p class="first last">Value</p>
-</th>
-<th class="head"><p class="first last">Meaning</p>
-</th>
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></p>
-</td>
-<td><p class="first last">sample_weight is 1 for all features and all data.</p>
-</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></td>
+<td>sample_weight is 1 for all features and all data.</td>
 </tr>
-<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;tf&quot;</span></tt></p>
-</td>
-<td><p class="first last">sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight for this string is 5.</p>
-</td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;tf&quot;</span></tt></td>
+<td>sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight for this string is 5.</td>
 </tr>
-<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></tt></p>
-</td>
-<td><p class="first last">sample_weight is the logarithm of tf added by 1. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight is log(5+1).</p>
-</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></tt></td>
+<td>sample_weight is the logarithm of tf added by 1. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight is log(5+1).</td>
 </tr>
 </tbody>
 </table>
@@ -613,22 +657,16 @@ In concrete, the weight is the product of these two weights.</p>
 <col width="96%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><p class="first last">Value</p>
-</th>
-<th class="head"><p class="first last">Meaning</p>
-</th>
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></p>
-</td>
-<td><p class="first last">global_weight is 1 for all features.</p>
-</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></td>
+<td>global_weight is 1 for all features.</td>
 </tr>
-<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;idf&quot;</span></tt></p>
-</td>
-<td><p class="first last">global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.</p>
-</td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;idf&quot;</span></tt></td>
+<td>global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.</td>
 </tr>
 </tbody>
 </table>
@@ -704,31 +742,75 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 <col width="91%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><p class="first last">Value</p>
-</th>
-<th class="head"><p class="first last">Meaning</p>
-</th>
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;num&quot;</span></tt></p>
-</td>
-<td><p class="first last">Use given number itself as weight.</p>
-</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;num&quot;</span></tt></td>
+<td>Use given number itself as weight.</td>
 </tr>
-<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;log&quot;</span></tt></p>
-</td>
-<td><p class="first last">Use logarithm of given number as weight. If the number is not positive, weight is 0.</p>
-</td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;log&quot;</span></tt></td>
+<td>Use logarithm of given number as weight. If the number is not positive, weight is 0.</td>
 </tr>
-<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></p>
-</td>
-<td><p class="first last">Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.</p>
-</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></td>
+<td>Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.</td>
 </tr>
 </tbody>
 </table>
 </td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="feature-extraction-from-binary-data">
+<h2>Feature Extraction from Binary Data<a class="headerlink" href="#feature-extraction-from-binary-data" title="Permalink to this headline">¶</a></h2>
+<p>As with strings, feature extraction rules are also described for binary types.
+We can make user-defined extractors for binary types, too.</p>
+<div class="section" id="binary-types">
+<h3>binary_types<a class="headerlink" href="#binary-types" title="Permalink to this headline">¶</a></h3>
+<p>Feature extractors for binary data are defined in &#8220;binary_types&#8221;.
+As with &#8220;string_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named &#8220;method&#8221;.
+The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<dl class="describe">
+<dt>
+<tt class="descname">dynamic</tt></dt>
+<dd><p>Use a plugin. See below for further detail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a path to a plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="binary-rules">
+<h3>binary_rules<a class="headerlink" href="#binary-rules" title="Permalink to this headline">¶</a></h3>
+<p>Specifies how to extract binary features.
+As &#8220;string_rules&#8221;, it consists of multiple rules.
+Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional) and &#8220;type&#8221;.
+It depends on &#8220;type&#8221; how to specify weight and name features.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies the name of extractor in use. The extractor is either one defined in &#8220;binary_types&#8221;. Note that no pre-defined extractors are prepared.</td>
 </tr>
 </tbody>
 </table>
@@ -750,6 +832,8 @@ To use this option, specify the <tt class="docutils literal"><span class="pre">h
   <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}],</span>
   <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}],</span>
+  <span class="s">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
   <span class="s">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
 <span class="p">}</span>
 </pre></div>
@@ -824,53 +908,6 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dict_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/path/to/keyword/dic.txt&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="describe">
-<dt>
-<tt class="descname">libre2_splitter.so</tt></dt>
-<dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Extract keywords from given document by way of regular expression matching with <a class="reference external" href="http://code.google.com/p/re2/">re2</a> and use each keyword as a feature.
-Matching is executed continuously, that is, every match is used as a feature.
-For list of regular expressions available, refer to the <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2 documentation</a>.
-This plugin is available only when <strong>NOT</strong> compiled with <tt class="docutils literal"><span class="pre">--disable-re2</span></tt>.</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">pattern:</th><td class="field-body">Specifies mathing pattrn.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">group:</th><td class="field-body">Specifies group to be extracted as a keyword. If this value is 0, whole match is used as a keyword. If value is positive integer, only specified group extracted with () is used. Default value is 0. &#8220;group&#8221; must be specified with string type (e.g. &#8220;2&#8221;), not numeric type (e.g. 2).</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<p>The following is simplest example in which we extract every representation of date.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libre2_splitter.so&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;[0-9]{4}/[0-9]{2}/[0-9]{2}&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>If we use only a part of the matches, we make use of &#8220;group&#8221; argument. For example, representation of age may be extracted with such a configuration.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libre2_splitter.so&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;group&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

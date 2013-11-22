@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -207,16 +207,16 @@ Starting zookeeper ... STARTED</pre>
 </div>
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li>Jubatus Keeperの起動</li>
+<li>Jubatus Proxyの起動</li>
 </ol>
 <blockquote>
-<div><p>Jubatus KeeperはRPCリクエストをクライアントからサーバに中継(プロキシ)します。
-分散環境では、クライアントからのRPCリクエストを直接サーバに送るのではなく、一度Keeperに送ります。</p>
-<p>Jubatus Keeperは各Jubatusサーバの種類ごとに提供されています。
-shogunに対応するKeeperはjubaclassifier_keeperとなります。</p>
-<div class="highlight-python"><pre>$ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198</pre>
+<div><p>Jubatus ProxyはRPCリクエストをクライアントからサーバに中継(プロキシ)します。
+分散環境では、クライアントからのRPCリクエストを直接サーバに送るのではなく、一度Proxyに送ります。</p>
+<p>Jubatus Proxyは各Jubatusサーバの種類ごとに提供されています。
+shogunに対応するProxyはjubaclassifier_proxyとなります。</p>
+<div class="highlight-python"><pre>$ jubaclassifier_proxy --zookeeper=localhost:2181 --rpc-port=9198</pre>
 </div>
-<p>これにより、jubaclassifier_keeperは、TCP 9198番ポートでRPCリクエストを待ち受けます。</p>
+<p>これにより、jubaclassifier_proxyは、TCP 9198番ポートでRPCリクエストを待ち受けます。</p>
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li>サーバプロセスの起動</li>
@@ -240,8 +240,8 @@ ZooKeeperのクライアント（zkCli.sh）を用いて、3つのプロセス�
 <li>プログラムの実行</li>
 </ol>
 <blockquote>
-<div><p>今回はサーバではなくKeeperに接続するため、ポート番号にはjubaclassifier_keeperで指定したポート番号を指定します。
-また、分散環境では、RPCリクエストをKeeperへ送る際にクラスタ名を指定する必要があります。</p>
+<div><p>今回はサーバではなくProxyに接続するため、ポート番号にはjubaclassifier_proxyで指定したポート番号を指定します。
+また、分散環境では、RPCリクエストをProxyへ送る際にクラスタ名を指定する必要があります。</p>
 <div class="highlight-python"><pre>$ python shogun.py</pre>
 </div>
 </div></blockquote>
@@ -277,7 +277,7 @@ ZooKeeperのクライアント（zkCli.sh）を用いて、3つのプロセス�
 <tr class="row-odd"><td>192.168.0.11</td>
 <td><div class="first last line-block">
 <div class="line">jubaclassifier - 1</div>
-<div class="line">jubaclassifier_keeper/client - 1</div>
+<div class="line">jubaclassifier_proxy/client - 1</div>
 <div class="line">ZooKeeper - 1</div>
 </div>
 </td>
@@ -285,7 +285,7 @@ ZooKeeperのクライアント（zkCli.sh）を用いて、3つのプロセス�
 <tr class="row-even"><td>192.168.0.12</td>
 <td><div class="first last line-block">
 <div class="line">jubaclassifier - 2</div>
-<div class="line">jubaclassifier_keeper/client - 2</div>
+<div class="line">jubaclassifier_proxy/client - 2</div>
 <div class="line">ZooKeeper - 2</div>
 </div>
 </td>
@@ -293,7 +293,7 @@ ZooKeeperのクライアント（zkCli.sh）を用いて、3つのプロセス�
 <tr class="row-odd"><td>192.168.0.13</td>
 <td><div class="first last line-block">
 <div class="line">jubaclassifier - 3</div>
-<div class="line">jubaclassifier_keeper/client - 3</div>
+<div class="line">jubaclassifier_proxy/client - 3</div>
 <div class="line">ZooKeeper - 3</div>
 </div>
 </td>
@@ -330,13 +330,13 @@ $ sudo vi myid</pre>
 </div>
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li>Jubatus Keeperの起動</li>
+<li>Jubatus Proxyの起動</li>
 </ol>
 <blockquote>
-<div><p>jubaclassifier_keeperプロセスを起動します。jubaclassifier_keeperはTCP 9199番ポートをデフォルトで使用します。</p>
-<div class="highlight-python"><pre>[192.168.0.11]$ jubaclassifier_keeper --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
-[192.168.0.12]$ jubaclassifier_keeper --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
-[192.168.0.13]$ jubaclassifier_keeper --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181</pre>
+<div><p>jubaclassifier_proxyプロセスを起動します。jubaclassifier_proxyはTCP 9199番ポートをデフォルトで使用します。</p>
+<div class="highlight-python"><pre>[192.168.0.11]$ jubaclassifier_proxy --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
+[192.168.0.12]$ jubaclassifier_proxy --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
+[192.168.0.13]$ jubaclassifier_proxy --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181</pre>
 </div>
 </div></blockquote>
 <ol class="arabic simple" start="4">
@@ -356,7 +356,7 @@ jubavisorはTCP 9198番ポートをデフォルトで使用します。</p>
  sending start / jubaclassifier/shogun to 192.168.0.12_9198...ok.
  sending start / jubaclassifier/shogun to 192.168.0.13_9198...ok.
 [192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=shogun --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
-active jubaclassifier_keeper members:
+active jubaclassifier_proxy members:
  192.168.0.11_9199
  192.168.0.12_9199
  192.168.0.13_9199

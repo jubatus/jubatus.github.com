@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Nearest Neighbor &mdash; Jubatus</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
+    <link rel="up" title="Client API" href="api.html" />
+    <link rel="next" title="Anomaly" href="api_anomaly.html" />
+    <link rel="prev" title="Recommender" href="api_recommender.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="api_anomaly.html" title="Anomaly"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="api_recommender.html" title="Recommender"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Nearest Neighbor</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="api_recommender.html"
+                        title="前の章へ">Recommender</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="api_anomaly.html"
+                        title="次の章へ">Anomaly</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api_nearest_neighbor.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="nearest-neighbor">
+<h1>Nearest Neighbor<a class="headerlink" href="#nearest-neighbor" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul class="simple">
+<li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/nearest_neighbor.idl">IDL 定義</a> を参照してください。</li>
+<li>使用されているアルゴリズムの詳細については <a class="reference internal" href="method.html"><em>Methods</em></a> を参照してください。</li>
+</ul>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>設定は単体の JSON で与えられる。
+JSON の各フィールドは以下のとおりである。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">method</tt></dt>
+<dd><p>近傍探索に使用するアルゴリズムを指定する。
+以下のアルゴリズムを指定できる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">設定値</th>
+<th class="head">類似度尺度</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
+<td>コサイン類似度のLocality Sensitive Hashingを利用する。</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
+<td>MinHashを利用する。 <a class="reference internal" href="method.html#ping2010">[Ping2010]</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
+<td>コサイン類似度のLSHを用いてユークリッド距離での近傍探索を行う。</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">parameter</tt></dt>
+<dd><p>アルゴリズムに渡すパラメータを指定する。
+<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
+<dl class="docutils">
+<dt>lsh</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュのビット数を指定する。
+大きくすると正確な値に近づく代わりに、多くのメモリを消費し、探索時間も増す。
+(Integer)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>minhash</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュのビット数を指定する。
+大きくすると正確な値に近づく代わりに、多くのメモリを消費し、探索時間も増す。
+(Integer)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>euclid_lsh</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュの個数を指定する。
+大きくすると正確な値に近づく代わりに、多くのメモリを消費し、探索時間も増す。
+(Integer)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">converter</tt></dt>
+<dd><p>特徴変換の設定を指定する。
+フォーマットは <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> で説明する。</p>
+</dd></dl>
+
+<dl class="docutils">
+<dt>例:</dt>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;lsh&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;hash_num&quot;</span> <span class="o">:</span> <span class="mi">64</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span><span class="p">[],</span>
+    <span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="o">:</span><span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="message">
+<dt id="id_with_score">
+<em class="property">message </em><tt class="descname">id_with_score</tt><a class="headerlink" href="#id_with_score" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スコア付きのデータIDを表す。</p>
+<dl class="member">
+<dt id="id_with_score::id__s">
+0: string <tt class="descname">id</tt><a class="headerlink" href="#id_with_score::id__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>データのIDを表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="id_with_score::score__float">
+1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>IDに対して紐付かれた近傍性のスコアを表す。
+近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="service">
+<dt id="nearest_neighbor">
+<em class="property">service </em><tt class="descname">nearest_neighbor</tt><a class="headerlink" href="#nearest_neighbor" title="この定義へのパーマリンク">¶</a></dt>
+<dd><dl class="method">
+<dt id="nearest_neighbor::set_row__s.datum">
+bool <tt class="descname">set_row</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>d</em><big>)</big><a class="headerlink" href="#nearest_neighbor::set_row__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 行 ID</li>
+<li><strong>d</strong> &#8211; 行に対応する <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">モデルの更新に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> のデータを <tt class="docutils literal"><span class="pre">d</span></tt> を利用して更新する。
+同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、その行が <tt class="docutils literal"><span class="pre">d</span></tt> で上書きされる。
+<tt class="docutils literal"><span class="pre">recommender</span></tt> の場合と異なり差分更新ではない。
+更新操作を受け付けたサーバが当該行を持つサーバと同一であれば、操作は即時反映される。
+異なるサーバであれば、mix 後に反映される。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nearest_neighbor::neighbor_row_from_id__s.U">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">neighbor_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_id__s.U" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 近傍探索テーブル内の行を表す ID</li>
+<li><strong>size</strong> &#8211; 返す近傍点の個数</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍の id とその距離の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその距離のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nearest_neighbor::neighbor_row_from_data__datum.U">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">neighbor_row_from_data</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_data__datum.U" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>query</strong> &#8211; 近傍探索の対象となる <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>size</strong> &#8211; 返す近傍点の個数</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">query</span></tt> の近傍の id とその距離の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <tt class="docutils literal"><span class="pre">query</span></tt> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を持つ行とその <tt class="docutils literal"><span class="pre">query</span></tt> との距離のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nearest_neighbor::similar_row_from_id__s.i">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: int <em>ret_num</em><big>)</big><a class="headerlink" href="#nearest_neighbor::similar_row_from_id__s.i" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 近傍探索テーブル内の行を表す ID</li>
+<li><strong>ret_num</strong> &#8211; 返す近傍点の個数</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍の id とその距離の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその類似度のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nearest_neighbor::similar_row_from_data__datum.i">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_data</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: int <em>ret_num</em><big>)</big><a class="headerlink" href="#nearest_neighbor::similar_row_from_data__datum.i" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>query</strong> &#8211; 近傍探索の対象となる <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>ret_num</strong> &#8211; 返す近傍点の個数</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">query</span></tt> の近傍の id とその類似度の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <tt class="docutils literal"><span class="pre">query</span></tt> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を持つ行とその <tt class="docutils literal"><span class="pre">query</span></tt> との類似度のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="api_anomaly.html" title="Anomaly"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="api_recommender.html" title="Recommender"
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Client API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2013 PFI &amp; NTT.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

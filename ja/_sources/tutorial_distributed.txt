@@ -78,19 +78,19 @@ ZooKeeperを高い信頼性で動作させるために、以下のことを注�
  
   $ jubaconfig --cmd write --zookeeper=localhost:2181 --file jubatus-example/shogun/shogun.json --name shogun --type classifier
 
-5. Jubatus Keeperの起動
+5. Jubatus Proxyの起動
 
- Jubatus KeeperはRPCリクエストをクライアントからサーバに中継(プロキシ)します。
- 分散環境では、クライアントからのRPCリクエストを直接サーバに送るのではなく、一度Keeperに送ります。
+ Jubatus ProxyはRPCリクエストをクライアントからサーバに中継(プロキシ)します。
+ 分散環境では、クライアントからのRPCリクエストを直接サーバに送るのではなく、一度Proxyに送ります。
 
- Jubatus Keeperは各Jubatusサーバの種類ごとに提供されています。
- shogunに対応するKeeperはjubaclassifier_keeperとなります。
+ Jubatus Proxyは各Jubatusサーバの種類ごとに提供されています。
+ shogunに対応するProxyはjubaclassifier_proxyとなります。
 
  ::
  
-  $ jubaclassifier_keeper --zookeeper=localhost:2181 --rpc-port=9198
+  $ jubaclassifier_proxy --zookeeper=localhost:2181 --rpc-port=9198
 
- これにより、jubaclassifier_keeperは、TCP 9198番ポートでRPCリクエストを待ち受けます。
+ これにより、jubaclassifier_proxyは、TCP 9198番ポートでRPCリクエストを待ち受けます。
  
 
 6. サーバプロセスの起動
@@ -118,8 +118,8 @@ ZooKeeperを高い信頼性で動作させるために、以下のことを注�
 
 7. プログラムの実行
 
- 今回はサーバではなくKeeperに接続するため、ポート番号にはjubaclassifier_keeperで指定したポート番号を指定します。
- また、分散環境では、RPCリクエストをKeeperへ送る際にクラスタ名を指定する必要があります。
+ 今回はサーバではなくProxyに接続するため、ポート番号にはjubaclassifier_proxyで指定したポート番号を指定します。
+ また、分散環境では、RPCリクエストをProxyへ送る際にクラスタ名を指定する必要があります。
 
  ::
  
@@ -146,15 +146,15 @@ ZooKeeperを高い信頼性で動作させるために、以下のことを注�
   |192.168.0.1  |  Terminal                          |
   +-------------+------------------------------------+
   |192.168.0.11 | | jubaclassifier - 1               |
-  |             | | jubaclassifier_keeper/client - 1 |
+  |             | | jubaclassifier_proxy/client - 1  |
   |             | | ZooKeeper - 1                    |
   +-------------+------------------------------------+
   |192.168.0.12 | | jubaclassifier - 2               |
-  |             | | jubaclassifier_keeper/client - 2 |
+  |             | | jubaclassifier_proxy/client - 2  |
   |             | | ZooKeeper - 2                    |
   +-------------+------------------------------------+
   |192.168.0.13 | | jubaclassifier - 3               |
-  |             | | jubaclassifier_keeper/client - 3 |
+  |             | | jubaclassifier_proxy/client - 3  |
   |             | | ZooKeeper - 3                    |
   +-------------+------------------------------------+
 
@@ -189,15 +189,15 @@ ZooKeeperを高い信頼性で動作させるために、以下のことを注�
   [192.168.0.12]$ bin/zkServer.sh start
   [192.168.0.13]$ bin/zkServer.sh start
  
-3. Jubatus Keeperの起動
+3. Jubatus Proxyの起動
 
- jubaclassifier_keeperプロセスを起動します。jubaclassifier_keeperはTCP 9199番ポートをデフォルトで使用します。
+ jubaclassifier_proxyプロセスを起動します。jubaclassifier_proxyはTCP 9199番ポートをデフォルトで使用します。
  
  ::
  
-  [192.168.0.11]$ jubaclassifier_keeper --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
-  [192.168.0.12]$ jubaclassifier_keeper --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
-  [192.168.0.13]$ jubaclassifier_keeper --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
+  [192.168.0.11]$ jubaclassifier_proxy --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
+  [192.168.0.12]$ jubaclassifier_proxy --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
+  [192.168.0.13]$ jubaclassifier_proxy --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
   
 
 4. Jubavisor:サーバプロセス管理のエージェント
@@ -222,7 +222,7 @@ ZooKeeperを高い信頼性で動作させるために、以下のことを注�
    sending start / jubaclassifier/shogun to 192.168.0.12_9198...ok.
    sending start / jubaclassifier/shogun to 192.168.0.13_9198...ok.
   [192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=shogun --zookeeper 192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181
-  active jubaclassifier_keeper members:
+  active jubaclassifier_proxy members:
    192.168.0.11_9199
    192.168.0.12_9199
    192.168.0.13_9199

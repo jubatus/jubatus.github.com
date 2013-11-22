@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -46,7 +46,7 @@
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="チュートリアル" href="../tutorial.html" />
     <link rel="next" title="Python" href="stat_python.html" />
-    <link rel="prev" title="Java" href="graph_java.html" /> 
+    <link rel="prev" title="Python" href="graph_python.html" /> 
 
 <!--
 
@@ -88,7 +88,7 @@
           <a href="stat_python.html" title="Python"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="graph_java.html" title="Java"
+          <a href="graph_python.html" title="Python"
              accesskey="P">前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" accesskey="U">チュートリアル</a> &raquo;</li> 
@@ -113,8 +113,8 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="graph_java.html"
-                        title="前の章へ">Java</a></p>
+  <p class="topless"><a href="graph_python.html"
+                        title="前の章へ">Python</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="stat_python.html"
                         title="次の章へ">Python</a></p>
@@ -150,39 +150,43 @@
             
   <div class="section" id="stat">
 <h1>Stat<a class="headerlink" href="#stat" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ここではJubatusの統計分析機能（Stat）である、jubastatを使用した、Jubatus Clientの使い方を説明します。</p>
+<p>ここではJubatusの統計分析機能（Stat）である <tt class="docutils literal"><span class="pre">jubastat</span></tt> を使用した、Jubatus Clientの使い方を説明します。</p>
 <p>統計分析機能（Stat）とは、時系列データのウィンドウ設定つき統計分析機能であり、センサー監視や異常データ検知などに利用することができます。</p>
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>サンプルとして、オレンジ・りんご・メロンの直径・重さ・価格を学習し、フルーツ毎にパラメータの合計値や標準偏差など統計分析をするプログラム「trivial_stat」を用いて説明していきます。</p>
-<p>最初に、サンプル用に人工的に作成したデータセット (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/trivial_stat/dat/fruit.csv">fruit.csv</a>) をクライアント側で用意し、統計分析するためのモデルをサーバ側に学習させます。</p>
-<p>次に、StatClientのメソッドでそれぞれのフルーツに対して合計や標準偏差などを返却するメソッドを呼び出します。</p>
+<p>サンプルとして、オレンジ・りんご・メロンの直径・重さ・価格を学習し、フルーツ毎にパラメータの合計値や標準偏差など統計分析をするプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/trivial_stat">trivial_stat</a> 」を用いて説明していきます。</p>
+<p>最初に、サンプル用に人工的に作成したデータセット (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/trivial_stat/dat/fruit.csv">fruit.csv</a>) をクライアント側で用意し、統計分析するためのモデルを <tt class="docutils literal"><span class="pre">jubastat</span></tt> に学習させます。</p>
+<p>次に、クライアント側でそれぞれのフルーツに対して合計や標準偏差などを返却するメソッドを呼び出します。</p>
 </div>
 <div class="section" id="id2">
 <h2>処理の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus Clientを使ったコーディングは、主に以下の流れになります。</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Jubatus Serverへの接続設定</li>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">jubastat</span></tt> への接続設定</dt>
+<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubastat</span></tt> のホストやポート番号を指定し、接続設定をします。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>学習用データの準備</dt>
+<dd><p class="first last">fruit.csvから1行ずつ読み出し学習用データを作成します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>データの学習（学習モデルの更新）</dt>
+<dd><p class="first last">作成した学習用データを <tt class="docutils literal"><span class="pre">push</span></tt> メソッドで <tt class="docutils literal"><span class="pre">jubastat</span></tt> に与え、学習を行います。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>結果の出力</dt>
+<dd><p class="first last">合計や標準偏差を求めるメソッドを呼び出し、結果を出力します。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>サーバ側で起動している Jubatus ServerのHOSTやPORTを指定し、接続設定をします。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>学習用データの準備</li>
-</ol>
-<blockquote>
-<div>fruit.csvから1行ずつ読み出し学習用データを作成します。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>データの学習（学習モデルの更新）</li>
-</ol>
-<blockquote>
-<div>作成した学習用データをpushメソッドでサーバ側に与え、学習を行います。</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>結果の出力</li>
-</ol>
-<blockquote>
-<div>statClientの合計や標準偏差を求めるメソッドを呼び出し、結果を出力します。</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラム<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -194,20 +198,9 @@
 <li class="toctree-l2"><a class="reference internal" href="stat_python.html#id3">サンプルプログラムの実行</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="stat_ruby.html">Ruby</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="stat_ruby.html#id1">ソースコード</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_ruby.html#id2">解説</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_ruby.html#id3">サンプルプログラムの実行</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="stat_java.html">Java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="stat_java.html#id1">ソースコード</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_java.html#id2">解説</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stat_java.html#id3">サンプルプログラムの実行</a></li>
-</ul>
-</li>
 </ul>
 </div>
+<p>現在、Python 以外の言語のサンプルプログラムはありません。(みなさまのコントリビューションをお待ちしています!)</p>
 </div>
 </div>
 
@@ -227,7 +220,7 @@
           <a href="stat_python.html" title="Python"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="graph_java.html" title="Java"
+          <a href="graph_python.html" title="Python"
              >前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li> 

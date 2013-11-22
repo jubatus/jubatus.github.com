@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -46,7 +46,7 @@
     <link rel="top" title="Jubatus" href="../index.html" />
     <link rel="up" title="チュートリアル" href="../tutorial.html" />
     <link rel="next" title="Python" href="graph_python.html" />
-    <link rel="prev" title="Java" href="recommender_java.html" /> 
+    <link rel="prev" title="Python" href="regression_python.html" /> 
 
 <!--
 
@@ -88,7 +88,7 @@
           <a href="graph_python.html" title="Python"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="recommender_java.html" title="Java"
+          <a href="regression_python.html" title="Python"
              accesskey="P">前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" accesskey="U">チュートリアル</a> &raquo;</li> 
@@ -113,8 +113,8 @@
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="recommender_java.html"
-                        title="前の章へ">Java</a></p>
+  <p class="topless"><a href="regression_python.html"
+                        title="前の章へ">Python</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="graph_python.html"
                         title="次の章へ">Python</a></p>
@@ -150,68 +150,63 @@
             
   <div class="section" id="graph">
 <h1>Graph<a class="headerlink" href="#graph" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ここでは Jubatus のグラフマイニング機能(Graph)である、jubagraph を使用した、Jubatus Client の使い方を説明します。</p>
+<p>ここでは Jubatus のグラフマイニング機能(Graph)である <tt class="docutils literal"><span class="pre">jubagraph</span></tt> を使用した、Jubatus Client の使い方を説明します。</p>
 <p>グラフマイニング機能(Graph)とは、与えられたグラフ構造から中心点や最短距離を抽出する機能であり、ソーシャルコミュニティ分析やネットワーク構造分析に用いられます。</p>
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>鉄道路線の最短経路 (ホップ数) を推定するプログラム「train_route」を用いて説明していきます。</p>
-<p>最初に、鉄道の接続を表すグラフを作成します（CreateGraph）。今回は山手線と中央線の接続を表すグラフを作成します。</p>
-<p>グラフ作成後に駅名に対応する駅IDが出力されるので、その中から2つの駅IDを指定することで2駅間の最短経路を検索します（SearchRoute）。</p>
-<p>例えば、山手線品川駅から中央線御茶ノ水駅までの経路は、新宿駅で中央線に乗り換えて御茶ノ水駅まで向かう（外回り）パターンと、東京駅で中央線に乗り換えて御茶ノ水駅に向かう（内回り）パターンの2パターンが考えられる。このプログラムでは、より通過する駅数が少ない経路、つまり東京駅で乗り換える経路を表示します。</p>
+<p>鉄道路線の最短経路 (ホップ数) を推定するプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/train_route">train_route</a> 」を用いて説明していきます。</p>
+<p>最初に、鉄道の接続を表すグラフを作成します。今回は山手線と中央線の接続を表すグラフを作成します。</p>
+<p>グラフ作成後に駅名に対応する駅IDが出力されるので、その中から2つの駅IDを指定することで2駅間の最短経路を検索します。</p>
+<p>例えば、山手線品川駅から中央線御茶ノ水駅までの経路は、新宿駅で中央線に乗り換えて御茶ノ水駅まで向かう（外回り）パターンと、東京駅で中央線に乗り換えて御茶ノ水駅に向かう（内回り）パターンの2パターンが考えられる。
+このプログラムでは、より通過する駅数が少ない経路、つまり東京駅で乗り換える経路を表示します。</p>
 </div>
 <div class="section" id="id2">
 <h2>処理の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus Client の使ったコーディングは、主に以下の流れになります。</p>
-<ul class="simple">
-<li>CreateGraph</li>
-</ul>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Jubatus Server への接続設定</li>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">jubagraph</span></tt> への接続設定</dt>
+<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubagraph</span></tt> のホストやポート番号を指定し、接続設定をします。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>プリセットクエリーを登録</dt>
+<dd><p class="first last">最短パスの算出に使用したいクエリーを新たに登録します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>グラフの作成</dt>
+<dd><p class="first last">山手線、中央線の駅間接続情報を取得し、グラフを作成します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>駅IDの表示</dt>
+<dd><p class="first last">3. でグラフを作成時に登録した駅名に対応する駅IDを表示します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>クエリーの準備</dt>
+<dd><p class="first last">最短経路を計算するためのクエリーを準備します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>最短経路を計算</dt>
+<dd><p class="first last">2駅間の最短経路を計算します。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>結果の表示</dt>
+<dd><p class="first last">6. での計算結果を出力します。</p>
+</dd>
+</dl>
+</li>
 </ol>
-<blockquote>
-<div>サーバ側で起動している Jubatus Server の HOST や PORT を指定し、接続設定をします。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>プリセットクエリーを登録</li>
-</ol>
-<blockquote>
-<div>最短パスの算出に使用したいクエリーを新たに登録します。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>グラフの作成</li>
-</ol>
-<blockquote>
-<div>山手線、中央線の駅間接続情報を取得し、グラフを作成します。</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>駅IDの表示</li>
-</ol>
-<blockquote>
-<div>3.でグラフを作成時に登録した駅名に対応する駅IDを表示します。</div></blockquote>
-</div></blockquote>
-<ul class="simple">
-<li>SearchRoute</li>
-</ul>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Jubatus Server への接続設定</li>
-</ol>
-<blockquote>
-<div>サーバ側で起動している Jubatus Server の HOST や PORT を指定し、接続設定をします。</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>クエリーの準備</li>
-</ol>
-<blockquote>
-<div>最短経路を計算するためのクエリーを準備します。</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>最短経路を計算</li>
-</ol>
-<blockquote>
-<div>2.クエリーの準備で指定した2駅間の最短経路を計算します。</div></blockquote>
-<ol class="arabic simple" start="4">
-<li>結果の表示</li>
-</ol>
-<blockquote>
-<div>3.での計算結果を表示します。</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラム<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -223,20 +218,9 @@
 <li class="toctree-l2"><a class="reference internal" href="graph_python.html#id3">サンプルプログラムの実行</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="graph_ruby.html">Ruby</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="graph_ruby.html#id1">ソースコード</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_ruby.html#id2">解説</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_ruby.html#id3">サンプルプログラムの実行</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="graph_java.html">Java</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="graph_java.html#id1">ソースコード</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_java.html#id2">解説</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_java.html#id3">サンプルプログラムの実行</a></li>
-</ul>
-</li>
 </ul>
 </div>
+<p>現在、Python 以外の言語のサンプルプログラムはありません。(みなさまのコントリビューションをお待ちしています!)</p>
 </div>
 </div>
 
@@ -256,7 +240,7 @@
           <a href="graph_python.html" title="Python"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="recommender_java.html" title="Java"
+          <a href="regression_python.html" title="Python"
              >前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li> 

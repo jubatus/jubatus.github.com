@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -105,7 +105,7 @@
 <li><a class="reference internal" href="#">Commands</a><ul>
 <li><a class="reference internal" href="#jubatus">Jubatus サーバ</a></li>
 <li><a class="reference internal" href="#id1">分散環境</a><ul>
-<li><a class="reference internal" href="#jubatus-keepers">Jubatus Keepers</a></li>
+<li><a class="reference internal" href="#jubatus-proxy">Jubatus Proxy</a></li>
 <li><a class="reference internal" href="#jubavisor">jubavisor</a></li>
 <li><a class="reference internal" href="#jubactl">jubactl</a></li>
 <li><a class="reference internal" href="#jubaconfig">jubaconfig</a></li>
@@ -236,11 +236,25 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 </dd></dl>
 
 <dl class="option">
+<dt id="cmdoption-server-m">
+<tt class="descname">-m</tt><tt class="descclassname"> &lt;model&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--model_file</tt><tt class="descclassname"> &lt;model&gt;</tt><a class="headerlink" href="#cmdoption-server-m" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>サーバ起動時に読み込むモデルファイルへのパスを指定する。</p>
+</dd></dl>
+
+<dl class="option">
 <dt id="cmdoption-server-n">
 <tt class="descname">-n</tt><tt class="descclassname"> &lt;name&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"> &lt;name&gt;</tt><a class="headerlink" href="#cmdoption-server-n" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>インスタンス名 (タスクを識別する ZooKeeper クラスタ内でユニークな名前)。</p>
 <p><tt class="docutils literal"><span class="pre">--zookeeper</span></tt> が指定されている場合のみ、このオプションを指定する必要がある。</p>
 <p><tt class="docutils literal"><span class="pre">&lt;name&gt;</span></tt> には、ZooKeeper のノード名として使用できない文字 (<tt class="docutils literal"><span class="pre">/</span></tt> など) を使用することはできない。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-server-x">
+<tt class="descname">-x</tt><tt class="descclassname"> &lt;mixer&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"> &lt;mixer&gt;</tt><a class="headerlink" href="#cmdoption-server-x" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>MIX ノードの選択に使用する MIX 戦略を指定する。 [linear_mixer]</p>
+<p><tt class="docutils literal"><span class="pre">linear_mixer</span></tt>, <tt class="docutils literal"><span class="pre">random_mixer</span></tt>, <tt class="docutils literal"><span class="pre">broadcast_mixer</span></tt>, <tt class="docutils literal"><span class="pre">skip_mixer</span></tt> のいずれかが指定できる。
+エンジンによって、使用可能な MIX 戦略は異なる。</p>
 </dd></dl>
 
 <dl class="option">
@@ -267,7 +281,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-server-Z">
 <tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-Z" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>ZooKeeper セッションのタイムアウト時間 (秒)。 [10]</p>
+<dd><p>ZooKeeper と Jubatus サーバ間のセッションのタイムアウト時間 (秒)。 [10]</p>
 </dd></dl>
 
 <dl class="option">
@@ -291,98 +305,98 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 </div>
 <div class="section" id="id1">
 <h2>分散環境<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="section" id="jubatus-keepers">
-<h3>Jubatus Keepers<a class="headerlink" href="#jubatus-keepers" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Jubatus Keeper は、分散環境においてクライアントからのリクエストをサーバ間で分散する。</p>
+<div class="section" id="jubatus-proxy">
+<h3>Jubatus Proxy<a class="headerlink" href="#jubatus-proxy" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Jubatus Proxy は、分散環境においてクライアントからのリクエストをサーバ間で分散する。</p>
 <dl class="option">
-<dt id="cmdoption-keeper-p">
-<tt class="descname">-p</tt><tt class="descclassname"> &lt;port&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption-keeper-p" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-p">
+<tt class="descname">-p</tt><tt class="descclassname"> &lt;port&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption-proxy-p" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC リクエストを受け付けるポート番号。 [9199]</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-b">
-<tt class="descname">-b</tt><tt class="descclassname"> &lt;address&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_addr</tt><tt class="descclassname"> &lt;address&gt;</tt><a class="headerlink" href="#cmdoption-keeper-b" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-b">
+<tt class="descname">-b</tt><tt class="descclassname"> &lt;address&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_addr</tt><tt class="descclassname"> &lt;address&gt;</tt><a class="headerlink" href="#cmdoption-proxy-b" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC リクエストを受け付ける IPv4 アドレス。</p>
 <p>指定されていない場合、すべての IPv4 アドレス上でリクエストを受け付ける。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-B">
-<tt class="descname">-B</tt><tt class="descclassname"> &lt;interface&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_if</tt><tt class="descclassname"> &lt;interface&gt;</tt><a class="headerlink" href="#cmdoption-keeper-B" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-B">
+<tt class="descname">-B</tt><tt class="descclassname"> &lt;interface&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_if</tt><tt class="descclassname"> &lt;interface&gt;</tt><a class="headerlink" href="#cmdoption-proxy-B" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC リクエストを受け付けるネットワークインターフェース。</p>
 <p>指定されていない場合、すべてのネットワークインターフェース上でリクエストを受け付ける。</p>
 <p><tt class="docutils literal"><span class="pre">--listen_addr</span></tt> と併用することはできない (同時に指定された場合は、このオプションは無視される)。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-c">
-<tt class="descname">-c</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-keeper-c" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-c">
+<tt class="descname">-c</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-proxy-c" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC リクエストを受け付けるスレッド数。 [16]</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-t" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-t">
+<tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-t" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>RPC セッションのタイムアウト時間 (秒)。 [10]</p>
 <p><tt class="docutils literal"><span class="pre">0</span></tt> はタイムアウトを無効にすることを示す。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-Z">
-<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-Z" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>ZooKeeper セッションのタイムアウト時間 (秒)。 [10]</p>
+<dt id="cmdoption-proxy-Z">
+<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-Z" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ZooKeeper と Jubatus Proxy 間のセッションのタイムアウト時間 (秒)。 [10]</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-I">
-<tt class="descname">-I</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-I" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>Jubatus Keeper と Jubatus サーバ間の RPC リクエストのタイムアウト時間 (秒)。 [10]</p>
+<dt id="cmdoption-proxy-I">
+<tt class="descname">-I</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-I" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Jubatus Proxy と Jubatus サーバ間の RPC リクエストのタイムアウト時間 (秒)。 [10]</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-keeper-z" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-z">
+<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-proxy-z" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ZooKeeper サーバの一覧。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-l">
-<tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-keeper-l" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-l">
+<tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-proxy-l" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ログファイルを出力するディレクトリ。</p>
 <p>指定されていない場合、ログは標準エラーに出力される。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-e">
-<tt class="descname">-e</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-keeper-e" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-e">
+<tt class="descname">-e</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-proxy-e" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>出力するログの下限を指定する。 [0]</p>
 <p>INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-E">
-<tt class="descname">-E</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_expire</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-keeper-E" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-E">
+<tt class="descname">-E</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_expire</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-E" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>セッション・プールのタイムアウト時間 (秒)。 [60]</p>
 <p><tt class="docutils literal"><span class="pre">0</span></tt> はセッションが 1秒以上 利用されなければ、破棄することを示す。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-S">
-<tt class="descname">-S</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_size</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-keeper-S" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy-S">
+<tt class="descname">-S</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_size</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-proxy-S" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>スレッドごとに保持するセッション・プールの最大数。 [0]</p>
 <p><tt class="docutils literal"><span class="pre">0</span></tt> は制限を設定しないことを示す。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper-v">
-<tt class="descname">-v</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-keeper-v" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>Jubatus Keeper のバージョンを表示する。</p>
+<dt id="cmdoption-proxy-v">
+<tt class="descname">-v</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-proxy-v" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Jubatus Proxy のバージョンを表示する。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-keeper--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-keeper--help" title="この定義へのパーマリンク">¶</a></dt>
+<dt id="cmdoption-proxy--help">
+<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-proxy--help" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>このコマンドの簡単な使い方を表示する。</p>
 </dd></dl>
 
@@ -460,7 +474,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <td><a class="reference internal" href="#cmdoption-server-d"><em class="xref std std-option">server -d</em></a> で指定されたディレクトリから学習モデルを復元する</td>
 </tr>
 <tr class="row-even"><td>status</td>
-<td>サーバ、Keeper および jubavisor の状態を表示する</td>
+<td>サーバ、Proxy および jubavisor の状態を表示する</td>
 </tr>
 </tbody>
 </table>
@@ -546,6 +560,13 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dt id="cmdoption-jubactl-E">
 <tt class="descname">-E</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-E" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-e"><em class="xref std std-option">server -e</em></a>).</p>
+<p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubactl-X">
+<tt class="descname">-X</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-X" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-x"><em class="xref std std-option">server -x</em></a>).</p>
 <p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
 </dd></dl>
 
@@ -727,7 +748,7 @@ age@num: 31
 </div>
 <div class="section" id="jenerator">
 <span id="id4"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Keeper の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は <a class="reference internal" href="server.html"><em>コード生成器の利用</em></a> を参照すること。</p>
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Proxy の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は <a class="reference internal" href="server.html"><em>コード生成器の利用</em></a> を参照すること。</p>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> はデフォルトではインストールされない (ソースの <tt class="docutils literal"><span class="pre">tools/jenerator</span></tt> ディレクトリを参照)。</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] &lt;idl-file&gt; ...
 </pre></div>
@@ -736,7 +757,7 @@ age@num: 31
 <dt id="cmdoption-jenerator-l">
 <tt class="descname">-l</tt><tt class="descclassname"> &lt;lang&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-l" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>生成するクライアントコードの言語。現在は <tt class="docutils literal"><span class="pre">cpp</span></tt>, <tt class="docutils literal"><span class="pre">java</span></tt>, <tt class="docutils literal"><span class="pre">python</span></tt>, <tt class="docutils literal"><span class="pre">ruby</span></tt> がサポートされている。
-ただし、サーバ/Keeper を生成したい場合は <tt class="docutils literal"><span class="pre">server</span></tt> を指定する。</p>
+サーバ/Proxy を生成したい場合は <tt class="docutils literal"><span class="pre">server</span></tt> を指定する。</p>
 </dd></dl>
 
 <dl class="option">
@@ -750,7 +771,7 @@ age@num: 31
 <dt id="cmdoption-jenerator-i">
 <tt class="descname">-i</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p><tt class="docutils literal"><span class="pre">#include</span></tt> 命令に相対パスを使用する。</p>
-<p>C++ コード (サーバ/Keeper/C++ クライアント) を生成する場合のみ有効である。
+<p>C++ コード (サーバ/Proxy/C++ クライアント) を生成する場合のみ有効である。
 このオプションは Jubatus 開発者による利用を想定している。
 生成されたコードを Jubatus のソースツリー内でビルドする場合を除き、指定する必要はない。</p>
 </dd></dl>
@@ -765,14 +786,14 @@ age@num: 31
 <dt id="cmdoption-jenerator-t">
 <tt class="descname">-t</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-t" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>サーバのテンプレートを生成する。</p>
-<p>サーバ/Keeper を生成する場合のみ有効である。</p>
+<p>サーバ/Proxy を生成する場合のみ有効である。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-g">
 <tt class="descname">-g</tt><tt class="descclassname"> &lt;guard&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-g" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ヘッダファイルに使用するインクルードガードのプレフィックスを指定する。</p>
-<p>C++ コード (サーバ/Keeper/C++ クライアント) を生成する場合のみ有効である。</p>
+<p>C++ コード (サーバ/Proxy/C++ クライアント) を生成する場合のみ有効である。</p>
 </dd></dl>
 
 <dl class="option">

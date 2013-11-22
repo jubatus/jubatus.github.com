@@ -19,24 +19,27 @@ Jubatus をソースからビルドするには、 ``gcc`` (バージョン 4.4 
 msgpack             >= 0.5.7   ✔
 jubatus-mpio        0.4.1      ✔
 jubatus-msgpack-rpc 0.4.1      ✔         C++ クライアントライブラリが必要である。
-pficommon           master     ✔
 google-glog         >= 0.3.3   ✔
+oniguruma           >= 5.9     [1]_
+re2                 master     [1]_      ``--enable-re2`` ありでビルドする場合のみ。
 mecab               >= 0.99              ``--enable-mecab`` ありでビルドする場合のみ。
-re2                 master               ``--disable-re2`` *なし* でビルドする場合のみ。
 ux-trie             master               ``--enable-ux`` ありでビルドする場合のみ。
 zookeeper           >= 3.3               ``--enable-zookeeper`` ありでビルドする場合のみ。
                                          C クライアントライブラリが必要である。
 =================== ========== ========= ======================================================
+
+.. [1] 正規表現ライブラリとして、oniguruma または re2 のいずれかが必須です。
+       ビルド時に ``--enable-re2`` が指定されない限り、oniguruma が使用されます。
 
 お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
 バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
 `msgpack <http://msgpack.org/>`_,
 `jubatus-mpio <https://github.com/jubatus/jubatus-mpio>`_,
 `jubatus-msgpack-rpc <https://github.com/jubatus/jubatus-msgpack-rpc>`_,
-`pficommon <https://github.com/pfi/pficommon>`_,
 `google-glog <http://code.google.com/p/google-glog/>`_,
-`mecab <http://code.google.com/p/mecab/>`_,
+`oniguruma <http://www.geocities.jp/kosako3/oniguruma/index_ja.html>`_,
 `re2 <http://code.google.com/p/re2/>`_,
+`mecab <http://code.google.com/p/mecab/>`_,
 `ux-trie <http://code.google.com/p/ux-trie/>`_,
 `zookeeper <http://zookeeper.apache.org/>`_
 )。
@@ -50,7 +53,7 @@ Ubuntu 12.04 でのビルドを行う例です。
 
   $ sudo apt-get install build-essential git-core pkg-config
 
-  $ sudo apt-get install libmsgpack-dev
+  $ sudo apt-get install libmsgpack-dev libonig-dev
 
   $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
   $ tar xzf jubatus_mpio-0.4.1.tar.gz
@@ -68,14 +71,6 @@ Ubuntu 12.04 でのビルドを行う例です。
   $ sudo make install
   $ cd ..
 
-  $ wget -O pficommon-master.tar.gz https://github.com/pfi/pficommon/archive/master.tar.gz
-  $ tar xzf pficommon-master.tar.gz
-  $ cd pficommon-master
-  $ ./waf configure
-  $ ./waf build
-  $ sudo ./waf install
-  $ cd ..
-
   $ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
   $ tar xzf glog-0.3.3.tar.gz
   $ cd glog-0.3.3
@@ -91,7 +86,7 @@ Jubatus のビルドを行います。
   $ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
   $ tar xzf jubatus-master.tar.gz
   $ cd jubatus-master
-  $ ./waf configure --disable-re2
+  $ ./waf configure
   $ ./waf build
   $ sudo ./waf install
   $ sudo ldconfig
@@ -110,5 +105,4 @@ Mac OS X では、スタンドアロンモードのビルドと実行が試験�
 
 - Debian GNU/Linux では動作しています。
 - Arch Linux ではスタンドアローンモードで動作しています。
-- FreeBSD では動作していません。pficommon を修正する必要があります。
 - 他の \*BSD systems や Solarisでの動作報告をお待ちしています。

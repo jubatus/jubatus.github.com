@@ -18,14 +18,16 @@ We show each filed below:
 
    .. table::
 
-      ==================== ===================================
-      Value                Method
-      ==================== ===================================
-      ``"inverted_index"`` Use Inverted Index.
-      ``"minhash"``        Use MinHash. [Ping2010]_
-      ``"lsh"``            Use Locality Sensitive Hashing.
-      ``"euclid_lsh"``     Use Euclid-distance LSH. [Andoni2005]_
-      ==================== ===================================
+      ======================= ===================================
+      Value                   Method
+      ======================= ===================================
+      ``"inverted_index"``    Use Inverted Index.
+      ``"minhash"``           Use MinHash. [Ping2010]_
+      ``"lsh"``               Use Locality Sensitive Hashing.
+      ``"euclid_lsh"``        Use Euclid-distance LSH. [Andoni2005]_
+
+      ``"nearest_neighbor:*`` Use an implementation of ``nearest_neighbor`` of which algorithm name is specified in ``*`` .
+      ======================= ===================================
 
 
 .. describe:: parameter
@@ -44,13 +46,13 @@ We show each filed below:
         (Integer)
 
    lsh
-     :bit_num:
+     :hash_num:
         Bit length of hash values.
         The bigger it is, the more accurate results you can get, but the more memory is required.
         (Integer)
 
    euclid_lsh
-     :lsh_num:
+     :hash_num:
         Number of hash values.
         The bigger it is, the more accurate results you can get, but the fewer results you can find and the more memory is required.
         (Integer)
@@ -74,6 +76,10 @@ We show each filed below:
         Response time is lower though more memory is required.
         (Boolean)
 
+   nearest_neighbor:*
+      Describe the parameter set for the nearest neighbor that is specified in ``*`` .
+      Please refer to :doc:`api_nearest_neighbor` for more details.
+
 
 .. describe:: converter
 
@@ -87,7 +93,7 @@ Example:
      {
        "method": "lsh",
        "parameter" : {
-         "bit_num" : 64
+         "hash_num" : 64
        },
        "converter" : {
          "string_filter_types": {},
@@ -108,37 +114,40 @@ Example:
 Data Structures
 ~~~~~~~~~~~~~~~
 
-.. mpidl:type:: similar_result
+.. mpidl:message:: id_with_score
 
-   Represents a result of similarity methods.
-   It is a list of tuple of string and float.
-   The string value is a row ID and the float value is a similarity for the ID.
-   Higher similarity value means that they are more similar to each other.
+   Represents ID with its score.
+
+   .. mpidl:member:: 0: string id
+
+      Data ID.
+
+   .. mpidl:member:: 1: float score
+
+      Score.
 
    .. code-block:: c++
 
-      type similar_result = list<tuple<string, float> >
+      message id_with_score {
+        0: string id
+        1: float score
+      }
 
 
 Methods
 ~~~~~~~
 
-For all methods, the first parameter of each method (``name``) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (``""``).
-
 .. mpidl:service:: recommender
 
-   .. mpidl:method:: bool clear_row(0: string name, 1: string id)
+   .. mpidl:method:: bool clear_row(0: string id)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param id:   row ID to be removed
       :return:     True when the row was cleared successfully
 
       Removes the given row ``id`` from the recommendation table.
 
-   .. mpidl:method:: bool update_row(0: string name, 1: string id, 2: datum row)
+   .. mpidl:method:: bool update_row(0: string id, 1: datum row)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param id:   row ID
       :param row:  :mpidl:type:`datum` for the row
       :return:     True if this function updates models successfully
@@ -149,68 +158,60 @@ When using standalone mode, this must be left blank (``""``).
       If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
       If not, update operation is reflected after mix.
 
-   .. mpidl:method:: datum complete_row_from_id(0: string name, 1: string id)
+   .. mpidl:method:: datum complete_row_from_id(0: string id)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param id:   row ID
       :return:     :mpidl:type:`datum` stored in ``id`` row with missing value completed by predicted value
 
       Returns the :mpidl:type:`datum` for the row ``id``, with missing value completed by predicted value.
 
-   .. mpidl:method:: datum complete_row_from_datum(0: string name, 1: datum row)
+   .. mpidl:method:: datum complete_row_from_datum(0: datum row)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param row:  original :mpidl:type:`datum` to be completed (possibly some values are missing)
       :return:     :mpidl:type:`datum` constructed from the given :mpidl:type:`datum` with missing value completed by predicted value
 
       Returns the :mpidl:type:`datum` constructed from ``row``, with missing value completed by predicted value.
 
-   .. mpidl:method:: similar_result similar_row_from_id(0: string name, 1: string id, 2: uint size)
+   .. mpidl:method:: list<id_with_score> similar_row_from_id(0: string id, 1: uint size)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param id:   row ID
       :param size: number of rows to be returned
       :return:     row IDs that are most similar to the row ``id``
 
       Returns ``size`` rows (at maximum) which are most similar to the row ``id``.
 
-   .. mpidl:method:: similar_result similar_row_from_datum(0: string name, 1: datum row, 2: uint size)
+   .. mpidl:method:: list<id_with_score> similar_row_from_datum(0: datum row, 1: uint size)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param row:  original :mpidl:type:`datum` to be completed (possibly some values are missing)
       :param size: number of rows to be returned
       :return:     rows that most have a similar datum to ``row``
 
       Returns ``size`` rows (at maximum) that most have similar :mpidl:type:`datum` to ``row``.
 
-   .. mpidl:method:: datum decode_row(0: string name, 1: string id)
+   .. mpidl:method:: datum decode_row(0: string id)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param id:   row ID
       :return:     :mpidl:type:`datum` for the given row ``id``
 
       Returns the :mpidl:type:`datum` in the row ``id``.
       Note that irreversibly converted :mpidl:type:`datum` (processed by ``fv_converter``) will not be decoded.
 
-   .. mpidl:method:: list<string> get_all_rows(0:string name)
+   .. mpidl:method:: list<string> get_all_rows()
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :return:     list of all row IDs
 
       Returns the list of all row IDs.
 
-   .. mpidl:method:: float calc_similarity(0: string name, 1: datum lhs, 2:datum rhs)
+   .. mpidl:method:: float calc_similarity(0: datum lhs, 1:datum rhs)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param lhs:  :mpidl:type:`datum`
       :param rhs:  another :mpidl:type:`datum`
       :return:     similarity between ``lhs`` and ``rhs``
 
       Returns the similarity between two :mpidl:type:`datum`.
 
-   .. mpidl:method:: float calc_l2norm(0: string name, 1: datum row)
+   .. mpidl:method:: float calc_l2norm(0: datum row)
 
-      :param name: string value to uniquely identifies a task in the ZooKeeper cluster
       :param row:  :mpidl:type:`datum`
       :return:     L2 norm for the given ``row``
 

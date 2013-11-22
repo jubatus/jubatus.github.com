@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.5',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -45,7 +45,7 @@
     <link rel="top" title="Jubatus" href="index.html" />
     <link rel="up" title="Client API" href="api.html" />
     <link rel="next" title="Graph" href="api_graph.html" />
-    <link rel="prev" title="Anomaly" href="api_anomaly.html" /> 
+    <link rel="prev" title="Clustering" href="api_clustering.html" /> 
 
 <!--
 
@@ -87,7 +87,7 @@
           <a href="api_graph.html" title="Graph"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="api_anomaly.html" title="Anomaly"
+          <a href="api_clustering.html" title="Clustering"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>
@@ -111,8 +111,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="api_anomaly.html"
-                        title="previous chapter">Anomaly</a></p>
+  <p class="topless"><a href="api_clustering.html"
+                        title="previous chapter">Clustering</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="api_graph.html"
                         title="next chapter">Graph</a></p>
@@ -178,50 +178,48 @@ We show each filed below:</p>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-<p>For all methods, the first parameter of each method (<tt class="docutils literal"><span class="pre">name</span></tt>) is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <dl class="service">
 <dt>
 <em class="property">service </em><tt class="descname">stat</tt></dt>
 <dd><dl class="method">
-<dt id="stat::push__s.s.double">
-bool <tt class="descname">push</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em>, 2: double <em>val</em><big>)</big><a class="headerlink" href="#stat::push__s.s.double" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::push__s.double">
+bool <tt class="descname">push</tt><big>(</big>0: string <em>key</em>, 1: double <em>value</em><big>)</big><a class="headerlink" href="#stat::push__s.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds value <tt class="docutils literal"><span class="pre">val</span></tt> to the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::sum__s.s">
-double <tt class="descname">sum</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::sum__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::sum__s">
+double <tt class="descname">sum</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::sum__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sum of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::stddev__s.s">
-double <tt class="descname">stddev</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::stddev__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::stddev__s">
+double <tt class="descname">stddev</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::stddev__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the standard deviation of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::max__s.s">
-double <tt class="descname">max</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::max__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::max__s">
+double <tt class="descname">max</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::max__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum value of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::min__s.s">
-double <tt class="descname">min</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::min__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::min__s">
+double <tt class="descname">min</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::min__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the minimum value of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::entropy__s.s">
-double <tt class="descname">entropy</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em><big>)</big><a class="headerlink" href="#stat::entropy__s.s" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::entropy__s">
+double <tt class="descname">entropy</tt><big>(</big>0: string <em>key</em><big>)</big><a class="headerlink" href="#stat::entropy__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the entropy of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="stat::moment__s.s.i.double">
-double <tt class="descname">moment</tt><big>(</big>0: string <em>name</em>, 1: string <em>key</em>, 2: int <em>degree</em>, 3: double <em>center</em><big>)</big><a class="headerlink" href="#stat::moment__s.s.i.double" title="Permalink to this definition">¶</a></dt>
+<dt id="stat::moment__s.i.double">
+double <tt class="descname">moment</tt><big>(</big>0: string <em>key</em>, 1: int <em>degree</em>, 2: double <em>center</em><big>)</big><a class="headerlink" href="#stat::moment__s.i.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the <tt class="docutils literal"><span class="pre">degree</span></tt>-th moment about <tt class="docutils literal"><span class="pre">center</span></tt> of values in the attribute <tt class="docutils literal"><span class="pre">key</span></tt>.</p>
 </dd></dl>
 
@@ -246,7 +244,7 @@ double <tt class="descname">moment</tt><big>(</big>0: string <em>name</em>, 1: s
           <a href="api_graph.html" title="Graph"
              >next</a> |</li>
         <li class="right" >
-          <a href="api_anomaly.html" title="Anomaly"
+          <a href="api_clustering.html" title="Clustering"
              >previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
           <li><a href="references.html" >References</a> &raquo;</li>

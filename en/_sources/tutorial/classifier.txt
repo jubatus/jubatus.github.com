@@ -1,50 +1,54 @@
 Classifier
 =================
 
-In this section, we will introduce how to use ``jubaclassifier`` through the Jubatus Client.
+In this section, we introduce a way to use ``jubaclassifier`` through a Jubatus client.
 
-Classifier is the function to classify given data. For example, You can use Classifier to detection of spam mail.
+Classifier is a module to classify given data. For example, you can use Classifier to detect spam e-mails.
 
 -------------------------------------
 Overview
 -------------------------------------
 
-The sample program is ``gender``. This program will classify data into male or female through the features of hair style, height and clothes.
+Let's use `gender <https://github.com/jubatus/jubatus-example/tree/master/gender>`_ as a sample program using Classifier. This program classifies a person into male or female through the features of his/her hair style, height and clothes.
 
-As a first step, update model in jubaclassifier using the training data.
+As a first step, the program updates the model of ``jubaclassifier`` using the training data. A training data is a pair of a class (male or female) and features (hair style, height, clothes). After preparing some training data, the program makes ``jubaclassifier`` learn them.
 
-The training data is a pair of class(male or female) and features(hair style, height, clothes). You will prepare some training data and make jubaclassifier learn those data.
+Next, the program analyzes the test data using model of ``jubaclassifier`` . It prepares test data, and then ``jubaclassifier`` classifies each of them into male or female using the learned model.
 
-Next, analyze the test data using model in jubaclassifier.
+For example, if you give the feature data as following to ``jubaclassifier``, it will return "female".
 
-You will prepare features as a test data, jubaclassifier will classifiy this into male or female using model.
+::
 
-For example, you give the feature data ["hair" : "long", "top" : "shirt", "bottom" : "skirt", "height" : 1.50], jubaclassifier will return "famale".
+  "hair" is "long"
+  "top" is "shirt"
+  "bottom" is "skirt"
+  "height" is 1.50
 
 
 --------------------------------
 Scenario
 --------------------------------
 
-The flow of development using Jubatus Client is following:
+The following is a typical flow of development using Jubatus Client:
 
- 1.Connection settings to jubaclassifier
-  Setting the HOST and RPC port of jubaclassifier.
+1. Sets a connection configuration to ``jubaclassifier``
+    Setting the HOST, RPC port and the instance name of ``jubaclassifier`` .
 
- 2.Prepare the training data
-  Make some pair of class and features.
+2. Prepare training data
+    Make some pairs of classes and feature sets.
 
- 3.Data training (update the model)
-  Send the training data to jubaclassifier using ``train`` method.
+3. Train the model using prepared data (update the model)
+    Send the training data to ``jubaclassifier`` using ``train`` method.
 
- 4.Prepare the test data
-  Make the feature data.
+4. Prepare the test data
+    Make a set of feature data.
 
- 5.Classify the test data
-  Send the test data to jubaclassifier using ``classify`` method.
+5. Classify the test data
+    Send the test data to ``jubaclassifier`` using ``classify`` method.
 
- 6.Output the result
-  Compare the score value of each classes. And output the class score is larger.
+6. Output the result
+    Compare the score value of each class, and output the class of the highest score.
+
 
 --------------------------------
 Sample Program
