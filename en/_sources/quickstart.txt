@@ -112,7 +112,7 @@ For Ubuntu systems, type:
 Python
 ~~~~~~
 
-The client (requires Python 2.7 or later) is available in `PyPI <http://pypi.python.org/pypi/jubatus>`_.
+The client (requires Python 2.6 or later) is available in `PyPI <http://pypi.python.org/pypi/jubatus>`_.
 
 ::
 
