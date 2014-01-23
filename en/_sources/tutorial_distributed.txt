@@ -66,7 +66,7 @@ Jubatus proxies proxy RPC requests from clients to servers.
 In distributed environment, make RPC requests from clients to proxies, not directly to servers.
 
 Jubatus proxies are provided for each Jubatus servers.
-For the classifier, ``jubaclassifier_keeper`` is the corresponding proxy.
+For the classifier, ``jubaclassifier_proxy`` is the corresponding proxy.
 
 ::
 

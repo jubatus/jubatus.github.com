@@ -7,9 +7,9 @@ Python
 ソースコード
 --------------------------------
 
-このサンプルプログラムでは、学習アルゴリズム等の設定をするrent.jsonとデータの学習及び学習モデルに基づく推定を行うmain.py、
+このサンプルプログラムでは、学習アルゴリズム等の設定をするrent.jsonとデータの学習及び学習モデルに基づく推定を行うjubahomes.py、
 また学習用データとしてrent-data.csv、推定用データとしてmyhome.ymlを使用します。
-以下にrent.jsonとmain.pyおよびmyhome.ymlのソースコードを記載します。
+以下にrent.jsonとjubahomes.pyおよびmyhome.ymlのソースコードを記載します。
 
 **rent.json**
 
@@ -38,18 +38,27 @@ Python
    }
  }
 
-**main.py**
+**jubahomes.py**
 
 .. code-block:: python
  :linenos:
 
+ #!/usr/bin/env python
+ 
  import argparse
  import yaml
  
  from jubatus.common import Datum
  from jubatus.regression.client import Regression
  from jubatus.regression.types import *
- from jubahomes.version import get_version
+ 
+ VERSION = (0, 0, 1, '')
+ 
+ def get_version():
+   version_string = '%s.%s.%s' % VERSION[0:3]
+   if len(VERSION[3]):
+     version_string += '-' + VERSION[3]
+   return version_string
  
  def parse_options():
    parser = argparse.ArgumentParser()
@@ -119,7 +128,9 @@ Python
      result = client.estimate(analyze_data)
  
      print 'rent ....', round(result[0], 1)
-
+ 
+ if __name__ == '__main__':
+     main()
 
 **myhome.yml**
 
@@ -178,7 +189,7 @@ JSONの各フィールドは以下の通りです。
    なお、各アルゴリズムのregularization_weightパラメータ（学習に対する感度パラメータ）はアルゴリズム中における役割が異なるため、アルゴリズム毎に適切な値は異なることに注意してください。
 
 
-**main.py**
+**jubahomes.py**
 
 学習と推定の手順を説明します。
 
@@ -186,7 +197,7 @@ Regressionのクライアントプログラムは、jubatus.Regressionを利用�
 使用するメソッドは、学習を行うtrainメソッドと、与えられたデータから推定を行うestimateメソッドの2つです。
 
 1. Jubatus Serverへの接続設定
-    Jubatus Serverへの接続を行います（35行目）。
+    Jubatus Serverへの接続を行います（44行目）。
     Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスクを識別するZookeeperクラスタ内でユニークな名前を設定します。
 
 2. 学習用データの準備
@@ -248,15 +259,15 @@ Regressionのクライアントプログラムは、jubatus.Regressionを利用�
     これらの5つの情報を保持したDatumにラベルとして家賃である'5.0'を付け加え、家賃が'5.0'である賃貸の条件を保持したtuple<float, Datum>ができます。
     その家賃ごとのデータ（tuple<float, Datum>）をlistとしたものを学習用データとして使用します。
 
-    まず、学習用データの元となるCSVファイルを読み込みます（40行目）。
-    for文にて1行ずつループで読み込んで処理します（40-58行目）。
-    CSVファイルなので、取得した1行を','で分割し要素ごとに分け、それぞれ変数に代入します（48行目）。
+    まず、学習用データの元となるCSVファイルを読み込みます（49行目）。
+    for文にて1行ずつループで読み込んで処理します（50-67行目）。
+    CSVファイルなので、取得した1行を','で分割し要素ごとに分け、それぞれ変数に代入します（57行目）。
 
-    文字列項目と数値項目の要素をそれぞれ、Datumのコンストラクタに辞書オブジェクトとして指定します（49-55行目）。
-    そのDatumにlabelとして家賃（rent）を付与したものを学習用データの1つ（変数train_data）として使用します（55行目）。
+    文字列項目と数値項目の要素をそれぞれ、Datumのコンストラクタに辞書オブジェクトとして指定します（58-63行目）。
+    そのDatumにlabelとして家賃（rent）を付与したものを学習用データの1つ（変数train_data）として使用します（64行目）。
 
 3. データの学習（学習モデルの更新）
-    2\.の工程で作成した学習用データを、trainメソッドに渡すことで学習が行われます（58行目）。
+    2\.の工程で作成した学習用データを、trainメソッドに渡すことで学習が行われます（67行目）。
     trainメソッドの引数は、先ほど作成したtrain_dataを指定します。
 
 4. 推定用データの準備
@@ -264,17 +275,17 @@ Regressionのクライアントプログラムは、jubatus.Regressionを利用�
     ここでは、推定用のデータをYAMLファイルから読み込む方法で実装します。
     YAML（ヤムル）とは、構造化データやオブジェクトを文字列にシリアライズ（直列化）するためのデータ形式の一種です。
 
-    あらかじめ作成したYAMLファイル（myhome.yml）をyaml.load()で読み込むとdict型で返却します（65行目）。
-    その要素から2の処理と同じ様に文字列項目と数値項目を作成しDatumを作成します（66-72行目）。
+    あらかじめ作成したYAMLファイル（myhome.yml）をyaml.load()で読み込むとdict型で返却します（74行目）。
+    その要素から2の処理と同じ様に文字列項目と数値項目を作成しDatumを作成します（75-81行目）。
 
     作成したDatumを推定用データのlistに追加し、Regressionのestimateメソッドに与えることで、推定が行われます。
 
 5. 学習モデルに基づく推定
-    4\.で作成したDatumのlistを、estimateメソッドに渡すことで、推定結果のlistを得ることができます（74行目）。
+    4\.で作成したDatumのlistを、estimateメソッドに渡すことで、推定結果のlistを得ることができます（83行目）。
 
 6. 結果の出力
     5\.で取得した、推定結果のリストは推定用データの順番で返却されます。（サンプルでは推定用データは1データなので1つしか返却されません）
-    推定結果はfloat型なので、出力のために小数第二位で四捨五入しています（76行目）。
+    推定結果はfloat型なので、出力のために小数第二位で四捨五入しています（85行目）。
 
 
 ------------------------------------
@@ -290,17 +301,11 @@ Regressionのクライアントプログラムは、jubatus.Regressionを利用�
 
 
 * Jubatus Clientでの作業
-    このサンプルでは、コマンドラインアプリケーションをインストールして利用します。
-
-    ::
-
-     $ sudo python setup.py install
-
     オプションを指定し下記のコマンドで実行します。
 
     ::
 
-     $ jubahomes -t dat/rent-data.csv -a dat/myhome.yml
+     $ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
 
        -t ：CSVファイルパス（学習データありの場合）
        -a ：YMLファイルパス（必須）
@@ -312,12 +317,12 @@ Regressionのクライアントプログラムは、jubatus.Regressionを利用�
      train ... 145
      rent .... 9.9
 
-    dat/myhome.yaml を変更し、いろんな条件で物件の家賃を推測できます。
+    myhome.yaml を変更し、いろんな条件で物件の家賃を推測できます。
 
     ::
 
-     $ edit dat/myhome.yml
-     $ jubahomes -a dat/myhome.yml
-     $ edit dat/myhome.yml
-     $ jubahomes -a dat/myhome.yml
+     $ edit ../dat/myhome.yml
+     $ python jubahomes.py -a ../dat/myhome.yml
+     $ edit ../dat/myhome.yml
+     $ python jubahomes.py -a ../dat/myhome.yml
        :

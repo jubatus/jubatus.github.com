@@ -152,9 +152,9 @@
 <p>ここではPython版のRegressionサンプルプログラムの解説をします。</p>
 <div class="section" id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするrent.jsonとデータの学習及び学習モデルに基づく推定を行うmain.py、
+<p>このサンプルプログラムでは、学習アルゴリズム等の設定をするrent.jsonとデータの学習及び学習モデルに基づく推定を行うjubahomes.py、
 また学習用データとしてrent-data.csv、推定用データとしてmyhome.ymlを使用します。
-以下にrent.jsonとmain.pyおよびmyhome.ymlのソースコードを記載します。</p>
+以下にrent.jsonとjubahomes.pyおよびmyhome.ymlのソースコードを記載します。</p>
 <p><strong>rent.json</strong></p>
 <div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -199,7 +199,7 @@
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-<p><strong>main.py</strong></p>
+<p><strong>jubahomes.py</strong></p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -275,13 +275,34 @@
 73
 74
 75
-76</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
 <span class="kn">from</span> <span class="nn">jubatus.regression.client</span> <span class="kn">import</span> <span class="n">Regression</span>
 <span class="kn">from</span> <span class="nn">jubatus.regression.types</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">jubahomes.version</span> <span class="kn">import</span> <span class="n">get_version</span>
+
+<span class="n">VERSION</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_version</span><span class="p">():</span>
+  <span class="n">version_string</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span>
+    <span class="n">version_string</span> <span class="o">+=</span> <span class="s">&#39;-&#39;</span> <span class="o">+</span> <span class="n">VERSION</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">version_string</span>
 
 <span class="k">def</span> <span class="nf">parse_options</span><span class="p">():</span>
   <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
@@ -351,6 +372,9 @@
     <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">analyze_data</span><span class="p">)</span>
 
     <span class="k">print</span> <span class="s">&#39;rent ....&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p><strong>myhome.yml</strong></p>
@@ -408,14 +432,14 @@ regularization_weight：学習に対する感度パラメータを指定する�
 </dl>
 </li>
 </ul>
-<p><strong>main.py</strong></p>
+<p><strong>jubahomes.py</strong></p>
 <p>学習と推定の手順を説明します。</p>
 <p>Regressionのクライアントプログラムは、jubatus.Regressionを利用して作成します。
 使用するメソッドは、学習を行うtrainメソッドと、与えられたデータから推定を行うestimateメソッドの2つです。</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Jubatus Serverへの接続設定</dt>
-<dd><p class="first last">Jubatus Serverへの接続を行います（35行目）。
+<dd><p class="first last">Jubatus Serverへの接続を行います（44行目）。
 Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスクを識別するZookeeperクラスタ内でユニークな名前を設定します。</p>
 </dd>
 </dl>
@@ -559,17 +583,17 @@ Datumには3つのkey-valueが存在します。
 </div>
 <p>これらの5つの情報を保持したDatumにラベルとして家賃である&#8216;5.0&#8217;を付け加え、家賃が&#8216;5.0&#8217;である賃貸の条件を保持したtuple&lt;float, Datum&gt;ができます。
 その家賃ごとのデータ（tuple&lt;float, Datum&gt;）をlistとしたものを学習用データとして使用します。</p>
-<p>まず、学習用データの元となるCSVファイルを読み込みます（40行目）。
-for文にて1行ずつループで読み込んで処理します（40-58行目）。
-CSVファイルなので、取得した1行を&#8217;,&#8217;で分割し要素ごとに分け、それぞれ変数に代入します（48行目）。</p>
-<p class="last">文字列項目と数値項目の要素をそれぞれ、Datumのコンストラクタに辞書オブジェクトとして指定します（49-55行目）。
-そのDatumにlabelとして家賃（rent）を付与したものを学習用データの1つ（変数train_data）として使用します（55行目）。</p>
+<p>まず、学習用データの元となるCSVファイルを読み込みます（49行目）。
+for文にて1行ずつループで読み込んで処理します（50-67行目）。
+CSVファイルなので、取得した1行を&#8217;,&#8217;で分割し要素ごとに分け、それぞれ変数に代入します（57行目）。</p>
+<p class="last">文字列項目と数値項目の要素をそれぞれ、Datumのコンストラクタに辞書オブジェクトとして指定します（58-63行目）。
+そのDatumにlabelとして家賃（rent）を付与したものを学習用データの1つ（変数train_data）として使用します（64行目）。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
-<dd><p class="first last">2.の工程で作成した学習用データを、trainメソッドに渡すことで学習が行われます（58行目）。
+<dd><p class="first last">2.の工程で作成した学習用データを、trainメソッドに渡すことで学習が行われます（67行目）。
 trainメソッドの引数は、先ほど作成したtrain_dataを指定します。</p>
 </dd>
 </dl>
@@ -579,22 +603,22 @@ trainメソッドの引数は、先ほど作成したtrain_dataを指定しま�
 <dd><p class="first">推定も学習時と同様に、推定用のDatumを作成します。
 ここでは、推定用のデータをYAMLファイルから読み込む方法で実装します。
 YAML（ヤムル）とは、構造化データやオブジェクトを文字列にシリアライズ（直列化）するためのデータ形式の一種です。</p>
-<p>あらかじめ作成したYAMLファイル（myhome.yml）をyaml.load()で読み込むとdict型で返却します（65行目）。
-その要素から2の処理と同じ様に文字列項目と数値項目を作成しDatumを作成します（66-72行目）。</p>
+<p>あらかじめ作成したYAMLファイル（myhome.yml）をyaml.load()で読み込むとdict型で返却します（74行目）。
+その要素から2の処理と同じ様に文字列項目と数値項目を作成しDatumを作成します（75-81行目）。</p>
 <p class="last">作成したDatumを推定用データのlistに追加し、Regressionのestimateメソッドに与えることで、推定が行われます。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推定</dt>
-<dd><p class="first last">4.で作成したDatumのlistを、estimateメソッドに渡すことで、推定結果のlistを得ることができます（74行目）。</p>
+<dd><p class="first last">4.で作成したDatumのlistを、estimateメソッドに渡すことで、推定結果のlistを得ることができます（83行目）。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
 <dd><p class="first last">5.で取得した、推定結果のリストは推定用データの順番で返却されます。（サンプルでは推定用データは1データなので1つしか返却されません）
-推定結果はfloat型なので、出力のために小数第二位で四捨五入しています（76行目）。</p>
+推定結果はfloat型なので、出力のために小数第二位で四捨五入しています（85行目）。</p>
 </dd>
 </dl>
 </li>
@@ -613,11 +637,8 @@ YAML（ヤムル）とは、構造化データやオブジェクトを文字列�
 </li>
 <li><dl class="first docutils">
 <dt>Jubatus Clientでの作業</dt>
-<dd><p class="first">このサンプルでは、コマンドラインアプリケーションをインストールして利用します。</p>
-<div class="highlight-python"><pre>$ sudo python setup.py install</pre>
-</div>
-<p>オプションを指定し下記のコマンドで実行します。</p>
-<div class="highlight-python"><pre>$ jubahomes -t dat/rent-data.csv -a dat/myhome.yml
+<dd><p class="first">オプションを指定し下記のコマンドで実行します。</p>
+<div class="highlight-python"><pre>$ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
 
   -t ：CSVファイルパス（学習データありの場合）
   -a ：YMLファイルパス（必須）</pre>
@@ -626,11 +647,11 @@ YAML（ヤムル）とは、構造化データやオブジェクトを文字列�
 <div class="highlight-python"><pre>train ... 145
 rent .... 9.9</pre>
 </div>
-<p>dat/myhome.yaml を変更し、いろんな条件で物件の家賃を推測できます。</p>
-<div class="last highlight-python"><pre>$ edit dat/myhome.yml
-$ jubahomes -a dat/myhome.yml
-$ edit dat/myhome.yml
-$ jubahomes -a dat/myhome.yml
+<p>myhome.yaml を変更し、いろんな条件で物件の家賃を推測できます。</p>
+<div class="last highlight-python"><pre>$ edit ../dat/myhome.yml
+$ python jubahomes.py -a ../dat/myhome.yml
+$ edit ../dat/myhome.yml
+$ python jubahomes.py -a ../dat/myhome.yml
   :</pre>
 </div>
 </dd>

@@ -7,7 +7,7 @@ Here we explain the sample program of Regression in Python.
 Source_code
 --------------------------------
 
-In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file 'rent.json'; 2) how to train and predict by 'main.py' with the training data in 'rent-data.csv' file and the estimation data in 'myhome.yml' file. Here are their source codes.
+In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file 'rent.json'; 2) how to train and predict by 'jubahomes.py' with the training data in 'rent-data.csv' file and the estimation data in 'myhome.yml' file. Here are their source codes.
 
 
 **rent.json**
@@ -37,18 +37,27 @@ In this sample program, we will explain 1) how to configure the learning-algorit
    }
  }
 
-**main.py**
+**jubahomes.py**
 
 .. code-block:: python
  :linenos:
 
+ #!/usr/bin/env python
+ 
  import argparse
  import yaml
  
  from jubatus.common import Datum
  from jubatus.regression.client import Regression
  from jubatus.regression.types import *
- from jubahomes.version import get_version
+ 
+ VERSION = (0, 0, 1, '')
+ 
+ def get_version():
+   version_string = '%s.%s.%s' % VERSION[0:3]
+   if len(VERSION[3]):
+     version_string += '-' + VERSION[3]
+   return version_string
  
  def parse_options():
    parser = argparse.ArgumentParser()
@@ -118,6 +127,9 @@ In this sample program, we will explain 1) how to configure the learning-algorit
      result = client.estimate(analyze_data)
  
      print 'rent ....', round(result[0], 1)
+ 
+ if __name__ == '__main__':
+     main()
 
 
 **myhome.yml**
@@ -174,7 +186,7 @@ This JSON file give the configuration information. Here are the meanings of the 
    In addition, the 'regularization_weight' above plays various roles in different algorithms, so please be careful in configuring its values in different algorithms.
 
 
-**main.py**
+**jubahomes.py**
 
 
 We explain the learning and prediction processes.
@@ -183,7 +195,7 @@ To write the Client program for Regression, we can use the Regression class defi
 There are two methods used in this program. The 'train' method for learning process, and the 'estimate' method for prediction with the trained model.
 
 1. Connect to Jubatus Server
-    Connect to Jubatus Server (Line 35)
+    Connect to Jubatus Server (Line 44)
 
     Setting the IP addr, RPC port number of Jubatus Server and the unique name for task identification in Zookeeper.
 
@@ -243,32 +255,32 @@ There are two methods used in this program. The 'train' method for learning proc
 
     Here is the detailed process for making the training data in this sample.
 
-    Next, read the source file (CSV file) of the training data line by line (Line 40-58).
-    Split the data read from each line in CSV file, by the ',' mark (Line 48).
+    Next, read the source file (CSV file) of the training data line by line (Line 49-67).
+    Split the data read from each line in CSV file, by the ',' mark (Line 57).
 
-    The string items and double items are stored into the Datum consturctor of as a dictionary object (Line 49-55), respectively.
-    Finally, the Datum is appended with the rent label, so as to be used as one piece of training data (argument 'train' in Line 55).
+    The string items and double items are stored into the Datum consturctor of as a dictionary object (Line 58-63), respectively.
+    Finally, the Datum is appended with the rent label, so as to be used as one piece of training data (argument 'train' in Line 64).
 
 3. Model Training (update learning model)
-    Input the training data generated in step.2 into the train() method (Line 58).
+    Input the training data generated in step.2 into the train() method (Line 67).
     The parameter specifies the train_data generated in step.2.
 
 4. Prepare the prediction data
     Prepare the prediction data in the similar way of training Datum creation.
-    Here, we generate the data for prediction by using the YAML file (please download the library `JYaml <http://jyaml.sourceforge.net/download.html>`_ )
+    Here, we generate the data for prediction by using the YAML file (please download the library `PyYaml <http://pyyaml.org/>`_ )
     YAML is one kind of data format, in which objects and structure data are serialized.
 
-    Read the YAML file (myhome.yml) by yaml.load() and get the return value in dict type (Line 65).
-    Generate the prediction Datum by using the simliar process as in step 2 (Line 66-72).
+    Read the YAML file (myhome.yml) by yaml.load() and get the return value in dict type (Line 74).
+    Generate the prediction Datum by using the simliar process as in step 2 (Line 75-81).
 
     Add the Datum into the prediction data list, and send it into the estimate() method in "Regression" for prediction.
 
 5. Prediction based on trained model
-    The prediction results are returned as a list by the estimate() method (Line 74).
+    The prediction results are returned as a list by the estimate() method (Line 83).
 
 6. Output the result
     The prediction results are returned in the same order of the prediction data. (In this sample, only one prediction data is used, thus only one result is returned.)
-    The result is rounded at 2nd decimal for output, because it is in Float type (Line 76).
+    The result is rounded at 2nd decimal for output, because it is in Float type (Line 85).
 
 
 ------------------------------------
@@ -284,17 +296,11 @@ Run the sample program
 
 
 * For Jubatus Client
-    Install the command line aplication for using this sample program.
-
-    ::
-
-     $ sudo python setup.py install
-
     Specify the option by using the command below.
 
     ::
 
-     $ jubahomes -t dat/rent-data.csv -a dat/myhome.yml
+     $ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
 
        -t ：CSV file name (if there is training data)
        -a ：YML file name (required)
@@ -306,12 +312,12 @@ Run the sample program
       train ... 145
       rent .... 9.9
 
-    You can change the dat/myhome.yaml file to predict housing rent under various conditions.
+    You can change the myhome.yaml file to predict housing rent under various conditions.
 
     ::
 
-     $ edit dat/myhome.yml
-     $ jubahomes -a dat/myhome.yml
-     $ edit dat/myhome.yml
-     $ jubahomes -a dat/myhome.yml
+     $ edit ../dat/myhome.yml
+     $ python jubahomes.py -a ../dat/myhome.yml
+     $ edit ../dat/myhome.yml
+     $ python jubahomes.py -a ../dat/myhome.yml
       :

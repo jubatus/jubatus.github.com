@@ -151,7 +151,7 @@
 <p>Here we explain the sample program of Regression in Python.</p>
 <div class="section" id="source-code">
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
-<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;rent.json&#8217;; 2) how to train and predict by &#8216;main.py&#8217; with the training data in &#8216;rent-data.csv&#8217; file and the estimation data in &#8216;myhome.yml&#8217; file. Here are their source codes.</p>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;rent.json&#8217;; 2) how to train and predict by &#8216;jubahomes.py&#8217; with the training data in &#8216;rent-data.csv&#8217; file and the estimation data in &#8216;myhome.yml&#8217; file. Here are their source codes.</p>
 <p><strong>rent.json</strong></p>
 <div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -196,7 +196,7 @@
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-<p><strong>main.py</strong></p>
+<p><strong>jubahomes.py</strong></p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -272,13 +272,34 @@
 73
 74
 75
-76</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
 <span class="kn">from</span> <span class="nn">jubatus.regression.client</span> <span class="kn">import</span> <span class="n">Regression</span>
 <span class="kn">from</span> <span class="nn">jubatus.regression.types</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">jubahomes.version</span> <span class="kn">import</span> <span class="n">get_version</span>
+
+<span class="n">VERSION</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_version</span><span class="p">():</span>
+  <span class="n">version_string</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span>
+    <span class="n">version_string</span> <span class="o">+=</span> <span class="s">&#39;-&#39;</span> <span class="o">+</span> <span class="n">VERSION</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">version_string</span>
 
 <span class="k">def</span> <span class="nf">parse_options</span><span class="p">():</span>
   <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
@@ -348,6 +369,9 @@
     <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">analyze_data</span><span class="p">)</span>
 
     <span class="k">print</span> <span class="s">&#39;rent ....&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p><strong>myhome.yml</strong></p>
@@ -402,14 +426,14 @@ In general, when the &#8216;regularization_weight&#8217; parameter is large. the
 </dl>
 </li>
 </ul>
-<p><strong>main.py</strong></p>
+<p><strong>jubahomes.py</strong></p>
 <p>We explain the learning and prediction processes.</p>
 <p>To write the Client program for Regression, we can use the Regression class defined in &#8216;jubatus.regression&#8217;.
 There are two methods used in this program. The &#8216;train&#8217; method for learning process, and the &#8216;estimate&#8217; method for prediction with the trained model.</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Connect to Jubatus Server</dt>
-<dd><p class="first">Connect to Jubatus Server (Line 35)</p>
+<dd><p class="first">Connect to Jubatus Server (Line 44)</p>
 <p class="last">Setting the IP addr, RPC port number of Jubatus Server and the unique name for task identification in Zookeeper.</p>
 </dd>
 </dl>
@@ -548,16 +572,16 @@ These three types are represented in list&lt;tuple&lt;string, string&gt;&gt;, li
 <p>The Datum of these 5 lists is appended with a label of &#8220;5.0&#8221;, as its rent, and forms an instance of tuple&lt;float, Datum&gt; which retains the rent (of 5.0 * 10,000) and its corresponding housing condition info.
 Thus, the housing rental data are generated in the format of (tuple&lt;float, Datum&gt;) list, as the training data to be used.</p>
 <p>Here is the detailed process for making the training data in this sample.</p>
-<p>Next, read the source file (CSV file) of the training data line by line (Line 40-58).
-Split the data read from each line in CSV file, by the &#8216;,&#8217; mark (Line 48).</p>
-<p class="last">The string items and double items are stored into the Datum consturctor of as a dictionary object (Line 49-55), respectively.
-Finally, the Datum is appended with the rent label, so as to be used as one piece of training data (argument &#8216;train&#8217; in Line 55).</p>
+<p>Next, read the source file (CSV file) of the training data line by line (Line 49-67).
+Split the data read from each line in CSV file, by the &#8216;,&#8217; mark (Line 57).</p>
+<p class="last">The string items and double items are stored into the Datum consturctor of as a dictionary object (Line 58-63), respectively.
+Finally, the Datum is appended with the rent label, so as to be used as one piece of training data (argument &#8216;train&#8217; in Line 64).</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Model Training (update learning model)</dt>
-<dd><p class="first last">Input the training data generated in step.2 into the train() method (Line 58).
+<dd><p class="first last">Input the training data generated in step.2 into the train() method (Line 67).
 The parameter specifies the train_data generated in step.2.</p>
 </dd>
 </dl>
@@ -565,24 +589,24 @@ The parameter specifies the train_data generated in step.2.</p>
 <li><dl class="first docutils">
 <dt>Prepare the prediction data</dt>
 <dd><p class="first">Prepare the prediction data in the similar way of training Datum creation.
-Here, we generate the data for prediction by using the YAML file (please download the library <a class="reference external" href="http://jyaml.sourceforge.net/download.html">JYaml</a> )
+Here, we generate the data for prediction by using the YAML file (please download the library <a class="reference external" href="http://pyyaml.org/">PyYaml</a> )
 YAML is one kind of data format, in which objects and structure data are serialized.</p>
-<p>Read the YAML file (myhome.yml) by yaml.load() and get the return value in dict type (Line 65).
-Generate the prediction Datum by using the simliar process as in step 2 (Line 66-72).</p>
+<p>Read the YAML file (myhome.yml) by yaml.load() and get the return value in dict type (Line 74).
+Generate the prediction Datum by using the simliar process as in step 2 (Line 75-81).</p>
 <p class="last">Add the Datum into the prediction data list, and send it into the estimate() method in &#8220;Regression&#8221; for prediction.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Prediction based on trained model</dt>
-<dd><p class="first last">The prediction results are returned as a list by the estimate() method (Line 74).</p>
+<dd><p class="first last">The prediction results are returned as a list by the estimate() method (Line 83).</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Output the result</dt>
 <dd><p class="first last">The prediction results are returned in the same order of the prediction data. (In this sample, only one prediction data is used, thus only one result is returned.)
-The result is rounded at 2nd decimal for output, because it is in Float type (Line 76).</p>
+The result is rounded at 2nd decimal for output, because it is in Float type (Line 85).</p>
 </dd>
 </dl>
 </li>
@@ -601,11 +625,8 @@ The result is rounded at 2nd decimal for output, because it is in Float type (Li
 </li>
 <li><dl class="first docutils">
 <dt>For Jubatus Client</dt>
-<dd><p class="first">Install the command line aplication for using this sample program.</p>
-<div class="highlight-python"><pre>$ sudo python setup.py install</pre>
-</div>
-<p>Specify the option by using the command below.</p>
-<div class="highlight-python"><pre>$ jubahomes -t dat/rent-data.csv -a dat/myhome.yml
+<dd><p class="first">Specify the option by using the command below.</p>
+<div class="highlight-python"><pre>$ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
 
   -t ：CSV file name (if there is training data)
   -a ：YML file name (required)</pre>
@@ -614,11 +635,11 @@ The result is rounded at 2nd decimal for output, because it is in Float type (Li
 <div class="highlight-python"><pre>train ... 145
 rent .... 9.9</pre>
 </div>
-<p>You can change the dat/myhome.yaml file to predict housing rent under various conditions.</p>
-<div class="last highlight-python"><pre>$ edit dat/myhome.yml
-$ jubahomes -a dat/myhome.yml
-$ edit dat/myhome.yml
-$ jubahomes -a dat/myhome.yml
+<p>You can change the myhome.yaml file to predict housing rent under various conditions.</p>
+<div class="last highlight-python"><pre>$ edit ../dat/myhome.yml
+$ python jubahomes.py -a ../dat/myhome.yml
+$ edit ../dat/myhome.yml
+$ python jubahomes.py -a ../dat/myhome.yml
  :</pre>
 </div>
 </dd>
