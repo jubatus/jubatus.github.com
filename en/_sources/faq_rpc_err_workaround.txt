@@ -47,7 +47,7 @@ Ruby
 + When RPC methods mismatching, type mismatching errors occur by RPC, ``Jubatus::Common::InterfaceMismatch`` exception will be raised.
   When algorithm errors occur by RPC, ``MessagePack::RPC::RemoteError`` or ``MessagePack::RPC::CallError`` exception will be raised.
   You should catch these exceptions and close sessions explicitly.
-  You can catch any RPC exceptions by ``RPCError``  excluding ``TrasportError`` and ``TimeoutError`` .
+  You can catch any RPC exceptions by ``RPCError``  excluding ``TransportError`` and ``TimeoutError`` .
 
 .. code-block:: ruby
 

@@ -191,7 +191,7 @@ RPCの再実行を行うと、その分応答性が低下します。該当ア�
 <tt class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">rescue</span></tt> ブロックでこれらの例外を捕捉し、RPCを再実行します。RPC再実行を行うためには、接続を一旦明示的に破棄する必要があります。</li>
 <li>RPC呼び出しで、メソッド名や型の不一致が発生した場合は <tt class="docutils literal"><span class="pre">Jubatus::Common::InterfaceMismatch</span></tt> 例外が発生します。
 アルゴリズムのエラーが発生した場合は <tt class="docutils literal"><span class="pre">MessagePack::RPC::RemoteError</span></tt> または <tt class="docutils literal"><span class="pre">MessagePack::RPC::CallError</span></tt> 例外が発生します。
-これらの例外を捕捉し、接続を明示的に破棄します。 <tt class="docutils literal"><span class="pre">TrasportError</span></tt> および <tt class="docutils literal"><span class="pre">TimeoutError``以外の</span> <span class="pre">``RPCError</span></tt> をまとめて捕捉してもよいでしょう。</li>
+これらの例外を捕捉し、接続を明示的に破棄します。 <tt class="docutils literal"><span class="pre">TransportError</span></tt> および <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> 以外の <tt class="docutils literal"><span class="pre">RPCError</span></tt> をまとめて捕捉してもよいでしょう。</li>
 </ul>
 <div class="highlight-ruby"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
 

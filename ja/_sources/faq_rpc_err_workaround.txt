@@ -46,7 +46,7 @@ Ruby
 
 + RPC呼び出しで、メソッド名や型の不一致が発生した場合は ``Jubatus::Common::InterfaceMismatch`` 例外が発生します。
   アルゴリズムのエラーが発生した場合は ``MessagePack::RPC::RemoteError`` または ``MessagePack::RPC::CallError`` 例外が発生します。
-  これらの例外を捕捉し、接続を明示的に破棄します。 ``TrasportError`` および ``TimeoutError``以外の ``RPCError`` をまとめて捕捉してもよいでしょう。
+  これらの例外を捕捉し、接続を明示的に破棄します。 ``TransportError`` および ``TimeoutError`` 以外の ``RPCError`` をまとめて捕捉してもよいでしょう。
 
 .. code-block:: ruby
 

@@ -8,9 +8,10 @@ Publications
 
 2013
 ~~~~
-
-2013/06/26-27
-  Shohei Hido, **Jubatus: real-time and highly-scalable machine learning platform**, Hadoop Summit 2013, San Jose. [`link <http://hadoopsummit2013.uservoice.com/forums/196822-future-of-apache-hadoop/suggestions/3714873-jubatus-real-time-and-highly-scalable-machine-lea>`__] *To Appear*
+2013/12/09
+  Shohei Hido, Seiya Tokui, Satoshi Oda, **Jubatus: An Open Source Platform for Distributed Online Machine Learning**, NIPS 2013 Workshop on Big Learning, Lake Tahoe. [`link <http://biglearn.org/index.php/Papers#posters>`__, `pdf <http://www.biglearn.org/2013/files/papers/biglearning2013_submission_24.pdf>`__] 
+2013/06/27
+  Shohei Hido, **Jubatus: real-time and highly-scalable machine learning platform**, Hadoop Summit 2013, San Jose. [`slide <http://www.slideshare.net/pfi/hido-june27-1150amroom210c>`__]
 2013/03/22
   **Smarter instant analysis of "Current" with big data: Jubatus** [`video <http://www.youtube.com/watch?v=HOEqnZqvtUI>`__]
 
