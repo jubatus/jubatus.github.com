@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -153,23 +153,23 @@
 <h2>データ変換プラグイン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>fv_converter プラグインの開発は以下の手順で行う。</p>
 <ol class="arabic simple">
-<li><tt class="docutils literal"><span class="pre">jubatus/plugin.hpp</span></tt> をインクルードする。</li>
+<li><tt class="docutils literal"><span class="pre">jubatus/core/plugin.hpp</span></tt> をインクルードする。</li>
 <li>プラグインのひな形となる基底クラスを継承し、必要な特徴抽出モジュールまたはフィルターモジュールを実装する。</li>
 <li>実装したクラスのインスタンスを生成し、そのポインタを返却する関数を作成する。
 この関数は C コードから見えるように <tt class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></tt> で囲う必要がある。
 この関数の名前が、fv_converter でプラグインを利用するときに指定する <tt class="docutils literal"><span class="pre">&quot;function&quot;</span></tt> 引数の中身である。</li>
 </ol>
 <p>例として、文字列からの特徴量抽出 (<tt class="docutils literal"><span class="pre">string_types</span></tt>) 用のプラグインの作り方を示す。</p>
-<p>この場合、継承すべきひな形は <tt class="docutils literal"><span class="pre">jubatus::word_splitter</span></tt> クラスである。
+<p>この場合、継承すべきひな形は <tt class="docutils literal"><span class="pre">jubatus::core::fv_converter::word_splitter</span></tt> クラスである。
 <tt class="docutils literal"><span class="pre">word_splitter</span></tt> クラスは文字列を引数に取り、その文字列を分割して各パーツの分割点を返す <tt class="docutils literal"><span class="pre">split</span></tt> というメンバ関数のみからなる。
 分割点は <tt class="docutils literal"><span class="pre">size_t</span></tt> のペアのベクタである。一つ目の値はそのパーツの開始位置であり、二つ目の値はそのパーツの長さを表す。</p>
 <p>以下にコード例を示す。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/plugin.hpp&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/core/plugin.hpp&gt;</span>
 <span class="cp">#include &lt;map&gt;</span>
 
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">my_splitter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">word_splitter</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">my_splitter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">fv_converter</span><span class="o">::</span><span class="n">word_splitter</span> <span class="p">{</span>
  <span class="nl">public:</span>
    <span class="kt">void</span> <span class="n">split</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">,</span>
               <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">ret_boundaries</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
@@ -216,7 +216,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2013 PFI &amp; NTT.
+        &copy; Copyright 2011-2014 PFI &amp; NTT.
       このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 

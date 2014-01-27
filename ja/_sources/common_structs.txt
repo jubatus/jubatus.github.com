@@ -112,7 +112,6 @@ Methods
 
 .. mpidl:method:: bool save(0: string id)
 
-   :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
    :param id:   保存されるファイル名
    :return:     すべてのサーバで保存が成功したらTrue
 
@@ -120,7 +119,6 @@ Methods
 
 .. mpidl:method:: bool load(0: string id)
 
-   :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
    :param id:   読み出すファイル名
    :return:     すべてのサーバで読み出しに成功したらTrue
 
@@ -128,14 +126,12 @@ Methods
 
 .. mpidl:method:: bool clear()
 
-   :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
    :return:     モデルの削除に成功した場合 True
 
    **すべて** のサーバで、モデルを完全に消去する。
 
 .. mpidl:method:: string get_config()
 
-   :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
    :return:     初期化時に設定した設定情報
 
    サーバの設定を取得する。
@@ -143,11 +139,19 @@ Methods
 
 .. mpidl:method:: map<string, map<string, string> > get_status()
 
-   :param name: タスクを識別する ZooKeeper クラスタ内でユニークな名前
    :return:     それぞれのサーバの内部状態。最上位の map のキーは ``ホスト名_ポート番号`` 形式である。
 
    **すべての** サーバの内部状態を取得する。
    サーバはホスト名、ポート番号で識別する。
+
+.. mpidl:method:: map<string, map<string, string> > get_proxy_status()
+
+   :return:     プロキシの内部状態。最上位の map のキーは ``ホスト名_ポート番号`` 形式である。
+
+   プロキシの内部状態を取得する。
+
+   このメソッドは、 **プロキシ** に対して使用する。
+   サーバに対して使用すると、RPCエラーが返却される。
 
 .. mpidl:method:: mprpc_client get_client()
 

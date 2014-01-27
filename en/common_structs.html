@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -379,6 +379,22 @@ Each server is represented by a pair of host name and port.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="get_proxy_status">
+map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_proxy_status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for proxy. The key of most outer map is in form of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns proxy status.</p>
+<p>This is an RPC method for <strong>proxy</strong>.
+When you use this for server, RPC error will be raised.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="get_client">
 mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#get_client" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -422,7 +438,7 @@ This is not an RPC method.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2013 PFI &amp; NTT.
+        &copy; Copyright 2011-2014 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

@@ -83,16 +83,16 @@ Here is a example of MessagePack-IDL with annotation.
 
   service kvs {
     #@cht(2) #@update #@pass
-    int put(0: string name, 1: string key, 2: string value)
+    int put(0: string key, 1: string value)
 
     #@cht(2) #@analysis #@pass
-    entry get(0: string name, 1: string key)
+    entry get(0: string key)
 
     #@cht(2) #@update #@pass
-    int del(0: string name, 1: string key, 2: int version)
+    int del(0: string key, 1: int version)
 
     #@broadcast #@update #@pass
-    int clear(0: string name)
+    int clear()
   }
 
 

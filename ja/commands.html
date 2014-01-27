@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -258,17 +258,10 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-server-j">
-<tt class="descname">-j</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--join</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-server-j" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>既存のクラスタに参加する。</p>
-<p>新しいプロセスは、このオプションを指定してクラスタに参加しなければ機械学習が動作しない。</p>
-<p>このオプションは現在実装されていない。</p>
-</dd></dl>
-
-<dl class="option">
 <dt id="cmdoption-server-s">
 <tt class="descname">-s</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>毎 <tt class="docutils literal"><span class="pre">&lt;seconds&gt;</span></tt> 秒おきに mix を行う。 [16]</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> を指定すると、時間契機での mix の起動を行わない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -276,6 +269,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <tt class="descname">-i</tt><tt class="descclassname"> &lt;count&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname"> &lt;count&gt;</tt><a class="headerlink" href="#cmdoption-server-i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>毎 <tt class="docutils literal"><span class="pre">&lt;count&gt;</span></tt> 更新ごとに mix を行う。 [512]</p>
 <p>更新カウントは、学習モデルを更新する API (分類器の <tt class="docutils literal"><span class="pre">train</span></tt> など) を呼ぶたびにインクリメントされる。</p>
+<p><tt class="docutils literal"><span class="pre">0</span></tt> を指定すると、更新契機での mix の起動を行わない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -571,13 +565,6 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubactl-J">
-<tt class="descname">-J</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--join</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-J" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-j"><em class="xref std std-option">server -j</em></a>).</p>
-<p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
-</dd></dl>
-
-<dl class="option">
 <dt id="cmdoption-jubactl-S">
 <tt class="descname">-S</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-S" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-s"><em class="xref std std-option">server -s</em></a>).</p>
@@ -829,7 +816,7 @@ age@num: 31
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2013 PFI &amp; NTT.
+        &copy; Copyright 2011-2014 PFI &amp; NTT.
       このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 

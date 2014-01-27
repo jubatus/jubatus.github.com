@@ -43,7 +43,6 @@ Run ``jubaclassifier`` program, which provides classification feature, specifyin
       loglevel             : INFO(0)
       zookeeper            : 
       name                 : 
-      join                 : false
       interval sec         : 16
       interval count       : 512
       zookeeper timeout    : 10

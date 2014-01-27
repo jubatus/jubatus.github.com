@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -257,17 +257,10 @@ MIX strategies available may differ depending on the engine.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-server-j">
-<tt class="descname">-j</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--join</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-server-j" title="Permalink to this definition">¶</a></dt>
-<dd><p>Join to the existing cluster.</p>
-<p>New processes should join to the existing cluster with this option otherwise the machine learning won&#8217;t work.</p>
-<p>This option is currently not implemented.</p>
-</dd></dl>
-
-<dl class="option">
 <dt id="cmdoption-server-s">
 <tt class="descname">-s</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoke &#8220;mix&#8221; in every <tt class="docutils literal"><span class="pre">&lt;seconds&gt;</span></tt> second. [16]</p>
+<p>Specifying <tt class="docutils literal"><span class="pre">0</span></tt> disables time-based mix invocation.</p>
 </dd></dl>
 
 <dl class="option">
@@ -275,6 +268,7 @@ MIX strategies available may differ depending on the engine.</p>
 <tt class="descname">-i</tt><tt class="descclassname"> &lt;count&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname"> &lt;count&gt;</tt><a class="headerlink" href="#cmdoption-server-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoke &#8220;mix&#8221; in every <tt class="docutils literal"><span class="pre">&lt;count&gt;</span></tt> updates. [512]</p>
 <p>The update is counted when API that updates the training model (such as <tt class="docutils literal"><span class="pre">train</span></tt> in the classifier) is called.</p>
+<p>Specifying <tt class="docutils literal"><span class="pre">0</span></tt> disables update-based mix invocation.</p>
 </dd></dl>
 
 <dl class="option">
@@ -570,13 +564,6 @@ MIX strategies available may differ depending on the engine.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubactl-J">
-<tt class="descname">-J</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--join</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-J" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-j"><em class="xref std std-option">server -j</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
-</dd></dl>
-
-<dl class="option">
 <dt id="cmdoption-jubactl-S">
 <tt class="descname">-S</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-s"><em class="xref std std-option">server -s</em></a>).</p>
@@ -828,7 +815,7 @@ You don&#8217;t need this option except you&#8217;re going to build generated co
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2013 PFI &amp; NTT.
+        &copy; Copyright 2011-2014 PFI &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

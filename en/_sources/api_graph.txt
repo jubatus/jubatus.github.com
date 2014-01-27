@@ -123,7 +123,7 @@ Data Structures
 
       ID of the source node that the edge connects.
 
-  .. mpidl:member:: 2: string target
+   .. mpidl:member:: 2: string target
 
      ID of the target node that the edge connects.
 

@@ -157,7 +157,7 @@ Java
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>0.5.0</version>
+       <version>0.5.1</version>
      </dependency>
    </dependencies>
 
@@ -175,7 +175,7 @@ Java
 これで、Jubatus を使ってあなた独自のアプリケーションを書く準備ができました。
 Jubatus がどのような機能を持っているか知るには、 :doc:`api` をチェックしてください。
 
-C++ または Java でクライアントを開発する場合は、以下のスケルトンプロジェクトを使用すると便利です。
+各言語のスケルトンプロジェクトを使用すると、容易にアプリケーションの開発を始めることができます。
 
 - `C++ クライアント開発用スケルトン <https://github.com/jubatus/jubatus-cpp-skeleton>`_
 - `Python クライアント開発用スケルトン <https://github.com/jubatus/jubatus-python-skeleton>`_

@@ -101,9 +101,6 @@ Data Structures
 Methods
 ~~~~~~~
 
-各メソッドの最初のパラメタ ``name`` は、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (``""``) を指定する。
-
 .. mpidl:service:: clustering
 
    .. mpidl:method:: bool push(0: list<datum> points)

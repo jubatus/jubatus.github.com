@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -303,7 +303,6 @@ bool <tt class="descname">save</tt><big>(</big>0: string <em>id</em><big>)</big>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><strong>id</strong> &#8211; 保存されるファイル名</li>
 </ul>
 </td>
@@ -324,7 +323,6 @@ bool <tt class="descname">load</tt><big>(</big>0: string <em>id</em><big>)</big>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
 <li><strong>id</strong> &#8211; 読み出すファイル名</li>
 </ul>
 </td>
@@ -344,13 +342,7 @@ bool <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">モデルの削除に成功した場合 True</p>
-</td>
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">モデルの削除に成功した場合 True</td>
 </tr>
 </tbody>
 </table>
@@ -364,13 +356,7 @@ string <tt class="descname">get_config</tt><big>(</big><big>)</big><a class="hea
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">初期化時に設定した設定情報</p>
-</td>
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">初期化時に設定した設定情報</td>
 </tr>
 </tbody>
 </table>
@@ -385,18 +371,28 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; タスクを識別する ZooKeeper クラスタ内でユニークな名前</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">それぞれのサーバの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</p>
-</td>
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">それぞれのサーバの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</td>
 </tr>
 </tbody>
 </table>
 <p><strong>すべての</strong> サーバの内部状態を取得する。
 サーバはホスト名、ポート番号で識別する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_proxy_status">
+map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_proxy_status" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">プロキシの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</td>
+</tr>
+</tbody>
+</table>
+<p>プロキシの内部状態を取得する。</p>
+<p>このメソッドは、 <strong>プロキシ</strong> に対して使用する。
+サーバに対して使用すると、RPCエラーが返却される。</p>
 </dd></dl>
 
 <dl class="method">
@@ -443,7 +439,7 @@ mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a clas
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011,2013 PFI &amp; NTT.
+        &copy; Copyright 2011-2014 PFI &amp; NTT.
       このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 

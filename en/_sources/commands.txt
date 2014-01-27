@@ -88,23 +88,19 @@ Jubatus server provides the machine learning feature.
    One of ``linear_mixer``, ``random_mixer``, ``broadcast_mixer``, or ``skip_mixer`` can be specified.
    MIX strategies available may differ depending on the engine.
 
-.. option:: -j, --join
-
-   Join to the existing cluster.
-
-   New processes should join to the existing cluster with this option otherwise the machine learning won't work.
-
-   This option is currently not implemented.
-
 .. option:: -s <seconds>, --interval_sec <seconds>
 
    Invoke "mix" in every ``<seconds>`` second. [16]
+
+   Specifying ``0`` disables time-based mix invocation.
 
 .. option:: -i <count>, --interval_count <count>
 
    Invoke "mix" in every ``<count>`` updates. [512]
 
    The update is counted when API that updates the training model (such as ``train`` in the classifier) is called.
+
+   Specifying ``0`` disables update-based mix invocation.
 
 .. option:: -Z <seconds>, --zookeeper_timeout <seconds>
 
@@ -332,12 +328,6 @@ jubactl
 .. option:: -X, --mixer
 
    Option given when starting new server process (:option:`server -x`).
-
-   Effective only when used with ``--cmd start``.
-
-.. option:: -J, --join
-
-   Option given when starting new server process (:option:`server -j`).
 
    Effective only when used with ``--cmd start``.
 

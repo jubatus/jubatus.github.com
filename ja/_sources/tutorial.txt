@@ -43,7 +43,6 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
       loglevel             : INFO(0)
       zookeeper            : 
       name                 : 
-      join                 : false
       interval sec         : 16
       interval count       : 512
       zookeeper timeout    : 10

@@ -18,16 +18,16 @@ We show each filed below:
 
    .. table::
 
-      ======================= ===================================
-      Value                   Method
-      ======================= ===================================
-      ``"inverted_index"``    Use Inverted Index.
-      ``"minhash"``           Use MinHash. [Ping2010]_
-      ``"lsh"``               Use Locality Sensitive Hashing.
-      ``"euclid_lsh"``        Use Euclid-distance LSH. [Andoni2005]_
+      =================================== ===================================
+      Value                               Method
+      =================================== ===================================
+      ``"inverted_index"``                Use Inverted Index.
+      ``"minhash"``                       Use MinHash. [Ping2010]_
+      ``"lsh"``                           Use Locality Sensitive Hashing.
+      ``"euclid_lsh"``                    Use Euclid-distance LSH. [Andoni2005]_
 
-      ``"nearest_neighbor:*`` Use an implementation of ``nearest_neighbor`` of which algorithm name is specified in ``*`` .
-      ======================= ===================================
+      ``"nearest_neighbor_recommender:*`` Use an implementation of ``nearest_neighbor`` of which algorithm name is specified in ``*`` .
+      =================================== ===================================
 
 
 .. describe:: parameter

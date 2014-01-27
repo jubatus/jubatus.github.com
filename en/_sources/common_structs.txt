@@ -144,6 +144,15 @@ Methods
    Returns server status from **ALL** servers.
    Each server is represented by a pair of host name and port.
 
+.. mpidl:method:: map<string, map<string, string> >  get_proxy_status()
+
+   :return:     Internal state for proxy. The key of most outer map is in form of ``hostname_portnumber``.
+
+   Returns proxy status.
+
+   This is an RPC method for **proxy**.
+   When you use this for server, RPC error will be raised.
+
 .. mpidl:method:: mprpc_client get_client()
 
   :return: MessagePack-RPC client instance
