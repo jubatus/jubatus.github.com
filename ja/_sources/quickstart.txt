@@ -157,7 +157,7 @@ Java
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>0.5.1</version>
+       <version>[0.5,)</version>
      </dependency>
    </dependencies>
 
