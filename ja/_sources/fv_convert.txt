@@ -84,7 +84,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 
 キーの名前に "$" 記号を含めることはできない。
 
-例えばC++から利用する場合、datumは ``std::vector<std::pair<std::string, std::string> >`` 、 ``std::vector<std::pair<std::stirng, double> >`` 、 ``std::vector<std::pair<std::string, std::string> >`` の3つの要素からなっている。
+例えばC++から利用する場合、datumは ``std::vector<std::pair<std::string, std::string> >`` 、 ``std::vector<std::pair<std::string, double> >`` 、 ``std::vector<std::pair<std::string, std::string> >`` の3つの要素からなっている。
 ここでは、 ``std::pair<T,U>`` をPython風のタプルで、 ``std::vector<T>`` をPython風のリストで表している。
 
 データ変換の流れ
@@ -626,7 +626,7 @@ CLASS_types (CLASS は ``string`` または ``num``) で、フィルターや抽
 プラグインのパスは、原則としてフルパスであるが、デフォルトのプラグインディレクトリ (多くの場合は ``$PREFIX/lib/jubatus/plugin`` または ``$PREFIX/lib64/jubatus/plugin``) に格納されているプラグインについてはファイル名のみで指定することもできる。
 また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。
 
-Jubatusでは、デフォルトで以下の3つの文字列特徴量のプラグインが提供されている。
+Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグインが提供されている。
 ただし、コンパイルオプションによっては一部のプラグインがビルドされないため、注意すること。
 
 .. describe:: libmecab_splitter.so

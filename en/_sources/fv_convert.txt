@@ -72,7 +72,7 @@ The following is an example of a datum.
 
 Name of keys cannot contain "$" sign.
 
-For example, a datum consists of ``std::vector<std::pair<std::string, std::string> >`` ,  ``std::vector<std::pair<std::stirng, double> >`` and ``std::vector<std::pair<std::string, std::string> >`` in C++.
+For example, a datum consists of ``std::vector<std::pair<std::string, std::string> >`` ,  ``std::vector<std::pair<std::string, double> >`` and ``std::vector<std::pair<std::string, std::string> >`` in C++.
 ``std::pair<T,U>`` (resp.  ``std::vector<T>``) is to C++ what tuple (resp. vector) is to Python.
 
 Flow of Data Conversion
@@ -531,7 +531,7 @@ In CLASS_types (CLASS is either ``string`` or ``num``), we should specify "dynam
 Path to the plugin may either be a full path, or a file name if the plugin is in the default plugin directory (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib64/jubatus/plugin`` in most cases).
 Argument of the function is specified by other parameters.
 
-In Jubatus we can make use of three pre-defined plugins which aim to extraction of features from strings.
+In Jubatus we can make use of two pre-defined plugins which aim to extraction of features from strings.
 Note that some plugins are not available depending on your compile options.
 
 .. describe:: libmecab_splitter.so
