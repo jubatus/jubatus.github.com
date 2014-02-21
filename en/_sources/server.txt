@@ -95,6 +95,22 @@ Here is a example of MessagePack-IDL with annotation.
     int clear()
   }
 
+The following RPC methods for server are automatically appended to each service by ``jenerator``:
+
+.. code-block:: c++
+
+  #@random #@analysis #@pass
+  string get_config()
+
+  #@broadcast #@analysis #@all_and
+  bool save(0: string id)
+
+  #@broadcast #@update #@all_and
+  bool load(0: string id)
+
+  #@broadcast #@analysis #@merge
+  map<string, map<string, string> > get_status()
+
 
 Building ``jenerator``
 ~~~~~~~~~~~~~~~~~~~~~~

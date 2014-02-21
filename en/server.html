@@ -241,6 +241,20 @@ service kvs {
   int clear()
 }</pre>
 </div>
+<p>The following RPC methods for server are automatically appended to each service by <tt class="docutils literal"><span class="pre">jenerator</span></tt>:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#@random #@analysis #@pass</span>
+<span class="n">string</span> <span class="n">get_config</span><span class="p">()</span>
+
+<span class="cp">#@broadcast #@analysis #@all_and</span>
+<span class="kt">bool</span> <span class="n">save</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
+
+<span class="cp">#@broadcast #@update #@all_and</span>
+<span class="kt">bool</span> <span class="n">load</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span><span class="p">)</span>
+
+<span class="cp">#@broadcast #@analysis #@merge</span>
+<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">get_status</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="section" id="building-jenerator">
 <h3>Building <tt class="docutils literal"><span class="pre">jenerator</span></tt><a class="headerlink" href="#building-jenerator" title="Permalink to this headline">¶</a></h3>
 <p>You need OCaml (with findlib), extlib and OMake to build <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
