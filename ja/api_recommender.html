@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.1',
+        VERSION:     '0.5.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -164,8 +164,8 @@ JSON の各フィールドは以下のとおりである。</p>
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="30%" />
-<col width="70%" />
+<col width="32%" />
+<col width="68%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">設定値</th>
@@ -185,7 +185,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
 <td>Euclid 距離版の LSH を利用する。 <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender:*</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender:*&quot;</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt> 実装を利用する。 <tt class="docutils literal"><span class="pre">*</span></tt> に近傍探索のアルゴリズム名を入れる。</td>
 </tr>
 </tbody>
@@ -205,9 +205,13 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュの個数を指定する。
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">ハッシュの個数を指定する。
 大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
-(Integer)</td>
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -217,9 +221,13 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュ値のビット数を指定する。
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">ハッシュ値のビット数を指定する。
 大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
-(Integer)</td>
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -229,29 +237,50 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">ハッシュの数を指定する。
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">ハッシュの数を指定する。
 大きくすると正確な値に近づく代わりに、再現率が低下し、また多くのメモリを消費する。
-(Integer)</td>
+(Integer)</p>
+<ul class="simple">
+<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body">テーブルの数を指定する。
+<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body"><p class="first">テーブルの数を指定する。
 大きくすると再現率が向上する代わりに、多くのメモリを消費し、レスポンスに時間がかかる。
-(Integer)</td>
+(Integer)</p>
+<ul class="simple">
+<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">table_num</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">bin_width:</th><td class="field-body">量子化幅を指定する。
+<tr class="field-odd field"><th class="field-name">bin_width:</th><td class="field-body"><p class="first">量子化幅を指定する。
 大きくすると再現率が向上する代わりに、レスポンスに時間がかかる。
-(Float)</td>
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt; <tt class="docutils literal"><span class="pre">bin_width</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">probe_num:</th><td class="field-body">探索するビンの数を指定する。
+<tr class="field-even field"><th class="field-name">probe_num:</th><td class="field-body"><p class="first">探索するビンの数を指定する。
 大きくすると再現率が向上する代わりに、レスポンスに時間がかかる。
-(Integer)</td>
+(Integer)</p>
+<ul class="simple">
+<li>値域: 0 &lt;= <tt class="docutils literal"><span class="pre">probe_num</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body">内部で利用している乱数のシードを指定する。
-(Integer)</td>
+<tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body"><p class="first">内部で利用している乱数のシードを指定する。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 0 &lt;= <tt class="docutils literal"><span class="pre">seed</span></tt></li>
+</ul>
+</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><tt class="docutils literal"><span class="pre">true</span></tt> ならハッシュに利用する射影ベクトルをキャッシュする。
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">true</span></tt> ならハッシュに利用する射影ベクトルをキャッシュする。
 レスポンス時間が低下する代わりに、メモリを消費する。
-(Boolean)</td>
+(Boolean)</p>
+</td>
 </tr>
 </tbody>
 </table>

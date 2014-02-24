@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.1',
+        VERSION:     '0.5.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -185,43 +185,98 @@ JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">parameter</tt></dt>
-<dd><p>アルゴリズムに渡すパラーメータを指定する。</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dd><p>アルゴリズムに渡すパラーメータを指定する。
+<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡す一部のパラメータが異なる。</p>
+<dl class="docutils">
+<dt>kmeans, gmm 共通</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">K :</th><td class="field-body">いくつのクラスタに分割するか、を指定する。
-(Integer)</td>
+<tr class="field-odd field"><th class="field-name">k:</th><td class="field-body"><p class="first">いくつのクラスタに分割するか、を指定する。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">k</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Compressor_method :</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">点を圧縮するアルゴリズムを指定する．
-<tt class="docutils literal"><span class="pre">simple</span></tt>, <tt class="docutils literal"><span class="pre">compressive_kmeans</span></tt>, <tt class="docutils literal"><span class="pre">compressice_gmm</span></tt> から選ぶことができる。</td>
+<tr class="field-even field"><th class="field-name">bucket_size:</th><td class="field-body"><p class="first">一度に圧縮する点数．データセットのサイズに等しく設定する。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 2 &lt;= <tt class="docutils literal"><span class="pre">bucket_size</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Bucket_size :</th><td class="field-body">一度に圧縮する点数．データセットのサイズに等しく設定する．
-(Integer)</td>
+<tr class="field-odd field"><th class="field-name">bucket_length:</th><td class="field-body"><p class="first">ミニバッチのサイズ。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 2 &lt;= <tt class="docutils literal"><span class="pre">bucket_length</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Bucket_length :</th><td class="field-body">ミニバッチのサイズ
-(Integer)</td>
+<tr class="field-even field"><th class="field-name" colspan="2">compresed_backet_size:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first"><tt class="docutils literal"><span class="pre">backet_size</span></tt> を何点に圧縮するかを指定する。
+圧縮率 = (<tt class="docutils literal"><span class="pre">compressed_backet_size</span></tt> / <tt class="docutils literal"><span class="pre">backet_size</span></tt> )である。
+(Integer)</p>
+<ul class="simple">
+<li>値域: <tt class="docutils literal"><span class="pre">bicriteria_base_size</span></tt> &lt; <tt class="docutils literal"><span class="pre">compresed_backet_size</span></tt> &lt; <tt class="docutils literal"><span class="pre">bucket_size</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Compresed_backet_size :</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">backet_sizeを何点に圧縮するか．
-圧縮率=(compressed_backet_size/backet_size)である．
-(Integer)</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">bicriteria_base_size:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">圧縮の粗さに関係するパラメータ。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">bicriteria_base_size</span></tt> &lt; <tt class="docutils literal"><span class="pre">compresed_backet_size</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Bicriteria_base_size :</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">圧縮の粗さに関係するパラメータ．
-(Integer)</td>
+<tr class="field-even field"><th class="field-name" colspan="2">forgetting_factor:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">忘却定数 <tt class="docutils literal"><span class="pre">c_f</span></tt> 。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt;= <tt class="docutils literal"><span class="pre">forgetting_factor</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Forgetting_factor :</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">忘却定数 <tt class="docutils literal"><span class="pre">c_f</span></tt>
-(double)</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Forgetting_threshold :</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">重みにかけられた忘却係数の和がこの値を超えたら，それより上位のレベルには圧縮しないようにする.
-(double)</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">forgetting_threshold:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">重みにかけられた忘却係数の和がこの値を超えたら、それより上位のレベルには圧縮しないようにする。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt;= <tt class="docutils literal"><span class="pre">forgetting_threshold</span></tt> &lt;= 1.0</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
+</dd>
+<dt>kmeans</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">点を圧縮するアルゴリズムを指定する。
+<tt class="docutils literal"><span class="pre">simple</span></tt>, <tt class="docutils literal"><span class="pre">compressive_kmeans</span></tt> から選ぶことができる。
+(String)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>gmm</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">点を圧縮するアルゴリズムを指定する。
+<tt class="docutils literal"><span class="pre">simple</span></tt>, <tt class="docutils literal"><span class="pre">compressive_gmm</span></tt> から選ぶことができる。
+(String)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="describe">
@@ -234,9 +289,16 @@ JSON の各フィールドは以下のとおりである。</p>
 <dl class="docutils">
 <dt>例:</dt>
 <dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;kmeans&quot;</span><span class="p">,</span>
   <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
-    <span class="p">}</span>
+    <span class="s2">&quot;k&quot;</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;compressor_method&quot;</span> <span class="o">:</span> <span class="s2">&quot;compressive_kmeans&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bucket_size&quot;</span> <span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">&quot;compressed_bucket_size&quot;</span> <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;bicriteria_base_size&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;bucket_length&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;forgetting_factor&quot;</span> <span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s2">&quot;forgetting_threshold&quot;</span> <span class="o">:</span> <span class="mf">0.5</span>
   <span class="p">},</span>
   <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;string_filter_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>

@@ -34,13 +34,20 @@ JSON の各フィールドは以下のとおりである。
         対象データに対する近傍の数を指定する。
         大きくすると誤検出が減る代わりに、検出漏れが増える。
         (Integer)
+
+        * 値域: 2 <= ``nearest_neighbor_num``
+
      :reverse_nearest_neighbor_num:
         異常値の情報を更新する際に、逆近傍候補の個数を指定する。
         大きくすると検出が正確になる代わりに、更新に時間がかかる。
         (Integer)
+
+        * 値域: ``nearest_neighbor_num`` <= ``reverse_nearest_neighbor_num``
+
      :method:
         近傍探索に利用するレコメンダーのアルゴリズムを指定する。
         :doc:`api_recommender` で説明される ``method`` を指定する。
+
      :parameter:
         近傍探索に利用するレコメンダーに渡すパラーメータを指定する。
         :doc:`api_recommender` で説明される ``parameter`` を指定する。
@@ -50,13 +57,20 @@ JSON の各フィールドは以下のとおりである。
         対象データに対する近傍の数を指定する。
         大きくすると誤検出が減る代わりに、検出漏れが増える。
         (Integer)
+
+        * 値域: 2 <= ``nearest_neighbor_num``
+
      :reverse_nearest_neighbor_num:
         異常値の情報更新する際に、逆近傍候補の個数を指定する。
         大きくすると検出が正確になる代わりに、更新に時間がかかる。
         (Integer)
+
+        * 値域: ``nearest_neighbor_num`` <= ``reverse_nearest_neighbor_num``
+
      :method:
         近傍探索に利用する近傍探索器のアルゴリズムを指定する。
         :doc:`api_nearest_neighbor` で説明される ``method`` を指定する。
+
      :parameter:
         近傍探索に利用する近傍探索器に渡すパラメータを指定する。
         :doc:`api_nearest_neighbor` で説明される ``parameter`` を指定する。

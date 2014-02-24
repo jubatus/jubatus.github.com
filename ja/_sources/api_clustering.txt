@@ -27,39 +27,63 @@ JSON の各フィールドは以下のとおりである。
 .. describe:: parameter
 
    アルゴリズムに渡すパラーメータを指定する。
- 
-   :k:
-     いくつのクラスタに分割するか、を指定する。
-     (Integer)
+   ``method`` に応じて渡す一部のパラメータが異なる。
 
-   :compressor_method:
-     点を圧縮するアルゴリズムを指定する．
-     ``simple``, ``compressive_kmeans``, ``compressice_gmm`` から選ぶことができる。
+   kmeans, gmm 共通
+     :k:
+        いくつのクラスタに分割するか、を指定する。
+        (Integer)
 
-   :bucket_size:
-     一度に圧縮する点数．データセットのサイズに等しく設定する．
-     (Integer)
+        * 値域: 1 <= ``k``
 
-   :bucket_length:
-     ミニバッチのサイズ
-     (Integer)
+     :bucket_size:
+        一度に圧縮する点数．データセットのサイズに等しく設定する。
+        (Integer)
 
-   :compresed_backet_size:
-     backet_sizeを何点に圧縮するか．
-     圧縮率=(compressed_backet_size/backet_size)である．
-     (Integer)
+        * 値域: 2 <= ``bucket_size``
 
-   :bicriteria_base_size:
-     圧縮の粗さに関係するパラメータ．
-     (Integer)
+     :bucket_length:
+        ミニバッチのサイズ。
+        (Integer)
 
-   :forgetting_factor:
-     忘却定数 ``c_f``
-     (double)
+        * 値域: 2 <= ``bucket_length``
 
-   :forgetting_threshold:
-     重みにかけられた忘却係数の和がこの値を超えたら，それより上位のレベルには圧縮しないようにする.
-     (double)
+     :compresed_backet_size:
+        ``backet_size`` を何点に圧縮するかを指定する。
+        圧縮率 = (``compressed_backet_size`` / ``backet_size`` )である。
+        (Integer)
+
+        * 値域: ``bicriteria_base_size`` < ``compresed_backet_size`` < ``bucket_size``
+
+     :bicriteria_base_size:
+        圧縮の粗さに関係するパラメータ。
+        (Integer)
+
+        * 値域: 1 <= ``bicriteria_base_size`` < ``compresed_backet_size``
+
+     :forgetting_factor:
+        忘却定数 ``c_f`` 。
+        (Float)
+
+        * 値域: 0.0 <= ``forgetting_factor``
+
+     :forgetting_threshold:
+        重みにかけられた忘却係数の和がこの値を超えたら、それより上位のレベルには圧縮しないようにする。
+        (Float)
+
+        * 値域: 0.0 <= ``forgetting_threshold`` <= 1.0
+
+   kmeans
+     :compressor_method:
+        点を圧縮するアルゴリズムを指定する。
+        ``simple``, ``compressive_kmeans`` から選ぶことができる。
+        (String)
+
+   gmm
+     :compressor_method:
+        点を圧縮するアルゴリズムを指定する。
+        ``simple``, ``compressive_gmm`` から選ぶことができる。
+        (String)
 
 .. describe:: converter
 
@@ -71,9 +95,16 @@ JSON の各フィールドは以下のとおりである。
   .. code-block:: javascript
 
      {
-       "method" : "simple",
+       "method" : "kmeans",
        "parameter" : {
-         }
+         "k" : 3,
+         "compressor_method" : "compressive_kmeans",
+         "bucket_size" : 1000,
+         "compressed_bucket_size" : 100,
+         "bicriteria_base_size" : 10,
+         "bucket_length" : 2,
+         "forgetting_factor" : 0.0,
+         "forgetting_threshold" : 0.5
        },
        "converter" : {
          "string_filter_types" : {},

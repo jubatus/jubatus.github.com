@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.1',
+        VERSION:     '0.5.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -428,7 +428,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">Specifies value to add. For example, if we add 3 to the original value, we use &#8220;3&#8221;. Note that it is not numeric but a string.</td>
+<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">Specifies value to add. For example, if we add 3 to the original value, we use &#8220;3&#8221;. Note that it is not numeric but a string. It is treated as a floating-point number internally.</td>
 </tr>
 </tbody>
 </table>
@@ -822,7 +822,7 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 <p>To reduce memory consumption, Jubatus can hash keys of feature vectors.
 By hashing feature vector keys, you can limit a maximum dimension of feature vectors, although this may decrease the accuracy of the result when one hash value collides with another.</p>
 <p>This function is disabled by default.
-To use this option, specify the <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> in the converter configuration.</p>
+To use this option, specify the <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> in the converter configuration. It must be a positive integer.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>

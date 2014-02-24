@@ -241,7 +241,7 @@ The followings are available values of "method" and keys that must be specified.
 
  Add specified value to the original value.
 
-  :value:  Specifies value to add. For example, if we add 3 to the original value, we use "3". Note that it is not numeric but a string.
+  :value:  Specifies value to add. For example, if we add 3 to the original value, we use "3". Note that it is not numeric but a string. It is treated as a floating-point number internally.
 
 .. describe:: dynamic
 
@@ -496,7 +496,7 @@ To reduce memory consumption, Jubatus can hash keys of feature vectors.
 By hashing feature vector keys, you can limit a maximum dimension of feature vectors, although this may decrease the accuracy of the result when one hash value collides with another.
 
 This function is disabled by default.
-To use this option, specify the ``hash_max_size`` in the converter configuration.
+To use this option, specify the ``hash_max_size`` in the converter configuration. It must be a positive integer.
 
 ::
 

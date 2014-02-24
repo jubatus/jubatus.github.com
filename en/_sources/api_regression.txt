@@ -35,11 +35,16 @@ We show each filed below:
         Upper bound of acceptable margin.
         The bigger it is, more robust to noise, but the more error remain.
         (Float)
+
+        * Range: 0.0 <= ``sensitivity``
+
      :regularization_weight:
         Sensitivity to learning rate.
         The bigger it is, the ealier you can train, but more sensitive to noise.
         It corresponds to :math:`C` in the original paper [Crammer06]_.
         (Float)
+
+        * Range: 0.0 < ``regularization_weight``
 
 
 .. describe:: converter

@@ -48,12 +48,16 @@ We show each filed below:
         It corresponds to :math:`C` in the original paper [Crammer06]_.
         (Float)
 
+        * Range: 0.0 < ``regularization_weight``
+
    PA2
      :regularization_weight:
         Sensitivity to learning rate.
         The bigger it is, the ealier you can train, but more sensitive to noise.
         It corresponds to :math:`C` in the original paper [Crammer06]_.
         (Float)
+
+        * Range: 0.0 < ``regularization_weight``
 
    CW
      :regularization_weight:
@@ -62,6 +66,8 @@ We show each filed below:
         It corresponds to :math:`\phi` in the original paper [Dredze08]_.
         (Float)
 
+        * Range: 0.0 < ``regularization_weight``
+
    AROW
      :regularization_weight:
         Sensitivity to learning rate.
@@ -69,12 +75,16 @@ We show each filed below:
         It corresponds to :math:`1/r` in the original paper [Crammer09b]_.
         (Float)
 
+        * Range: 0.0 < ``regularization_weight``
+
    NHERD
      :regularization_weight:
         Sensitivity to learning rate.
         The bigger it is, the ealier you can train, but more sensitive to noise.
         It corresponds to :math:`C` in the original paper [Crammer10]_.
         (Float)
+
+        * Range: 0.0 < ``regularization_weight``
 
 
 .. describe:: converter

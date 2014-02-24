@@ -27,40 +27,68 @@ We show each filed below:
 .. describe:: parameter
 
    Specify parameters for the algorithm.
- 
-   :k:
-     Number of clusters.
-     (Integer)
+   Its format differs for each ``method``.
 
-   :compressor_method:
-     Specify alghorithm for compressing points.
-     You can choose from ``simple``, ``compressive_kmeans`` and ``compressive_gmm``. 
+   Common parameters kmeans and gmm
+     :k:
+        Number of clusters.
+        (Integer)
 
-   :bucket_size:
-     Number of bulk compression size.
-     It can be smaller than dataset size.
-     (Integer)
+        * Range: 1 <= ``k``
 
-   :bucket_length:
-     Size of mini batch clustering.
-     (Integer)
+     :compressor_method:
+        Specify alghorithm for compressing points.
+        You can choose from ``simple``, ``compressive_kmeans`` and ``compressive_gmm``.
 
-   :compresed_bucket_size:
-     Number of compressed bucket_size.
-     Compression ratio = (compressed_bucket_size/bucket_size)
-     (Integer)
+     :bucket_size:
+        Number of bulk compression size.
+        It can be smaller than dataset size.
+        (Integer)
 
-   :bicriteria_base_size:
-     Specify roughness of compression.
-     (Integer)
+        * Range: 2 <= ``bucket_size``
 
-   :forgetting_factor:
-     forgetting factor
-     (double)
+     :bucket_length:
+        Size of mini batch clustering.
+        (Integer)
 
-   :forgetting_threshold:
-     When the summation of forgetting factors exceeds this value, it will not compress any more.     
-     (double)
+        * Range: 2 <= ``bucket_length``
+
+     :compresed_bucket_size:
+        Number of compressed ``bucket_size`` .
+        Compression ratio = ( ``compressed_bucket_size`` / ``bucket_size`` )
+        (Integer)
+
+        * Range: ``bicriteria_base_size`` < ``compresed_backet_size`` < ``bucket_size``
+
+     :bicriteria_base_size:
+        Specify roughness of compression.
+        (Integer)
+
+        * Range: 1 <= ``bicriteria_base_size`` < ``compresed_backet_size``
+
+     :forgetting_factor:
+        Forgetting factor
+        (Float)
+
+        * Range: 0.0 <= ``forgetting_factor``
+
+     :forgetting_threshold:
+        When the summation of forgetting factors exceeds this value, it will not compress any more.
+        (Float)
+
+        * Range: 0.0 <= ``forgetting_threshold`` <= 1.0
+
+   kmeans
+     :compressor_method:
+        Specify alghorithm for compressing points.
+        You can choose from ``simple``, ``compressive_kmeans`` .
+        (String)
+
+   gmm
+     :compressor_method:
+        Specify alghorithm for compressing points.
+        You can choose from ``simple``, ``compressive_gmm`` .
+        (String)
 
 .. describe:: converter
 
@@ -72,9 +100,16 @@ Example:
   .. code-block:: javascript
 
      {
-       "method" : "simple",
+       "method" : "kmeans",
        "parameter" : {
-         }
+         "k" : 3,
+         "compressor_method" : "compressive_kmeans",
+         "bucket_size" : 1000,
+         "compressed_bucket_size" : 100,
+         "bicriteria_base_size" : 10,
+         "bucket_length" : 2,
+         "forgetting_factor" : 0.0,
+         "forgetting_threshold" : 0.5
        },
        "converter" : {
          "string_filter_types" : {},

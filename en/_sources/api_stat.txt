@@ -14,6 +14,8 @@ We show each filed below:
    Number of values to store.
    (Integer)
 
+   * Range: 1 <= ``window_size``
+
 
 Example:
   .. code-block:: javascript

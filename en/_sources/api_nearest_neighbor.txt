@@ -38,17 +38,23 @@ We show each field below:
         The bigger it is, the more accurate results you can get, but the more memory is required.
         (Integer)
 
+        * Range: 1 <= ``hash_num``
+
    minhash
      :hash_num:
         Bit length of hash values.
         The bigger it is, the more accurate results you can get, but the more memory is required.
         (Integer)
 
+        * Range: 1 <= ``hash_num``
+
    euclid_lsh
      :hash_num:
         Bit length of hash values.
         The bigger it is, the more accurate results you can get, but the more memory is required.
         (Integer)
+
+        * Range: 1 <= ``hash_num``
 
 .. describe:: converter
 

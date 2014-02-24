@@ -35,11 +35,16 @@ JSON の各フィールドは以下のとおりである。
         許容する誤差の幅を指定する。
         大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
         (Float)
+
+        * 値域: 0.0 <= ``sensitivity``
+
      :regularization_weight:
         学習に対する感度パラメータを指定する。
         大きくすると学習が早くなる代わりに、ノイズに弱くなる。
         元論文 [Crammer06]_ における :math:`C` に相当する。
         (Float)
+
+        * 値域: 0.0 < ``regularization_weight``
 
 
 .. describe:: converter

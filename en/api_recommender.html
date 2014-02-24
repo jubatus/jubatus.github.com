@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.1',
+        VERSION:     '0.5.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -163,8 +163,8 @@ We show each filed below:</p>
 You can use these algorithms.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="27%" />
-<col width="73%" />
+<col width="28%" />
+<col width="72%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Value</th>
@@ -184,7 +184,7 @@ You can use these algorithms.</p>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
 <td>Use Euclid-distance LSH. <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender:*</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender:*&quot;</span></tt></td>
 <td>Use an implementation of <tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt> of which algorithm name is specified in <tt class="docutils literal"><span class="pre">*</span></tt> .</td>
 </tr>
 </tbody>
@@ -204,9 +204,13 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">Number of hash values.
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">Number of hash values.
 The bigger it is, the more accurate results you can get, but the more memory is required.
-(Integer)</td>
+(Integer)</p>
+<ul class="last simple">
+<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -216,9 +220,13 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">Bit length of hash values.
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">Bit length of hash values.
 The bigger it is, the more accurate results you can get, but the more memory is required.
-(Integer)</td>
+(Integer)</p>
+<ul class="last simple">
+<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -228,29 +236,50 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body">Number of hash values.
+<tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">Number of hash values.
 The bigger it is, the more accurate results you can get, but the fewer results you can find and the more memory is required.
-(Integer)</td>
+(Integer)</p>
+<ul class="simple">
+<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body">Number of tables.
+<tr class="field-even field"><th class="field-name">table_num:</th><td class="field-body"><p class="first">Number of tables.
 The bigger it is, the mroe results you can find, but the more memory is required and the longer response time is required.
-(Integer)</td>
+(Integer)</p>
+<ul class="simple">
+<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">table_num</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">bin_width:</th><td class="field-body">Quantization step size.
+<tr class="field-odd field"><th class="field-name">bin_width:</th><td class="field-body"><p class="first">Quantization step size.
 The bigger it is, the more results you can find, but the longer response time is required.
-(Float)</td>
+(Float)</p>
+<ul class="simple">
+<li>Range: 0.0 &lt; <tt class="docutils literal"><span class="pre">bin_width</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">probe_num:</th><td class="field-body">Number of bins to find.
+<tr class="field-even field"><th class="field-name">probe_num:</th><td class="field-body"><p class="first">Number of bins to find.
 The bigger it is, the more results you can find, but the longer response time is required.
-(Integer)</td>
+(Integer)</p>
+<ul class="simple">
+<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">probe_num</span></tt></li>
+</ul>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body">Seed of random number generator.
-(Integer)</td>
+<tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body"><p class="first">Seed of random number generator.
+(Integer)</p>
+<ul class="simple">
+<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">seed</span></tt></li>
+</ul>
+</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">When it is <tt class="docutils literal"><span class="pre">true</span></tt>, projection vectors for hashing are cached in memory.
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">When it is <tt class="docutils literal"><span class="pre">true</span></tt>, projection vectors for hashing are cached in memory.
 Response time is lower though more memory is required.
-(Boolean)</td>
+(Boolean)</p>
+</td>
 </tr>
 </tbody>
 </table>

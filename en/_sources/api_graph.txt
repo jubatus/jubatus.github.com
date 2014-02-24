@@ -32,13 +32,18 @@ We show each filed below:
      :damping_factor:
         Damping factor for PageRank.
         It adjusts scores for nodes with differenct degrees.
-        The bigger it is, the more sensitive to graph structure PageRank score is, but the larger  biases it causes.
+        The bigger it is, the more sensitive to graph structure PageRank score is, but the larger biases it causes.
         In the original paper, 0.85 is good.
         (Float)
+
+        * Range: 0.0 < ``damping_factor`` < 1.0
+
      :landmark_num:
         The number of landmarks for shortest path calculation.
         The bigger it is, more accurate value you can get, but the more memory is required.
         (Integer)
+
+        * Range: 0 <= ``landmark_num``
 
 
 Example:

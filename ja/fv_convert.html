@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.1',
+        VERSION:     '0.5.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -437,7 +437,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">足す値の文字列表現を指定する。例えば3足すのであれば、&#8221;3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。</td>
+<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">足す値の文字列表現を指定する。例えば3足すのであれば、&#8221;3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。</td>
 </tr>
 </tbody>
 </table>
@@ -645,7 +645,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">char_num:</th><td class="field-body">利用する文字数の文字列表現を指定する。文字数は0より大きい必要がある。</td>
+<tr class="field-odd field"><th class="field-name">char_num:</th><td class="field-body">利用する文字数(整数値)の文字列表現を指定する。文字数は0より大きい必要がある。内部的には Integer として利用される。</td>
 </tr>
 </tbody>
 </table>
@@ -994,7 +994,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <p>Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができる。
 特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができるが、ハッシュの衝突により学習精度の低下が発生する可能性がある。</p>
 <p>この機能はデフォルトでは無効である。
-使用するには、変換設定に <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> を指定する。</p>
+使用するには、変換設定に <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> を指定する。値には0より大きい整数値を指定する。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>

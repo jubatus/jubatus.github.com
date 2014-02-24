@@ -34,13 +34,20 @@ We show each filed below:
         Number of neighbors
         The bigger it is, the less false-positives are found, but the more false-negatives are found.
         (Integer)
+
+        * Range: 2 <= ``nearest_neighbor_num``
+
      :reverse_nearest_neighbor_num:
         Number of reverse neighbors to update, when annomaly measure values are update.
         The bigger it is,  the more accurately measures are updated, but the longer update-time is required.
         (Integer)
+
+        * Range: ``nearest_neighbor_num`` <= ``reverse_nearest_neighbor_num``
+
      :method:
         Algorithm name of recommender for nearest neighbor search.
         Refer ``method`` in :doc:`api_recommender`.
+
      :parameter:
         Parameters of the recommender for nearest neighbor search.
         Refer ``parameter`` in :doc:`api_recommender`.
@@ -50,13 +57,20 @@ We show each filed below:
         Number of neighbors
         The bigger it is, the less false-positives are found, but the more false-negatives are found.
         (Integer)
+
+        * Range: 2 <= ``nearest_neighbor_num``
+
      :reverse_nearest_neighbor_num:
         Number of reverse neighbors to update, when annomaly measure values are update.
         The bigger it is,  the more accurately measures are updated, but the longer update-time is required.
         (Integer)
+
+        * Range: ``nearest_neighbor_num`` <= ``reverse_nearest_neighbor_num``
+
      :method:
         Algorithm name of nearest neighbor for nearest neighbor search.
         Refer ``method`` in :doc:`api_nearest_neighbor`.
+
      :parameter:
         Parameters of the nearest neighbor for nearest neighbor search.
         Refer ``parameter`` in :doc:`api_nearest_neighbor`.
