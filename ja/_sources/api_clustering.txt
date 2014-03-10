@@ -126,7 +126,11 @@ JSON の各フィールドは以下のとおりである。
 Data Structures
 ~~~~~~~~~~~~~~~
 
-なし。
+.. mpidl:message:: weighted_datum
+
+   .. mpidl:member:: 0: double weight
+
+   .. mpidl:member:: 1: datum point
 
 
 Methods

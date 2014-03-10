@@ -145,6 +145,14 @@ Data Structures
    最短パスリクエストの情報を表す。
    詳細は ``get_shortest_path`` メソッドの説明を参照すること。
 
+   .. mpidl:member:: 0: string source
+
+   .. mpidl:member:: 1: string target
+
+   .. mpidl:member:: 2: uint max_hop
+
+   .. mpidl:member:: 3: preset_query query
+
    .. code-block:: c++
 
       message shortest_path_query {
