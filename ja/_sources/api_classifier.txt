@@ -182,3 +182,18 @@ Methods
 
       与えられた ``data`` から、ラベルを推定する。
       この API は、 :mpidl:type:`datum` をリスト形式でまとめて同時に受け付けることができる (バルク分類)。
+
+   .. mpidl:method:: list<string> get_labels()
+
+      :return:     現在登録されているラベルの一覧
+
+      登録されているラベルの一覧を返す。
+
+   .. mpidl:method:: bool set_label(0: string new_label)
+
+      :param new_label: 追加するラベル名
+      :return:          追加に成功した場合 True 既にラベルが存在した場合 False
+
+      新しいラベルを追加する。
+      既に同名のラベルが登録されていた場合失敗する。
+      ラベルは ``train`` 実行時にも自動的に追加される。

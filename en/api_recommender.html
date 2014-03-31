@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.2',
+        VERSION:     '0.5.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -339,7 +339,8 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <dl class="member">
 <dt id="id_with_score::score__float">
 1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
-<dd><p>Score.</p>
+<dd><p>Score.
+Range of scores is <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">score</span> <span class="pre">&lt;=</span> <span class="pre">1</span></tt> (less than or equal to <tt class="docutils literal"><span class="pre">-0</span></tt> when using <tt class="docutils literal"><span class="pre">euclid_lsh</span></tt>).</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
@@ -536,7 +537,7 @@ float <tt class="descname">calc_similarity</tt><big>(</big>0: <a class="referenc
 </tr>
 </tbody>
 </table>
-<p>Returns the similarity between two <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a>.</p>
+<p>Returns the similarity score (see <tt class="docutils literal"><span class="pre">score</span></tt> member of <tt class="docutils literal"><span class="pre">id_with_score</span></tt>) between two <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="method">

@@ -182,3 +182,18 @@ Methods
 
       Estimates labels from given ``data``.
       This API is designed to accept bulk classification with list of :mpidl:type:`datum`.
+
+   .. mpidl:method:: list<string> get_labels()
+
+      :return:     list of all labels in the jubatus
+
+      Returns all label list.
+
+   .. mpidl:method:: bool set_label(0: string new_label)
+
+      :param new_label: name of new label
+      :return:          True if the new label was not exist. False if the label already exists.
+
+      Append new label.
+      If the label is already exist, it fails.
+      New label is add when label found in ``train`` method argument, too.

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.2',
+        VERSION:     '0.5.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -262,12 +262,19 @@ service kvs {
 </div>
 <div class="section" id="id5">
 <h3><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml (findlib あり) 、extlib および OMake が必要である。</p>
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml 4.0 以上(findlib あり) 、extlib および OMake が必要である。
+OCaml環境の構築には、 <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> を利用するのが楽である。
+OPAMをソースから入れる場合は、 <a class="reference external" href="http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew">ocamlbrew</a> を利用するとよい。</p>
 <div class="highlight-python"><pre>$ cd jubatus/tools/jenerator
 $ omake
 $ sudo omake install</pre>
 </div>
-<p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> を行うと <tt class="docutils literal"><span class="pre">jenerator</span></tt> が <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> としてインストールされる (環境によりパスは異なる場合がある)。インストールを行わずに、ビルドされた <tt class="docutils literal"><span class="pre">jenerator</span></tt> のバイナリを直接使用してもよい。</p>
+<p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> を行うと <tt class="docutils literal"><span class="pre">jenerator</span></tt> が <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> としてインストールされる (環境によりパスは異なる場合がある)。
+インストールパスを変える場合は、</p>
+<div class="highlight-python"><pre>$ PREFIX=/path/to/install omake install</pre>
+</div>
+<p>でインストールパスを変えることができる。
+インストールを行わずに、ビルドされた <tt class="docutils literal"><span class="pre">jenerator</span></tt> のバイナリを直接使用してもよい。</p>
 <p>ヒント: Ubuntu を使用している場合、OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>), findlib (<tt class="docutils literal"><span class="pre">ocaml-findlib</span></tt>), iextlib (<tt class="docutils literal"><span class="pre">libextlib-ocaml</span></tt>), OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) のバイナリパッケージが利用できる。</p>
 </div>
 <div class="section" id="proxy-idl">

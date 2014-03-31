@@ -144,6 +144,7 @@ Data Structures
 
       IDに対して紐付かれた近傍性のスコアを表す。
       近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。
+      値域は ``0 <= score <= 1`` (``euclid_lsh`` の場合は ``-0`` 以下) となる。
 
    .. code-block:: c++
 
@@ -231,7 +232,7 @@ Methods
       :param rhs:  別の :mpidl:type:`datum`
       :return:     ``lhs`` と ``rhs`` の類似度
 
-      指定した 2 つの :mpidl:type:`datum` の類似度を返す。
+      指定した 2 つの :mpidl:type:`datum` の類似度スコア (``id_with_score`` の ``score`` メンバを参照) を返す。
 
    .. mpidl:method:: float calc_l2norm(0: datum row)
 

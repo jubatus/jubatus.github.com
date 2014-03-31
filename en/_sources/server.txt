@@ -115,7 +115,9 @@ The following RPC methods for server are automatically appended to each service 
 Building ``jenerator``
 ~~~~~~~~~~~~~~~~~~~~~~
 
-You need OCaml (with findlib), extlib and OMake to build ``jenerator``.
+You need OCaml >=4.0 (with findlib), extlib and OMake to build ``jenerator``.
+We recommend to use `OPAM <http://opam.ocaml.org/>`_ to make OCaml environment.
+When you want to install OPAM from its source, `ocamlbrew <http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew>`_ is usefull.
 
 ::
 
@@ -123,7 +125,14 @@ You need OCaml (with findlib), extlib and OMake to build ``jenerator``.
   $ omake
   $ sudo omake install
 
-``omake install`` installs ``jenerator`` as ``/usr/local/bin/jenerator`` (path may vary depending on your environment). You can also use built ``jenerator`` binary directly without installation.
+``omake install`` installs ``jenerator`` as ``/usr/local/bin/jenerator`` (path may vary depending on your environment).
+If you want to install ``jenerator`` to other directory, use ``PREFIX`` environment variable.
+
+::
+
+   $ PREFIX=/path/to/install omake install
+
+You can also use built ``jenerator`` binary directly without installation.
 
 Hint: If you're using Ubuntu systems, OCaml (``ocaml-native-compilers``), findlib (``ocaml-findlib``), extlib (``libextlib-ocaml``) and OMake (``omake``) are available as a binary package.
 

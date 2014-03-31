@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.2',
+        VERSION:     '0.5.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -380,6 +380,22 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt
 </dd></dl>
 
 <dl class="method">
+<dt id="do_mix">
+bool <tt class="descname">do_mix</tt><big>(</big><big>)</big><a class="headerlink" href="#do_mix" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">Mix が成功した場合 True</td>
+</tr>
+</tbody>
+</table>
+<p>Update回数や経過時間に関係なく、Mixを強制的に一度実行させる。
+このメソッドは <strong>サーバ</strong> に対して使用する。
+プロキシに対して使用すると、RPCエラーが返却される。</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="get_proxy_status">
 map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_proxy_status" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -393,6 +409,42 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_stat
 <p>プロキシの内部状態を取得する。</p>
 <p>このメソッドは、 <strong>プロキシ</strong> に対して使用する。
 サーバに対して使用すると、RPCエラーが返却される。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_name">
+string <tt class="descname">get_name</tt><big>(</big><big>)</big><a class="headerlink" href="#get_name" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">ターゲットに指定されているクラスタの名前</td>
+</tr>
+</tbody>
+</table>
+<p>このクライアントインスタンスが参照している先のクラスタの <tt class="docutils literal"><span class="pre">name</span></tt> を獲得する。
+<tt class="docutils literal"><span class="pre">name</span></tt> とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
+これは RPC メソッドではない。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="set_name__s">
+void <tt class="descname">set_name</tt><big>(</big>0: string <em>new_name</em><big>)</big><a class="headerlink" href="#set_name__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; 新しくターゲットに指定したいクラスタの名前</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>このクライアントインスタンスがターゲットとして参照する <tt class="docutils literal"><span class="pre">name</span></tt> を設定する。
+<tt class="docutils literal"><span class="pre">name</span></tt> とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
+このメソッドを使う事で、一つのクライアントインスタンスを使って異なるタスクのクラスタに接続することができる。
+これは RPC メソッドではない。</p>
 </dd></dl>
 
 <dl class="method">

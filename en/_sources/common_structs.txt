@@ -144,6 +144,14 @@ Methods
    Returns server status from **ALL** servers.
    Each server is represented by a pair of host name and port.
 
+.. mpidl:method:: bool do_mix()
+
+   :return:     True when model mixed successfully
+
+   Force cluster to fire mix.
+   Call this RPC to Jubatus server **directly**.
+   When you call this to proxy, RPC error will be raised.
+
 .. mpidl:method:: map<string, map<string, string> >  get_proxy_status()
 
    :return:     Internal state for proxy. The key of most outer map is in form of ``hostname_portnumber``.
@@ -152,6 +160,23 @@ Methods
 
    This is an RPC method for **proxy**.
    When you use this for server, RPC error will be raised.
+
+.. mpidl:method:: string get_name()
+
+   :return:     Name of target cluster
+
+   Get ``name`` of target cluster of this client object.
+   ``name`` is a string value to uniquely identify a task in the ZooKeeper cluster.
+   This is not an RPC method.
+
+.. mpidl:method:: void set_name(0: string new_name)
+
+   :param id:   Name of new target cluster
+
+   Set ``name`` of target cluster of this client object.
+   ``name`` is a string value to uniquely identify a task in the ZooKeeper cluster.
+   You can switch the target Jubatus cluster among multiple tasks with one client object.
+   This is not an RPC method.
 
 .. mpidl:method:: mprpc_client get_client()
 
