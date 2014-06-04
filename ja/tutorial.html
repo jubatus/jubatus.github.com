@@ -157,7 +157,7 @@
 <p>チュートリアルを始める前に、Jubatus および Jubatus Python クライアントをインストールする必要があります。この手順については <a class="reference internal" href="quickstart.html"><em>クイックスタート</em></a> を参照してください。</p>
 <div class="section" id="id2">
 <h2>シナリオ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20</a> (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) を利用します。
+<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) を利用します。
 News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。</p>
 <p>このチュートリアルプログラムの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。</p>
@@ -223,9 +223,13 @@ Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用し�
 <p>それでは、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードしましょう。</p>
 <div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
-$ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
-$ tar xvzf 20news-bydate.tar.gz
-$ jubaclassifier --configpath config.json</pre>
+$ wget http://qwone.com/~jason/20Newsgroups//20news-bydate.tar.gz
+$ tar xvzf 20news-bydate.tar.gz</pre>
+</div>
+<p><cite>jubaclassifier</cite> を再起動します。
+この時、チュートリアル用に用意された設定ファイルである <tt class="docutils literal"><span class="pre">config.json</span></tt> を利用して下さい。
+先ほど使用したサンプルの設定ファイル（ <tt class="docutils literal"><span class="pre">pa.json</span></tt> ）では正しく動作しません。</p>
+<div class="highlight-python"><pre>$ jubaclassifier --configpath config.json</pre>
 </div>
 <p>チュートリアルプログラムを実行します。</p>
 <div class="highlight-python"><pre>$ python tutorial.py</pre>

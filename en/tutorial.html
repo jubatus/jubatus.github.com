@@ -156,7 +156,7 @@
 <p>Before trying the tutorial, you need to install Jubatus and Jubatus Python client. See <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> for instructions.</p>
 <div class="section" id="scenario">
 <h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
-<p>This tutorial uses <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">News20</a> dataset (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) which is a popular for experiments in text classification.
+<p>This tutorial uses <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> dataset (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>), which is  popular for experiments in text classification.
 News20 has 20 different newsgroups and users post their message on a suitable newsgroup.
 News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).</p>
 <p>The goal of this tutorial program is to learn model from 20news-bydate-train and to guess the newsgroup to post from 20news-bydate-test.</p>
@@ -222,9 +222,12 @@ For example, to use port 19199:</p>
 <p>OK, let&#8217;s download the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial program</a> and the dataset.</p>
 <div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
-$ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
-$ tar xvzf 20news-bydate.tar.gz
-$ jubaclassifier --configpath config.json</pre>
+$ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
+$ tar xvzf 20news-bydate.tar.gz</pre>
+</div>
+<p>Reboot <cite>jubaclassifier</cite> with <tt class="docutils literal"><span class="pre">config.json</span></tt> , which is a configuration file prepared for this tutorial.
+Note: do not use the previous configuration file ( <tt class="docutils literal"><span class="pre">pa.json</span></tt> ) that was used above.</p>
+<div class="highlight-python"><pre>$ jubaclassifier --configpath config.json</pre>
 </div>
 <p>Then, run the program.</p>
 <div class="highlight-python"><pre>$ python tutorial.py</pre>

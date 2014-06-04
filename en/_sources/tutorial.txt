@@ -7,7 +7,7 @@ Before trying the tutorial, you need to install Jubatus and Jubatus Python clien
 Scenario
 --------
 
-This tutorial uses `News20 <http://people.csail.mit.edu/jrennie/20Newsgroups/>`_ dataset (``20news-bydate.tar.gz``) which is a popular for experiments in text classification.
+This tutorial uses `News20 <http://qwone.com/~jason/20Newsgroups/>`_ dataset (``20news-bydate.tar.gz``), which is  popular for experiments in text classification.
 News20 has 20 different newsgroups and users post their message on a suitable newsgroup.
 News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).
 
@@ -99,8 +99,14 @@ OK, let's download the `tutorial program <https://github.com/jubatus/jubatus-tut
 
   $ git clone https://github.com/jubatus/jubatus-tutorial-python.git
   $ cd jubatus-tutorial-python
-  $ wget http://people.csail.mit.edu/jrennie/20Newsgroups/20news-bydate.tar.gz
+  $ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
   $ tar xvzf 20news-bydate.tar.gz
+
+Reboot `jubaclassifier` with ``config.json`` , which is a configuration file prepared for this tutorial.
+Note: do not use the previous configuration file ( ``pa.json`` ) that was used above.
+
+::
+
   $ jubaclassifier --configpath config.json
 
 Then, run the program.
