@@ -157,7 +157,7 @@ Please add these lines to ``pom.xml`` of your project.
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>[0.5,)</version>
+       <version>[0.6,)</version>
      </dependency>
    </dependencies>
 

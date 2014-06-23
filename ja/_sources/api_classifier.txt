@@ -31,9 +31,24 @@ JSON の各フィールドは以下のとおりである。
 
 .. describe:: parameter
 
-   アルゴリズムに渡すパラーメータを指定する。
+   アルゴリズムに渡すパラメータを指定する。
    ``method`` に応じて渡すパラメータは異なる。
    なお、各アルゴリズムの ``regularization_weight`` パラメータはアルゴリズム中における役割が異なるため、アルゴリズム毎に適切な値は異なることに注意する。
+
+   共通
+     :unlearner:
+        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+        忘却機能を利用しない場合、 このパラメータを省略する。
+        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
+        ここで指定された方法に基づいてラベルを忘却する。
+
+     :unlearner_parameter:
+        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
+        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
+        ここで指定された件数以上のラベルを忘却する。
+
+     これら2つのパラメータは **省略可能** である。
 
    perceptron
      なし
@@ -197,3 +212,11 @@ Methods
       新しいラベルを追加する。
       既に同名のラベルが登録されていた場合失敗する。
       ラベルは ``train`` 実行時にも自動的に追加される。
+
+   .. mpidl:method:: bool delete_label(0: string target_label)
+
+      :param target_label: 消去するラベル名
+      :return:          消去に成功した場合 True ラベルが存在しなかった場合 False
+
+      ラベルを消去する。
+      成功時に True 失敗時に False を返す。

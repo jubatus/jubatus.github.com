@@ -63,7 +63,7 @@ Explanation
 
 **stat.json**
 
-The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.
+The configuration information is given by the JSON unit. Here is the meaning of each JSON field.
 
 * window_size
     Specify the amount of value to be retained. (Integer)

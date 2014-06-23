@@ -25,13 +25,13 @@ JSON の各フィールドは以下のとおりである。
       ``"minhash"``                         MinHash を利用する。 [Ping2010]_
       ``"lsh"``                             Locality Sensitive Hashing を利用する。
       ``"euclid_lsh"``                      Euclid 距離版の LSH を利用する。 [Andoni2005]_
-      ``"nearest_neighbor_recommender:*"``  ``nearest_neighbor`` 実装を利用する。 ``*`` に近傍探索のアルゴリズム名を入れる。
+      ``"nearest_neighbor_recommender"``    ``nearest_neighbor`` 実装を利用する。
       ===================================== ===================================
 
 
 .. describe:: parameter
 
-   アルゴリズムに渡すパラーメータを指定する。
+   アルゴリズムに渡すパラメータを指定する。
    ``method`` に応じて渡すパラメータは異なる。
 
    inverted_index:
@@ -93,10 +93,28 @@ JSON の各フィールドは以下のとおりである。
         レスポンス時間が低下する代わりに、メモリを消費する。
         (Boolean)
 
-   nearest_neighbor:*
-      ``*`` に入れた近傍探索器のパラメータを記述する。
-      詳細は :doc:`api_nearest_neighbor` を参照。
+   nearest_neighbor_recommender
+     :method:
+        近傍探索に使用するアルゴリズムを指定する。
+        使用可能なアルゴリズムの一覧は :doc:`api_nearest_neighbor` を参照のこと。
 
+     :parameter:
+        アルゴリズムに渡すパラメータを指定する。
+        パラメータの一覧は :doc:`api_nearest_neighbor` を参照のこと。
+
+     :unlearner:
+        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+        忘却機能を利用しない場合、 このパラメータを省略する。
+        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
+        ここで指定された方法に基づいてラベルを忘却する。
+
+     :unlearner_parameter:
+        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
+        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
+        ここで指定された件数以上のラベルを忘却する。
+
+     なおこれら2つのパラメータは **省略可能** である。
 
 .. describe:: converter
 

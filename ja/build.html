@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -160,10 +160,10 @@
 サポートされているライブラリのバージョンについては <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Supported-Library-Versions">Jubatus Wiki</a> をご覧ください。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="21%" />
-<col width="11%" />
-<col width="10%" />
-<col width="59%" />
+<col width="17%" />
+<col width="9%" />
+<col width="8%" />
+<col width="65%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">ソフトウェア</th>
@@ -173,47 +173,52 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>msgpack</td>
-<td>&gt;= 0.5.7</td>
+<tr class="row-even"><td>jubatus_core</td>
+<td>&gt;= 0.0.1</td>
 <td>✔</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>jubatus-mpio</td>
+<tr class="row-odd"><td>oniguruma</td>
+<td>&gt;= 5.9</td>
+<td><a class="footnote-reference" href="#id4" id="id2">[1]</a></td>
+<td>jubatus_core に必要。</td>
+</tr>
+<tr class="row-even"><td>re2</td>
+<td>master</td>
+<td><a class="footnote-reference" href="#id4" id="id3">[1]</a></td>
+<td>jubatus_core に必要 (<tt class="docutils literal"><span class="pre">--regexp-library=re2</span></tt> ありでビルドする場合のみ)</td>
+</tr>
+<tr class="row-odd"><td>msgpack</td>
+<td>&gt;= 0.5.7</td>
+<td>✔</td>
+<td>jubatus_core および jubatus に必要。</td>
+</tr>
+<tr class="row-even"><td>jubatus-mpio</td>
 <td>0.4.1</td>
 <td>✔</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>jubatus-msgpack-rpc</td>
+<tr class="row-odd"><td>jubatus-msgpack-rpc</td>
 <td>0.4.1</td>
 <td>✔</td>
 <td>C++ クライアントライブラリが必要である。</td>
 </tr>
-<tr class="row-odd"><td>google-glog</td>
-<td>&gt;= 0.3.3</td>
+<tr class="row-even"><td>log4cxx</td>
+<td>&gt;= 0.10.0</td>
 <td>✔</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>oniguruma</td>
-<td>&gt;= 5.9</td>
-<td><a class="footnote-reference" href="#id4" id="id2">[1]</a></td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>re2</td>
-<td>master</td>
-<td><a class="footnote-reference" href="#id4" id="id3">[1]</a></td>
-<td><tt class="docutils literal"><span class="pre">--enable-re2</span></tt> ありでビルドする場合のみ。</td>
-</tr>
-<tr class="row-even"><td>mecab</td>
+<tr class="row-odd"><td>mecab</td>
 <td>&gt;= 0.99</td>
 <td>&nbsp;</td>
 <td><tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> ありでビルドする場合のみ。</td>
 </tr>
-<tr class="row-odd"><td>ux-trie</td>
+<tr class="row-even"><td>ux-trie</td>
 <td>master</td>
 <td>&nbsp;</td>
 <td><tt class="docutils literal"><span class="pre">--enable-ux</span></tt> ありでビルドする場合のみ。</td>
 </tr>
-<tr class="row-even"><td>zookeeper</td>
+<tr class="row-odd"><td>zookeeper</td>
 <td>&gt;= 3.3</td>
 <td>&nbsp;</td>
 <td><tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt> ありでビルドする場合のみ。
@@ -224,18 +229,18 @@ C クライアントライブラリが必要である。</td>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> 正規表現ライブラリとして、oniguruma または re2 のいずれかが必須です。
-ビルド時に <tt class="docutils literal"><span class="pre">--enable-re2</span></tt> が指定されない限り、oniguruma が使用されます。</td></tr>
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> デフォルトでは oniguruma が jubatus_core の正規表現ライブラリとして使用されます (<tt class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></tt>)。
+jubatus_core のビルド時に <tt class="docutils literal"><span class="pre">--regexp-library=none</span></tt> を指定することで正規表現機能を完全に無効にすることができます。</td></tr>
 </tbody>
 </table>
 <p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
 バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
+<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">oniguruma</a>,
+<a class="reference external" href="http://code.google.com/p/re2/">re2</a>,
 <a class="reference external" href="http://msgpack.org/">msgpack</a>,
 <a class="reference external" href="https://github.com/jubatus/jubatus-mpio">jubatus-mpio</a>,
 <a class="reference external" href="https://github.com/jubatus/jubatus-msgpack-rpc">jubatus-msgpack-rpc</a>,
-<a class="reference external" href="http://code.google.com/p/google-glog/">google-glog</a>,
-<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">oniguruma</a>,
-<a class="reference external" href="http://code.google.com/p/re2/">re2</a>,
+<a class="reference external" href="http://logging.apache.org/log4cxx/">log4cxx</a>,
 <a class="reference external" href="http://code.google.com/p/mecab/">mecab</a>,
 <a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a>,
 <a class="reference external" href="http://zookeeper.apache.org/">zookeeper</a>
@@ -245,7 +250,7 @@ C クライアントライブラリが必要である。</td>
 <p>Ubuntu 12.04 でのビルドを行う例です。</p>
 <div class="highlight-python"><pre>$ sudo apt-get install build-essential git-core pkg-config
 
-$ sudo apt-get install libmsgpack-dev libonig-dev
+$ sudo apt-get install libmsgpack-dev libonig-dev liblog4cxx10-dev
 
 $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
 $ tar xzf jubatus_mpio-0.4.1.tar.gz
@@ -261,18 +266,18 @@ $ cd jubatus_msgpack-rpc-0.4.1
 $ ./configure
 $ make
 $ sudo make install
-$ cd ..
-
-$ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
-$ tar xzf glog-0.3.3.tar.gz
-$ cd glog-0.3.3
-$ ./configure
-$ make
-$ sudo make install
 $ cd ..</pre>
 </div>
 <p>Jubatus のビルドを行います。</p>
-<div class="highlight-python"><pre>$ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
+<div class="highlight-python"><pre>$ wget -O jubatus_core.tar.gz https://github.com/jubatus/jubatus_core/archive/master.tar.gz
+$ tar xzf jubatus_core.tar.gz
+$ cd jubatus_core-master
+$ ./waf configure
+$ ./waf build
+$ sudo ./waf install
+$ sudo ldconfig
+
+$ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
 $ tar xzf jubatus-master.tar.gz
 $ cd jubatus-master
 $ ./waf configure

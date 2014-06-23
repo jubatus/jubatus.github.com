@@ -47,15 +47,15 @@ Jubatus サーバは機械学習の機能を提供する。
 
 .. option:: -l <dirpath>, --logdir <dirpath>
 
-   ログファイルを出力するディレクトリ。
+   ZooKeeper のログファイルを出力するディレクトリ。
 
    指定されていない場合、ログは標準エラーに出力される。
 
-.. option:: -e <level>, --loglevel <level>
+.. option:: -g <log_config>, --log_config <log_config>
 
-   出力するログの下限を指定する。 [0]
+   ログの出力設定を log4cxx 設定ファイル (XML) で指定する。
 
-   INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。
+   指定されていない場合、ログは標準出力に出力される。
 
 .. option:: -f <config>, --configpath <config>
 
@@ -148,7 +148,7 @@ Jubatus Proxy は、分散環境においてクライアントからのリクエ
 
 .. option:: -c <num>, --thread <num>
 
-   RPC リクエストを受け付けるスレッド数。 [16]
+   RPC リクエストを受け付けるスレッド数。 [4]
 
 .. option:: -t <seconds>, --timeout <seconds>
 
@@ -170,15 +170,15 @@ Jubatus Proxy は、分散環境においてクライアントからのリクエ
 
 .. option:: -l <dirpath>, --logdir <dirpath>
 
-   ログファイルを出力するディレクトリ。
+   ZooKeeper のログファイルを出力するディレクトリ。
 
    指定されていない場合、ログは標準エラーに出力される。
 
-.. option:: -e <level>, --loglevel <level>
+.. option:: -g <log_config>, --log_config <log_config>
 
-   出力するログの下限を指定する。 [0]
+   ログの出力設定を log4cxx 設定ファイル (XML) で指定する。
 
-   INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。
+   指定されていない場合、ログは標準出力に出力される。
 
 .. option:: -E <seconds>, --pool_expire <seconds>
 
@@ -217,9 +217,15 @@ jubavisor
 
 .. option:: -l <dirpath>, --logdir <dirpath>
 
-   ログファイルを出力するディレクトリ。
+   ZooKeeper のログファイルを出力するディレクトリ。
 
    指定されていない場合、ログは標準エラーに出力される。
+
+.. option:: -g <log_config>, --log_config <log_config>
+
+   ログの出力設定を log4cxx 設定ファイル (XML) で指定する。
+
+   指定されていない場合、ログは標準出力に出力される。
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -319,9 +325,9 @@ jubactl
 
    ``--cmd start`` を指定した場合のみ有効である。
 
-.. option:: -E <level>, --loglevel <level>
+.. option:: -E <log_config>, --log_config <log_config>
 
-   サーバプロセスの開始時のオプションを指定する (:option:`server -e`).
+   サーバプロセスの開始時のオプションを指定する (:option:`server -g`).
 
    ``--cmd start`` を指定した場合のみ有効である。
 
@@ -357,7 +363,7 @@ jubactl
 
 .. option:: -d, --debug
 
-   デバッグモードで実行する。
+   このオプションは廃止されたため使用されない。
 
 .. option:: -?, --help
 
@@ -410,7 +416,7 @@ jubaconfig
 
 .. option:: -d, --debug
 
-   デバッグモードで実行する。
+   このオプションは廃止されたため使用されない。
 
 .. option:: -?, --help
 

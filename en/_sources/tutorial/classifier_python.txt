@@ -84,7 +84,7 @@ Explanation
 
 **gender.json**
 
-The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.
+The configuration information is given by the JSON unit. Here is the meaning of each JSON field.
 
 * method
     Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.

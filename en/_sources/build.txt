@@ -16,29 +16,30 @@ For supported version of libraries, refer to the `Jubatus Wiki <https://github.c
 =================== ========== ========= ======================================================
 Software            Version    Mandatory Note
 =================== ========== ========= ======================================================
-msgpack             >= 0.5.7   ✔
+jubatus_core        >= 0.0.1   ✔
+oniguruma           >= 5.9     [1]_      Required by jubatus_core.
+re2                 master     [1]_      Required by jubatus_core when configuring with ``--regexp-library=re2``.
+msgpack             >= 0.5.7   ✔         Required by jubatus_core and jubatus.
 jubatus-mpio        0.4.1      ✔
 jubatus-msgpack-rpc 0.4.1      ✔         C++ client library must be installed.
-google-glog         >= 0.3.3   ✔
-oniguruma           >= 5.9     [1]_
-re2                 master     [1]_      Required when configured with ``--enable-re2``.
+log4cxx             >= 0.10.0  ✔
 mecab               >= 0.99              Required when configured with ``--enable-mecab``.
 ux-trie             master               Required when configured with ``--enable-ux``.
 zookeeper           >= 3.3               Required when configured with ``--enable-zookeeper``.
                                          C client library must be installed.
 =================== ========== ========= ======================================================
 
-.. [1] You need either oniguruma or re2 as a regular expression library.
-       oniguruma will be used if ``--enable-re2`` is not specified in build.
+.. [1] By default, oniguruma is used by jubatus_core as a regexp library (``--regexp-library=oniguruma``).
+       You can completely disable regexp feature by configuring jubatus_core with ``--regexp-library=none``.
 
 Depending on your distribution, some libraries may be available as a binary package.
 When binary packages are not available, you also need to build these libraries from source; download them from each website (
+`oniguruma <http://www.geocities.jp/kosako3/oniguruma/index.html>`_,
+`re2 <http://code.google.com/p/re2/>`_,
 `msgpack <http://msgpack.org/>`_,
 `jubatus-mpio <https://github.com/jubatus/jubatus-mpio>`_,
 `jubatus-msgpack-rpc <https://github.com/jubatus/jubatus-msgpack-rpc>`_,
-`google-glog <http://code.google.com/p/google-glog/>`_,
-`oniguruma <http://www.geocities.jp/kosako3/oniguruma/index.html>`_,
-`re2 <http://code.google.com/p/re2/>`_,
+`log4cxx <http://logging.apache.org/log4cxx/>`_,
 `mecab <http://code.google.com/p/mecab/>`_,
 `ux-trie <http://code.google.com/p/ux-trie/>`_,
 `zookeeper <http://zookeeper.apache.org/>`_
@@ -53,7 +54,7 @@ Here's an example on Ubuntu 12.04 systems.
 
   $ sudo apt-get install build-essential git-core pkg-config
 
-  $ sudo apt-get install libmsgpack-dev libonig-dev
+  $ sudo apt-get install libmsgpack-dev libonig-dev liblog4cxx10-dev
 
   $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
   $ tar xzf jubatus_mpio-0.4.1.tar.gz
@@ -71,17 +72,17 @@ Here's an example on Ubuntu 12.04 systems.
   $ sudo make install
   $ cd ..
 
-  $ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
-  $ tar xzf glog-0.3.3.tar.gz
-  $ cd glog-0.3.3
-  $ ./configure
-  $ make
-  $ sudo make install
-  $ cd ..
-
 Now build Jubatus.
 
 ::
+
+  $ wget -O jubatus_core.tar.gz https://github.com/jubatus/jubatus_core/archive/master.tar.gz
+  $ tar xzf jubatus_core.tar.gz
+  $ cd jubatus_core-master
+  $ ./waf configure
+  $ ./waf build
+  $ sudo ./waf install
+  $ sudo ldconfig
 
   $ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
   $ tar xzf jubatus-master.tar.gz

@@ -52,8 +52,7 @@ Syntax of annotations for each methods is as follows.
   Three methods (``cht``, ``broadcast`` or ``random``) are available so that we can cover distribution methods used in typical machine learning tasks.
 
   - ``cht`` means that the request is distributed by using Consistent Hashing.
-    Methods annotated with ``cht`` must take 2 arguments at least.
-    The first argument is a string that represents a cluster name, and the second is a string that is used as a key for consistent hashing.
+    Methods annotated with ``cht`` must take at least 1 argument, which is a string that is used as a key for consistent hashing.
     Replication level of updated data is 2 by default.
     You can change the replication level by specifying like ``#@cht(1)``.
   - ``broadcast`` means that the request will be broadcasted to all servers in the cluster.

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -206,8 +206,7 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 <li>&#8220;ルーティング&#8221; には、Proxy がどのようにリクエストをプロキシするかを定義する。
 <tt class="docutils literal"><span class="pre">cht</span></tt>, <tt class="docutils literal"><span class="pre">broadcast</span></tt>, <tt class="docutils literal"><span class="pre">random</span></tt> の 3 種類が用意されており、これによって、典型的だと思われる機械学習の分散方式をカバーすることができる。<ul>
 <li><tt class="docutils literal"><span class="pre">cht</span></tt> は Consistent Hashing によるリクエストの分散を意味する。
-<tt class="docutils literal"><span class="pre">cht</span></tt> アノテーションがあるメソッドは、2 つ以上の引数を取る必要がある。
-第 1 引数はクラスタ名を表す string 、第 2 引数が cht のキーとなる string である。
+<tt class="docutils literal"><span class="pre">cht</span></tt> アノテーションがあるメソッドは、少なくとも 1 つの引数（cht のキーとなる string）を取る必要がある。
 更新データのレプリケーション多重度 (冗長度) はデフォルトでは 2 である。
 <tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt> のように、更新データのレプリケーション多重度を指定することもできる。</li>
 <li><tt class="docutils literal"><span class="pre">broadcast</span></tt> は全サーバーへリクエストをブロードキャストを意味する。</li>

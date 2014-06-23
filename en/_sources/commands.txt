@@ -47,15 +47,15 @@ Jubatus server provides the machine learning feature.
 
 .. option:: -l <dirpath>, --logdir <dirpath>
 
-   Path of directory to output log files.
+   Path of directory to output ZooKeeper log files.
 
    If not specified, logs are dumped to the standard error.
 
-.. option:: -e <level>, --loglevel <level>
+.. option:: -g <log_config>, --log_config <log_config>
 
-   Minimal level of log to output. [0]
+   Path of the logging configuration file in log4cxx (XML) format.
 
-   INFO, WARNING, ERROR, FATAL corresponds to 0, 1, 2, 3, respectively.
+   If not specified, logs are dumped to the standard output.
 
 .. option:: -f <config>, --configpath <config>
 
@@ -148,7 +148,7 @@ In distributed environment, Jubatus Proxy distributes requests from clients to s
 
 .. option:: -c <num>, --thread <num>
 
-   Number of threads to accept RPC connection. [16]
+   Number of threads to accept RPC connection. [4]
 
 .. option:: -t <seconds>, --timeout <seconds>
 
@@ -170,15 +170,15 @@ In distributed environment, Jubatus Proxy distributes requests from clients to s
 
 .. option:: -l <dirpath>, --logdir <dirpath>
 
-   Path of directory to output log files.
+   Path of directory to output ZooKeeper log files.
 
    If not specified, logs are dumped to the standard error.
 
-.. option:: -e <level>, --loglevel <level>
+.. option:: -g <log_config>, --log_config <log_config>
 
-   Minimal level of log to output. [0]
+   Path of the logging configuration file in log4cxx (XML) format.
 
-   INFO, WARNING, ERROR, FATAL corresponds to 0, 1, 2, 3, respectively.
+   If not specified, logs are dumped to the standard output.
 
 .. option:: -E <seconds>, --pool_expire <seconds>
 
@@ -217,9 +217,15 @@ jubavisor
 
 .. option:: -l <dirpath>, --logdir <dirpath>
 
-   Path of directory to output log files.
+   Path of directory to output ZooKeeper log files.
 
    If not specified, logs are dumped to the standard error.
+
+.. option:: -g <log_config>, --log_config <log_config>
+
+   Path of the logging configuration file in log4cxx (XML) format.
+
+   If not specified, logs are dumped to the standard output.
 
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
@@ -319,9 +325,9 @@ jubactl
 
    Effective only when used with ``--cmd start``.
 
-.. option:: -E <level>, --loglevel <level>
+.. option:: -G <log_config>, --log_config <log_config>
 
-   Option given when starting new server process (:option:`server -e`).
+   Option given when starting new server process (:option:`server -g`).
 
    Effective only when used with ``--cmd start``.
 
@@ -357,7 +363,7 @@ jubactl
 
 .. option:: -d, --debug
 
-   Run in debug mode.
+   This option is deprecated and is no longer be used.
 
 .. option:: -?, --help
 
@@ -410,7 +416,7 @@ In distributed environment, ``jubaconfig`` manages the configuration files of Ju
 
 .. option:: -d, --debug
 
-   Run in debug mode.
+   This option is deprecated and is no longer be used.
 
 .. option:: -?, --help
 

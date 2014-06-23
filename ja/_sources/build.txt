@@ -16,29 +16,30 @@ Jubatus をソースからビルドするには、 ``gcc`` (バージョン 4.4 
 =================== ========== ========= ======================================================
 ソフトウェア        バージョン 必須      備考
 =================== ========== ========= ======================================================
-msgpack             >= 0.5.7   ✔
+jubatus_core        >= 0.0.1   ✔
+oniguruma           >= 5.9     [1]_      jubatus_core に必要。
+re2                 master     [1]_      jubatus_core に必要 (``--regexp-library=re2`` ありでビルドする場合のみ)
+msgpack             >= 0.5.7   ✔         jubatus_core および jubatus に必要。
 jubatus-mpio        0.4.1      ✔
 jubatus-msgpack-rpc 0.4.1      ✔         C++ クライアントライブラリが必要である。
-google-glog         >= 0.3.3   ✔
-oniguruma           >= 5.9     [1]_
-re2                 master     [1]_      ``--enable-re2`` ありでビルドする場合のみ。
+log4cxx             >= 0.10.0  ✔
 mecab               >= 0.99              ``--enable-mecab`` ありでビルドする場合のみ。
 ux-trie             master               ``--enable-ux`` ありでビルドする場合のみ。
 zookeeper           >= 3.3               ``--enable-zookeeper`` ありでビルドする場合のみ。
                                          C クライアントライブラリが必要である。
 =================== ========== ========= ======================================================
 
-.. [1] 正規表現ライブラリとして、oniguruma または re2 のいずれかが必須です。
-       ビルド時に ``--enable-re2`` が指定されない限り、oniguruma が使用されます。
+.. [1] デフォルトでは oniguruma が jubatus_core の正規表現ライブラリとして使用されます (``--regexp-library=oniguruma``)。
+       jubatus_core のビルド時に ``--regexp-library=none`` を指定することで正規表現機能を完全に無効にすることができます。
 
 お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
 バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
+`oniguruma <http://www.geocities.jp/kosako3/oniguruma/index_ja.html>`_,
+`re2 <http://code.google.com/p/re2/>`_,
 `msgpack <http://msgpack.org/>`_,
 `jubatus-mpio <https://github.com/jubatus/jubatus-mpio>`_,
 `jubatus-msgpack-rpc <https://github.com/jubatus/jubatus-msgpack-rpc>`_,
-`google-glog <http://code.google.com/p/google-glog/>`_,
-`oniguruma <http://www.geocities.jp/kosako3/oniguruma/index_ja.html>`_,
-`re2 <http://code.google.com/p/re2/>`_,
+`log4cxx <http://logging.apache.org/log4cxx/>`_,
 `mecab <http://code.google.com/p/mecab/>`_,
 `ux-trie <http://code.google.com/p/ux-trie/>`_,
 `zookeeper <http://zookeeper.apache.org/>`_
@@ -53,7 +54,7 @@ Ubuntu 12.04 でのビルドを行う例です。
 
   $ sudo apt-get install build-essential git-core pkg-config
 
-  $ sudo apt-get install libmsgpack-dev libonig-dev
+  $ sudo apt-get install libmsgpack-dev libonig-dev liblog4cxx10-dev
 
   $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
   $ tar xzf jubatus_mpio-0.4.1.tar.gz
@@ -71,17 +72,17 @@ Ubuntu 12.04 でのビルドを行う例です。
   $ sudo make install
   $ cd ..
 
-  $ wget http://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
-  $ tar xzf glog-0.3.3.tar.gz
-  $ cd glog-0.3.3
-  $ ./configure
-  $ make
-  $ sudo make install
-  $ cd ..
-
 Jubatus のビルドを行います。
 
 ::
+
+  $ wget -O jubatus_core.tar.gz https://github.com/jubatus/jubatus_core/archive/master.tar.gz
+  $ tar xzf jubatus_core.tar.gz
+  $ cd jubatus_core-master
+  $ ./waf configure
+  $ ./waf build
+  $ sudo ./waf install
+  $ sudo ldconfig
 
   $ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
   $ tar xzf jubatus-master.tar.gz

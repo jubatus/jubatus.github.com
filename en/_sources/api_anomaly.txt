@@ -8,7 +8,7 @@ Configuration
 ~~~~~~~~~~~~~
 
 Configuration is given as a JSON file.
-We show each filed below:
+We show each field below:
 
 .. describe:: method
 
@@ -75,6 +75,19 @@ We show each filed below:
         Parameters of the nearest neighbor for nearest neighbor search.
         Refer ``parameter`` in :doc:`api_nearest_neighbor`.
 
+     :unlearner:
+        Specify unlearner strategy.
+        If you don't use unlearner, you should omit this parameter.
+        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
+        Data will be deleted based on strategy specified here.
+
+     :unlearner_parameter:
+        Specify unlearner parameter.
+        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
+        You cannot omit this parameter when you specify ``unlearner``.
+        Data in excess of this number will be deleted automatically.
+
+     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
 
 .. describe:: converter
 

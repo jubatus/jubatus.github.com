@@ -137,7 +137,7 @@ Methods
 
       指定した行 ``id`` に近い行とその距離のリストを (最大で) ``size`` 個返す。
 
-   .. mpidl:method:: list<id_with_score> neighbor_row_from_data(0: datum query, 1: uint size)
+   .. mpidl:method:: list<id_with_score> neighbor_row_from_datum(0: datum query, 1: uint size)
 
       :param query: 近傍探索の対象となる :mpidl:type:`datum`
       :param size:  返す近傍点の個数
@@ -153,7 +153,7 @@ Methods
 
       指定した行 ``id`` に近い行とその類似度のリストを (最大で) ``size`` 個返す。
 
-   .. mpidl:method:: list<id_with_score> similar_row_from_data(0: datum query, 1: int ret_num)
+   .. mpidl:method:: list<id_with_score> similar_row_from_datum(0: datum query, 1: int ret_num)
 
       :param query:   近傍探索の対象となる :mpidl:type:`datum`
       :param ret_num: 返す近傍点の個数

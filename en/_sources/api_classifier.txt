@@ -8,7 +8,7 @@ Configuration
 ~~~~~~~~~~~~~
 
 Configuration is given as a JSON file.
-We show each filed below:
+We show each field below:
 
 .. describe:: method
 
@@ -34,6 +34,24 @@ We show each filed below:
    Specify parameters for the algorithm.
    Its format differs for each ``method``.
    Note that adequate value for ``refularization_weight`` differ for each algorithm.
+
+   Specify parameters for the algorithm.
+   Its format differs for each ``method``.
+
+   common
+     :unlearner:
+        Specify unlearner strategy.
+        If you don't use unlearner function, you can omit this parameter.
+        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
+        Labels will be deleted based on strategy specified here.
+
+     :unlearner_parameter:
+        Specify unlearner parameter.
+        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
+        You cannot omit this parameter if you specify ``unlearner``.
+        Labels in excess of this number will be deleted automatically.
+
+     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
 
    perceptron
      None
@@ -197,3 +215,12 @@ Methods
       Append new label.
       If the label is already exist, it fails.
       New label is add when label found in ``train`` method argument, too.
+
+   .. mpidl:method:: bool delete_label(0: string target_label)
+
+      :param target_label: deleting label name
+      :return:          True if jubatus success to delete label. False if the label is not exists.
+
+      Deleting label.
+      True if jubatus success to delete. False if the label is not exists.
+

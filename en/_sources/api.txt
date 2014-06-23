@@ -31,3 +31,4 @@ See the `Jubatus Wiki <https://github.com/jubatus/jubatus/wiki/Client-Compatibil
    :hidden:
 
    method
+   api_unlearner

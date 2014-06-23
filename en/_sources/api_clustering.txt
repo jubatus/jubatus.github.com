@@ -8,7 +8,7 @@ Configuration
 ~~~~~~~~~~~~~
 
 configuration is given as a JSON file.
-We show each filed below:
+We show each field below:
 
 .. describe:: method
 

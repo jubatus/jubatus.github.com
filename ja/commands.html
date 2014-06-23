@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -210,15 +210,15 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-server-l">
 <tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-server-l" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>ログファイルを出力するディレクトリ。</p>
+<dd><p>ZooKeeper のログファイルを出力するディレクトリ。</p>
 <p>指定されていない場合、ログは標準エラーに出力される。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-server-e">
-<tt class="descname">-e</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-server-e" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>出力するログの下限を指定する。 [0]</p>
-<p>INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。</p>
+<dt id="cmdoption-server-g">
+<tt class="descname">-g</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-server-g" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ログの出力設定を log4cxx 設定ファイル (XML) で指定する。</p>
+<p>指定されていない場合、ログは標準出力に出力される。</p>
 </dd></dl>
 
 <dl class="option">
@@ -326,7 +326,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-proxy-c">
 <tt class="descname">-c</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-proxy-c" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>RPC リクエストを受け付けるスレッド数。 [16]</p>
+<dd><p>RPC リクエストを受け付けるスレッド数。 [4]</p>
 </dd></dl>
 
 <dl class="option">
@@ -357,15 +357,15 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-proxy-l">
 <tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-proxy-l" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>ログファイルを出力するディレクトリ。</p>
+<dd><p>ZooKeeper のログファイルを出力するディレクトリ。</p>
 <p>指定されていない場合、ログは標準エラーに出力される。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-proxy-e">
-<tt class="descname">-e</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-proxy-e" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>出力するログの下限を指定する。 [0]</p>
-<p>INFO, WARNING, ERROR, FATAL はそれぞれ 0, 1, 2, 3 に相当する。</p>
+<dt id="cmdoption-proxy-g">
+<tt class="descname">-g</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-proxy-g" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ログの出力設定を log4cxx 設定ファイル (XML) で指定する。</p>
+<p>指定されていない場合、ログは標準出力に出力される。</p>
 </dd></dl>
 
 <dl class="option">
@@ -413,8 +413,15 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-jubavisor-l">
 <tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-l" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>ログファイルを出力するディレクトリ。</p>
+<dd><p>ZooKeeper のログファイルを出力するディレクトリ。</p>
 <p>指定されていない場合、ログは標準エラーに出力される。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubavisor-g">
+<tt class="descname">-g</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-g" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ログの出力設定を log4cxx 設定ファイル (XML) で指定する。</p>
+<p>指定されていない場合、ログは標準出力に出力される。</p>
 </dd></dl>
 
 <dl class="option">
@@ -552,8 +559,8 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 
 <dl class="option">
 <dt id="cmdoption-jubactl-E">
-<tt class="descname">-E</tt><tt class="descclassname"> &lt;level&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--loglevel</tt><tt class="descclassname"> &lt;level&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-E" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-e"><em class="xref std std-option">server -e</em></a>).</p>
+<tt class="descname">-E</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-E" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-g"><em class="xref std std-option">server -g</em></a>).</p>
 <p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
 </dd></dl>
 
@@ -595,7 +602,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-jubactl-d">
 <tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--debug</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-d" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>デバッグモードで実行する。</p>
+<dd><p>このオプションは廃止されたため使用されない。</p>
 </dd></dl>
 
 <dl class="option">
@@ -671,7 +678,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 <dl class="option">
 <dt id="cmdoption-jubaconfig-d">
 <tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--debug</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaconfig-d" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>デバッグモードで実行する。</p>
+<dd><p>このオプションは廃止されたため使用されない。</p>
 </dd></dl>
 
 <dl class="option">

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -201,8 +201,7 @@ Therefore, we can generate each client with same interface by MessagePack-IDL.</
 <li>The &#8220;routing&#8221; annotation defines how Jubatus Proxy proxy requests.
 Three methods (<tt class="docutils literal"><span class="pre">cht</span></tt>, <tt class="docutils literal"><span class="pre">broadcast</span></tt> or <tt class="docutils literal"><span class="pre">random</span></tt>) are available so that we can cover distribution methods used in typical machine learning tasks.<ul>
 <li><tt class="docutils literal"><span class="pre">cht</span></tt> means that the request is distributed by using Consistent Hashing.
-Methods annotated with <tt class="docutils literal"><span class="pre">cht</span></tt> must take 2 arguments at least.
-The first argument is a string that represents a cluster name, and the second is a string that is used as a key for consistent hashing.
+Methods annotated with <tt class="docutils literal"><span class="pre">cht</span></tt> must take at least 1 argument, which is a string that is used as a key for consistent hashing.
 Replication level of updated data is 2 by default.
 You can change the replication level by specifying like <tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt>.</li>
 <li><tt class="docutils literal"><span class="pre">broadcast</span></tt> means that the request will be broadcasted to all servers in the cluster.</li>

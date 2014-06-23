@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -155,7 +155,7 @@
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>Configuration is given as a JSON file.
-We show each filed below:</p>
+We show each field below:</p>
 <dl class="describe">
 <dt>
 <tt class="descname">method</tt></dt>
@@ -163,8 +163,8 @@ We show each filed below:</p>
 You can use these algorithms.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col width="45%" />
+<col width="55%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Value</th>
@@ -184,8 +184,8 @@ You can use these algorithms.</p>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
 <td>Use Euclid-distance LSH. <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender:*&quot;</span></tt></td>
-<td>Use an implementation of <tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt> of which algorithm name is specified in <tt class="docutils literal"><span class="pre">*</span></tt> .</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender&quot;</span></tt></td>
+<td>Use an implementation of <tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt>.</td>
 </tr>
 </tbody>
 </table>
@@ -284,9 +284,49 @@ Response time is lower though more memory is required.
 </tbody>
 </table>
 </dd>
-<dt>nearest_neighbor:*</dt>
-<dd>Describe the parameter set for the nearest neighbor that is specified in <tt class="docutils literal"><span class="pre">*</span></tt> .
-Please refer to <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> for more details.</dd>
+<dt>nearest_neighbor_recommender</dt>
+<dd><blockquote class="first">
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">method:</th><td class="field-body">Specify algorithm for nearest neighbor.
+Refer to <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> for the list of algorithms available.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><blockquote class="first">
+<div><p>Specify parameters for the algorithm.
+Refer to <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> for the list of parameters.</p>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
+If you don&#8217;t use unlearner, you should omit this parameter.
+You can specify <tt class="docutils literal"><span class="pre">unlearner</span></tt> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+Data will be deleted based on strategy specified here.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
+You can specify <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You cannot omit this parameter when you specify <tt class="docutils literal"><span class="pre">unlearner</span></tt>.
+Data in excess of this number will be deleted automatically.</td>
+</tr>
+</tbody>
+</table>
+<p class="last">note: <tt class="docutils literal"><span class="pre">unlearner</span></tt> and <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <strong>can be omitted</strong> .</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
 </dl>
 </dd></dl>
 

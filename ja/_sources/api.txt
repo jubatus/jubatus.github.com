@@ -31,3 +31,4 @@ Jubatus と Jubatus クライアントのバージョンは異なることがあ
    :hidden:
 
    method
+   api_unlearner

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -154,7 +154,7 @@
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>Configuration is given as a JSON file.
-We show each filed below:</p>
+We show each field below:</p>
 <dl class="describe">
 <dt>
 <tt class="descname">method</tt></dt>
@@ -222,7 +222,7 @@ Refer <tt class="docutils literal"><span class="pre">parameter</span></tt> in <a
 </table>
 </dd>
 <dt>light_lof</dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -248,12 +248,26 @@ The bigger it is,  the more accurately measures are updated, but the longer upda
 Refer <tt class="docutils literal"><span class="pre">method</span></tt> in <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a>.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">Parameters of the nearest neighbor for nearest neighbor search.
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">Parameters of the nearest neighbor for nearest neighbor search.
 Refer <tt class="docutils literal"><span class="pre">parameter</span></tt> in <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
+If you don&#8217;t use unlearner, you should omit this parameter.
+You can specify <tt class="docutils literal"><span class="pre">unlearner</span></tt> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+Data will be deleted based on strategy specified here.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
+You can specify <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You cannot omit this parameter when you specify <tt class="docutils literal"><span class="pre">unlearner</span></tt>.
+Data in excess of this number will be deleted automatically.</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="last">note: <tt class="docutils literal"><span class="pre">unlearner</span></tt> and <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <strong>can be omitted</strong> .</p>
 </dd>
 </dl>
 </dd></dl>

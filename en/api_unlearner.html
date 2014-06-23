@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Architecture &mdash; Jubatus</title>
+    <title>Unlearner &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -43,9 +43,9 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Data Conversion" href="fv_convert.html" />
-    <link rel="prev" title="Documentation" href="documentation.html" /> 
+    <link rel="up" title="Client API" href="api.html" />
+    <link rel="next" title="How to Contribute" href="howtocontribute.html" />
+    <link rel="prev" title="Methods" href="method.html" /> 
 
 <!--
 
@@ -84,13 +84,14 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="fv_convert.html" title="Data Conversion"
+          <a href="howtocontribute.html" title="How to Contribute"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="documentation.html" title="Documentation"
+          <a href="method.html" title="Methods"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -99,15 +100,23 @@
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Unlearner</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="documentation.html"
-                        title="previous chapter">Documentation</a></p>
+  <p class="topless"><a href="method.html"
+                        title="previous chapter">Methods</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="fv_convert.html"
-                        title="next chapter">Data Conversion</a></p>
+  <p class="topless"><a href="howtocontribute.html"
+                        title="next chapter">How to Contribute</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/processes.txt"
+    <li><a href="_sources/api_unlearner.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
           <div id="searchbox" style="display: none">
@@ -135,31 +144,76 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="architecture">
-<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
-<p>Jubatus has a client-server architecture.
-The simplest process configuration is single client process and single server process like following figure.</p>
-<p class="blockdiag">
-<img src="_images/blockdiag-cb07631b3758b32d22e039525fcaa548205eed0d.png" alt="None" width="448" height="120" />
-</p>
-<p>Jubatus can make use of multiple server processes in order to scale out the system.
-By throwing queries to Jubatus Proxy, we can execute machine learning requests (update/analyze) with multiple server processes.</p>
-<p>Jubatus Proxy proxy queries from clients to appropriate server(s).
-Clients work as if it is communicating with just one server.
-In other words, clients don&#8217;t need to know whether it is connecting to a server or a Jubatus Proxy.</p>
-<p>Jubatus Proxy use ZooKeeper to keep-aliving and load-balancing each Jubatus servers.</p>
-<p class="blockdiag">
-<img src="_images/blockdiag-0b47b09550aab64297de2dae0bb42bb96e9c4314.png" alt="None" width="640" height="280" />
-</p>
-<p>Sometimes we want to distribute clients because data size is huge, or source of data is far from server.
-Jubatus can achieve this by creating multiple Jubatus Proxy and assigning different Jubatu Proxy to each client.</p>
-<p class="blockdiag">
-<img src="_images/blockdiag-52c7162452245223d479f0cac422c5f4c9975d30.png" alt="None" width="640" height="280" />
-</p>
-<p>The following picture describes how to run programs used by management process.
-Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;jubatus_classifier_server&#8221; is now called as &#8220;jubaclassifier_proxy&#8221;, &#8220;jubactl&#8221; and &#8220;jubaclassifier&#8221;, respectively.</p>
-<div class="figure">
-<img alt="relationship of processes" src="_images/processes.png" style="width: 90%;" />
+  <div class="section" id="unlearner">
+<h1>Unlearner<a class="headerlink" href="#unlearner" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>This algorithm is used only via configurations of <a class="reference internal" href="api_classifier.html"><em>Classifier</em></a> or <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a> or <a class="reference internal" href="api_anomaly.html"><em>Anomaly</em></a>.</li>
+</ul>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Configuration is given as a JSON file.
+We show each field below:</p>
+<dl class="describe">
+<dt>
+<tt class="descname">unlearner</tt></dt>
+<dd><p>Specify unlearning strategy from below two.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;random&quot;</span></tt></td>
+<td>Delete data randomly</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;lru&quot;</span></tt></td>
+<td>Delete data upon Least-Recently-Updated strategy</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">unlearner_parameter</tt></dt>
+<dd><p>Specify parameters for the algorithm.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Max_size :</th><td class="field-body">Specify the upper-limit of data quantity.
+The smaller it is, the less memory usage, the more fast, the less accurately.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Sticky_pattern :</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify pattern of IDs to exclude from unlearning.
+Patterns can be specified in the same format as in <tt class="docutils literal"><span class="pre">key</span></tt> of rules in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.
+This parameter is only available when using <tt class="docutils literal"><span class="pre">lru</span></tt>.
+This parameter is optional.
+If not specified, no IDs are excluded from unlearning.
+(String)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">example</tt></dt>
+<dd><div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;unlearner&quot;</span> <span class="o">:</span> <span class="s2">&quot;lru&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;unlearner_parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;max_size&quot;</span><span class="o">:</span> <span class="mi">16777216</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -176,13 +230,14 @@ Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="fv_convert.html" title="Data Conversion"
+          <a href="howtocontribute.html" title="How to Contribute"
              >next</a> |</li>
         <li class="right" >
-          <a href="documentation.html" title="Documentation"
+          <a href="method.html" title="Methods"
              >previous</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Client API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

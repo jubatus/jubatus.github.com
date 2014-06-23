@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -155,7 +155,7 @@
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>Configuration is given as a JSON file.
-We show each filed below:</p>
+We show each field below:</p>
 <dl class="describe">
 <dt>
 <tt class="descname">method</tt></dt>
@@ -203,7 +203,29 @@ You can use these algorithms.</p>
 <dd><p>Specify parameters for the algorithm.
 Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.
 Note that adequate value for <tt class="docutils literal"><span class="pre">refularization_weight</span></tt> differ for each algorithm.</p>
+<p>Specify parameters for the algorithm.
+Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
 <dl class="docutils">
+<dt>common</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
+If you don&#8217;t use unlearner function, you can omit this parameter.
+You can specify <tt class="docutils literal"><span class="pre">unlearner</span></tt> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+Labels will be deleted based on strategy specified here.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
+You can specify <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You cannot omit this parameter if you specify <tt class="docutils literal"><span class="pre">unlearner</span></tt>.
+Labels in excess of this number will be deleted automatically.</td>
+</tr>
+</tbody>
+</table>
+<p class="last">note: <tt class="docutils literal"><span class="pre">unlearner</span></tt> and <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <strong>can be omitted</strong> .</p>
+</dd>
 <dt>perceptron</dt>
 <dd>None</dd>
 <dt>PA</dt>
@@ -469,6 +491,27 @@ bool <tt class="descname">set_label</tt><big>(</big>0: string <em>new_label</em>
 <p>Append new label.
 If the label is already exist, it fails.
 New label is add when label found in <tt class="docutils literal"><span class="pre">train</span></tt> method argument, too.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="classifier::delete_label__s">
+bool <tt class="descname">delete_label</tt><big>(</big>0: string <em>target_label</em><big>)</big><a class="headerlink" href="#classifier::delete_label__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>target_label</strong> &#8211; deleting label name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if jubatus success to delete label. False if the label is not exists.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Deleting label.
+True if jubatus success to delete. False if the label is not exists.</p>
 </dd></dl>
 
 </dd></dl>

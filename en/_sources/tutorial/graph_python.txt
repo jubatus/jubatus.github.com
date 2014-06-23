@@ -164,7 +164,7 @@ Explanation
 
 **train_route.json**
 
-The configuration information is given by the JSON unit. Here is the meaning of each JSON filed.
+The configuration information is given by the JSON unit. Here is the meaning of each JSON field.
 
 * method
     Specify the algorithm used in graph mining. Currently, In this example, we use the graph without indexing, so we specify it "graph_wo_index".

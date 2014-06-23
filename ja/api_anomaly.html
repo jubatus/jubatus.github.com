@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -185,7 +185,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">parameter</tt></dt>
-<dd><p>アルゴリズムに渡すパラーメータを指定する。
+<dd><p>アルゴリズムに渡すパラメータを指定する。
 <tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
 <dt>lof</dt>
@@ -215,7 +215,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a> で説明される <tt class="docutils literal"><span class="pre">method</span></tt> を指定する。</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">近傍探索に利用するレコメンダーに渡すパラーメータを指定する。
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">近傍探索に利用するレコメンダーに渡すパラメータを指定する。
 <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a> で説明される <tt class="docutils literal"><span class="pre">parameter</span></tt> を指定する。</p>
 </td>
 </tr>
@@ -223,7 +223,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </table>
 </dd>
 <dt>light_lof</dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -249,12 +249,26 @@ JSON の各フィールドは以下のとおりである。</p>
 <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> で説明される <tt class="docutils literal"><span class="pre">method</span></tt> を指定する。</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
 <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> で説明される <tt class="docutils literal"><span class="pre">parameter</span></tt> を指定する。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能が不要な場合、このパラメータは省略する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <tt class="docutils literal"><span class="pre">unlearner</span></tt> を指定する。
+ここで指定された方法に基づいてデータを忘却する。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> を指定する。
+ここで指定された件数以上のデータは自動的に削除される。
+<tt class="docutils literal"><span class="pre">unlearner</span></tt> を指定する際はこの <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> の指定は必須である。</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="last">なお <tt class="docutils literal"><span class="pre">unlearner</span></tt> と <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> のパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 </dl>
 </dd></dl>

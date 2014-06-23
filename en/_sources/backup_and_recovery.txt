@@ -36,7 +36,7 @@ The name of saved file is specified with following format:
   ========= ==============================================================
   ${IPADDR} Ipv4 address which is used for RPC requests by Jubatus server
   ${PORT}   Port number which is used for RPC requests by Jubatus server
-  ${TYPE}   "jubatus"
+  ${TYPE}   Server type (classifier, recommender, ...)
   ${ID}     | Argument of ``save`` method
             | 1-100 charactors composed of a-zA-Z0-9\_-
   ========= ==============================================================

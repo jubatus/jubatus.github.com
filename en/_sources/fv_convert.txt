@@ -528,7 +528,14 @@ We will explain how to make plugins later. In this section, we will describe how
 
 How to specify plugin is same in both filters and extractors.
 In CLASS_types (CLASS is either ``string`` or ``num``), we should specify "dynamic" in "method", a path to a .so file in "path" and the name of function defined in the plugin in "function".
-Path to the plugin may either be a full path, or a file name if the plugin is in the default plugin directory (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib64/jubatus/plugin`` in most cases).
+We have two methods to specify a plugin path.
+When the path contains '/' character, it is regarded as a relative or absolute path.
+In this case, Jubatus try to load it from the relative path from the current path, or the absolute path.
+When the path doesn't contain '/' character, Jubatus try to load it from two load path:
+
+1. A directory specified with an environment variable ``JUBATUS_PLUGIN_PATH``.
+2. The default plugin directory set in build step (``$PREFIX/lib/jubatus/plugin`` or ``$PREFIX/lib64/jubatus/plugin`` in most cases).
+
 Argument of the function is specified by other parameters.
 
 In Jubatus we can make use of two pre-defined plugins which aim to extraction of features from strings.

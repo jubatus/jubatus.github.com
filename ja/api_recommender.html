@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -164,8 +164,8 @@ JSON の各フィールドは以下のとおりである。</p>
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="32%" />
-<col width="68%" />
+<col width="45%" />
+<col width="55%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">設定値</th>
@@ -185,8 +185,8 @@ JSON の各フィールドは以下のとおりである。</p>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
 <td>Euclid 距離版の LSH を利用する。 <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender:*&quot;</span></tt></td>
-<td><tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt> 実装を利用する。 <tt class="docutils literal"><span class="pre">*</span></tt> に近傍探索のアルゴリズム名を入れる。</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt> 実装を利用する。</td>
 </tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">parameter</tt></dt>
-<dd><p>アルゴリズムに渡すパラーメータを指定する。
+<dd><p>アルゴリズムに渡すパラメータを指定する。
 <tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
 <dt>inverted_index:</dt>
@@ -285,9 +285,32 @@ JSON の各フィールドは以下のとおりである。</p>
 </tbody>
 </table>
 </dd>
-<dt>nearest_neighbor:*</dt>
-<dd><tt class="docutils literal"><span class="pre">*</span></tt> に入れた近傍探索器のパラメータを記述する。
-詳細は <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> を参照。</dd>
+<dt>nearest_neighbor_recommender</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">method:</th><td class="field-body">近傍探索に使用するアルゴリズムを指定する。
+使用可能なアルゴリズムの一覧は <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> を参照のこと。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body">アルゴリズムに渡すパラメータを指定する。
+パラメータの一覧は <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> を参照のこと。</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能を利用しない場合、 このパラメータを省略する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <tt class="docutils literal"><span class="pre">unlearner</span></tt> を指定する。
+ここで指定された方法に基づいてラベルを忘却する。</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> を指定する。
+<tt class="docutils literal"><span class="pre">unlearner</span></tt> を設定する場合、 <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> の指定は必須である。
+ここで指定された件数以上のラベルを忘却する。</td>
+</tr>
+</tbody>
+</table>
+<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
+</dd>
 </dl>
 </dd></dl>
 
