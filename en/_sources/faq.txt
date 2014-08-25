@@ -174,15 +174,24 @@ Anomaly detection
 
  You can control the trade-off between speed and accuracy by using the following techniques. 
 
- - 1: Modify baseline euclid LSH with lower accuracy and faster computation
+ - 1: use ``unlearner``
+
+  From version 0.6.0, users can use ``unlearner`` to set upper limit on stored data.
+  If more data than limit is regestered, Jubatus will delete old data.
+  It will improve the speed of Jubatus at the cost of accuracy.
+  You can select unlearning strategy from ``lru`` or ``random``.
+  ``lru`` will delete old data in the order of registration.
+  ``random`` will delete old data with random.
+
+ - 2: Modify baseline euclid LSH with lower accuracy and faster computation
 
   By reducing the parameters values of (euclid) LSH such as ``lsh_num``, ``table_num``, ``probe_num``, or ``bin_width``, you can make neighbor nearest computation faster with lower accuracy, in which some more nearest samples might be ignored. This may affect the final anomaly score in comparison with the ground truth in which everything is computed in batch-processing manner.  
 
- - 2: Use ``calc_score`` for just obtaining anomaly score
+ - 3: Use ``calc_score`` for just obtaining anomaly score
 
   ``add`` function really appends the sample to the nearest neighbor storage, update the LOF model, and calculate its LOF value. On the other hand, ``calc_score`` function just computes an LOF value for the input sample based on the current LOF model, which works much faster. If you can assume that the data distribution is almost stable, we recommend you to use only ``add`` at the early stage to make a valid LOF model as early as possible, say, until 1000 samples are stored in the storage. Then you can swith two functions, with more freuquent ``calc_score``. For example, it would work fine and much faster with the ratio ``add`` : ``calc_score`` = 1:100.
 
- - 3: Decrease ``reverse_nearest_neighbor_num``
+ - 4: Decrease ``reverse_nearest_neighbor_num``
 
   It also reduces the computation time for LOF. However, the number should not be smaller than ``nearest_neighbor_num`` .
 

@@ -30,6 +30,8 @@ We show each field below:
      Specify the upper-limit of data quantity.
      The smaller it is, the less memory usage, the more fast, the less accurately.
 
+     * range of value: 0 < ``max_size`` < 2147483647
+
    :sticky_pattern:
      Specify pattern of IDs to exclude from unlearning.
      Patterns can be specified in the same format as in ``key`` of rules in :doc:`fv_convert`.
@@ -38,7 +40,18 @@ We show each field below:
      If not specified, no IDs are excluded from unlearning.
      (String)
 
+   :seed:
+     Specify random seed when you use ``random`` for unlearning strategy.
+     If you set the same seed and do the same learn, you will get the same result.
+     It may be useful when you examine the result repeatedly.
+     If not specified, system clock is used as seed parameter.
+     So you will get different result each experiment.
+
+     * range of value: 0 < ``seed`` < 9223372036854775808
+
 .. describe:: example
+
+   unlearning based on Least-Recently-Used(LRU)
 
    .. code-block:: javascript
 
@@ -46,5 +59,17 @@ We show each field below:
         "unlearner" : "lru",
         "unlearner_parameter" : {
           "max_size": 16777216
+        }
+      }
+
+   unlearning based on random
+
+   .. code-block:: javascript
+
+      {
+        "unlearner" : "random",
+        "unlearner_parameter" : {
+          "max_size": 16777216,
+          "seed": 9193
         }
       }

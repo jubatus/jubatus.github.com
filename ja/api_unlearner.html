@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.1',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -196,12 +196,22 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Sticky_pattern :</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却の対象外とする ID のパターンを指定する。
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">忘却の対象外とする ID のパターンを指定する。
 パターンの指定方法は <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> の適用規則で使用される <tt class="docutils literal"><span class="pre">key</span></tt> と同様である。
 <tt class="docutils literal"><span class="pre">lru</span></tt> 利用時のみ指定できる。
 このパラメータは省略可能である。
 省略した場合は、すべての ID が忘却の対象となる。
 (String)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Seed :</th><td class="field-body"><p class="first">アルゴリズムとして <tt class="docutils literal"><span class="pre">random</span></tt> を選択した際に、内部で使用する乱数のシードを指定できる。
+同一のシードを設定し、同一の順序で学習をさせた際には同一の順序で忘却が行われるため、実験等の際に再現性を確保できる。
+省略した場合はシステムクロックがシードとして与えられる。そのため実験の再現性は保証されない。</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">seed</span></tt> &lt; 9223372036854775808</li>
+</ul>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -211,10 +221,21 @@ JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <tt class="descname">例</tt></dt>
-<dd><div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<dd><p>Least-Recently-Used(LRU)に基づいた忘却</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;unlearner&quot;</span> <span class="o">:</span> <span class="s2">&quot;lru&quot;</span><span class="p">,</span>
   <span class="s2">&quot;unlearner_parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;max_size&quot;</span><span class="o">:</span> <span class="mi">16777216</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>乱数に基づいた忘却</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;unlearner&quot;</span> <span class="o">:</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;unlearner_parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;max_size&quot;</span><span class="o">:</span> <span class="mi">16777216</span><span class="p">,</span>
+    <span class="s2">&quot;seed&quot;</span><span class="o">:</span> <span class="mi">9193</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

@@ -41,7 +41,16 @@ JSON の各フィールドは以下のとおりである。
      省略した場合は、すべての ID が忘却の対象となる。
      (String)
 
+   :seed:
+     アルゴリズムとして ``random`` を選択した際に、内部で使用する乱数のシードを指定できる。
+     同一のシードを設定し、同一の順序で学習をさせた際には同一の順序で忘却が行われるため、実験等の際に再現性を確保できる。
+     省略した場合はシステムクロックがシードとして与えられる。そのため実験の再現性は保証されない。
+
+      * 値域: 0 < ``seed`` < 9223372036854775808
+
 .. describe:: 例
+
+   Least-Recently-Used(LRU)に基づいた忘却
 
    .. code-block:: javascript
 
@@ -49,5 +58,17 @@ JSON の各フィールドは以下のとおりである。
         "unlearner" : "lru",
         "unlearner_parameter" : {
           "max_size": 16777216
+        }
+      }
+
+   乱数に基づいた忘却
+
+   .. code-block:: javascript
+
+      {
+        "unlearner" : "random",
+        "unlearner_parameter" : {
+          "max_size": 16777216,
+          "seed": 9193
         }
       }

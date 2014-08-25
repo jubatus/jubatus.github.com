@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.1',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -319,17 +319,25 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
 <blockquote>
 <div><p>速度と正確さのトレードオフは、以下のような技法で調整することができます。</p>
 <ul class="simple">
-<li>1: euclid LSH 側のパラメタを低精度・高速演算するように変更する</li>
+<li>1: <tt class="docutils literal"><span class="pre">unlearner</span></tt> を利用する</li>
+</ul>
+<blockquote>
+<div>バージョン 0.6.0 から、anomalyにて <tt class="docutils literal"><span class="pre">unlearner</span></tt> が利用できるようになりました。
+これはJubatusが保持するデータの件数に上限を設け、そこを超えるデータが登録された際に過去のデータを消去していくものです。
+これにより、幾らかの精度と引き換えに速度を高める事ができます。
+<tt class="docutils literal"><span class="pre">unlearner</span></tt> のアルゴリズムは登録順に消去していく <tt class="docutils literal"><span class="pre">lru</span></tt> もしくはランダムに消去していく <tt class="docutils literal"><span class="pre">random</span></tt> が利用可能です。</div></blockquote>
+<ul class="simple">
+<li>2: euclid LSH 側のパラメタを低精度・高速演算するように変更する</li>
 </ul>
 <blockquote>
 <div><tt class="docutils literal"><span class="pre">lsh_num</span></tt>, <tt class="docutils literal"><span class="pre">table_num</span></tt>, <tt class="docutils literal"><span class="pre">probe_num</span></tt>, <tt class="docutils literal"><span class="pre">bin_width</span></tt> のような (euclid) LSH のパラメタを小さくすることで、近傍探索の演算が高速になります。ただし、より近傍にあるはずのサンプルが無視される場合があり、バッチ処理のような方式で計算された異常値スコアと比較して精度に影響が出ることがあります。</div></blockquote>
 <ul class="simple">
-<li>2: 異常値だけを得たい場合は <tt class="docutils literal"><span class="pre">calc_score</span></tt> を使用する</li>
+<li>3: 異常値だけを得たい場合は <tt class="docutils literal"><span class="pre">calc_score</span></tt> を使用する</li>
 </ul>
 <blockquote>
 <div><tt class="docutils literal"><span class="pre">add</span></tt> 関数は実際に近傍探索ストレージにサンプルを追加し、LOF モデルを更新し、そして LOF 値を計算します。一方、 <tt class="docutils literal"><span class="pre">calc_score</span></tt> 関数は現在の LOF モデルを元に LOF 値を計算するため、高速に動作します。データの分散がほぼ安定していると仮定できるのであれば、初期段階にのみ (例えば最初の 1000 サンプルがストレージに格納されるまで) <tt class="docutils literal"><span class="pre">add</span></tt> を使用することで、正しい LOF モデルを高速に構築することができます。その後、 <tt class="docutils literal"><span class="pre">add</span></tt> と <tt class="docutils literal"><span class="pre">calc_score</span></tt> を切り替えながら (<tt class="docutils literal"><span class="pre">calc_score</span></tt> をより頻繁に) 使用します。例えば、 <tt class="docutils literal"><span class="pre">add</span></tt> と <tt class="docutils literal"><span class="pre">calc_score</span></tt> の割合を 1:100 程度にしても高速かつ良好に動作するでしょう。</div></blockquote>
 <ul class="simple">
-<li>3: <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt> を小さくする</li>
+<li>4: <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt> を小さくする</li>
 </ul>
 <blockquote>
 <div>LOF の計算時間を短縮することができます。ただし、 <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt> より小さい値にすることはできません。</div></blockquote>
