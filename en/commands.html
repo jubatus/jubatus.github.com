@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.2',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -112,6 +112,7 @@
 </li>
 <li><a class="reference internal" href="#utilities">Utilities</a><ul>
 <li><a class="reference internal" href="#jubaconv">jubaconv</a></li>
+<li><a class="reference internal" href="#jubadump">jubadump</a></li>
 <li><a class="reference internal" href="#jenerator">jenerator</a></li>
 </ul>
 </li>
@@ -565,7 +566,7 @@ MIX strategies available may differ depending on the engine.</p>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-X">
-<tt class="descname">-X</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-X" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-X</tt><tt class="descclassname"> &lt;mixer&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"> &lt;mixer&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-X" title="Permalink to this definition">¶</a></dt>
 <dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-x"><em class="xref std std-option">server -x</em></a>).</p>
 <p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
 </dd></dl>
@@ -739,8 +740,26 @@ age@num: 31
 </dd></dl>
 
 </div>
+<div class="section" id="jubadump">
+<span id="id2"></span><h3>jubadump<a class="headerlink" href="#jubadump" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">jubadump</span></tt> is a tools to convert Jubatus model files saved using <tt class="docutils literal"><span class="pre">save</span></tt> RPC to JSON.</p>
+<p>Currently, only <tt class="docutils literal"><span class="pre">classifier</span></tt> and <tt class="docutils literal"><span class="pre">inverted_index</span></tt> of <tt class="docutils literal"><span class="pre">recommender</span></tt> are supported.</p>
+<dl class="option">
+<dt id="cmdoption-jubadump-i">
+<tt class="descname">-i</tt><tt class="descclassname"> &lt;file&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--input</tt><tt class="descclassname"> &lt;file&gt;</tt><a class="headerlink" href="#cmdoption-jubadump-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path of the model file to convert.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubadump-t">
+<tt class="descname">-t</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubadump-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format of the input file [classifier]</p>
+<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> must be one of <tt class="docutils literal"><span class="pre">classifier</span></tt> or <tt class="docutils literal"><span class="pre">inverted_index</span></tt>.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="jenerator">
-<span id="id2"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> generates implementation of proxy, server template and C++ client from extended MessagePack-IDL file. See <a class="reference internal" href="server.html"><em>Using Code Generators</em></a> for details.</p>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> is not installed by default (see <tt class="docutils literal"><span class="pre">tools/jenerator</span></tt> in the source tree).</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] idl ...

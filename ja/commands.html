@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.2',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -113,6 +113,7 @@
 </li>
 <li><a class="reference internal" href="#id2">ユーティリティ</a><ul>
 <li><a class="reference internal" href="#jubaconv">jubaconv</a></li>
+<li><a class="reference internal" href="#jubadump">jubadump</a></li>
 <li><a class="reference internal" href="#jenerator">jenerator</a></li>
 </ul>
 </li>
@@ -566,7 +567,7 @@ ZooKeeper が 1 台のみの構成の場合は、カンマを含めず単に <tt
 
 <dl class="option">
 <dt id="cmdoption-jubactl-X">
-<tt class="descname">-X</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-X" title="この定義へのパーマリンク">¶</a></dt>
+<tt class="descname">-X</tt><tt class="descclassname"> &lt;mixer&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"> &lt;mixer&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-X" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>サーバプロセスの開始時のオプションを指定する (<a class="reference internal" href="#cmdoption-server-x"><em class="xref std std-option">server -x</em></a>).</p>
 <p><tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt> を指定した場合のみ有効である。</p>
 </dd></dl>
@@ -740,8 +741,26 @@ age@num: 31
 </dd></dl>
 
 </div>
+<div class="section" id="jubadump">
+<span id="id4"></span><h3>jubadump<a class="headerlink" href="#jubadump" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">jubadump</span></tt> は <tt class="docutils literal"><span class="pre">save</span></tt> RPC によって保存された Jubatus のモデルファイルの内容を JSON 形式に変換するツールである。</p>
+<p>現在、 <tt class="docutils literal"><span class="pre">classifier</span></tt> および <tt class="docutils literal"><span class="pre">recomender</span></tt> の <tt class="docutils literal"><span class="pre">inverted_index</span></tt> のみがサポートされている。</p>
+<dl class="option">
+<dt id="cmdoption-jubadump-i">
+<tt class="descname">-i</tt><tt class="descclassname"> &lt;file&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--input</tt><tt class="descclassname"> &lt;file&gt;</tt><a class="headerlink" href="#cmdoption-jubadump-i" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>変換するモデルファイルへのパスを指定する。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubadump-t">
+<tt class="descname">-t</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubadump-t" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>入力ファイルのフォーマット。 [classifier]</p>
+<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> には <tt class="docutils literal"><span class="pre">classifier</span></tt> または <tt class="docutils literal"><span class="pre">inverted_index</span></tt> のいずれかを指定する。</p>
+</dd></dl>
+
+</div>
 <div class="section" id="jenerator">
-<span id="id4"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<span id="id5"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> は拡張 MessagePack-IDL ファイルから、Proxy の実装、サーバのテンプレート、C++ クライアントを生成する。詳細は <a class="reference internal" href="server.html"><em>コード生成器の利用</em></a> を参照すること。</p>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> はデフォルトではインストールされない (ソースの <tt class="docutils literal"><span class="pre">tools/jenerator</span></tt> ディレクトリを参照)。</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] &lt;idl-file&gt; ...
