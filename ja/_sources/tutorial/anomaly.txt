@@ -1,5 +1,5 @@
-Anomaly
-=================
+Anomaly チュートリアル
+==============================
 
 ここではJubatusの外れ値検知である、jubaanomalyを使用した、Jubatus Clientの使い方を説明します。
 

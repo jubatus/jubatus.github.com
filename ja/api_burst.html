@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Burst &mdash; Jubatus</title>
+    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.6.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="index.html" />
+    <link rel="up" title="Client API" href="api.html" />
+    <link rel="next" title="Stat" href="api_stat.html" />
+    <link rel="prev" title="Clustering" href="api_clustering.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="api_stat.html" title="Stat"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="api_clustering.html" title="Clustering"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">Client API</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Burst</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="api_clustering.html"
+                        title="前の章へ">Clustering</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="api_stat.html"
+                        title="次の章へ">Stat</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api_burst.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="burst">
+<h1>Burst<a class="headerlink" href="#burst" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul class="simple">
+<li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/burst.idl">IDL 定義</a> を参照してください。</li>
+</ul>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>設定は単体の JSON で与えられる。
+JSON の各フィールドは以下のとおりである。</p>
+<dl class="describe">
+<dt>
+<tt class="descname">method</tt></dt>
+<dd><p>バースト検知に使用するアルゴリズムを指定する。
+以下のアルゴリズムを指定できる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">設定値</th>
+<th class="head">手法</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;burst&quot;</span></tt></td>
+<td>Kleinberg のバースト検知を利用する。</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<tt class="descname">parameter</tt></dt>
+<dd><p>アルゴリズムに渡すパラメータを指定する。
+<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
+<dl class="docutils">
+<dt>burst</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">window_batch_size:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">ウィンドウに含まれるバッチの数。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">window_batch_size</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">batch_interval:</th><td class="field-body"><p class="first">1つのバッチの(位置の)幅。
+(Double)</p>
+<ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">batch_interval</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">max_reuse_batch_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">バッチの最大の再利用数。
+値が大きいほど、計算量を削減することができる。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 0 &lt;= <tt class="docutils literal"><span class="pre">max_reuse_batch_num</span></tt> &lt;= <tt class="docutils literal"><span class="pre">window_batch_size</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">costcut_threshold:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">コストカットの閾値。
+値が小さいほど、計算量を削減することができる。
+<tt class="docutils literal"><span class="pre">0</span></tt> 以下の値を指定すると、コストカットを行わない (DBL_MAX) となる。
+(Double)</p>
+<ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">costcut_threshold</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">result_window_rotate_size:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">現在のウィンドウを含めた、メモリ上に保持するウィンドウの総数。
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">result_window_rotate_size</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="message">
+<dt id="keyword_with_params">
+<em class="property">message </em><tt class="descname">keyword_with_params</tt><a class="headerlink" href="#keyword_with_params" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バースト検知の対象となるキーワードとそのパラメタを表す。</p>
+<dl class="member">
+<dt id="keyword_with_params::keyword__s">
+0: string <tt class="descname">keyword</tt><a class="headerlink" href="#keyword_with_params::keyword__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バースト検知対象のキーワードを表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="keyword_with_params::scaling_param__double">
+1: double <tt class="descname">scaling_param</tt><a class="headerlink" href="#keyword_with_params::scaling_param__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>このキーワードに適用されるスケーリングパラメタを表す。</p>
+<ul class="simple">
+<li>値域: 1 &lt; <tt class="docutils literal"><span class="pre">scaling_param</span></tt></li>
+</ul>
+</dd></dl>
+
+<dl class="member">
+<dt id="keyword_with_params::gamma__double">
+2: double <tt class="descname">gamma</tt><a class="headerlink" href="#keyword_with_params::gamma__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>このキーワードに適用されるγ値を表す。
+大きい値に設定するほど、バースト検知の感度が低くなる。</p>
+<ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">gamma</span></tt></li>
+</ul>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">keyword_with_params</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">keyword</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">scaling_param</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="kt">double</span> <span class="n">gamma</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="message">
+<dt id="batch">
+<em class="property">message </em><tt class="descname">batch</tt><a class="headerlink" href="#batch" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>一つのバッチ区間内におけるバースト検知結果を表す。</p>
+<dl class="member">
+<dt id="batch::all_data_count__i">
+0: int <tt class="descname">all_data_count</tt><a class="headerlink" href="#batch::all_data_count__i" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バッチに登録された全文書の数を表す。</p>
+<ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">all_data_count</span></tt></li>
+</ul>
+</dd></dl>
+
+<dl class="member">
+<dt id="batch::relevant_data_count__i">
+1: int <tt class="descname">relevant_data_count</tt><a class="headerlink" href="#batch::relevant_data_count__i" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バッチに登録された文書のうち、キーワードを含む文書の数を表す。</p>
+<ul class="simple">
+<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">all_data_count</span></tt> &lt;= <tt class="docutils literal"><span class="pre">relevant_data_count</span></tt></li>
+</ul>
+</dd></dl>
+
+<dl class="member">
+<dt id="batch::burst_weight__double">
+2: double <tt class="descname">burst_weight</tt><a class="headerlink" href="#batch::burst_weight__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バースト具合の大きさ (バーストレベル、バッチ weight) を表す。
+バーストレベルは相対的な値であり、複数のキーワード間で相互に値を比較することはできない。</p>
+<ul class="simple">
+<li>値域: 0 &lt;= <tt class="docutils literal"><span class="pre">burst_weight</span></tt></li>
+</ul>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">batch</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="kt">int</span> <span class="n">all_data_count</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">int</span> <span class="n">relevant_data_count</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="kt">double</span> <span class="n">burst_weight</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="message">
+<dt id="window">
+<em class="property">message </em><tt class="descname">window</tt><a class="headerlink" href="#window" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バースト検知の結果を表す。</p>
+<dl class="member">
+<dt id="window::start_pos__double">
+0: double <tt class="descname">start_pos</tt><a class="headerlink" href="#window::start_pos__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>このウィンドウの開始位置を表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="window::batches__l:batch:">
+1: list&lt;<a class="reference internal" href="#batch" title="batch">batch</a>&gt; <tt class="descname">batches</tt><a class="headerlink" href="#window::batches__l:batch:" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>このウィンドウを構成するバッチの集合を表す。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">window</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="kt">double</span> <span class="n">start_pos</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">batch</span><span class="o">&gt;</span> <span class="n">batches</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="message">
+<dt id="document">
+<em class="property">message </em><tt class="descname">document</tt><a class="headerlink" href="#document" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>バースト検知の対象とする文書データを表す。</p>
+<dl class="member">
+<dt id="document::pos__double">
+0: double <tt class="descname">pos</tt><a class="headerlink" href="#document::pos__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>文書データの時系列的な位置 (一般的には時間) を表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="document::text__s">
+1: string <tt class="descname">text</tt><a class="headerlink" href="#document::text__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>文書データの内容を表す。
+文書データの内容が登録済みのキーワードを含むか否かは部分一致により判定される。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">document</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="kt">double</span> <span class="n">pos</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">text</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="service">
+<dt>
+<em class="property">service </em><tt class="descname">burst</tt></dt>
+<dd><dl class="method">
+<dt id="burst::add_documents__l:document:">
+int <tt class="descname">add_documents</tt><big>(</big>0: list&lt;<a class="reference internal" href="#document" title="document">document</a>&gt; <em>data</em><big>)</big><a class="headerlink" href="#burst::add_documents__l:document:" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> &#8211; 登録する文書のリスト</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">登録に成功した件数 (すべて成功すれば <tt class="docutils literal"><span class="pre">data</span></tt> の長さに等しい)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>バースト検知の対象とする文書を登録する。
+この API は <tt class="docutils literal"><span class="pre">document</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
+<p>ドキュメントの追加を行う前に、予めキーワードを <tt class="docutils literal"><span class="pre">add_keyword</span></tt> メソッドで登録しておく必要がある。</p>
+<p>現在のウィンドウから外れた位置(<tt class="docutils literal"><span class="pre">pos</span></tt>)を持つ文書は登録することができない。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::get_result__s">
+<a class="reference internal" href="#window" title="window">window</a> <tt class="descname">get_result</tt><big>(</big>0: string <em>keyword</em><big>)</big><a class="headerlink" href="#burst::get_result__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyword</strong> &#8211; 結果を取得するキーワード</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">バースト検知結果</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>登録済みのキーワード <tt class="docutils literal"><span class="pre">keyword</span></tt> に対する、現在のウィンドウにおけるバースト検知結果を取得する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::get_result_at__s.double">
+<a class="reference internal" href="#window" title="window">window</a> <tt class="descname">get_result_at</tt><big>(</big>0: string <em>keyword</em>, 1: double <em>pos</em><big>)</big><a class="headerlink" href="#burst::get_result_at__s.double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyword</strong> &#8211; 結果を取得するキーワード</li>
+<li><strong>pos</strong> &#8211; 位置</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">バースト検知結果</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>登録済みのキーワード <tt class="docutils literal"><span class="pre">keyword</span></tt> に対する、指定された位置 <tt class="docutils literal"><span class="pre">pos</span></tt> におけるバースト検知結果を取得する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::get_all_bursted_results">
+map&lt;string, <a class="reference internal" href="#window" title="window">window</a>&gt; <tt class="descname">get_all_bursted_results</tt><big>(</big><big>)</big><a class="headerlink" href="#burst::get_all_bursted_results" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">キーワードとバースト検知結果の組</td>
+</tr>
+</tbody>
+</table>
+<p>すべてのキーワードに対する、現在のウィンドウにおけるバースト検知結果を取得する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::get_all_bursted_results_at__double">
+map&lt;string, <a class="reference internal" href="#window" title="window">window</a>&gt; <tt class="descname">get_all_bursted_results_at</tt><big>(</big>0: double <em>pos</em><big>)</big><a class="headerlink" href="#burst::get_all_bursted_results_at__double" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>pos</strong> &#8211; 位置</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">キーワードとバースト検知結果の組</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>すべてのキーワードに対する、指定された位置 <tt class="docutils literal"><span class="pre">pos</span></tt> におけるバースト検知結果を取得する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::get_all_keywords">
+list&lt;<a class="reference internal" href="#keyword_with_params" title="keyword_with_params">keyword_with_params</a>&gt; <tt class="descname">get_all_keywords</tt><big>(</big><big>)</big><a class="headerlink" href="#burst::get_all_keywords" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">キーワードとそのパラメタのリスト</td>
+</tr>
+</tbody>
+</table>
+<p>バースト検知対象として登録されているすべてのキーワードを取得する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::add_keyword__keyword_with_params">
+bool <tt class="descname">add_keyword</tt><big>(</big>0: <a class="reference internal" href="#keyword_with_params" title="keyword_with_params">keyword_with_params</a> <em>keyword</em><big>)</big><a class="headerlink" href="#burst::add_keyword__keyword_with_params" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyword</strong> &#8211; 追加するキーワードとパラメタ</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">キーワードの追加に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>キーワード <tt class="docutils literal"><span class="pre">keyword</span></tt> をバースト検知対象として登録する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::remove_keyword__s">
+bool <tt class="descname">remove_keyword</tt><big>(</big>0: string <em>keyword</em><big>)</big><a class="headerlink" href="#burst::remove_keyword__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyword</strong> &#8211; 削除するキーワード</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">キーワードの削除に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>キーワード <tt class="docutils literal"><span class="pre">keyword</span></tt> をバースト検知対象から削除する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="burst::remove_all_keywords">
+bool <tt class="descname">remove_all_keywords</tt><big>(</big><big>)</big><a class="headerlink" href="#burst::remove_all_keywords" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">キーワードの削除に成功した場合 True</td>
+</tr>
+</tbody>
+</table>
+<p>すべてのキーワードをバースト検知対象から削除する。</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="api_stat.html" title="Stat"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="api_clustering.html" title="Clustering"
+             >前へ</a> |</li>
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="references.html" >References</a> &raquo;</li>
+          <li><a href="api.html" >Client API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014 PFI &amp; NTT.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

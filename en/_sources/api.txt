@@ -24,6 +24,7 @@ See the `Jubatus Wiki <https://github.com/jubatus/jubatus/wiki/Client-Compatibil
    api_nearest_neighbor
    api_anomaly
    api_clustering
+   api_burst
    api_stat
    api_graph
 
