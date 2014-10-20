@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,8 +30,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.6.3',
+        URL_ROOT:    './',
+        VERSION:     '0.6.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -170,26 +169,32 @@
 <blockquote>
 <div><p>Binary Package (Apt) in Ubuntu Environment</p>
 <p>Error turns out when Proxy in apt is not added. Insert the line below into <tt class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></tt>.</p>
-<div class="highlight-python"><pre>$ sudo vi /etc/apt/apt.conf</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo vi /etc/apt/apt.conf
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Acquire::http::Proxy "http://username:password@proxy.example.com:port/";</pre>
+<div class="highlight-python"><div class="highlight"><pre>Acquire::http::Proxy &quot;http://username:password@proxy.example.com:port/&quot;;
+</pre></div>
 </div>
 <p>Python Client (pip)</p>
 <p>Errors like below may come out when Proxy is required. In this case, please specify the Proxy option when execute your command.</p>
-<div class="highlight-python"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
+<div class="highlight-python"><div class="highlight"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
 Could not find any downloads that satisfy the requirement jubatus
 No distributions at all found for jubatus
-Storing complete log in /home/jubatus/.pip/pip.log</pre>
+Storing complete log in /home/jubatus/.pip/pip.log
+</pre></div>
 </div>
-<div class="highlight-python"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus
+</pre></div>
 </div>
 <p>The installation completes when logs like below come out.</p>
-<div class="highlight-python"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
-Cleaning up...</pre>
+<div class="highlight-python"><div class="highlight"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+Cleaning up...
+</pre></div>
 </div>
 <p>Ruby Client (RubyGems)</p>
 <p>Please set your environment variables like below before your installation.</p>
-<div class="highlight-python"><pre>export http_proxy=http://username:password@proxy.example.com:port/</pre>
+<div class="highlight-python"><div class="highlight"><pre>export http_proxy=http://username:password@proxy.example.com:port/
+</pre></div>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -257,12 +262,13 @@ Or, please set timeout enough longer than a client&#8217;s connection lifetime.<
 <blockquote>
 <div><p>Information about the Mix operations is recorded in the log files at Jubatus servers, which seems like below.</p>
 <blockquote>
-<div><div class="highlight-python"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+<div><div class="highlight-python"><div class="highlight"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
 I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
 I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
-I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
+I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
+</pre></div>
 </div>
 </div></blockquote>
 </div></blockquote>
@@ -313,7 +319,7 @@ The role of proxies is same as the role of keepers in 0.4.x or before.</div></bl
 <li>Why jubaanomaly gets slow after adding many samples?</li>
 </ul>
 <blockquote>
-<div>jubaanomaly (as LOF algorithm) depends on iterations of nearest neighbor search and its default configuration uses euclid LSH for speed-up. However, updating the internal state of the LOF model still takes quadratic time at worst with respect to the number of ever-added samples. For more details, please refer to the original paper <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a> .</div></blockquote>
+<div>jubaanomaly (as LOF algorithm) depends on iterations of nearest neighbor search and its default configuration uses euclid LSH for speed-up. However, updating the internal state of the LOF model still takes quadratic time at worst with respect to the number of ever-added samples. For more details, please refer to the original paper <a class="reference internal" href="method.html#breunig2000" id="id1">[Breunig2000]</a> .</div></blockquote>
 <ul class="simple">
 <li>How to avoid such speed down?</li>
 </ul>
@@ -380,7 +386,7 @@ You can select unlearning strategy from <tt class="docutils literal"><span class
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -1,5 +1,5 @@
-Recommender
-===================
+Recommender チュートリアル
+===================================
 
 ここではJubatusの推薦（Recommender）である ``jubarecommender`` を使用した、Jubatus Clientの使い方を説明します。
 

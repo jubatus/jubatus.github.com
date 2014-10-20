@@ -1,5 +1,5 @@
-Regression
-==================
+Regression チュートリアル
+================================
 
 ここではJubatusの線形回帰機能（Regression）である ``jubaregression`` を使用した、Jubatus Clientの使い方を説明します。
 

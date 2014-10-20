@@ -1,5 +1,5 @@
-Classifier
-=================
+Classifier チュートリアル
+======================================
 
 ここではJubatusの多値分類機能（Classifier）である ``jubaclassifier`` を使用した、Jubatus Client の使い方を説明します。
 
