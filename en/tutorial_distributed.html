@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,8 +31,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.6.4',
+        URL_ROOT:    '',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -159,25 +160,26 @@
 <div class="section" id="distributed-mode">
 <h2>Distributed Mode<a class="headerlink" href="#distributed-mode" title="Permalink to this headline">¶</a></h2>
 <p>You can run Jubatus in a distributed environment using ZooKeeper and Jubatus proxies.</p>
-<div><img height="280" src="_images/blockdiag-353eb7958082dfd3431b598465fe384b07174610.png" width="640" /></div><div class="section" id="setup-zookeeper">
+<p class="blockdiag">
+<img src="_images/blockdiag-0b47b09550aab64297de2dae0bb42bb96e9c4314.png" alt="None" width="640" height="280" />
+</p>
+<div class="section" id="setup-zookeeper">
 <h3>Setup ZooKeeper<a class="headerlink" href="#setup-zookeeper" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://zookeeper.apache.org/">ZooKeeper</a> is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 Jubatus in cluster mode uses ZooKeeper to manage Jubatus servers and proxies in cluster environment.</p>
 <p>Run ZooKeeper server like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ /path/to/zookeeper/bin/zkServer.sh start
+<div class="highlight-python"><pre>$ /path/to/zookeeper/bin/zkServer.sh start
 JMX enabled by default
 Using config: /path/to/zookeeper/bin/../conf/zoo.cfg
 Starting zookeeper ...
-STARTED
-</pre></div>
+STARTED</pre>
 </div>
 <p>Here we assume that ZooKeeper is running on localhost:2181. You can change it in the <tt class="docutils literal"><span class="pre">zoo.cfg</span></tt> file.</p>
 </div>
 <div class="section" id="register-configuration-file-to-zookeeper">
 <h3>Register configuration file to ZooKeeper<a class="headerlink" href="#register-configuration-file-to-zookeeper" title="Permalink to this headline">¶</a></h3>
 <p>In distributed environment, register configuration file on the local file system to ZooKeeper using <tt class="docutils literal"><span class="pre">jubaconfig</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaconfig --cmd write --zookeeper=localhost:2181 --file config.json --name tutorial --type classifier
-</pre></div>
+<div class="highlight-python"><pre>$ jubaconfig --cmd write --zookeeper=localhost:2181 --file config.json --name tutorial --type classifier</pre>
 </div>
 </div>
 <div class="section" id="jubatus-proxy">
@@ -186,8 +188,7 @@ STARTED
 In distributed environment, make RPC requests from clients to proxies, not directly to servers.</p>
 <p>Jubatus proxies are provided for each Jubatus servers.
 For the classifier, <tt class="docutils literal"><span class="pre">jubaclassifier_proxy</span></tt> is the corresponding proxy.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier_proxy --zookeeper=localhost:2181 --rpc-port=9198
-</pre></div>
+<div class="highlight-python"><pre>$ jubaclassifier_proxy --zookeeper=localhost:2181 --rpc-port=9198</pre>
 </div>
 <p>Now <tt class="docutils literal"><span class="pre">jubaclassifier_proxy</span></tt> started listening on TCP port 9198 for RPC requests.</p>
 </div>
@@ -196,25 +197,22 @@ For the classifier, <tt class="docutils literal"><span class="pre">jubaclassifie
 <p>To start Jubatus servers in cluster mode, give <tt class="docutils literal"><span class="pre">--name</span></tt> and <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> option when executing servers.
 Server processes started with same name belongs to the same cluster and they collaborate with one another.</p>
 <p>If you want to start multiple server processes on the same machine, please note that you must change the port for each processes.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial --zookeeper=localhost:2181 &amp;
+<div class="highlight-python"><pre>$ jubaclassifier --rpc-port=9180 --name=tutorial --zookeeper=localhost:2181 &amp;
 $ jubaclassifier --rpc-port=9181 --name=tutorial --zookeeper=localhost:2181 &amp;
-$ jubaclassifier --rpc-port=9182 --name=tutorial --zookeeper=localhost:2181 &amp;
-</pre></div>
+$ jubaclassifier --rpc-port=9182 --name=tutorial --zookeeper=localhost:2181 &amp;</pre>
 </div>
 <p>When Jubatus servers are started in cluster mode, they create a node in ZooKeeper system.
 You can verify that three server processes are registered to ZooKeeper system by using ZooKeeper client.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ /path/to/zookeeper/bin/zkCli.sh -server localhost:2181
+<div class="highlight-python"><pre>$ /path/to/zookeeper/bin/zkCli.sh -server localhost:2181
 [zk: localhost:2181(CONNECTED) 0] ls /jubatus/actors/classifier/tutorial/nodes
-[XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]
-</pre></div>
+[XXX.XXX.XXX.XXX_9180, XXX.XXX.XXX.XXX__9181, XXX.XXX.XXX.XXX__9182]</pre>
 </div>
 </div>
 <div class="section" id="run-tutorial">
 <h3>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h3>
 <p>Run the tutorial program again, but this time we use options to specify port to connect to proxies instead of servers.
 In cluster mode, you also need to specify the cluster name when making RPC request to proxies.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python tutorial.py --server_port=9198 --name=tutorial
-</pre></div>
+<div class="highlight-python"><pre>$ python tutorial.py --server_port=9198 --name=tutorial</pre>
 </div>
 <p>Note that you can use the same client code for both standalone mode and distributed mode.</p>
 </div>
@@ -267,19 +265,20 @@ In this tutorial, you will execute some processes on each server as shown in the
 </tbody>
 </table>
 <p>For the best practices, see <a class="reference internal" href="admin.html"><em>Cluster Administration Guide</em></a>.</p>
-<div><img height="280" src="_images/blockdiag-51f88da8290d371794633b384bc65843d433adbd.png" width="640" /></div><div class="section" id="zookeepers-jubatus-proxies">
+<p class="blockdiag">
+<img src="_images/blockdiag-52c7162452245223d479f0cac422c5f4c9975d30.png" alt="None" width="640" height="280" />
+</p>
+<div class="section" id="zookeepers-jubatus-proxies">
 <h3>ZooKeepers &amp; Jubatus Proxies<a class="headerlink" href="#zookeepers-jubatus-proxies" title="Permalink to this headline">¶</a></h3>
 <p>Start ZooKeeper servers (make sure you configure an ensemble between them).</p>
-<div class="highlight-python"><div class="highlight"><pre>[192.168.0.211]$ bin/zkServer.sh start
+<div class="highlight-python"><pre>[192.168.0.211]$ bin/zkServer.sh start
 [192.168.0.212]$ bin/zkServer.sh start
-[192.168.0.213]$ bin/zkServer.sh start
-</pre></div>
+[192.168.0.213]$ bin/zkServer.sh start</pre>
 </div>
 <p>Start <tt class="docutils literal"><span class="pre">jubaclassifier_proxy</span></tt> processes. <tt class="docutils literal"><span class="pre">jubaclassifier_proxy</span></tt> uses TCP port 9199 by default.</p>
-<div class="highlight-python"><div class="highlight"><pre>[192.168.0.101]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+<div class="highlight-python"><pre>[192.168.0.101]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
 [192.168.0.102]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-[192.168.0.103]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-</pre></div>
+[192.168.0.103]$ jubaclassifier_proxy --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
 </div>
 </div>
 <div class="section" id="jubavisor-process-management-agent">
@@ -287,13 +286,12 @@ In this tutorial, you will execute some processes on each server as shown in the
 <p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> is an agent process that manages server processes.</p>
 <p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> can manage each Jubatus server processes by receiving RPC requests from <tt class="docutils literal"><span class="pre">jubactl</span></tt>, a controller command.
 <tt class="docutils literal"><span class="pre">jubavisor</span></tt> uses TCP port 9198 by default.</p>
-<div class="highlight-python"><div class="highlight"><pre>[192.168.0.11]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
+<div class="highlight-python"><pre>[192.168.0.11]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
 [192.168.0.22]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
-[192.168.0.33]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon
-</pre></div>
+[192.168.0.33]$ jubavisor --zookeeper 192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181 --daemon</pre>
 </div>
 <p>Now send commands from <tt class="docutils literal"><span class="pre">jubactl</span></tt> to <tt class="docutils literal"><span class="pre">jubavisor</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre>[192.168.0.1]$ jubactl -c start  --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c start  --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
 [192.168.0.1]$ jubactl -c status --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
 active jubaclassifier_proxy members:
  192.168.0.101_9199
@@ -306,19 +304,16 @@ active jubavisor members:
 active tutorial members:
  192.168.0.11_9199
  192.168.0.12_9199
- 192.168.0.13_9199
-</pre></div>
+ 192.168.0.13_9199</pre>
 </div>
 <p>From members list, you can see the server is running.
 Now run clients simultaneously, from multiple hosts.</p>
-<div class="highlight-python"><div class="highlight"><pre>[192.168.0.101]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
+<div class="highlight-python"><pre>[192.168.0.101]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
 [192.168.0.102]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
-[192.168.0.103]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199
-</pre></div>
+[192.168.0.103]$ python tutorial.py --name=tutorial --server_ip 127.0.0.1:9199</pre>
 </div>
 <p>You can also stop instance of Jubatus server from <tt class="docutils literal"><span class="pre">jubactl</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre>[192.168.0.1]$ jubactl -c stop --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181
-</pre></div>
+<div class="highlight-python"><pre>[192.168.0.1]$ jubactl -c stop --server=jubaclassifier --type=classifier --name=tutorial --zookeeper=192.168.0.211:2181,192.168.0.212:2181,192.168.0.213:2181</pre>
 </div>
 </div>
 </div>
@@ -347,7 +342,7 @@ Now run clients simultaneously, from multiple hosts.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

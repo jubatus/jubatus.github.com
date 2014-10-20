@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,8 +31,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.6.4',
+        URL_ROOT:    '',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -170,32 +171,26 @@
 <blockquote>
 <div><p>Ubuntu環境のバイナリパッケージ(Apt)</p>
 <p>aptのプロキシ設定をしていないとエラーが出力されますので、 <tt class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></tt> に以下の行を追加してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo vi /etc/apt/apt.conf
-</pre></div>
+<div class="highlight-python"><pre>$ sudo vi /etc/apt/apt.conf</pre>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>Acquire::http::Proxy &quot;http://username:password@proxy.example.com:port/&quot;;
-</pre></div>
+<div class="highlight-python"><pre>Acquire::http::Proxy "http://username:password@proxy.example.com:port/";</pre>
 </div>
 <p>Python クライアント (pip)</p>
 <p>プロキシを経由している場合、以下のようなエラーが出力されることがあります。その場合はオプションでプロキシを指定して実行してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
+<div class="highlight-python"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
 Could not find any downloads that satisfy the requirement jubatus
 No distributions at all found for jubatus
-Storing complete log in /home/jubatus/.pip/pip.log
-</pre></div>
+Storing complete log in /home/jubatus/.pip/pip.log</pre>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus
-</pre></div>
+<div class="highlight-python"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus</pre>
 </div>
 <p>以下のようなログが出力されればインストール完了です。</p>
-<div class="highlight-python"><div class="highlight"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
-Cleaning up...
-</pre></div>
+<div class="highlight-python"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+Cleaning up...</pre>
 </div>
 <p>Ruby クライアント (RubyGems) の場合</p>
 <p>以下の環境変数を設定してからインストールを実行してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>export http_proxy=http://username:password@proxy.example.com:port/
-</pre></div>
+<div class="highlight-python"><pre>export http_proxy=http://username:password@proxy.example.com:port/</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -261,13 +256,12 @@ RPC呼び出しを再度実行することで接続が再確立されます。�
 <blockquote>
 <div><p>Mixの動作については、Jubatusサーバにおいて出力されるログにより確認することができます。以下のようなログが出力されます。</p>
 <blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+<div><div class="highlight-python"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
 I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
 I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
-I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
-</pre></div>
+I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
 </div>
 </div></blockquote>
 </div></blockquote>
@@ -318,7 +312,7 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
 <li>多数のサンプルを投入すると jubaanomaly の動作速度が低下する</li>
 </ul>
 <blockquote>
-<div>jubaanomaly (LOF アルゴリズム) は近傍探索を利用しており、デフォルトの設定では高速化のため euclid LSH が使用されます。しかし、LOF モデルの内部状態を更新するために必要な最悪時間計算量は、今までに追加されたサンプル数の二乗です。詳細については原著論文 <a class="reference internal" href="method.html#breunig2000" id="id6">[Breunig2000]</a> を参照してください。</div></blockquote>
+<div>jubaanomaly (LOF アルゴリズム) は近傍探索を利用しており、デフォルトの設定では高速化のため euclid LSH が使用されます。しかし、LOF モデルの内部状態を更新するために必要な最悪時間計算量は、今までに追加されたサンプル数の二乗です。詳細については原著論文 <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a> を参照してください。</div></blockquote>
 <ul class="simple">
 <li>このような速度低下を回避するにはどうすればよいか</li>
 </ul>
@@ -383,7 +377,7 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2 で生成しました。
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

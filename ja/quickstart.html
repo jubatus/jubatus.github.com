@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,8 +31,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.6.4',
+        URL_ROOT:    '',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -166,43 +167,36 @@
 <div class="section" id="red-hat-enterprise-linux-6-2-64-bit">
 <h3>Red Hat Enterprise Linux 6.2 以降 (64-bit)<a class="headerlink" href="#red-hat-enterprise-linux-6-2-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
-</pre></div>
+<div class="highlight-python"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">jubatus</span></tt> と <tt class="docutils literal"><span class="pre">jubatus-client</span></tt> のパッケージをインストールします。</p>
-<div class="highlight-python"><div class="highlight"><pre>// RHEL の場合
+<div class="highlight-python"><pre>// RHEL の場合
 $ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
 
 // RHEL クローン (CentOS, Scientific Linux など) の場合
-$ sudo yum install jubatus jubatus-client
-</pre></div>
+$ sudo yum install jubatus jubatus-client</pre>
 </div>
 <p>RHEL では、依存パッケージ (<tt class="docutils literal"><span class="pre">oniguruma</span></tt>) のインストールに <tt class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></tt> リポジトリを使用している点に注意してください。</p>
 </div>
 <div class="section" id="ubuntu-server-12-04-lts-64-bit">
 <h3>Ubuntu Server 12.04 LTS (64-bit)<a class="headerlink" href="#ubuntu-server-12-04-lts-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下の行を <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></tt> に記述して、Jubatus の Apt リポジトリをシステムに登録します。</p>
-<div class="highlight-python"><div class="highlight"><pre>deb http://download.jubat.us/apt binary/
-</pre></div>
+<div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">jubatus</span></tt> のパッケージをインストールします。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get update
-$ sudo apt-get install jubatus
-</pre></div>
+<div class="highlight-python"><pre>$ sudo apt-get update
+$ sudo apt-get install jubatus</pre>
 </div>
 <p>現在、パッケージには GPG 署名が行われていません。
 以下の警告メッセージが表示された場合は、 <tt class="docutils literal"><span class="pre">y</span></tt> を入力してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>Install these packages without verification [y/N]? y
-</pre></div>
+<div class="highlight-python"><pre>Install these packages without verification [y/N]? y</pre>
 </div>
 <p>これで、Jubatus が <tt class="docutils literal"><span class="pre">/opt/jubatus</span></tt> にインストールされました。</p>
 <p>Jubatus を使う前に、毎回 <tt class="docutils literal"><span class="pre">profile</span></tt> スクリプトから環境変数を読み込む必要があります。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ source /opt/jubatus/profile
-</pre></div>
+<div class="highlight-python"><pre>$ source /opt/jubatus/profile</pre>
 </div>
 <p>csh または tcsh をお使いの場合は、こちらを使用してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ source /opt/jubatus/profile.csh
-</pre></div>
+<div class="highlight-python"><pre>$ source /opt/jubatus/profile.csh</pre>
 </div>
 </div>
 <div class="section" id="linux-32-bit">
@@ -227,33 +221,28 @@ $ sudo apt-get install jubatus
 <p>クライアントは Jubatus フレームワークに含まれている (<tt class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></tt>) ため、インストールは不要です。</p>
 <p>コンパイラや開発用のヘッダがインストールされていない場合は、以下の手順でセットアップを行ってください。
 RHEL では、以下のコマンドを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo yum groupinstall &quot;Development tools&quot; &quot;Additional Development&quot;
-</pre></div>
+<div class="highlight-python"><pre>$ sudo yum groupinstall "Development tools" "Additional Development"</pre>
 </div>
 <p>Ubuntu では、以下のコマンドを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install build-essential
-</pre></div>
+<div class="highlight-python"><pre>$ sudo apt-get install build-essential</pre>
 </div>
 </div>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>クライアント (Python 2.6 以降が必要) は <a class="reference external" href="http://pypi.python.org/pypi/jubatus">PyPI</a> で配布されています。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo pip install jubatus
-</pre></div>
+<div class="highlight-python"><pre>$ sudo pip install jubatus</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">pip</span></tt> コマンドがインストールされていない場合は、以下の手順でインストールしてください。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
+<div class="highlight-python"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
 $ sudo python ez_setup.py
-$ sudo easy_install pip
-</pre></div>
+$ sudo easy_install pip</pre>
 </div>
 <p>Ubuntu では <tt class="docutils literal"><span class="pre">pip</span></tt> のインストールに <tt class="docutils literal"><span class="pre">python-pip</span></tt> パッケージを利用することもできます。</p>
 </div>
 <div class="section" id="ruby">
 <h3>Ruby<a class="headerlink" href="#ruby" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>クライアント (Ruby 1.9 が必要) は <a class="reference external" href="http://rubygems.org/gems/jubatus">RubyGems</a> で配布されています。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo gem install jubatus
-</pre></div>
+<div class="highlight-python"><pre>$ sudo gem install jubatus</pre>
 </div>
 </div>
 <div class="section" id="java">
@@ -322,7 +311,7 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2 で生成しました。
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

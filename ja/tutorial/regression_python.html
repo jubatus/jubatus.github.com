@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Regression チュートリアル (Python) &mdash; Jubatus</title>
+    <title>Python &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -31,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.4',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -43,9 +44,9 @@
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="../index.html" />
-    <link rel="up" title="Regression チュートリアル" href="regression.html" />
-    <link rel="next" title="Graph チュートリアル" href="graph.html" />
-    <link rel="prev" title="Regression チュートリアル" href="regression.html" /> 
+    <link rel="up" title="Regression" href="regression.html" />
+    <link rel="next" title="Graph" href="graph.html" />
+    <link rel="prev" title="Regression" href="regression.html" /> 
 
 <!--
 
@@ -84,14 +85,14 @@
           <a href="../genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="graph.html" title="Graph チュートリアル"
+          <a href="graph.html" title="Graph"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="regression.html" title="Regression チュートリアル"
+          <a href="regression.html" title="Regression"
              accesskey="P">前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
-          <li><a href="regression.html" accesskey="U">Regression チュートリアル</a> &raquo;</li> 
+          <li><a href="regression.html" accesskey="U">Regression</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,7 +103,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Regression チュートリアル (Python)</a><ul>
+<li><a class="reference internal" href="#">Python</a><ul>
 <li><a class="reference internal" href="#id1">ソースコード</a></li>
 <li><a class="reference internal" href="#id2">解説</a></li>
 <li><a class="reference internal" href="#id3">サンプルプログラムの実行</a></li>
@@ -112,10 +113,10 @@
 
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="regression.html"
-                        title="前の章へ">Regression チュートリアル</a></p>
+                        title="前の章へ">Regression</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="graph.html"
-                        title="次の章へ">Graph チュートリアル</a></p>
+                        title="次の章へ">Graph</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/tutorial/regression_python.txt"
@@ -146,8 +147,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="regression-python">
-<h1>Regression チュートリアル (Python)<a class="headerlink" href="#regression-python" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="python">
+<h1>Python<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>ここではPython版のRegressionサンプルプログラムの解説をします。</p>
 <div class="section" id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -377,7 +378,7 @@
 </pre></div>
 </td></tr></table></div>
 <p><strong>myhome.yml</strong></p>
-<div class="highlight-python"><div class="highlight"><pre>#
+<div class="highlight-python"><pre>#
 # distance : 駅からの徒歩時間 (分)
 # space    : 専有面積 (m*m)
 # age      : 築年数 (年)
@@ -388,8 +389,7 @@ distance : 8
 space    : 32.00
 age      : 15
 stair    : 5
-aspect   : &quot;S&quot;
-</pre></div>
+aspect   : "S"</pre>
 </div>
 </div>
 <div class="section" id="id2">
@@ -630,8 +630,7 @@ YAML（ヤムル）とは、構造化データやオブジェクトを文字列�
 <li><dl class="first docutils">
 <dt>Jubatus Serverでの作業</dt>
 <dd><p class="first">jubaregressionを起動します。</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ jubaregression --configpath rent.json
-</pre></div>
+<div class="last highlight-python"><pre>$ jubaregression --configpath rent.json</pre>
 </div>
 </dd>
 </dl>
@@ -639,24 +638,21 @@ YAML（ヤムル）とは、構造化データやオブジェクトを文字列�
 <li><dl class="first docutils">
 <dt>Jubatus Clientでの作業</dt>
 <dd><p class="first">オプションを指定し下記のコマンドで実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
+<div class="highlight-python"><pre>$ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
 
   -t ：CSVファイルパス（学習データありの場合）
-  -a ：YMLファイルパス（必須）
-</pre></div>
+  -a ：YMLファイルパス（必須）</pre>
 </div>
 <p>実行結果:</p>
-<div class="highlight-python"><div class="highlight"><pre>train ... 145
-rent .... 9.9
-</pre></div>
+<div class="highlight-python"><pre>train ... 145
+rent .... 9.9</pre>
 </div>
 <p>myhome.yaml を変更し、いろんな条件で物件の家賃を推測できます。</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ edit ../dat/myhome.yml
+<div class="last highlight-python"><pre>$ edit ../dat/myhome.yml
 $ python jubahomes.py -a ../dat/myhome.yml
 $ edit ../dat/myhome.yml
 $ python jubahomes.py -a ../dat/myhome.yml
-  :
-</pre></div>
+  :</pre>
 </div>
 </dd>
 </dl>
@@ -678,19 +674,19 @@ $ python jubahomes.py -a ../dat/myhome.yml
           <a href="../genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="graph.html" title="Graph チュートリアル"
+          <a href="graph.html" title="Graph"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="regression.html" title="Regression チュートリアル"
+          <a href="regression.html" title="Regression"
              >前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
-          <li><a href="regression.html" >Regression チュートリアル</a> &raquo;</li> 
+          <li><a href="regression.html" >Regression</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2 で生成しました。
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

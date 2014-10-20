@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,8 +31,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.6.4',
+        URL_ROOT:    '',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -219,7 +220,7 @@ Available aggregators are written in <a class="reference external" href="https:/
 <p><tt class="docutils literal"><span class="pre">void</span></tt> type cannot be used as the return type of methods.
 If the return value is not needed, you must add meaningless type such as <tt class="docutils literal"><span class="pre">int</span></tt> or <tt class="docutils literal"><span class="pre">bool</span></tt>.</p>
 <p>Here is a example of MessagePack-IDL with annotation.</p>
-<div class="highlight-c++"><div class="highlight"><pre>message entry {
+<div class="highlight-c++"><pre>message entry {
   0: string key
   1: string value
   2: int version
@@ -237,8 +238,7 @@ service kvs {
 
   #@broadcast #@update #@pass
   int clear()
-}
-</pre></div>
+}</pre>
 </div>
 <p>The following RPC methods for server are automatically appended to each service by <tt class="docutils literal"><span class="pre">jenerator</span></tt>:</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#@random #@analysis #@pass</span>
@@ -259,15 +259,13 @@ service kvs {
 <p>You need OCaml &gt;=4.0 (with findlib), extlib and OMake to build <tt class="docutils literal"><span class="pre">jenerator</span></tt>.
 We recommend to use <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> to make OCaml environment.
 When you want to install OPAM from its source, <a class="reference external" href="http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew">ocamlbrew</a> is usefull.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd jubatus/tools/jenerator
+<div class="highlight-python"><pre>$ cd jubatus/tools/jenerator
 $ omake
-$ sudo omake install
-</pre></div>
+$ sudo omake install</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> installs <tt class="docutils literal"><span class="pre">jenerator</span></tt> as <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> (path may vary depending on your environment).
 If you want to install <tt class="docutils literal"><span class="pre">jenerator</span></tt> to other directory, use <tt class="docutils literal"><span class="pre">PREFIX</span></tt> environment variable.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ PREFIX=/path/to/install omake install
-</pre></div>
+<div class="highlight-python"><pre>$ PREFIX=/path/to/install omake install</pre>
 </div>
 <p>You can also use built <tt class="docutils literal"><span class="pre">jenerator</span></tt> binary directly without installation.</p>
 <p>Hint: If you&#8217;re using Ubuntu systems, OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>), findlib (<tt class="docutils literal"><span class="pre">ocaml-findlib</span></tt>), extlib (<tt class="docutils literal"><span class="pre">libextlib-ocaml</span></tt>) and OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) are available as a binary package.</p>
@@ -275,8 +273,7 @@ If you want to install <tt class="docutils literal"><span class="pre">jenerator<
 <div class="section" id="generating-server-proxy-from-idl">
 <h3>Generating Server/Proxy from IDL<a class="headerlink" href="#generating-server-proxy-from-idl" title="Permalink to this headline">¶</a></h3>
 <p>Suppose the name of the example above is a file <tt class="docutils literal"><span class="pre">kvs.idl</span></tt>, we can generate codes in the following manner.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl
-</pre></div>
+<div class="highlight-python"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl</pre>
 </div>
 <p>See <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> for the detailed usage of <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
 </div>
@@ -326,7 +323,7 @@ The options can be referenced with <tt class="docutils literal"><span class="pre
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

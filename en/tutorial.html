@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,8 +31,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.6.4',
+        URL_ROOT:    '',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -173,7 +174,7 @@ News20 is divided into learning data (20news-bydate-train, 80%) and experimental
 <div class="section" id="run-tutorial">
 <h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h2>
 <p>Run <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> program, which provides classification feature, specifying a configuration file. Examples of configuration file are stored in <tt class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></tt> directory.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+<div class="highlight-python"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
     pid                  : 1855
     user                 : oda
@@ -191,47 +192,45 @@ I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 R
     interconnect timeout : 10
 I0110 13:43:07.789721  1855 server_util.cpp:77] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
-  &quot;converter&quot; : {
-    &quot;string_filter_types&quot; : {},
-    &quot;string_filter_rules&quot; : [],
-    &quot;num_filter_types&quot; : {},
-    &quot;num_filter_rules&quot; : [],
-    &quot;string_types&quot; : {},
-    &quot;string_rules&quot; : [
-      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;str&quot;, &quot;sample_weight&quot; : &quot;bin&quot;, &quot;global_weight&quot; : &quot;bin&quot; }
+  "converter" : {
+    "string_filter_types" : {},
+    "string_filter_rules" : [],
+    "num_filter_types" : {},
+    "num_filter_rules" : [],
+    "string_types" : {},
+    "string_rules" : [
+      { "key" : "*", "type" : "str", "sample_weight" : "bin", "global_weight" : "bin" }
     ],
-    &quot;num_types&quot; : {},
-    &quot;num_rules&quot; : [
-      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;num&quot; }
+    "num_types" : {},
+    "num_rules" : [
+      { "key" : "*", "type" : "num" }
     ]
   },
-  &quot;method&quot; : &quot;PA&quot;
-}
-</pre></div>
+  "method" : "PA"
+}</pre>
 </div>
 <p>Jubatus classification server is now started.
 Jubatus servers listen on TCP port 9199 by default.
 If you would like to use another port, specify it using <tt class="docutils literal"><span class="pre">--rpc-port</span></tt> option.
 For example, to use port 19199:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
-</pre></div>
+<div class="highlight-python"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199</pre>
 </div>
 <p>Jubatus and Jubatus clients communicate with each other in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol over the TCP/IP network.</p>
-<div><img height="120" src="_images/blockdiag-bc3320c7c05495f87598d5006bb93a978f976436.png" width="448" /></div><p>OK, let&#8217;s download the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial program</a> and the dataset.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
+<p class="blockdiag">
+<img src="_images/blockdiag-bfc94537d3d6a52034f27eddda26c7a849fdae95.png" alt="None" width="448" height="120" />
+</p>
+<p>OK, let&#8217;s download the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial program</a> and the dataset.</p>
+<div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
-$ tar xvzf 20news-bydate.tar.gz
-</pre></div>
+$ tar xvzf 20news-bydate.tar.gz</pre>
 </div>
 <p>Reboot <cite>jubaclassifier</cite> with <tt class="docutils literal"><span class="pre">config.json</span></tt> , which is a configuration file prepared for this tutorial.
 Note: do not use the previous configuration file ( <tt class="docutils literal"><span class="pre">pa.json</span></tt> ) that was used above.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier --configpath config.json
-</pre></div>
+<div class="highlight-python"><pre>$ jubaclassifier --configpath config.json</pre>
 </div>
 <p>Then, run the program.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python tutorial.py
-</pre></div>
+<div class="highlight-python"><pre>$ python tutorial.py</pre>
 </div>
 <p>Now you see the result of classification!
 For each message, <tt class="docutils literal"><span class="pre">OK</span></tt> means that Jubatus estimated the label correctly, and <tt class="docutils literal"><span class="pre">NG</span></tt> means that estimated label was wrong.</p>
@@ -242,7 +241,7 @@ For each message, <tt class="docutils literal"><span class="pre">OK</span></tt> 
 <div class="section" id="dataset">
 <h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
 <p>After expanding <tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>, you see files like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>20news-bydate-train
+<div class="highlight-python"><pre>20news-bydate-train
 |-- alt.atheism
 |   |-- 49960
 |   |-- 51060
@@ -267,12 +266,11 @@ For each message, <tt class="docutils literal"><span class="pre">OK</span></tt> 
 |-- talk.politics.guns
 |-- talk.politics.mideast
 |-- talk.politics.misc
-`-- talk.religion.misc
-</pre></div>
+`-- talk.religion.misc</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">49960</span></tt> is one of messages and <tt class="docutils literal"><span class="pre">alt.atheism</span></tt> is one of newsgroups the message is posted.
 For example, <tt class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></tt> contains:</p>
-<div class="highlight-python"><div class="highlight"><pre>From: karr@cs.cornell.edu (David Karr)
+<div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
 Lines: 19
@@ -283,18 +281,17 @@ In article &lt;C5Joz9.HLn@cup.hp.com&gt; Chris Steinbroner &lt;hesh@cup.hp.com&g
 &gt;: right now it is beginning to look suspiciously like throwing money
 &gt;: down a rathole.
 &gt;
-&gt;[...] i&#39;m going to
-&gt;let my current membership lapse when it&#39;s
+&gt;[...] i'm going to
+&gt;let my current membership lapse when it's
 &gt;up for renewal.
 &gt;
 &gt;-- hesh
 
-In my case that&#39;s not for another 3+ years, so I&#39;d appreciate any
+In my case that's not for another 3+ years, so I'd appreciate any
 hints on what will keep the organization in business that long.  (And
 preferably longer, of course, and worth being part of.)
 
--- David Karr (karr@cs.cornell.edu)
-</pre></div>
+-- David Karr (karr@cs.cornell.edu)</pre>
 </div>
 <p>In this tutorial, we use these text as the training data.</p>
 </div>
@@ -429,7 +426,7 @@ In the following example, <tt class="docutils literal"><span class="pre">d1</spa
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

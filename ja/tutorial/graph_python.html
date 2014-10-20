@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Graph チュートリアル (Python) &mdash; Jubatus</title>
+    <title>Python &mdash; Jubatus</title>
     <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
@@ -31,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.4',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -43,9 +44,9 @@
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="../index.html" />
-    <link rel="up" title="Graph チュートリアル" href="graph.html" />
-    <link rel="next" title="Stat チュートリアル" href="stat.html" />
-    <link rel="prev" title="Graph チュートリアル" href="graph.html" /> 
+    <link rel="up" title="Graph" href="graph.html" />
+    <link rel="next" title="Stat" href="stat.html" />
+    <link rel="prev" title="Graph" href="graph.html" /> 
 
 <!--
 
@@ -84,14 +85,14 @@
           <a href="../genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="stat.html" title="Stat チュートリアル"
+          <a href="stat.html" title="Stat"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="graph.html" title="Graph チュートリアル"
+          <a href="graph.html" title="Graph"
              accesskey="P">前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
-          <li><a href="graph.html" accesskey="U">Graph チュートリアル</a> &raquo;</li> 
+          <li><a href="graph.html" accesskey="U">Graph</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -102,7 +103,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Graph チュートリアル (Python)</a><ul>
+<li><a class="reference internal" href="#">Python</a><ul>
 <li><a class="reference internal" href="#id1">ソースコード</a></li>
 <li><a class="reference internal" href="#id2">解説</a></li>
 <li><a class="reference internal" href="#id3">サンプルプログラムの実行</a></li>
@@ -112,10 +113,10 @@
 
   <h4>前のトピックへ</h4>
   <p class="topless"><a href="graph.html"
-                        title="前の章へ">Graph チュートリアル</a></p>
+                        title="前の章へ">Graph</a></p>
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="stat.html"
-                        title="次の章へ">Stat チュートリアル</a></p>
+                        title="次の章へ">Stat</a></p>
   <h3>このページ</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/tutorial/graph_python.txt"
@@ -146,8 +147,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="graph-python">
-<h1>Graph チュートリアル (Python)<a class="headerlink" href="#graph-python" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="python">
+<h1>Python<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>ここではPython版のGraphサンプルプログラムの解説をします。</p>
 <div class="section" id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -582,8 +583,7 @@ types.ShortestPathQueryの第1引数に接続元の駅ID、第2引数に接続�
 <li><dl class="first docutils">
 <dt>Jubatus Serverでの作業</dt>
 <dd><p class="first">jubagraphを起動します。</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ jubagraph --configpath train_route.json
-</pre></div>
+<div class="last highlight-python"><pre>$ jubagraph --configpath train_route.json</pre>
 </div>
 </dd>
 </dl>
@@ -594,7 +594,7 @@ types.ShortestPathQueryの第1引数に接続元の駅ID、第2引数に接続�
 <li><dl class="first docutils">
 <dt>グラフの作成</dt>
 <dd><p class="first">鉄道の接続を表すグラフを作成します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./create_graph.py
+<div class="highlight-python"><pre>$ ./create_graph.py
 === Station IDs ===
 0       品川
 1       大崎
@@ -602,8 +602,7 @@ types.ShortestPathQueryの第1引数に接続元の駅ID、第2引数に接続�
 ...
 139     中野
 144     四ツ谷
-147     御茶ノ水
-</pre></div>
+147     御茶ノ水</pre>
 </div>
 <p class="last">駅名に対応する駅ID(グラフ上のnode ID) が出力されます。</p>
 </dd>
@@ -612,7 +611,7 @@ types.ShortestPathQueryの第1引数に接続元の駅ID、第2引数に接続�
 <li><dl class="first docutils">
 <dt>経路の探索</dt>
 <dd><p class="first">2つの駅IDから最短経路を検索します。</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ ./search_route.py 0 144
+<div class="last highlight-python"><pre>$ ./search_route.py 0 144
 Pseudo-Shortest Path (hops) from 0 to 144:
   0     品川
   4     田町
@@ -622,8 +621,7 @@ Pseudo-Shortest Path (hops) from 0 to 144:
   16    東京
   19    神田
   147   御茶ノ水
-  144   四ツ谷
-</pre></div>
+  144   四ツ谷</pre>
 </div>
 </dd>
 </dl>
@@ -649,19 +647,19 @@ Pseudo-Shortest Path (hops) from 0 to 144:
           <a href="../genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="stat.html" title="Stat チュートリアル"
+          <a href="stat.html" title="Stat"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="graph.html" title="Graph チュートリアル"
+          <a href="graph.html" title="Graph"
              >前へ</a> |</li>
         <li><a href="../index.html">Jubatus</a> &raquo;</li>
           <li><a href="../tutorial.html" >チュートリアル</a> &raquo;</li>
-          <li><a href="graph.html" >Graph チュートリアル</a> &raquo;</li> 
+          <li><a href="graph.html" >Graph</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2 で生成しました。
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,8 +31,8 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.6.4',
+        URL_ROOT:    '',
+        VERSION:     '0.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -224,7 +225,7 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 <p>なお、メソッドの戻り値型に <tt class="docutils literal"><span class="pre">void</span></tt> は利用できない。
 返り値が必要ない場合は、意味のない <tt class="docutils literal"><span class="pre">int</span></tt> や <tt class="docutils literal"><span class="pre">bool</span></tt> 型などを指定する必要がある。</p>
 <p>以下は、アノテーション付きの IDL の例である。</p>
-<div class="highlight-c++"><div class="highlight"><pre>message entry {
+<div class="highlight-c++"><pre>message entry {
   0: string key
   1: string value
   2: int version
@@ -242,8 +243,7 @@ service kvs {
 
   #@broadcast #@update #@pass
   int clear()
-}
-</pre></div>
+}</pre>
 </div>
 <p>以下のサーバー向けのRPCメソッドは <tt class="docutils literal"><span class="pre">jenerator</span></tt> によって、自動的に各サービスに追加される。</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#@random #@analysis #@pass</span>
@@ -264,15 +264,13 @@ service kvs {
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml 4.0 以上(findlib あり) 、extlib および OMake が必要である。
 OCaml環境の構築には、 <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> を利用するのが楽である。
 OPAMをソースから入れる場合は、 <a class="reference external" href="http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew">ocamlbrew</a> を利用するとよい。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd jubatus/tools/jenerator
+<div class="highlight-python"><pre>$ cd jubatus/tools/jenerator
 $ omake
-$ sudo omake install
-</pre></div>
+$ sudo omake install</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> を行うと <tt class="docutils literal"><span class="pre">jenerator</span></tt> が <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> としてインストールされる (環境によりパスは異なる場合がある)。
 インストールパスを変える場合は、</p>
-<div class="highlight-python"><div class="highlight"><pre>$ PREFIX=/path/to/install omake install
-</pre></div>
+<div class="highlight-python"><pre>$ PREFIX=/path/to/install omake install</pre>
 </div>
 <p>でインストールパスを変えることができる。
 インストールを行わずに、ビルドされた <tt class="docutils literal"><span class="pre">jenerator</span></tt> のバイナリを直接使用してもよい。</p>
@@ -281,8 +279,7 @@ $ sudo omake install
 <div class="section" id="proxy-idl">
 <h3>サーバ/Proxy を IDL から生成する<a class="headerlink" href="#proxy-idl" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>上に示した例が <tt class="docutils literal"><span class="pre">kvs.idl</span></tt> というファイルに書かれていると仮定して、以下の手順でコードを生成する。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl
-</pre></div>
+<div class="highlight-python"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> の詳細な使い方については <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> を参照すること。</p>
 </div>
@@ -339,7 +336,7 @@ $ sudo omake install
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 PFI &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2 で生成しました。
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->
