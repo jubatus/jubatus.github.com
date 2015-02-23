@@ -189,3 +189,48 @@ Methods
    このメソッドは、主に TCP 接続を明示的に切断したり、タイムアウトを変更したりするために使用する。
 
    ``mprpc_client`` は MessagePack-RPC クライアントの型で、言語により異なる (`C++ <http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html>`_ / `Python <https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py>`_ / `Ruby <http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html>`_ / `Java <http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html>`_)。
+
+
+補助メソッド
+~~~~~~~~~~~~
+
+各言語ごとに、言語固有の補助関数がある。
+それらについて説明する。
+
+Python
+++++++
+
+.. py:function:: jubatus.commmon.connect(cls, host, port, name, timeout=10)
+
+   `cls` で指定されたクラスのクライアントを作り、 `host`, `port`, `name` で指定されたサーバーに接続する。
+   コンテキストマネージャーが作成されるため、 `with` 文中で利用する。
+   ターゲットとして作成されたクライアントオブジェクトを受け取れる。
+   `with` から抜けるときに、このクライアントオブジェクトはサーバーとの接続を切断する。
+
+   .. code-block:: python
+
+      with jubatus.common.connect(jubatus.classifier.client.Classifier, 'localhost', 9199, 'cluster_name', 10) as client:
+          client.get_status()
+
+
+Ruby
+++++
+
+.. rb:module:: Jubatus::Common
+
+.. rb:class:: ClientBase
+
+   全てのクライアントオブジェクトは、 `ClientBase` クラスの派生クラスとして定義されている。
+
+   .. rb:classmethod:: connect(host, port, name, timeout_sec, &block)
+
+      各アルゴリズムのクライアントクラスの `connect` メソッドを呼び出すことで、安全にクライアントのコネクションを閉じることができる。
+      `connect` メソッドは、接続先ホスト名、ポート番号、クラスタ名、タイムアウト時間とブロックを渡すと、クライアントオブジェクトを作製し指定のサーバーに接続する。
+      そして、渡されたブロックにクライアントオブジェクトを引き渡す。
+      ブロックを抜ける際に、このクライアントオブジェクトはサーバーとの接続を切断する。
+
+      .. code-block:: ruby
+
+         Jubatus::Classifier::Client::Classifier.connect('localhost', 9199, 'cluster_name', 10) { |client|
+           client.get_status()
+         }

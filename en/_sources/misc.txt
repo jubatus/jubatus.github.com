@@ -31,7 +31,7 @@ Publications
 ~~~~
 
 2011/10/26 Press Relase
-  - `PFI (in Japanese) <http://preferred.jp/news/?id=278>`_
+  - `PFN (in Japanese) <http://preferred.jp/news/?id=278>`_
   - `NTT <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_
   - `Press Release Slides (in Japanese) <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
 

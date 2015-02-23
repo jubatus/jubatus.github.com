@@ -67,7 +67,7 @@
 2011/11/04
   岡野原 大輔，他, **大規模分散リアルタイム学習支える技術と今後の展望**, WebDB forum 2011, Tokyo.
 2011/10/26 Press Relase
-  - `PFI (in Japanese) <http://preferred.jp/news/?id=278>`_
+  - `PFN (in Japanese) <http://preferred.jp/news/?id=278>`_
   - `NTT <http://www.ntt.co.jp/news2011/1110e/111026a.html>`_
   - `Press Release Slides (in Japanese) <http://www.slideshare.net/JubatusOfficial/jubatus-pressrelease>`_
 

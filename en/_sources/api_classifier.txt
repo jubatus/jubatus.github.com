@@ -27,6 +27,7 @@ We show each field below:
       ``"CW"``         Use Confidence Weighted Learning. [Dredze08]_
       ``"AROW"``       Use Adaptive Regularization of Weight vectors. [Crammer09b]_
       ``"NHERD"``      Use Normal Herd. [Crammer10]_
+      ``"NN"``         Use an inplementation of ``nearest_neighbor``
       ================ ===================================
 
 .. describe:: parameter
@@ -44,12 +45,13 @@ We show each field below:
         If you don't use unlearner function, you can omit this parameter.
         You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
         Labels will be deleted based on strategy specified here.
+        When ``method`` is ``"NN"``, each data (not labels) will be deleted.
 
      :unlearner_parameter:
         Specify unlearner parameter.
         You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
         You cannot omit this parameter if you specify ``unlearner``.
-        Labels in excess of this number will be deleted automatically.
+        Labels (or data) in excess of this number will be deleted automatically.
 
      note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
 
@@ -103,6 +105,29 @@ We show each field below:
         (Float)
 
         * Range: 0.0 < ``regularization_weight``
+
+    NN
+      :method:
+        Specify algorithm for nearest neighbor.
+        Refer to :doc:`api_nearest_neighbor` for the list of algorithms available.
+
+      :parameter:
+        Specify parameters for the algorithm.
+        Refer to :doc:`api_nearest_neighbor` for the list of parameters.
+
+      :nearest_neighbor_num:
+        Number of data which is used for calculating scores.
+        (Integer)
+
+        * Range: 1 <= ``nearest_neighbor_num``
+
+      :local_sensitivity:
+        Sensitivity used for caliculating scores.
+        When it is bigger, near data are weighted much more.
+        When it is 0, all data will be treated as same weight.
+        (Float)
+
+        * Range: 0.0 <= ``local_sensitivity``
 
 
 .. describe:: converter

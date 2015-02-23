@@ -27,6 +27,7 @@ JSON の各フィールドは以下のとおりである。
       ``"CW"``         Confidence Weighted Learning を利用する。 [Dredze08]_
       ``"AROW"``       Adaptive Regularization of Weight vectors を利用する。 [Crammer09b]_
       ``"NHERD"``      Normal Herd を利用する。 [Crammer10]_
+      ``"NN"``         ``nearest_neighbor`` を利用する。
       ================ ===================================
 
 .. describe:: parameter
@@ -41,12 +42,13 @@ JSON の各フィールドは以下のとおりである。
         忘却機能を利用しない場合、 このパラメータを省略する。
         :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
         ここで指定された方法に基づいてラベルを忘却する。
+        ``method`` が ``"NN"`` の場合、ラベルではなく個々のデータを忘却する。
 
      :unlearner_parameter:
         忘却機能に利用するUnlearnerに渡すパラメータを指定する。
         :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
         ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
-        ここで指定された件数以上のラベルを忘却する。
+        ここで指定された件数以上のラベルまたはデータを忘却する。
 
      これら2つのパラメータは **省略可能** である。
 
@@ -100,6 +102,29 @@ JSON の各フィールドは以下のとおりである。
         (Float)
 
         * 値域: 0.0 < ``regularization_weight``
+
+    NN
+      :method:
+        近傍探索に使用するアルゴリズムを指定する。
+        使用可能なアルゴリズムの一覧は :doc:`api_nearest_neighbor` を参照のこと。
+
+      :parameter:
+        アルゴリズムに渡すパラメータを指定する。
+        パラメータの一覧は :doc:`api_nearest_neighbor` を参照のこと。
+
+      :nearest_neighbor_num:
+        スコア算出時に使われるデータの数を指定する。
+        (Integer)
+
+        * 値域: 1 <= ``nearest_neighbor_num``
+
+      :local_sensitivity:
+        スコア算出時に使われる感度パラメータを指定する。
+        0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
+        大きくすると距離の近いデータをより重視するようになる。
+        (Float)
+
+        * 値域: 0.0 <= ``local_sensitivity``
 
 
 .. describe:: converter

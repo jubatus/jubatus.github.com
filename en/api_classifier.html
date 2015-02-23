@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.6',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -193,6 +193,9 @@ You can use these algorithms.</p>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;NHERD&quot;</span></tt></td>
 <td>Use Normal Herd. <a class="reference internal" href="method.html#crammer10">[Crammer10]</a></td>
 </tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;NN&quot;</span></tt></td>
+<td>Use an inplementation of <tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt></td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -214,13 +217,14 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 <tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
 If you don&#8217;t use unlearner function, you can omit this parameter.
 You can specify <tt class="docutils literal"><span class="pre">unlearner</span></tt> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
-Labels will be deleted based on strategy specified here.</td>
+Labels will be deleted based on strategy specified here.
+When <tt class="docutils literal"><span class="pre">method</span></tt> is <tt class="docutils literal"><span class="pre">&quot;NN&quot;</span></tt>, each data (not labels) will be deleted.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
 You can specify <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
 You cannot omit this parameter if you specify <tt class="docutils literal"><span class="pre">unlearner</span></tt>.
-Labels in excess of this number will be deleted automatically.</td>
+Labels (or data) in excess of this number will be deleted automatically.</td>
 </tr>
 </tbody>
 </table>
@@ -303,7 +307,8 @@ It corresponds to <img class="math" src="_images/math/47aef839c19ec285dbd400ba5b
 </table>
 </dd>
 <dt>NHERD</dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><blockquote class="first">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -319,6 +324,43 @@ It corresponds to <img class="math" src="_images/math/c3355896da590fc491a10150a5
 </tr>
 </tbody>
 </table>
+</div></blockquote>
+<dl class="last docutils">
+<dt>NN</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">method:</th><td class="field-body"><p class="first">Specify algorithm for nearest neighbor.
+Refer to <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> for the list of algorithms available.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">Specify parameters for the algorithm.
+Refer to <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> for the list of parameters.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Number of data which is used for calculating scores.
+(Integer)</p>
+<ul class="simple">
+<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">local_sensitivity:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Sensitivity used for caliculating scores.
+When it is bigger, near data are weighted much more.
+When it is 0, all data will be treated as same weight.
+(Float)</p>
+<ul class="last simple">
+<li>Range: 0.0 &lt;= <tt class="docutils literal"><span class="pre">local_sensitivity</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -543,7 +585,7 @@ True if jubatus success to delete. False if the label is not exists.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011-2014 PFI &amp; NTT.
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
 

@@ -254,13 +254,79 @@ num_filter_types
 
   :value:  足す値の文字列表現を指定する。例えば3足すのであれば、"3"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。
 
+.. describe:: linear_normalization
+
+ 値を0以上から1以下の小数へと正規化する。
+ "min"と"max"の2つの小数を入力として要求し、これら2つのパラメータの省略はできない。
+ 入力された値xに対して「(x - min) / (max - min)」という計算を行う事で0以上1以下の小数へと線形に変換する。
+ もしxが"min"より小さい場合には0へ切り上げられる。
+ 同様にxが"max"より大きい場合には1へ切り捨てられる。
+ この挙動は"truncate"オプションにより変更が可能である。
+ "max"が"min"より小さい場合は、invalid_parameter例外が発生し失敗する。
+
+  :min:  想定される最小値を指定する。例えば最小値が0であれば、"0"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。省略不可。
+  :max:  想定される最小値を指定する。例えば最大値が100であれば、"100"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。"min"より小さい数や等しい値は指定できない。省略不可。
+  :truncate:  最小値未満の値や、最大値以上の値に対する動作を規定する。デフォルトでは"True"であり、最小値以下の値は0へ、最大値以上の値は1へ切り詰められる。"True"以外を指定する事で最小値以下・最大値以上の値に対する切り詰め処理を行わせない事ができる。省略可能。
+
+ この機能を使う際のコンフィグの一例は以下の通りである。
+
+.. code-block:: js
+
+    "num_filter_types" : {
+        "zero_to_hundred": { "method": "linear_normalization", "min": "0", "max":"100" }
+    },
+    "num_filter_rules" : [
+        {"key" : "*", "type": "zero_to_hundred", "suffix": "linear_normalized" }
+    ],
+
+.. describe:: gaussian_normalization
+
+ 値がガウス分布（正規分布）していると仮定し、与えられた平均値と標準偏差にそった値を-1以上+1以下の範囲の小数に正規化する。
+ "average"と"standard_deviation"の2つの小数を入力として要求し、省略はできない。
+ 入力された値xに対して「(x - average) / standard_deviation」という計算を行う事で-1以上1以下の小数へと変換する。
+ そのため外れ値は-1を下回る値や1を超える値になることがありうる。
+ "standard_deviation"に負の値を指定した場合にはinvalid_parameter例外が発生し失敗する。
+
+  :average:  平均値を指定する。例えば平均値が80であれば、"80"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。
+  :standard_deviation:  想定される標準偏差を指定する。例えば標準偏差が2.3であれば、"2.3"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。
+
+ この機能を使う際のコンフィグの一例は以下の通りである。
+
+.. code-block:: js
+
+    "num_filter_types" : {
+        "gaussian_80_2.3": { "method": "gaussian_normalization", "average": "80", "standard_deviation":"2.3" }
+    },
+    "num_filter_rules" : [
+        {"key" : "*", "type": "gaussian_80_2.3", "suffix": "gaussian_normalized" }
+    ],
+
+.. describe:: sigmoid_normalization
+
+ 値をシグモイド関数に基づいて0から1の範囲へと切り詰める。
+ "gain"と"bias"の2つを入力として要求する。省略した場合にはそれぞれ1と0になる。
+ 入力された値xに対して「1 / (1 + e ^ (-gain * (x - bias)))」という計算を行う事で0〜1の小数へと変換する。
+
+  :gain:  sigmoid関数のゲイン値を指定する。大きな値を指定するほど急峻なsigmoid関数となる。例えば0.5を指定する場合は"0.5"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは1である。
+  :bias:  sigmoid関数のバイアス値を指定する。sigmoid関数が0.5を出力する事を期待するxの値を指定する。例えば3を指定する場合は"3"と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは0である。
+
+ この機能を使う際のコンフィグの一例は以下の通りである。
+
+.. code-block:: js
+
+    "num_filter_types" : {
+        "sigmoid": { "method": "sigmoid_normalization", "gain": "0.05", "bias":"5" }
+    },
+    "num_filter_rules" : [
+        {"key" : "*", "type": "sigmoid", "suffix": "sigmoid_normalized" }
+    ],
+
 .. describe:: dynamic
 
  プラグインを利用する。詳細は後述する。
 
   :path:      プラグインのパスを指定する。
   :function:  プラグインの呼び出し関数を指定する。
-
 
 num_filter_rules
 ~~~~~~~~~~~~~~~~

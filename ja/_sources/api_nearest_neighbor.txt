@@ -160,3 +160,9 @@ Methods
       :return:        ``query`` の近傍の id とその類似度の値のリスト
 
       指定した ``query`` に近い :mpidl:type:`datum` を持つ行とその ``query`` との類似度のリストを (最大で) ``size`` 個返す。
+
+   .. mpidl:method:: list<string> get_all_rows()
+
+      :return:     すべての行の ID リスト
+
+      すべての行の ID リストを返す。

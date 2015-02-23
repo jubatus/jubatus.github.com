@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.6',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -84,6 +84,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
         <li class="right" >
           <a href="plugin.html" title="プラグインの開発"
              accesskey="N">次へ</a> |</li>
@@ -444,6 +447,102 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </div></blockquote>
 </dd></dl>
 
+<dl class="describe">
+<dt>
+<tt class="descname">linear_normalization</tt></dt>
+<dd><p>値を0以上から1以下の小数へと正規化する。
+&#8220;min&#8221;と&#8221;max&#8221;の2つの小数を入力として要求し、これら2つのパラメータの省略はできない。
+入力された値xに対して「(x - min) / (max - min)」という計算を行う事で0以上1以下の小数へと線形に変換する。
+もしxが&#8221;min&#8221;より小さい場合には0へ切り上げられる。
+同様にxが&#8221;max&#8221;より大きい場合には1へ切り捨てられる。
+この挙動は&#8221;truncate&#8221;オプションにより変更が可能である。
+&#8220;max&#8221;が&#8221;min&#8221;より小さい場合は、invalid_parameter例外が発生し失敗する。</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">min:</th><td class="field-body">想定される最小値を指定する。例えば最小値が0であれば、&#8221;0&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。省略不可。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">max:</th><td class="field-body">想定される最小値を指定する。例えば最大値が100であれば、&#8221;100&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。&#8221;min&#8221;より小さい数や等しい値は指定できない。省略不可。</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">truncate:</th><td class="field-body">最小値未満の値や、最大値以上の値に対する動作を規定する。デフォルトでは&#8221;True&#8221;であり、最小値以下の値は0へ、最大値以上の値は1へ切り詰められる。&#8221;True&#8221;以外を指定する事で最小値以下・最大値以上の値に対する切り詰め処理を行わせない事ができる。省略可能。</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>この機能を使う際のコンフィグの一例は以下の通りである。</p>
+</dd></dl>
+
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;zero_to_hundred&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;linear_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="s2">&quot;100&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;zero_to_hundred&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;linear_normalized&quot;</span> <span class="p">}</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">gaussian_normalization</tt></dt>
+<dd><p>値がガウス分布（正規分布）していると仮定し、与えられた平均値と標準偏差にそった値を-1以上+1以下の範囲の小数に正規化する。
+&#8220;average&#8221;と&#8221;standard_deviation&#8221;の2つの小数を入力として要求し、省略はできない。
+入力された値xに対して「(x - average) / standard_deviation」という計算を行う事で-1以上1以下の小数へと変換する。
+そのため外れ値は-1を下回る値や1を超える値になることがありうる。
+&#8220;standard_deviation&#8221;に負の値を指定した場合にはinvalid_parameter例外が発生し失敗する。</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">平均値を指定する。例えば平均値が80であれば、&#8221;80&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">standard_deviation:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">想定される標準偏差を指定する。例えば標準偏差が2.3であれば、&#8221;2.3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>この機能を使う際のコンフィグの一例は以下の通りである。</p>
+</dd></dl>
+
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;gaussian_80_2.3&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;average&quot;</span><span class="o">:</span> <span class="s2">&quot;80&quot;</span><span class="p">,</span> <span class="s2">&quot;standard_deviation&quot;</span><span class="o">:</span><span class="s2">&quot;2.3&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_80_2.3&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_normalized&quot;</span> <span class="p">}</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">sigmoid_normalization</tt></dt>
+<dd><p>値をシグモイド関数に基づいて0から1の範囲へと切り詰める。
+&#8220;gain&#8221;と&#8221;bias&#8221;の2つを入力として要求する。省略した場合にはそれぞれ1と0になる。
+入力された値xに対して「1 / (1 + e ^ (-gain * (x - bias)))」という計算を行う事で0〜1の小数へと変換する。</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">gain:</th><td class="field-body">sigmoid関数のゲイン値を指定する。大きな値を指定するほど急峻なsigmoid関数となる。例えば0.5を指定する場合は&#8221;0.5&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは1である。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">bias:</th><td class="field-body">sigmoid関数のバイアス値を指定する。sigmoid関数が0.5を出力する事を期待するxの値を指定する。例えば3を指定する場合は&#8221;3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは0である。</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>この機能を使う際のコンフィグの一例は以下の通りである。</p>
+</dd></dl>
+
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;sigmoid&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;gain&quot;</span><span class="o">:</span> <span class="s2">&quot;0.05&quot;</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="o">:</span><span class="s2">&quot;5&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid_normalized&quot;</span> <span class="p">}</span>
+<span class="p">],</span>
+</pre></div>
+</div>
 <dl class="describe">
 <dt>
 <tt class="descname">dynamic</tt></dt>
@@ -1109,6 +1208,9 @@ CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</sp
           <a href="genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
+          <a href="rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
           <a href="plugin.html" title="プラグインの開発"
              >次へ</a> |</li>
         <li class="right" >
@@ -1119,7 +1221,7 @@ CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</sp
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011-2014 PFI &amp; NTT.
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
       このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
     </div>
 

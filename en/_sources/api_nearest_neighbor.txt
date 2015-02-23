@@ -159,3 +159,9 @@ Methods
       :return:     row IDs that are the nearest to ``query`` and their similarity values
 
       Returns ``ret_num`` rows (at maximum) of which :mpidl:type:`datum` are most similar to ``query`` and their similarity values.
+
+   .. mpidl:method:: list<string> get_all_rows()
+
+      :return:     list of all row IDs
+
+      Returns the list of all row IDs.
