@@ -183,7 +183,7 @@
 </pre></div>
 </div>
 <p><strong>anomaly.java</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">package</span> <span class="n">lof</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">package</span> <span class="nn">lof</span><span class="o">;</span>
 <span class="mi">002</span> <span class="o">:</span>
 <span class="mi">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
 <span class="mi">004</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
@@ -297,7 +297,7 @@
 <span class="mi">112</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_rerror_rate&quot;</span>
 <span class="mi">113</span> <span class="o">:</span>  <span class="o">};</span>
 <span class="mi">114</span> <span class="o">:</span>
-<span class="mi">115</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">115</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
 <span class="mi">116</span> <span class="o">:</span>          <span class="c1">// 1. Connect to Jubatus Server</span>
 <span class="mi">117</span> <span class="o">:</span>          <span class="n">AnomalyClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnomalyClient</span><span class="o">(</span><span class="n">HOST</span><span class="o">,</span> <span class="n">PORT</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
 <span class="mi">118</span> <span class="o">:</span>
@@ -354,7 +354,7 @@
 <span class="mi">169</span> <span class="o">:</span>
 <span class="mi">170</span> <span class="o">:</span>
 <span class="mi">171</span> <span class="o">:</span>  <span class="c1">// Make the Datum with the assigned lists</span>
-<span class="mi">172</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">Datum</span> <span class="n">makeDatum</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strList</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">doubleList</span><span class="o">)</span> <span class="o">{</span>
+<span class="mi">172</span> <span class="o">:</span>  <span class="kd">private</span> <span class="n">Datum</span> <span class="nf">makeDatum</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strList</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">doubleList</span><span class="o">)</span> <span class="o">{</span>
 <span class="mi">173</span> <span class="o">:</span>
 <span class="mi">174</span> <span class="o">:</span>          <span class="n">Datum</span> <span class="n">datum</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Datum</span><span class="o">();</span>
 <span class="mi">175</span> <span class="o">:</span>          <span class="n">datum</span><span class="o">.</span><span class="na">string_values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">TupleStringString</span><span class="o">&gt;();</span>
@@ -385,7 +385,7 @@
 <span class="mi">200</span> <span class="o">:</span>  <span class="o">}</span>
 <span class="mi">201</span> <span class="o">:</span>
 <span class="mi">202</span> <span class="o">:</span>  <span class="c1">// main method</span>
-<span class="mi">203</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="mi">203</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
 <span class="mi">204</span> <span class="o">:</span>
 <span class="mi">205</span> <span class="o">:</span>          <span class="k">new</span> <span class="n">Lof</span><span class="o">().</span><span class="na">execute</span><span class="o">();</span>
 <span class="mi">206</span> <span class="o">:</span>          <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>

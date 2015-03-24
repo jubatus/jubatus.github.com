@@ -220,25 +220,26 @@ Available aggregators are written in <a class="reference external" href="https:/
 <p><tt class="docutils literal"><span class="pre">void</span></tt> type cannot be used as the return type of methods.
 If the return value is not needed, you must add meaningless type such as <tt class="docutils literal"><span class="pre">int</span></tt> or <tt class="docutils literal"><span class="pre">bool</span></tt>.</p>
 <p>Here is a example of MessagePack-IDL with annotation.</p>
-<div class="highlight-c++"><pre>message entry {
-  0: string key
-  1: string value
-  2: int version
-}
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">entry</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span>
+<span class="p">}</span>
 
-service kvs {
-  #@cht(2) #@update #@pass
-  int put(0: string key, 1: string value)
+<span class="n">service</span> <span class="n">kvs</span> <span class="p">{</span>
+  <span class="cp">#@cht(2) #@update #@pass</span>
+  <span class="kt">int</span> <span class="n">put</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="n">string</span> <span class="n">value</span><span class="p">)</span>
 
-  #@cht(2) #@analysis #@pass
-  entry get(0: string key)
+  <span class="cp">#@cht(2) #@analysis #@pass</span>
+  <span class="n">entry</span> <span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">)</span>
 
-  #@cht(2) #@update #@pass
-  int del(0: string key, 1: int version)
+  <span class="cp">#@cht(2) #@update #@pass</span>
+  <span class="kt">int</span> <span class="n">del</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="kt">int</span> <span class="n">version</span><span class="p">)</span>
 
-  #@broadcast #@update #@pass
-  int clear()
-}</pre>
+  <span class="cp">#@broadcast #@update #@pass</span>
+  <span class="kt">int</span> <span class="n">clear</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 <p>The following RPC methods for server are automatically appended to each service by <tt class="docutils literal"><span class="pre">jenerator</span></tt>:</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#@random #@analysis #@pass</span>

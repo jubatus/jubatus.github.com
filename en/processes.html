@@ -139,24 +139,15 @@
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
 <p>Jubatus has a client-server architecture.
 The simplest process configuration is single client process and single server process like following figure.</p>
-<p class="blockdiag">
-<img src="_images/blockdiag-cb07631b3758b32d22e039525fcaa548205eed0d.png" alt="None" width="448" height="120" />
-</p>
-<p>Jubatus can make use of multiple server processes in order to scale out the system.
+<div><img height="120" src="_images/blockdiag-c59d0805baa9007b85760c73237370a5a826cc68.png" width="448" /></div><p>Jubatus can make use of multiple server processes in order to scale out the system.
 By throwing queries to Jubatus Proxy, we can execute machine learning requests (update/analyze) with multiple server processes.</p>
 <p>Jubatus Proxy proxy queries from clients to appropriate server(s).
 Clients work as if it is communicating with just one server.
 In other words, clients don&#8217;t need to know whether it is connecting to a server or a Jubatus Proxy.</p>
 <p>Jubatus Proxy use ZooKeeper to keep-aliving and load-balancing each Jubatus servers.</p>
-<p class="blockdiag">
-<img src="_images/blockdiag-0b47b09550aab64297de2dae0bb42bb96e9c4314.png" alt="None" width="640" height="280" />
-</p>
-<p>Sometimes we want to distribute clients because data size is huge, or source of data is far from server.
+<div><img height="280" src="_images/blockdiag-d32a8e761d530181c21863f1883f0b4bcfae162d.png" width="640" /></div><p>Sometimes we want to distribute clients because data size is huge, or source of data is far from server.
 Jubatus can achieve this by creating multiple Jubatus Proxy and assigning different Jubatu Proxy to each client.</p>
-<p class="blockdiag">
-<img src="_images/blockdiag-52c7162452245223d479f0cac422c5f4c9975d30.png" alt="None" width="640" height="280" />
-</p>
-<p>The following picture describes how to run programs used by management process.
+<div><img height="280" src="_images/blockdiag-03bfdfde7c9cb48423f5a3a6d0942d49a160bcd2.png" width="640" /></div><p>The following picture describes how to run programs used by management process.
 Please note that &#8220;semimaster&#8221;, &#8220;jubatusctrl&#8221; and &#8220;jubatus_classifier_server&#8221; is now called as &#8220;jubaclassifier_proxy&#8221;, &#8220;jubactl&#8221; and &#8220;jubaclassifier&#8221;, respectively.</p>
 <div class="figure">
 <img alt="relationship of processes" src="_images/processes.png" style="width: 90%;" />

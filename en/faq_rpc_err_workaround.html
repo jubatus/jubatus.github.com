@@ -198,7 +198,7 @@ You can catch any RPC exceptions by <tt class="docutils literal"><span class="pr
 <span class="no">RETRY_MAX</span> <span class="o">=</span> <span class="mi">3</span>      <span class="c1"># maximum number of retries</span>
 <span class="no">RETRY_INTERVAL</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># retry interval (sec)</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="ss">Jubatus</span><span class="p">:</span><span class="ss">:Classifier</span><span class="o">::</span><span class="ss">Client</span><span class="p">:</span><span class="ss">:Classifier</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="nb">name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Classifier</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="nb">name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
 <span class="k">begin</span>
   <span class="n">retry_count</span> <span class="o">=</span> <span class="no">RETRY_MAX</span>
   <span class="k">begin</span>
@@ -207,7 +207,7 @@ You can catch any RPC exceptions by <tt class="docutils literal"><span class="pr
     <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">query_data</span><span class="p">)</span>
 
   <span class="c1"># retry against transport error and timeout</span>
-  <span class="k">rescue</span> <span class="ss">MessagePack</span><span class="p">:</span><span class="ss">:RPC</span><span class="o">::</span><span class="no">TimeoutError</span><span class="p">,</span> <span class="ss">MessagePack</span><span class="p">:</span><span class="ss">:RPC</span><span class="o">::</span><span class="no">TransportError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="k">rescue</span> <span class="no">MessagePack</span><span class="o">::</span><span class="no">RPC</span><span class="o">::</span><span class="no">TimeoutError</span><span class="p">,</span> <span class="no">MessagePack</span><span class="o">::</span><span class="no">RPC</span><span class="o">::</span><span class="no">TransportError</span> <span class="o">=&gt;</span> <span class="n">e</span>
     <span class="c1"># stop retrying if the number of retry reaches limit</span>
     <span class="k">raise</span> <span class="k">if</span> <span class="p">(</span><span class="n">retry_count</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span>
 
@@ -221,7 +221,7 @@ You can catch any RPC exceptions by <tt class="docutils literal"><span class="pr
   <span class="k">end</span>
 
 <span class="c1"># catch any RPC exceptions</span>
-<span class="k">rescue</span> <span class="ss">MessagePack</span><span class="p">:</span><span class="ss">:RPC</span><span class="o">::</span><span class="no">RPCError</span><span class="p">,</span> <span class="ss">Jubatus</span><span class="p">:</span><span class="ss">:Common</span><span class="o">::</span><span class="no">InterfaceMismatch</span> <span class="o">=&gt;</span> <span class="n">e</span>
+<span class="k">rescue</span> <span class="no">MessagePack</span><span class="o">::</span><span class="no">RPC</span><span class="o">::</span><span class="no">RPCError</span><span class="p">,</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Common</span><span class="o">::</span><span class="no">InterfaceMismatch</span> <span class="o">=&gt;</span> <span class="n">e</span>
   <span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span> <span class="n">e</span>
 <span class="k">ensure</span>
   <span class="c1"># close session always</span>
