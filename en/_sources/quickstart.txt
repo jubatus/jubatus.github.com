@@ -112,7 +112,7 @@ For Ubuntu systems, type:
 Python
 ~~~~~~
 
-The client (requires Python 2.6 or later) is available in `PyPI <http://pypi.python.org/pypi/jubatus>`_.
+The client (requires Python 2.6 or 2.7) is available in `PyPI <http://pypi.python.org/pypi/jubatus>`_.
 
 ::
 
@@ -131,7 +131,7 @@ On Ubuntu, you can also use ``python-pip`` package to install ``pip``.
 Ruby
 ~~~~
 
-The client (requires Ruby 1.9) is available in `RubyGems <http://rubygems.org/gems/jubatus>`_.
+The client (requires Ruby 1.9 or later) is available in `RubyGems <http://rubygems.org/gems/jubatus>`_.
 
 ::
 

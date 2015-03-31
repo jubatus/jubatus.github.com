@@ -103,22 +103,22 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 0.0 < ``regularization_weight``
 
-    NN
-      :method:
+   NN
+     :method:
         近傍探索に使用するアルゴリズムを指定する。
         使用可能なアルゴリズムの一覧は :doc:`api_nearest_neighbor` を参照のこと。
 
-      :parameter:
+     :parameter:
         アルゴリズムに渡すパラメータを指定する。
         パラメータの一覧は :doc:`api_nearest_neighbor` を参照のこと。
 
-      :nearest_neighbor_num:
+     :nearest_neighbor_num:
         スコア算出時に使われるデータの数を指定する。
         (Integer)
 
         * 値域: 1 <= ``nearest_neighbor_num``
 
-      :local_sensitivity:
+     :local_sensitivity:
         スコア算出時に使われる感度パラメータを指定する。
         0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
         大きくすると距離の近いデータをより重視するようになる。

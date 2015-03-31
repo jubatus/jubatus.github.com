@@ -20,7 +20,7 @@ Anomaly チュートリアル (Java)
  05 :   "reverse_nearest_neighbor_num" : 30,
  06 :   "method" : "euclid_lsh",
  07 :   "parameter" : {
- 08 :    "lsh_num" : 8,
+ 08 :    "hash_num" : 8,
  09 :    "table_num" : 16,
  10 :    "probe_num" : 64,
  11 :    "bin_width" : 10,
@@ -44,6 +44,9 @@ Anomaly チュートリアル (Java)
  
 
 **anomaly.java**
+
+このクライアントは Jubatus 0.4.x 向けです。
+Jubatus 0.5.x 以降で使用するためには微修正が必要です。
 
 .. code-block:: java
 
@@ -267,7 +270,7 @@ Anomaly チュートリアル (Java)
 * method
 
  分類に使用するアルコリズムを指定します。
- Regressionで指定できるのは、現在"LOF"のみなので"LOF"（Local Outlier Factor）を指定します。
+ Anomalyで指定できるのは、現在"LOF"のみなので"LOF"（Local Outlier Factor）を指定します。
 
 
 * converter

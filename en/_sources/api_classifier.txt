@@ -106,22 +106,22 @@ We show each field below:
 
         * Range: 0.0 < ``regularization_weight``
 
-    NN
-      :method:
+   NN
+     :method:
         Specify algorithm for nearest neighbor.
         Refer to :doc:`api_nearest_neighbor` for the list of algorithms available.
 
-      :parameter:
+     :parameter:
         Specify parameters for the algorithm.
         Refer to :doc:`api_nearest_neighbor` for the list of parameters.
 
-      :nearest_neighbor_num:
+     :nearest_neighbor_num:
         Number of data which is used for calculating scores.
         (Integer)
 
         * Range: 1 <= ``nearest_neighbor_num``
 
-      :local_sensitivity:
+     :local_sensitivity:
         Sensitivity used for caliculating scores.
         When it is bigger, near data are weighted much more.
         When it is 0, all data will be treated as same weight.

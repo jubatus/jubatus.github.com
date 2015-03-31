@@ -48,18 +48,18 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 2 <= ``bucket_length``
 
-     :compresed_backet_size:
-        ``backet_size`` を何点に圧縮するかを指定する。
-        圧縮率 = (``compressed_backet_size`` / ``backet_size`` )である。
+     :compressed_bucket_size:
+        ``bucket_size`` を何点に圧縮するかを指定する。
+        圧縮率 = (``compressed_bucket_size`` / ``bucket_size`` )である。
         (Integer)
 
-        * 値域: ``bicriteria_base_size`` < ``compresed_backet_size`` < ``bucket_size``
+        * 値域: ``bicriteria_base_size`` < ``compressed_bucket_size`` < ``bucket_size``
 
      :bicriteria_base_size:
         圧縮の粗さに関係するパラメータ。
         (Integer)
 
-        * 値域: 1 <= ``bicriteria_base_size`` < ``compresed_backet_size``
+        * 値域: 1 <= ``bicriteria_base_size`` < ``compressed_bucket_size``
 
      :forgetting_factor:
         忘却定数 ``c_f`` 。

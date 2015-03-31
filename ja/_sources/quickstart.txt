@@ -112,7 +112,7 @@ Ubuntu では、以下のコマンドを実行します。
 Python
 ~~~~~~
 
-クライアント (Python 2.6 以降が必要) は `PyPI <http://pypi.python.org/pypi/jubatus>`_ で配布されています。
+クライアント (Python 2.6 または 2.7 が必要) は `PyPI <http://pypi.python.org/pypi/jubatus>`_ で配布されています。
 
 ::
 
@@ -131,7 +131,7 @@ Ubuntu では ``pip`` のインストールに ``python-pip`` パッケージを
 Ruby
 ~~~~
 
-クライアント (Ruby 1.9 が必要) は `RubyGems <http://rubygems.org/gems/jubatus>`_ で配布されています。
+クライアント (Ruby 1.9 以降が必要) は `RubyGems <http://rubygems.org/gems/jubatus>`_ で配布されています。
 
 ::
 

@@ -12,114 +12,115 @@ Anomaly チュートリアル (Python)
 **config.json**
 
 .. code-block:: python
+ :linenos:
 
- 01 : {
- 02 :  "method" : "lof",
- 03 :  "parameter" : {
- 04 :   "nearest_neighbor_num" : 10,
- 05 :   "reverse_nearest_neighbor_num" : 30,
- 06 :   "method" : "euclid_lsh",
- 07 :   "parameter" : {
- 08 :    "lsh_num" : 8,
- 09 :    "table_num" : 16,
- 10 :    "probe_num" : 64,
- 11 :    "bin_width" : 10,
- 12 :    "seed" : 1234,
- 13 :    "retain_projection" : true
- 14 :   }
- 15 :  },
- 16 : 
- 17 :  "converter" : {
- 18 :   "string_filter_types": {},
- 19 :   "string_filter_rules": [],
- 20 :   "num_filter_types": {},
- 21 :   "num_filter_rules": [],
- 22 :   "string_types": {},
- 23 :   "string_rules": [{"key":"*", "type":"str", "global_weight" : "bin", "sample_weight" : "bin"}],
- 24 :   "num_types": {},
- 25 :   "num_rules": [{"key" : "*", "type" : "num"}]
- 26 :  }
- 27 : }
-
+ {
+  "method" : "lof",
+  "parameter" : {
+   "nearest_neighbor_num" : 10,
+   "reverse_nearest_neighbor_num" : 30,
+   "method" : "euclid_lsh",
+   "parameter" : {
+    "hash_num" : 8,
+    "table_num" : 16,
+    "probe_num" : 64,
+    "bin_width" : 10,
+    "seed" : 1234,
+    "retain_projection" : true
+   }
+  },
  
+  "converter" : {
+   "string_filter_types": {},
+   "string_filter_rules": [],
+   "num_filter_types": {},
+   "num_filter_rules": [],
+   "string_types": {},
+   "string_rules": [{"key":"*", "type":"str", "global_weight" : "bin", "sample_weight" : "bin"}],
+   "num_types": {},
+   "num_rules": [{"key" : "*", "type" : "num"}]
+  }
+ }
+
 
 **anomaly.py**
 
 .. code-block:: python
+ :linenos:
 
- 01 : # -*- coding: utf-8 -*-
- 02 : 
- 03 : import sys, json
- 04 : from jubatus.anomaly import client
- 05 : from jubatus.anomaly import types
- 06 : 
- 07 : NAME = "anom_kddcup";
- 08 : 
- 09 : if __name__ == '__main__':
- 10 :     
- 11 :     # 1.Jubatus Serverへの接続設定
- 12 :     anom = client.anomaly("127.0.0.1",9199)
- 13 : 
- 14 :     # 2.学習用データの準備
- 15 :     for line in open('./kddcup.data_10_percent.txt'):
- 16 :         duration, protocol_type, service, flag, src_bytes, dst_bytes, land, wrong_fragment, urgent, hot, num_failed_logins, logged_in, num_compromised, root_shell, su_attempted, num_root, num_file_creations, num_shells, num_access_files, num_outbound_cmds, is_host_login, is_guest_login, count, srv_count, serror_rate, srv_serror_rate, rerror_rate, srv_rerror_rate, same_srv_rate, diff_srv_rate, srv_diff_host_rate, dst_host_count, dst_host_srv_count, dst_host_same_srv_rate, dst_host_diff_srv_rate, dst_host_same_src_port_rate, dst_host_srv_diff_host_rate, dst_host_serror_rate, dst_host_srv_serror_rate, dst_host_rerror_rate, dst_host_srv_rerror_rate, label = line[:-1].split(",")
- 17 : 
- 18 :         datum = types.datum(
- 19 :        [
- 20 :         ["protocol_type", protocol_type],
- 21 :         ["service", service],
- 22 :         ["flag", flag],
- 23 :         ["land", land],
- 24 :         ["logged_in", logged_in],
- 25 :         ["is_host_login", is_host_login],
- 26 :         ["is_guest_login", is_guest_login],
- 27 :        ]
- 28 :        ,
- 29 :        [
- 30 :         ["duration",float(duration)],
- 31 :         ["src_bytes", float(src_bytes)],
- 32 :         ["dst_bytes", float(dst_bytes)],
- 33 :         ["wrong_fragment", float(wrong_fragment)],
- 34 :         ["urgent", float(urgent)],
- 35 :         ["hot", float(hot)],
- 36 :         ["num_failed_logins", float(num_failed_logins)],
- 37 :         ["num_compromised", float(num_compromised)],
- 38 :         ["root_shell", float(root_shell)],
- 39 :         ["su_attempted", float(su_attempted)],
- 40 :         ["num_root", float(num_root)],
- 41 :         ["num_file_creations", float(num_file_creations)],
- 42 :         ["num_shells", float(num_shells)],
- 43 :         ["num_access_files", float(num_access_files)],
- 44 :         ["num_outbound_cmds",float(num_outbound_cmds)],
- 45 :         ["count", float(count)], 
- 46 :         ["srv_count",float(srv_count)],
- 47 :         ["serror_rate", float(serror_rate)],
- 48 :         ["srv_serror_rate", float(srv_serror_rate)],
- 49 :         ["rerror_rate", float(rerror_rate)],
- 50 :         ["srv_rerror_rate",float( srv_rerror_rate)],
- 51 :         ["same_srv_rate", float(same_srv_rate)],
- 52 :         ["diff_srv_rate", float(diff_srv_rate)],
- 53 :         ["srv_diff_host_rate", float(srv_diff_host_rate)],
- 54 :         ["dst_host_count",float( dst_host_count)],
- 55 :         ["dst_host_srv_count", float(dst_host_srv_count)],
- 56 :         ["dst_host_same_srv_rate",float( dst_host_same_srv_rate)],
- 57 :         ["dst_host_same_src_port_rate",float( dst_host_same_src_port_rate)],
- 58 :         ["dst_host_diff_srv_rate", float(dst_host_diff_srv_rate)],
- 59 :         ["dst_host_srv_diff_host_rate",float(dst_host_srv_diff_host_rate)],
- 60 :         ["dst_host_serror_rate",float(dst_host_serror_rate)],
- 61 :         ["dst_host_srv_serror_rate",float(dst_host_srv_serror_rate)],
- 62 :         ["dst_host_rerror_rate",float(dst_host_rerror_rate)],
- 63 :         ["dst_host_srv_rerror_rate",float(dst_host_srv_rerror_rate)],
- 64 :         ]
- 65 :        )
- 66 : 
- 67 :         # 3.データの学習（学習モデルの更新）
- 68 :         ret = anom.add(NAME, datum)
- 69 :         
- 70 :         # 4.結果の出力
- 71 :         if (ret[1] != float('Inf')) and (ret[1] != 1.0):
- 72 :             print ret, label
- 73 : 
+ # -*- coding: utf-8 -*-
+ 
+ import sys, json
+ from jubatus.anomaly import client
+ from jubatus.common import Datum
+ 
+ NAME = "anom_kddcup";
+ 
+ if __name__ == '__main__':
+ 
+     # 1.Jubatus Serverへの接続設定
+     anom = client.Anomaly("127.0.0.1",9199,NAME)
+ 
+     # 2.学習用データの準備
+     for line in open('./kddcup.data_10_percent.txt'):
+         duration, protocol_type, service, flag, src_bytes, dst_bytes, land, wrong_fragment, urgent, hot, num_failed_logins, logged_in, num_compromised, root_shell, su_attempted, num_root, num_file_creations, num_shells, num_access_files, num_outbound_cmds, is_host_login, is_guest_login, count, srv_count, serror_rate, srv_serror_rate, rerror_rate, srv_rerror_rate, same_srv_rate, diff_srv_rate, srv_diff_host_rate, dst_host_count, dst_host_srv_count, dst_host_same_srv_rate, dst_host_diff_srv_rate, dst_host_same_src_port_rate, dst_host_srv_diff_host_rate, dst_host_serror_rate, dst_host_srv_serror_rate, dst_host_rerror_rate, dst_host_srv_rerror_rate, label = line[:-1].split(",")
+ 
+         datum = Datum()
+         for (k, v) in [
+                 ["protocol_type", protocol_type],
+                 ["service", service],
+                 ["flag", flag],
+                 ["land", land],
+                 ["logged_in", logged_in],
+                 ["is_host_login", is_host_login],
+                 ["is_guest_login", is_guest_login],
+                 ]:
+             datum.add_string(k, v)
+ 
+         for (k, v) in [
+                 ["duration",float(duration)],
+                 ["src_bytes", float(src_bytes)],
+                 ["dst_bytes", float(dst_bytes)],
+                 ["wrong_fragment", float(wrong_fragment)],
+                 ["urgent", float(urgent)],
+                 ["hot", float(hot)],
+                 ["num_failed_logins", float(num_failed_logins)],
+                 ["num_compromised", float(num_compromised)],
+                 ["root_shell", float(root_shell)],
+                 ["su_attempted", float(su_attempted)],
+                 ["num_root", float(num_root)],
+                 ["num_file_creations", float(num_file_creations)],
+                 ["num_shells", float(num_shells)],
+                 ["num_access_files", float(num_access_files)],
+                 ["num_outbound_cmds",float(num_outbound_cmds)],
+                 ["count", float(count)],
+                 ["srv_count",float(srv_count)],
+                 ["serror_rate", float(serror_rate)],
+                 ["srv_serror_rate", float(srv_serror_rate)],
+                 ["rerror_rate", float(rerror_rate)],
+                 ["srv_rerror_rate",float( srv_rerror_rate)],
+                 ["same_srv_rate", float(same_srv_rate)],
+                 ["diff_srv_rate", float(diff_srv_rate)],
+                 ["srv_diff_host_rate", float(srv_diff_host_rate)],
+                 ["dst_host_count",float( dst_host_count)],
+                 ["dst_host_srv_count", float(dst_host_srv_count)],
+                 ["dst_host_same_srv_rate",float( dst_host_same_srv_rate)],
+                 ["dst_host_same_src_port_rate",float( dst_host_same_src_port_rate)],
+                 ["dst_host_diff_srv_rate", float(dst_host_diff_srv_rate)],
+                 ["dst_host_srv_diff_host_rate",float(dst_host_srv_diff_host_rate)],
+                 ["dst_host_serror_rate",float(dst_host_serror_rate)],
+                 ["dst_host_srv_serror_rate",float(dst_host_srv_serror_rate)],
+                 ["dst_host_rerror_rate",float(dst_host_rerror_rate)],
+                 ["dst_host_srv_rerror_rate",float(dst_host_srv_rerror_rate)],
+                 ]:
+             datum.add_number(k, v)
+ 
+         # 3.データの学習（学習モデルの更新）
+         ret = anom.add(datum)
+ 
+         # 4.結果の出力
+         if (ret.score != float('Inf')) and (ret.score!= 1.0):
+             print ret, label
 
 
 --------------------------------
@@ -134,7 +135,7 @@ Anomaly チュートリアル (Python)
 * method
 
  分類に使用するアルコリズムを指定します。
- Regressionで指定できるのは、現在"LOF"のみなので"LOF"（Local Outlier Factor）を指定します。
+ Anomalyで指定できるのは、現在"LOF"のみなので"LOF"（Local Outlier Factor）を指定します。
 
 
 * converter

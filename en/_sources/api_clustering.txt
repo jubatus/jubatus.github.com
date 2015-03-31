@@ -53,18 +53,18 @@ We show each field below:
 
         * Range: 2 <= ``bucket_length``
 
-     :compresed_bucket_size:
+     :compressed_bucket_size:
         Number of compressed ``bucket_size`` .
         Compression ratio = ( ``compressed_bucket_size`` / ``bucket_size`` )
         (Integer)
 
-        * Range: ``bicriteria_base_size`` < ``compresed_backet_size`` < ``bucket_size``
+        * Range: ``bicriteria_base_size`` < ``compressed_bucket_size`` < ``bucket_size``
 
      :bicriteria_base_size:
         Specify roughness of compression.
         (Integer)
 
-        * Range: 1 <= ``bicriteria_base_size`` < ``compresed_backet_size``
+        * Range: 1 <= ``bicriteria_base_size`` < ``compressed_bucket_size``
 
      :forgetting_factor:
         Forgetting factor
