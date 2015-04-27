@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.1',
+        VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -83,6 +83,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="plugin.html" title="Plugin Development"
              accesskey="N">next</a> |</li>
@@ -368,7 +371,7 @@ Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#822
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. We describe it in datail later.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specidies the name of the filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filters are available by default.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies the name of the filter used. This filter must be defined in &#8220;string_filter_types&#8221;. No filters are available by default.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
 </tr>
@@ -437,6 +440,102 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 
 <dl class="describe">
 <dt>
+<tt class="descname">linear_normalization</tt></dt>
+<dd><p>It normalizes the input value linearly between 0 to 1.
+It requires two arguments &#8220;min&#8221; and &#8220;max&#8221;, and these values cannot be omitted.
+It transforms given value x to be between 0 to 1 with formula (x-min) / (max - min).
+If the x is smaller than &#8220;min&#8221;, it is truncated to 0.
+If the x is bigger than &#8220;max&#8221;, it is truncated to 1.
+These truncation behavior is switched by &#8220;truncate&#8221; option.
+If &#8220;min&#8221; is greater than &#8220;max&#8221;, the invalid_parameter exception will be raised and fail to create converter.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">min:</th><td class="field-body">Input minimum value to be input. If the minimum value is 0, you have to input as &#8220;0&#8221;. Notice that it is not numeric but string type. It is treated as a floating-point number internally. You cannot omit this argument.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">max:</th><td class="field-body">Input maximum value to be input. If the maximum value is 100, you have to input as &#8220;100&#8221;. Notice that it is not numeric type but string type. It is used as a double precision double type inside. You cannot omit this argument.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">truncate:</th><td class="field-body">Behavior of truncating value which is less than &#8220;min&#8221; or more than &#8220;max&#8221;. In case it is &#8220;True&#8221;, values less than &#8220;min&#8221; will become 0 and more than &#8220;max&#8221; will become 1. You can omit this parameter. In case you omit, this parameter is to be &#8220;True&#8221; automatically.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>An example of using this function is below.</p>
+</dd></dl>
+
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;zero_to_hundred&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;linear_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="s2">&quot;100&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;zero_to_hundred&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;linear_normalized&quot;</span> <span class="p">}</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">gaussian_normalization</tt></dt>
+<dd><p>It normalizes values between -1 to +1, supposing values are distributed on normal distribution.
+It requires two arguments &#8220;average&#8221; and &#8220;standard_deviation&#8221;, and these values cannot be omitted.
+It transforms given value x to be -1 to +1 with formula (x - average) / standard_deviation.
+For this reason, anomaly value can be less than -1 or more than +1.
+You cannot specify negative value for &#8220;standard_deviation&#8221;. It causes invalid_parameter exception.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">Give average of input data. If average value is 80, you should specify like &#8220;80&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">standard_deviation:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Give standard deviation of input data. If standard deviation value is 2.3, you should specify like &#8220;2.3&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>An example of using this function is below.</p>
+</dd></dl>
+
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;gaussian_80_2.3&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;average&quot;</span><span class="o">:</span> <span class="s2">&quot;80&quot;</span><span class="p">,</span> <span class="s2">&quot;standard_deviation&quot;</span><span class="o">:</span><span class="s2">&quot;2.3&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_80_2.3&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_normalized&quot;</span> <span class="p">}</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
+<tt class="descname">sigmoid_normalization</tt></dt>
+<dd><p>It normalizes values between 0 to 1, by using sigmoid function.
+It requires two parameters &#8220;gain&#8221; and &#8220;bias&#8221;. In case you omitted these values, these values will be &#8220;1.0&#8221; and &#8220;0.0&#8221; respectively.
+It transforms given value x to be 0 to 1 with formula 1 / 1 + e ^ (-gain * (x - bias)).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">gain:</th><td class="field-body">Specify the <tt class="docutils literal"><span class="pre">gain</span></tt> of sigmoid function. The more big value specified, sigmoid function will be more steep. If <tt class="docutils literal"><span class="pre">gain</span></tt> value is 0.5, you should specify like &#8220;0.5&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, &#8220;1.0&#8221; is used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">bias:</th><td class="field-body">Specify the <tt class="docutils literal"><span class="pre">bias</span></tt> of sigmoid function. if  If <tt class="docutils literal"><span class="pre">bias</span></tt> value is 3, you should specify like &#8220;3&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, &#8220;0.0&#8221; is used.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>An example of using this function is below.</p>
+</dd></dl>
+
+<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;sigmoid&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;gain&quot;</span><span class="o">:</span> <span class="s2">&quot;0.05&quot;</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="o">:</span><span class="s2">&quot;5&quot;</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid_normalized&quot;</span> <span class="p">}</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<dl class="describe">
+<dt>
 <tt class="descname">dynamic</tt></dt>
 <dd><p>Use a plugin. See below for further detail.</p>
 <blockquote>
@@ -467,7 +566,7 @@ Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221;
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specidies a name of a filter used. This filter must de defined in &#8220;string_filter_types&#8221;. No filter is available if no filter is defined in &#8220;string_filter_types&#8221;.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies a name of a filter used. This filter must be defined in &#8220;string_filter_types&#8221;. No filter is available if no filter is defined in &#8220;string_filter_types&#8221;.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of a filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
 </tr>
@@ -936,6 +1035,9 @@ This plugin is available only when compiled with <tt class="docutils literal"><s
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="plugin.html" title="Plugin Development"
              >next</a> |</li>

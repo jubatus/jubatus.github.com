@@ -207,7 +207,7 @@ Each rule is represented as a dictionary whose keys are "key", "except" (optiona
 
  :key:       Specifies to which keys in a datum we apply the rule. We describe it in datail later.
  :except:    Specifies which keys to exclude from the match. This is an optional parameter. We describe it in datail later.
- :type:      Specidies the name of the filter used. This filter must de defined in "string_filter_types". No filters are available by default.
+ :type:      Specifies the name of the filter used. This filter must be defined in "string_filter_types". No filters are available by default.
  :suffix:    Specifies a suffix of a key where the result of filtering is stored. For example, if "suffix" is "-detagged" and a filter is applied to "name" key in a datum, the result is stored in "name-detagged" key.
 
 "key" and "except" can be specified in one of the following formats.
@@ -243,13 +243,79 @@ The followings are available values of "method" and keys that must be specified.
 
   :value:  Specifies value to add. For example, if we add 3 to the original value, we use "3". Note that it is not numeric but a string. It is treated as a floating-point number internally.
 
+.. describe:: linear_normalization
+
+ It normalizes the input value linearly between 0 to 1.
+ It requires two arguments "min" and "max", and these values cannot be omitted.
+ It transforms given value x to be between 0 to 1 with formula (x-min) / (max - min).
+ If the x is smaller than "min", it is truncated to 0.
+ If the x is bigger than "max", it is truncated to 1.
+ These truncation behavior is switched by "truncate" option.
+ If "min" is greater than "max", the invalid_parameter exception will be raised and fail to create converter.
+
+  :min: Input minimum value to be input. If the minimum value is 0, you have to input as "0". Notice that it is not numeric but string type. It is treated as a floating-point number internally. You cannot omit this argument.
+  :max: Input maximum value to be input. If the maximum value is 100, you have to input as "100". Notice that it is not numeric type but string type. It is used as a double precision double type inside. You cannot omit this argument.
+  :truncate:  Behavior of truncating value which is less than "min" or more than "max". In case it is "True", values less than "min" will become 0 and more than "max" will become 1. You can omit this parameter. In case you omit, this parameter is to be "True" automatically.
+
+ An example of using this function is below.
+
+.. code-block:: js
+
+    "num_filter_types" : {
+        "zero_to_hundred": { "method": "linear_normalization", "min": "0", "max":"100" }
+    },
+    "num_filter_rules" : [
+        {"key" : "*", "type": "zero_to_hundred", "suffix": "linear_normalized" }
+    ],
+
+.. describe:: gaussian_normalization
+
+ It normalizes values between -1 to +1, supposing values are distributed on normal distribution.
+ It requires two arguments "average" and "standard_deviation", and these values cannot be omitted.
+ It transforms given value x to be -1 to +1 with formula (x - average) / standard_deviation.
+ For this reason, anomaly value can be less than -1 or more than +1.
+ You cannot specify negative value for "standard_deviation". It causes invalid_parameter exception.
+
+  :average:  Give average of input data. If average value is 80, you should specify like "80". Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.
+  :standard_deviation:  Give standard deviation of input data. If standard deviation value is 2.3, you should specify like "2.3". Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.
+
+ An example of using this function is below.
+
+.. code-block:: js
+
+    "num_filter_types" : {
+        "gaussian_80_2.3": { "method": "gaussian_normalization", "average": "80", "standard_deviation":"2.3" }
+    },
+    "num_filter_rules" : [
+        {"key" : "*", "type": "gaussian_80_2.3", "suffix": "gaussian_normalized" }
+    ],
+
+.. describe:: sigmoid_normalization
+
+ It normalizes values between 0 to 1, by using sigmoid function.
+ It requires two parameters "gain" and "bias". In case you omitted these values, these values will be "1.0" and "0.0" respectively.
+ It transforms given value x to be 0 to 1 with formula 1 / 1 + e ^ (-gain * (x - bias)).
+
+  :gain:  Specify the ``gain`` of sigmoid function. The more big value specified, sigmoid function will be more steep. If ``gain`` value is 0.5, you should specify like "0.5". Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, "1.0" is used.
+  :bias:  Specify the ``bias`` of sigmoid function. if  If ``bias`` value is 3, you should specify like "3". Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, "0.0" is used.
+
+ An example of using this function is below.
+
+.. code-block:: js
+
+    "num_filter_types" : {
+        "sigmoid": { "method": "sigmoid_normalization", "gain": "0.05", "bias":"5" }
+    },
+    "num_filter_rules" : [
+        {"key" : "*", "type": "sigmoid", "suffix": "sigmoid_normalized" }
+    ],
+
 .. describe:: dynamic
 
  Use a plugin. See below for further detail.
 
   :path:      Specifies a full path of a plugin.
   :function:  Specifies a function to be called in the plugin.
-
 
 num_filter_rules
 ~~~~~~~~~~~~~~~~
@@ -259,7 +325,7 @@ Each rule is a dictionary whose keys are "key", "except" (optional), "type" and 
 
  :key:       Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
  :except:    Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in "string_filter_rules" section.
- :type:      Specidies a name of a filter used. This filter must de defined in "string_filter_types". No filter is available if no filter is defined in "string_filter_types".
+ :type:      Specifies a name of a filter used. This filter must be defined in "string_filter_types". No filter is available if no filter is defined in "string_filter_types".
  :suffix:    Specifies a suffix of a key where the result of a filtering is stored. For example, if "suffix" is "-detagged" and a filter is applied to "name" key in a datum, the result is stored in "name-detagged" key.
 
 Format of "key" and "except" is written in "string_filter_rules" section.
@@ -297,7 +363,7 @@ The rest of the keys in <argument> are dependent on the value of "method".
 The followings are available values of "method" and keys that must be specified.
 
 .. describe:: ngram
- 
+
  Use contiguous N characters as a feature. Such a feature is called an N-gram feature.
 
   :char_num:  Specifies N or length of substring. N must be a positive integer. "char_num" must be specified with string type (e.g. "2"), not numeric type (e.g. 2).
@@ -566,7 +632,7 @@ Note that some plugins are not available depending on your compile options.
 
  We can specify this plugin in "string_types".
  Extract keywords from given document by way of dictionary matching with `ux-trie <http://code.google.com/p/ux-trie/>`_ and use each keyword as a feature.
- Matching is a simple longest matching. Note that it is fast but precision may be low. 
+ Matching is a simple longest matching. Note that it is fast but precision may be low.
  This plugin is available only when compiled with ``--enable-ux``.
 
   :function:   Specifies "create".

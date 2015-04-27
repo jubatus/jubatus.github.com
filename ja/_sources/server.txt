@@ -114,12 +114,16 @@ RPC インターフェースは `MessagePack-IDL <https://github.com/msgpack/msg
 ``jenerator`` のビルド
 ~~~~~~~~~~~~~~~~~~~~~~
 
-``jenerator`` のビルドには OCaml 4.0 以上(findlib あり) 、extlib および OMake が必要である。
+``jenerator`` のビルドには OCaml 4.02.1 以上(findlib あり) 、extlib および OMake および OUnit および ppx_deriving が必要である。
 OCaml環境の構築には、 `OPAM <http://opam.ocaml.org/>`_ を利用するのが楽である。
-OPAMをソースから入れる場合は、 `ocamlbrew <http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew>`_ を利用するとよい。
+なお ``jenerator`` が依存するモジュールのインストールには `OPAM <http://opam.ocaml.org/>`_ のバージョン1.2以降を利用する必要がある。
+OPAMをソースから入れる場合は、 `ocamlbrew <https://github.com/ocaml/opam/wiki/Quick_Install#using-ocamlbrew>`_ を利用するとよい。
 
 ::
 
+  $ opam switch 4.02.1
+  $ eval `opam config env`
+  $ opam install ocamlfind extlib omake ounit ppx_deriving
   $ cd jubatus/tools/jenerator
   $ omake
   $ sudo omake install
@@ -133,8 +137,6 @@ OPAMをソースから入れる場合は、 `ocamlbrew <http://opam.ocaml.org/do
 
 でインストールパスを変えることができる。
 インストールを行わずに、ビルドされた ``jenerator`` のバイナリを直接使用してもよい。
-
-ヒント: Ubuntu を使用している場合、OCaml (``ocaml-native-compilers``), findlib (``ocaml-findlib``), iextlib (``libextlib-ocaml``), OMake (``omake``) のバイナリパッケージが利用できる。
 
 サーバ/Proxy を IDL から生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -188,3 +188,47 @@ Methods
   The common use case of this method is to close the TCP connection explicitly or to change the timeout.
 
   ``mprpc_client`` is a type of MessagePack-RPC client that is different between languages (`C++ <http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html>`_ / `Python <https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py>`_ / `Ruby <http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html>`_ / `Java <http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html>`_).
+
+
+Auxiliary Methods
+~~~~~~~~~~~~~~~~~
+
+Python / Ruby clients have language-specific auxiliary methods.
+
+Python
+++++++
+
+.. py:function:: jubatus.commmon.connect(cls, host, port, name, timeout=10)
+
+   Create a client instance of specified class `cls`, then connect to the server specified using `host`, `port` and `name`.
+   As this method creates a context manager, use this method in `with` block.
+   The target will be a client object.
+   When leaving `with` block, this client object disconnects from the server.
+
+   .. code-block:: python
+
+      with jubatus.common.connect(jubatus.classifier.client.Classifier, 'localhost', 9199, 'cluster_name', 10) as client:
+          client.get_status()
+
+
+Ruby
+++++
+
+.. rb:module:: Jubatus::Common
+
+.. rb:class:: ClientBase
+
+   All client objects are defined as subclass of `ClientBase` class.
+
+   .. rb:classmethod:: connect(host, port, name, timeout_sec, &block)
+
+      Using `connect` method of client classes of each algorithms ensures safely closing client connections.
+      `connect` method takes host name, port number, cluster name, time-out period and block as arguments. It automatically creates a client object and connects to the server specified.
+      The block can then use the client object.
+      When leaving the block, this client object disconnects from the server.
+
+      .. code-block:: ruby
+
+         Jubatus::Classifier::Client::Classifier.connect('localhost', 9199, 'cluster_name', 10) { |client|
+           client.get_status()
+         }

@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.1',
+        VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -83,6 +83,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="howtogetclients.html" title="How to Get Clients"
              accesskey="N">next</a> |</li>
@@ -257,10 +260,14 @@ If the return value is not needed, you must add meaningless type such as <tt cla
 </div>
 <div class="section" id="building-jenerator">
 <h3>Building <tt class="docutils literal"><span class="pre">jenerator</span></tt><a class="headerlink" href="#building-jenerator" title="Permalink to this headline">¶</a></h3>
-<p>You need OCaml &gt;=4.0 (with findlib), extlib and OMake to build <tt class="docutils literal"><span class="pre">jenerator</span></tt>.
+<p>You need OCaml &gt;=4.02.1 (with findlib), extlib and OMake and OUnit and ppx_deriving to build <tt class="docutils literal"><span class="pre">jenerator</span></tt>.
 We recommend to use <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> to make OCaml environment.
-When you want to install OPAM from its source, <a class="reference external" href="http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew">ocamlbrew</a> is usefull.</p>
-<div class="highlight-python"><pre>$ cd jubatus/tools/jenerator
+You have to use <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> version 1.2 or more for installing modules which <tt class="docutils literal"><span class="pre">jenerator</span></tt> depends.
+When you want to install OPAM from its source, <a class="reference external" href="https://github.com/ocaml/opam/wiki/Quick_Install#using-ocamlbrew">ocamlbrew</a> is usefull.</p>
+<div class="highlight-python"><pre>$ opam switch 4.02.1
+$ eval `opam config env`
+$ opam install ocamlfind extlib omake ounit ppx_deriving
+$ cd jubatus/tools/jenerator
 $ omake
 $ sudo omake install</pre>
 </div>
@@ -269,7 +276,6 @@ If you want to install <tt class="docutils literal"><span class="pre">jenerator<
 <div class="highlight-python"><pre>$ PREFIX=/path/to/install omake install</pre>
 </div>
 <p>You can also use built <tt class="docutils literal"><span class="pre">jenerator</span></tt> binary directly without installation.</p>
-<p>Hint: If you&#8217;re using Ubuntu systems, OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>), findlib (<tt class="docutils literal"><span class="pre">ocaml-findlib</span></tt>), extlib (<tt class="docutils literal"><span class="pre">libextlib-ocaml</span></tt>) and OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) are available as a binary package.</p>
 </div>
 <div class="section" id="generating-server-proxy-from-idl">
 <h3>Generating Server/Proxy from IDL<a class="headerlink" href="#generating-server-proxy-from-idl" title="Permalink to this headline">¶</a></h3>
@@ -311,6 +317,9 @@ The options can be referenced with <tt class="docutils literal"><span class="pre
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="howtogetclients.html" title="How to Get Clients"
              >next</a> |</li>

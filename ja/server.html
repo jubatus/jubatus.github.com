@@ -32,7 +32,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.1',
+        VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -115,13 +115,13 @@
 <li><a class="reference internal" href="#proxy-idl">サーバ/Proxy を IDL から生成する</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">サーバの実装</a><ul>
+<li><a class="reference internal" href="#id7">サーバの実装</a><ul>
 <li><a class="reference internal" href="#mixable">Mixable クラス</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#proxy">Proxy の実装</a></li>
-<li><a class="reference internal" href="#id7">今後の課題</a><ul>
-<li><a class="reference internal" href="#id8">インターフェースと処理記述</a></li>
+<li><a class="reference internal" href="#id8">今後の課題</a><ul>
+<li><a class="reference internal" href="#id9">インターフェースと処理記述</a></li>
 </ul>
 </li>
 </ul>
@@ -265,10 +265,14 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 </div>
 <div class="section" id="id5">
 <h3><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml 4.0 以上(findlib あり) 、extlib および OMake が必要である。
+<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml 4.02.1 以上(findlib あり) 、extlib および OMake および OUnit および ppx_deriving が必要である。
 OCaml環境の構築には、 <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> を利用するのが楽である。
-OPAMをソースから入れる場合は、 <a class="reference external" href="http://opam.ocaml.org/doc/Quick_Install.html#h4-Usingocamlbrew">ocamlbrew</a> を利用するとよい。</p>
-<div class="highlight-python"><pre>$ cd jubatus/tools/jenerator
+なお <tt class="docutils literal"><span class="pre">jenerator</span></tt> が依存するモジュールのインストールには <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> のバージョン1.2以降を利用する必要がある。
+OPAMをソースから入れる場合は、 <a class="reference external" href="https://github.com/ocaml/opam/wiki/Quick_Install#using-ocamlbrew">ocamlbrew</a> を利用するとよい。</p>
+<div class="highlight-python"><pre>$ opam switch 4.02.1
+$ eval `opam config env`
+$ opam install ocamlfind extlib omake ounit ppx_deriving
+$ cd jubatus/tools/jenerator
 $ omake
 $ sudo omake install</pre>
 </div>
@@ -278,7 +282,6 @@ $ sudo omake install</pre>
 </div>
 <p>でインストールパスを変えることができる。
 インストールを行わずに、ビルドされた <tt class="docutils literal"><span class="pre">jenerator</span></tt> のバイナリを直接使用してもよい。</p>
-<p>ヒント: Ubuntu を使用している場合、OCaml (<tt class="docutils literal"><span class="pre">ocaml-native-compilers</span></tt>), findlib (<tt class="docutils literal"><span class="pre">ocaml-findlib</span></tt>), iextlib (<tt class="docutils literal"><span class="pre">libextlib-ocaml</span></tt>), OMake (<tt class="docutils literal"><span class="pre">omake</span></tt>) のバイナリパッケージが利用できる。</p>
 </div>
 <div class="section" id="proxy-idl">
 <h3>サーバ/Proxy を IDL から生成する<a class="headerlink" href="#proxy-idl" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -288,8 +291,8 @@ $ sudo omake install</pre>
 <p><tt class="docutils literal"><span class="pre">jenerator</span></tt> の詳細な使い方については <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> を参照すること。</p>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>サーバの実装<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2>サーバの実装<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> は、 <tt class="docutils literal"><span class="pre">kvs_serv</span></tt> クラスを利用してサーバーを構成する。
 このクラスを <tt class="docutils literal"><span class="pre">kvs_serv.{cpp,hpp}</span></tt> に定義する必要がある。
 生成されたテンプレート (<tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt>) をリネームして利用することができる。</p>
@@ -306,10 +309,10 @@ $ sudo omake install</pre>
 <p>Proxy に関しては、実装をする必要はない。 <tt class="docutils literal"><span class="pre">jenerator</span></tt> が生成した <tt class="docutils literal"><span class="pre">kvs_proxy.cpp</span></tt> をコンパイルすると Proxy が得られる。</p>
 <p><tt class="docutils literal"><span class="pre">kvs_proxy.cpp</span></tt> には <tt class="docutils literal"><span class="pre">main</span></tt> 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。</p>
 </div>
-<div class="section" id="id7">
-<h2>今後の課題<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="id8">
-<h3>インターフェースと処理記述<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>今後の課題<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id9">
+<h3>インターフェースと処理記述<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>複数の機械学習を結合したり、特徴量変換と学習器本体を分離するためには、C++を単純に記述していくインターフェースではどこをどうしてよいかが開発者にとって自明でない。現状のジェネレータでは学習器のインターフェースしか記述することができない。アルゴリズム自体も抽象化された言語上で試行錯誤し、機械学習を実装するユーザが一台のマシン上でも、複数台のマシン上でも透過的に実行や試行錯誤ができるような機能を、検討する必要がある。</p>
 </div>
 </div>
