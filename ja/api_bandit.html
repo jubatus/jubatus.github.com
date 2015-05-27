@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -120,11 +119,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="method.html"
                         title="次の章へ">Methods</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_bandit.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_bandit.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -161,7 +162,7 @@
 JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>バンディットに使用するアルゴリズムを指定する。
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
@@ -175,16 +176,16 @@ JSON の各フィールドは以下のとおりである。</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;epsilon_greedy&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;epsilon_greedy&quot;</span></code></td>
 <td>epsilon-greedy法を利用する。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;ucb1&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;ucb1&quot;</span></code></td>
 <td>UCB1法を利用する。</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;softmax&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;softmax&quot;</span></code></td>
 <td>softmax法を利用する。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;exp3&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;exp3&quot;</span></code></td>
 <td>exp3法を利用する。</td>
 </tr>
 </tbody>
@@ -193,9 +194,9 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>アルゴリズムに渡すパラメータを指定する。
-<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
+<code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
 <dt>epsilon_greedy</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -203,10 +204,10 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">epsilon:</th><td class="field-body"><p class="first">腕の選択をランダムに行う確率を指定する。
-確率 <tt class="docutils literal"><span class="pre">epsilon</span></tt> で一様分布からランダムに腕を選択し、確率 1 - <tt class="docutils literal"><span class="pre">epsilon</span></tt> で現在最も期待値の高い腕を選択する。
+確率 <code class="docutils literal"><span class="pre">epsilon</span></code> で一様分布からランダムに腕を選択し、確率 1 - <code class="docutils literal"><span class="pre">epsilon</span></code> で現在最も期待値の高い腕を選択する。
 (Float)</p>
 <ul class="last simple">
-<li>値域: 0.0 &lt;= <tt class="docutils literal"><span class="pre">epsilon</span></tt> &lt;= 1.0</li>
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">epsilon</span></code> &lt;= 1.0</li>
 </ul>
 </td>
 </tr>
@@ -224,7 +225,7 @@ JSON の各フィールドは以下のとおりである。</p>
 大きくするほどランダムに腕の選択を行い、小さくするほど期待値の高い腕が選ばれやすくなる。
 (Float)</p>
 <ul class="last simple">
-<li>値域: 0.0 &lt; <tt class="docutils literal"><span class="pre">tau</span></tt></li>
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">tau</span></code></li>
 </ul>
 </td>
 </tr>
@@ -240,7 +241,7 @@ JSON の各フィールドは以下のとおりである。</p>
 gammaを大きくするほど全腕共通の重みの比率が高くなり、小さくするほど各腕固有の重みの比率が高くなる。
 (Float)</p>
 <ul class="last simple">
-<li>値域: 0.0 &lt;= <tt class="docutils literal"><span class="pre">gamma</span></tt> &lt;= 1.0</li>
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">gamma</span></code> &lt;= 1.0</li>
 </ul>
 </td>
 </tr>
@@ -267,17 +268,17 @@ gammaを大きくするほど全腕共通の重みの比率が高くなり、小
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="message">
 <dt id="arm_info">
-<em class="property">message </em><tt class="descname">arm_info</tt><a class="headerlink" href="#arm_info" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">message </em><code class="descname">arm_info</code><a class="headerlink" href="#arm_info" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>腕の状態を表す。</p>
 <dl class="member">
 <dt id="arm_info::trial_count__i">
-0: int <tt class="descname">trial_count</tt><a class="headerlink" href="#arm_info::trial_count__i" title="この定義へのパーマリンク">¶</a></dt>
+0: int <code class="descname">trial_count</code><a class="headerlink" href="#arm_info::trial_count__i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>腕が選択された回数を表す。</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="arm_info::weight__double">
-1: double <tt class="descname">weight</tt><a class="headerlink" href="#arm_info::weight__double" title="この定義へのパーマリンク">¶</a></dt>
+1: double <code class="descname">weight</code><a class="headerlink" href="#arm_info::weight__double" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>腕の重みを表す。</p>
 </dd></dl>
 
@@ -294,10 +295,10 @@ gammaを大きくするほど全腕共通の重みの比率が高くなり、小
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">bandit</tt></dt>
+<em class="property">service </em><code class="descname">bandit</code></dt>
 <dd><dl class="method">
 <dt id="bandit::register_arm__s">
-bool <tt class="descname">register_arm</tt><big>(</big>0: string <em>arm_id</em><big>)</big><a class="headerlink" href="#bandit::register_arm__s" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">register_arm</code><span class="sig-paren">(</span>0: string <em>arm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bandit::register_arm__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -312,12 +313,12 @@ bool <tt class="descname">register_arm</tt><big>(</big>0: string <em>arm_id</em>
 </tr>
 </tbody>
 </table>
-<p><tt class="docutils literal"><span class="pre">arm_id</span></tt> で指定された腕を新たに登録する。</p>
+<p><code class="docutils literal"><span class="pre">arm_id</span></code> で指定された腕を新たに登録する。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bandit::delete_arm__s">
-bool <tt class="descname">delete_arm</tt><big>(</big>0: string <em>arm_id</em><big>)</big><a class="headerlink" href="#bandit::delete_arm__s" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">delete_arm</code><span class="sig-paren">(</span>0: string <em>arm_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bandit::delete_arm__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -332,12 +333,12 @@ bool <tt class="descname">delete_arm</tt><big>(</big>0: string <em>arm_id</em><b
 </tr>
 </tbody>
 </table>
-<p><tt class="docutils literal"><span class="pre">arm_id</span></tt> で指定された腕を削除する。</p>
+<p><code class="docutils literal"><span class="pre">arm_id</span></code> で指定された腕を削除する。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bandit::select_arm__s">
-string <tt class="descname">select_arm</tt><big>(</big>0: string <em>player_id</em><big>)</big><a class="headerlink" href="#bandit::select_arm__s" title="この定義へのパーマリンク">¶</a></dt>
+string <code class="descname">select_arm</code><span class="sig-paren">(</span>0: string <em>player_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bandit::select_arm__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -352,12 +353,12 @@ string <tt class="descname">select_arm</tt><big>(</big>0: string <em>player_id</
 </tr>
 </tbody>
 </table>
-<p><tt class="docutils literal"><span class="pre">player_id</span></tt> で指定されたプレイヤーの腕を選択する。</p>
+<p><code class="docutils literal"><span class="pre">player_id</span></code> で指定されたプレイヤーの腕を選択する。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bandit::register_reward__s.s.double">
-bool <tt class="descname">register_reward</tt><big>(</big>0: string <em>player_id</em>, 1: string <em>arm_id</em>, 2: double <em>reward</em><big>)</big><a class="headerlink" href="#bandit::register_reward__s.s.double" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">register_reward</code><span class="sig-paren">(</span>0: string <em>player_id</em>, 1: string <em>arm_id</em>, 2: double <em>reward</em><span class="sig-paren">)</span><a class="headerlink" href="#bandit::register_reward__s.s.double" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -374,12 +375,12 @@ bool <tt class="descname">register_reward</tt><big>(</big>0: string <em>player_i
 </tr>
 </tbody>
 </table>
-<p><tt class="docutils literal"><span class="pre">player_id</span></tt> で指定されたプレイヤーの <tt class="docutils literal"><span class="pre">arm_id</span></tt> で指定された腕に報酬を登録する。</p>
+<p><code class="docutils literal"><span class="pre">player_id</span></code> で指定されたプレイヤーの <code class="docutils literal"><span class="pre">arm_id</span></code> で指定された腕に報酬を登録する。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bandit::get_arm_info__s">
-map&lt;string, <a class="reference internal" href="#arm_info" title="arm_info">arm_info</a>&gt; <tt class="descname">get_arm_info</tt><big>(</big>0: string <em>player_id</em><big>)</big><a class="headerlink" href="#bandit::get_arm_info__s" title="この定義へのパーマリンク">¶</a></dt>
+map&lt;string, <a class="reference internal" href="#arm_info" title="arm_info">arm_info</a>&gt; <code class="descname">get_arm_info</code><span class="sig-paren">(</span>0: string <em>player_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bandit::get_arm_info__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -394,12 +395,12 @@ map&lt;string, <a class="reference internal" href="#arm_info" title="arm_info">a
 </tr>
 </tbody>
 </table>
-<p><tt class="docutils literal"><span class="pre">player_id</span></tt> で指定されたプレイヤーの腕の情報を返却する。</p>
+<p><code class="docutils literal"><span class="pre">player_id</span></code> で指定されたプレイヤーの腕の情報を返却する。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bandit::reset__s">
-bool <tt class="descname">reset</tt><big>(</big>0: string <em>player_id</em><big>)</big><a class="headerlink" href="#bandit::reset__s" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">reset</code><span class="sig-paren">(</span>0: string <em>player_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bandit::reset__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -414,7 +415,7 @@ bool <tt class="descname">reset</tt><big>(</big>0: string <em>player_id</em><big
 </tr>
 </tbody>
 </table>
-<p><tt class="docutils literal"><span class="pre">player_id</span></tt> で指定されたプレイヤーの腕の情報を全てリセットする。</p>
+<p><code class="docutils literal"><span class="pre">player_id</span></code> で指定されたプレイヤーの腕の情報を全てリセットする。</p>
 </dd></dl>
 
 </dd></dl>
@@ -450,7 +451,7 @@ bool <tt class="descname">reset</tt><big>(</big>0: string <em>player_id</em><big
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

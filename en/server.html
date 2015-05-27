@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -109,8 +108,8 @@
 <li><a class="reference internal" href="#flow-of-development">Flow of Development</a></li>
 <li><a class="reference internal" href="#why-we-use-idl">Why We Use IDL</a></li>
 <li><a class="reference internal" href="#composition-of-files">Composition of Files</a></li>
-<li><a class="reference internal" href="#jenerator-the-code-generator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator</a><ul>
-<li><a class="reference internal" href="#building-jenerator">Building <tt class="docutils literal"><span class="pre">jenerator</span></tt></a></li>
+<li><a class="reference internal" href="#jenerator-the-code-generator"><code class="docutils literal"><span class="pre">jenerator</span></code>: The Code Generator</a><ul>
+<li><a class="reference internal" href="#building-jenerator">Building <code class="docutils literal"><span class="pre">jenerator</span></code></a></li>
 <li><a class="reference internal" href="#generating-server-proxy-from-idl">Generating Server/Proxy from IDL</a></li>
 </ul>
 </li>
@@ -129,11 +128,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="howtogetclients.html"
                         title="next chapter">How to Get Clients</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/server.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/server.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -162,13 +163,13 @@
   <div class="section" id="using-code-generators">
 <h1>Using Code Generators<a class="headerlink" href="#using-code-generators" title="Permalink to this headline">¶</a></h1>
 <p>Development of machine learning algorithms using Jubatus framework starts with writing an IDL (RPC interface definition).
-By using a code generator - <tt class="docutils literal"><span class="pre">jenerator</span></tt> (bundled tool with Jubatus)  - you can generate each component (server, proxy, client for each language) from the IDL.
+By using a code generator - <code class="docutils literal"><span class="pre">jenerator</span></code> (bundled tool with Jubatus)  - you can generate each component (server, proxy, client for each language) from the IDL.
 By using this generator, framework users don&#8217;t need to focus on things other than implementing algorithms.</p>
 <div class="section" id="flow-of-development">
 <h2>Flow of Development<a class="headerlink" href="#flow-of-development" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Define RPC interfaces that the service should have using IDL.</li>
-<li>Generate codes for server, proxy, common data structures and clients (C++/Python/Ruby/Java) with <tt class="docutils literal"><span class="pre">jenerator</span></tt> from IDL.</li>
+<li>Generate codes for server, proxy, common data structures and clients (C++/Python/Ruby/Java) with <code class="docutils literal"><span class="pre">jenerator</span></code> from IDL.</li>
 <li>Implement codes of interface of user-defined class and (if necessary) mix operation.</li>
 </ol>
 <p>Use the <a class="reference external" href="https://github.com/jubatus/jubatus-service-skeleton">skeleton project</a> to get started.</p>
@@ -178,50 +179,50 @@ By using this generator, framework users don&#8217;t need to focus on things oth
 <p>First, there must exist same definitions in six C++ source files every time we add new learning algorithm, that is, header and implementation of client, header and implementation of proxy and header and implementation of server.
 This would lead to a &#8220;hotbed&#8221; of bugs every time we had changed the API.</p>
 <p>By using IDL, users can create system through the flow above.
-Currenly all algorithms (recommener, classifier, regression, stat and graph) defines its interface with <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+Currenly all algorithms (recommener, classifier, regression, stat and graph) defines its interface with <code class="docutils literal"><span class="pre">jenerator</span></code>.</p>
 </div>
 <div class="section" id="composition-of-files">
 <h2>Composition of Files<a class="headerlink" href="#composition-of-files" title="Permalink to this headline">¶</a></h2>
 <p>Machine learning system that uses Jubatus framework consists of the following files (where <em>NAME</em> is a name of the service).</p>
 <ul class="simple">
-<li>NAME_serv.cpp: Implementation of the server (edit template generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
-<li>NAME_serv.hpp: Header file for <tt class="docutils literal"><span class="pre">NAME_serv.cpp</span></tt> (edit template generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
-<li>NAME_impl.cpp: <tt class="docutils literal"><span class="pre">main</span></tt> function, RPC interface definition for the server and register RPC methods (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
-<li>NAME_proxy.cpp: Implementation of the proxy (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
-<li>NAME_client.hpp: Implementation of the client to be used in server-to-server communication (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
-<li>NAME_types.hpp: Structures and type information (automatically generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>)</li>
+<li>NAME_serv.cpp: Implementation of the server (edit template generated by <code class="docutils literal"><span class="pre">jenerator</span></code>)</li>
+<li>NAME_serv.hpp: Header file for <code class="docutils literal"><span class="pre">NAME_serv.cpp</span></code> (edit template generated by <code class="docutils literal"><span class="pre">jenerator</span></code>)</li>
+<li>NAME_impl.cpp: <code class="docutils literal"><span class="pre">main</span></code> function, RPC interface definition for the server and register RPC methods (automatically generated by <code class="docutils literal"><span class="pre">jenerator</span></code>)</li>
+<li>NAME_proxy.cpp: Implementation of the proxy (automatically generated by <code class="docutils literal"><span class="pre">jenerator</span></code>)</li>
+<li>NAME_client.hpp: Implementation of the client to be used in server-to-server communication (automatically generated by <code class="docutils literal"><span class="pre">jenerator</span></code>)</li>
+<li>NAME_types.hpp: Structures and type information (automatically generated by <code class="docutils literal"><span class="pre">jenerator</span></code>)</li>
 </ul>
 </div>
 <div class="section" id="jenerator-the-code-generator">
-<h2><tt class="docutils literal"><span class="pre">jenerator</span></tt>: The Code Generator<a class="headerlink" href="#jenerator-the-code-generator" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">jenerator</span></code>: The Code Generator<a class="headerlink" href="#jenerator-the-code-generator" title="Permalink to this headline">¶</a></h2>
 <p>The RPC interface is defined with <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MessagePack-IDL</a>.
 Aside from MessagePack-IDL&#8217;s original syntax, we must add annotations for each method of RPC service in order to generate Jubatus servers and proxies.</p>
-<p>Annotations are interpreted by our code generator, called <tt class="docutils literal"><span class="pre">jenerator</span></tt>, but they are ignored as comments by MessagePack-IDL.
+<p>Annotations are interpreted by our code generator, called <code class="docutils literal"><span class="pre">jenerator</span></code>, but they are ignored as comments by MessagePack-IDL.
 Therefore, we can generate each client with same interface by MessagePack-IDL.</p>
 <p>Syntax of annotations for each methods is as follows.</p>
 <ul class="simple">
-<li>Each method must have 3 annotations, each of them starts with <tt class="docutils literal"><span class="pre">#&#64;</span></tt>, that specifies &#8220;routing&#8221;, &#8220;lock type&#8221; and &#8220;aggregation method&#8221; in order.</li>
+<li>Each method must have 3 annotations, each of them starts with <code class="docutils literal"><span class="pre">#&#64;</span></code>, that specifies &#8220;routing&#8221;, &#8220;lock type&#8221; and &#8220;aggregation method&#8221; in order.</li>
 <li>The &#8220;routing&#8221; annotation defines how Jubatus Proxy proxy requests.
-Three methods (<tt class="docutils literal"><span class="pre">cht</span></tt>, <tt class="docutils literal"><span class="pre">broadcast</span></tt> or <tt class="docutils literal"><span class="pre">random</span></tt>) are available so that we can cover distribution methods used in typical machine learning tasks.<ul>
-<li><tt class="docutils literal"><span class="pre">cht</span></tt> means that the request is distributed by using Consistent Hashing.
-Methods annotated with <tt class="docutils literal"><span class="pre">cht</span></tt> must take at least 1 argument, which is a string that is used as a key for consistent hashing.
+Three methods (<code class="docutils literal"><span class="pre">cht</span></code>, <code class="docutils literal"><span class="pre">broadcast</span></code> or <code class="docutils literal"><span class="pre">random</span></code>) are available so that we can cover distribution methods used in typical machine learning tasks.<ul>
+<li><code class="docutils literal"><span class="pre">cht</span></code> means that the request is distributed by using Consistent Hashing.
+Methods annotated with <code class="docutils literal"><span class="pre">cht</span></code> must take at least 1 argument, which is a string that is used as a key for consistent hashing.
 Replication level of updated data is 2 by default.
-You can change the replication level by specifying like <tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt>.</li>
-<li><tt class="docutils literal"><span class="pre">broadcast</span></tt> means that the request will be broadcasted to all servers in the cluster.</li>
-<li><tt class="docutils literal"><span class="pre">random</span></tt> means that the request will be proxied to one randomly-chosen server in the cluster.</li>
+You can change the replication level by specifying like <code class="docutils literal"><span class="pre">#&#64;cht(1)</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">broadcast</span></code> means that the request will be broadcasted to all servers in the cluster.</li>
+<li><code class="docutils literal"><span class="pre">random</span></code> means that the request will be proxied to one randomly-chosen server in the cluster.</li>
 </ul>
 </li>
-<li>The &#8220;lock type&#8221; annotation defines read/write of request, and value must be one of <tt class="docutils literal"><span class="pre">analysis</span></tt>, <tt class="docutils literal"><span class="pre">update</span></tt> or <tt class="docutils literal"><span class="pre">nolock</span></tt>.<ul>
-<li>When using <tt class="docutils literal"><span class="pre">analysis</span></tt>, data is locked in server with read lock and is accessible by multiple thread simultaneously.</li>
-<li>When using <tt class="docutils literal"><span class="pre">update</span></tt>, data is locked with write lock, so that we can safely update the data.</li>
-<li>When using <tt class="docutils literal"><span class="pre">nolock</span></tt>, no locks are aquired in the server.</li>
+<li>The &#8220;lock type&#8221; annotation defines read/write of request, and value must be one of <code class="docutils literal"><span class="pre">analysis</span></code>, <code class="docutils literal"><span class="pre">update</span></code> or <code class="docutils literal"><span class="pre">nolock</span></code>.<ul>
+<li>When using <code class="docutils literal"><span class="pre">analysis</span></code>, data is locked in server with read lock and is accessible by multiple thread simultaneously.</li>
+<li>When using <code class="docutils literal"><span class="pre">update</span></code>, data is locked with write lock, so that we can safely update the data.</li>
+<li>When using <code class="docutils literal"><span class="pre">nolock</span></code>, no locks are aquired in the server.</li>
 </ul>
 </li>
 <li>The &#8220;aggregation&#8221; annotation defines how to aggrate the results of API call from multiple servers.
 Available aggregators are written in <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/framework/aggregators.hpp">aggregators.hpp</a>.</li>
 </ul>
-<p><tt class="docutils literal"><span class="pre">void</span></tt> type cannot be used as the return type of methods.
-If the return value is not needed, you must add meaningless type such as <tt class="docutils literal"><span class="pre">int</span></tt> or <tt class="docutils literal"><span class="pre">bool</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">void</span></code> type cannot be used as the return type of methods.
+If the return value is not needed, you must add meaningless type such as <code class="docutils literal"><span class="pre">int</span></code> or <code class="docutils literal"><span class="pre">bool</span></code>.</p>
 <p>Here is a example of MessagePack-IDL with annotation.</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">entry</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span>
@@ -244,7 +245,7 @@ If the return value is not needed, you must add meaningless type such as <tt cla
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The following RPC methods for server are automatically appended to each service by <tt class="docutils literal"><span class="pre">jenerator</span></tt>:</p>
+<p>The following RPC methods for server are automatically appended to each service by <code class="docutils literal"><span class="pre">jenerator</span></code>:</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#@random #@analysis #@pass</span>
 <span class="n">string</span> <span class="n">get_config</span><span class="p">()</span>
 
@@ -259,40 +260,43 @@ If the return value is not needed, you must add meaningless type such as <tt cla
 </pre></div>
 </div>
 <div class="section" id="building-jenerator">
-<h3>Building <tt class="docutils literal"><span class="pre">jenerator</span></tt><a class="headerlink" href="#building-jenerator" title="Permalink to this headline">¶</a></h3>
-<p>You need OCaml &gt;=4.02.1 (with findlib), extlib and OMake and OUnit and ppx_deriving to build <tt class="docutils literal"><span class="pre">jenerator</span></tt>.
+<h3>Building <code class="docutils literal"><span class="pre">jenerator</span></code><a class="headerlink" href="#building-jenerator" title="Permalink to this headline">¶</a></h3>
+<p>You need OCaml &gt;=4.02.1 (with findlib), extlib and OMake and OUnit and ppx_deriving to build <code class="docutils literal"><span class="pre">jenerator</span></code>.
 We recommend to use <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> to make OCaml environment.
-You have to use <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> version 1.2 or more for installing modules which <tt class="docutils literal"><span class="pre">jenerator</span></tt> depends.
+You have to use <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> version 1.2 or more for installing modules which <code class="docutils literal"><span class="pre">jenerator</span></code> depends.
 When you want to install OPAM from its source, <a class="reference external" href="https://github.com/ocaml/opam/wiki/Quick_Install#using-ocamlbrew">ocamlbrew</a> is usefull.</p>
-<div class="highlight-python"><pre>$ opam switch 4.02.1
+<div class="highlight-python"><div class="highlight"><pre>$ opam switch 4.02.1
 $ eval `opam config env`
 $ opam install ocamlfind extlib omake ounit ppx_deriving
 $ cd jubatus/tools/jenerator
 $ omake
-$ sudo omake install</pre>
+$ sudo omake install
+</pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> installs <tt class="docutils literal"><span class="pre">jenerator</span></tt> as <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> (path may vary depending on your environment).
-If you want to install <tt class="docutils literal"><span class="pre">jenerator</span></tt> to other directory, use <tt class="docutils literal"><span class="pre">PREFIX</span></tt> environment variable.</p>
-<div class="highlight-python"><pre>$ PREFIX=/path/to/install omake install</pre>
+<p><code class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></code> installs <code class="docutils literal"><span class="pre">jenerator</span></code> as <code class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></code> (path may vary depending on your environment).
+If you want to install <code class="docutils literal"><span class="pre">jenerator</span></code> to other directory, use <code class="docutils literal"><span class="pre">PREFIX</span></code> environment variable.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ PREFIX=/path/to/install omake install
+</pre></div>
 </div>
-<p>You can also use built <tt class="docutils literal"><span class="pre">jenerator</span></tt> binary directly without installation.</p>
+<p>You can also use built <code class="docutils literal"><span class="pre">jenerator</span></code> binary directly without installation.</p>
 </div>
 <div class="section" id="generating-server-proxy-from-idl">
 <h3>Generating Server/Proxy from IDL<a class="headerlink" href="#generating-server-proxy-from-idl" title="Permalink to this headline">¶</a></h3>
-<p>Suppose the name of the example above is a file <tt class="docutils literal"><span class="pre">kvs.idl</span></tt>, we can generate codes in the following manner.</p>
-<div class="highlight-python"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl</pre>
+<p>Suppose the name of the example above is a file <code class="docutils literal"><span class="pre">kvs.idl</span></code>, we can generate codes in the following manner.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl
+</pre></div>
 </div>
-<p>See <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> for the detailed usage of <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
+<p>See <a class="reference internal" href="commands.html#jenerator"><span>jenerator</span></a> for the detailed usage of <code class="docutils literal"><span class="pre">jenerator</span></code>.</p>
 </div>
 </div>
 <div class="section" id="implementing-server">
 <h2>Implementing Server<a class="headerlink" href="#implementing-server" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> constructs a server instance by using class <tt class="docutils literal"><span class="pre">kvs_serv</span></tt>.
-You need to define the class in <tt class="docutils literal"><span class="pre">kvs_serv.hpp</span></tt> and <tt class="docutils literal"><span class="pre">kvs_serv.cpp</span></tt>.
-You can use templates (<tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt>) generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>.</p>
-<p><tt class="docutils literal"><span class="pre">main</span></tt> function is implemented in <tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt>, so users don&#8217;t have to implement it.
+<p><code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code> constructs a server instance by using class <code class="docutils literal"><span class="pre">kvs_serv</span></code>.
+You need to define the class in <code class="docutils literal"><span class="pre">kvs_serv.hpp</span></code> and <code class="docutils literal"><span class="pre">kvs_serv.cpp</span></code>.
+You can use templates (<code class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></code>) generated by <code class="docutils literal"><span class="pre">jenerator</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">main</span></code> function is implemented in <code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code>, so users don&#8217;t have to implement it.
 Command line options are the same among all servers using Jubatus framework.
-The options can be referenced with <tt class="docutils literal"><span class="pre">--help</span></tt> option.</p>
+The options can be referenced with <code class="docutils literal"><span class="pre">--help</span></code> option.</p>
 <div class="section" id="mixable-class">
 <h3>Mixable Class<a class="headerlink" href="#mixable-class" title="Permalink to this headline">¶</a></h3>
 <p>TBD.</p>
@@ -300,8 +304,8 @@ The options can be referenced with <tt class="docutils literal"><span class="pre
 </div>
 <div class="section" id="implementing-proxy">
 <h2>Implementing Proxy<a class="headerlink" href="#implementing-proxy" title="Permalink to this headline">¶</a></h2>
-<p>You have nothing to implement; just compile <tt class="docutils literal"><span class="pre">kvs_proxy.cpp</span></tt>, generated by <tt class="docutils literal"><span class="pre">jenerator</span></tt>, and you will get proxy.</p>
-<p><tt class="docutils literal"><span class="pre">kvs_proxy.cpp</span></tt> only has <tt class="docutils literal"><span class="pre">main</span></tt> function, that registers functor for each RPC method that proxies requests and aggregates responses.</p>
+<p>You have nothing to implement; just compile <code class="docutils literal"><span class="pre">kvs_proxy.cpp</span></code>, generated by <code class="docutils literal"><span class="pre">jenerator</span></code>, and you will get proxy.</p>
+<p><code class="docutils literal"><span class="pre">kvs_proxy.cpp</span></code> only has <code class="docutils literal"><span class="pre">main</span></code> function, that registers functor for each RPC method that proxies requests and aggregates responses.</p>
 </div>
 </div>
 
@@ -333,7 +337,7 @@ The options can be referenced with <tt class="docutils literal"><span class="pre
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -120,11 +119,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="api_anomaly.html"
                         title="次の章へ">Anomaly</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_nearest_neighbor.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_nearest_neighbor.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -162,7 +163,7 @@
 JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>近傍探索に使用するアルゴリズムを指定する。
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
@@ -176,13 +177,13 @@ JSON の各フィールドは以下のとおりである。</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;lsh&quot;</span></code></td>
 <td>コサイン類似度のLocality Sensitive Hashingを利用する。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
-<td>MinHashを利用する。 <a class="reference internal" href="method.html#ping2010">[Ping2010]</a></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;minhash&quot;</span></code></td>
+<td>MinHashを利用する。 <a class="reference internal" href="method.html#ping2010" id="id1">[Ping2010]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></code></td>
 <td>コサイン類似度のLSHを用いてユークリッド距離での近傍探索を行う。</td>
 </tr>
 </tbody>
@@ -191,9 +192,9 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>アルゴリズムに渡すパラメータを指定する。
-<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
+<code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
 <dt>lsh</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -204,7 +205,7 @@ JSON の各フィールドは以下のとおりである。</p>
 大きくすると正確な値に近づく代わりに、多くのメモリを消費し、探索時間も増す。
 (Integer)</p>
 <ul class="last simple">
-<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -220,7 +221,7 @@ JSON の各フィールドは以下のとおりである。</p>
 大きくすると正確な値に近づく代わりに、多くのメモリを消費し、探索時間も増す。
 (Integer)</p>
 <ul class="last simple">
-<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -236,7 +237,7 @@ JSON の各フィールドは以下のとおりである。</p>
 大きくすると正確な値に近づく代わりに、多くのメモリを消費し、探索時間も増す。
 (Integer)</p>
 <ul class="last simple">
-<li>値域: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -248,7 +249,7 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">converter</tt></dt>
+<code class="descname">converter</code></dt>
 <dd><p>特徴変換の設定を指定する。
 フォーマットは <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> で説明する。</p>
 </dd></dl>
@@ -284,17 +285,17 @@ JSON の各フィールドは以下のとおりである。</p>
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="message">
 <dt id="id_with_score">
-<em class="property">message </em><tt class="descname">id_with_score</tt><a class="headerlink" href="#id_with_score" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">message </em><code class="descname">id_with_score</code><a class="headerlink" href="#id_with_score" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>スコア付きのデータIDを表す。</p>
 <dl class="member">
 <dt id="id_with_score::id__s">
-0: string <tt class="descname">id</tt><a class="headerlink" href="#id_with_score::id__s" title="この定義へのパーマリンク">¶</a></dt>
+0: string <code class="descname">id</code><a class="headerlink" href="#id_with_score::id__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>データのIDを表す。</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="id_with_score::score__float">
-1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="この定義へのパーマリンク">¶</a></dt>
+1: float <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__float" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>IDに対して紐付かれた近傍性のスコアを表す。
 近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。</p>
 </dd></dl>
@@ -312,17 +313,17 @@ JSON の各フィールドは以下のとおりである。</p>
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="service">
 <dt id="nearest_neighbor">
-<em class="property">service </em><tt class="descname">nearest_neighbor</tt><a class="headerlink" href="#nearest_neighbor" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">service </em><code class="descname">nearest_neighbor</code><a class="headerlink" href="#nearest_neighbor" title="この定義へのパーマリンク">¶</a></dt>
 <dd><dl class="method">
 <dt id="nearest_neighbor::set_row__s.datum">
-bool <tt class="descname">set_row</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>d</em><big>)</big><a class="headerlink" href="#nearest_neighbor::set_row__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">set_row</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::set_row__s.datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
 <li><strong>id</strong> &#8211; 行 ID</li>
-<li><strong>d</strong> &#8211; 行に対応する <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>d</strong> &#8211; 行に対応する <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 </ul>
 </td>
 </tr>
@@ -331,16 +332,16 @@ bool <tt class="descname">set_row</tt><big>(</big>0: string <em>id</em>, 1: <a c
 </tr>
 </tbody>
 </table>
-<p>行 ID <tt class="docutils literal"><span class="pre">id</span></tt> のデータを <tt class="docutils literal"><span class="pre">d</span></tt> を利用して更新する。
-同じ <tt class="docutils literal"><span class="pre">id</span></tt> を持つ行が既に存在する場合は、その行が <tt class="docutils literal"><span class="pre">d</span></tt> で上書きされる。
-<tt class="docutils literal"><span class="pre">recommender</span></tt> の場合と異なり差分更新ではない。
+<p>行 ID <code class="docutils literal"><span class="pre">id</span></code> のデータを <code class="docutils literal"><span class="pre">d</span></code> を利用して更新する。
+同じ <code class="docutils literal"><span class="pre">id</span></code> を持つ行が既に存在する場合は、その行が <code class="docutils literal"><span class="pre">d</span></code> で上書きされる。
+<code class="docutils literal"><span class="pre">recommender</span></code> の場合と異なり差分更新ではない。
 更新操作を受け付けたサーバが当該行を持つサーバと同一であれば、操作は即時反映される。
 異なるサーバであれば、mix 後に反映される。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::neighbor_row_from_id__s.U">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">neighbor_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_id__s.U" title="この定義へのパーマリンク">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">neighbor_row_from_id</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_id__s.U" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -351,38 +352,38 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍の id とその距離の値のリスト</p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">id</span></code> で指定した近傍の id とその距離の値のリスト</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその距離のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+<p>指定した行 <code class="docutils literal"><span class="pre">id</span></code> に近い行とその距離のリストを (最大で) <code class="docutils literal"><span class="pre">size</span></code> 個返す。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::neighbor_row_from_datum__datum.U">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">neighbor_row_from_datum</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_datum__datum.U" title="この定義へのパーマリンク">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">neighbor_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_datum__datum.U" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>query</strong> &#8211; 近傍探索の対象となる <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>query</strong> &#8211; 近傍探索の対象となる <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 <li><strong>size</strong> &#8211; 返す近傍点の個数</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">query</span></tt> の近傍の id とその距離の値のリスト</p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> の近傍の id とその距離の値のリスト</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>指定した <tt class="docutils literal"><span class="pre">query</span></tt> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を持つ行とその <tt class="docutils literal"><span class="pre">query</span></tt> との距離のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+<p>指定した <code class="docutils literal"><span class="pre">query</span></code> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> を持つ行とその <code class="docutils literal"><span class="pre">query</span></code> との距離のリストを (最大で) <code class="docutils literal"><span class="pre">size</span></code> 個返す。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::similar_row_from_id__s.i">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: int <em>ret_num</em><big>)</big><a class="headerlink" href="#nearest_neighbor::similar_row_from_id__s.i" title="この定義へのパーマリンク">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: int <em>ret_num</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::similar_row_from_id__s.i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -393,38 +394,38 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">id</span></tt> で指定した近傍の id とその距離の値のリスト</p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">id</span></code> で指定した近傍の id とその距離の値のリスト</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>指定した行 <tt class="docutils literal"><span class="pre">id</span></tt> に近い行とその類似度のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+<p>指定した行 <code class="docutils literal"><span class="pre">id</span></code> に近い行とその類似度のリストを (最大で) <code class="docutils literal"><span class="pre">size</span></code> 個返す。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::similar_row_from_datum__datum.i">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_datum</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: int <em>ret_num</em><big>)</big><a class="headerlink" href="#nearest_neighbor::similar_row_from_datum__datum.i" title="この定義へのパーマリンク">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: int <em>ret_num</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::similar_row_from_datum__datum.i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>query</strong> &#8211; 近傍探索の対象となる <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>query</strong> &#8211; 近傍探索の対象となる <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 <li><strong>ret_num</strong> &#8211; 返す近傍点の個数</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">query</span></tt> の近傍の id とその類似度の値のリスト</p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> の近傍の id とその類似度の値のリスト</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>指定した <tt class="docutils literal"><span class="pre">query</span></tt> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> を持つ行とその <tt class="docutils literal"><span class="pre">query</span></tt> との類似度のリストを (最大で) <tt class="docutils literal"><span class="pre">size</span></tt> 個返す。</p>
+<p>指定した <code class="docutils literal"><span class="pre">query</span></code> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> を持つ行とその <code class="docutils literal"><span class="pre">query</span></code> との類似度のリストを (最大で) <code class="docutils literal"><span class="pre">size</span></code> 個返す。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::get_all_rows">
-list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big><a class="headerlink" href="#nearest_neighbor::get_all_rows" title="この定義へのパーマリンク">¶</a></dt>
+list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::get_all_rows" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -469,7 +470,7 @@ list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

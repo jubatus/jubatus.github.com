@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -108,9 +107,7 @@
 <li><a class="reference internal" href="#">Classifier チュートリアル</a><ul>
 <li><a class="reference internal" href="#id1">サンプルプログラムの概要</a></li>
 <li><a class="reference internal" href="#id2">処理の流れ</a></li>
-<li><a class="reference internal" href="#id3">サンプルプログラム</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#id3">サンプルプログラム</a></li>
 </ul>
 </li>
 </ul>
@@ -121,11 +118,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="classifier_python.html"
                         title="次の章へ">Classifier チュートリアル (Python)</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/tutorial/classifier.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/classifier.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="../search.html" method="get">
@@ -153,15 +152,15 @@
             
   <div class="section" id="classifier">
 <h1>Classifier チュートリアル<a class="headerlink" href="#classifier" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ここではJubatusの多値分類機能（Classifier）である <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> を使用した、Jubatus Client の使い方を説明します。</p>
+<p>ここではJubatusの多値分類機能（Classifier）である <code class="docutils literal"><span class="pre">jubaclassifier</span></code> を使用した、Jubatus Client の使い方を説明します。</p>
 <p>多値分類機能（Classifier）とは、入力データを複数グループに分類する機能であり、スパムメールの判定などに利用することができます。</p>
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>サンプルとして、各時代の将軍は姓（苗字）ごとに名（名前）が似ていることから、将軍の名から姓を当てるというプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/shogun">shogun</a> 」を用いて説明していきます。</p>
-<p>最初に、「&#8221;家康&#8221;という名は&#8221;徳川&#8221;という姓である」、「&#8221;尊氏&#8221;という名は&#8221;足利&#8221;という姓である」という、歴代将軍の名前を元に作成した一定量以上の姓と名のペアをクライアント側で用意し、 <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> に学習させます。
+<p>最初に、「&#8221;家康&#8221;という名は&#8221;徳川&#8221;という姓である」、「&#8221;尊氏&#8221;という名は&#8221;足利&#8221;という姓である」という、歴代将軍の名前を元に作成した一定量以上の姓と名のペアをクライアント側で用意し、 <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に学習させます。
 これにより、姓を分類ラベル、名を特徴としたモデルが作成されます。</p>
-<p>次に、予測用の入力データとして任意の名を <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> に与えます。 <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> は先ほど学習したモデルを用い、姓を予測して返却するので、クライアント側では、受け取った結果を出力します。</p>
-<p>例えば、予測用の入力データとして&#8221;慶喜&#8221;を <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> に与えると、&#8221;徳川&#8221;が結果として出力されます。
+<p>次に、予測用の入力データとして任意の名を <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与えます。 <code class="docutils literal"><span class="pre">jubaclassifier</span></code> は先ほど学習したモデルを用い、姓を予測して返却するので、クライアント側では、受け取った結果を出力します。</p>
+<p>例えば、予測用の入力データとして&#8221;慶喜&#8221;を <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与えると、&#8221;徳川&#8221;が結果として出力されます。
 もちろん、「&#8221;慶喜&#8221;という名は&#8221;徳川&#8221;である」というデータは学習データに含まれていません。</p>
 </div>
 <div class="section" id="id2">
@@ -169,8 +168,8 @@
 <p>Jubatus Client を使ったコーディングは、主に以下の流れになります。</p>
 <ol class="arabic">
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> への接続設定</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> のホストやポート番号を指定し、接続設定をします。</p>
+<dt><code class="docutils literal"><span class="pre">jubaclassifier</span></code> への接続設定</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">jubaclassifier</span></code> のホストやポート番号を指定し、接続設定をします。</p>
 </dd>
 </dl>
 </li>
@@ -182,25 +181,25 @@
 </li>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
-<dd><p class="first last">2. で作成した学習データを <tt class="docutils literal"><span class="pre">train</span></tt> メソッドで <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> に与え、学習を行います。</p>
+<dd><p class="first last">2. で作成した学習データを <code class="docutils literal"><span class="pre">train</span></code> メソッドで <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与え、学習を行います。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>予測用データの準備</dt>
-<dd><p class="first last">予測用に <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> に投げる、名のデータを作成します。</p>
+<dd><p class="first last">予測用に <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に投げる、名のデータを作成します。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく予測</dt>
-<dd><p class="first last">4. で作成した予測用データを入力値とし、 <tt class="docutils literal"><span class="pre">classify</span></tt> メソッドで 3. の学習に基づいた予測を行います。</p>
+<dd><p class="first last">4. で作成した予測用データを入力値とし、 <code class="docutils literal"><span class="pre">classify</span></code> メソッドで 3. の学習に基づいた予測を行います。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">classify</span></tt> メソッドの戻り値である予測結果を出力します。</p>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">classify</span></code> メソッドの戻り値である予測結果を出力します。</p>
 </dd>
 </dl>
 </li>
@@ -260,7 +259,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

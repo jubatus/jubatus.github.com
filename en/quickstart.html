@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -129,11 +128,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="overview.html"
                         title="next chapter">Overview</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/quickstart.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/quickstart.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -169,36 +170,43 @@ On supported systems, you can install all components of Jubatus using binary pac
 <div class="section" id="red-hat-enterprise-linux-6-2-or-later-64-bit">
 <h3>Red Hat Enterprise Linux 6.2 or later (64-bit)<a class="headerlink" href="#red-hat-enterprise-linux-6-2-or-later-64-bit" title="Permalink to this headline">¶</a></h3>
 <p>Run the following command to register Jubatus Yum repository to the system.</p>
-<div class="highlight-python"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
+</pre></div>
 </div>
-<p>Now install <tt class="docutils literal"><span class="pre">jubatus</span></tt> and <tt class="docutils literal"><span class="pre">jubatus-client</span></tt> package.</p>
-<div class="highlight-python"><pre>// For RHEL
+<p>Now install <code class="docutils literal"><span class="pre">jubatus</span></code> and <code class="docutils literal"><span class="pre">jubatus-client</span></code> package.</p>
+<div class="highlight-python"><div class="highlight"><pre>// For RHEL
 $ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
 
 // For RHEL clones (CentOS, Scientific Linux, etc.)
-$ sudo yum install jubatus jubatus-client</pre>
+$ sudo yum install jubatus jubatus-client
+</pre></div>
 </div>
-<p>Note that we use <tt class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></tt> repository to install dependency package (<tt class="docutils literal"><span class="pre">oniguruma</span></tt>) on RHEL.</p>
+<p>Note that we use <code class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></code> repository to install dependency package (<code class="docutils literal"><span class="pre">oniguruma</span></code>) on RHEL.</p>
 </div>
 <div class="section" id="ubuntu-server-12-04-lts-64-bit">
 <h3>Ubuntu Server 12.04 LTS (64-bit)<a class="headerlink" href="#ubuntu-server-12-04-lts-64-bit" title="Permalink to this headline">¶</a></h3>
-<p>Write the following line to <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></tt> to register Jubatus Apt repository to the system.</p>
-<div class="highlight-python"><pre>deb http://download.jubat.us/apt binary/</pre>
+<p>Write the following line to <code class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></code> to register Jubatus Apt repository to the system.</p>
+<div class="highlight-python"><div class="highlight"><pre>deb http://download.jubat.us/apt binary/
+</pre></div>
 </div>
-<p>Now install <tt class="docutils literal"><span class="pre">jubatus</span></tt> package.</p>
-<div class="highlight-python"><pre>$ sudo apt-get update
-$ sudo apt-get install jubatus</pre>
+<p>Now install <code class="docutils literal"><span class="pre">jubatus</span></code> package.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get update
+$ sudo apt-get install jubatus
+</pre></div>
 </div>
 <p>Currently our package is not GPG-signed.
-Bypass the warning by answering <tt class="docutils literal"><span class="pre">y</span></tt> to the prompt when asked:</p>
-<div class="highlight-python"><pre>Install these packages without verification [y/N]? y</pre>
+Bypass the warning by answering <code class="docutils literal"><span class="pre">y</span></code> to the prompt when asked:</p>
+<div class="highlight-python"><div class="highlight"><pre>Install these packages without verification [y/N]? y
+</pre></div>
 </div>
-<p>Now Jubatus is installed in <tt class="docutils literal"><span class="pre">/opt/jubatus</span></tt>.</p>
-<p>Each time before using Jubatus, you need to load the environment variable from <tt class="docutils literal"><span class="pre">profile</span></tt> script.</p>
-<div class="highlight-python"><pre>$ source /opt/jubatus/profile</pre>
+<p>Now Jubatus is installed in <code class="docutils literal"><span class="pre">/opt/jubatus</span></code>.</p>
+<p>Each time before using Jubatus, you need to load the environment variable from <code class="docutils literal"><span class="pre">profile</span></code> script.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ source /opt/jubatus/profile
+</pre></div>
 </div>
 <p>If you&#8217;re using csh or tcsh, use this instead:</p>
-<div class="highlight-python"><pre>$ source /opt/jubatus/profile.csh</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ source /opt/jubatus/profile.csh
+</pre></div>
 </div>
 </div>
 <div class="section" id="other-linux-distributions-including-32-bit">
@@ -220,37 +228,42 @@ Client libraries are distributed under MIT License.</p>
 <p>Version of Jubatus and Jubatus clients may be different, as clients are not updated when there are no API changes to Jubatus.</p>
 <div class="section" id="c">
 <h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
-<p>The client is included in the Jubatus framework (<tt class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></tt>) and no additional setup is required.</p>
+<p>The client is included in the Jubatus framework (<code class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></code>) and no additional setup is required.</p>
 <p>If you don&#8217;t have compilers and/or development headers installed, you will need to setup them.
 For RHEL systems, type:</p>
-<div class="highlight-python"><pre>$ sudo yum groupinstall "Development tools" "Additional Development"</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo yum groupinstall &quot;Development tools&quot; &quot;Additional Development&quot;
+</pre></div>
 </div>
 <p>For Ubuntu systems, type:</p>
-<div class="highlight-python"><pre>$ sudo apt-get install build-essential</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install build-essential
+</pre></div>
 </div>
 </div>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>The client (requires Python 2.6 or 2.7) is available in <a class="reference external" href="http://pypi.python.org/pypi/jubatus">PyPI</a>.</p>
-<div class="highlight-python"><pre>$ sudo pip install jubatus</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo pip install jubatus
+</pre></div>
 </div>
-<p>If you don&#8217;t have <tt class="docutils literal"><span class="pre">pip</span></tt> command, run the following command:</p>
-<div class="highlight-python"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
+<p>If you don&#8217;t have <code class="docutils literal"><span class="pre">pip</span></code> command, run the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
 $ sudo python ez_setup.py
-$ sudo easy_install pip</pre>
+$ sudo easy_install pip
+</pre></div>
 </div>
-<p>On Ubuntu, you can also use <tt class="docutils literal"><span class="pre">python-pip</span></tt> package to install <tt class="docutils literal"><span class="pre">pip</span></tt>.</p>
+<p>On Ubuntu, you can also use <code class="docutils literal"><span class="pre">python-pip</span></code> package to install <code class="docutils literal"><span class="pre">pip</span></code>.</p>
 </div>
 <div class="section" id="ruby">
 <h3>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h3>
 <p>The client (requires Ruby 1.9 or later) is available in <a class="reference external" href="http://rubygems.org/gems/jubatus">RubyGems</a>.</p>
-<div class="highlight-python"><pre>$ sudo gem install jubatus</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo gem install jubatus
+</pre></div>
 </div>
 </div>
 <div class="section" id="java">
 <h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
 <p>The client is available in our Maven repository.
-Please add these lines to <tt class="docutils literal"><span class="pre">pom.xml</span></tt> of your project.</p>
+Please add these lines to <code class="docutils literal"><span class="pre">pom.xml</span></code> of your project.</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;repositories&gt;</span>
   <span class="nt">&lt;repository&gt;</span>
     <span class="nt">&lt;id&gt;</span>jubat.us<span class="nt">&lt;/id&gt;</span>
@@ -316,7 +329,7 @@ See the <a class="reference internal" href="api.html"><em>Client API</em></a> fo
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

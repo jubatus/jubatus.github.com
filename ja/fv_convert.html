@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -143,11 +142,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="plugin.html"
                         title="次の章へ">プラグインの開発</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/fv_convert.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fv_convert.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -244,8 +245,8 @@ binary_values には画像や音声などのマルチメディアデータなど
 </pre></div>
 </div>
 <p>キーの名前に &#8220;$&#8221; 記号を含めることはできない。</p>
-<p>例えばC++から利用する場合、datumは <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> 、 <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></tt> 、 <tt class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></tt> の3つの要素からなっている。
-ここでは、 <tt class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></tt> をPython風のタプルで、 <tt class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></tt> をPython風のリストで表している。</p>
+<p>例えばC++から利用する場合、datumは <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></code> 、 <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></code> 、 <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></code> の3つの要素からなっている。
+ここでは、 <code class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></code> をPython風のタプルで、 <code class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></code> をPython風のリストで表している。</p>
 </div>
 <div class="section" id="id3">
 <h2>データ変換の流れ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -257,9 +258,9 @@ binary_values には画像や音声などのマルチメディアデータなど
 その状態で、num_rulesによって数値データからの特徴量が抽出される。</p>
 <p>バイナリデータにはbinary_rulesによって特徴量が抽出される。</p>
 <p>フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
-<div class="figure">
-<img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" />
-<p class="caption">図: 変換エンジンの構成</p>
+<div class="figure" id="id13">
+<a class="reference internal image-reference" href="_images/convert_flow.png"><img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" /></a>
+<p class="caption"><span class="caption-text">図: 変換エンジンの構成</span></p>
 </div>
 </div>
 <div class="section" id="id4">
@@ -270,7 +271,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 あるいは、メール本文の引用（&gt;から始まる行）を削除したいこともあるだろう。
 こうした時に利用するのが、filter機能である。</p>
 <p>例として、&#8221;message&#8221;内の文字列からHTMLタグを取り除く。
-まず、「HTMLタグを取り除く」というルールを定義し、それを <tt class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></tt> に適用する。
+まず、「HTMLタグを取り除く」というルールを定義し、それを <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></code> に適用する。
 これは、以下のようなconfigで表現される。</p>
 <div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
@@ -321,7 +322,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">regexp</tt></dt>
+<code class="descname">regexp</code></dt>
 <dd><p>正規表現にマッチした部分を、指定した文字列に変換する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -347,7 +348,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 
 <dl class="describe">
 <dt>
-<tt class="descname">dynamic</tt></dt>
+<code class="descname">dynamic</code></dt>
 <dd><p>プラグインを利用する。詳細は後述する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -433,7 +434,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">add</tt></dt>
+<code class="descname">add</code></dt>
 <dd><p>元の値に指定した値を足す。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -449,7 +450,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 
 <dl class="describe">
 <dt>
-<tt class="descname">linear_normalization</tt></dt>
+<code class="descname">linear_normalization</code></dt>
 <dd><p>値を0以上から1以下の小数へと正規化する。
 &#8220;min&#8221;と&#8221;max&#8221;の2つの小数を入力として要求し、これら2つのパラメータの省略はできない。
 入力された値xに対して「(x - min) / (max - min)」という計算を行う事で0以上1以下の小数へと線形に変換する。
@@ -484,7 +485,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </div>
 <dl class="describe">
 <dt>
-<tt class="descname">gaussian_normalization</tt></dt>
+<code class="descname">gaussian_normalization</code></dt>
 <dd><p>値がガウス分布（正規分布）していると仮定し、与えられた平均値と標準偏差にそった値を-1以上+1以下の範囲の小数に正規化する。
 &#8220;average&#8221;と&#8221;standard_deviation&#8221;の2つの小数を入力として要求し、省略はできない。
 入力された値xに対して「(x - average) / standard_deviation」という計算を行う事で-1以上1以下の小数へと変換する。
@@ -516,7 +517,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </div>
 <dl class="describe">
 <dt>
-<tt class="descname">sigmoid_normalization</tt></dt>
+<code class="descname">sigmoid_normalization</code></dt>
 <dd><p>値をシグモイド関数に基づいて0から1の範囲へと切り詰める。
 &#8220;gain&#8221;と&#8221;bias&#8221;の2つを入力として要求する。省略した場合にはそれぞれ1と0になる。
 入力された値xに対して「1 / (1 + e ^ (-gain * (x - bias)))」という計算を行う事で0〜1の小数へと変換する。</p>
@@ -545,7 +546,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </div>
 <dl class="describe">
 <dt>
-<tt class="descname">dynamic</tt></dt>
+<code class="descname">dynamic</code></dt>
 <dd><p>プラグインを利用する。詳細は後述する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -737,7 +738,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 <p>指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">ngram</tt></dt>
+<code class="descname">ngram</code></dt>
 <dd><p>隣接するN文字を特徴量として利用する。こうした特徴量は文字N-gram特徴と呼ばれる。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -760,7 +761,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 
 <dl class="describe">
 <dt>
-<tt class="descname">regexp</tt></dt>
+<code class="descname">regexp</code></dt>
 <dd><p>与えられた文書から正規表現を利用してキーワードを抜き出して、それぞれを特徴量として利用する。
 正規表現マッチは連続的に行われ、マッチした箇所全てを特徴として使う。</p>
 <blockquote>
@@ -800,7 +801,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 
 <dl class="describe">
 <dt>
-<tt class="descname">dynamic</tt></dt>
+<code class="descname">dynamic</code></dt>
 <dd><p>プラグインを利用する。詳細は後述する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -848,10 +849,10 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;str&quot;</span></code></td>
 <td>文字列分割を行わず、指定された文字列そのものを特徴として利用する。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;space&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;space&quot;</span></code></td>
 <td>スペース文字で分割を行い、分割された部分文字列を特徴として利用する。</td>
 </tr>
 </tbody>
@@ -870,13 +871,13 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;bin&quot;</span></code></td>
 <td>重みを常に1とする。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;tf&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;tf&quot;</span></code></td>
 <td>与えられた文字列中で出現する回数で重み付けをする。例えば5回&#8221;hello&#8221;が出現したら、重みを5にする。</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></code></td>
 <td>tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&#8221;hello&#8221;が出現したら、重みはlog(5 + 1)にする。</td>
 </tr>
 </tbody>
@@ -895,10 +896,10 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;bin&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;bin&quot;</span></code></td>
 <td>重みを常に1とする。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;idf&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code></td>
 <td>文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。</td>
 </tr>
 </tbody>
@@ -974,7 +975,7 @@ string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる�
 指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">dynamic</tt></dt>
+<code class="descname">dynamic</code></dt>
 <dd><p>プラグインを利用する。詳細は後述する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -1020,13 +1021,13 @@ string_rulesなどと同様、複数の規則を羅列する。
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;num&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;num&quot;</span></code></td>
 <td>与えられた数値をそのまま重みに利用する。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;log&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;log&quot;</span></code></td>
 <td>与えられた数値の対数を重みに利用する。但し、数値が1以下の場合は0とする。</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;str&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;str&quot;</span></code></td>
 <td>与えられた数値を文字列として扱う。これは、例えばIDなど、数値自体の大きさに意味のないデータに対して利用する。重みは1とする。</td>
 </tr>
 </tbody>
@@ -1049,7 +1050,7 @@ string_typesなどと同様、 &lt;抽出器名&gt;: &lt;引数&gt; からなる
 指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">dynamic</tt></dt>
+<code class="descname">dynamic</code></dt>
 <dd><p>プラグインを利用する。詳細は後述する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -1093,7 +1094,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <p>Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができる。
 特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができるが、ハッシュの衝突により学習精度の低下が発生する可能性がある。</p>
 <p>この機能はデフォルトでは無効である。
-使用するには、変換設定に <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> を指定する。値には0より大きい整数値を指定する。</p>
+使用するには、変換設定に <code class="docutils literal"><span class="pre">hash_max_size</span></code> を指定する。値には0より大きい整数値を指定する。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
   <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
@@ -1109,8 +1110,8 @@ string_rulesなどと同様、複数の規則を羅列する。
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>最適な <tt class="docutils literal"><span class="pre">hash_max_size</span></tt> の値は、使用するデータセットおよび環境により異なる。
-<tt class="docutils literal"><span class="pre">hash_max_size</span></tt> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。</p>
+<p>最適な <code class="docutils literal"><span class="pre">hash_max_size</span></code> の値は、使用するデータセットおよび環境により異なる。
+<code class="docutils literal"><span class="pre">hash_max_size</span></code> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。</p>
 </div>
 <div class="section" id="conversion-plugin">
 <span id="id11"></span><h2>プラグイン<a class="headerlink" href="#conversion-plugin" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -1118,24 +1119,24 @@ string_rulesなどと同様、複数の規則を羅列する。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
 <p>各フィルターと抽出器のいずれの場合も、プラグインの指定の仕方は同じである。
-CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</span></tt> または <tt class="docutils literal"><span class="pre">num</span></tt>) で、フィルターや抽出器を指定する際のパラメータで、&#8221;method&#8221;に&#8221;dynamic&#8221;を、&#8221;path&#8221;に.soファイルへのパスを、&#8221;function&#8221;に各プラグイン固有の呼び出し関数名を指定する。
+CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</span></code> または <code class="docutils literal"><span class="pre">num</span></code>) で、フィルターや抽出器を指定する際のパラメータで、&#8221;method&#8221;に&#8221;dynamic&#8221;を、&#8221;path&#8221;に.soファイルへのパスを、&#8221;function&#8221;に各プラグイン固有の呼び出し関数名を指定する。
 プラグインのパスの指定方法は2種類ある。
 パス名に &#8216;/&#8217; が含まれる場合は、相対パスか絶対パスとみなされる。
 この場合、相対パスならカレントディレクトリからの相対パスの、絶対パスなら指定のパスのプラグインを読み込む。
 逆に &#8216;/&#8217; が含まれない場合は、以下の順で読み込みを試み、成功したほうが採用される。</p>
 <ol class="arabic simple">
-<li>環境変数 <tt class="docutils literal"><span class="pre">JUBATUS_PLUGIN_PATH</span></tt> で指定されたディレクトリ</li>
-<li>ビルド時に指定したデフォルトのプラグインディレクトリ（多くの場合は <tt class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></tt> または <tt class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></tt> ）</li>
+<li>環境変数 <code class="docutils literal"><span class="pre">JUBATUS_PLUGIN_PATH</span></code> で指定されたディレクトリ</li>
+<li>ビルド時に指定したデフォルトのプラグインディレクトリ（多くの場合は <code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></code> または <code class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></code> ）</li>
 </ol>
 <p>また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。</p>
 <p>Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグインが提供されている。
 ただし、コンパイルオプションによっては一部のプラグインがビルドされないため、注意すること。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">libmecab_splitter.so</tt></dt>
+<code class="descname">libmecab_splitter.so</code></dt>
 <dd><p>string_typesで指定できる。
 <a class="reference external" href="http://code.google.com/p/mecab/">MeCab</a> を利用して文書を単語分割し、各単語を特徴量として利用する。
-<tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<code class="docutils literal"><span class="pre">--enable-mecab</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1163,11 +1164,11 @@ CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</sp
 
 <dl class="describe">
 <dt>
-<tt class="descname">libux_splitter.so</tt></dt>
+<code class="descname">libux_splitter.so</code></dt>
 <dd><p>string_typesで指定できる。
 <a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
 単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
-<tt class="docutils literal"><span class="pre">--enable-ux</span></tt> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<code class="docutils literal"><span class="pre">--enable-ux</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1222,7 +1223,7 @@ CLASS_types (CLASS は <tt class="docutils literal"><span class="pre">string</sp
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

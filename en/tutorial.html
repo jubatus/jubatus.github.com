@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -124,11 +123,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="tutorial/classifier.html"
                         title="next chapter">Classifier</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tutorial.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -159,7 +160,7 @@
 <p>Before trying the tutorial, you need to install Jubatus and Jubatus Python client. See <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> for instructions.</p>
 <div class="section" id="scenario">
 <h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
-<p>This tutorial uses <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> dataset (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>), which is  popular for experiments in text classification.
+<p>This tutorial uses <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> dataset (<code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code>), which is  popular for experiments in text classification.
 News20 has 20 different newsgroups and users post their message on a suitable newsgroup.
 News20 is divided into learning data (20news-bydate-train, 80%) and experimental data (20news-bydata-test, 20%).</p>
 <p>The goal of this tutorial program is to learn model from 20news-bydate-train and to guess the newsgroup to post from 20news-bydate-test.</p>
@@ -170,14 +171,14 @@ News20 is divided into learning data (20news-bydate-train, 80%) and experimental
 </ul>
 </li>
 <li>Configuring Jubatus server via JSON style config</li>
-<li>Using Jubatus classification service via <tt class="docutils literal"><span class="pre">train</span></tt> and <tt class="docutils literal"><span class="pre">classify</span></tt> API</li>
+<li>Using Jubatus classification service via <code class="docutils literal"><span class="pre">train</span></code> and <code class="docutils literal"><span class="pre">classify</span></code> API</li>
 <li>Basic concepts of classification</li>
 </ul>
 </div>
 <div class="section" id="run-tutorial">
 <h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h2>
-<p>Run <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> program, which provides classification feature, specifying a configuration file. Examples of configuration file are stored in <tt class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></tt> directory.</p>
-<div class="highlight-python"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+<p>Run <code class="docutils literal"><span class="pre">jubaclassifier</span></code> program, which provides classification feature, specifying a configuration file. Examples of configuration file are stored in <code class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></code> directory.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
     pid                  : 1855
     user                 : oda
@@ -195,53 +196,58 @@ I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 R
     interconnect timeout : 10
 I0110 13:43:07.789721  1855 server_util.cpp:77] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
-  "converter" : {
-    "string_filter_types" : {},
-    "string_filter_rules" : [],
-    "num_filter_types" : {},
-    "num_filter_rules" : [],
-    "string_types" : {},
-    "string_rules" : [
-      { "key" : "*", "type" : "str", "sample_weight" : "bin", "global_weight" : "bin" }
+  &quot;converter&quot; : {
+    &quot;string_filter_types&quot; : {},
+    &quot;string_filter_rules&quot; : [],
+    &quot;num_filter_types&quot; : {},
+    &quot;num_filter_rules&quot; : [],
+    &quot;string_types&quot; : {},
+    &quot;string_rules&quot; : [
+      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;str&quot;, &quot;sample_weight&quot; : &quot;bin&quot;, &quot;global_weight&quot; : &quot;bin&quot; }
     ],
-    "num_types" : {},
-    "num_rules" : [
-      { "key" : "*", "type" : "num" }
+    &quot;num_types&quot; : {},
+    &quot;num_rules&quot; : [
+      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;num&quot; }
     ]
   },
-  "method" : "PA"
-}</pre>
+  &quot;method&quot; : &quot;PA&quot;
+}
+</pre></div>
 </div>
 <p>Jubatus classification server is now started.
 Jubatus servers listen on TCP port 9199 by default.
-If you would like to use another port, specify it using <tt class="docutils literal"><span class="pre">--rpc-port</span></tt> option.
+If you would like to use another port, specify it using <code class="docutils literal"><span class="pre">--rpc-port</span></code> option.
 For example, to use port 19199:</p>
-<div class="highlight-python"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
+</pre></div>
 </div>
 <p>Jubatus and Jubatus clients communicate with each other in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol over the TCP/IP network.</p>
 <div><img height="120" src="_images/blockdiag-062d5b706c7cac674038d80cf1b51ae6d315c75d.png" width="448" /></div><p>OK, let&#8217;s download the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial program</a> and the dataset.</p>
-<div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
+<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
-$ tar xvzf 20news-bydate.tar.gz</pre>
+$ tar xvzf 20news-bydate.tar.gz
+</pre></div>
 </div>
-<p>Reboot <cite>jubaclassifier</cite> with <tt class="docutils literal"><span class="pre">config.json</span></tt> , which is a configuration file prepared for this tutorial.
-Note: do not use the previous configuration file ( <tt class="docutils literal"><span class="pre">pa.json</span></tt> ) that was used above.</p>
-<div class="highlight-python"><pre>$ jubaclassifier --configpath config.json</pre>
+<p>Reboot <cite>jubaclassifier</cite> with <code class="docutils literal"><span class="pre">config.json</span></code> , which is a configuration file prepared for this tutorial.
+Note: do not use the previous configuration file ( <code class="docutils literal"><span class="pre">pa.json</span></code> ) that was used above.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier --configpath config.json
+</pre></div>
 </div>
 <p>Then, run the program.</p>
-<div class="highlight-python"><pre>$ python tutorial.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ python tutorial.py
+</pre></div>
 </div>
 <p>Now you see the result of classification!
-For each message, <tt class="docutils literal"><span class="pre">OK</span></tt> means that Jubatus estimated the label correctly, and <tt class="docutils literal"><span class="pre">NG</span></tt> means that estimated label was wrong.</p>
+For each message, <code class="docutils literal"><span class="pre">OK</span></code> means that Jubatus estimated the label correctly, and <code class="docutils literal"><span class="pre">NG</span></code> means that estimated label was wrong.</p>
 <p>Read below for more detailed description.</p>
 </div>
 <div class="section" id="tutorial-in-detail">
 <h2>Tutorial in Detail<a class="headerlink" href="#tutorial-in-detail" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="dataset">
 <h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
-<p>After expanding <tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>, you see files like this:</p>
-<div class="highlight-python"><pre>20news-bydate-train
+<p>After expanding <code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code>, you see files like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>20news-bydate-train
 |-- alt.atheism
 |   |-- 49960
 |   |-- 51060
@@ -266,11 +272,12 @@ For each message, <tt class="docutils literal"><span class="pre">OK</span></tt> 
 |-- talk.politics.guns
 |-- talk.politics.mideast
 |-- talk.politics.misc
-`-- talk.religion.misc</pre>
+`-- talk.religion.misc
+</pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">49960</span></tt> is one of messages and <tt class="docutils literal"><span class="pre">alt.atheism</span></tt> is one of newsgroups the message is posted.
-For example, <tt class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></tt> contains:</p>
-<div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
+<p><code class="docutils literal"><span class="pre">49960</span></code> is one of messages and <code class="docutils literal"><span class="pre">alt.atheism</span></code> is one of newsgroups the message is posted.
+For example, <code class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></code> contains:</p>
+<div class="highlight-python"><div class="highlight"><pre>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
 Lines: 19
@@ -281,24 +288,25 @@ In article &lt;C5Joz9.HLn@cup.hp.com&gt; Chris Steinbroner &lt;hesh@cup.hp.com&g
 &gt;: right now it is beginning to look suspiciously like throwing money
 &gt;: down a rathole.
 &gt;
-&gt;[...] i'm going to
-&gt;let my current membership lapse when it's
+&gt;[...] i&#39;m going to
+&gt;let my current membership lapse when it&#39;s
 &gt;up for renewal.
 &gt;
 &gt;-- hesh
 
-In my case that's not for another 3+ years, so I'd appreciate any
+In my case that&#39;s not for another 3+ years, so I&#39;d appreciate any
 hints on what will keep the organization in business that long.  (And
 preferably longer, of course, and worth being part of.)
 
--- David Karr (karr@cs.cornell.edu)</pre>
+-- David Karr (karr@cs.cornell.edu)
+</pre></div>
 </div>
 <p>In this tutorial, we use these text as the training data.</p>
 </div>
 <div class="section" id="server-configuration">
 <h3>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h3>
-<p>Before using classification service, you need to setup a behavior of <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> with JSON as follows.
-There are three configurable parameters: <tt class="docutils literal"><span class="pre">method</span></tt>, <tt class="docutils literal"><span class="pre">converter</span></tt> and <tt class="docutils literal"><span class="pre">parameter</span></tt>.
+<p>Before using classification service, you need to setup a behavior of <code class="docutils literal"><span class="pre">jubaclassifier</span></code> with JSON as follows.
+There are three configurable parameters: <code class="docutils literal"><span class="pre">method</span></code>, <code class="docutils literal"><span class="pre">converter</span></code> and <code class="docutils literal"><span class="pre">parameter</span></code>.
 Example of these parameters is as follows.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;PA&quot;</span><span class="p">,</span>
@@ -322,20 +330,20 @@ Example of these parameters is as follows.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can choose one of the following algorithms as <tt class="docutils literal"><span class="pre">method</span></tt>:</p>
+<p>You can choose one of the following algorithms as <code class="docutils literal"><span class="pre">method</span></code>:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">perceptron</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">CW</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">AROW</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">NHERD</span></tt></li>
+<li><code class="docutils literal"><span class="pre">perceptron</span></code></li>
+<li><code class="docutils literal"><span class="pre">PA</span></code>, <code class="docutils literal"><span class="pre">PA1</span></code>, <code class="docutils literal"><span class="pre">PA2</span></code></li>
+<li><code class="docutils literal"><span class="pre">CW</span></code></li>
+<li><code class="docutils literal"><span class="pre">AROW</span></code></li>
+<li><code class="docutils literal"><span class="pre">NHERD</span></code></li>
 </ul>
-<p>We use <tt class="docutils literal"><span class="pre">PA</span></tt> in this tutorial.</p>
-<p><tt class="docutils literal"><span class="pre">converter</span></tt> decides how to extract feature vector from input data (see <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details).</p>
+<p>We use <code class="docutils literal"><span class="pre">PA</span></code> in this tutorial.</p>
+<p><code class="docutils literal"><span class="pre">converter</span></code> decides how to extract feature vector from input data (see <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details).</p>
 <p>In this tutorial, input data is text of natural language.
 In many languages such as English, words can be extracted by just splitting with spaces and line breaks.
 Jubatus supports this kind of feature vector extraction (in this case, from text of natural language into words) by default.
-Additionally, HTML tags are noisy to classify the contents so we will remove the part that is enclosed in <tt class="docutils literal"><span class="pre">&lt;</span></tt> and <tt class="docutils literal"><span class="pre">&gt;</span></tt>.</p>
+Additionally, HTML tags are noisy to classify the contents so we will remove the part that is enclosed in <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code>.</p>
 <p>Using this feature, you can apply multiple rules such as natural language process and weighting of values.
 These rules expressed as follows in JSON.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -359,15 +367,15 @@ These rules expressed as follows in JSON.</p>
 </div>
 <div class="section" id="use-of-classifier-api-train-classify">
 <h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
-<p>Call <tt class="docutils literal"><span class="pre">train</span></tt> API (RPC method) to update models in the classifier.
-In the following example, <tt class="docutils literal"><span class="pre">d1</span></tt> is a datum constructed from a message, and <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> is a label (name of newsgroup) for the message.</p>
+<p>Call <code class="docutils literal"><span class="pre">train</span></code> API (RPC method) to update models in the classifier.
+In the following example, <code class="docutils literal"><span class="pre">d1</span></code> is a datum constructed from a message, and <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> is a label (name of newsgroup) for the message.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
 <span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>Repeat training the model using many instances of labels and messages in this way.</p>
-<p>Now, call <tt class="docutils literal"><span class="pre">classify</span></tt> API to analyze with models.
-<tt class="docutils literal"><span class="pre">d2</span></tt> is a datum constructed from a message, but you don&#8217;t know the newsgroup the message was posted to; so let Jubatus predict it.</p>
+<p>Now, call <code class="docutils literal"><span class="pre">classify</span></code> API to analyze with models.
+<code class="docutils literal"><span class="pre">d2</span></code> is a datum constructed from a message, but you don&#8217;t know the newsgroup the message was posted to; so let Jubatus predict it.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d2</span><span class="p">])</span>
 </pre></div>
@@ -383,7 +391,7 @@ In the following example, <tt class="docutils literal"><span class="pre">d1</spa
 <span class="p">]]</span>
 </pre></div>
 </div>
-<p>So, it seems that the message <tt class="docutils literal"><span class="pre">d2</span></tt> was posted to <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt>.</p>
+<p>So, it seems that the message <code class="docutils literal"><span class="pre">d2</span></code> was posted to <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code>.</p>
 </div>
 </div>
 <div class="section" id="other-tutorials">
@@ -429,7 +437,7 @@ In the following example, <tt class="docutils literal"><span class="pre">d1</spa
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

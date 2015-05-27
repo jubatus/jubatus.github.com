@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -121,11 +120,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="faq.html"
                         title="次の章へ">よくある質問と回答 (FAQs)</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/backup_and_recovery.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/backup_and_recovery.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -163,9 +164,9 @@
 <p><strong>現在、学習モデルを保存した環境と異なる環境(Jubatusのバージョン、クラスタ構成台数、configファイルの内容)への復元はサポートしていません。</strong></p>
 <div class="section" id="save">
 <h3>Save<a class="headerlink" href="#save" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Save は、クライアントからの <tt class="docutils literal"><span class="pre">save</span></tt> という RPCメソッド の呼び出しによりサーバープロセスの学習モデルをファイル出力する機能です。</p>
-<p>ファイルの出力先は、サーバープロセスの起動オプション <tt class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></tt> で指定することができ、標準では <tt class="docutils literal"><span class="pre">/tmp</span></tt> が設定されます。</p>
-<p>ファイルは、以下の命名規則に従ったファイル名で出力されます。すでに同じ名前のファイルが存在する場合、ファイルの上書きを行うため、<tt class="docutils literal"><span class="pre">save</span></tt> メソッドの引数には十分に注意する必要があります。</p>
+<p>Save は、クライアントからの <code class="docutils literal"><span class="pre">save</span></code> という RPCメソッド の呼び出しによりサーバープロセスの学習モデルをファイル出力する機能です。</p>
+<p>ファイルの出力先は、サーバープロセスの起動オプション <code class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></code> で指定することができ、標準では <code class="docutils literal"><span class="pre">/tmp</span></code> が設定されます。</p>
+<p>ファイルは、以下の命名規則に従ったファイル名で出力されます。すでに同じ名前のファイルが存在する場合、ファイルの上書きを行うため、<code class="docutils literal"><span class="pre">save</span></code> メソッドの引数には十分に注意する必要があります。</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="si">${</span><span class="nv">IPADDR</span><span class="si">}</span>_<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>_<span class="si">${</span><span class="nv">TYPE</span><span class="si">}</span>_<span class="si">${</span><span class="nv">ID</span><span class="si">}</span>.jubatus
 </pre></div>
 </div>
@@ -186,7 +187,7 @@
 </tr>
 <tr class="row-even"><td>${ID}</td>
 <td><div class="first last line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">save</span></tt> メソッドの引数</div>
+<div class="line"><code class="docutils literal"><span class="pre">save</span></code> メソッドの引数</div>
 <div class="line">a-zA-Z0-9_- からなる 100文字</div>
 </div>
 </td>
@@ -199,9 +200,9 @@
 <div class="section" id="load">
 <h3>Load<a class="headerlink" href="#load" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Load は、Save で作成されたファイルを読み込み、サーバープロセスの学習モデルをファイルに保存された状態へ復元する機能です。
-クライアントからの <tt class="docutils literal"><span class="pre">load</span></tt> メソッドコールにより実行されます。</p>
-<p>ファイルの読込先は、Jubatus サーバの起動オプション <tt class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></tt> で指定することができ、標準では <tt class="docutils literal"><span class="pre">/tmp</span></tt> が設定されます。</p>
-<p><tt class="docutils literal"><span class="pre">save</span></tt> メソッドでの引数で指定した <tt class="docutils literal"><span class="pre">${ID}</span></tt> を <tt class="docutils literal"><span class="pre">load</span></tt> メソッドの引数に指定することで、読み込み対象のファイルを指定します。</p>
+クライアントからの <code class="docutils literal"><span class="pre">load</span></code> メソッドコールにより実行されます。</p>
+<p>ファイルの読込先は、Jubatus サーバの起動オプション <code class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></code> で指定することができ、標準では <code class="docutils literal"><span class="pre">/tmp</span></code> が設定されます。</p>
+<p><code class="docutils literal"><span class="pre">save</span></code> メソッドでの引数で指定した <code class="docutils literal"><span class="pre">${ID}</span></code> を <code class="docutils literal"><span class="pre">load</span></code> メソッドの引数に指定することで、読み込み対象のファイルを指定します。</p>
 <p>ファイルの読み込み時、サーバープロセスは保存されたデータに対しバージョンの互換換性や設定内容のチェックを行います。</p>
 <p>保存データが復元先と異なるバージョンのJubatusで保存されていた場合や、復元先と設定ファイルの内容が異なる環境で保存された場合、保存データの復元には失敗します。</p>
 </div>
@@ -235,7 +236,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -112,9 +111,7 @@
 <li><a class="reference internal" href="#classifier-api-train-classify">Classifier API: 学習(train) と 分類(classify)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7">その他のチュートリアル</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#id7">その他のチュートリアル</a></li>
 </ul>
 </li>
 </ul>
@@ -125,11 +122,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="tutorial/classifier.html"
                         title="次の章へ">Classifier チュートリアル</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tutorial.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -160,7 +159,7 @@
 <p>チュートリアルを始める前に、Jubatus および Jubatus Python クライアントをインストールする必要があります。この手順については <a class="reference internal" href="quickstart.html"><em>クイックスタート</em></a> を参照してください。</p>
 <div class="section" id="id2">
 <h2>シナリオ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> (<tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt>) を利用します。
+<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> (<code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code>) を利用します。
 News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
 News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。</p>
 <p>このチュートリアルプログラムの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。</p>
@@ -171,14 +170,14 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 </ul>
 </li>
 <li>Jubatus サーバを JSON スタイル で設定する</li>
-<li>Jubatus の分類器を <tt class="docutils literal"><span class="pre">train</span></tt> と <tt class="docutils literal"><span class="pre">classify</span></tt> API で使用する</li>
+<li>Jubatus の分類器を <code class="docutils literal"><span class="pre">train</span></code> と <code class="docutils literal"><span class="pre">classify</span></code> API で使用する</li>
 <li>分類に関する基本的なコンセプト</li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2>動作させてみる<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>分類器の機能を提供する <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは <tt class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></tt> ディレクトリに格納されています。</p>
-<div class="highlight-python"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+<p>分類器の機能を提供する <code class="docutils literal"><span class="pre">jubaclassifier</span></code> プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは <code class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></code> ディレクトリに格納されています。</p>
+<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
     pid                  : 1855
     user                 : oda
@@ -196,54 +195,59 @@ I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 R
     interconnect timeout : 10
 I0110 13:43:07.789721  1855 server_util.cpp:77] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
-  "converter" : {
-    "string_filter_types" : {},
-    "string_filter_rules" : [],
-    "num_filter_types" : {},
-    "num_filter_rules" : [],
-    "string_types" : {},
-    "string_rules" : [
-      { "key" : "*", "type" : "str", "sample_weight" : "bin", "global_weight" : "bin" }
+  &quot;converter&quot; : {
+    &quot;string_filter_types&quot; : {},
+    &quot;string_filter_rules&quot; : [],
+    &quot;num_filter_types&quot; : {},
+    &quot;num_filter_rules&quot; : [],
+    &quot;string_types&quot; : {},
+    &quot;string_rules&quot; : [
+      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;str&quot;, &quot;sample_weight&quot; : &quot;bin&quot;, &quot;global_weight&quot; : &quot;bin&quot; }
     ],
-    "num_types" : {},
-    "num_rules" : [
-      { "key" : "*", "type" : "num" }
+    &quot;num_types&quot; : {},
+    &quot;num_rules&quot; : [
+      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;num&quot; }
     ]
   },
-  "method" : "PA"
-}</pre>
+  &quot;method&quot; : &quot;PA&quot;
+}
+</pre></div>
 </div>
 <p>Jubatus の分類器サーバが起動しました。
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
-その他のポートを使用したい場合は、 <tt class="docutils literal"><span class="pre">--rpc-port</span></tt> オプションで指定することができます。
+その他のポートを使用したい場合は、 <code class="docutils literal"><span class="pre">--rpc-port</span></code> オプションで指定することができます。
 例えば、19199 番ポートを使用するには、次のようにします。</p>
-<div class="highlight-python"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
+</pre></div>
 </div>
 <p>Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> プロトコルを使用して通信します。</p>
 <div><img height="120" src="_images/blockdiag-062d5b706c7cac674038d80cf1b51ae6d315c75d.png" width="448" /></div><p>それでは、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードしましょう。</p>
-<div class="highlight-python"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
+<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://qwone.com/~jason/20Newsgroups//20news-bydate.tar.gz
-$ tar xvzf 20news-bydate.tar.gz</pre>
+$ tar xvzf 20news-bydate.tar.gz
+</pre></div>
 </div>
 <p><cite>jubaclassifier</cite> を再起動します。
-この時、チュートリアル用に用意された設定ファイルである <tt class="docutils literal"><span class="pre">config.json</span></tt> を利用して下さい。
-先ほど使用したサンプルの設定ファイル（ <tt class="docutils literal"><span class="pre">pa.json</span></tt> ）では正しく動作しません。</p>
-<div class="highlight-python"><pre>$ jubaclassifier --configpath config.json</pre>
+この時、チュートリアル用に用意された設定ファイルである <code class="docutils literal"><span class="pre">config.json</span></code> を利用して下さい。
+先ほど使用したサンプルの設定ファイル（ <code class="docutils literal"><span class="pre">pa.json</span></code> ）では正しく動作しません。</p>
+<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier --configpath config.json
+</pre></div>
 </div>
 <p>チュートリアルプログラムを実行します。</p>
-<div class="highlight-python"><pre>$ python tutorial.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ python tutorial.py
+</pre></div>
 </div>
 <p>分類の結果が表示されました!
-それぞれのメッセージについて、 <tt class="docutils literal"><span class="pre">OK</span></tt> は Jubatus の分類したラベルが正しかったことを、 <tt class="docutils literal"><span class="pre">NG</span></tt> は誤っていたことを表します。</p>
+それぞれのメッセージについて、 <code class="docutils literal"><span class="pre">OK</span></code> は Jubatus の分類したラベルが正しかったことを、 <code class="docutils literal"><span class="pre">NG</span></code> は誤っていたことを表します。</p>
 <p>より詳しい説明は以下を参照してください。</p>
 </div>
 <div class="section" id="id5">
 <h2>チュートリアルの詳細<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="dataset">
 <h3>Dataset<a class="headerlink" href="#dataset" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></tt> を展開すると、以下のようになります。</p>
-<div class="highlight-python"><pre>20news-bydate-train
+<p><code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code> を展開すると、以下のようになります。</p>
+<div class="highlight-python"><div class="highlight"><pre>20news-bydate-train
 |-- alt.atheism
 |   |-- 49960
 |   |-- 51060
@@ -268,11 +272,12 @@ $ tar xvzf 20news-bydate.tar.gz</pre>
 |-- talk.politics.guns
 |-- talk.politics.mideast
 |-- talk.politics.misc
-`-- talk.religion.misc</pre>
+`-- talk.religion.misc
+</pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">49960</span></tt> はメッセージの一つで、 <tt class="docutils literal"><span class="pre">alt.atheism</span></tt> はそのメッセージが投稿されたニュースグループの名前です。
-例えば、 <tt class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></tt> の内容は次のようなものです。</p>
-<div class="highlight-python"><pre>From: karr@cs.cornell.edu (David Karr)
+<p><code class="docutils literal"><span class="pre">49960</span></code> はメッセージの一つで、 <code class="docutils literal"><span class="pre">alt.atheism</span></code> はそのメッセージが投稿されたニュースグループの名前です。
+例えば、 <code class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></code> の内容は次のようなものです。</p>
+<div class="highlight-python"><div class="highlight"><pre>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
 Lines: 19
@@ -283,24 +288,25 @@ In article &lt;C5Joz9.HLn@cup.hp.com&gt; Chris Steinbroner &lt;hesh@cup.hp.com&g
 &gt;: right now it is beginning to look suspiciously like throwing money
 &gt;: down a rathole.
 &gt;
-&gt;[...] i'm going to
-&gt;let my current membership lapse when it's
+&gt;[...] i&#39;m going to
+&gt;let my current membership lapse when it&#39;s
 &gt;up for renewal.
 &gt;
 &gt;-- hesh
 
-In my case that's not for another 3+ years, so I'd appreciate any
+In my case that&#39;s not for another 3+ years, so I&#39;d appreciate any
 hints on what will keep the organization in business that long.  (And
 preferably longer, of course, and worth being part of.)
 
--- David Karr (karr@cs.cornell.edu)</pre>
+-- David Karr (karr@cs.cornell.edu)
+</pre></div>
 </div>
 <p>このチュートリアルでは、これらのテキストを学習データとして利用します。</p>
 </div>
 <div class="section" id="id6">
 <h3>サーバの設定<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>分類器サービスを使用するためには JSONの設定ファイルを用いて <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt> の動作を規定する必要があります。
-<tt class="docutils literal"><span class="pre">method</span></tt> と <tt class="docutils literal"><span class="pre">converter</span></tt> と <tt class="docutils literal"><span class="pre">parameter</span></tt> の 3 つの設定可能なパラメタがあります。
+<p>分類器サービスを使用するためには JSONの設定ファイルを用いて <code class="docutils literal"><span class="pre">jubaclassifier</span></code> の動作を規定する必要があります。
+<code class="docutils literal"><span class="pre">method</span></code> と <code class="docutils literal"><span class="pre">converter</span></code> と <code class="docutils literal"><span class="pre">parameter</span></code> の 3 つの設定可能なパラメタがあります。
 これらのパラメタのサンプルを以下に示します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;PA&quot;</span><span class="p">,</span>
@@ -324,20 +330,20 @@ preferably longer, of course, and worth being part of.)
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">method</span></tt> は、以下のアルゴリズムのうちいずれかを指定することができます。</p>
+<p><code class="docutils literal"><span class="pre">method</span></code> は、以下のアルゴリズムのうちいずれかを指定することができます。</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">perceptron</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">PA</span></tt>, <tt class="docutils literal"><span class="pre">PA1</span></tt>, <tt class="docutils literal"><span class="pre">PA2</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">CW</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">AROW</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">NHERD</span></tt></li>
+<li><code class="docutils literal"><span class="pre">perceptron</span></code></li>
+<li><code class="docutils literal"><span class="pre">PA</span></code>, <code class="docutils literal"><span class="pre">PA1</span></code>, <code class="docutils literal"><span class="pre">PA2</span></code></li>
+<li><code class="docutils literal"><span class="pre">CW</span></code></li>
+<li><code class="docutils literal"><span class="pre">AROW</span></code></li>
+<li><code class="docutils literal"><span class="pre">NHERD</span></code></li>
 </ul>
-<p>このチュートリアルでは、 <tt class="docutils literal"><span class="pre">PA</span></tt> を選択します。</p>
-<p><tt class="docutils literal"><span class="pre">converter</span></tt> は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します (詳細は <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> を参照してください)。</p>
+<p>このチュートリアルでは、 <code class="docutils literal"><span class="pre">PA</span></code> を選択します。</p>
+<p><code class="docutils literal"><span class="pre">converter</span></code> は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します (詳細は <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> を参照してください)。</p>
 <p>このチュートリアルで使用する学習データは、自然言語のテキストです。
 英語など多くの言語は、空白と改行で区切るだけで単語を抽出できます。
 Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自然言語のテキストを単語に分割) をデフォルトで備えています。
-また、HTML タグなどは、内容を分類するのにノイズになりそうなので、 <tt class="docutils literal"><span class="pre">&lt;</span></tt> と <tt class="docutils literal"><span class="pre">&gt;</span></tt> で囲まれた部分を除去することにしましょう。</p>
+また、HTML タグなどは、内容を分類するのにノイズになりそうなので、 <code class="docutils literal"><span class="pre">&lt;</span></code> と <code class="docutils literal"><span class="pre">&gt;</span></code> で囲まれた部分を除去することにしましょう。</p>
 <p>この機能を使用すると、こういった自然言語処理や与えられた値の重み付けなど、様々なルール付けを行うことができます。
 今回のルールを JSON で表現すると、以下のようになります。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -361,15 +367,15 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 </div>
 <div class="section" id="classifier-api-train-classify">
 <h3>Classifier API: 学習(train) と 分類(classify)<a class="headerlink" href="#classifier-api-train-classify" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>分類器に学習させる場合は、 <tt class="docutils literal"><span class="pre">train</span></tt> という API (RPC メソッド) を利用します。
-以下の例で、 <tt class="docutils literal"><span class="pre">d1</span></tt> はメッセージから作成された datum であり、 <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> はそのメッセージのラベル (ニュースグループの名前) です。</p>
+<p>分類器に学習させる場合は、 <code class="docutils literal"><span class="pre">train</span></code> という API (RPC メソッド) を利用します。
+以下の例で、 <code class="docutils literal"><span class="pre">d1</span></code> はメッセージから作成された datum であり、 <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> はそのメッセージのラベル (ニュースグループの名前) です。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
 <span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>この要領で、ラベルとメッセージの組み合わせを多数学習させます。</p>
-<p>学習結果を使って分類を行う場合は、 <tt class="docutils literal"><span class="pre">classify</span></tt> という API を利用します。
-<tt class="docutils literal"><span class="pre">d2</span></tt> はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。</p>
+<p>学習結果を使って分類を行う場合は、 <code class="docutils literal"><span class="pre">classify</span></code> という API を利用します。
+<code class="docutils literal"><span class="pre">d2</span></code> はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d2</span><span class="p">])</span>
 </pre></div>
@@ -385,7 +391,7 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 <span class="p">]]</span>
 </pre></div>
 </div>
-<p>メッセージ <tt class="docutils literal"><span class="pre">d2</span></tt> は <tt class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></tt> に投稿された可能性が高いことが分かりました。</p>
+<p>メッセージ <code class="docutils literal"><span class="pre">d2</span></code> は <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> に投稿された可能性が高いことが分かりました。</p>
 </div>
 </div>
 <div class="section" id="id7">
@@ -431,7 +437,7 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

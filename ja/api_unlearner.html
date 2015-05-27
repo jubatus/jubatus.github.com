@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -118,11 +117,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="howtocontribute.html"
                         title="次の章へ">プロジェクトに貢献する</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_unlearner.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_unlearner.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -159,7 +160,7 @@
 JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">unlearner</tt></dt>
+<code class="descname">unlearner</code></dt>
 <dd><p>忘却に使用するアルゴリズムを下記の2つから選択する。</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -172,10 +173,10 @@ JSON の各フィールドは以下のとおりである。</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;random&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;random&quot;</span></code></td>
 <td>ランダムに要素を削除する。</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;lru&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;lru&quot;</span></code></td>
 <td>Least Recently Updated に従い要素を削除する。</td>
 </tr>
 </tbody>
@@ -184,35 +185,34 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">unlearner_parameter</tt></dt>
+<code class="descname">unlearner_parameter</code></dt>
 <dd><p>アルゴリズムに渡すパラメータを指定する。</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Max_size :</th><td class="field-body"><p class="first">保持するデータの件数を指定する。
+<tr class="field-odd field"><th class="field-name">Max_size:</th><td class="field-body"><p class="first">保持するデータの件数を指定する。
 小さくするほどメモリ消費量が低下し、処理時間が高速になり、精度が劣化する。
 (Integer)</p>
 <ul class="simple">
-<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">max_size</span></tt> &lt; 2147483647</li>
+<li>値域: 0 &lt; <code class="docutils literal"><span class="pre">max_size</span></code> &lt; 2147483647</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Sticky_pattern :</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">忘却の対象外とする ID のパターンを指定する。
-パターンの指定方法は <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> の適用規則で使用される <tt class="docutils literal"><span class="pre">key</span></tt> と同様である。
-<tt class="docutils literal"><span class="pre">lru</span></tt> 利用時のみ指定できる。
+<tr class="field-even field"><th class="field-name">Sticky_pattern:</th><td class="field-body"><p class="first">忘却の対象外とする ID のパターンを指定する。
+パターンの指定方法は <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> の適用規則で使用される <code class="docutils literal"><span class="pre">key</span></code> と同様である。
+<code class="docutils literal"><span class="pre">lru</span></code> 利用時のみ指定できる。
 このパラメータは省略可能である。
 省略した場合は、すべての ID が忘却の対象となる。
 (String)</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Seed :</th><td class="field-body"><p class="first">アルゴリズムとして <tt class="docutils literal"><span class="pre">random</span></tt> を選択した際に、内部で使用する乱数のシードを指定できる。
+<tr class="field-odd field"><th class="field-name">Seed:</th><td class="field-body"><p class="first">アルゴリズムとして <code class="docutils literal"><span class="pre">random</span></code> を選択した際に、内部で使用する乱数のシードを指定できる。
 同一のシードを設定し、同一の順序で学習をさせた際には同一の順序で忘却が行われるため、実験等の際に再現性を確保できる。
 省略した場合はシステムクロックがシードとして与えられる。そのため実験の再現性は保証されない。</p>
 <blockquote class="last">
 <div><ul class="simple">
-<li>値域: 0 &lt; <tt class="docutils literal"><span class="pre">seed</span></tt> &lt; 9223372036854775808</li>
+<li>値域: 0 &lt; <code class="docutils literal"><span class="pre">seed</span></code> &lt; 9223372036854775808</li>
 </ul>
 </div></blockquote>
 </td>
@@ -223,7 +223,7 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">例</tt></dt>
+<code class="descname">例</code></dt>
 <dd><p>Least-Recently-Used(LRU)に基づいた忘却</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;unlearner&quot;</span> <span class="o">:</span> <span class="s2">&quot;lru&quot;</span><span class="p">,</span>
@@ -276,7 +276,7 @@ JSON の各フィールドは以下のとおりである。</p>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -124,11 +123,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_classifier.html"
                         title="next chapter">Classifier</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/common_structs.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/common_structs.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -161,13 +162,13 @@
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="datum">
-<em class="property">message </em><tt class="descname">datum</tt><a class="headerlink" href="#datum" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">datum</code><a class="headerlink" href="#datum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a set of data used for machine learning in Jubatus.
 See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a> for details.</p>
 <p>You can change internal values of a datum with these methods.</p>
 <dl class="method">
 <dt id="datum::add_string__s.s">
-<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_string</tt><big>(</big>0: string <em>key</em>, 1: string <em>value</em><big>)</big><a class="headerlink" href="#datum::add_string__s.s" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_string</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: string <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_string__s.s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -188,7 +189,7 @@ See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em
 
 <dl class="method">
 <dt id="datum::add_number__s.double">
-<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_number</tt><big>(</big>0: string <em>key</em>, 1: double <em>value</em><big>)</big><a class="headerlink" href="#datum::add_number__s.double" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_number</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_number__s.double" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -209,7 +210,7 @@ See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em
 
 <dl class="method">
 <dt id="datum::add_binary__s.raw">
-<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_binary</tt><big>(</big>0: string <em>key</em>, 1: raw <em>value</em><big>)</big><a class="headerlink" href="#datum::add_binary__s.raw" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_binary</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: raw <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_binary__s.raw" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -231,7 +232,7 @@ See <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em
 <p>Internal representation of a datum is below:</p>
 <dl class="member">
 <dt id="datum::string_values__l:tuple:s.s::">
-0: list&lt;tuple&lt;string, string&gt;&gt; <tt class="descname">string_values</tt><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="Permalink to this definition">¶</a></dt>
+0: list&lt;tuple&lt;string, string&gt;&gt; <code class="descname">string_values</code><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="Permalink to this definition">¶</a></dt>
 <dd><p>Input data represented in string.
 It is represented as key-value pairs of data.
 Name of keys cannot contain &#8220;$&#8221; sign.</p>
@@ -239,14 +240,14 @@ Name of keys cannot contain &#8220;$&#8221; sign.</p>
 
 <dl class="member">
 <dt id="datum::num_values__l:tuple:s.double::">
-1: list&lt;tuple&lt;string, double&gt;&gt; <tt class="descname">num_values</tt><a class="headerlink" href="#datum::num_values__l:tuple:s.double::" title="Permalink to this definition">¶</a></dt>
+1: list&lt;tuple&lt;string, double&gt;&gt; <code class="descname">num_values</code><a class="headerlink" href="#datum::num_values__l:tuple:s.double::" title="Permalink to this definition">¶</a></dt>
 <dd><p>Input data represented in numeric value.
 It is represented as key-value pairs of data.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="datum::binary_values__l:tuple:s.raw::">
-2: list&lt;tuple&lt;string, raw&gt;&gt; <tt class="descname">binary_values</tt><a class="headerlink" href="#datum::binary_values__l:tuple:s.raw::" title="Permalink to this definition">¶</a></dt>
+2: list&lt;tuple&lt;string, raw&gt;&gt; <code class="descname">binary_values</code><a class="headerlink" href="#datum::binary_values__l:tuple:s.raw::" title="Permalink to this definition">¶</a></dt>
 <dd><p>Input data represented in binary value.
 It is represented as key-value pairs of data.</p>
 </dd></dl>
@@ -265,11 +266,11 @@ It is represented as key-value pairs of data.</p>
 <h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">constructor(string host, int port, string name, int timeout_sec)</tt></dt>
+<code class="descname">constructor(string host, int port, string name, int timeout_sec)</code></dt>
 <dd><p>Creates a new RPC client instance.
-<tt class="docutils literal"><span class="pre">name</span></tt> is a string value to uniquely identify a task in the ZooKeeper cluster.
-When using standalone mode, this must be left blank (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).
-<tt class="docutils literal"><span class="pre">timeout_sec</span></tt> is a length of timeout between the RPC method invocation and response.</p>
+<code class="docutils literal"><span class="pre">name</span></code> is a string value to uniquely identify a task in the ZooKeeper cluster.
+When using standalone mode, this must be left blank (<code class="docutils literal"><span class="pre">&quot;&quot;</span></code>).
+<code class="docutils literal"><span class="pre">timeout_sec</span></code> is a length of timeout between the RPC method invocation and response.</p>
 <p>Example usage of constructors are as follows:</p>
 </dd></dl>
 
@@ -304,7 +305,7 @@ When using standalone mode, this must be left blank (<tt class="docutils literal
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="save__s">
-bool <tt class="descname">save</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#save__s" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">save</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#save__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -324,7 +325,7 @@ bool <tt class="descname">save</tt><big>(</big>0: string <em>id</em><big>)</big>
 
 <dl class="method">
 <dt id="load__s">
-bool <tt class="descname">load</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#load__s" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">load</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#load__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -344,7 +345,7 @@ bool <tt class="descname">load</tt><big>(</big>0: string <em>id</em><big>)</big>
 
 <dl class="method">
 <dt id="clear">
-bool <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#clear" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clear" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -358,7 +359,7 @@ bool <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink
 
 <dl class="method">
 <dt id="get_config">
-string <tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#get_config" title="Permalink to this definition">¶</a></dt>
+string <code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_config" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -373,12 +374,12 @@ For format of configuration, see API reference of each services.</p>
 
 <dl class="method">
 <dt id="get_status">
-map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_status" title="Permalink to this definition">¶</a></dt>
+map&lt;string, map&lt;string, string&gt;&gt; <code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_status" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for each servers. The key of most outer map is in form of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for each servers. The key of most outer map is in form of <code class="docutils literal"><span class="pre">hostname_portnumber</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -388,7 +389,7 @@ Each server is represented by a pair of host name and port.</p>
 
 <dl class="method">
 <dt id="do_mix">
-bool <tt class="descname">do_mix</tt><big>(</big><big>)</big><a class="headerlink" href="#do_mix" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">do_mix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#do_mix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -404,12 +405,12 @@ When you call this to proxy, RPC error will be raised.</p>
 
 <dl class="method">
 <dt id="get_proxy_status">
-map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_proxy_status" title="Permalink to this definition">¶</a></dt>
+map&lt;string, map&lt;string, string&gt;&gt; <code class="descname">get_proxy_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_proxy_status" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for proxy. The key of most outer map is in form of <tt class="docutils literal"><span class="pre">hostname_portnumber</span></tt>.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for proxy. The key of most outer map is in form of <code class="docutils literal"><span class="pre">hostname_portnumber</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -420,7 +421,7 @@ When you use this for server, RPC error will be raised.</p>
 
 <dl class="method">
 <dt id="get_name">
-string <tt class="descname">get_name</tt><big>(</big><big>)</big><a class="headerlink" href="#get_name" title="Permalink to this definition">¶</a></dt>
+string <code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_name" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -429,14 +430,14 @@ string <tt class="descname">get_name</tt><big>(</big><big>)</big><a class="heade
 </tr>
 </tbody>
 </table>
-<p>Get <tt class="docutils literal"><span class="pre">name</span></tt> of target cluster of this client object.
-<tt class="docutils literal"><span class="pre">name</span></tt> is a string value to uniquely identify a task in the ZooKeeper cluster.
+<p>Get <code class="docutils literal"><span class="pre">name</span></code> of target cluster of this client object.
+<code class="docutils literal"><span class="pre">name</span></code> is a string value to uniquely identify a task in the ZooKeeper cluster.
 This is not an RPC method.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="set_name__s">
-void <tt class="descname">set_name</tt><big>(</big>0: string <em>new_name</em><big>)</big><a class="headerlink" href="#set_name__s" title="Permalink to this definition">¶</a></dt>
+void <code class="descname">set_name</code><span class="sig-paren">(</span>0: string <em>new_name</em><span class="sig-paren">)</span><a class="headerlink" href="#set_name__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -448,15 +449,15 @@ void <tt class="descname">set_name</tt><big>(</big>0: string <em>new_name</em><b
 </tr>
 </tbody>
 </table>
-<p>Set <tt class="docutils literal"><span class="pre">name</span></tt> of target cluster of this client object.
-<tt class="docutils literal"><span class="pre">name</span></tt> is a string value to uniquely identify a task in the ZooKeeper cluster.
+<p>Set <code class="docutils literal"><span class="pre">name</span></code> of target cluster of this client object.
+<code class="docutils literal"><span class="pre">name</span></code> is a string value to uniquely identify a task in the ZooKeeper cluster.
 You can switch the target Jubatus cluster among multiple tasks with one client object.
 This is not an RPC method.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="get_client">
-mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#get_client" title="Permalink to this definition">¶</a></dt>
+mprpc_client <code class="descname">get_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_client" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -468,7 +469,7 @@ mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a clas
 <p>Returns the reference to the raw MessagePack-RPC client instance which is used by Jubatus client libraries.
 This is not an RPC method.</p>
 <p>The common use case of this method is to close the TCP connection explicitly or to change the timeout.</p>
-<p><tt class="docutils literal"><span class="pre">mprpc_client</span></tt> is a type of MessagePack-RPC client that is different between languages (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>).</p>
+<p><code class="docutils literal"><span class="pre">mprpc_client</span></code> is a type of MessagePack-RPC client that is different between languages (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>).</p>
 </dd></dl>
 
 </div>
@@ -479,7 +480,7 @@ This is not an RPC method.</p>
 <h3>Python<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="jubatus.commmon.connect">
-<tt class="descclassname">jubatus.commmon.</tt><tt class="descname">connect</tt><big>(</big><em>cls</em>, <em>host</em>, <em>port</em>, <em>name</em>, <em>timeout=10</em><big>)</big><a class="headerlink" href="#jubatus.commmon.connect" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">jubatus.commmon.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>cls</em>, <em>host</em>, <em>port</em>, <em>name</em>, <em>timeout=10</em><span class="sig-paren">)</span><a class="headerlink" href="#jubatus.commmon.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a client instance of specified class <cite>cls</cite>, then connect to the server specified using <cite>host</cite>, <cite>port</cite> and <cite>name</cite>.
 As this method creates a context manager, use this method in <cite>with</cite> block.
 The target will be a client object.
@@ -495,11 +496,11 @@ When leaving <cite>with</cite> block, this client object disconnects from the se
 <h3>Ruby<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-Jubatus::Common"></span><dl class="class">
 <dt id="Jubatus::Common::ClientBase">
-<em class="property">class </em><tt class="descclassname">Jubatus::Common::</tt><tt class="descname">ClientBase</tt><a class="headerlink" href="#Jubatus::Common::ClientBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Jubatus::Common::</code><code class="descname">ClientBase</code><a class="headerlink" href="#Jubatus::Common::ClientBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>All client objects are defined as subclass of <cite>ClientBase</cite> class.</p>
 <dl class="classmethod">
 <dt id="Jubatus::Common::ClientBase.connect">
-<em class="property">classmethod ClientBase.</em><tt class="descname">connect</tt><big>(</big><em>host</em>, <em>port</em>, <em>name</em>, <em>timeout_sec</em>, <em>&amp;block</em><big>)</big><a class="headerlink" href="#Jubatus::Common::ClientBase.connect" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod ClientBase.</em><code class="descname">connect</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>name</em>, <em>timeout_sec</em>, <em>&amp;block</em><span class="sig-paren">)</span><a class="headerlink" href="#Jubatus::Common::ClientBase.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Using <cite>connect</cite> method of client classes of each algorithms ensures safely closing client connections.
 <cite>connect</cite> method takes host name, port number, cluster name, time-out period and block as arguments. It automatically creates a client object and connects to the server specified.
 The block can then use the client object.
@@ -545,7 +546,7 @@ When leaving the block, this client object disconnects from the server.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

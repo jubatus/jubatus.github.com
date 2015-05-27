@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -116,11 +115,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="admin.html"
                         title="next chapter">Cluster Administration Guide</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/plugin.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/plugin.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -155,16 +156,16 @@
 <h2>Plugin for Data Conversion<a class="headerlink" href="#plugin-for-data-conversion" title="Permalink to this headline">¶</a></h2>
 <p>To develop a fv_converter plugin, follow the instructions below.</p>
 <ol class="arabic simple">
-<li>Include <tt class="docutils literal"><span class="pre">jubatus/core/plugin.hpp</span></tt>.</li>
+<li>Include <code class="docutils literal"><span class="pre">jubatus/core/plugin.hpp</span></code>.</li>
 <li>Inherit a base class (or a framework of plugin) and implement an arbitrary module for feature extraction or filter.</li>
 <li>Write a function that creates an instance of the class and returns a pointer to it.
-The function must be enclosed in <tt class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></tt> to make it visible from C code.
-This is the name of the function as specified in <tt class="docutils literal"><span class="pre">&quot;function&quot;</span></tt> key in fv_converter when using the plugin.</li>
+The function must be enclosed in <code class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></code> to make it visible from C code.
+This is the name of the function as specified in <code class="docutils literal"><span class="pre">&quot;function&quot;</span></code> key in fv_converter when using the plugin.</li>
 </ol>
-<p>As an example, we describe how to develop a plugin for feature extraction from strings (<tt class="docutils literal"><span class="pre">string_types</span></tt>).</p>
-<p>In this case, a base class you need to inherit is <tt class="docutils literal"><span class="pre">jubatus::core::fv_converter::word_splitter</span></tt>.
-<tt class="docutils literal"><span class="pre">word_splitter</span></tt> class consists of the only member function named <tt class="docutils literal"><span class="pre">split</span></tt> which takes a string as an argument, splits the string and returns boundaries for each split parts.
-Boundaries is a vector of pair of two <tt class="docutils literal"><span class="pre">size_t</span></tt> s, where the first value of the pair is the byte of the string where the part starts, and the second value is the length of the part.</p>
+<p>As an example, we describe how to develop a plugin for feature extraction from strings (<code class="docutils literal"><span class="pre">string_types</span></code>).</p>
+<p>In this case, a base class you need to inherit is <code class="docutils literal"><span class="pre">jubatus::core::fv_converter::word_splitter</span></code>.
+<code class="docutils literal"><span class="pre">word_splitter</span></code> class consists of the only member function named <code class="docutils literal"><span class="pre">split</span></code> which takes a string as an argument, splits the string and returns boundaries for each split parts.
+Boundaries is a vector of pair of two <code class="docutils literal"><span class="pre">size_t</span></code> s, where the first value of the pair is the byte of the string where the part starts, and the second value is the length of the part.</p>
 <p>The following is an example code.</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/core/plugin.hpp&gt;</span>
 <span class="cp">#include &lt;map&gt;</span>
@@ -186,10 +187,10 @@ Boundaries is a vector of pair of two <tt class="docutils literal"><span class="
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Compile this file, link it with <tt class="docutils literal"><span class="pre">libjubaconverter.so</span></tt> and you will get a plugin (shared library (.so)).
-See <a class="reference internal" href="fv_convert.html#conversion-plugin"><em>Plugins</em></a> for instruction on using .so files as a plugin.</p>
+<p>Compile this file, link it with <code class="docutils literal"><span class="pre">libjubaconverter.so</span></code> and you will get a plugin (shared library (.so)).
+See <a class="reference internal" href="fv_convert.html#conversion-plugin"><span>Plugins</span></a> for instruction on using .so files as a plugin.</p>
 <p>You can develop plugins of other feature extractors and filter in the same way.
-For other examples, see <tt class="docutils literal"><span class="pre">test_*.cpp</span></tt> in the <tt class="docutils literal"><span class="pre">jubatus/core/fv_converter</span></tt> directory of Jubatus source code.</p>
+For other examples, see <code class="docutils literal"><span class="pre">test_*.cpp</span></code> in the <code class="docutils literal"><span class="pre">jubatus/core/fv_converter</span></code> directory of Jubatus source code.</p>
 <p>When developing plugins, you can use <a class="reference external" href="https://github.com/jubatus/jubatus-plugin-skeleton">Plugin Development Skeleton Project</a>.
 This skeleton implements a plugin that converts given string as a feature vector.</p>
 </div>
@@ -222,7 +223,7 @@ This skeleton implements a plugin that converts given string as a feature vector
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

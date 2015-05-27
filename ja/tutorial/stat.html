@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -108,9 +107,7 @@
 <li><a class="reference internal" href="#">Stat チュートリアル</a><ul>
 <li><a class="reference internal" href="#id1">サンプルプログラムの概要</a></li>
 <li><a class="reference internal" href="#id2">処理の流れ</a></li>
-<li><a class="reference internal" href="#id3">サンプルプログラム</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#id3">サンプルプログラム</a></li>
 </ul>
 </li>
 </ul>
@@ -121,11 +118,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="stat_python.html"
                         title="次の章へ">Stat チュートリアル (Python)</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/tutorial/stat.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/stat.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="../search.html" method="get">
@@ -153,12 +152,12 @@
             
   <div class="section" id="stat">
 <h1>Stat チュートリアル<a class="headerlink" href="#stat" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ここではJubatusの統計分析機能（Stat）である <tt class="docutils literal"><span class="pre">jubastat</span></tt> を使用した、Jubatus Clientの使い方を説明します。</p>
+<p>ここではJubatusの統計分析機能（Stat）である <code class="docutils literal"><span class="pre">jubastat</span></code> を使用した、Jubatus Clientの使い方を説明します。</p>
 <p>統計分析機能（Stat）とは、時系列データのウィンドウ設定つき統計分析機能であり、センサー監視や異常データ検知などに利用することができます。</p>
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>サンプルとして、オレンジ・りんご・メロンの直径・重さ・価格を学習し、フルーツ毎にパラメータの合計値や標準偏差など統計分析をするプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/trivial_stat">trivial_stat</a> 」を用いて説明していきます。</p>
-<p>最初に、サンプル用に人工的に作成したデータセット (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/trivial_stat/dat/fruit.csv">fruit.csv</a>) をクライアント側で用意し、統計分析するためのモデルを <tt class="docutils literal"><span class="pre">jubastat</span></tt> に学習させます。</p>
+<p>最初に、サンプル用に人工的に作成したデータセット (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/trivial_stat/dat/fruit.csv">fruit.csv</a>) をクライアント側で用意し、統計分析するためのモデルを <code class="docutils literal"><span class="pre">jubastat</span></code> に学習させます。</p>
 <p>次に、クライアント側でそれぞれのフルーツに対して合計や標準偏差などを返却するメソッドを呼び出します。</p>
 </div>
 <div class="section" id="id2">
@@ -166,8 +165,8 @@
 <p>Jubatus Clientを使ったコーディングは、主に以下の流れになります。</p>
 <ol class="arabic">
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">jubastat</span></tt> への接続設定</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubastat</span></tt> のホストやポート番号を指定し、接続設定をします。</p>
+<dt><code class="docutils literal"><span class="pre">jubastat</span></code> への接続設定</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">jubastat</span></code> のホストやポート番号を指定し、接続設定をします。</p>
 </dd>
 </dl>
 </li>
@@ -179,7 +178,7 @@
 </li>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
-<dd><p class="first last">作成した学習用データを <tt class="docutils literal"><span class="pre">push</span></tt> メソッドで <tt class="docutils literal"><span class="pre">jubastat</span></tt> に与え、学習を行います。</p>
+<dd><p class="first last">作成した学習用データを <code class="docutils literal"><span class="pre">push</span></code> メソッドで <code class="docutils literal"><span class="pre">jubastat</span></code> に与え、学習を行います。</p>
 </dd>
 </dl>
 </li>
@@ -234,7 +233,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -119,11 +118,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_nearest_neighbor.html"
                         title="next chapter">Nearest Neighbor</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_recommender.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_recommender.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -161,7 +162,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>Specify algorithm for recommender.
 You can use these algorithms.</p>
 <table border="1" class="docutils">
@@ -175,20 +176,20 @@ You can use these algorithms.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;inverted_index&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;inverted_index&quot;</span></code></td>
 <td>Use Inverted Index.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
-<td>Use MinHash. <a class="reference internal" href="method.html#ping2010">[Ping2010]</a></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;minhash&quot;</span></code></td>
+<td>Use MinHash. <a class="reference internal" href="method.html#ping2010" id="id1">[Ping2010]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;lsh&quot;</span></code></td>
 <td>Use Locality Sensitive Hashing.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
-<td>Use Euclid-distance LSH. <a class="reference internal" href="method.html#andoni2005">[Andoni2005]</a></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></code></td>
+<td>Use Euclid-distance LSH. <a class="reference internal" href="method.html#andoni2005" id="id2">[Andoni2005]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender&quot;</span></tt></td>
-<td>Use an implementation of <tt class="docutils literal"><span class="pre">nearest_neighbor</span></tt>.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender&quot;</span></code></td>
+<td>Use an implementation of <code class="docutils literal"><span class="pre">nearest_neighbor</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -196,9 +197,9 @@ You can use these algorithms.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.
-Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
 <dt>inverted_index</dt>
 <dd>None</dd>
@@ -211,7 +212,7 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 The bigger it is, the more accurate results you can get, but the more memory is required.
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -227,7 +228,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 The bigger it is, the more accurate results you can get, but the more memory is required.
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -243,7 +244,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 The bigger it is, the more accurate results you can get, but the fewer results you can find and the more memory is required.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -251,7 +252,7 @@ The bigger it is, the more accurate results you can get, but the fewer results y
 The bigger it is, the mroe results you can find, but the more memory is required and the longer response time is required.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">table_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">table_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -259,7 +260,7 @@ The bigger it is, the mroe results you can find, but the more memory is required
 The bigger it is, the more results you can find, but the longer response time is required.
 (Float)</p>
 <ul class="simple">
-<li>Range: 0.0 &lt; <tt class="docutils literal"><span class="pre">bin_width</span></tt></li>
+<li>Range: 0.0 &lt; <code class="docutils literal"><span class="pre">bin_width</span></code></li>
 </ul>
 </td>
 </tr>
@@ -267,19 +268,19 @@ The bigger it is, the more results you can find, but the longer response time is
 The bigger it is, the more results you can find, but the longer response time is required.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">probe_num</span></tt></li>
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">probe_num</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body"><p class="first">Seed of random number generator.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">seed</span></tt></li>
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">seed</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">When it is <tt class="docutils literal"><span class="pre">true</span></tt>, projection vectors for hashing are cached in memory.
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">When it is <code class="docutils literal"><span class="pre">true</span></code>, projection vectors for hashing are cached in memory.
 Response time is lower though more memory is required.
 (Boolean)</p>
 </td>
@@ -313,18 +314,18 @@ Refer to <a class="reference internal" href="api_nearest_neighbor.html"><em>Near
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
 If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <tt class="docutils literal"><span class="pre">unlearner</span></tt> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
 Data will be deleted based on strategy specified here.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
-You can specify <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
-You cannot omit this parameter when you specify <tt class="docutils literal"><span class="pre">unlearner</span></tt>.
+You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
 Data in excess of this number will be deleted automatically.</td>
 </tr>
 </tbody>
 </table>
-<p class="last">note: <tt class="docutils literal"><span class="pre">unlearner</span></tt> and <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <strong>can be omitted</strong> .</p>
+<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </td>
 </tr>
 </tbody>
@@ -335,7 +336,7 @@ Data in excess of this number will be deleted automatically.</td>
 
 <dl class="describe">
 <dt>
-<tt class="descname">converter</tt></dt>
+<code class="descname">converter</code></dt>
 <dd><p>Specify configuration for data conversion.
 Its format is described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
 </dd></dl>
@@ -371,19 +372,19 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="id_with_score">
-<em class="property">message </em><tt class="descname">id_with_score</tt><a class="headerlink" href="#id_with_score" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">id_with_score</code><a class="headerlink" href="#id_with_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents ID with its score.</p>
 <dl class="member">
 <dt id="id_with_score::id__s">
-0: string <tt class="descname">id</tt><a class="headerlink" href="#id_with_score::id__s" title="Permalink to this definition">¶</a></dt>
+0: string <code class="descname">id</code><a class="headerlink" href="#id_with_score::id__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data ID.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="id_with_score::score__float">
-1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
+1: float <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Score.
-Range of scores is <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">score</span> <span class="pre">&lt;=</span> <span class="pre">1</span></tt> (less than or equal to <tt class="docutils literal"><span class="pre">-0</span></tt> when using <tt class="docutils literal"><span class="pre">euclid_lsh</span></tt>).</p>
+Range of scores is <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">score</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code> (less than or equal to <code class="docutils literal"><span class="pre">-0</span></code> when using <code class="docutils literal"><span class="pre">euclid_lsh</span></code>).</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
@@ -399,10 +400,10 @@ Range of scores is <tt class="docutils literal"><span class="pre">0</span> <span
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">recommender</tt></dt>
+<em class="property">service </em><code class="descname">recommender</code></dt>
 <dd><dl class="method">
 <dt id="recommender::clear_row__s">
-bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::clear_row__s" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">clear_row</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::clear_row__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -417,19 +418,19 @@ bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>id</em><big>)<
 </tr>
 </tbody>
 </table>
-<p>Removes the given row <tt class="docutils literal"><span class="pre">id</span></tt> from the recommendation table.</p>
+<p>Removes the given row <code class="docutils literal"><span class="pre">id</span></code> from the recommendation table.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::update_row__s.datum">
-bool <tt class="descname">update_row</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::update_row__s.datum" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">update_row</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::update_row__s.datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>id</strong> &#8211; row ID</li>
-<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the row</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the row</li>
 </ul>
 </td>
 </tr>
@@ -438,8 +439,8 @@ bool <tt class="descname">update_row</tt><big>(</big>0: string <em>id</em>, 1: <
 </tr>
 </tbody>
 </table>
-<p>Updates the row whose id is <tt class="docutils literal"><span class="pre">id</span></tt> with given <tt class="docutils literal"><span class="pre">row</span></tt>.
-If the row with the same <tt class="docutils literal"><span class="pre">id</span></tt> already exists, the row is differential updated with <tt class="docutils literal"><span class="pre">row</span></tt>.
+<p>Updates the row whose id is <code class="docutils literal"><span class="pre">id</span></code> with given <code class="docutils literal"><span class="pre">row</span></code>.
+If the row with the same <code class="docutils literal"><span class="pre">id</span></code> already exists, the row is differential updated with <code class="docutils literal"><span class="pre">row</span></code>.
 Otherwise, new row entry will be created.
 If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
 If not, update operation is reflected after mix.</p>
@@ -447,7 +448,7 @@ If not, update operation is reflected after mix.</p>
 
 <dl class="method">
 <dt id="recommender::complete_row_from_id__s">
-<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">complete_row_from_id</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::complete_row_from_id__s" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">complete_row_from_id</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::complete_row_from_id__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -457,37 +458,37 @@ If not, update operation is reflected after mix.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> stored in <tt class="docutils literal"><span class="pre">id</span></tt> row with missing value completed by predicted value</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> stored in <code class="docutils literal"><span class="pre">id</span></code> row with missing value completed by predicted value</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the row <tt class="docutils literal"><span class="pre">id</span></tt>, with missing value completed by predicted value.</p>
+<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the row <code class="docutils literal"><span class="pre">id</span></code>, with missing value completed by predicted value.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::complete_row_from_datum__datum">
-<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">complete_row_from_datum</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::complete_row_from_datum__datum" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">complete_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::complete_row_from_datum__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to be completed (possibly some values are missing)</li>
+<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to be completed (possibly some values are missing)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> constructed from the given <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> with missing value completed by predicted value</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> constructed from the given <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> with missing value completed by predicted value</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> constructed from <tt class="docutils literal"><span class="pre">row</span></tt>, with missing value completed by predicted value.</p>
+<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> constructed from <code class="docutils literal"><span class="pre">row</span></code>, with missing value completed by predicted value.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::similar_row_from_id__s.U">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#recommender::similar_row_from_id__s.U" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id__s.U" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -498,38 +499,38 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are most similar to the row <code class="docutils literal"><span class="pre">id</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) which are most similar to the row <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
+<p>Returns <code class="docutils literal"><span class="pre">size</span></code> rows (at maximum) which are most similar to the row <code class="docutils literal"><span class="pre">id</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::similar_row_from_datum__datum.U">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_datum</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#recommender::similar_row_from_datum__datum.U" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum__datum.U" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to be completed (possibly some values are missing)</li>
+<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to be completed (possibly some values are missing)</li>
 <li><strong>size</strong> &#8211; number of rows to be returned</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">rows that most have a similar datum to <tt class="docutils literal"><span class="pre">row</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">rows that most have a similar datum to <code class="docutils literal"><span class="pre">row</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that most have similar <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+<p>Returns <code class="docutils literal"><span class="pre">size</span></code> rows (at maximum) that most have similar <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to <code class="docutils literal"><span class="pre">row</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::decode_row__s">
-<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">decode_row</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#recommender::decode_row__s" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">decode_row</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::decode_row__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -539,18 +540,18 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the given row <tt class="docutils literal"><span class="pre">id</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the given row <code class="docutils literal"><span class="pre">id</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> in the row <tt class="docutils literal"><span class="pre">id</span></tt>.
-Note that irreversibly converted <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> (processed by <tt class="docutils literal"><span class="pre">fv_converter</span></tt>) will not be decoded.</p>
+<p>Returns the <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> in the row <code class="docutils literal"><span class="pre">id</span></code>.
+Note that irreversibly converted <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> (processed by <code class="docutils literal"><span class="pre">fv_converter</span></code>) will not be decoded.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::get_all_rows">
-list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big><a class="headerlink" href="#recommender::get_all_rows" title="Permalink to this definition">¶</a></dt>
+list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#recommender::get_all_rows" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -564,43 +565,43 @@ list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big
 
 <dl class="method">
 <dt id="recommender::calc_similarity__datum.datum">
-float <tt class="descname">calc_similarity</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>lhs</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>rhs</em><big>)</big><a class="headerlink" href="#recommender::calc_similarity__datum.datum" title="Permalink to this definition">¶</a></dt>
+float <code class="descname">calc_similarity</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>lhs</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::calc_similarity__datum.datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>lhs</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
-<li><strong>rhs</strong> &#8211; another <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>lhs</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+<li><strong>rhs</strong> &#8211; another <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">similarity between <tt class="docutils literal"><span class="pre">lhs</span></tt> and <tt class="docutils literal"><span class="pre">rhs</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">similarity between <code class="docutils literal"><span class="pre">lhs</span></code> and <code class="docutils literal"><span class="pre">rhs</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns the similarity score (see <tt class="docutils literal"><span class="pre">score</span></tt> member of <tt class="docutils literal"><span class="pre">id_with_score</span></tt>) between two <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a>.</p>
+<p>Returns the similarity score (see <code class="docutils literal"><span class="pre">score</span></code> member of <code class="docutils literal"><span class="pre">id_with_score</span></code>) between two <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="recommender::calc_l2norm__datum">
-float <tt class="descname">calc_l2norm</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#recommender::calc_l2norm__datum" title="Permalink to this definition">¶</a></dt>
+float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::calc_l2norm__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">L2 norm for the given <tt class="docutils literal"><span class="pre">row</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">L2 norm for the given <code class="docutils literal"><span class="pre">row</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns the value of L2 norm for the <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+<p>Returns the value of L2 norm for the <code class="docutils literal"><span class="pre">row</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -636,7 +637,7 @@ float <tt class="descname">calc_l2norm</tt><big>(</big>0: <a class="reference in
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

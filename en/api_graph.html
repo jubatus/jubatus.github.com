@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -120,11 +119,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_bandit.html"
                         title="next chapter">Bandit</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_graph.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_graph.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -161,7 +162,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>Specify algorithm for graph analysis.
 You can use these algorithms.</p>
 <table border="1" class="docutils">
@@ -175,7 +176,7 @@ You can use these algorithms.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;graph_wo_index&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;graph_wo_index&quot;</span></code></td>
 <td>Use graph without index.</td>
 </tr>
 </tbody>
@@ -184,9 +185,9 @@ You can use these algorithms.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.
-Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
 <dt>graph_wo_index</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -199,7 +200,7 @@ The bigger it is, the more sensitive to graph structure PageRank score is, but t
 In the original paper, 0.85 is good.
 (Float)</p>
 <ul class="simple">
-<li>Range: 0.0 &lt; <tt class="docutils literal"><span class="pre">damping_factor</span></tt> &lt; 1.0</li>
+<li>Range: 0.0 &lt; <code class="docutils literal"><span class="pre">damping_factor</span></code> &lt; 1.0</li>
 </ul>
 </td>
 </tr>
@@ -207,7 +208,7 @@ In the original paper, 0.85 is good.
 The bigger it is, more accurate value you can get, but the more memory is required.
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">landmark_num</span></tt></li>
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">landmark_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -235,23 +236,23 @@ The bigger it is, more accurate value you can get, but the more memory is requir
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="node">
-<em class="property">message </em><tt class="descname">node</tt><a class="headerlink" href="#node" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">node</code><a class="headerlink" href="#node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the node information.</p>
 <dl class="member">
 <dt id="node::property__m:s.s:">
-0: map&lt;string, string&gt; <tt class="descname">property</tt><a class="headerlink" href="#node::property__m:s.s:" title="Permalink to this definition">¶</a></dt>
+0: map&lt;string, string&gt; <code class="descname">property</code><a class="headerlink" href="#node::property__m:s.s:" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property information for the node.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="node::in_edges__l:L:">
-1: list&lt;ulong&gt; <tt class="descname">in_edges</tt><a class="headerlink" href="#node::in_edges__l:L:" title="Permalink to this definition">¶</a></dt>
+1: list&lt;ulong&gt; <code class="descname">in_edges</code><a class="headerlink" href="#node::in_edges__l:L:" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ID of incoming edges.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="node::out_edges__l:L:">
-2: list&lt;ulong&gt; <tt class="descname">out_edges</tt><a class="headerlink" href="#node::out_edges__l:L:" title="Permalink to this definition">¶</a></dt>
+2: list&lt;ulong&gt; <code class="descname">out_edges</code><a class="headerlink" href="#node::out_edges__l:L:" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ID of outgoing edges.</p>
 </dd></dl>
 
@@ -266,16 +267,16 @@ The bigger it is, more accurate value you can get, but the more memory is requir
 
 <dl class="message">
 <dt id="query">
-<em class="property">message </em><tt class="descname">query</tt><a class="headerlink" href="#query" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">query</code><a class="headerlink" href="#query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a query.</p>
 <dl class="member">
 <dt id="query::from_id__s">
-0: string <tt class="descname">from_id</tt><a class="headerlink" href="#query::from_id__s" title="Permalink to this definition">¶</a></dt>
+0: string <code class="descname">from_id</code><a class="headerlink" href="#query::from_id__s" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt id="query::to_id__s">
-1: string <tt class="descname">to_id</tt><a class="headerlink" href="#query::to_id__s" title="Permalink to this definition">¶</a></dt>
+1: string <code class="descname">to_id</code><a class="headerlink" href="#query::to_id__s" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">query</span> <span class="p">{</span>
@@ -288,17 +289,17 @@ The bigger it is, more accurate value you can get, but the more memory is requir
 
 <dl class="message">
 <dt id="preset_query">
-<em class="property">message </em><tt class="descname">preset_query</tt><a class="headerlink" href="#preset_query" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">preset_query</code><a class="headerlink" href="#preset_query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a preset query.
 See the description below for details.</p>
 <dl class="member">
 <dt id="preset_query::edge_query__l:query:">
-0: list&lt;<a class="reference internal" href="#query" title="query">query</a>&gt; <tt class="descname">edge_query</tt><a class="headerlink" href="#preset_query::edge_query__l:query:" title="Permalink to this definition">¶</a></dt>
+0: list&lt;<a class="reference internal" href="#query" title="query">query</a>&gt; <code class="descname">edge_query</code><a class="headerlink" href="#preset_query::edge_query__l:query:" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt id="preset_query::node_query__l:query:">
-1: list&lt;<a class="reference internal" href="#query" title="query">query</a>&gt; <tt class="descname">node_query</tt><a class="headerlink" href="#preset_query::node_query__l:query:" title="Permalink to this definition">¶</a></dt>
+1: list&lt;<a class="reference internal" href="#query" title="query">query</a>&gt; <code class="descname">node_query</code><a class="headerlink" href="#preset_query::node_query__l:query:" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">preset_query</span> <span class="p">{</span>
@@ -311,23 +312,23 @@ See the description below for details.</p>
 
 <dl class="message">
 <dt id="edge">
-<em class="property">message </em><tt class="descname">edge</tt><a class="headerlink" href="#edge" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">edge</code><a class="headerlink" href="#edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the edge information.</p>
 <dl class="member">
 <dt id="edge::property__m:s.s:">
-0: map&lt;string, string&gt; <tt class="descname">property</tt><a class="headerlink" href="#edge::property__m:s.s:" title="Permalink to this definition">¶</a></dt>
+0: map&lt;string, string&gt; <code class="descname">property</code><a class="headerlink" href="#edge::property__m:s.s:" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property information for the edge.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="edge::source__s">
-1: string <tt class="descname">source</tt><a class="headerlink" href="#edge::source__s" title="Permalink to this definition">¶</a></dt>
+1: string <code class="descname">source</code><a class="headerlink" href="#edge::source__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>ID of the source node that the edge connects.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="edge::target__s">
-2: string <tt class="descname">target</tt><a class="headerlink" href="#edge::target__s" title="Permalink to this definition">¶</a></dt>
+2: string <code class="descname">target</code><a class="headerlink" href="#edge::target__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>ID of the target node that the edge connects.</p>
 </dd></dl>
 
@@ -342,27 +343,27 @@ See the description below for details.</p>
 
 <dl class="message">
 <dt id="shortest_path_query">
-<em class="property">message </em><tt class="descname">shortest_path_query</tt><a class="headerlink" href="#shortest_path_query" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">shortest_path_query</code><a class="headerlink" href="#shortest_path_query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a shortest path query information.
-See the description of <tt class="docutils literal"><span class="pre">get_shortest_path</span></tt> method for details.</p>
+See the description of <code class="docutils literal"><span class="pre">get_shortest_path</span></code> method for details.</p>
 <dl class="member">
 <dt id="shortest_path_query::source__s">
-0: string <tt class="descname">source</tt><a class="headerlink" href="#shortest_path_query::source__s" title="Permalink to this definition">¶</a></dt>
+0: string <code class="descname">source</code><a class="headerlink" href="#shortest_path_query::source__s" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt id="shortest_path_query::target__s">
-1: string <tt class="descname">target</tt><a class="headerlink" href="#shortest_path_query::target__s" title="Permalink to this definition">¶</a></dt>
+1: string <code class="descname">target</code><a class="headerlink" href="#shortest_path_query::target__s" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt id="shortest_path_query::max_hop__U">
-2: uint <tt class="descname">max_hop</tt><a class="headerlink" href="#shortest_path_query::max_hop__U" title="Permalink to this definition">¶</a></dt>
+2: uint <code class="descname">max_hop</code><a class="headerlink" href="#shortest_path_query::max_hop__U" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt id="shortest_path_query::query__preset_query">
-3: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <tt class="descname">query</tt><a class="headerlink" href="#shortest_path_query::query__preset_query" title="Permalink to this definition">¶</a></dt>
+3: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <code class="descname">query</code><a class="headerlink" href="#shortest_path_query::query__preset_query" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">shortest_path_query</span> <span class="p">{</span>
@@ -378,137 +379,140 @@ See the description of <tt class="docutils literal"><span class="pre">get_shorte
 </div>
 <div class="section" id="usage-of-properties-and-queries">
 <h2>Usage of Properties and Queries<a class="headerlink" href="#usage-of-properties-and-queries" title="Permalink to this headline">¶</a></h2>
-<p>Properties and Queries are both represented as key-value pair like <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'key'</span> <span class="pre">:</span> <span class="pre">'value',</span> <span class="pre">'key2'</span> <span class="pre">:</span> <span class="pre">'value2',</span> <span class="pre">...</span> <span class="pre">}</span></tt>.
+<p>Properties and Queries are both represented as key-value pair like <code class="docutils literal"><span class="pre">{</span> <span class="pre">'key'</span> <span class="pre">:</span> <span class="pre">'value',</span> <span class="pre">'key2'</span> <span class="pre">:</span> <span class="pre">'value2',</span> <span class="pre">...</span> <span class="pre">}</span></code>.
 The condition when a query matches to a property is: all keys in a query MUST exist in a property and the corresponding value which belongs to the query and the property MUST match exactly.
 The ordering of each key-value in property/query does not matter.</p>
 <p>For example, this case matches:</p>
-<div class="highlight-python"><pre>query:    { 'key' : 'value' }
-property: { 'key' : 'value', 'foo' : 'bar' }</pre>
+<div class="highlight-python"><div class="highlight"><pre>query:    { &#39;key&#39; : &#39;value&#39; }
+property: { &#39;key&#39; : &#39;value&#39;, &#39;foo&#39; : &#39;bar&#39; }
+</pre></div>
 </div>
-<p>This case does not match &#8211; same <tt class="docutils literal"><span class="pre">key</span></tt> but different value:</p>
-<div class="highlight-python"><pre>query:    { 'key' : 'wrong' }
-property: { 'key' : 'value', 'foo' : 'bar' }</pre>
+<p>This case does not match &#8211; same <code class="docutils literal"><span class="pre">key</span></code> but different value:</p>
+<div class="highlight-python"><div class="highlight"><pre>query:    { &#39;key&#39; : &#39;wrong&#39; }
+property: { &#39;key&#39; : &#39;value&#39;, &#39;foo&#39; : &#39;bar&#39; }
+</pre></div>
 </div>
-<p>This case does not match &#8211; key <tt class="docutils literal"><span class="pre">spam</span></tt> does not exist in <tt class="docutils literal"><span class="pre">property</span></tt>:</p>
-<div class="highlight-python"><pre>query:    { 'key' : 'value', 'spam': 'ham' }
-property: { 'key' : 'value', 'foo' : 'bar' }</pre>
+<p>This case does not match &#8211; key <code class="docutils literal"><span class="pre">spam</span></code> does not exist in <code class="docutils literal"><span class="pre">property</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>query:    { &#39;key&#39; : &#39;value&#39;, &#39;spam&#39;: &#39;ham&#39; }
+property: { &#39;key&#39; : &#39;value&#39;, &#39;foo&#39; : &#39;bar&#39; }
+</pre></div>
 </div>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">graph</tt></dt>
+<em class="property">service </em><code class="descname">graph</code></dt>
 <dd><dl class="method">
 <dt id="graph::create_node">
-string <tt class="descname">create_node</tt><big>(</big><big>)</big><a class="headerlink" href="#graph::create_node" title="Permalink to this definition">¶</a></dt>
+string <code class="descname">create_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph::create_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a node on the graph.
 Returns a node ID as string.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::remove_node__s">
-bool <tt class="descname">remove_node</tt><big>(</big>0: string <em>node_id</em><big>)</big><a class="headerlink" href="#graph::remove_node__s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes a node <tt class="docutils literal"><span class="pre">node_id</span></tt> from the graph.</p>
+bool <code class="descname">remove_node</code><span class="sig-paren">(</span>0: string <em>node_id</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::remove_node__s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a node <code class="docutils literal"><span class="pre">node_id</span></code> from the graph.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::update_node__s.m:s.s:">
-bool <tt class="descname">update_node</tt><big>(</big>0: string <em>node_id</em>, 1: map&lt;string, string&gt; <em>property</em><big>)</big><a class="headerlink" href="#graph::update_node__s.m:s.s:" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the property of the node <tt class="docutils literal"><span class="pre">node_id</span></tt> to <tt class="docutils literal"><span class="pre">property</span></tt>.</p>
+bool <code class="descname">update_node</code><span class="sig-paren">(</span>0: string <em>node_id</em>, 1: map&lt;string, string&gt; <em>property</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::update_node__s.m:s.s:" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the property of the node <code class="docutils literal"><span class="pre">node_id</span></code> to <code class="docutils literal"><span class="pre">property</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::create_edge__s.edge">
-ulong <tt class="descname">create_edge</tt><big>(</big>0: string <em>node_id</em>, 1: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><big>)</big><a class="headerlink" href="#graph::create_edge__s.edge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a link from <tt class="docutils literal"><span class="pre">e.source</span></tt> to <tt class="docutils literal"><span class="pre">e.target</span></tt>.
+ulong <code class="descname">create_edge</code><span class="sig-paren">(</span>0: string <em>node_id</em>, 1: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::create_edge__s.edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a link from <code class="docutils literal"><span class="pre">e.source</span></code> to <code class="docutils literal"><span class="pre">e.target</span></code>.
 Returns a edge ID as an unsigned long integer.</p>
 <p>The link has a direction.
 For any two nodes, multiple links with the same direction can be created.
-In this case, property <tt class="docutils literal"><span class="pre">e.property</span></tt> can be associated to each link (see <tt class="docutils literal"><span class="pre">edge</span></tt>).</p>
-<p><tt class="docutils literal"><span class="pre">node_id</span></tt> must be the same value as <tt class="docutils literal"><span class="pre">e.source</span></tt>.</p>
+In this case, property <code class="docutils literal"><span class="pre">e.property</span></code> can be associated to each link (see <code class="docutils literal"><span class="pre">edge</span></code>).</p>
+<p><code class="docutils literal"><span class="pre">node_id</span></code> must be the same value as <code class="docutils literal"><span class="pre">e.source</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::update_edge__s.L.edge">
-bool <tt class="descname">update_edge</tt><big>(</big>0: string <em>node_id</em>, 1: ulong <em>edge_id</em>, 2: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><big>)</big><a class="headerlink" href="#graph::update_edge__s.L.edge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates an existing edge <tt class="docutils literal"><span class="pre">edge_id</span></tt> with information <tt class="docutils literal"><span class="pre">e</span></tt>.
+bool <code class="descname">update_edge</code><span class="sig-paren">(</span>0: string <em>node_id</em>, 1: ulong <em>edge_id</em>, 2: <a class="reference internal" href="#edge" title="edge">edge</a> <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::update_edge__s.L.edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates an existing edge <code class="docutils literal"><span class="pre">edge_id</span></code> with information <code class="docutils literal"><span class="pre">e</span></code>.
 Property will be replaced.</p>
-<p><tt class="docutils literal"><span class="pre">node_id</span></tt> must be the same value as <tt class="docutils literal"><span class="pre">e.source</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">node_id</span></code> must be the same value as <code class="docutils literal"><span class="pre">e.source</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::remove_edge__s.L">
-bool <tt class="descname">remove_edge</tt><big>(</big>0: string <em>node_id</em>, 1: ulong <em>edge_id</em><big>)</big><a class="headerlink" href="#graph::remove_edge__s.L" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes an edge <tt class="docutils literal"><span class="pre">edge_id</span></tt>.
-<tt class="docutils literal"><span class="pre">node_id</span></tt> must be an ID for the source node of the edge <tt class="docutils literal"><span class="pre">edge_id</span></tt>.</p>
+bool <code class="descname">remove_edge</code><span class="sig-paren">(</span>0: string <em>node_id</em>, 1: ulong <em>edge_id</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::remove_edge__s.L" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes an edge <code class="docutils literal"><span class="pre">edge_id</span></code>.
+<code class="docutils literal"><span class="pre">node_id</span></code> must be an ID for the source node of the edge <code class="docutils literal"><span class="pre">edge_id</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::get_centrality__s.i.preset_query">
-double <tt class="descname">get_centrality</tt><big>(</big>0: string <em>node_id</em>, 1: int <em>centrality_type</em>, 2: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::get_centrality__s.i.preset_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates (gets the computed value) the centrality over the edges that match the preset query <tt class="docutils literal"><span class="pre">query</span></tt>.
-The query must be registered beforehand by using <tt class="docutils literal"><span class="pre">add_centrality_query</span></tt>.</p>
-<p><tt class="docutils literal"><span class="pre">centrality_type</span></tt> is a type of centrality.
-Currently, only <tt class="docutils literal"><span class="pre">0</span></tt> (PageRank centrality) can be specified.</p>
+double <code class="descname">get_centrality</code><span class="sig-paren">(</span>0: string <em>node_id</em>, 1: int <em>centrality_type</em>, 2: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::get_centrality__s.i.preset_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates (gets the computed value) the centrality over the edges that match the preset query <code class="docutils literal"><span class="pre">query</span></code>.
+The query must be registered beforehand by using <code class="docutils literal"><span class="pre">add_centrality_query</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">centrality_type</span></code> is a type of centrality.
+Currently, only <code class="docutils literal"><span class="pre">0</span></code> (PageRank centrality) can be specified.</p>
 <p>Centrality is computed when mix runs, thus there may be a gap between the exact value of centrality and the computed value if there&#8217;re updates not mixed.
-See also the description of <tt class="docutils literal"><span class="pre">update_index</span></tt>.</p>
+See also the description of <code class="docutils literal"><span class="pre">update_index</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::add_centrality_query__preset_query">
-bool <tt class="descname">add_centrality_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::add_centrality_query__preset_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a preset query <tt class="docutils literal"><span class="pre">query</span></tt> to the graph for centrality calculation.</p>
+bool <code class="descname">add_centrality_query</code><span class="sig-paren">(</span>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::add_centrality_query__preset_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a preset query <code class="docutils literal"><span class="pre">query</span></code> to the graph for centrality calculation.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::add_shortest_path_query__preset_query">
-bool <tt class="descname">add_shortest_path_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::add_shortest_path_query__preset_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a preset query <tt class="docutils literal"><span class="pre">query</span></tt> to the graph for shortest path calculation.</p>
+bool <code class="descname">add_shortest_path_query</code><span class="sig-paren">(</span>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::add_shortest_path_query__preset_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a preset query <code class="docutils literal"><span class="pre">query</span></code> to the graph for shortest path calculation.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::remove_centrality_query__preset_query">
-bool <tt class="descname">remove_centrality_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::remove_centrality_query__preset_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes a preset query <tt class="docutils literal"><span class="pre">query</span></tt> from the graph.</p>
+bool <code class="descname">remove_centrality_query</code><span class="sig-paren">(</span>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::remove_centrality_query__preset_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a preset query <code class="docutils literal"><span class="pre">query</span></code> from the graph.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::remove_shortest_path_query__preset_query">
-bool <tt class="descname">remove_shortest_path_query</tt><big>(</big>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::remove_shortest_path_query__preset_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes a preset query <tt class="docutils literal"><span class="pre">query</span></tt> from the graph.</p>
+bool <code class="descname">remove_shortest_path_query</code><span class="sig-paren">(</span>0: <a class="reference internal" href="#preset_query" title="preset_query">preset_query</a> <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::remove_shortest_path_query__preset_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a preset query <code class="docutils literal"><span class="pre">query</span></code> from the graph.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::get_shortest_path__shortest_path_query">
-list&lt;string&gt; <tt class="descname">get_shortest_path</tt><big>(</big>0: <a class="reference internal" href="#shortest_path_query" title="shortest_path_query">shortest_path_query</a> <em>query</em><big>)</big><a class="headerlink" href="#graph::get_shortest_path__shortest_path_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates (from the precomputed data) a shortest path from <tt class="docutils literal"><span class="pre">query.source</span></tt> to <tt class="docutils literal"><span class="pre">query.target</span></tt> that matches the preset query.
-The query must be registered beforehand by using <tt class="docutils literal"><span class="pre">add_shortest_path_query</span></tt>.
-Returns a list of node IDs that represents a path from <tt class="docutils literal"><span class="pre">query.source</span></tt> to <tt class="docutils literal"><span class="pre">query.target</span></tt>.</p>
-<p>If the shortest path from <tt class="docutils literal"><span class="pre">query.source</span></tt> to <tt class="docutils literal"><span class="pre">query.target</span></tt> cannot be found within <tt class="docutils literal"><span class="pre">query.max_hop</span></tt> hops, the result will be truncated.</p>
+list&lt;string&gt; <code class="descname">get_shortest_path</code><span class="sig-paren">(</span>0: <a class="reference internal" href="#shortest_path_query" title="shortest_path_query">shortest_path_query</a> <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::get_shortest_path__shortest_path_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates (from the precomputed data) a shortest path from <code class="docutils literal"><span class="pre">query.source</span></code> to <code class="docutils literal"><span class="pre">query.target</span></code> that matches the preset query.
+The query must be registered beforehand by using <code class="docutils literal"><span class="pre">add_shortest_path_query</span></code>.
+Returns a list of node IDs that represents a path from <code class="docutils literal"><span class="pre">query.source</span></code> to <code class="docutils literal"><span class="pre">query.target</span></code>.</p>
+<p>If the shortest path from <code class="docutils literal"><span class="pre">query.source</span></code> to <code class="docutils literal"><span class="pre">query.target</span></code> cannot be found within <code class="docutils literal"><span class="pre">query.max_hop</span></code> hops, the result will be truncated.</p>
 <p>Path-index tree may have a gap between the exact path and the computed path when in a distributed setup.
-See also the description of <tt class="docutils literal"><span class="pre">update_index</span></tt>.</p>
+See also the description of <code class="docutils literal"><span class="pre">update_index</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::update_index">
-bool <tt class="descname">update_index</tt><big>(</big><big>)</big><a class="headerlink" href="#graph::update_index" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">update_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph::update_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs mix locally. <strong>Do not use in distributed mode</strong>.</p>
-<p>Some functions like <tt class="docutils literal"><span class="pre">get_centrality</span></tt> and <tt class="docutils literal"><span class="pre">get_shortest_path</span></tt> uses an index that is updated in the mix operation.
+<p>Some functions like <code class="docutils literal"><span class="pre">get_centrality</span></code> and <code class="docutils literal"><span class="pre">get_shortest_path</span></code> uses an index that is updated in the mix operation.
 In a standalone mode, mix is not automatically called thus users must call this API by themselves.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::get_node__s">
-<a class="reference internal" href="#node" title="node">node</a> <tt class="descname">get_node</tt><big>(</big>0: string <em>node_id</em><big>)</big><a class="headerlink" href="#graph::get_node__s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the <tt class="docutils literal"><span class="pre">node</span></tt> for a node <tt class="docutils literal"><span class="pre">node_id</span></tt>.</p>
+<a class="reference internal" href="#node" title="node">node</a> <code class="descname">get_node</code><span class="sig-paren">(</span>0: string <em>node_id</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::get_node__s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the <code class="docutils literal"><span class="pre">node</span></code> for a node <code class="docutils literal"><span class="pre">node_id</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="graph::get_edge__s.L">
-<a class="reference internal" href="#edge" title="edge">edge</a> <tt class="descname">get_edge</tt><big>(</big>0: string <em>node_id</em>, 1: ulong <em>edge_id</em><big>)</big><a class="headerlink" href="#graph::get_edge__s.L" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the <tt class="docutils literal"><span class="pre">edge</span></tt> of an edge <tt class="docutils literal"><span class="pre">edge_id</span></tt>.
-<tt class="docutils literal"><span class="pre">node_id</span></tt> is an ID for the source node of the edge <tt class="docutils literal"><span class="pre">edge_id</span></tt>.</p>
+<a class="reference internal" href="#edge" title="edge">edge</a> <code class="descname">get_edge</code><span class="sig-paren">(</span>0: string <em>node_id</em>, 1: ulong <em>edge_id</em><span class="sig-paren">)</span><a class="headerlink" href="#graph::get_edge__s.L" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the <code class="docutils literal"><span class="pre">edge</span></code> of an edge <code class="docutils literal"><span class="pre">edge_id</span></code>.
+<code class="docutils literal"><span class="pre">node_id</span></code> is an ID for the source node of the edge <code class="docutils literal"><span class="pre">edge_id</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -544,7 +548,7 @@ In a standalone mode, mix is not automatically called thus users must call this 
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

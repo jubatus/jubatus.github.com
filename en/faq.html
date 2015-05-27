@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -121,11 +120,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="references.html"
                         title="next chapter">References</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/faq.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -156,7 +157,7 @@
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">mecab_splitter.trivial</span></tt> and <tt class="docutils literal"><span class="pre">mecab_splitter_create.trivial</span></tt> does not pass the unittest?</li>
+<li><code class="docutils literal"><span class="pre">mecab_splitter.trivial</span></code> and <code class="docutils literal"><span class="pre">mecab_splitter_create.trivial</span></code> does not pass the unittest?</li>
 </ul>
 <blockquote>
 <div>Check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.</div></blockquote>
@@ -172,27 +173,33 @@
 </ul>
 <blockquote>
 <div><p>Binary Package (Apt) in Ubuntu Environment</p>
-<p>Error turns out when Proxy in apt is not added. Insert the line below into <tt class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></tt>.</p>
-<div class="highlight-python"><pre>$ sudo vi /etc/apt/apt.conf</pre>
+<p>Error turns out when Proxy in apt is not added. Insert the line below into <code class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo vi /etc/apt/apt.conf
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Acquire::http::Proxy "http://username:password@proxy.example.com:port/";</pre>
+<div class="highlight-python"><div class="highlight"><pre>Acquire::http::Proxy &quot;http://username:password@proxy.example.com:port/&quot;;
+</pre></div>
 </div>
 <p>Python Client (pip)</p>
 <p>Errors like below may come out when Proxy is required. In this case, please specify the Proxy option when execute your command.</p>
-<div class="highlight-python"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
+<div class="highlight-python"><div class="highlight"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
 Could not find any downloads that satisfy the requirement jubatus
 No distributions at all found for jubatus
-Storing complete log in /home/jubatus/.pip/pip.log</pre>
+Storing complete log in /home/jubatus/.pip/pip.log
+</pre></div>
 </div>
-<div class="highlight-python"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus
+</pre></div>
 </div>
 <p>The installation completes when logs like below come out.</p>
-<div class="highlight-python"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
-Cleaning up...</pre>
+<div class="highlight-python"><div class="highlight"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+Cleaning up...
+</pre></div>
 </div>
 <p>Ruby Client (RubyGems)</p>
 <p>Please set your environment variables like below before your installation.</p>
-<div class="highlight-python"><pre>export http_proxy=http://username:password@proxy.example.com:port/</pre>
+<div class="highlight-python"><div class="highlight"><pre>export http_proxy=http://username:password@proxy.example.com:port/
+</pre></div>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -209,16 +216,16 @@ Please follow the instructions below to use the Java skeleton for your developme
 <li>Forward through the dialogs operations, and click the [Finish] button.</li>
 </ol>
 <p>Once the import is finished, Maven will download the Jubatus client library automatically.
-Under <tt class="docutils literal"><span class="pre">src/main/java</span></tt>Directory(default package), there will be a simple program <cite>Client.java</cite> which using Jubatus recommender function.</p>
+Under <code class="docutils literal"><span class="pre">src/main/java</span></code>Directory(default package), there will be a simple program <cite>Client.java</cite> which using Jubatus recommender function.</p>
 </div></blockquote>
 </div>
 <div class="section" id="rpc-errors">
 <h2>RPC Errors<a class="headerlink" href="#rpc-errors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>When using python client, &#8220;got socket.error: [Errno 99] Cannot assign requested address&#8221; (or kind of <tt class="docutils literal"><span class="pre">EADDRINUSE</span></tt>)</li>
+<li>When using python client, &#8220;got socket.error: [Errno 99] Cannot assign requested address&#8221; (or kind of <code class="docutils literal"><span class="pre">EADDRINUSE</span></code>)</li>
 </ul>
 <blockquote>
-<div>Try this: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">/sbin/sysctl</span> <span class="pre">-w</span> <span class="pre">net.ipv4.tcp_tw_recycle=1</span></tt></div></blockquote>
+<div>Try this: <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">/sbin/sysctl</span> <span class="pre">-w</span> <span class="pre">net.ipv4.tcp_tw_recycle=1</span></code></div></blockquote>
 <ul class="simple">
 <li>I&#8217;ve got an exception with message &#8220;1&#8221; from Jubatus client library, why?</li>
 </ul>
@@ -232,10 +239,10 @@ See the <a class="reference external" href="https://github.com/jubatus/jubatus/w
 </ul>
 <blockquote>
 <div><p>This is a type mismatch error between clients and servers.</p>
-<p>A common mistake is using integer instead of float in values of <tt class="docutils literal"><span class="pre">num_values</span></tt>.
-Always cast values in <tt class="docutils literal"><span class="pre">num_values</span></tt> as float.
-If you are using literals like <tt class="docutils literal"><span class="pre">10</span></tt>, replace it with <tt class="docutils literal"><span class="pre">10.0</span></tt> instead.
-Another common mistake is assigning <tt class="docutils literal"><span class="pre">NULL</span></tt> for objects like vector.</p>
+<p>A common mistake is using integer instead of float in values of <code class="docutils literal"><span class="pre">num_values</span></code>.
+Always cast values in <code class="docutils literal"><span class="pre">num_values</span></code> as float.
+If you are using literals like <code class="docutils literal"><span class="pre">10</span></code>, replace it with <code class="docutils literal"><span class="pre">10.0</span></code> instead.
+Another common mistake is assigning <code class="docutils literal"><span class="pre">NULL</span></code> for objects like vector.</p>
 <p>This error may also occur if the version of the client library you installed is not compatible with the version of the Jubatus server you are connecting to.
 Check out the <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation">Jubatus Wiki: Client Compatibility and Documentation</a> for the compatibility information.</p>
 </div></blockquote>
@@ -243,12 +250,12 @@ Check out the <a class="reference external" href="https://github.com/jubatus/jub
 <li>Client library occasionally throws RPC timeout errors; it seems that servers automatically disconnect clients. Why?</li>
 </ul>
 <blockquote>
-<div><p>Jubatus servers automatically close connections when the idle timeout (given by the command line parameter <a class="reference internal" href="commands.html#cmdoption-server-t"><em class="xref std std-option">server -t</em></a>) expires.
+<div><p>Jubatus servers automatically close connections when the idle timeout (given by the command line parameter <a class="reference internal" href="commands.html#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a>) expires.
 You need to retry the RPC call to re-establish the connection.
 Please refer <a class="reference internal" href="faq_rpc_err_workaround.html"><em>RPC Error Handling</em></a> to handle RPC errors including timeout error
 caused by server&#8217;s auto session-closing.</p>
-<p>To disable this auto-disconnect feature, set <a class="reference internal" href="commands.html#cmdoption-server-t"><em class="xref std std-option">server -t</em></a> to 0, which means &#8220;no timeout&#8221;.
-In this case, clients must explicitly close the TCP connection using <a class="reference internal" href="common_structs.html#get_client" title="get_client"><tt class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></tt></a>.
+<p>To disable this auto-disconnect feature, set <a class="reference internal" href="commands.html#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a> to 0, which means &#8220;no timeout&#8221;.
+In this case, clients must explicitly close the TCP connection using <a class="reference internal" href="common_structs.html#get_client" title="get_client"><code class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></code></a>.
 Or, please set timeout enough longer than a client&#8217;s connection lifetime.</p>
 </div></blockquote>
 </div>
@@ -260,12 +267,13 @@ Or, please set timeout enough longer than a client&#8217;s connection lifetime.<
 <blockquote>
 <div><p>Information about the Mix operations is recorded in the log files at Jubatus servers, which seems like below.</p>
 <blockquote>
-<div><div class="highlight-python"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+<div><div class="highlight-python"><div class="highlight"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
 I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
 I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
-I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
+I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
+</pre></div>
 </div>
 </div></blockquote>
 </div></blockquote>
@@ -310,43 +318,43 @@ The role of proxies is same as the role of keepers in 0.4.x or before.</div></bl
 <ul class="simple">
 <li>2: Change parameters for underlying euclid LSH</li>
 </ul>
-<p>Especially, we recommend you to change the most important parameter <tt class="docutils literal"><span class="pre">bin_width</span></tt> for some values.</p>
+<p>Especially, we recommend you to change the most important parameter <code class="docutils literal"><span class="pre">bin_width</span></code> for some values.</p>
 </div></blockquote>
 <ul class="simple">
 <li>Why jubaanomaly gets slow after adding many samples?</li>
 </ul>
 <blockquote>
-<div>jubaanomaly (as LOF algorithm) depends on iterations of nearest neighbor search and its default configuration uses euclid LSH for speed-up. However, updating the internal state of the LOF model still takes quadratic time at worst with respect to the number of ever-added samples. For more details, please refer to the original paper <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a> .</div></blockquote>
+<div>jubaanomaly (as LOF algorithm) depends on iterations of nearest neighbor search and its default configuration uses euclid LSH for speed-up. However, updating the internal state of the LOF model still takes quadratic time at worst with respect to the number of ever-added samples. For more details, please refer to the original paper <a class="reference internal" href="method.html#breunig2000" id="id1">[Breunig2000]</a> .</div></blockquote>
 <ul class="simple">
 <li>How to avoid such speed down?</li>
 </ul>
 <blockquote>
 <div><p>You can control the trade-off between speed and accuracy by using the following techniques.</p>
 <ul class="simple">
-<li>1: use <tt class="docutils literal"><span class="pre">unlearner</span></tt></li>
+<li>1: use <code class="docutils literal"><span class="pre">unlearner</span></code></li>
 </ul>
 <blockquote>
-<div>From version 0.6.0, users can use <tt class="docutils literal"><span class="pre">unlearner</span></tt> to set upper limit on stored data.
+<div>From version 0.6.0, users can use <code class="docutils literal"><span class="pre">unlearner</span></code> to set upper limit on stored data.
 If more data than limit is regestered, Jubatus will delete old data.
 It will improve the speed of Jubatus at the cost of accuracy.
-You can select unlearning strategy from <tt class="docutils literal"><span class="pre">lru</span></tt> or <tt class="docutils literal"><span class="pre">random</span></tt>.
-<tt class="docutils literal"><span class="pre">lru</span></tt> will delete old data in the order of registration.
-<tt class="docutils literal"><span class="pre">random</span></tt> will delete old data with random.</div></blockquote>
+You can select unlearning strategy from <code class="docutils literal"><span class="pre">lru</span></code> or <code class="docutils literal"><span class="pre">random</span></code>.
+<code class="docutils literal"><span class="pre">lru</span></code> will delete old data in the order of registration.
+<code class="docutils literal"><span class="pre">random</span></code> will delete old data with random.</div></blockquote>
 <ul class="simple">
 <li>2: Modify baseline euclid LSH with lower accuracy and faster computation</li>
 </ul>
 <blockquote>
-<div>By reducing the parameters values of (euclid) LSH such as <tt class="docutils literal"><span class="pre">lsh_num</span></tt>, <tt class="docutils literal"><span class="pre">table_num</span></tt>, <tt class="docutils literal"><span class="pre">probe_num</span></tt>, or <tt class="docutils literal"><span class="pre">bin_width</span></tt>, you can make neighbor nearest computation faster with lower accuracy, in which some more nearest samples might be ignored. This may affect the final anomaly score in comparison with the ground truth in which everything is computed in batch-processing manner.</div></blockquote>
+<div>By reducing the parameters values of (euclid) LSH such as <code class="docutils literal"><span class="pre">lsh_num</span></code>, <code class="docutils literal"><span class="pre">table_num</span></code>, <code class="docutils literal"><span class="pre">probe_num</span></code>, or <code class="docutils literal"><span class="pre">bin_width</span></code>, you can make neighbor nearest computation faster with lower accuracy, in which some more nearest samples might be ignored. This may affect the final anomaly score in comparison with the ground truth in which everything is computed in batch-processing manner.</div></blockquote>
 <ul class="simple">
-<li>3: Use <tt class="docutils literal"><span class="pre">calc_score</span></tt> for just obtaining anomaly score</li>
+<li>3: Use <code class="docutils literal"><span class="pre">calc_score</span></code> for just obtaining anomaly score</li>
 </ul>
 <blockquote>
-<div><tt class="docutils literal"><span class="pre">add</span></tt> function really appends the sample to the nearest neighbor storage, update the LOF model, and calculate its LOF value. On the other hand, <tt class="docutils literal"><span class="pre">calc_score</span></tt> function just computes an LOF value for the input sample based on the current LOF model, which works much faster. If you can assume that the data distribution is almost stable, we recommend you to use only <tt class="docutils literal"><span class="pre">add</span></tt> at the early stage to make a valid LOF model as early as possible, say, until 1000 samples are stored in the storage. Then you can swith two functions, with more freuquent <tt class="docutils literal"><span class="pre">calc_score</span></tt>. For example, it would work fine and much faster with the ratio <tt class="docutils literal"><span class="pre">add</span></tt> : <tt class="docutils literal"><span class="pre">calc_score</span></tt> = 1:100.</div></blockquote>
+<div><code class="docutils literal"><span class="pre">add</span></code> function really appends the sample to the nearest neighbor storage, update the LOF model, and calculate its LOF value. On the other hand, <code class="docutils literal"><span class="pre">calc_score</span></code> function just computes an LOF value for the input sample based on the current LOF model, which works much faster. If you can assume that the data distribution is almost stable, we recommend you to use only <code class="docutils literal"><span class="pre">add</span></code> at the early stage to make a valid LOF model as early as possible, say, until 1000 samples are stored in the storage. Then you can swith two functions, with more freuquent <code class="docutils literal"><span class="pre">calc_score</span></code>. For example, it would work fine and much faster with the ratio <code class="docutils literal"><span class="pre">add</span></code> : <code class="docutils literal"><span class="pre">calc_score</span></code> = 1:100.</div></blockquote>
 <ul class="simple">
-<li>4: Decrease <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt></li>
+<li>4: Decrease <code class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></code></li>
 </ul>
 <blockquote>
-<div>It also reduces the computation time for LOF. However, the number should not be smaller than <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt> .</div></blockquote>
+<div>It also reduces the computation time for LOF. However, the number should not be smaller than <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code> .</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="miscellaneous">
@@ -386,7 +394,7 @@ You can select unlearning strategy from <tt class="docutils literal"><span class
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

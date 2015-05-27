@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -122,11 +121,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="framework.html"
                         title="次の章へ">フレームワークの利用</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/build.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/build.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -158,7 +159,7 @@
 ソースからビルドする場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
 <div class="section" id="requirements">
 <span id="id1"></span><h2>要件<a class="headerlink" href="#requirements" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Jubatus をソースからビルドするには、 <tt class="docutils literal"><span class="pre">gcc</span></tt> (バージョン 4.4 以降), <tt class="docutils literal"><span class="pre">pkg-config</span></tt> (バージョン 0.26 以降) および <tt class="docutils literal"><span class="pre">python</span></tt> (バージョン 2.4 以降,  <tt class="docutils literal"><span class="pre">waf</span></tt> で使用される) が必要です。
+<p>Jubatus をソースからビルドするには、 <code class="docutils literal"><span class="pre">gcc</span></code> (バージョン 4.4 以降), <code class="docutils literal"><span class="pre">pkg-config</span></code> (バージョン 0.26 以降) および <code class="docutils literal"><span class="pre">python</span></code> (バージョン 2.4 以降,  <code class="docutils literal"><span class="pre">waf</span></code> で使用される) が必要です。
 加えて、以下のライブラリも必要になります。
 サポートされているライブラリのバージョンについては <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Supported-Library-Versions">Jubatus Wiki</a> をご覧ください。</p>
 <table border="1" class="docutils">
@@ -189,7 +190,7 @@
 <tr class="row-even"><td>re2</td>
 <td>master</td>
 <td><a class="footnote-reference" href="#id4" id="id3">[1]</a></td>
-<td>jubatus_core に必要 (<tt class="docutils literal"><span class="pre">--regexp-library=re2</span></tt> ありでビルドする場合のみ)</td>
+<td>jubatus_core に必要 (<code class="docutils literal"><span class="pre">--regexp-library=re2</span></code> ありでビルドする場合のみ)</td>
 </tr>
 <tr class="row-odd"><td>msgpack</td>
 <td>&gt;= 0.5.7</td>
@@ -214,17 +215,17 @@
 <tr class="row-odd"><td>mecab</td>
 <td>&gt;= 0.99</td>
 <td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--enable-mecab</span></tt> ありでビルドする場合のみ。</td>
+<td><code class="docutils literal"><span class="pre">--enable-mecab</span></code> ありでビルドする場合のみ。</td>
 </tr>
 <tr class="row-even"><td>ux-trie</td>
 <td>master</td>
 <td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--enable-ux</span></tt> ありでビルドする場合のみ。</td>
+<td><code class="docutils literal"><span class="pre">--enable-ux</span></code> ありでビルドする場合のみ。</td>
 </tr>
 <tr class="row-odd"><td>zookeeper</td>
 <td>&gt;= 3.3</td>
 <td>&nbsp;</td>
-<td><tt class="docutils literal"><span class="pre">--enable-zookeeper</span></tt> ありでビルドする場合のみ。
+<td><code class="docutils literal"><span class="pre">--enable-zookeeper</span></code> ありでビルドする場合のみ。
 C クライアントライブラリが必要である。</td>
 </tr>
 </tbody>
@@ -232,8 +233,8 @@ C クライアントライブラリが必要である。</td>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> デフォルトでは oniguruma が jubatus_core の正規表現ライブラリとして使用されます (<tt class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></tt>)。
-jubatus_core のビルド時に <tt class="docutils literal"><span class="pre">--regexp-library=none</span></tt> を指定することで正規表現機能を完全に無効にすることができます。</td></tr>
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> デフォルトでは oniguruma が jubatus_core の正規表現ライブラリとして使用されます (<code class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></code>)。
+jubatus_core のビルド時に <code class="docutils literal"><span class="pre">--regexp-library=none</span></code> を指定することで正規表現機能を完全に無効にすることができます。</td></tr>
 </tbody>
 </table>
 <p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
@@ -251,7 +252,7 @@ jubatus_core のビルド時に <tt class="docutils literal"><span class="pre">-
 <div class="section" id="ubuntu-12-04">
 <h3>Ubuntu 12.04<a class="headerlink" href="#ubuntu-12-04" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Ubuntu 12.04 でのビルドを行う例です。</p>
-<div class="highlight-python"><pre>$ sudo apt-get install build-essential git-core pkg-config
+<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install build-essential git-core pkg-config
 
 $ sudo apt-get install libmsgpack-dev libonig-dev liblog4cxx10-dev
 
@@ -269,10 +270,11 @@ $ cd jubatus_msgpack-rpc-0.4.1
 $ ./configure
 $ make
 $ sudo make install
-$ cd ..</pre>
+$ cd ..
+</pre></div>
 </div>
 <p>Jubatus のビルドを行います。</p>
-<div class="highlight-python"><pre>$ wget -O jubatus_core.tar.gz https://github.com/jubatus/jubatus_core/archive/master.tar.gz
+<div class="highlight-python"><div class="highlight"><pre>$ wget -O jubatus_core.tar.gz https://github.com/jubatus/jubatus_core/archive/master.tar.gz
 $ tar xzf jubatus_core.tar.gz
 $ cd jubatus_core-master
 $ ./waf configure
@@ -286,9 +288,10 @@ $ cd jubatus-master
 $ ./waf configure
 $ ./waf build
 $ sudo ./waf install
-$ sudo ldconfig</pre>
+$ sudo ldconfig
+</pre></div>
 </div>
-<p>この例は最小限の設定でビルドしているため (どのようなオプションが利用可能かは <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></tt> をご覧ください)、分散モードや特徴抽出プラグインなど一部の機能は利用できません。</p>
+<p>この例は最小限の設定でビルドしているため (どのようなオプションが利用可能かは <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></code> をご覧ください)、分散モードや特徴抽出プラグインなど一部の機能は利用できません。</p>
 </div>
 <div class="section" id="mac-os-x">
 <h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -333,7 +336,7 @@ $ sudo ldconfig</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

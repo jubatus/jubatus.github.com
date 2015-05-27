@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -120,11 +119,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="api_recommender.html"
                         title="次の章へ">Recommender</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_regression.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_regression.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -162,7 +163,7 @@
 JSON の各フィールドは以下のとおりである。</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>回帰に使用するアルゴリズムを指定する。
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
@@ -176,8 +177,8 @@ JSON の各フィールドは以下のとおりである。</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;PA&quot;</span></tt></td>
-<td>Passive Aggressive を利用する。 <a class="reference internal" href="method.html#crammer06">[Crammer06]</a></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;PA&quot;</span></code></td>
+<td>Passive Aggressive を利用する。 <a class="reference internal" href="method.html#crammer06" id="id1">[Crammer06]</a></td>
 </tr>
 </tbody>
 </table>
@@ -185,9 +186,9 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>アルゴリズムに渡すパラメータを指定する。
-<tt class="docutils literal"><span class="pre">method</span></tt> に応じて渡すパラメータは異なる。</p>
+<code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
 <dt>PA</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -198,17 +199,17 @@ JSON の各フィールドは以下のとおりである。</p>
 大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
 (Float)</p>
 <ul class="simple">
-<li>値域: 0.0 &lt;= <tt class="docutils literal"><span class="pre">sensitivity</span></tt></li>
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
-元論文 <a class="reference internal" href="method.html#crammer06">[Crammer06]</a> における <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> に相当する。
+元論文 <a class="reference internal" href="method.html#crammer06" id="id2">[Crammer06]</a> における <img class="math" src="_images/math/2bcc65482aa8e15cd4c9e9f2542451fb4e971a91.png" alt="C"/> に相当する。
 (Float)</p>
 <ul class="last simple">
-<li>値域: 0.0 &lt; <tt class="docutils literal"><span class="pre">regularization_weight</span></tt></li>
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">regularization_weight</span></code></li>
 </ul>
 </td>
 </tr>
@@ -220,7 +221,7 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">converter</tt></dt>
+<code class="descname">converter</code></dt>
 <dd><p>特徴変換の設定を指定する。
 フォーマットは <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> で説明する。</p>
 </dd></dl>
@@ -257,17 +258,17 @@ JSON の各フィールドは以下のとおりである。</p>
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="message">
 <dt id="scored_datum">
-<em class="property">message </em><tt class="descname">scored_datum</tt><a class="headerlink" href="#scored_datum" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">message </em><code class="descname">scored_datum</code><a class="headerlink" href="#scored_datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>スコア付きのデータを表す。</p>
 <dl class="member">
 <dt id="scored_datum::score__float">
-0: float <tt class="descname">score</tt><a class="headerlink" href="#scored_datum::score__float" title="この定義へのパーマリンク">¶</a></dt>
+0: float <code class="descname">score</code><a class="headerlink" href="#scored_datum::score__float" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>このデータに紐付けられたスコアを表す。このスコアを当てるのが、回帰問題の目的となる。</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="scored_datum::data__datum">
-1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">data</tt><a class="headerlink" href="#scored_datum::data__datum" title="この定義へのパーマリンク">¶</a></dt>
+1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">data</code><a class="headerlink" href="#scored_datum::data__datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ラベルに紐付けられたデータを表す。</p>
 </dd></dl>
 
@@ -284,47 +285,47 @@ JSON の各フィールドは以下のとおりである。</p>
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">regression</tt></dt>
+<em class="property">service </em><code class="descname">regression</code></dt>
 <dd><dl class="method">
 <dt id="regression::train__l:scored_datum:">
-int <tt class="descname">train</tt><big>(</big>0: list&lt;<a class="reference internal" href="#scored_datum" title="scored_datum">scored_datum</a>&gt; <em>train_data</em><big>)</big><a class="headerlink" href="#regression::train__l:scored_datum:" title="この定義へのパーマリンク">¶</a></dt>
+int <code class="descname">train</code><span class="sig-paren">(</span>0: list&lt;<a class="reference internal" href="#scored_datum" title="scored_datum">scored_datum</a>&gt; <em>train_data</em><span class="sig-paren">)</span><a class="headerlink" href="#regression::train__l:scored_datum:" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>train_data</strong> &#8211; float と <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> で構成される組のリスト</li>
+<li><strong>train_data</strong> &#8211; float と <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> で構成される組のリスト</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">学習した件数 (<tt class="docutils literal"><span class="pre">train_data</span></tt> の長さに等しい)</p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">学習した件数 (<code class="docutils literal"><span class="pre">train_data</span></code> の長さに等しい)</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>学習し、モデルを更新する。
-この関数は <tt class="docutils literal"><span class="pre">scored_datum</span></tt> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
+この関数は <code class="docutils literal"><span class="pre">scored_datum</span></code> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="regression::estimate__l:datum:">
-list&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>estimate_data</em><big>)</big><a class="headerlink" href="#regression::estimate__l:datum:" title="この定義へのパーマリンク">¶</a></dt>
+list&lt;float&gt; <code class="descname">estimate</code><span class="sig-paren">(</span>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>estimate_data</em><span class="sig-paren">)</span><a class="headerlink" href="#regression::estimate__l:datum:" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメタ:</th><td class="field-body"><ul class="first simple">
-<li><strong>estimate_data</strong> &#8211; 推定する <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> のリスト</li>
+<li><strong>estimate_data</strong> &#8211; 推定する <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> のリスト</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">推定値のリスト (入れられた <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> の順に並ぶ)</p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">推定値のリスト (入れられた <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> の順に並ぶ)</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>与えられた <tt class="docutils literal"><span class="pre">estimate_data</span></tt> から結果を推定する。
-この関数は <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> をリスト形式でまとめて同時に受け付けることができる (バルク推定)。</p>
+<p>与えられた <code class="docutils literal"><span class="pre">estimate_data</span></code> から結果を推定する。
+この関数は <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> をリスト形式でまとめて同時に受け付けることができる (バルク推定)。</p>
 </dd></dl>
 
 </dd></dl>
@@ -360,7 +361,7 @@ list&lt;float&gt; <tt class="descname">estimate</tt><big>(</big>0: list&lt;<a cl
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

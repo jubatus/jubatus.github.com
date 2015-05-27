@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -125,11 +124,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="api_classifier.html"
                         title="次の章へ">Classifier</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/common_structs.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/common_structs.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -162,13 +163,13 @@
 <h2>データ構造<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="message">
 <dt id="datum">
-<em class="property">message </em><tt class="descname">datum</tt><a class="headerlink" href="#datum" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">message </em><code class="descname">datum</code><a class="headerlink" href="#datum" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>Jubatus で機械学習の対象となるデータを表す。
 詳細は <a class="reference internal" href="fv_convert.html"><em>データ変換</em></a> を参照すること。</p>
 <p>datumは以下の様なインターフェースを通して、内部情報の更新を行う。</p>
 <dl class="method">
 <dt id="datum::add_string__s.s">
-<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_string</tt><big>(</big>0: string <em>key</em>, 1: string <em>value</em><big>)</big><a class="headerlink" href="#datum::add_string__s.s" title="この定義へのパーマリンク">¶</a></dt>
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_string</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: string <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_string__s.s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -189,7 +190,7 @@
 
 <dl class="method">
 <dt id="datum::add_number__s.double">
-<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_number</tt><big>(</big>0: string <em>key</em>, 1: double <em>value</em><big>)</big><a class="headerlink" href="#datum::add_number__s.double" title="この定義へのパーマリンク">¶</a></dt>
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_number</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_number__s.double" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -210,7 +211,7 @@
 
 <dl class="method">
 <dt id="datum::add_binary__s.raw">
-<a class="reference internal" href="#datum" title="datum">datum</a> <tt class="descname">add_binary</tt><big>(</big>0: string <em>key</em>, 1: raw <em>value</em><big>)</big><a class="headerlink" href="#datum::add_binary__s.raw" title="この定義へのパーマリンク">¶</a></dt>
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_binary</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: raw <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_binary__s.raw" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -232,7 +233,7 @@
 <p>なお、datumの内部表現は以下のようになっている。</p>
 <dl class="member">
 <dt id="datum::string_values__l:tuple:s.s::">
-0: list&lt;tuple&lt;string, string&gt;&gt; <tt class="descname">string_values</tt><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="この定義へのパーマリンク">¶</a></dt>
+0: list&lt;tuple&lt;string, string&gt;&gt; <code class="descname">string_values</code><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>文字列で表現される入力データである。
 データのキーと値のペアの集合として表現される。
 キーの名前に &#8220;$&#8221; 記号を含めることはできない。</p>
@@ -240,14 +241,14 @@
 
 <dl class="member">
 <dt id="datum::num_values__l:tuple:s.double::">
-1: list&lt;tuple&lt;string, double&gt;&gt; <tt class="descname">num_values</tt><a class="headerlink" href="#datum::num_values__l:tuple:s.double::" title="この定義へのパーマリンク">¶</a></dt>
+1: list&lt;tuple&lt;string, double&gt;&gt; <code class="descname">num_values</code><a class="headerlink" href="#datum::num_values__l:tuple:s.double::" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>数値で表現される入力データである。
 データのキーと値のペアの集合として表現される。</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="datum::binary_values__l:tuple:s.raw::">
-2: list&lt;tuple&lt;string, raw&gt;&gt; <tt class="descname">binary_values</tt><a class="headerlink" href="#datum::binary_values__l:tuple:s.raw::" title="この定義へのパーマリンク">¶</a></dt>
+2: list&lt;tuple&lt;string, raw&gt;&gt; <code class="descname">binary_values</code><a class="headerlink" href="#datum::binary_values__l:tuple:s.raw::" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>バイナリデータで表現される入力データである。
 データのキーと値のペアの集合として表現される。</p>
 </dd></dl>
@@ -266,11 +267,11 @@
 <h2>Constructor<a class="headerlink" href="#constructor" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="describe">
 <dt>
-<tt class="descname">constructor(string host, int port, string name, int timeout_sec)</tt></dt>
+<code class="descname">constructor(string host, int port, string name, int timeout_sec)</code></dt>
 <dd><p>新しい RPC クライアントのインスタンスを作成する。
-<tt class="docutils literal"><span class="pre">name</span></tt> には、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
-スタンドアロン構成では、空文字列 (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>) を指定する。
-<tt class="docutils literal"><span class="pre">timeout_sec</span></tt> には RPC メソッドの実行からレスポンスまでのタイムアウト時間を指定する。</p>
+<code class="docutils literal"><span class="pre">name</span></code> には、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
+スタンドアロン構成では、空文字列 (<code class="docutils literal"><span class="pre">&quot;&quot;</span></code>) を指定する。
+<code class="docutils literal"><span class="pre">timeout_sec</span></code> には RPC メソッドの実行からレスポンスまでのタイムアウト時間を指定する。</p>
 <p>コンストラクタの利用方法を以下に示す:</p>
 </dd></dl>
 
@@ -305,7 +306,7 @@
 <h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <dl class="method">
 <dt id="save__s">
-bool <tt class="descname">save</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#save__s" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">save</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#save__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -325,7 +326,7 @@ bool <tt class="descname">save</tt><big>(</big>0: string <em>id</em><big>)</big>
 
 <dl class="method">
 <dt id="load__s">
-bool <tt class="descname">load</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#load__s" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">load</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#load__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -345,7 +346,7 @@ bool <tt class="descname">load</tt><big>(</big>0: string <em>id</em><big>)</big>
 
 <dl class="method">
 <dt id="clear">
-bool <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#clear" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clear" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -359,7 +360,7 @@ bool <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink
 
 <dl class="method">
 <dt id="get_config">
-string <tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#get_config" title="この定義へのパーマリンク">¶</a></dt>
+string <code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_config" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -374,12 +375,12 @@ string <tt class="descname">get_config</tt><big>(</big><big>)</big><a class="hea
 
 <dl class="method">
 <dt id="get_status">
-map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_status" title="この定義へのパーマリンク">¶</a></dt>
+map&lt;string, map&lt;string, string&gt;&gt; <code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_status" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">それぞれのサーバの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</td>
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">それぞれのサーバの内部状態。最上位の map のキーは <code class="docutils literal"><span class="pre">ホスト名_ポート番号</span></code> 形式である。</td>
 </tr>
 </tbody>
 </table>
@@ -389,7 +390,7 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_status</tt
 
 <dl class="method">
 <dt id="do_mix">
-bool <tt class="descname">do_mix</tt><big>(</big><big>)</big><a class="headerlink" href="#do_mix" title="この定義へのパーマリンク">¶</a></dt>
+bool <code class="descname">do_mix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#do_mix" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -405,12 +406,12 @@ bool <tt class="descname">do_mix</tt><big>(</big><big>)</big><a class="headerlin
 
 <dl class="method">
 <dt id="get_proxy_status">
-map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_status</tt><big>(</big><big>)</big><a class="headerlink" href="#get_proxy_status" title="この定義へのパーマリンク">¶</a></dt>
+map&lt;string, map&lt;string, string&gt;&gt; <code class="descname">get_proxy_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_proxy_status" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">プロキシの内部状態。最上位の map のキーは <tt class="docutils literal"><span class="pre">ホスト名_ポート番号</span></tt> 形式である。</td>
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">プロキシの内部状態。最上位の map のキーは <code class="docutils literal"><span class="pre">ホスト名_ポート番号</span></code> 形式である。</td>
 </tr>
 </tbody>
 </table>
@@ -421,7 +422,7 @@ map&lt;string, map&lt;string, string&gt;&gt; <tt class="descname">get_proxy_stat
 
 <dl class="method">
 <dt id="get_name">
-string <tt class="descname">get_name</tt><big>(</big><big>)</big><a class="headerlink" href="#get_name" title="この定義へのパーマリンク">¶</a></dt>
+string <code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_name" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -430,14 +431,14 @@ string <tt class="descname">get_name</tt><big>(</big><big>)</big><a class="heade
 </tr>
 </tbody>
 </table>
-<p>このクライアントインスタンスが参照している先のクラスタの <tt class="docutils literal"><span class="pre">name</span></tt> を獲得する。
-<tt class="docutils literal"><span class="pre">name</span></tt> とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
+<p>このクライアントインスタンスが参照している先のクラスタの <code class="docutils literal"><span class="pre">name</span></code> を獲得する。
+<code class="docutils literal"><span class="pre">name</span></code> とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 これは RPC メソッドではない。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="set_name__s">
-void <tt class="descname">set_name</tt><big>(</big>0: string <em>new_name</em><big>)</big><a class="headerlink" href="#set_name__s" title="この定義へのパーマリンク">¶</a></dt>
+void <code class="descname">set_name</code><span class="sig-paren">(</span>0: string <em>new_name</em><span class="sig-paren">)</span><a class="headerlink" href="#set_name__s" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -449,15 +450,15 @@ void <tt class="descname">set_name</tt><big>(</big>0: string <em>new_name</em><b
 </tr>
 </tbody>
 </table>
-<p>このクライアントインスタンスがターゲットとして参照する <tt class="docutils literal"><span class="pre">name</span></tt> を設定する。
-<tt class="docutils literal"><span class="pre">name</span></tt> とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
+<p>このクライアントインスタンスがターゲットとして参照する <code class="docutils literal"><span class="pre">name</span></code> を設定する。
+<code class="docutils literal"><span class="pre">name</span></code> とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。
 このメソッドを使う事で、一つのクライアントインスタンスを使って異なるタスクのクラスタに接続することができる。
 これは RPC メソッドではない。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="get_client">
-mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#get_client" title="この定義へのパーマリンク">¶</a></dt>
+mprpc_client <code class="descname">get_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_client" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -469,7 +470,7 @@ mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a clas
 <p>Jubatus クライアントライブラリが利用している内部の MessagePack-RPC クライアントインスタンスに対する参照を返却する。
 これは RPC メソッドではない。</p>
 <p>このメソッドは、主に TCP 接続を明示的に切断したり、タイムアウトを変更したりするために使用する。</p>
-<p><tt class="docutils literal"><span class="pre">mprpc_client</span></tt> は MessagePack-RPC クライアントの型で、言語により異なる (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>)。</p>
+<p><code class="docutils literal"><span class="pre">mprpc_client</span></code> は MessagePack-RPC クライアントの型で、言語により異なる (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>)。</p>
 </dd></dl>
 
 </div>
@@ -480,7 +481,7 @@ mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a clas
 <h3>Python<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <dl class="function">
 <dt id="jubatus.commmon.connect">
-<tt class="descclassname">jubatus.commmon.</tt><tt class="descname">connect</tt><big>(</big><em>cls</em>, <em>host</em>, <em>port</em>, <em>name</em>, <em>timeout=10</em><big>)</big><a class="headerlink" href="#jubatus.commmon.connect" title="この定義へのパーマリンク">¶</a></dt>
+<code class="descclassname">jubatus.commmon.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>cls</em>, <em>host</em>, <em>port</em>, <em>name</em>, <em>timeout=10</em><span class="sig-paren">)</span><a class="headerlink" href="#jubatus.commmon.connect" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p><cite>cls</cite> で指定されたクラスのクライアントを作り、 <cite>host</cite>, <cite>port</cite>, <cite>name</cite> で指定されたサーバーに接続する。
 コンテキストマネージャーが作成されるため、 <cite>with</cite> 文中で利用する。
 ターゲットとして作成されたクライアントオブジェクトを受け取れる。
@@ -496,11 +497,11 @@ mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a clas
 <h3>Ruby<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <span class="target" id="module-Jubatus::Common"></span><dl class="class">
 <dt id="Jubatus::Common::ClientBase">
-<em class="property">class </em><tt class="descclassname">Jubatus::Common::</tt><tt class="descname">ClientBase</tt><a class="headerlink" href="#Jubatus::Common::ClientBase" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Jubatus::Common::</code><code class="descname">ClientBase</code><a class="headerlink" href="#Jubatus::Common::ClientBase" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>全てのクライアントオブジェクトは、 <cite>ClientBase</cite> クラスの派生クラスとして定義されている。</p>
 <dl class="classmethod">
 <dt id="Jubatus::Common::ClientBase.connect">
-<em class="property">classmethod ClientBase.</em><tt class="descname">connect</tt><big>(</big><em>host</em>, <em>port</em>, <em>name</em>, <em>timeout_sec</em>, <em>&amp;block</em><big>)</big><a class="headerlink" href="#Jubatus::Common::ClientBase.connect" title="この定義へのパーマリンク">¶</a></dt>
+<em class="property">classmethod ClientBase.</em><code class="descname">connect</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>name</em>, <em>timeout_sec</em>, <em>&amp;block</em><span class="sig-paren">)</span><a class="headerlink" href="#Jubatus::Common::ClientBase.connect" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>各アルゴリズムのクライアントクラスの <cite>connect</cite> メソッドを呼び出すことで、安全にクライアントのコネクションを閉じることができる。
 <cite>connect</cite> メソッドは、接続先ホスト名、ポート番号、クラスタ名、タイムアウト時間とブロックを渡すと、クライアントオブジェクトを作製し指定のサーバーに接続する。
 そして、渡されたブロックにクライアントオブジェクトを引き渡す。
@@ -546,7 +547,7 @@ mprpc_client <tt class="descname">get_client</tt><big>(</big><big>)</big><a clas
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

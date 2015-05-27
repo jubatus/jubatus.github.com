@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -117,11 +116,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="build.html"
                         title="次の章へ">Jubatus をソースからビルドする</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/plugin.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/plugin.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -156,16 +157,16 @@
 <h2>データ変換プラグイン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>fv_converter プラグインの開発は以下の手順で行う。</p>
 <ol class="arabic simple">
-<li><tt class="docutils literal"><span class="pre">jubatus/core/plugin.hpp</span></tt> をインクルードする。</li>
+<li><code class="docutils literal"><span class="pre">jubatus/core/plugin.hpp</span></code> をインクルードする。</li>
 <li>プラグインのひな形となる基底クラスを継承し、必要な特徴抽出モジュールまたはフィルターモジュールを実装する。</li>
 <li>実装したクラスのインスタンスを生成し、そのポインタを返却する関数を作成する。
-この関数は C コードから見えるように <tt class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></tt> で囲う必要がある。
-この関数の名前が、fv_converter でプラグインを利用するときに指定する <tt class="docutils literal"><span class="pre">&quot;function&quot;</span></tt> 引数の中身である。</li>
+この関数は C コードから見えるように <code class="docutils literal"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></code> で囲う必要がある。
+この関数の名前が、fv_converter でプラグインを利用するときに指定する <code class="docutils literal"><span class="pre">&quot;function&quot;</span></code> 引数の中身である。</li>
 </ol>
-<p>例として、文字列からの特徴量抽出 (<tt class="docutils literal"><span class="pre">string_types</span></tt>) 用のプラグインの作り方を示す。</p>
-<p>この場合、継承すべきひな形は <tt class="docutils literal"><span class="pre">jubatus::core::fv_converter::word_splitter</span></tt> クラスである。
-<tt class="docutils literal"><span class="pre">word_splitter</span></tt> クラスは文字列を引数に取り、その文字列を分割して各パーツの分割点を返す <tt class="docutils literal"><span class="pre">split</span></tt> というメンバ関数のみからなる。
-分割点は <tt class="docutils literal"><span class="pre">size_t</span></tt> のペアのベクタである。一つ目の値はそのパーツの開始位置であり、二つ目の値はそのパーツの長さを表す。</p>
+<p>例として、文字列からの特徴量抽出 (<code class="docutils literal"><span class="pre">string_types</span></code>) 用のプラグインの作り方を示す。</p>
+<p>この場合、継承すべきひな形は <code class="docutils literal"><span class="pre">jubatus::core::fv_converter::word_splitter</span></code> クラスである。
+<code class="docutils literal"><span class="pre">word_splitter</span></code> クラスは文字列を引数に取り、その文字列を分割して各パーツの分割点を返す <code class="docutils literal"><span class="pre">split</span></code> というメンバ関数のみからなる。
+分割点は <code class="docutils literal"><span class="pre">size_t</span></code> のペアのベクタである。一つ目の値はそのパーツの開始位置であり、二つ目の値はそのパーツの長さを表す。</p>
 <p>以下にコード例を示す。</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/core/plugin.hpp&gt;</span>
 <span class="cp">#include &lt;map&gt;</span>
@@ -187,10 +188,10 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>上記のファイルをコンパイルし、 <tt class="docutils literal"><span class="pre">libjubaconverter.so</span></tt> とリンクすることで、プラグイン (共有ライブラリ (.so)) が作成される。
-プラグインとして利用する方法は、 <a class="reference internal" href="fv_convert.html#conversion-plugin"><em>プラグイン</em></a> を参照のこと。</p>
+<p>上記のファイルをコンパイルし、 <code class="docutils literal"><span class="pre">libjubaconverter.so</span></code> とリンクすることで、プラグイン (共有ライブラリ (.so)) が作成される。
+プラグインとして利用する方法は、 <a class="reference internal" href="fv_convert.html#conversion-plugin"><span>プラグイン</span></a> を参照のこと。</p>
 <p>その他の特徴抽出器やフィルターのプラグインも、同様の方法で作成することができる。
-より具体的なソースの例に関しては、Jubatus ソース内の <tt class="docutils literal"><span class="pre">jubatus/core/fv_converter</span></tt> 中の <tt class="docutils literal"><span class="pre">test_*.cpp</span></tt> を参照すること。</p>
+より具体的なソースの例に関しては、Jubatus ソース内の <code class="docutils literal"><span class="pre">jubatus/core/fv_converter</span></code> 中の <code class="docutils literal"><span class="pre">test_*.cpp</span></code> を参照すること。</p>
 <p>プラグインの開発を行う場合、 <a class="reference external" href="https://github.com/jubatus/jubatus-plugin-skeleton">プラグイン開発用スケルトンプロジェクト</a> を使用すると便利である。
 このスケルトンでは、渡された文字列から ASCII 文字列を特徴量として抽出する機能が既に実装されている。</p>
 </div>
@@ -223,7 +224,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

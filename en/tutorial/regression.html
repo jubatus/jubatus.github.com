@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -107,9 +106,7 @@
 <li><a class="reference internal" href="#">Regression</a><ul>
 <li><a class="reference internal" href="#abstract-of-sample-program">Abstract of sample program</a></li>
 <li><a class="reference internal" href="#processing-flow">Processing flow</a></li>
-<li><a class="reference internal" href="#sample-program">Sample Program</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#sample-program">Sample Program</a></li>
 </ul>
 </li>
 </ul>
@@ -120,11 +117,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="regression_python.html"
                         title="next chapter">Python</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/tutorial/regression.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/regression.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="../search.html" method="get">
@@ -152,13 +151,13 @@
             
   <div class="section" id="regression">
 <h1>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h1>
-<p>In this sample program, we will introduce how to use the linear regression function <tt class="docutils literal"><span class="pre">jubaregression</span></tt> through the Jubatus Client.</p>
+<p>In this sample program, we will introduce how to use the linear regression function <code class="docutils literal"><span class="pre">jubaregression</span></code> through the Jubatus Client.</p>
 <p>By using linear regression, we can estimate the output from the input data. This is useful for the power consumption forecast, stock price prediction, and etc.</p>
 <div class="section" id="abstract-of-sample-program">
 <h2>Abstract of sample program<a class="headerlink" href="#abstract-of-sample-program" title="Permalink to this headline">¶</a></h2>
 <p>In this sample, we will use a <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/rent">rent</a> program to estimate the rent of a house, from the condition of the distance from the station, space, age, etc.</p>
-<p>At first, please download the rent-data, from (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>). It is used to training the regression model in <tt class="docutils literal"><span class="pre">jubaregression</span></tt> .</p>
-<p>Next, housing data for the estimation are read from an external file (of YAML format). <tt class="docutils literal"><span class="pre">jubaregression</span></tt> will predict the rent by using the model trained, and return the predicted value for client.</p>
+<p>At first, please download the rent-data, from (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>). It is used to training the regression model in <code class="docutils literal"><span class="pre">jubaregression</span></code> .</p>
+<p>Next, housing data for the estimation are read from an external file (of YAML format). <code class="docutils literal"><span class="pre">jubaregression</span></code> will predict the rent by using the model trained, and return the predicted value for client.</p>
 <p>For example, once client input a housing data of [(distance from station: 15min); (space: 32 m^2); (age: 15 years)], the estimated rent 80,000 JPY will be returned.</p>
 </div>
 <div class="section" id="processing-flow">
@@ -166,8 +165,8 @@
 <p>The flow of development using Jubatus Client is following:</p>
 <ol class="arabic">
 <li><dl class="first docutils">
-<dt>Connection settings to <tt class="docutils literal"><span class="pre">jubaregression</span></tt></dt>
-<dd><p class="first last">Setting the HOST and RPC port of <tt class="docutils literal"><span class="pre">jubaregression</span></tt> .</p>
+<dt>Connection settings to <code class="docutils literal"><span class="pre">jubaregression</span></code></dt>
+<dd><p class="first last">Setting the HOST and RPC port of <code class="docutils literal"><span class="pre">jubaregression</span></code> .</p>
 </dd>
 </dl>
 </li>
@@ -179,25 +178,25 @@
 </li>
 <li><dl class="first docutils">
 <dt>Data training (update the model)</dt>
-<dd><p class="first last">Use the <tt class="docutils literal"><span class="pre">train</span></tt> method to send the rent-data to <tt class="docutils literal"><span class="pre">jubaregression</span></tt> and training the model there.</p>
+<dd><p class="first last">Use the <code class="docutils literal"><span class="pre">train</span></code> method to send the rent-data to <code class="docutils literal"><span class="pre">jubaregression</span></code> and training the model there.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Prepare the data for estimation</dt>
-<dd><p class="first last">Pre-process and send the estimation data to <tt class="docutils literal"><span class="pre">jubaregression</span></tt> .</p>
+<dd><p class="first last">Pre-process and send the estimation data to <code class="docutils literal"><span class="pre">jubaregression</span></code> .</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Predict the data</dt>
-<dd><p class="first last">Use the <tt class="docutils literal"><span class="pre">estimate</span></tt> method to predict the input data (step.4) by using the model trained at step.3.</p>
+<dd><p class="first last">Use the <code class="docutils literal"><span class="pre">estimate</span></code> method to predict the input data (step.4) by using the model trained at step.3.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Return the result</dt>
-<dd><p class="first last">Output the return value of <tt class="docutils literal"><span class="pre">estimate</span></tt> as the results.</p>
+<dd><p class="first last">Output the return value of <code class="docutils literal"><span class="pre">estimate</span></code> as the results.</p>
 </dd>
 </dl>
 </li>
@@ -246,7 +245,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

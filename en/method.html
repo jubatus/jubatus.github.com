@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -145,11 +144,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_unlearner.html"
                         title="next chapter">Unlearner</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/method.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/method.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -183,30 +184,30 @@
 <h1>Classifier &amp; Regression<a class="headerlink" href="#classifier-regression" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>回帰問題は，入力 <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> に対応する特徴ベクトル <img class="math" src="_images/math/cdd2767231a31e17eb5140d287155c479f59ba9f.png" alt="\phi(x) \in R^m"/> に対して，実数値の出力 <img class="math" src="_images/math/bc3a0cec9129b97eb253b98f4061ee21de2a7940.png" alt="y \in R"/> を当てる問題である．
+<p>回帰問題は，入力 <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> に対応する特徴ベクトル <img class="math" src="_images/math/9e420ecc16bd5ac5ce4b505f498307f3a6a03514.png" alt="\phi(x) \in R^m"/> に対して，実数値の出力 <img class="math" src="_images/math/c2eda94ebbc667b17e33908ad513ddaf05690612.png" alt="y \in R"/> を当てる問題である．
 今回実装したのは，線形回帰モデルである．
-線形回帰モデルでは，パラメータ <img class="math" src="_images/math/27d4ad804dd9e12554bf00c362782af442965a61.png" alt="w \in R^m"/> を利用して，入力 <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> に対して <img class="math" src="_images/math/49e48f5743a60d8e776ba06c26a39a0ba327b5a6.png" alt="\hat{y} = w^T \phi(x) \in R"/> で予測する．</p>
-<p>学習時には，分類問題同様，正解データセット <img class="math" src="_images/math/495c10c9c9403c0ccd00ea126e9af37fe39a65b8.png" alt="\{(x_i, y_i)\}"/> を利用して，正解データに対して正しく予測できるように重みベクトルを推定する．
+線形回帰モデルでは，パラメータ <img class="math" src="_images/math/bd9681d98297d9db0464cdeab0db36faf8550020.png" alt="w \in R^m"/> を利用して，入力 <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> に対して <img class="math" src="_images/math/9a5f43e6b442dc3fd05894c8a36d1be82bf75ec6.png" alt="\hat{y} = w^T \phi(x) \in R"/> で予測する．</p>
+<p>学習時には，分類問題同様，正解データセット <img class="math" src="_images/math/d81a01edb74ca9d82c10633854469cc58a99072e.png" alt="\{(x_i, y_i)\}"/> を利用して，正解データに対して正しく予測できるように重みベクトルを推定する．
 典型的には1800年代に，予測値と実測値との自乗和を最小化させる最小二乗法が提案されている．
 この方法はバッチ処理になるため，今回の調査ではオンライン学習させる方法を利用した．</p>
 </div>
 <div class="section" id="passive-aggressive">
 <h2>Passive Aggressive<a class="headerlink" href="#passive-aggressive" title="Permalink to this headline">¶</a></h2>
-<p>Passive Aggressive (PA) <a class="reference internal" href="#crammer03a">[Crammer03a]</a> <a class="reference internal" href="#crammer03b">[Crammer03b]</a> <a class="reference internal" href="#crammer06">[Crammer06]</a> は，Support Vector Regression (SVR) のオンライン版であり，同名の分類器を回帰問題に適用したアルゴリズムである．
-PA は， (1) 現在の学習データが与えられた許容範囲 <img class="math" src="_images/math/c2e94a91fc16fce68da2648ace053b23a6c5d12a.png" alt="epsilon"/> 以下で予測する． (2) 分類問題の PA 同様，できる限り現在のパラメータと近い点を選ぶ，という二つの条件を満たすパラメータに更新する．
-すなわち， <img class="math" src="_images/math/eaf4418fbe935c15a606516d8f55dc380cd8e822.png" alt="\epsilon"/> -intensive hinge loss <img class="math" src="_images/math/883b8d5124d656d33ab944ea35ab4b643d43a8de.png" alt="\ell(w; (x, y)) = \max(0, |w^T x - y| - \epsilon)"/> に対して，パラメータを
-<img class="math" src="_images/math/cb5d43a13deac1d9b24cc2f0f36f446689da279c.png" alt="w_{t+1} = w_{t} + \{\mathrm{sign}(y - w^Tx) \ell / |x|^2\} x"/> で逐次更新する．</p>
+<p>Passive Aggressive (PA) <a class="reference internal" href="#crammer03a" id="id1">[Crammer03a]</a> <a class="reference internal" href="#crammer03b" id="id2">[Crammer03b]</a> <a class="reference internal" href="#crammer06" id="id3">[Crammer06]</a> は，Support Vector Regression (SVR) のオンライン版であり，同名の分類器を回帰問題に適用したアルゴリズムである．
+PA は， (1) 現在の学習データが与えられた許容範囲 <img class="math" src="_images/math/6fb5df65c0e50c760e7c6462248d06b98eef7c43.png" alt="epsilon"/> 以下で予測する． (2) 分類問題の PA 同様，できる限り現在のパラメータと近い点を選ぶ，という二つの条件を満たすパラメータに更新する．
+すなわち， <img class="math" src="_images/math/19bc0073dde1bcd1a8e6a32b251e80cced668f04.png" alt="\epsilon"/> -intensive hinge loss <img class="math" src="_images/math/2a7774260eb6b9f1633ac518b2d46bdf453db939.png" alt="\ell(w; (x, y)) = \max(0, |w^T x - y| - \epsilon)"/> に対して，パラメータを
+<img class="math" src="_images/math/bcfaaa713f967cdd59959432e36cc53aed23f5af.png" alt="w_{t+1} = w_{t} + \{\mathrm{sign}(y - w^Tx) \ell / |x|^2\} x"/> で逐次更新する．</p>
 <p>さらに，大きく更新しすぎるのを防ぐために， PA-I 同様のコストを追加する．
-オリジナルの PA-I では， <img class="math" src="_images/math/11c0b1631ee0974448d6f2b0bb7f514bf3be470e.png" alt="\ell / |x|^2"/> の代わりに <img class="math" src="_images/math/ef9afc3d46739352bd79ca9c8f7070ba9bae3102.png" alt="\min(C, \ell / |x|^2)"/> で更新するが，回帰問題では <img class="math" src="_images/math/63c17c295325f731666c7d74952b563a01e00fcc.png" alt="\ell"/> と <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> のスケールに対して <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> の調整が難しい．
-そこで，  <img class="math" src="_images/math/63c17c295325f731666c7d74952b563a01e00fcc.png" alt="\ell"/> の標準偏差 <img class="math" src="_images/math/fa35d9fc104207e09a712110ac81612c5b279a6c.png" alt="\sigma"/> をオンラインで計測し， <img class="math" src="_images/math/c3355896da590fc491a10150a50416687626d7cc.png" alt="C"/> の値を調整する．
-まず，予測値 <img class="math" src="_images/math/ff1db50be408cbe87f893d14caf445d48659ee05.png" alt="w^T x"/> と 実測値 <img class="math" src="_images/math/092e364e1d9d19ad5fffb0b46ef4cc7f2da02c1c.png" alt="y"/> との差， <img class="math" src="_images/math/d789c373f77d68c64c56a7ec37b5518f20ab5fe7.png" alt="e = y - w^T x"/> とする．
-<img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> の平均と二乗の平均の予測値を， <img class="math" src="_images/math/5d252a95990e3cb9141ba1502d845c764aac827e.png" alt="s_{t+1} = \alpha s_{t}  + (1-\alpha)e"/> と <img class="math" src="_images/math/c62b0dd59d3ebb4e30049d7dd906f43b0a80bb04.png" alt="q_{t+1} = \alpha q_{t} + (1-\alpha)e^2"/> で更新する．
-時刻 <img class="math" src="_images/math/e0d2bf360290fd61d1c1557e763f2622363b3d35.png" alt="t"/> での標準偏差を <img class="math" src="_images/math/5344f766aa067ed093aeed1c7bb82617e2881d85.png" alt="\sigma_t = \sqrt{q_t - s_t^2}"/> で予測する．
-実際の更新幅は， <img class="math" src="_images/math/c8081b5b65fd5eb4f08f71871897b5944be97dad.png" alt="\{\mathrm{sign}(y - w^Tx) \min(C \sigma, \ell) / |x|^2\} x"/> となる．</p>
+オリジナルの PA-I では， <img class="math" src="_images/math/24721711188c24ddb69837efe7b59908d78aac40.png" alt="\ell / |x|^2"/> の代わりに <img class="math" src="_images/math/37a78534c713ec7401b5ec734bc30cc218d53858.png" alt="\min(C, \ell / |x|^2)"/> で更新するが，回帰問題では <img class="math" src="_images/math/fcd3c7d79435a73a909916f6ae106d4b640566e5.png" alt="\ell"/> と <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> のスケールに対して <img class="math" src="_images/math/2bcc65482aa8e15cd4c9e9f2542451fb4e971a91.png" alt="C"/> の調整が難しい．
+そこで，  <img class="math" src="_images/math/fcd3c7d79435a73a909916f6ae106d4b640566e5.png" alt="\ell"/> の標準偏差 <img class="math" src="_images/math/2298cf1485084afe72757a9c8483af49a138d81f.png" alt="\sigma"/> をオンラインで計測し， <img class="math" src="_images/math/2bcc65482aa8e15cd4c9e9f2542451fb4e971a91.png" alt="C"/> の値を調整する．
+まず，予測値 <img class="math" src="_images/math/08697d3b5494477a24cb97ce5e31a3424b6ca8af.png" alt="w^T x"/> と 実測値 <img class="math" src="_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/> との差， <img class="math" src="_images/math/f4c7a057f395e5b21b6a896072a08f53666e6fb4.png" alt="e = y - w^T x"/> とする．
+<img class="math" src="_images/math/630e3a780577ea7921e81ee2ac5237dd1802ec8d.png" alt="e"/> の平均と二乗の平均の予測値を， <img class="math" src="_images/math/939c04f7cf48ed76de97124880e801199e69cd45.png" alt="s_{t+1} = \alpha s_{t}  + (1-\alpha)e"/> と <img class="math" src="_images/math/6fa9d26b7eff2c8a0db92a39ebe3e32591a9d6a2.png" alt="q_{t+1} = \alpha q_{t} + (1-\alpha)e^2"/> で更新する．
+時刻 <img class="math" src="_images/math/ef9270877405055756d345facd044e4ab297f858.png" alt="t"/> での標準偏差を <img class="math" src="_images/math/b3daa0c5cddb4eaef7754433f6f1e54f9782bff0.png" alt="\sigma_t = \sqrt{q_t - s_t^2}"/> で予測する．
+実際の更新幅は， <img class="math" src="_images/math/23ed438085f0127b38b7b36cc0230846c43873e0.png" alt="\{\mathrm{sign}(y - w^Tx) \min(C \sigma, \ell) / |x|^2\} x"/> となる．</p>
 </div>
 <div class="section" id="iterative-parameter-mixture">
 <h2>Iterative Parameter Mixture<a class="headerlink" href="#iterative-parameter-mixture" title="Permalink to this headline">¶</a></h2>
-<p>分類問題同様，重みベクトルは Iterative Parameter Mixture <a class="reference internal" href="#mcdonald10">[McDonald10]</a> <a class="reference internal" href="#mann09">[Mann09]</a> で混ぜ合わせる．
+<p>分類問題同様，重みベクトルは Iterative Parameter Mixture <a class="reference internal" href="#mcdonald10" id="id4">[McDonald10]</a> <a class="reference internal" href="#mann09" id="id5">[Mann09]</a> で混ぜ合わせる．
 これは，各マシンが単独で学習アルゴリズムを動かし，一定時間，あるいは決められた条件ごとに，すべてのマシンの重みを集めて，それらの平均を計算する．
 平均ベクトルは再度全てのサーバーに配られて，それを初期値と思って学習を再開する．</p>
 <p>もともと分類問題向けのモデル共有方法であるが，線形回帰モデルではモデルパラメータが同じ形をしているので，同様に分散学習させることができる可能性が高い．</p>
@@ -302,9 +303,9 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <img class=
 <div class="section" id="similarity-calculation">
 <h2>Similarity Calculation<a class="headerlink" href="#similarity-calculation" title="Permalink to this headline">¶</a></h2>
 <p>rowデータはベクトルで表現され，ベクトル間の類似度はcos類似度，またはJaccard係数で計算される．</p>
-<p>列ベクトル <img class="math" src="_images/math/32581661cddf01ad30c1e36efe72f99eb0a0adca.png" alt="x, y"/> が与えられたとする．この時，cos類似度は <img class="math" src="_images/math/7b25bc0d0fee60779e4fe88121f41d8cdf97d23b.png" alt="\cos(x, y) = x^T y / |x||y|"/> と定義される，但し <img class="math" src="_images/math/49428192d366caf373c0af3c3261687f12b4c883.png" alt="|x|"/> はベクトル <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> のノルムである．</p>
-<p>Jaccard係数は <img class="math" src="_images/math/f9f6c17ac63d0edd8de3bb7ca4822c2f97178148.png" alt="Jac(x, y) = |\cap(x, y)| / |\cup(x, y)|"/> として計算される，但し， <img class="math" src="_images/math/a40ce05a7358b70133926c7402afa6350b369f22.png" alt="\cap(x, y) = \sum_i \min(x_i, y_i), \cup(x, y) = \sum_i \max(x_i, y_i)"/> である．</p>
-<p>なお，登録されていない空の値は <img class="math" src="_images/math/bc1f9d9bf8a1b606a4188b5ce9a2af1809e27a89.png" alt="0"/> として扱われる．</p>
+<p>列ベクトル <img class="math" src="_images/math/4bee6c8143f58f4fe181c0845298f4bd28cc61e1.png" alt="x, y"/> が与えられたとする．この時，cos類似度は <img class="math" src="_images/math/8f3b0aaa1234cef72eaf212982affda60a496132.png" alt="\cos(x, y) = x^T y / |x||y|"/> と定義される，但し <img class="math" src="_images/math/56e05998ccf720377d259427ffc43d7928b9ba2b.png" alt="|x|"/> はベクトル <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> のノルムである．</p>
+<p>Jaccard係数は <img class="math" src="_images/math/05d677e4ed81c6e5925dfbdce4ee4355e0691239.png" alt="Jac(x, y) = |\cap(x, y)| / |\cup(x, y)|"/> として計算される，但し， <img class="math" src="_images/math/67fa4314191ac15d490aba322afb7428a4d4da23.png" alt="\cap(x, y) = \sum_i \min(x_i, y_i), \cup(x, y) = \sum_i \max(x_i, y_i)"/> である．</p>
+<p>なお，登録されていない空の値は <img class="math" src="_images/math/74c081db590f3d35421c1f6b9afd4cdda36ee210.png" alt="0"/> として扱われる．</p>
 </div>
 <div class="section" id="algorithms">
 <h2>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h2>
@@ -315,23 +316,23 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <img class=
 <div class="section" id="lsh">
 <h3>lsh<a class="headerlink" href="#lsh" title="Permalink to this headline">¶</a></h3>
 <p>局所近傍ハッシュ (Locality Sensitive Hash, LSH) を利用したレコメンダである．データ毎にそのデータを表すビット列を計算して，ビット列を格納する．データ間のcos類似度は，ビット間のハミング距離から求められる類似度によって計算できる．</p>
-<p>ベクトル <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> に対し, <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個のランダムなベクトル <img class="math" src="_images/math/b5218276498d28ef7a91a7ef6a6cc82be5e420b9.png" alt="\{a_i\}_{i=1 \cdots k}"/> との内積をとり， <img class="math" src="_images/math/34857b3ba74ce5cd8607f3ebd23e9015908ada71.png" alt="i"/> 番目のベクトルとの内積値が正であれば， <img class="math" src="_images/math/3ae325cf2ee011545e0a8caf95ec35ed4e783c04.png" alt="b_i = 1"/> , そうでなければ <img class="math" src="_images/math/c2c0448f25be090bdec5d33c581232934667a43e.png" alt="b_i=0"/> となるようなビットベクトルを作成する．このように作成されたビットベクトルを <img class="math" src="_images/math/adbc83a8a933a9f89b6e32ca5d1104968f6d8be1.png" alt="lsh(x)"/> とする．また，２つのビットベクトル間 <img class="math" src="_images/math/3834f0cef2a1f4d8524aa5bc8e3faca298550862.png" alt="a, b"/> で一致したビット数を <img class="math" src="_images/math/a7cec26e71c1e35008fc5bad8fb609bc0ad5a576.png" alt="match(a, b)"/> とする時，
-<img class="math" src="_images/math/fbeff11c14283e7ff27d40592c6ce7b345c04175.png" alt="\cos(x, y) = E(match(lsh(x), lsh(y)))"/> が成り立つ，但し，期待値はランダムなベクトル生成に関してとるとする．</p>
+<p>ベクトル <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> に対し, <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> 個のランダムなベクトル <img class="math" src="_images/math/20b5bb64a21e9657ac70b8ee48965702b745eb38.png" alt="\{a_i\}_{i=1 \cdots k}"/> との内積をとり， <img class="math" src="_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/> 番目のベクトルとの内積値が正であれば， <img class="math" src="_images/math/0962cc8254254113afbc843d581702a799d4e527.png" alt="b_i = 1"/> , そうでなければ <img class="math" src="_images/math/5b86069aa9ef9e2f44a51619d092cee948d0cd10.png" alt="b_i=0"/> となるようなビットベクトルを作成する．このように作成されたビットベクトルを <img class="math" src="_images/math/4a07928e3c372174abd216855837bbed9c920db1.png" alt="lsh(x)"/> とする．また，２つのビットベクトル間 <img class="math" src="_images/math/62de19842e21e76092a457ca882df43cc46953a3.png" alt="a, b"/> で一致したビット数を <img class="math" src="_images/math/efdbaa758fdd9eb2659950267a9a7ca6cf4a1d9d.png" alt="match(a, b)"/> とする時，
+<img class="math" src="_images/math/c58b16c932a7fa5ede9a8690814203cbb19fdb5c.png" alt="\cos(x, y) = E(match(lsh(x), lsh(y)))"/> が成り立つ，但し，期待値はランダムなベクトル生成に関してとるとする．</p>
 <p>これにより，任意のベクトル間のcos類似度計算は，それらのベクトルから生成されたビットベクトル間のビット一致数により近似できる．元々のベクトルに比べ，ビットベクトルは小さくまた固定長であるため通信容量を大幅に削減することができる他，類似度計算を高速に実現することができる．</p>
 </div>
 <div class="section" id="minhash">
 <h3>minhash<a class="headerlink" href="#minhash" title="Permalink to this headline">¶</a></h3>
 <p>MinHashを利用したレコメンダである．各データ毎にそのデータを表すビット列を計算して，ビット列を格納する．データ間のJaccard係数は，ビット間のハミング距離から求められる類似度によって計算できる．</p>
 <p>はじめに集合間に対するJaccard係数を説明し，これを実数ベクトル間に対するJaccard係数に拡張する．</p>
-<p>前述のように，2つの集合 <img class="math" src="_images/math/788f3c8df73c43990991c6f116e759e1e1116b47.png" alt="X, Y"/> のJaccard係数を， <img class="math" src="_images/math/f0ea93fc19af2392193228c07fde4ba643b07ed0.png" alt="Jac(X, Y) = |\cap(X, Y)|/|\cup(X, Y)|"/> とする．MinHashは適当なハッシュ関数を利用し，集合中の各要素のハッシュ値を求め，その最小値を <img class="math" src="_images/math/a597d7b1fd1ad602b3652d652f7de22c0117c77d.png" alt="m_h(X)"/> とした時， <img class="math" src="_images/math/cb7ecf2af340f5ab55989fe7cd6566d762ed88c2.png" alt="m_h(X) = m_h(Y)"/> となる確率は <img class="math" src="_images/math/b4cb1ccbbd944743eb8d59e26b340f44b26e4363.png" alt="Jac(X, Y)"/> と一致することを利用し，このJaccard係数を推定する．複数のハッシュ関数を用意しそれらの間で一致した割合を求めると，それは <img class="math" src="_images/math/b4cb1ccbbd944743eb8d59e26b340f44b26e4363.png" alt="Jac(X, Y)"/> に近づく．また，実際のハッシュ値を保持せずに，ハッシュ値の最下位のビットのみを記録したとしても，衝突分を差し引くことで，Jaccard係数を求めることができる <a class="reference internal" href="#ping2010">[Ping2010]</a> ．今回はこの方法を利用した．</p>
-<p>次に各要素が正の実数値を持つ場合に拡張する <img class="math" src="_images/math/a40ce05a7358b70133926c7402afa6350b369f22.png" alt="\cap(x, y) = \sum_i \min(x_i, y_i), \cup(x, y) = \sum_i \max(x_i, y_i)"/> と定義する．この時，各要素がその値の個数だけ存在するようなハッシュ関数を利用する必要がある．カラム名のハッシュ値を <img class="math" src="_images/math/8189a5b5a0917b8c93350827be4038af1839139d.png" alt="h"/> とした時， <img class="math" src="_images/math/5ebf7fcb0587a44c53df1026bed3987fc6ed2a98.png" alt="-\log(h) / x_i"/> をこの要素のハッシュ値とする．このハッシュ値で計算された場合，minhash値は一致する．</p>
+<p>前述のように，2つの集合 <img class="math" src="_images/math/b966caeda68b9d033719001cad7c32a215d3c2bb.png" alt="X, Y"/> のJaccard係数を， <img class="math" src="_images/math/8d2f9559b57d2dc33cd98bed7c492041ae721e9d.png" alt="Jac(X, Y) = |\cap(X, Y)|/|\cup(X, Y)|"/> とする．MinHashは適当なハッシュ関数を利用し，集合中の各要素のハッシュ値を求め，その最小値を <img class="math" src="_images/math/c150a089ad77eef63c987e2700183c2da52a3acd.png" alt="m_h(X)"/> とした時， <img class="math" src="_images/math/a5a56e90cf12e44f5dc0283df0808ed675784d74.png" alt="m_h(X) = m_h(Y)"/> となる確率は <img class="math" src="_images/math/4ef9038d59228e78121fb5e1d1b5eaedead2a37c.png" alt="Jac(X, Y)"/> と一致することを利用し，このJaccard係数を推定する．複数のハッシュ関数を用意しそれらの間で一致した割合を求めると，それは <img class="math" src="_images/math/4ef9038d59228e78121fb5e1d1b5eaedead2a37c.png" alt="Jac(X, Y)"/> に近づく．また，実際のハッシュ値を保持せずに，ハッシュ値の最下位のビットのみを記録したとしても，衝突分を差し引くことで，Jaccard係数を求めることができる <a class="reference internal" href="#ping2010" id="id7">[Ping2010]</a> ．今回はこの方法を利用した．</p>
+<p>次に各要素が正の実数値を持つ場合に拡張する <img class="math" src="_images/math/67fa4314191ac15d490aba322afb7428a4d4da23.png" alt="\cap(x, y) = \sum_i \min(x_i, y_i), \cup(x, y) = \sum_i \max(x_i, y_i)"/> と定義する．この時，各要素がその値の個数だけ存在するようなハッシュ関数を利用する必要がある．カラム名のハッシュ値を <img class="math" src="_images/math/cbb80ad77aa7a5e227d5a46bc44d235284106cfc.png" alt="h"/> とした時， <img class="math" src="_images/math/6490b6bb976f04f41f7b9f6a1d3bcf597187947e.png" alt="-\log(h) / x_i"/> をこの要素のハッシュ値とする．このハッシュ値で計算された場合，minhash値は一致する．</p>
 </div>
 <div class="section" id="euclid-lsh">
 <h3>euclid_lsh<a class="headerlink" href="#euclid-lsh" title="Permalink to this headline">¶</a></h3>
 <p>ユークリッド距離のための局所近傍ハッシュを利用したレコメンダである．複数テーブルを用いた効率的な探索と，cos類似度の局所近傍ハッシュとユークリッドノルム値を用いたリランキングによってユークリッド空間における近傍探索を実現する．</p>
-<p>ユークリッド空間における局所近傍ハッシュは <a class="reference internal" href="#datar2004">[Datar2004]</a> で提案されたものを用いる．cos類似度の局所近傍ハッシュと同様に <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個のランダムなベクトルとの内積を取った後，それぞれを適当な幅 <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> 以下のランダムな量子化幅で整数値に量子化し，得られた <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の整数を <img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> 個に等分して，別々のハッシュテーブルに記録する．探索の際には同様に <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の整数を計算し，<img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> 個のハッシュテーブルから表引きを行う．実際には実装上の工夫 <a class="reference internal" href="#andoni2005">[Andoni2005]</a> によりこの操作を単一のハッシュテーブルで実現する．また，小さな <img class="math" src="_images/math/859ccf4cd60c7bc6b8fa1afc9a42dc811a826d6f.png" alt="L"/> に対しても高い再現率を達成するために，各ハッシュ値が１だけ異なるようなエントリーも見るマルチプローブ探索 <a class="reference internal" href="#lv2007">[Lv2007]</a> を実装している．</p>
-<p><a class="reference internal" href="#datar2004">[Datar2004]</a> の手法では得られたデータと入力データとの間のユークリッド距離が得られない．そこでJubatusの実装では，最初に計算した <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> 個の内積値を正負でビット化したもの（cos類似度のハッシュ値と同じもの）と元のベクトルのユークリッドノルムも保存しておく．cos類似度のハッシュを用いることで，表引きによって得られたデータ <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> と入力データ <img class="math" src="_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> の間のcos類似度 <img class="math" src="_images/math/dd378f0fe4ea51d776756e3bc44cda713346581f.png" alt="\cos(x, q)"/> が推定できる．さらにそれぞれのユークリッドノルム <img class="math" src="_images/math/050da5a799ac489b4f6e7e0a5f4180fa1023b09a.png" alt="\lVert x\lVert, \lVert q\lVert"/> を用いると，これらの間のユークリッド距離は式 <img class="math" src="_images/math/6619dc923b7593d6bc9d69714205e3293b305937.png" alt="\lVert x-q\lVert^2=\lVert x\lVert^2+\lVert q\lVert^2-2\cos(x, q)"/> によって計算できる．こうして得られたユークリッド距離の推定値を用いて，表引きして得られたデータ集合をソートし直す．</p>
-<p>ユークリッド距離は類似度ではなく距離であり，値が小さくなるほど近いという意味になる．対応する類似度に標準的なものがないため，Jubatusではユークリッド距離に <img class="math" src="_images/math/bae5aba07d37ff6ff813107e76260fb31ad5794e.png" alt="-1"/> を掛けたものを類似度として用いる．</p>
+<p>ユークリッド空間における局所近傍ハッシュは <a class="reference internal" href="#datar2004" id="id8">[Datar2004]</a> で提案されたものを用いる．cos類似度の局所近傍ハッシュと同様に <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> 個のランダムなベクトルとの内積を取った後，それぞれを適当な幅 <img class="math" src="_images/math/5e87bf41a96deddf6cb485ff530f153f2590e9cc.png" alt="b"/> 以下のランダムな量子化幅で整数値に量子化し，得られた <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> 個の整数を <img class="math" src="_images/math/0a5711c7a37994043b2bc3bb374adca232491762.png" alt="L"/> 個に等分して，別々のハッシュテーブルに記録する．探索の際には同様に <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> 個の整数を計算し，<img class="math" src="_images/math/0a5711c7a37994043b2bc3bb374adca232491762.png" alt="L"/> 個のハッシュテーブルから表引きを行う．実際には実装上の工夫 <a class="reference internal" href="#andoni2005" id="id9">[Andoni2005]</a> によりこの操作を単一のハッシュテーブルで実現する．また，小さな <img class="math" src="_images/math/0a5711c7a37994043b2bc3bb374adca232491762.png" alt="L"/> に対しても高い再現率を達成するために，各ハッシュ値が１だけ異なるようなエントリーも見るマルチプローブ探索 <a class="reference internal" href="#lv2007" id="id10">[Lv2007]</a> を実装している．</p>
+<p><a class="reference internal" href="#datar2004" id="id11">[Datar2004]</a> の手法では得られたデータと入力データとの間のユークリッド距離が得られない．そこでJubatusの実装では，最初に計算した <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> 個の内積値を正負でビット化したもの（cos類似度のハッシュ値と同じもの）と元のベクトルのユークリッドノルムも保存しておく．cos類似度のハッシュを用いることで，表引きによって得られたデータ <img class="math" src="_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> と入力データ <img class="math" src="_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/> の間のcos類似度 <img class="math" src="_images/math/af23d79b7c30a6497967ee32e9bd39510b5c23e6.png" alt="\cos(x, q)"/> が推定できる．さらにそれぞれのユークリッドノルム <img class="math" src="_images/math/058a52f46024a5420fa4a43dda005d091780d775.png" alt="\lVert x\lVert, \lVert q\lVert"/> を用いると，これらの間のユークリッド距離は式 <img class="math" src="_images/math/7c1db32ffc6c6c250907a040946aa1251efa6b0a.png" alt="\lVert x-q\lVert^2=\lVert x\lVert^2+\lVert q\lVert^2-2\cos(x, q)"/> によって計算できる．こうして得られたユークリッド距離の推定値を用いて，表引きして得られたデータ集合をソートし直す．</p>
+<p>ユークリッド距離は類似度ではなく距離であり，値が小さくなるほど近いという意味になる．対応する類似度に標準的なものがないため，Jubatusではユークリッド距離に <img class="math" src="_images/math/80d842c5b7aabdb4c23f00d2074915d876e294f2.png" alt="-1"/> を掛けたものを類似度として用いる．</p>
 </div>
 </div>
 <div class="section" id="id12">
@@ -433,7 +434,7 @@ PA は， (1) 現在の学習データが与えられた許容範囲 <img class=
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

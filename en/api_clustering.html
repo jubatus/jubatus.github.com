@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -119,11 +118,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_burst.html"
                         title="next chapter">Burst</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_clustering.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_clustering.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -161,7 +162,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>Specify algorithm for clustering.
 You can use these algorithms.</p>
 <table border="1" class="docutils">
@@ -175,10 +176,10 @@ You can use these algorithms.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;kmeans&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;kmeans&quot;</span></code></td>
 <td>Use k-means</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;gmm&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;gmm&quot;</span></code></td>
 <td>Use Gaussian Mixture Model</td>
 </tr>
 </tbody>
@@ -187,9 +188,9 @@ You can use these algorithms.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.
-Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
 <dt>Common parameters kmeans and gmm</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -199,36 +200,36 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 <tr class="field-odd field"><th class="field-name">k:</th><td class="field-body"><p class="first">Number of clusters.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">k</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">k</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify alghorithm for compressing points.
-You can choose from <tt class="docutils literal"><span class="pre">simple</span></tt>, <tt class="docutils literal"><span class="pre">compressive_kmeans</span></tt> and <tt class="docutils literal"><span class="pre">compressive_gmm</span></tt>.</p>
+You can choose from <code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> and <code class="docutils literal"><span class="pre">compressive_gmm</span></code>.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">bucket_size:</th><td class="field-body"><p class="first">Number of bulk compression size.
 It can be smaller than dataset size.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 2 &lt;= <tt class="docutils literal"><span class="pre">bucket_size</span></tt></li>
+<li>Range: 2 &lt;= <code class="docutils literal"><span class="pre">bucket_size</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">bucket_length:</th><td class="field-body"><p class="first">Size of mini batch clustering.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 2 &lt;= <tt class="docutils literal"><span class="pre">bucket_length</span></tt></li>
+<li>Range: 2 &lt;= <code class="docutils literal"><span class="pre">bucket_length</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">compressed_bucket_size:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Number of compressed <tt class="docutils literal"><span class="pre">bucket_size</span></tt> .
-Compression ratio = ( <tt class="docutils literal"><span class="pre">compressed_bucket_size</span></tt> / <tt class="docutils literal"><span class="pre">bucket_size</span></tt> )
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Number of compressed <code class="docutils literal"><span class="pre">bucket_size</span></code> .
+Compression ratio = ( <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code> / <code class="docutils literal"><span class="pre">bucket_size</span></code> )
 (Integer)</p>
 <ul class="simple">
-<li>Range: <tt class="docutils literal"><span class="pre">bicriteria_base_size</span></tt> &lt; <tt class="docutils literal"><span class="pre">compressed_bucket_size</span></tt> &lt; <tt class="docutils literal"><span class="pre">bucket_size</span></tt></li>
+<li>Range: <code class="docutils literal"><span class="pre">bicriteria_base_size</span></code> &lt; <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code> &lt; <code class="docutils literal"><span class="pre">bucket_size</span></code></li>
 </ul>
 </td>
 </tr>
@@ -236,7 +237,7 @@ Compression ratio = ( <tt class="docutils literal"><span class="pre">compressed_
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify roughness of compression.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">bicriteria_base_size</span></tt> &lt; <tt class="docutils literal"><span class="pre">compressed_bucket_size</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">bicriteria_base_size</span></code> &lt; <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code></li>
 </ul>
 </td>
 </tr>
@@ -244,7 +245,7 @@ Compression ratio = ( <tt class="docutils literal"><span class="pre">compressed_
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Forgetting factor
 (Float)</p>
 <ul class="simple">
-<li>Range: 0.0 &lt;= <tt class="docutils literal"><span class="pre">forgetting_factor</span></tt></li>
+<li>Range: 0.0 &lt;= <code class="docutils literal"><span class="pre">forgetting_factor</span></code></li>
 </ul>
 </td>
 </tr>
@@ -252,7 +253,7 @@ Compression ratio = ( <tt class="docutils literal"><span class="pre">compressed_
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">When the summation of forgetting factors exceeds this value, it will not compress any more.
 (Float)</p>
 <ul class="last simple">
-<li>Range: 0.0 &lt;= <tt class="docutils literal"><span class="pre">forgetting_threshold</span></tt> &lt;= 1.0</li>
+<li>Range: 0.0 &lt;= <code class="docutils literal"><span class="pre">forgetting_threshold</span></code> &lt;= 1.0</li>
 </ul>
 </td>
 </tr>
@@ -266,7 +267,7 @@ Compression ratio = ( <tt class="docutils literal"><span class="pre">compressed_
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify alghorithm for compressing points.
-You can choose from <tt class="docutils literal"><span class="pre">simple</span></tt>, <tt class="docutils literal"><span class="pre">compressive_kmeans</span></tt> .
+You can choose from <code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> .
 (String)</td>
 </tr>
 </tbody>
@@ -279,7 +280,7 @@ You can choose from <tt class="docutils literal"><span class="pre">simple</span>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify alghorithm for compressing points.
-You can choose from <tt class="docutils literal"><span class="pre">simple</span></tt>, <tt class="docutils literal"><span class="pre">compressive_gmm</span></tt> .
+You can choose from <code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_gmm</span></code> .
 (String)</td>
 </tr>
 </tbody>
@@ -290,7 +291,7 @@ You can choose from <tt class="docutils literal"><span class="pre">simple</span>
 
 <dl class="describe">
 <dt>
-<tt class="descname">converter</tt></dt>
+<code class="descname">converter</code></dt>
 <dd><p>Specify configuration for data conversion.
 Its format is described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
 </dd></dl>
@@ -333,15 +334,15 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="weighted_datum">
-<em class="property">message </em><tt class="descname">weighted_datum</tt><a class="headerlink" href="#weighted_datum" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">weighted_datum</code><a class="headerlink" href="#weighted_datum" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="member">
 <dt id="weighted_datum::weight__double">
-0: double <tt class="descname">weight</tt><a class="headerlink" href="#weighted_datum::weight__double" title="Permalink to this definition">¶</a></dt>
+0: double <code class="descname">weight</code><a class="headerlink" href="#weighted_datum::weight__double" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt id="weighted_datum::point__datum">
-1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">point</tt><a class="headerlink" href="#weighted_datum::point__datum" title="Permalink to this definition">¶</a></dt>
+1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">point</code><a class="headerlink" href="#weighted_datum::point__datum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -351,15 +352,15 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">clustering</tt></dt>
+<em class="property">service </em><code class="descname">clustering</code></dt>
 <dd><dl class="method">
 <dt id="clustering::push__l:datum:">
-bool <tt class="descname">push</tt><big>(</big>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>points</em><big>)</big><a class="headerlink" href="#clustering::push__l:datum:" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">push</code><span class="sig-paren">(</span>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#clustering::push__l:datum:" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Points :</th><td class="field-body">list of <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the point</td>
+<tr class="field-odd field"><th class="field-name">Points:</th><td class="field-body">list of <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the point</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True when the point was added successfully</td>
 </tr>
@@ -370,7 +371,7 @@ bool <tt class="descname">push</tt><big>(</big>0: list&lt;<a class="reference in
 
 <dl class="method">
 <dt id="clustering::get_revision">
-uint <tt class="descname">get_revision</tt><big>(</big><big>)</big><a class="headerlink" href="#clustering::get_revision" title="Permalink to this definition">¶</a></dt>
+uint <code class="descname">get_revision</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clustering::get_revision" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -384,7 +385,7 @@ uint <tt class="descname">get_revision</tt><big>(</big><big>)</big><a class="hea
 
 <dl class="method">
 <dt id="clustering::get_core_members">
-list&lt;list&lt;<a class="reference internal" href="#weighted_datum" title="weighted_datum">weighted_datum</a>&gt;&gt; <tt class="descname">get_core_members</tt><big>(</big><big>)</big><a class="headerlink" href="#clustering::get_core_members" title="Permalink to this definition">¶</a></dt>
+list&lt;list&lt;<a class="reference internal" href="#weighted_datum" title="weighted_datum">weighted_datum</a>&gt;&gt; <code class="descname">get_core_members</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clustering::get_core_members" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -398,7 +399,7 @@ list&lt;list&lt;<a class="reference internal" href="#weighted_datum" title="weig
 
 <dl class="method">
 <dt id="clustering::get_k_center">
-list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <tt class="descname">get_k_center</tt><big>(</big><big>)</big><a class="headerlink" href="#clustering::get_k_center" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <code class="descname">get_k_center</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clustering::get_k_center" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -407,18 +408,18 @@ list&lt;<a class="reference internal" href="common_structs.html#datum" title="da
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">k</span></tt> cluster centers</p>
+<p>Returns <code class="docutils literal"><span class="pre">k</span></code> cluster centers</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="clustering::get_nearest_center__datum">
-<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <tt class="descname">get_nearest_center</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>point</em><big>)</big><a class="headerlink" href="#clustering::get_nearest_center__datum" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">get_nearest_center</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#clustering::get_nearest_center__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>point</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>point</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 </ul>
 </td>
 </tr>
@@ -427,18 +428,18 @@ list&lt;<a class="reference internal" href="common_structs.html#datum" title="da
 </tr>
 </tbody>
 </table>
-<p>Returns nearest cluster center without adding <tt class="docutils literal"><span class="pre">point</span></tt> to cluster.</p>
+<p>Returns nearest cluster center without adding <code class="docutils literal"><span class="pre">point</span></code> to cluster.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="clustering::get_nearest_members__datum">
-list&lt;<a class="reference internal" href="#weighted_datum" title="weighted_datum">weighted_datum</a>&gt; <tt class="descname">get_nearest_members</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>point</em><big>)</big><a class="headerlink" href="#clustering::get_nearest_members__datum" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="#weighted_datum" title="weighted_datum">weighted_datum</a>&gt; <code class="descname">get_nearest_members</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#clustering::get_nearest_members__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>point</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>point</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 </ul>
 </td>
 </tr>
@@ -447,7 +448,7 @@ list&lt;<a class="reference internal" href="#weighted_datum" title="weighted_dat
 </tr>
 </tbody>
 </table>
-<p>Returns nearest summary of cluster(coreset) from <tt class="docutils literal"><span class="pre">point</span></tt></p>
+<p>Returns nearest summary of cluster(coreset) from <code class="docutils literal"><span class="pre">point</span></code></p>
 </dd></dl>
 
 </dd></dl>
@@ -483,7 +484,7 @@ list&lt;<a class="reference internal" href="#weighted_datum" title="weighted_dat
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

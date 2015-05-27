@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -119,11 +118,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_clustering.html"
                         title="next chapter">Clustering</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_anomaly.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_anomaly.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -160,7 +161,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>Specify algorithm for anomaly detection.
 You can use these algorithms.</p>
 <table border="1" class="docutils">
@@ -174,10 +175,10 @@ You can use these algorithms.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lof&quot;</span></tt></td>
-<td>Use Local Outlier Factor based on recommender. <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;lof&quot;</span></code></td>
+<td>Use Local Outlier Factor based on recommender. <a class="reference internal" href="method.html#breunig2000" id="id1">[Breunig2000]</a></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;light_lof&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;light_lof&quot;</span></code></td>
 <td>Use a variant of LOF based on nearest neighbor.</td>
 </tr>
 </tbody>
@@ -186,9 +187,9 @@ You can use these algorithms.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.
-Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
 <dt>lof</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -200,7 +201,7 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 The bigger it is, the less false-positives are found, but the more false-negatives are found.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 2 &lt;= <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt></li>
+<li>Range: 2 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -209,16 +210,16 @@ The bigger it is, the less false-positives are found, but the more false-negativ
 The bigger it is,  the more accurately measures are updated, but the longer update-time is required.
 (Integer)</p>
 <ul class="simple">
-<li>Range: <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt> &lt;= <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt></li>
+<li>Range: <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code> &lt;= <code class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">method:</th><td class="field-body"><p class="first">Algorithm name of recommender for nearest neighbor search.
-Refer <tt class="docutils literal"><span class="pre">method</span></tt> in <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a>.</p>
+Refer <code class="docutils literal"><span class="pre">method</span></code> in <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a>.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">Parameters of the recommender for nearest neighbor search.
-Refer <tt class="docutils literal"><span class="pre">parameter</span></tt> in <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a>.</p>
+Refer <code class="docutils literal"><span class="pre">parameter</span></code> in <a class="reference internal" href="api_recommender.html"><em>Recommender</em></a>.</p>
 </td>
 </tr>
 </tbody>
@@ -234,7 +235,7 @@ Refer <tt class="docutils literal"><span class="pre">parameter</span></tt> in <a
 The bigger it is, the less false-positives are found, but the more false-negatives are found.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 2 &lt;= <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt></li>
+<li>Range: 2 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -243,41 +244,41 @@ The bigger it is, the less false-positives are found, but the more false-negativ
 The bigger it is,  the more accurately measures are updated, but the longer update-time is required.
 (Integer)</p>
 <ul class="simple">
-<li>Range: <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt> &lt;= <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt></li>
+<li>Range: <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code> &lt;= <code class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">method:</th><td class="field-body"><p class="first">Algorithm name of nearest neighbor for nearest neighbor search.
-Refer <tt class="docutils literal"><span class="pre">method</span></tt> in <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a>.</p>
+Refer <code class="docutils literal"><span class="pre">method</span></code> in <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a>.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">Parameters of the nearest neighbor for nearest neighbor search.
-Refer <tt class="docutils literal"><span class="pre">parameter</span></tt> in <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a>.</p>
+Refer <code class="docutils literal"><span class="pre">parameter</span></code> in <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a>.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
 If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <tt class="docutils literal"><span class="pre">unlearner</span></tt> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
 Data will be deleted based on strategy specified here.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
-You can specify <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
-You cannot omit this parameter when you specify <tt class="docutils literal"><span class="pre">unlearner</span></tt>.
+You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
 Data in excess of this number will be deleted automatically.</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">note: <tt class="docutils literal"><span class="pre">unlearner</span></tt> and <tt class="docutils literal"><span class="pre">unlearner_parameter</span></tt> <strong>can be omitted</strong> .</p>
+<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="describe">
 <dt>
-<tt class="descname">converter</tt></dt>
+<code class="descname">converter</code></dt>
 <dd><p>Specify configuration for data conversion.
 Its format is described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
 </dd></dl>
@@ -323,17 +324,17 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="id_with_score">
-<em class="property">message </em><tt class="descname">id_with_score</tt><a class="headerlink" href="#id_with_score" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">id_with_score</code><a class="headerlink" href="#id_with_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents ID with its score.</p>
 <dl class="member">
 <dt id="id_with_score::id__s">
-0: string <tt class="descname">id</tt><a class="headerlink" href="#id_with_score::id__s" title="Permalink to this definition">¶</a></dt>
+0: string <code class="descname">id</code><a class="headerlink" href="#id_with_score::id__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data ID.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="id_with_score::score__float">
-1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
+1: float <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Score.</p>
 </dd></dl>
 
@@ -350,10 +351,10 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">anomaly</tt></dt>
+<em class="property">service </em><code class="descname">anomaly</code></dt>
 <dd><dl class="method">
 <dt id="anomaly::clear_row__s">
-bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>id</em><big>)</big><a class="headerlink" href="#anomaly::clear_row__s" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">clear_row</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::clear_row__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -368,18 +369,18 @@ bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>id</em><big>)<
 </tr>
 </tbody>
 </table>
-<p>Clears a point data with ID <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
+<p>Clears a point data with ID <code class="docutils literal"><span class="pre">id</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="anomaly::add__datum">
-<a class="reference internal" href="#id_with_score" title="id_with_score">id_with_score</a> <tt class="descname">add</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::add__datum" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="#id_with_score" title="id_with_score">id_with_score</a> <code class="descname">add</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::add__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the point</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the point</li>
 </ul>
 </td>
 </tr>
@@ -388,19 +389,19 @@ bool <tt class="descname">clear_row</tt><big>(</big>0: string <em>id</em><big>)<
 </tr>
 </tbody>
 </table>
-<p>Adds a point data <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+<p>Adds a point data <code class="docutils literal"><span class="pre">row</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="anomaly::update__s.datum">
-float <tt class="descname">update</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::update__s.datum" title="Permalink to this definition">¶</a></dt>
+float <code class="descname">update</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::update__s.datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>id</strong> &#8211; point ID to update</li>
-<li><strong>row</strong> &#8211; new <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the point</li>
+<li><strong>row</strong> &#8211; new <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the point</li>
 </ul>
 </td>
 </tr>
@@ -409,19 +410,19 @@ float <tt class="descname">update</tt><big>(</big>0: string <em>id</em>, 1: <a c
 </tr>
 </tbody>
 </table>
-<p>Updates the point <tt class="docutils literal"><span class="pre">id</span></tt> with the data <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+<p>Updates the point <code class="docutils literal"><span class="pre">id</span></code> with the data <code class="docutils literal"><span class="pre">row</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="anomaly::overwrite__s.datum">
-float <tt class="descname">overwrite</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::overwrite__s.datum" title="Permalink to this definition">¶</a></dt>
+float <code class="descname">overwrite</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::overwrite__s.datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>id</strong> &#8211; point ID to overwrite</li>
-<li><strong>row</strong> &#8211; new <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the point</li>
+<li><strong>row</strong> &#8211; new <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the point</li>
 </ul>
 </td>
 </tr>
@@ -430,32 +431,32 @@ float <tt class="descname">overwrite</tt><big>(</big>0: string <em>id</em>, 1: <
 </tr>
 </tbody>
 </table>
-<p>Overwrites the point <tt class="docutils literal"><span class="pre">id</span></tt> with the data <tt class="docutils literal"><span class="pre">row</span></tt>.</p>
+<p>Overwrites the point <code class="docutils literal"><span class="pre">id</span></code> with the data <code class="docutils literal"><span class="pre">row</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="anomaly::calc_score__datum">
-float <tt class="descname">calc_score</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><big>)</big><a class="headerlink" href="#anomaly::calc_score__datum" title="Permalink to this definition">¶</a></dt>
+float <code class="descname">calc_score</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::calc_score__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a></li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Anomaly measure value for given <tt class="docutils literal"><span class="pre">row</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Anomaly measure value for given <code class="docutils literal"><span class="pre">row</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Calculates an anomaly measure value for the point data <tt class="docutils literal"><span class="pre">row</span></tt> without adding a point.</p>
+<p>Calculates an anomaly measure value for the point data <code class="docutils literal"><span class="pre">row</span></code> without adding a point.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="anomaly::get_all_rows">
-list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big><a class="headerlink" href="#anomaly::get_all_rows" title="Permalink to this definition">¶</a></dt>
+list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::get_all_rows" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -500,7 +501,7 @@ list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

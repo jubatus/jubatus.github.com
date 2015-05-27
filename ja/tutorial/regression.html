@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -108,9 +107,7 @@
 <li><a class="reference internal" href="#">Regression チュートリアル</a><ul>
 <li><a class="reference internal" href="#id1">サンプルプログラムの概要</a></li>
 <li><a class="reference internal" href="#id2">処理の流れ</a></li>
-<li><a class="reference internal" href="#id3">サンプルプログラム</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#id3">サンプルプログラム</a></li>
 </ul>
 </li>
 </ul>
@@ -121,11 +118,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="regression_python.html"
                         title="次の章へ">Regression チュートリアル (Python)</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/tutorial/regression.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/regression.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="../search.html" method="get">
@@ -153,14 +152,14 @@
             
   <div class="section" id="regression">
 <h1>Regression チュートリアル<a class="headerlink" href="#regression" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ここではJubatusの線形回帰機能（Regression）である <tt class="docutils literal"><span class="pre">jubaregression</span></tt> を使用した、Jubatus Clientの使い方を説明します。</p>
+<p>ここではJubatusの線形回帰機能（Regression）である <code class="docutils literal"><span class="pre">jubaregression</span></code> を使用した、Jubatus Clientの使い方を説明します。</p>
 <p>線形回帰機能（Regression）とは、入力データから、出力データを推定する機能であり、株価予測や消費電力予測などに利用することができます。</p>
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>サンプルとして、駅からの距離、専有面積、築年数等の条件から家賃を推測するプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/rent">rent</a> 」を用いて説明していきます。</p>
-<p>最初に、賃貸情報サイトから取得した「S町の1Rマンション」の賃貸情報 (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>) をクライアント側で用意し、推定するためのモデルを <tt class="docutils literal"><span class="pre">jubaregression</span></tt> に学習させます。</p>
-<p>次に、推定用の入力データとして外部ファイル（今回はYAML形式を使用する）に物件の条件を入力し、 <tt class="docutils literal"><span class="pre">jubaregression</span></tt> に与えます。
-<tt class="docutils literal"><span class="pre">jubaregression</span></tt> は先ほど学習したモデルを用い、条件にふさわしい家賃を推定して返却するので、クライアント側で受け取った結果を出力します。</p>
+<p>最初に、賃貸情報サイトから取得した「S町の1Rマンション」の賃貸情報 (<a class="reference external" href="https://raw.github.com/jubatus/jubatus-example/master/rent/dat/rent-data.csv">rent-data.csv</a>) をクライアント側で用意し、推定するためのモデルを <code class="docutils literal"><span class="pre">jubaregression</span></code> に学習させます。</p>
+<p>次に、推定用の入力データとして外部ファイル（今回はYAML形式を使用する）に物件の条件を入力し、 <code class="docutils literal"><span class="pre">jubaregression</span></code> に与えます。
+<code class="docutils literal"><span class="pre">jubaregression</span></code> は先ほど学習したモデルを用い、条件にふさわしい家賃を推定して返却するので、クライアント側で受け取った結果を出力します。</p>
 <p>例えば、推定用の入力データとして「駅からの距離は5分、占有面積は32.0㎡、築年数は15年」と入力すると、8.0万円と推定家賃が出力されます。</p>
 </div>
 <div class="section" id="id2">
@@ -168,8 +167,8 @@
 <p>Jubatus Client を使ったコーディングは、主に以下の流れになります。</p>
 <ol class="arabic">
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">jubaregression</span></tt> への接続設定</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubaregression</span></tt> のホストやポート番号を指定し、接続設定をします。</p>
+<dt><code class="docutils literal"><span class="pre">jubaregression</span></code> への接続設定</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">jubaregression</span></code> のホストやポート番号を指定し、接続設定をします。</p>
 </dd>
 </dl>
 </li>
@@ -181,25 +180,25 @@
 </li>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
-<dd><p class="first last">2. で作成した学習用データを <tt class="docutils literal"><span class="pre">train</span></tt> メソッドで <tt class="docutils literal"><span class="pre">jubaregression</span></tt> に与え、学習を行います。</p>
+<dd><p class="first last">2. で作成した学習用データを <code class="docutils literal"><span class="pre">train</span></code> メソッドで <code class="docutils literal"><span class="pre">jubaregression</span></code> に与え、学習を行います。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>推定用データの準備</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">jubaregression</span></tt> に推定させる物件情報のデータを作成します。</p>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">jubaregression</span></code> に推定させる物件情報のデータを作成します。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推定</dt>
-<dd><p class="first last">4. で作成した推定用データを入力値とし、 <tt class="docutils literal"><span class="pre">estimate</span></tt> メソッドで 3. の学習に基づいた推定をします。</p>
+<dd><p class="first last">4. で作成した推定用データを入力値とし、 <code class="docutils literal"><span class="pre">estimate</span></code> メソッドで 3. の学習に基づいた推定をします。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">estimate</span></tt> メソッドの戻り値である推定結果を出力します。</p>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">estimate</span></code> メソッドの戻り値である推定結果を出力します。</p>
 </dd>
 </dl>
 </li>
@@ -248,7 +247,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

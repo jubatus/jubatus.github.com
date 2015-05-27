@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -122,11 +121,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="references.html"
                         title="次の章へ">References</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/faq.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -157,7 +158,7 @@
 <div class="section" id="id1">
 <h2>インストール<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">mecab_splitter.trivial</span></tt> と <tt class="docutils literal"><span class="pre">mecab_splitter_create.trivial</span></tt> の単体テストが通らない</li>
+<li><code class="docutils literal"><span class="pre">mecab_splitter.trivial</span></code> と <code class="docutils literal"><span class="pre">mecab_splitter_create.trivial</span></code> の単体テストが通らない</li>
 </ul>
 <blockquote>
 <div>mecab 辞書と mecab コマンドで UTF-8 が使えるようになっていることを確かめてください。</div></blockquote>
@@ -173,27 +174,33 @@
 </ul>
 <blockquote>
 <div><p>Ubuntu環境のバイナリパッケージ(Apt)</p>
-<p>aptのプロキシ設定をしていないとエラーが出力されますので、 <tt class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></tt> に以下の行を追加してください。</p>
-<div class="highlight-python"><pre>$ sudo vi /etc/apt/apt.conf</pre>
+<p>aptのプロキシ設定をしていないとエラーが出力されますので、 <code class="docutils literal"><span class="pre">/etc/apt/apt.conf</span></code> に以下の行を追加してください。</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo vi /etc/apt/apt.conf
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Acquire::http::Proxy "http://username:password@proxy.example.com:port/";</pre>
+<div class="highlight-python"><div class="highlight"><pre>Acquire::http::Proxy &quot;http://username:password@proxy.example.com:port/&quot;;
+</pre></div>
 </div>
 <p>Python クライアント (pip)</p>
 <p>プロキシを経由している場合、以下のようなエラーが出力されることがあります。その場合はオプションでプロキシを指定して実行してください。</p>
-<div class="highlight-python"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
+<div class="highlight-python"><div class="highlight"><pre>Cannot fetch index base URL http://pypi.python.org/simple/
 Could not find any downloads that satisfy the requirement jubatus
 No distributions at all found for jubatus
-Storing complete log in /home/jubatus/.pip/pip.log</pre>
+Storing complete log in /home/jubatus/.pip/pip.log
+</pre></div>
 </div>
-<div class="highlight-python"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo pip --proxy=http://username:password@proxy.example.com:port/ install jubatus
+</pre></div>
 </div>
 <p>以下のようなログが出力されればインストール完了です。</p>
-<div class="highlight-python"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
-Cleaning up...</pre>
+<div class="highlight-python"><div class="highlight"><pre>Successfully installed jubatus msgpack-rpc-python msgpack-python tornado
+Cleaning up...
+</pre></div>
 </div>
 <p>Ruby クライアント (RubyGems) の場合</p>
 <p>以下の環境変数を設定してからインストールを実行してください。</p>
-<div class="highlight-python"><pre>export http_proxy=http://username:password@proxy.example.com:port/</pre>
+<div class="highlight-python"><div class="highlight"><pre>export http_proxy=http://username:password@proxy.example.com:port/
+</pre></div>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -210,16 +217,16 @@ Cleaning up...</pre>
 <li>ダイアログに従って操作を進め、[完了]ボタンをクリックします。</li>
 </ol>
 <p>一度、インポートが完了すれば、Mavenが自動的にJubatusクライアントライブラリをダウンロードします。
-<tt class="docutils literal"><span class="pre">src/main/java</span></tt>ディレクトリの(default package)配下には、Jubatus recommenderを利用した簡単なプログラム「Client.java」が配置してあります。</p>
+<code class="docutils literal"><span class="pre">src/main/java</span></code>ディレクトリの(default package)配下には、Jubatus recommenderを利用した簡単なプログラム「Client.java」が配置してあります。</p>
 </div></blockquote>
 </div>
 <div class="section" id="rpc">
 <h2>RPC エラー<a class="headerlink" href="#rpc" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
-<li>Python クライアントの利用時に、&#8221;got socket.error: [Errno 99] Cannot assign requested address&#8221; (または <tt class="docutils literal"><span class="pre">EADDRINUSE</span></tt> など) が発生する</li>
+<li>Python クライアントの利用時に、&#8221;got socket.error: [Errno 99] Cannot assign requested address&#8221; (または <code class="docutils literal"><span class="pre">EADDRINUSE</span></code> など) が発生する</li>
 </ul>
 <blockquote>
-<div>このコマンドを試してください: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">/sbin/sysctl</span> <span class="pre">-w</span> <span class="pre">net.ipv4.tcp_tw_recycle=1</span></tt></div></blockquote>
+<div>このコマンドを試してください: <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">/sbin/sysctl</span> <span class="pre">-w</span> <span class="pre">net.ipv4.tcp_tw_recycle=1</span></code></div></blockquote>
 <ul class="simple">
 <li>Jubatus クライアントライブラリが &#8220;1&#8221; というメッセージの例外を投げる</li>
 </ul>
@@ -233,10 +240,10 @@ Cleaning up...</pre>
 </ul>
 <blockquote>
 <div><p>このエラーは、クライアントとサーバで型が不一致であることを意味します。</p>
-<p>よくある間違いとして <tt class="docutils literal"><span class="pre">num_values</span></tt> の値に float ではなく integer を使用してしまうケースがあります。
-<tt class="docutils literal"><span class="pre">num_values</span></tt> の値は常に <tt class="docutils literal"><span class="pre">float</span></tt> にキャストしてください。
-<tt class="docutils literal"><span class="pre">10</span></tt> のような数値リテラルは <tt class="docutils literal"><span class="pre">10.0</span></tt> に置き換えてください。
-もう一つのよくある間違いは、vector のようなオブジェクトに対して <tt class="docutils literal"><span class="pre">NULL</span></tt> を代入してしまっているケースがあります。</p>
+<p>よくある間違いとして <code class="docutils literal"><span class="pre">num_values</span></code> の値に float ではなく integer を使用してしまうケースがあります。
+<code class="docutils literal"><span class="pre">num_values</span></code> の値は常に <code class="docutils literal"><span class="pre">float</span></code> にキャストしてください。
+<code class="docutils literal"><span class="pre">10</span></code> のような数値リテラルは <code class="docutils literal"><span class="pre">10.0</span></code> に置き換えてください。
+もう一つのよくある間違いは、vector のようなオブジェクトに対して <code class="docutils literal"><span class="pre">NULL</span></code> を代入してしまっているケースがあります。</p>
 <p>このエラーは、インストールした Jubatus クライアントライブラリと接続しようとしている Jubatus サーバのバージョンが非互換である場合にも発生する可能性があります。
 <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation">Jubatus Wiki: Client Compatibility and Documentation</a> で互換性情報を確認してください。</p>
 </div></blockquote>
@@ -244,10 +251,10 @@ Cleaning up...</pre>
 <li>クライアントライブラリが時々 RPC タイムアウトエラーを投げる (サーバからクライアントが自動切断される)</li>
 </ul>
 <blockquote>
-<div><p>Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ <a class="reference internal" href="commands.html#cmdoption-server-t"><em class="xref std std-option">server -t</em></a> で設定される) が経過すると自動的に接続を切断します。
+<div><p>Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ <a class="reference internal" href="commands.html#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a> で設定される) が経過すると自動的に接続を切断します。
 RPC呼び出しを再度実行することで接続が再確立されます。サーバによる接続自動切断に起因するタイムアウトを含むRPCエラーのハンドリングについては <a class="reference internal" href="faq_rpc_err_workaround.html"><em>RPC エラーのハンドリング</em></a> 参照してください。</p>
-<p>この自動切断機能を無効にするには、 <a class="reference internal" href="commands.html#cmdoption-server-t"><em class="xref std std-option">server -t</em></a> を 0 (タイムアウトなし) に設定します。
-この場合、クライアントは <a class="reference internal" href="common_structs.html#get_client" title="get_client"><tt class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></tt></a> を使用して TCP 接続を明示的に切断する必要があります。
+<p>この自動切断機能を無効にするには、 <a class="reference internal" href="commands.html#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a> を 0 (タイムアウトなし) に設定します。
+この場合、クライアントは <a class="reference internal" href="common_structs.html#get_client" title="get_client"><code class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></code></a> を使用して TCP 接続を明示的に切断する必要があります。
 もしくは、想定するクライアントの一接続毎の処理時間より十分長い時間を設定してください。</p>
 </div></blockquote>
 </div>
@@ -259,12 +266,13 @@ RPC呼び出しを再度実行することで接続が再確立されます。�
 <blockquote>
 <div><p>Mixの動作については、Jubatusサーバにおいて出力されるログにより確認することができます。以下のようなログが出力されます。</p>
 <blockquote>
-<div><div class="highlight-python"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
+<div><div class="highlight-python"><div class="highlight"><pre>I0218 06:01:49.587540  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:01:49.703693  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.112371 secs, 8 bytes (serialized data) has been put.
 I0218 06:01:49.705159  3845 linear_mixer.cpp:185] .... 22th mix done.
 I0218 06:03:15.502995  3845 linear_mixer.cpp:173] starting mix:
 I0218 06:03:15.642297  3845 linear_mixer.cpp:231] mixed with 3 servers in 0.137258 secs, 8 bytes (serialized data) has been put.
-I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.</pre>
+I0218 06:03:15.644685  3845 linear_mixer.cpp:185] .... 23th mix done.
+</pre></div>
 </div>
 </div></blockquote>
 </div></blockquote>
@@ -309,41 +317,41 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
 <ul class="simple">
 <li>2: euclid LSH 側のパラメタを変更する</li>
 </ul>
-<p>特に、最も重要なパラメタである <tt class="docutils literal"><span class="pre">bin_width</span></tt> を変更するとよいでしょう。</p>
+<p>特に、最も重要なパラメタである <code class="docutils literal"><span class="pre">bin_width</span></code> を変更するとよいでしょう。</p>
 </div></blockquote>
 <ul class="simple">
 <li>多数のサンプルを投入すると jubaanomaly の動作速度が低下する</li>
 </ul>
 <blockquote>
-<div>jubaanomaly (LOF アルゴリズム) は近傍探索を利用しており、デフォルトの設定では高速化のため euclid LSH が使用されます。しかし、LOF モデルの内部状態を更新するために必要な最悪時間計算量は、今までに追加されたサンプル数の二乗です。詳細については原著論文 <a class="reference internal" href="method.html#breunig2000">[Breunig2000]</a> を参照してください。</div></blockquote>
+<div>jubaanomaly (LOF アルゴリズム) は近傍探索を利用しており、デフォルトの設定では高速化のため euclid LSH が使用されます。しかし、LOF モデルの内部状態を更新するために必要な最悪時間計算量は、今までに追加されたサンプル数の二乗です。詳細については原著論文 <a class="reference internal" href="method.html#breunig2000" id="id6">[Breunig2000]</a> を参照してください。</div></blockquote>
 <ul class="simple">
 <li>このような速度低下を回避するにはどうすればよいか</li>
 </ul>
 <blockquote>
 <div><p>速度と正確さのトレードオフは、以下のような技法で調整することができます。</p>
 <ul class="simple">
-<li>1: <tt class="docutils literal"><span class="pre">unlearner</span></tt> を利用する</li>
+<li>1: <code class="docutils literal"><span class="pre">unlearner</span></code> を利用する</li>
 </ul>
 <blockquote>
-<div>バージョン 0.6.0 から、anomalyにて <tt class="docutils literal"><span class="pre">unlearner</span></tt> が利用できるようになりました。
+<div>バージョン 0.6.0 から、anomalyにて <code class="docutils literal"><span class="pre">unlearner</span></code> が利用できるようになりました。
 これはJubatusが保持するデータの件数に上限を設け、そこを超えるデータが登録された際に過去のデータを消去していくものです。
 これにより、幾らかの精度と引き換えに速度を高める事ができます。
-<tt class="docutils literal"><span class="pre">unlearner</span></tt> のアルゴリズムは登録順に消去していく <tt class="docutils literal"><span class="pre">lru</span></tt> もしくはランダムに消去していく <tt class="docutils literal"><span class="pre">random</span></tt> が利用可能です。</div></blockquote>
+<code class="docutils literal"><span class="pre">unlearner</span></code> のアルゴリズムは登録順に消去していく <code class="docutils literal"><span class="pre">lru</span></code> もしくはランダムに消去していく <code class="docutils literal"><span class="pre">random</span></code> が利用可能です。</div></blockquote>
 <ul class="simple">
 <li>2: euclid LSH 側のパラメタを低精度・高速演算するように変更する</li>
 </ul>
 <blockquote>
-<div><tt class="docutils literal"><span class="pre">lsh_num</span></tt>, <tt class="docutils literal"><span class="pre">table_num</span></tt>, <tt class="docutils literal"><span class="pre">probe_num</span></tt>, <tt class="docutils literal"><span class="pre">bin_width</span></tt> のような (euclid) LSH のパラメタを小さくすることで、近傍探索の演算が高速になります。ただし、より近傍にあるはずのサンプルが無視される場合があり、バッチ処理のような方式で計算された異常値スコアと比較して精度に影響が出ることがあります。</div></blockquote>
+<div><code class="docutils literal"><span class="pre">lsh_num</span></code>, <code class="docutils literal"><span class="pre">table_num</span></code>, <code class="docutils literal"><span class="pre">probe_num</span></code>, <code class="docutils literal"><span class="pre">bin_width</span></code> のような (euclid) LSH のパラメタを小さくすることで、近傍探索の演算が高速になります。ただし、より近傍にあるはずのサンプルが無視される場合があり、バッチ処理のような方式で計算された異常値スコアと比較して精度に影響が出ることがあります。</div></blockquote>
 <ul class="simple">
-<li>3: 異常値だけを得たい場合は <tt class="docutils literal"><span class="pre">calc_score</span></tt> を使用する</li>
+<li>3: 異常値だけを得たい場合は <code class="docutils literal"><span class="pre">calc_score</span></code> を使用する</li>
 </ul>
 <blockquote>
-<div><tt class="docutils literal"><span class="pre">add</span></tt> 関数は実際に近傍探索ストレージにサンプルを追加し、LOF モデルを更新し、そして LOF 値を計算します。一方、 <tt class="docutils literal"><span class="pre">calc_score</span></tt> 関数は現在の LOF モデルを元に LOF 値を計算するため、高速に動作します。データの分散がほぼ安定していると仮定できるのであれば、初期段階にのみ (例えば最初の 1000 サンプルがストレージに格納されるまで) <tt class="docutils literal"><span class="pre">add</span></tt> を使用することで、正しい LOF モデルを高速に構築することができます。その後、 <tt class="docutils literal"><span class="pre">add</span></tt> と <tt class="docutils literal"><span class="pre">calc_score</span></tt> を切り替えながら (<tt class="docutils literal"><span class="pre">calc_score</span></tt> をより頻繁に) 使用します。例えば、 <tt class="docutils literal"><span class="pre">add</span></tt> と <tt class="docutils literal"><span class="pre">calc_score</span></tt> の割合を 1:100 程度にしても高速かつ良好に動作するでしょう。</div></blockquote>
+<div><code class="docutils literal"><span class="pre">add</span></code> 関数は実際に近傍探索ストレージにサンプルを追加し、LOF モデルを更新し、そして LOF 値を計算します。一方、 <code class="docutils literal"><span class="pre">calc_score</span></code> 関数は現在の LOF モデルを元に LOF 値を計算するため、高速に動作します。データの分散がほぼ安定していると仮定できるのであれば、初期段階にのみ (例えば最初の 1000 サンプルがストレージに格納されるまで) <code class="docutils literal"><span class="pre">add</span></code> を使用することで、正しい LOF モデルを高速に構築することができます。その後、 <code class="docutils literal"><span class="pre">add</span></code> と <code class="docutils literal"><span class="pre">calc_score</span></code> を切り替えながら (<code class="docutils literal"><span class="pre">calc_score</span></code> をより頻繁に) 使用します。例えば、 <code class="docutils literal"><span class="pre">add</span></code> と <code class="docutils literal"><span class="pre">calc_score</span></code> の割合を 1:100 程度にしても高速かつ良好に動作するでしょう。</div></blockquote>
 <ul class="simple">
-<li>4: <tt class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></tt> を小さくする</li>
+<li>4: <code class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></code> を小さくする</li>
 </ul>
 <blockquote>
-<div>LOF の計算時間を短縮することができます。ただし、 <tt class="docutils literal"><span class="pre">nearest_neighbor_num</span></tt> より小さい値にすることはできません。</div></blockquote>
+<div>LOF の計算時間を短縮することができます。ただし、 <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code> より小さい値にすることはできません。</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="id7">
@@ -383,7 +391,7 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

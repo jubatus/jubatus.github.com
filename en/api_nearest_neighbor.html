@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -119,11 +118,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_anomaly.html"
                         title="next chapter">Anomaly</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_nearest_neighbor.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_nearest_neighbor.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -161,7 +162,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>Specify algorithm for nearest neighbor.
 You can use these algorithms.</p>
 <table border="1" class="docutils">
@@ -175,13 +176,13 @@ You can use these algorithms.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;lsh&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;lsh&quot;</span></code></td>
 <td>Use Locality Sensitive Hashing based on cosine similarity.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;minhash&quot;</span></tt></td>
-<td>Use MinHash. <a class="reference internal" href="method.html#ping2010">[Ping2010]</a></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;minhash&quot;</span></code></td>
+<td>Use MinHash. <a class="reference internal" href="method.html#ping2010" id="id1">[Ping2010]</a></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></code></td>
 <td>Use LSH based on cosine similarity for nearest neighbor search with Euclidean distance.</td>
 </tr>
 </tbody>
@@ -190,9 +191,9 @@ You can use these algorithms.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.
-Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
 <dt>lsh</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -203,7 +204,7 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 The bigger it is, the more accurate results you can get, but the more memory is required.
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -219,7 +220,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 The bigger it is, the more accurate results you can get, but the more memory is required.
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -235,7 +236,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 The bigger it is, the more accurate results you can get, but the more memory is required.
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 1 &lt;= <tt class="docutils literal"><span class="pre">hash_num</span></tt></li>
+<li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
@@ -247,7 +248,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 
 <dl class="describe">
 <dt>
-<tt class="descname">converter</tt></dt>
+<code class="descname">converter</code></dt>
 <dd><p>Specify configuration for data conversion.
 Its format is described in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.</p>
 </dd></dl>
@@ -283,17 +284,17 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="id_with_score">
-<em class="property">message </em><tt class="descname">id_with_score</tt><a class="headerlink" href="#id_with_score" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">id_with_score</code><a class="headerlink" href="#id_with_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents ID with its score.</p>
 <dl class="member">
 <dt id="id_with_score::id__s">
-0: string <tt class="descname">id</tt><a class="headerlink" href="#id_with_score::id__s" title="Permalink to this definition">¶</a></dt>
+0: string <code class="descname">id</code><a class="headerlink" href="#id_with_score::id__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data ID.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="id_with_score::score__float">
-1: float <tt class="descname">score</tt><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
+1: float <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Score.</p>
 </dd></dl>
 
@@ -310,17 +311,17 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="service">
 <dt id="nearest_neighbor">
-<em class="property">service </em><tt class="descname">nearest_neighbor</tt><a class="headerlink" href="#nearest_neighbor" title="Permalink to this definition">¶</a></dt>
+<em class="property">service </em><code class="descname">nearest_neighbor</code><a class="headerlink" href="#nearest_neighbor" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="nearest_neighbor::set_row__s.datum">
-bool <tt class="descname">set_row</tt><big>(</big>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>d</em><big>)</big><a class="headerlink" href="#nearest_neighbor::set_row__s.datum" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">set_row</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::set_row__s.datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>id</strong> &#8211; row ID</li>
-<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for the row</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for the row</li>
 </ul>
 </td>
 </tr>
@@ -329,8 +330,8 @@ bool <tt class="descname">set_row</tt><big>(</big>0: string <em>id</em>, 1: <a c
 </tr>
 </tbody>
 </table>
-<p>Updates the row whose id is <tt class="docutils literal"><span class="pre">id</span></tt> with given <tt class="docutils literal"><span class="pre">row</span></tt>.
-If the row with the same <tt class="docutils literal"><span class="pre">id</span></tt> already exists, the row is overwritten with <tt class="docutils literal"><span class="pre">row</span></tt> (note that this behavior is different from that of recommender).
+<p>Updates the row whose id is <code class="docutils literal"><span class="pre">id</span></code> with given <code class="docutils literal"><span class="pre">row</span></code>.
+If the row with the same <code class="docutils literal"><span class="pre">id</span></code> already exists, the row is overwritten with <code class="docutils literal"><span class="pre">row</span></code> (note that this behavior is different from that of recommender).
 Otherwise, new row entry will be created.
 If the server that manages the row and the server that received this RPC request are same, this operation is reflected instantly.
 If not, update operation is reflected after mix.</p>
@@ -338,7 +339,7 @@ If not, update operation is reflected after mix.</p>
 
 <dl class="method">
 <dt id="nearest_neighbor::neighbor_row_from_id__s.U">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">neighbor_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_id__s.U" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">neighbor_row_from_id</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_id__s.U" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -349,38 +350,38 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to the row <tt class="docutils literal"><span class="pre">id</span></tt> and their distance values</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to the row <code class="docutils literal"><span class="pre">id</span></code> and their distance values</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) that have most similar <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to <tt class="docutils literal"><span class="pre">id</span></tt> and their distance values.</p>
+<p>Returns <code class="docutils literal"><span class="pre">size</span></code> rows (at maximum) that have most similar <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to <code class="docutils literal"><span class="pre">id</span></code> and their distance values.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::neighbor_row_from_datum__datum.U">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">neighbor_row_from_datum</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: uint <em>size</em><big>)</big><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_datum__datum.U" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">neighbor_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::neighbor_row_from_datum__datum.U" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>query</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for nearest neighbor search</li>
+<li><strong>query</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for nearest neighbor search</li>
 <li><strong>size</strong> &#8211; number of rows to be returned</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to <tt class="docutils literal"><span class="pre">query</span></tt> and their distance values</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to <code class="docutils literal"><span class="pre">query</span></code> and their distance values</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">size</span></tt> rows (at maximum) of which <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> are most similar to <tt class="docutils literal"><span class="pre">query</span></tt> and their distance values.</p>
+<p>Returns <code class="docutils literal"><span class="pre">size</span></code> rows (at maximum) of which <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> are most similar to <code class="docutils literal"><span class="pre">query</span></code> and their distance values.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::similar_row_from_id__s.i">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_id</tt><big>(</big>0: string <em>id</em>, 1: int <em>ret_num</em><big>)</big><a class="headerlink" href="#nearest_neighbor::similar_row_from_id__s.i" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: int <em>ret_num</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::similar_row_from_id__s.i" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -391,38 +392,38 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to the row <tt class="docutils literal"><span class="pre">id</span></tt> and their similarity values</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to the row <code class="docutils literal"><span class="pre">id</span></code> and their similarity values</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">ret_num</span></tt> rows (at maximum) that have most similar <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> to <tt class="docutils literal"><span class="pre">id</span></tt> and their similarity values.</p>
+<p>Returns <code class="docutils literal"><span class="pre">ret_num</span></code> rows (at maximum) that have most similar <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to <code class="docutils literal"><span class="pre">id</span></code> and their similarity values.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::similar_row_from_datum__datum.i">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <tt class="descname">similar_row_from_datum</tt><big>(</big>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: int <em>ret_num</em><big>)</big><a class="headerlink" href="#nearest_neighbor::similar_row_from_datum__datum.i" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>query</em>, 1: int <em>ret_num</em><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::similar_row_from_datum__datum.i" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>query</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> for nearest neighbor search</li>
+<li><strong>query</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> for nearest neighbor search</li>
 <li><strong>ret_num</strong> &#8211; number of rows to be returned</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to <tt class="docutils literal"><span class="pre">query</span></tt> and their similarity values</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are the nearest to <code class="docutils literal"><span class="pre">query</span></code> and their similarity values</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Returns <tt class="docutils literal"><span class="pre">ret_num</span></tt> rows (at maximum) of which <a class="reference internal" href="common_structs.html#datum" title="datum"><tt class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></tt></a> are most similar to <tt class="docutils literal"><span class="pre">query</span></tt> and their similarity values.</p>
+<p>Returns <code class="docutils literal"><span class="pre">ret_num</span></code> rows (at maximum) of which <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> are most similar to <code class="docutils literal"><span class="pre">query</span></code> and their similarity values.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nearest_neighbor::get_all_rows">
-list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big><a class="headerlink" href="#nearest_neighbor::get_all_rows" title="Permalink to this definition">¶</a></dt>
+list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nearest_neighbor::get_all_rows" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -467,7 +468,7 @@ list&lt;string&gt; <tt class="descname">get_all_rows</tt><big>(</big><big>)</big
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

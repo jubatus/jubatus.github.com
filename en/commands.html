@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -129,11 +128,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api.html"
                         title="next chapter">Client API</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/commands.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/commands.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -162,140 +163,140 @@
   <div class="section" id="commands">
 <h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">[]</span></tt> indicates the default value.</li>
-<li><tt class="docutils literal"><span class="pre">&lt;zookeeper_list&gt;</span></tt> is a comma-separated list of <tt class="docutils literal"><span class="pre">host:port</span></tt> of ZooKeeper servers (e.g., <tt class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></tt>).
+<li><code class="docutils literal"><span class="pre">[]</span></code> indicates the default value.</li>
+<li><code class="docutils literal"><span class="pre">&lt;zookeeper_list&gt;</span></code> is a comma-separated list of <code class="docutils literal"><span class="pre">host:port</span></code> of ZooKeeper servers (e.g., <code class="docutils literal"><span class="pre">10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181</span></code>).
 No spaces between values are allowed.
-If you have only one ZooKeeper server, just specify <tt class="docutils literal"><span class="pre">host:port</span></tt> without comma (e.g., <tt class="docutils literal"><span class="pre">10.0.0.1:2181</span></tt>).</li>
+If you have only one ZooKeeper server, just specify <code class="docutils literal"><span class="pre">host:port</span></code> without comma (e.g., <code class="docutils literal"><span class="pre">10.0.0.1:2181</span></code>).</li>
 </ul>
 <div class="section" id="jubatus-servers">
 <h2>Jubatus Servers<a class="headerlink" href="#jubatus-servers" title="Permalink to this headline">¶</a></h2>
 <p>Jubatus server provides the machine learning feature.</p>
 <dl class="option">
 <dt id="cmdoption-server-p">
-<tt class="descname">-p</tt><tt class="descclassname"> &lt;port&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption-server-p" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--rpc-port"></span><code class="descname">-p</code><code class="descclassname"> &lt;port&gt;</code><code class="descclassname">, </code><code class="descname">--rpc-port</code><code class="descclassname"> &lt;port&gt;</code><a class="headerlink" href="#cmdoption-server-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Port number to listen for RPC requests. [9199]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-b">
-<tt class="descname">-b</tt><tt class="descclassname"> &lt;address&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_addr</tt><tt class="descclassname"> &lt;address&gt;</tt><a class="headerlink" href="#cmdoption-server-b" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--listen_addr"></span><code class="descname">-b</code><code class="descclassname"> &lt;address&gt;</code><code class="descclassname">, </code><code class="descname">--listen_addr</code><code class="descclassname"> &lt;address&gt;</code><a class="headerlink" href="#cmdoption-server-b" title="Permalink to this definition">¶</a></dt>
 <dd><p>IPv4 address to listen for RPC requests.</p>
 <p>If not specified, listens for requests on all IPv4 addresses.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-B">
-<tt class="descname">-B</tt><tt class="descclassname"> &lt;interface&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_if</tt><tt class="descclassname"> &lt;interface&gt;</tt><a class="headerlink" href="#cmdoption-server-B" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--listen_if"></span><code class="descname">-B</code><code class="descclassname"> &lt;interface&gt;</code><code class="descclassname">, </code><code class="descname">--listen_if</code><code class="descclassname"> &lt;interface&gt;</code><a class="headerlink" href="#cmdoption-server-B" title="Permalink to this definition">¶</a></dt>
 <dd><p>Network interface to listen for RPC requests.</p>
 <p>If not specified, listens for requests on all network interfaces.</p>
-<p>Cannot be specified altogether with <tt class="docutils literal"><span class="pre">--listen_addr</span></tt> (in that case this option will be ignored).</p>
+<p>Cannot be specified altogether with <code class="docutils literal"><span class="pre">--listen_addr</span></code> (in that case this option will be ignored).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-c">
-<tt class="descname">-c</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-server-c" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--thread"></span><code class="descname">-c</code><code class="descclassname"> &lt;num&gt;</code><code class="descclassname">, </code><code class="descname">--thread</code><code class="descclassname"> &lt;num&gt;</code><a class="headerlink" href="#cmdoption-server-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of threads to accept RPC connection. [2]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-t" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--timeout"></span><code class="descname">-t</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-server-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout of RPC in seconds. [10]</p>
-<p><tt class="docutils literal"><span class="pre">0</span></tt> means disable timeout.</p>
+<p><code class="docutils literal"><span class="pre">0</span></code> means disable timeout.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-d">
-<tt class="descname">-d</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--datadir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-server-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path of directory to save and load training models using <tt class="docutils literal"><span class="pre">save</span></tt> and <tt class="docutils literal"><span class="pre">load</span></tt> RPC requests. [/tmp]</p>
+<span id="cmdoption-server--datadir"></span><code class="descname">-d</code><code class="descclassname"> &lt;dirpath&gt;</code><code class="descclassname">, </code><code class="descname">--datadir</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-server-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path of directory to save and load training models using <code class="docutils literal"><span class="pre">save</span></code> and <code class="docutils literal"><span class="pre">load</span></code> RPC requests. [/tmp]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-l">
-<tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-server-l" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--logdir"></span><code class="descname">-l</code><code class="descclassname"> &lt;dirpath&gt;</code><code class="descclassname">, </code><code class="descname">--logdir</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-server-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of directory to output ZooKeeper log files.</p>
 <p>If not specified, logs are dumped to the standard error.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-g">
-<tt class="descname">-g</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-server-g" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--log_config"></span><code class="descname">-g</code><code class="descclassname"> &lt;log_config&gt;</code><code class="descclassname">, </code><code class="descname">--log_config</code><code class="descclassname"> &lt;log_config&gt;</code><a class="headerlink" href="#cmdoption-server-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the logging configuration file in log4cxx (XML) format.</p>
 <p>If not specified, logs are dumped to the standard output.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-f">
-<tt class="descname">-f</tt><tt class="descclassname"> &lt;config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--configpath</tt><tt class="descclassname"> &lt;config&gt;</tt><a class="headerlink" href="#cmdoption-server-f" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--configpath"></span><code class="descname">-f</code><code class="descclassname"> &lt;config&gt;</code><code class="descclassname">, </code><code class="descname">--configpath</code><code class="descclassname"> &lt;config&gt;</code><a class="headerlink" href="#cmdoption-server-f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the server configuration file.</p>
-<p>This option must be given when <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> is not specified (i.e., running in standalone mode).</p>
+<p>This option must be given when <code class="docutils literal"><span class="pre">--zookeeper</span></code> is not specified (i.e., running in standalone mode).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-server-z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--zookeeper"></span><code class="descname">-z</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><a class="headerlink" href="#cmdoption-server-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ZooKeeper server(s).</p>
 <p>If not specified, Jubatus servers run in standalone mode.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-m">
-<tt class="descname">-m</tt><tt class="descclassname"> &lt;model&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--model_file</tt><tt class="descclassname"> &lt;model&gt;</tt><a class="headerlink" href="#cmdoption-server-m" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--model_file"></span><code class="descname">-m</code><code class="descclassname"> &lt;model&gt;</code><code class="descclassname">, </code><code class="descname">--model_file</code><code class="descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-server-m" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the model file to load at startup.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-n">
-<tt class="descname">-n</tt><tt class="descclassname"> &lt;name&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"> &lt;name&gt;</tt><a class="headerlink" href="#cmdoption-server-n" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--name"></span><code class="descname">-n</code><code class="descclassname"> &lt;name&gt;</code><code class="descclassname">, </code><code class="descname">--name</code><code class="descclassname"> &lt;name&gt;</code><a class="headerlink" href="#cmdoption-server-n" title="Permalink to this definition">¶</a></dt>
 <dd><p>The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.</p>
-<p>This option must be given only if <tt class="docutils literal"><span class="pre">--zookeeper</span></tt> is specified.</p>
-<p><tt class="docutils literal"><span class="pre">&lt;name&gt;</span></tt> should not contain characters that cannot be used as ZooKeeper node name (such as <tt class="docutils literal"><span class="pre">/</span></tt>).</p>
+<p>This option must be given only if <code class="docutils literal"><span class="pre">--zookeeper</span></code> is specified.</p>
+<p><code class="docutils literal"><span class="pre">&lt;name&gt;</span></code> should not contain characters that cannot be used as ZooKeeper node name (such as <code class="docutils literal"><span class="pre">/</span></code>).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-x">
-<tt class="descname">-x</tt><tt class="descclassname"> &lt;mixer&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"> &lt;mixer&gt;</tt><a class="headerlink" href="#cmdoption-server-x" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--mixer"></span><code class="descname">-x</code><code class="descclassname"> &lt;mixer&gt;</code><code class="descclassname">, </code><code class="descname">--mixer</code><code class="descclassname"> &lt;mixer&gt;</code><a class="headerlink" href="#cmdoption-server-x" title="Permalink to this definition">¶</a></dt>
 <dd><p>MIX strategy used when choosing MIX node. [linear_mixer]</p>
-<p>One of <tt class="docutils literal"><span class="pre">linear_mixer</span></tt>, <tt class="docutils literal"><span class="pre">random_mixer</span></tt>, <tt class="docutils literal"><span class="pre">broadcast_mixer</span></tt>, or <tt class="docutils literal"><span class="pre">skip_mixer</span></tt> can be specified.
+<p>One of <code class="docutils literal"><span class="pre">linear_mixer</span></code>, <code class="docutils literal"><span class="pre">random_mixer</span></code>, <code class="docutils literal"><span class="pre">broadcast_mixer</span></code>, or <code class="docutils literal"><span class="pre">skip_mixer</span></code> can be specified.
 MIX strategies available may differ depending on the engine.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-s">
-<tt class="descname">-s</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Invoke &#8220;mix&#8221; in every <tt class="docutils literal"><span class="pre">&lt;seconds&gt;</span></tt> second. [16]</p>
-<p>Specifying <tt class="docutils literal"><span class="pre">0</span></tt> disables time-based mix invocation.</p>
+<span id="cmdoption-server--interval_sec"></span><code class="descname">-s</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--interval_sec</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-server-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke &#8220;mix&#8221; in every <code class="docutils literal"><span class="pre">&lt;seconds&gt;</span></code> second. [16]</p>
+<p>Specifying <code class="docutils literal"><span class="pre">0</span></code> disables time-based mix invocation.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-i">
-<tt class="descname">-i</tt><tt class="descclassname"> &lt;count&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname"> &lt;count&gt;</tt><a class="headerlink" href="#cmdoption-server-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Invoke &#8220;mix&#8221; in every <tt class="docutils literal"><span class="pre">&lt;count&gt;</span></tt> updates. [512]</p>
-<p>The update is counted when API that updates the training model (such as <tt class="docutils literal"><span class="pre">train</span></tt> in the classifier) is called.</p>
-<p>Specifying <tt class="docutils literal"><span class="pre">0</span></tt> disables update-based mix invocation.</p>
+<span id="cmdoption-server--interval_count"></span><code class="descname">-i</code><code class="descclassname"> &lt;count&gt;</code><code class="descclassname">, </code><code class="descname">--interval_count</code><code class="descclassname"> &lt;count&gt;</code><a class="headerlink" href="#cmdoption-server-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke &#8220;mix&#8221; in every <code class="docutils literal"><span class="pre">&lt;count&gt;</span></code> updates. [512]</p>
+<p>The update is counted when API that updates the training model (such as <code class="docutils literal"><span class="pre">train</span></code> in the classifier) is called.</p>
+<p>Specifying <code class="docutils literal"><span class="pre">0</span></code> disables update-based mix invocation.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-Z">
-<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-Z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--zookeeper_timeout"></span><code class="descname">-Z</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper_timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-server-Z" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout between ZooKeeper and Jubatus Server in seconds. [10]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-I">
-<tt class="descname">-I</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-server-I" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--interconnect_timeout"></span><code class="descname">-I</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--interconnect_timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-server-I" title="Permalink to this definition">¶</a></dt>
 <dd><p>Timeout of RPC between Jubatus Servers in seconds. [10]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-server-v">
-<tt class="descname">-v</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-server-v" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-server--version"></span><code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-server-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the version of Jubatus server.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-server--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-server--help" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-server-?">
+<span id="cmdoption-server--help"></span><code class="descname">-?</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-server-?" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the brief usage of the command.</p>
 </dd></dl>
 
@@ -307,153 +308,153 @@ MIX strategies available may differ depending on the engine.</p>
 <p>In distributed environment, Jubatus Proxy distributes requests from clients to servers.</p>
 <dl class="option">
 <dt id="cmdoption-proxy-p">
-<tt class="descname">-p</tt><tt class="descclassname"> &lt;port&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption-proxy-p" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--rpc-port"></span><code class="descname">-p</code><code class="descclassname"> &lt;port&gt;</code><code class="descclassname">, </code><code class="descname">--rpc-port</code><code class="descclassname"> &lt;port&gt;</code><a class="headerlink" href="#cmdoption-proxy-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Port number to listen for RPC requests. [9199]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-b">
-<tt class="descname">-b</tt><tt class="descclassname"> &lt;address&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_addr</tt><tt class="descclassname"> &lt;address&gt;</tt><a class="headerlink" href="#cmdoption-proxy-b" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--listen_addr"></span><code class="descname">-b</code><code class="descclassname"> &lt;address&gt;</code><code class="descclassname">, </code><code class="descname">--listen_addr</code><code class="descclassname"> &lt;address&gt;</code><a class="headerlink" href="#cmdoption-proxy-b" title="Permalink to this definition">¶</a></dt>
 <dd><p>IPv4 address to listen for RPC requests.</p>
 <p>If not specified, listens for requests on all IPv4 addresses.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-B">
-<tt class="descname">-B</tt><tt class="descclassname"> &lt;interface&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_if</tt><tt class="descclassname"> &lt;interface&gt;</tt><a class="headerlink" href="#cmdoption-proxy-B" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--listen_if"></span><code class="descname">-B</code><code class="descclassname"> &lt;interface&gt;</code><code class="descclassname">, </code><code class="descname">--listen_if</code><code class="descclassname"> &lt;interface&gt;</code><a class="headerlink" href="#cmdoption-proxy-B" title="Permalink to this definition">¶</a></dt>
 <dd><p>Network interface to listen for RPC requests.</p>
 <p>If not specified, listens for requests on all network interfaces.</p>
-<p>Cannot be specified altogether with <tt class="docutils literal"><span class="pre">--listen_addr</span></tt> (in that case this option will be ignored).</p>
+<p>Cannot be specified altogether with <code class="docutils literal"><span class="pre">--listen_addr</span></code> (in that case this option will be ignored).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-c">
-<tt class="descname">-c</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-proxy-c" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--thread"></span><code class="descname">-c</code><code class="descclassname"> &lt;num&gt;</code><code class="descclassname">, </code><code class="descname">--thread</code><code class="descclassname"> &lt;num&gt;</code><a class="headerlink" href="#cmdoption-proxy-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of threads to accept RPC connection. [4]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-t" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--timeout"></span><code class="descname">-t</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-proxy-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout of RPC in seconds. [10]</p>
-<p><tt class="docutils literal"><span class="pre">0</span></tt> means disable timeout.</p>
+<p><code class="docutils literal"><span class="pre">0</span></code> means disable timeout.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-Z">
-<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-Z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--zookeeper_timeout"></span><code class="descname">-Z</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper_timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-proxy-Z" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout between ZooKeeper and Jubatus Proxy in seconds. [10]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-I">
-<tt class="descname">-I</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-I" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--interconnect_timeout"></span><code class="descname">-I</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--interconnect_timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-proxy-I" title="Permalink to this definition">¶</a></dt>
 <dd><p>Timeout of RPC between Jubatus Proxy and Jubatus Servers in seconds. [10]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-proxy-z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--zookeeper"></span><code class="descname">-z</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><a class="headerlink" href="#cmdoption-proxy-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ZooKeeper server(s).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-l">
-<tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-proxy-l" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--logdir"></span><code class="descname">-l</code><code class="descclassname"> &lt;dirpath&gt;</code><code class="descclassname">, </code><code class="descname">--logdir</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-proxy-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of directory to output ZooKeeper log files.</p>
 <p>If not specified, logs are dumped to the standard error.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-g">
-<tt class="descname">-g</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-proxy-g" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--log_config"></span><code class="descname">-g</code><code class="descclassname"> &lt;log_config&gt;</code><code class="descclassname">, </code><code class="descname">--log_config</code><code class="descclassname"> &lt;log_config&gt;</code><a class="headerlink" href="#cmdoption-proxy-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the logging configuration file in log4cxx (XML) format.</p>
 <p>If not specified, logs are dumped to the standard output.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-E">
-<tt class="descname">-E</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_expire</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-proxy-E" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--pool_expire"></span><code class="descname">-E</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--pool_expire</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-proxy-E" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session pool timeout in seconds. [60]</p>
-<p><tt class="docutils literal"><span class="pre">0</span></tt> means that the session is expired if not used for more than one second.</p>
+<p><code class="docutils literal"><span class="pre">0</span></code> means that the session is expired if not used for more than one second.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-S">
-<tt class="descname">-S</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--pool_size</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-proxy-S" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--pool_size"></span><code class="descname">-S</code><code class="descclassname"> &lt;num&gt;</code><code class="descclassname">, </code><code class="descname">--pool_size</code><code class="descclassname"> &lt;num&gt;</code><a class="headerlink" href="#cmdoption-proxy-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum size of session pool for each thread. [0]</p>
-<p><tt class="docutils literal"><span class="pre">0</span></tt> means unlimited.</p>
+<p><code class="docutils literal"><span class="pre">0</span></code> means unlimited.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-proxy-v">
-<tt class="descname">-v</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-proxy-v" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-proxy--version"></span><code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-proxy-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the version of Jubatus Proxy.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-proxy--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-proxy--help" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-proxy-?">
+<span id="cmdoption-proxy--help"></span><code class="descname">-?</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-proxy-?" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the brief usage of the command.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jubavisor">
 <h3>jubavisor<a class="headerlink" href="#jubavisor" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jubavisor</span></tt> is a daemon process controlled by <tt class="docutils literal"><span class="pre">jubactl</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">jubavisor</span></code> is a daemon process controlled by <code class="docutils literal"><span class="pre">jubactl</span></code>.</p>
 <dl class="option">
 <dt id="cmdoption-jubavisor-p">
-<tt class="descname">-p</tt><tt class="descclassname"> &lt;port&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--rpc-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-p" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubavisor--rpc-port"></span><code class="descname">-p</code><code class="descclassname"> &lt;port&gt;</code><code class="descclassname">, </code><code class="descname">--rpc-port</code><code class="descclassname"> &lt;port&gt;</code><a class="headerlink" href="#cmdoption-jubavisor-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Port number to listen for RPC requests. [9198]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubavisor-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-t" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubavisor--timeout"></span><code class="descname">-t</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-jubavisor-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session timeout of RPC in seconds. [10]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubavisor-l">
-<tt class="descname">-l</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-l" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubavisor--logdir"></span><code class="descname">-l</code><code class="descclassname"> &lt;dirpath&gt;</code><code class="descclassname">, </code><code class="descname">--logdir</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-jubavisor-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of directory to output ZooKeeper log files.</p>
 <p>If not specified, logs are dumped to the standard error.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubavisor-g">
-<tt class="descname">-g</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-g" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubavisor--log_config"></span><code class="descname">-g</code><code class="descclassname"> &lt;log_config&gt;</code><code class="descclassname">, </code><code class="descname">--log_config</code><code class="descclassname"> &lt;log_config&gt;</code><a class="headerlink" href="#cmdoption-jubavisor-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the logging configuration file in log4cxx (XML) format.</p>
 <p>If not specified, logs are dumped to the standard output.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubavisor-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-jubavisor-z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubavisor--zookeeper"></span><code class="descname">-z</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><a class="headerlink" href="#cmdoption-jubavisor-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ZooKeeper server(s).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubavisor-d">
-<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--daemon</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubavisor-d" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubavisor--daemon"></span><code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--daemon</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubavisor-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Daemonize the process.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubavisor--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubavisor--help" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubavisor-?">
+<span id="cmdoption-jubavisor--help"></span><code class="descname">-?</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubavisor-?" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the brief usage of the command.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jubactl">
 <h3>jubactl<a class="headerlink" href="#jubactl" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jubactl</span></tt> is a command to manage server processes in distributed environment.</p>
+<p><code class="docutils literal"><span class="pre">jubactl</span></code> is a command to manage server processes in distributed environment.</p>
 <dl class="option">
 <dt id="cmdoption-jubactl-c">
-<tt class="descname">-c</tt><tt class="descclassname"> &lt;command&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--cmd</tt><tt class="descclassname"> &lt;command&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-c" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubactl--cmd"></span><code class="descname">-c</code><code class="descclassname"> &lt;command&gt;</code><code class="descclassname">, </code><code class="descname">--cmd</code><code class="descclassname"> &lt;command&gt;</code><a class="headerlink" href="#cmdoption-jubactl-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send specified command to jubavisors registered to ZooKeeper.
-<tt class="docutils literal"><span class="pre">&lt;command&gt;</span></tt> should be one of the following.</p>
+<code class="docutils literal"><span class="pre">&lt;command&gt;</span></code> should be one of the following.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -472,10 +473,10 @@ MIX strategies available may differ depending on the engine.</p>
 <td>Stop Jubatus servers</td>
 </tr>
 <tr class="row-even"><td>save</td>
-<td>Save the model to directory specified by <a class="reference internal" href="#cmdoption-server-d"><em class="xref std std-option">server -d</em></a></td>
+<td>Save the model to directory specified by <a class="reference internal" href="#cmdoption-server-d"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-d</span></code></a></td>
 </tr>
 <tr class="row-odd"><td>load</td>
-<td>Load the model from directory specified by <a class="reference internal" href="#cmdoption-server-d"><em class="xref std std-option">server -d</em></a></td>
+<td>Load the model from directory specified by <a class="reference internal" href="#cmdoption-server-d"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-d</span></code></a></td>
 </tr>
 <tr class="row-even"><td>status</td>
 <td>Print the status of servers, proxies and jubavisors</td>
@@ -486,143 +487,143 @@ MIX strategies available may differ depending on the engine.</p>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-s">
-<tt class="descname">-s</tt><tt class="descclassname"> &lt;program&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--server</tt><tt class="descclassname"> &lt;program&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executable file of the server program (e.g., <tt class="docutils literal"><span class="pre">jubaclassifier</span></tt>, <tt class="docutils literal"><span class="pre">jubarecommender</span></tt>, ...).</p>
+<span id="cmdoption-jubactl--server"></span><code class="descname">-s</code><code class="descclassname"> &lt;program&gt;</code><code class="descclassname">, </code><code class="descname">--server</code><code class="descclassname"> &lt;program&gt;</code><a class="headerlink" href="#cmdoption-jubactl-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executable file of the server program (e.g., <code class="docutils literal"><span class="pre">jubaclassifier</span></code>, <code class="docutils literal"><span class="pre">jubarecommender</span></code>, ...).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-n">
-<tt class="descname">-n</tt><tt class="descclassname"> &lt;name&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"> &lt;name&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-n" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubactl--name"></span><code class="descname">-n</code><code class="descclassname"> &lt;name&gt;</code><code class="descclassname">, </code><code class="descname">--name</code><code class="descclassname"> &lt;name&gt;</code><a class="headerlink" href="#cmdoption-jubactl-n" title="Permalink to this definition">¶</a></dt>
 <dd><p>The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;type&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"> &lt;type&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type of the server program (e.g., <tt class="docutils literal"><span class="pre">classifier</span></tt>, <tt class="docutils literal"><span class="pre">recommender</span></tt>, ...).</p>
+<span id="cmdoption-jubactl--type"></span><code class="descname">-t</code><code class="descclassname"> &lt;type&gt;</code><code class="descclassname">, </code><code class="descname">--type</code><code class="descclassname"> &lt;type&gt;</code><a class="headerlink" href="#cmdoption-jubactl-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of the server program (e.g., <code class="docutils literal"><span class="pre">classifier</span></code>, <code class="docutils literal"><span class="pre">recommender</span></code>, ...).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-N">
-<tt class="descname">-N</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--num</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-N" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubactl--num"></span><code class="descname">-N</code><code class="descclassname"> &lt;num&gt;</code><code class="descclassname">, </code><code class="descname">--num</code><code class="descclassname"> &lt;num&gt;</code><a class="headerlink" href="#cmdoption-jubactl-N" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of processes in the whole cluster.</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
-<p>When <tt class="docutils literal"><span class="pre">0</span></tt> is specified, start 1 process on each jubavisor.</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
+<p>When <code class="docutils literal"><span class="pre">0</span></code> is specified, start 1 process on each jubavisor.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubactl--zookeeper"></span><code class="descname">-z</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><a class="headerlink" href="#cmdoption-jubactl-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ZooKeeper server(s).</p>
-<p>If not specified, environment variable <tt class="docutils literal"><span class="pre">ZK</span></tt> will be used.</p>
+<p>If not specified, environment variable <code class="docutils literal"><span class="pre">ZK</span></code> will be used.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-i">
-<tt class="descname">-i</tt><tt class="descclassname"> &lt;id&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--id</tt><tt class="descclassname"> &lt;id&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-i" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubactl--id"></span><code class="descname">-i</code><code class="descclassname"> &lt;id&gt;</code><code class="descclassname">, </code><code class="descname">--id</code><code class="descclassname"> &lt;id&gt;</code><a class="headerlink" href="#cmdoption-jubactl-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>ID of file name to save or load.</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">save</span></tt> and <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">load</span></tt>.</p>
-<p>If not specified, the value that specified by <tt class="docutils literal"><span class="pre">--name</span></tt> will be used.</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">save</span></code> and <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">load</span></code>.</p>
+<p>If not specified, the value that specified by <code class="docutils literal"><span class="pre">--name</span></code> will be used.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-B">
-<tt class="descname">-B</tt><tt class="descclassname"> &lt;interface&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--listen_if</tt><tt class="descclassname"> &lt;interface&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-B" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-B"><em class="xref std std-option">server -B</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--listen_if"></span><code class="descname">-B</code><code class="descclassname"> &lt;interface&gt;</code><code class="descclassname">, </code><code class="descname">--listen_if</code><code class="descclassname"> &lt;interface&gt;</code><a class="headerlink" href="#cmdoption-jubactl-B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-B"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-B</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-C">
-<tt class="descname">-C</tt><tt class="descclassname"> &lt;num&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--thread</tt><tt class="descclassname"> &lt;num&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-C" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-c"><em class="xref std std-option">server -c</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--thread"></span><code class="descname">-C</code><code class="descclassname"> &lt;num&gt;</code><code class="descclassname">, </code><code class="descname">--thread</code><code class="descclassname"> &lt;num&gt;</code><a class="headerlink" href="#cmdoption-jubactl-C" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-c"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-c</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-T">
-<tt class="descname">-T</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-T" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-t"><em class="xref std std-option">server -t</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--timeout"></span><code class="descname">-T</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-jubactl-T" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-D">
-<tt class="descname">-D</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--datadir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-d"><em class="xref std std-option">server -d</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--datadir"></span><code class="descname">-D</code><code class="descclassname"> &lt;dirpath&gt;</code><code class="descclassname">, </code><code class="descname">--datadir</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-jubactl-D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-d"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-d</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-L">
-<tt class="descname">-L</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--logdir</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-L" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-l"><em class="xref std std-option">server -l</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--logdir"></span><code class="descname">-L</code><code class="descclassname"> &lt;dirpath&gt;</code><code class="descclassname">, </code><code class="descname">--logdir</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-jubactl-L" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-l"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-l</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-G">
-<tt class="descname">-G</tt><tt class="descclassname"> &lt;log_config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--log_config</tt><tt class="descclassname"> &lt;log_config&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-G" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-g"><em class="xref std std-option">server -g</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--log_config"></span><code class="descname">-G</code><code class="descclassname"> &lt;log_config&gt;</code><code class="descclassname">, </code><code class="descname">--log_config</code><code class="descclassname"> &lt;log_config&gt;</code><a class="headerlink" href="#cmdoption-jubactl-G" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-g"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-g</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-X">
-<tt class="descname">-X</tt><tt class="descclassname"> &lt;mixer&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--mixer</tt><tt class="descclassname"> &lt;mixer&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-X" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-x"><em class="xref std std-option">server -x</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--mixer"></span><code class="descname">-X</code><code class="descclassname"> &lt;mixer&gt;</code><code class="descclassname">, </code><code class="descname">--mixer</code><code class="descclassname"> &lt;mixer&gt;</code><a class="headerlink" href="#cmdoption-jubactl-X" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-x"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-x</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-S">
-<tt class="descname">-S</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_sec</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-S" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-s"><em class="xref std std-option">server -s</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--interval_sec"></span><code class="descname">-S</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--interval_sec</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-jubactl-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-s"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-s</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-I">
-<tt class="descname">-I</tt><tt class="descclassname"> &lt;count&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interval_count</tt><tt class="descclassname"> &lt;count&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-I" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-i"><em class="xref std std-option">server -i</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--interval_count"></span><code class="descname">-I</code><code class="descclassname"> &lt;count&gt;</code><code class="descclassname">, </code><code class="descname">--interval_count</code><code class="descclassname"> &lt;count&gt;</code><a class="headerlink" href="#cmdoption-jubactl-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-i"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-i</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-Z">
-<tt class="descname">-Z</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-Z" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-Z"><em class="xref std std-option">server -Z</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--zookeeper_timeout"></span><code class="descname">-Z</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper_timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-jubactl-Z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-Z"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-Z</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-R">
-<tt class="descname">-R</tt><tt class="descclassname"> &lt;seconds&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--interconnect_timeout</tt><tt class="descclassname"> &lt;seconds&gt;</tt><a class="headerlink" href="#cmdoption-jubactl-R" title="Permalink to this definition">¶</a></dt>
-<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-I"><em class="xref std std-option">server -I</em></a>).</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></tt>.</p>
+<span id="cmdoption-jubactl--interconnect_timeout"></span><code class="descname">-R</code><code class="descclassname"> &lt;seconds&gt;</code><code class="descclassname">, </code><code class="descname">--interconnect_timeout</code><code class="descclassname"> &lt;seconds&gt;</code><a class="headerlink" href="#cmdoption-jubactl-R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Option given when starting new server process (<a class="reference internal" href="#cmdoption-server-I"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-I</span></code></a>).</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">start</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubactl-d">
-<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--debug</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl-d" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubactl--debug"></span><code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubactl-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option is deprecated and is no longer be used.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubactl--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubactl--help" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubactl-?">
+<span id="cmdoption-jubactl--help"></span><code class="descname">-?</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubactl-?" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the brief usage of the command.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jubaconfig">
 <h3>jubaconfig<a class="headerlink" href="#jubaconfig" title="Permalink to this headline">¶</a></h3>
-<p>In distributed environment, <tt class="docutils literal"><span class="pre">jubaconfig</span></tt> manages the configuration files of Jubatus servers that are registered on ZooKeeper.</p>
+<p>In distributed environment, <code class="docutils literal"><span class="pre">jubaconfig</span></code> manages the configuration files of Jubatus servers that are registered on ZooKeeper.</p>
 <dl class="option">
 <dt id="cmdoption-jubaconfig-c">
-<tt class="descname">-c</tt><tt class="descclassname"> &lt;command&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--cmd</tt><tt class="descclassname"> &lt;command&gt;</tt><a class="headerlink" href="#cmdoption-jubaconfig-c" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconfig--cmd"></span><code class="descname">-c</code><code class="descclassname"> &lt;command&gt;</code><code class="descclassname">, </code><code class="descname">--cmd</code><code class="descclassname"> &lt;command&gt;</code><a class="headerlink" href="#cmdoption-jubaconfig-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify the action to perform on configuration files.
-<tt class="docutils literal"><span class="pre">&lt;command&gt;</span></tt> should be one of the following.</p>
+<code class="docutils literal"><span class="pre">&lt;command&gt;</span></code> should be one of the following.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -652,41 +653,41 @@ MIX strategies available may differ depending on the engine.</p>
 
 <dl class="option">
 <dt id="cmdoption-jubaconfig-f">
-<tt class="descname">-f</tt><tt class="descclassname"> &lt;file&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--file</tt><tt class="descclassname"> &lt;file&gt;</tt><a class="headerlink" href="#cmdoption-jubaconfig-f" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconfig--file"></span><code class="descname">-f</code><code class="descclassname"> &lt;file&gt;</code><code class="descclassname">, </code><code class="descname">--file</code><code class="descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-jubaconfig-f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the configuration file to register to ZooKeeper.</p>
-<p>Effective only when used with <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">write</span></tt>.</p>
+<p>Effective only when used with <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">write</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconfig-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;type&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"> &lt;type&gt;</tt><a class="headerlink" href="#cmdoption-jubaconfig-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type of the server program (e.g., <tt class="docutils literal"><span class="pre">classifier</span></tt>, <tt class="docutils literal"><span class="pre">recommender</span></tt>, ...).</p>
-<p>Effective only when used with one of <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">write</span></tt>, <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">read</span></tt> or <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">delete</span></tt>.</p>
+<span id="cmdoption-jubaconfig--type"></span><code class="descname">-t</code><code class="descclassname"> &lt;type&gt;</code><code class="descclassname">, </code><code class="descname">--type</code><code class="descclassname"> &lt;type&gt;</code><a class="headerlink" href="#cmdoption-jubaconfig-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of the server program (e.g., <code class="docutils literal"><span class="pre">classifier</span></code>, <code class="docutils literal"><span class="pre">recommender</span></code>, ...).</p>
+<p>Effective only when used with one of <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">write</span></code>, <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">read</span></code> or <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">delete</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconfig-n">
-<tt class="descname">-n</tt><tt class="descclassname"> &lt;name&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--name</tt><tt class="descclassname"> &lt;name&gt;</tt><a class="headerlink" href="#cmdoption-jubaconfig-n" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconfig--name"></span><code class="descname">-n</code><code class="descclassname"> &lt;name&gt;</code><code class="descclassname">, </code><code class="descname">--name</code><code class="descclassname"> &lt;name&gt;</code><a class="headerlink" href="#cmdoption-jubaconfig-n" title="Permalink to this definition">¶</a></dt>
 <dd><p>The instance name, which is a value to uniquely identify a task in the ZooKeeper cluster.</p>
-<p>Effective only when used with one of <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">write</span></tt>, <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">read</span></tt> or <tt class="docutils literal"><span class="pre">--cmd</span> <span class="pre">delete</span></tt>.</p>
+<p>Effective only when used with one of <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">write</span></code>, <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">read</span></code> or <code class="docutils literal"><span class="pre">--cmd</span> <span class="pre">delete</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconfig-z">
-<tt class="descname">-z</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--zookeeper</tt><tt class="descclassname"> &lt;zookeeper_list&gt;</tt><a class="headerlink" href="#cmdoption-jubaconfig-z" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconfig--zookeeper"></span><code class="descname">-z</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><code class="descclassname">, </code><code class="descname">--zookeeper</code><code class="descclassname"> &lt;zookeeper_list&gt;</code><a class="headerlink" href="#cmdoption-jubaconfig-z" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of ZooKeeper server(s).</p>
-<p>If not specified, environment variable <tt class="docutils literal"><span class="pre">ZK</span></tt> will be used.</p>
+<p>If not specified, environment variable <code class="docutils literal"><span class="pre">ZK</span></code> will be used.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconfig-d">
-<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--debug</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaconfig-d" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconfig--debug"></span><code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubaconfig-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option is deprecated and is no longer be used.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubaconfig--help">
-<tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jubaconfig--help" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-jubaconfig-?">
+<span id="cmdoption-jubaconfig--help"></span><code class="descname">-?</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubaconfig-?" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the brief usage of the command.</p>
 </dd></dl>
 
@@ -696,8 +697,8 @@ MIX strategies available may differ depending on the engine.</p>
 <h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jubaconv">
 <span id="id1"></span><h3>jubaconv<a class="headerlink" href="#jubaconv" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jubaconv</span></tt> is a tool to test your fv_converter configuration.</p>
-<p><tt class="docutils literal"><span class="pre">jubaconv</span></tt> simulates the internal behavior of fv_converter and displays the result of conversion on the command-line.</p>
+<p><code class="docutils literal"><span class="pre">jubaconv</span></code> is a tool to test your fv_converter configuration.</p>
+<p><code class="docutils literal"><span class="pre">jubaconv</span></code> simulates the internal behavior of fv_converter and displays the result of conversion on the command-line.</p>
 <p>Example of usage is as shown below:</p>
 <div class="highlight-none"><div class="highlight"><pre>$ cat data.json
 { &quot;message&quot;: &quot;hello world&quot;, &quot;age&quot;: 31 }
@@ -723,69 +724,69 @@ age@num: 31
 </div>
 <dl class="option">
 <dt id="cmdoption-jubaconv-i">
-<tt class="descname">-i</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--input-format</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubaconv-i" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconv--input-format"></span><code class="descname">-i</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--input-format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format of the input. [json]</p>
-<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> must be one of <tt class="docutils literal"><span class="pre">json</span></tt> or <tt class="docutils literal"><span class="pre">datum</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">json</span></code> or <code class="docutils literal"><span class="pre">datum</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconv-o">
-<tt class="descname">-o</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--output-format</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubaconv-o" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconv--output-format"></span><code class="descname">-o</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--output-format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format of the output. [fv]</p>
-<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> must be one of <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">datum</span></tt> or <tt class="docutils literal"><span class="pre">fv</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">json</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> or <code class="docutils literal"><span class="pre">fv</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconv-c">
-<tt class="descname">-c</tt><tt class="descclassname"> &lt;config&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--conf</tt><tt class="descclassname"> &lt;config&gt;</tt><a class="headerlink" href="#cmdoption-jubaconv-c" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubaconv--conf"></span><code class="descname">-c</code><code class="descclassname"> &lt;config&gt;</code><code class="descclassname">, </code><code class="descname">--conf</code><code class="descclassname"> &lt;config&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Jubatus server configuration file in JSON (see <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>).</p>
-<p>This option must be given only if <tt class="docutils literal"><span class="pre">fv</span></tt> is specified for <a class="reference internal" href="#cmdoption-jubaconv-o"><em class="xref std std-option">-o</em></a>.</p>
+<p>This option must be given only if <code class="docutils literal"><span class="pre">fv</span></code> is specified for <a class="reference internal" href="#cmdoption-jubaconv-o"><code class="xref std std-option docutils literal"><span class="pre">-o</span></code></a>.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jubadump">
 <span id="id2"></span><h3>jubadump<a class="headerlink" href="#jubadump" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jubadump</span></tt> is a tools to convert Jubatus model files saved using <tt class="docutils literal"><span class="pre">save</span></tt> RPC to JSON.</p>
-<p>Currently, only <tt class="docutils literal"><span class="pre">classifier</span></tt> and <tt class="docutils literal"><span class="pre">inverted_index</span></tt> of <tt class="docutils literal"><span class="pre">recommender</span></tt> are supported.</p>
+<p><code class="docutils literal"><span class="pre">jubadump</span></code> is a tools to convert Jubatus model files saved using <code class="docutils literal"><span class="pre">save</span></code> RPC to JSON.</p>
+<p>Currently, only <code class="docutils literal"><span class="pre">classifier</span></code> and <code class="docutils literal"><span class="pre">inverted_index</span></code> of <code class="docutils literal"><span class="pre">recommender</span></code> are supported.</p>
 <dl class="option">
 <dt id="cmdoption-jubadump-i">
-<tt class="descname">-i</tt><tt class="descclassname"> &lt;file&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--input</tt><tt class="descclassname"> &lt;file&gt;</tt><a class="headerlink" href="#cmdoption-jubadump-i" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubadump--input"></span><code class="descname">-i</code><code class="descclassname"> &lt;file&gt;</code><code class="descclassname">, </code><code class="descname">--input</code><code class="descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-jubadump-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path of the model file to convert.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubadump-t">
-<tt class="descname">-t</tt><tt class="descclassname"> &lt;format&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--type</tt><tt class="descclassname"> &lt;format&gt;</tt><a class="headerlink" href="#cmdoption-jubadump-t" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jubadump--type"></span><code class="descname">-t</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--type</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubadump-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format of the input file [classifier]</p>
-<p><tt class="docutils literal"><span class="pre">&lt;format&gt;</span></tt> must be one of <tt class="docutils literal"><span class="pre">classifier</span></tt> or <tt class="docutils literal"><span class="pre">inverted_index</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">classifier</span></code> or <code class="docutils literal"><span class="pre">inverted_index</span></code>.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="jenerator">
 <span id="id3"></span><h3>jenerator<a class="headerlink" href="#jenerator" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> generates implementation of proxy, server template and C++ client from extended MessagePack-IDL file. See <a class="reference internal" href="server.html"><em>Using Code Generators</em></a> for details.</p>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> is not installed by default (see <tt class="docutils literal"><span class="pre">tools/jenerator</span></tt> in the source tree).</p>
+<p><code class="docutils literal"><span class="pre">jenerator</span></code> generates implementation of proxy, server template and C++ client from extended MessagePack-IDL file. See <a class="reference internal" href="server.html"><em>Using Code Generators</em></a> for details.</p>
+<p><code class="docutils literal"><span class="pre">jenerator</span></code> is not installed by default (see <code class="docutils literal"><span class="pre">tools/jenerator</span></code> in the source tree).</p>
 <div class="highlight-none"><div class="highlight"><pre>$ jenerator -l &lt;lang&gt; [options ...] idl ...
 </pre></div>
 </div>
 <dl class="option">
 <dt id="cmdoption-jenerator-l">
-<tt class="descname">-l</tt><tt class="descclassname"> &lt;lang&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Language of the client code to generate. Currently <tt class="docutils literal"><span class="pre">cpp</span></tt>, <tt class="docutils literal"><span class="pre">java</span></tt>, <tt class="docutils literal"><span class="pre">python</span></tt>, and <tt class="docutils literal"><span class="pre">ruby</span></tt> are supported.
-Specify <tt class="docutils literal"><span class="pre">server</span></tt> if you need to generate servers and proxies.</p>
+<code class="descname">-l</code><code class="descclassname"> &lt;lang&gt;</code><a class="headerlink" href="#cmdoption-jenerator-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Language of the client code to generate. Currently <code class="docutils literal"><span class="pre">cpp</span></code>, <code class="docutils literal"><span class="pre">java</span></code>, <code class="docutils literal"><span class="pre">python</span></code>, and <code class="docutils literal"><span class="pre">ruby</span></code> are supported.
+Specify <code class="docutils literal"><span class="pre">server</span></code> if you need to generate servers and proxies.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-o">
-<tt class="descname">-o</tt><tt class="descclassname"> &lt;dirpath&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-o" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-o</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-jenerator-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory to output the generated source files.</p>
 <p>If not specified, the current directory will be used.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-i">
-<tt class="descname">-i</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use relative path for <tt class="docutils literal"><span class="pre">#include</span></tt> directives.</p>
+<code class="descname">-i</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jenerator-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use relative path for <code class="docutils literal"><span class="pre">#include</span></code> directives.</p>
 <p>Effective only when generating C++ code (servers, proxies and C++ clients).
 This option is intended for use by Jubatus developers.
 You don&#8217;t need this option except you&#8217;re going to build generated code inside Jubatus source tree.</p>
@@ -793,27 +794,27 @@ You don&#8217;t need this option except you&#8217;re going to build generated co
 
 <dl class="option">
 <dt id="cmdoption-jenerator-n">
-<tt class="descname">-n</tt><tt class="descclassname"> &lt;namespace&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-n" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-n</code><code class="descclassname"> &lt;namespace&gt;</code><a class="headerlink" href="#cmdoption-jenerator-n" title="Permalink to this definition">¶</a></dt>
 <dd><p>Declare the specified namespace for generated source.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-t">
-<tt class="descname">-t</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-t" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-t</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jenerator-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate server template.</p>
 <p>Effective only when generating servers and proxies.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-g">
-<tt class="descname">-g</tt><tt class="descclassname"> &lt;guard&gt;</tt><a class="headerlink" href="#cmdoption-jenerator-g" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-g</code><code class="descclassname"> &lt;guard&gt;</code><a class="headerlink" href="#cmdoption-jenerator-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prefix used for include guards in header files.</p>
 <p>Effective only when generating C++ code (servers, proxies and C++ clients).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-help">
-<tt class="descname">-help</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-jenerator-help" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-jenerator--help"></span><code class="descname">-help</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jenerator-help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the brief usage of the command.</p>
 </dd></dl>
 
@@ -848,7 +849,7 @@ You don&#8217;t need this option except you&#8217;re going to build generated co
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

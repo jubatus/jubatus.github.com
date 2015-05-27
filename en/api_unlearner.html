@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -117,11 +116,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="howtocontribute.html"
                         title="next chapter">How to Contribute</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_unlearner.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_unlearner.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -158,7 +159,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">unlearner</tt></dt>
+<code class="descname">unlearner</code></dt>
 <dd><p>Specify unlearning strategy from below two.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -171,10 +172,10 @@ We show each field below:</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;random&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;random&quot;</span></code></td>
 <td>Delete data randomly</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;lru&quot;</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;lru&quot;</span></code></td>
 <td>Delete data upon Least-Recently-Updated strategy</td>
 </tr>
 </tbody>
@@ -183,35 +184,34 @@ We show each field below:</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">unlearner_parameter</tt></dt>
+<code class="descname">unlearner_parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Max_size :</th><td class="field-body"><p class="first">Specify the upper-limit of data quantity.
+<tr class="field-odd field"><th class="field-name">Max_size:</th><td class="field-body"><p class="first">Specify the upper-limit of data quantity.
 The smaller it is, the less memory usage, the more fast, the less accurately.</p>
 <ul class="simple">
-<li>range of value: 0 &lt; <tt class="docutils literal"><span class="pre">max_size</span></tt> &lt; 2147483647</li>
+<li>range of value: 0 &lt; <code class="docutils literal"><span class="pre">max_size</span></code> &lt; 2147483647</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Sticky_pattern :</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify pattern of IDs to exclude from unlearning.
-Patterns can be specified in the same format as in <tt class="docutils literal"><span class="pre">key</span></tt> of rules in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.
-This parameter is only available when using <tt class="docutils literal"><span class="pre">lru</span></tt>.
+<tr class="field-even field"><th class="field-name">Sticky_pattern:</th><td class="field-body"><p class="first">Specify pattern of IDs to exclude from unlearning.
+Patterns can be specified in the same format as in <code class="docutils literal"><span class="pre">key</span></code> of rules in <a class="reference internal" href="fv_convert.html"><em>Data Conversion</em></a>.
+This parameter is only available when using <code class="docutils literal"><span class="pre">lru</span></code>.
 This parameter is optional.
 If not specified, no IDs are excluded from unlearning.
 (String)</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Seed :</th><td class="field-body"><p class="first">Specify random seed when you use <tt class="docutils literal"><span class="pre">random</span></tt> for unlearning strategy.
+<tr class="field-odd field"><th class="field-name">Seed:</th><td class="field-body"><p class="first">Specify random seed when you use <code class="docutils literal"><span class="pre">random</span></code> for unlearning strategy.
 If you set the same seed and do the same learn, you will get the same result.
 It may be useful when you examine the result repeatedly.
 If not specified, system clock is used as seed parameter.
 So you will get different result each experiment.</p>
 <ul class="last simple">
-<li>range of value: 0 &lt; <tt class="docutils literal"><span class="pre">seed</span></tt> &lt; 9223372036854775808</li>
+<li>range of value: 0 &lt; <code class="docutils literal"><span class="pre">seed</span></code> &lt; 9223372036854775808</li>
 </ul>
 </td>
 </tr>
@@ -221,7 +221,7 @@ So you will get different result each experiment.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">example</tt></dt>
+<code class="descname">example</code></dt>
 <dd><p>unlearning based on Least-Recently-Used(LRU)</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;unlearner&quot;</span> <span class="o">:</span> <span class="s2">&quot;lru&quot;</span><span class="p">,</span>
@@ -274,7 +274,7 @@ So you will get different result each experiment.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

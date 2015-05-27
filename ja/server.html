@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -110,8 +109,8 @@
 <li><a class="reference internal" href="#id2">開発の流れ</a></li>
 <li><a class="reference internal" href="#idl">IDL を使用する理由</a></li>
 <li><a class="reference internal" href="#id4">ファイルの構成</a></li>
-<li><a class="reference internal" href="#jenerator"><tt class="docutils literal"><span class="pre">jenerator</span></tt>: コード生成器</a><ul>
-<li><a class="reference internal" href="#id5"><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド</a></li>
+<li><a class="reference internal" href="#jenerator"><code class="docutils literal"><span class="pre">jenerator</span></code>: コード生成器</a><ul>
+<li><a class="reference internal" href="#id5"><code class="docutils literal"><span class="pre">jenerator</span></code> のビルド</a></li>
 <li><a class="reference internal" href="#proxy-idl">サーバ/Proxy を IDL から生成する</a></li>
 </ul>
 </li>
@@ -134,11 +133,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="howtogetclients.html"
                         title="次の章へ">クライアントの入手方法</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/server.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/server.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -167,13 +168,13 @@
   <div class="section" id="id1">
 <h1>コード生成器の利用<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>Jubatus フレームワークを利用した機械学習アルゴリズムの開発では、まず IDL と呼ばれる RPC インタフェース定義ファイルを作成する。
-Jubatus に付属するコード生成器 <tt class="docutils literal"><span class="pre">jenerator</span></tt> を使用することで、IDL から各部品 (サーバ, Proxy, 各言語版のクライアント) を生成することができる。
+Jubatus に付属するコード生成器 <code class="docutils literal"><span class="pre">jenerator</span></code> を使用することで、IDL から各部品 (サーバ, Proxy, 各言語版のクライアント) を生成することができる。
 これらの生成器を利用することで、フレームワークの利用者は機械学習アルゴリズムの実装に集中することができる。</p>
 <div class="section" id="id2">
 <h2>開発の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ol class="arabic simple">
 <li>サービスが持つべきRPCインターフェースを IDL で定義する。</li>
-<li><tt class="docutils literal"><span class="pre">jenerator</span></tt> を用いて、IDL から サーバー、Proxy のコード、共通のデータ構造、各言語（C++/Python/Ruby/Java）のクライアントを生成する。</li>
+<li><code class="docutils literal"><span class="pre">jenerator</span></code> を用いて、IDL から サーバー、Proxy のコード、共通のデータ構造、各言語（C++/Python/Ruby/Java）のクライアントを生成する。</li>
 <li>RPC毎にサーバーが利用するユーザ定義クラスのインターフェースの実体、および必要に応じてmix操作を作成する。</li>
 </ol>
 <p><a class="reference external" href="https://github.com/jubatus/jubatus-service-skeleton">スケルトンプロジェクト</a> を利用すると、容易に開発を開始できる。</p>
@@ -189,44 +190,44 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 <h2>ファイルの構成<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus フレームワークを利用した機械学習システムは、以下のファイルで構成される (<em>NAME</em> はサービスの名称である)。</p>
 <ul class="simple">
-<li>NAME_serv.cpp: 機能を実装するソースファイル (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で生成されるテンプレートを編集)</li>
-<li>NAME_serv.hpp: <tt class="docutils literal"><span class="pre">NAME_serv.cpp</span></tt> に対応するヘッダファイル (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で生成されるテンプレートを編集)</li>
-<li>NAME_impl.cpp: サーバの main 関数と RPC インタフェースの定義、RPC メソッドの登録 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
-<li>NAME_proxy.cpp: Proxy の実装 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
-<li>NAME_client.hpp: サーバー間通信で利用するクライアントの実装 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
-<li>NAME_types.hpp: RPC で使用する構造体や型の情報 (<tt class="docutils literal"><span class="pre">jenerator</span></tt> で自動生成)</li>
+<li>NAME_serv.cpp: 機能を実装するソースファイル (<code class="docutils literal"><span class="pre">jenerator</span></code> で生成されるテンプレートを編集)</li>
+<li>NAME_serv.hpp: <code class="docutils literal"><span class="pre">NAME_serv.cpp</span></code> に対応するヘッダファイル (<code class="docutils literal"><span class="pre">jenerator</span></code> で生成されるテンプレートを編集)</li>
+<li>NAME_impl.cpp: サーバの main 関数と RPC インタフェースの定義、RPC メソッドの登録 (<code class="docutils literal"><span class="pre">jenerator</span></code> で自動生成)</li>
+<li>NAME_proxy.cpp: Proxy の実装 (<code class="docutils literal"><span class="pre">jenerator</span></code> で自動生成)</li>
+<li>NAME_client.hpp: サーバー間通信で利用するクライアントの実装 (<code class="docutils literal"><span class="pre">jenerator</span></code> で自動生成)</li>
+<li>NAME_types.hpp: RPC で使用する構造体や型の情報 (<code class="docutils literal"><span class="pre">jenerator</span></code> で自動生成)</li>
 </ul>
 </div>
 <div class="section" id="jenerator">
-<h2><tt class="docutils literal"><span class="pre">jenerator</span></tt>: コード生成器<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">jenerator</span></code>: コード生成器<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>RPC インターフェースは <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MessagePack-IDL</a> により定義する。
 ただし、そのままJubatusのコードを生成するためには、MessagePack-IDL の文法とは別に、RPCサービスの各メソッドにアノテーションをつける必要がある。</p>
-<p>アノテーションは Jubatus のコードジェネレータである <tt class="docutils literal"><span class="pre">jenerator</span></tt> では解釈されるが、MessagePack-IDL ではコメントとして無視される。
+<p>アノテーションは Jubatus のコードジェネレータである <code class="docutils literal"><span class="pre">jenerator</span></code> では解釈されるが、MessagePack-IDL ではコメントとして無視される。
 このため、同じ IDL ファイルで各種クライアントも生成できる。</p>
 <p>各メソッドに付与するアノテーションの文法は以下の通りである。</p>
 <ul class="simple">
-<li>各メソッドには <tt class="docutils literal"><span class="pre">#&#64;</span></tt> で始まる 3 つのアノテーションを付与する必要があり、順番に &#8220;ルーティング&#8221;, &#8220;ロック種類&#8221;, &#8220;結合方法&#8221; を指定する。</li>
+<li>各メソッドには <code class="docutils literal"><span class="pre">#&#64;</span></code> で始まる 3 つのアノテーションを付与する必要があり、順番に &#8220;ルーティング&#8221;, &#8220;ロック種類&#8221;, &#8220;結合方法&#8221; を指定する。</li>
 <li>&#8220;ルーティング&#8221; には、Proxy がどのようにリクエストをプロキシするかを定義する。
-<tt class="docutils literal"><span class="pre">cht</span></tt>, <tt class="docutils literal"><span class="pre">broadcast</span></tt>, <tt class="docutils literal"><span class="pre">random</span></tt> の 3 種類が用意されており、これによって、典型的だと思われる機械学習の分散方式をカバーすることができる。<ul>
-<li><tt class="docutils literal"><span class="pre">cht</span></tt> は Consistent Hashing によるリクエストの分散を意味する。
-<tt class="docutils literal"><span class="pre">cht</span></tt> アノテーションがあるメソッドは、少なくとも 1 つの引数（cht のキーとなる string）を取る必要がある。
+<code class="docutils literal"><span class="pre">cht</span></code>, <code class="docutils literal"><span class="pre">broadcast</span></code>, <code class="docutils literal"><span class="pre">random</span></code> の 3 種類が用意されており、これによって、典型的だと思われる機械学習の分散方式をカバーすることができる。<ul>
+<li><code class="docutils literal"><span class="pre">cht</span></code> は Consistent Hashing によるリクエストの分散を意味する。
+<code class="docutils literal"><span class="pre">cht</span></code> アノテーションがあるメソッドは、少なくとも 1 つの引数（cht のキーとなる string）を取る必要がある。
 更新データのレプリケーション多重度 (冗長度) はデフォルトでは 2 である。
-<tt class="docutils literal"><span class="pre">#&#64;cht(1)</span></tt> のように、更新データのレプリケーション多重度を指定することもできる。</li>
-<li><tt class="docutils literal"><span class="pre">broadcast</span></tt> は全サーバーへリクエストをブロードキャストを意味する。</li>
-<li><tt class="docutils literal"><span class="pre">random</span></tt> はランダムに選択されたいずれか 1 台のサーバーへリクエストを送信することを表す。</li>
+<code class="docutils literal"><span class="pre">#&#64;cht(1)</span></code> のように、更新データのレプリケーション多重度を指定することもできる。</li>
+<li><code class="docutils literal"><span class="pre">broadcast</span></code> は全サーバーへリクエストをブロードキャストを意味する。</li>
+<li><code class="docutils literal"><span class="pre">random</span></code> はランダムに選択されたいずれか 1 台のサーバーへリクエストを送信することを表す。</li>
 </ul>
 </li>
-<li>&#8220;ロック種類&#8221; には、リクエストのread/writeを <tt class="docutils literal"><span class="pre">analysis</span></tt>, <tt class="docutils literal"><span class="pre">update</span></tt>, <tt class="docutils literal"><span class="pre">nolock</span></tt> のいずれかで定義する。<ul>
-<li><tt class="docutils literal"><span class="pre">analysis</span></tt> では、サーバ側で read ロックされることになり、複数のスレッドからの同時アクセスが可能となる。</li>
-<li><tt class="docutils literal"><span class="pre">update</span></tt> では、サーバー側で write ロックされることになり、安全にデータを更新することができる。</li>
-<li><tt class="docutils literal"><span class="pre">nolock</span></tt> ではロックは行われない。</li>
+<li>&#8220;ロック種類&#8221; には、リクエストのread/writeを <code class="docutils literal"><span class="pre">analysis</span></code>, <code class="docutils literal"><span class="pre">update</span></code>, <code class="docutils literal"><span class="pre">nolock</span></code> のいずれかで定義する。<ul>
+<li><code class="docutils literal"><span class="pre">analysis</span></code> では、サーバ側で read ロックされることになり、複数のスレッドからの同時アクセスが可能となる。</li>
+<li><code class="docutils literal"><span class="pre">update</span></code> では、サーバー側で write ロックされることになり、安全にデータを更新することができる。</li>
+<li><code class="docutils literal"><span class="pre">nolock</span></code> ではロックは行われない。</li>
 </ul>
 </li>
 <li>&#8220;結合方法&#8221; には、API 呼び出しに対する複数のサーバからの結果を結合する方法を定義する。
 利用可能なアグリゲータは <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/framework/aggregators.hpp">aggregators.hpp</a> に掲載されている。</li>
 </ul>
-<p>なお、メソッドの戻り値型に <tt class="docutils literal"><span class="pre">void</span></tt> は利用できない。
-返り値が必要ない場合は、意味のない <tt class="docutils literal"><span class="pre">int</span></tt> や <tt class="docutils literal"><span class="pre">bool</span></tt> 型などを指定する必要がある。</p>
+<p>なお、メソッドの戻り値型に <code class="docutils literal"><span class="pre">void</span></code> は利用できない。
+返り値が必要ない場合は、意味のない <code class="docutils literal"><span class="pre">int</span></code> や <code class="docutils literal"><span class="pre">bool</span></code> 型などを指定する必要がある。</p>
 <p>以下は、アノテーション付きの IDL の例である。</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">entry</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">key</span>
@@ -249,7 +250,7 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>以下のサーバー向けのRPCメソッドは <tt class="docutils literal"><span class="pre">jenerator</span></tt> によって、自動的に各サービスに追加される。</p>
+<p>以下のサーバー向けのRPCメソッドは <code class="docutils literal"><span class="pre">jenerator</span></code> によって、自動的に各サービスに追加される。</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#@random #@analysis #@pass</span>
 <span class="n">string</span> <span class="n">get_config</span><span class="p">()</span>
 
@@ -264,41 +265,44 @@ Jubatus に付属するコード生成器 <tt class="docutils literal"><span cla
 </pre></div>
 </div>
 <div class="section" id="id5">
-<h3><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> のビルドには OCaml 4.02.1 以上(findlib あり) 、extlib および OMake および OUnit および ppx_deriving が必要である。
+<h3><code class="docutils literal"><span class="pre">jenerator</span></code> のビルド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">jenerator</span></code> のビルドには OCaml 4.02.1 以上(findlib あり) 、extlib および OMake および OUnit および ppx_deriving が必要である。
 OCaml環境の構築には、 <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> を利用するのが楽である。
-なお <tt class="docutils literal"><span class="pre">jenerator</span></tt> が依存するモジュールのインストールには <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> のバージョン1.2以降を利用する必要がある。
+なお <code class="docutils literal"><span class="pre">jenerator</span></code> が依存するモジュールのインストールには <a class="reference external" href="http://opam.ocaml.org/">OPAM</a> のバージョン1.2以降を利用する必要がある。
 OPAMをソースから入れる場合は、 <a class="reference external" href="https://github.com/ocaml/opam/wiki/Quick_Install#using-ocamlbrew">ocamlbrew</a> を利用するとよい。</p>
-<div class="highlight-python"><pre>$ opam switch 4.02.1
+<div class="highlight-python"><div class="highlight"><pre>$ opam switch 4.02.1
 $ eval `opam config env`
 $ opam install ocamlfind extlib omake ounit ppx_deriving
 $ cd jubatus/tools/jenerator
 $ omake
-$ sudo omake install</pre>
+$ sudo omake install
+</pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></tt> を行うと <tt class="docutils literal"><span class="pre">jenerator</span></tt> が <tt class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></tt> としてインストールされる (環境によりパスは異なる場合がある)。
+<p><code class="docutils literal"><span class="pre">omake</span> <span class="pre">install</span></code> を行うと <code class="docutils literal"><span class="pre">jenerator</span></code> が <code class="docutils literal"><span class="pre">/usr/local/bin/jenerator</span></code> としてインストールされる (環境によりパスは異なる場合がある)。
 インストールパスを変える場合は、</p>
-<div class="highlight-python"><pre>$ PREFIX=/path/to/install omake install</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ PREFIX=/path/to/install omake install
+</pre></div>
 </div>
 <p>でインストールパスを変えることができる。
-インストールを行わずに、ビルドされた <tt class="docutils literal"><span class="pre">jenerator</span></tt> のバイナリを直接使用してもよい。</p>
+インストールを行わずに、ビルドされた <code class="docutils literal"><span class="pre">jenerator</span></code> のバイナリを直接使用してもよい。</p>
 </div>
 <div class="section" id="proxy-idl">
 <h3>サーバ/Proxy を IDL から生成する<a class="headerlink" href="#proxy-idl" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>上に示した例が <tt class="docutils literal"><span class="pre">kvs.idl</span></tt> というファイルに書かれていると仮定して、以下の手順でコードを生成する。</p>
-<div class="highlight-python"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl</pre>
+<p>上に示した例が <code class="docutils literal"><span class="pre">kvs.idl</span></code> というファイルに書かれていると仮定して、以下の手順でコードを生成する。</p>
+<div class="highlight-python"><div class="highlight"><pre>$ jenerator -l server -o . -n jubatus -t kvs.idl
+</pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">jenerator</span></tt> の詳細な使い方については <a class="reference internal" href="commands.html#jenerator"><em>jenerator</em></a> を参照すること。</p>
+<p><code class="docutils literal"><span class="pre">jenerator</span></code> の詳細な使い方については <a class="reference internal" href="commands.html#jenerator"><span>jenerator</span></a> を参照すること。</p>
 </div>
 </div>
 <div class="section" id="id7">
 <h2>サーバの実装<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> は、 <tt class="docutils literal"><span class="pre">kvs_serv</span></tt> クラスを利用してサーバーを構成する。
-このクラスを <tt class="docutils literal"><span class="pre">kvs_serv.{cpp,hpp}</span></tt> に定義する必要がある。
-生成されたテンプレート (<tt class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></tt>) をリネームして利用することができる。</p>
-<p><tt class="docutils literal"><span class="pre">kvs_impl.cpp</span></tt> の中では <tt class="docutils literal"><span class="pre">main</span></tt> 関数も実装されており、ユーザは <tt class="docutils literal"><span class="pre">main</span></tt> を実装する必要はない。
+<p><code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code> は、 <code class="docutils literal"><span class="pre">kvs_serv</span></code> クラスを利用してサーバーを構成する。
+このクラスを <code class="docutils literal"><span class="pre">kvs_serv.{cpp,hpp}</span></code> に定義する必要がある。
+生成されたテンプレート (<code class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></code>) をリネームして利用することができる。</p>
+<p><code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code> の中では <code class="docutils literal"><span class="pre">main</span></code> 関数も実装されており、ユーザは <code class="docutils literal"><span class="pre">main</span></code> を実装する必要はない。
 コマンドライン引数の仕様は Jubatus フレームワークを使用しているサーバの間ですべて共通である。
-オプションは <tt class="docutils literal"><span class="pre">--help</span></tt> で参照することができる。</p>
+オプションは <code class="docutils literal"><span class="pre">--help</span></code> で参照することができる。</p>
 <div class="section" id="mixable">
 <h3>Mixable クラス<a class="headerlink" href="#mixable" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TBD.</p>
@@ -306,8 +310,8 @@ $ sudo omake install</pre>
 </div>
 <div class="section" id="proxy">
 <h2>Proxy の実装<a class="headerlink" href="#proxy" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Proxy に関しては、実装をする必要はない。 <tt class="docutils literal"><span class="pre">jenerator</span></tt> が生成した <tt class="docutils literal"><span class="pre">kvs_proxy.cpp</span></tt> をコンパイルすると Proxy が得られる。</p>
-<p><tt class="docutils literal"><span class="pre">kvs_proxy.cpp</span></tt> には <tt class="docutils literal"><span class="pre">main</span></tt> 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。</p>
+<p>Proxy に関しては、実装をする必要はない。 <code class="docutils literal"><span class="pre">jenerator</span></code> が生成した <code class="docutils literal"><span class="pre">kvs_proxy.cpp</span></code> をコンパイルすると Proxy が得られる。</p>
+<p><code class="docutils literal"><span class="pre">kvs_proxy.cpp</span></code> には <code class="docutils literal"><span class="pre">main</span></code> 関数の実装だけがあり、各 RPC メソッドごとにリクエストをプロキシし、レスポンスを集約するためのファンクタを登録する。</p>
 </div>
 <div class="section" id="id8">
 <h2>今後の課題<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -346,7 +350,7 @@ $ sudo omake install</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

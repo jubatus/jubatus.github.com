@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -119,11 +118,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="api_stat.html"
                         title="next chapter">Stat</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/api_burst.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_burst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -160,7 +161,7 @@
 We show each field below:</p>
 <dl class="describe">
 <dt>
-<tt class="descname">method</tt></dt>
+<code class="descname">method</code></dt>
 <dd><p>Specify burst detection algorithm.
 You can use these algorithms.</p>
 <table border="1" class="docutils">
@@ -174,7 +175,7 @@ You can use these algorithms.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;burst&quot;</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;burst&quot;</span></code></td>
 <td>Use Kleinberg burst detection.</td>
 </tr>
 </tbody>
@@ -183,9 +184,9 @@ You can use these algorithms.</p>
 
 <dl class="describe">
 <dt>
-<tt class="descname">parameter</tt></dt>
+<code class="descname">parameter</code></dt>
 <dd><p>Specify parameters for the algorithm.
-Its format differs for each <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
 <dt>burst</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -196,14 +197,14 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Number of batches in a window.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">window_batch_size</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">window_batch_size</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">batch_interval:</th><td class="field-body"><p class="first">Width of position for a batch.
 (Double)</p>
 <ul class="simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">batch_interval</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">batch_interval</span></code></li>
 </ul>
 </td>
 </tr>
@@ -212,17 +213,17 @@ Its format differs for each <tt class="docutils literal"><span class="pre">metho
 Larger value reduces the calculation cost.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">max_reuse_batch_num</span></tt> &lt;= <tt class="docutils literal"><span class="pre">window_batch_size</span></tt></li>
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">max_reuse_batch_num</span></code> &lt;= <code class="docutils literal"><span class="pre">window_batch_size</span></code></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">costcut_threshold:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">A threshold value for cost cut.
 Smaller value reduces the calculation cost.
-When <tt class="docutils literal"><span class="pre">0</span></tt> is specified, no cost cut will be performed (DBL_MAX).
+When <code class="docutils literal"><span class="pre">0</span></code> is specified, no cost cut will be performed (DBL_MAX).
 (Double)</p>
 <ul class="simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">costcut_threshold</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">costcut_threshold</span></code></li>
 </ul>
 </td>
 </tr>
@@ -230,7 +231,7 @@ When <tt class="docutils literal"><span class="pre">0</span></tt> is specified, 
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Total number of windows to be held on the memory, including the current window).
 (Integer)</p>
 <ul class="last simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">result_window_rotate_size</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">result_window_rotate_size</span></code></li>
 </ul>
 </td>
 </tr>
@@ -245,30 +246,30 @@ When <tt class="docutils literal"><span class="pre">0</span></tt> is specified, 
 <h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <dl class="message">
 <dt id="keyword_with_params">
-<em class="property">message </em><tt class="descname">keyword_with_params</tt><a class="headerlink" href="#keyword_with_params" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">keyword_with_params</code><a class="headerlink" href="#keyword_with_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the keyword and its parameters to be detected as burst.</p>
 <dl class="member">
 <dt id="keyword_with_params::keyword__s">
-0: string <tt class="descname">keyword</tt><a class="headerlink" href="#keyword_with_params::keyword__s" title="Permalink to this definition">¶</a></dt>
+0: string <code class="descname">keyword</code><a class="headerlink" href="#keyword_with_params::keyword__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>The keyword to be burst-detected.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="keyword_with_params::scaling_param__double">
-1: double <tt class="descname">scaling_param</tt><a class="headerlink" href="#keyword_with_params::scaling_param__double" title="Permalink to this definition">¶</a></dt>
+1: double <code class="descname">scaling_param</code><a class="headerlink" href="#keyword_with_params::scaling_param__double" title="Permalink to this definition">¶</a></dt>
 <dd><p>A scaling parameter applied for this keyword.</p>
 <ul class="simple">
-<li>Range: 1 &lt; <tt class="docutils literal"><span class="pre">scaling_param</span></tt></li>
+<li>Range: 1 &lt; <code class="docutils literal"><span class="pre">scaling_param</span></code></li>
 </ul>
 </dd></dl>
 
 <dl class="member">
 <dt id="keyword_with_params::gamma__double">
-2: double <tt class="descname">gamma</tt><a class="headerlink" href="#keyword_with_params::gamma__double" title="Permalink to this definition">¶</a></dt>
+2: double <code class="descname">gamma</code><a class="headerlink" href="#keyword_with_params::gamma__double" title="Permalink to this definition">¶</a></dt>
 <dd><p>A γ value applied for this keyword.
 The higher value reduces the burst detection sensitivity.</p>
 <ul class="simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">gamma</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">gamma</span></code></li>
 </ul>
 </dd></dl>
 
@@ -283,33 +284,33 @@ The higher value reduces the burst detection sensitivity.</p>
 
 <dl class="message">
 <dt id="batch">
-<em class="property">message </em><tt class="descname">batch</tt><a class="headerlink" href="#batch" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">batch</code><a class="headerlink" href="#batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the burst detection result for one batch range.</p>
 <dl class="member">
 <dt id="batch::all_data_count__i">
-0: int <tt class="descname">all_data_count</tt><a class="headerlink" href="#batch::all_data_count__i" title="Permalink to this definition">¶</a></dt>
+0: int <code class="descname">all_data_count</code><a class="headerlink" href="#batch::all_data_count__i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of total documents in this batch.</p>
 <ul class="simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">all_data_count</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">all_data_count</span></code></li>
 </ul>
 </dd></dl>
 
 <dl class="member">
 <dt id="batch::relevant_data_count__i">
-1: int <tt class="descname">relevant_data_count</tt><a class="headerlink" href="#batch::relevant_data_count__i" title="Permalink to this definition">¶</a></dt>
+1: int <code class="descname">relevant_data_count</code><a class="headerlink" href="#batch::relevant_data_count__i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of documents that contains the keyword in this batch.</p>
 <ul class="simple">
-<li>Range: 0 &lt; <tt class="docutils literal"><span class="pre">all_data_count</span></tt> &lt;= <tt class="docutils literal"><span class="pre">relevant_data_count</span></tt></li>
+<li>Range: 0 &lt; <code class="docutils literal"><span class="pre">all_data_count</span></code> &lt;= <code class="docutils literal"><span class="pre">relevant_data_count</span></code></li>
 </ul>
 </dd></dl>
 
 <dl class="member">
 <dt id="batch::burst_weight__double">
-2: double <tt class="descname">burst_weight</tt><a class="headerlink" href="#batch::burst_weight__double" title="Permalink to this definition">¶</a></dt>
+2: double <code class="descname">burst_weight</code><a class="headerlink" href="#batch::burst_weight__double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Burst level of this batch.
 Burst level is a relative value that cannot be compared between keywords.</p>
 <ul class="simple">
-<li>Range: 0 &lt;= <tt class="docutils literal"><span class="pre">burst_weight</span></tt></li>
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">burst_weight</span></code></li>
 </ul>
 </dd></dl>
 
@@ -324,17 +325,17 @@ Burst level is a relative value that cannot be compared between keywords.</p>
 
 <dl class="message">
 <dt id="window">
-<em class="property">message </em><tt class="descname">window</tt><a class="headerlink" href="#window" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">window</code><a class="headerlink" href="#window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the burst detection result.</p>
 <dl class="member">
 <dt id="window::start_pos__double">
-0: double <tt class="descname">start_pos</tt><a class="headerlink" href="#window::start_pos__double" title="Permalink to this definition">¶</a></dt>
+0: double <code class="descname">start_pos</code><a class="headerlink" href="#window::start_pos__double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starting position of this window.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="window::batches__l:batch:">
-1: list&lt;<a class="reference internal" href="#batch" title="batch">batch</a>&gt; <tt class="descname">batches</tt><a class="headerlink" href="#window::batches__l:batch:" title="Permalink to this definition">¶</a></dt>
+1: list&lt;<a class="reference internal" href="#batch" title="batch">batch</a>&gt; <code class="descname">batches</code><a class="headerlink" href="#window::batches__l:batch:" title="Permalink to this definition">¶</a></dt>
 <dd><p>Batches that composes this window.</p>
 </dd></dl>
 
@@ -348,17 +349,17 @@ Burst level is a relative value that cannot be compared between keywords.</p>
 
 <dl class="message">
 <dt id="document">
-<em class="property">message </em><tt class="descname">document</tt><a class="headerlink" href="#document" title="Permalink to this definition">¶</a></dt>
+<em class="property">message </em><code class="descname">document</code><a class="headerlink" href="#document" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the document used for burst detection.</p>
 <dl class="member">
 <dt id="document::pos__double">
-0: double <tt class="descname">pos</tt><a class="headerlink" href="#document::pos__double" title="Permalink to this definition">¶</a></dt>
+0: double <code class="descname">pos</code><a class="headerlink" href="#document::pos__double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Position (time in many cases) of this document.</p>
 </dd></dl>
 
 <dl class="member">
 <dt id="document::text__s">
-1: string <tt class="descname">text</tt><a class="headerlink" href="#document::text__s" title="Permalink to this definition">¶</a></dt>
+1: string <code class="descname">text</code><a class="headerlink" href="#document::text__s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contents of this document.
 Keyword matching runs against this data using partial match.</p>
 </dd></dl>
@@ -376,10 +377,10 @@ Keyword matching runs against this data using partial match.</p>
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <dl class="service">
 <dt>
-<em class="property">service </em><tt class="descname">burst</tt></dt>
+<em class="property">service </em><code class="descname">burst</code></dt>
 <dd><dl class="method">
 <dt id="burst::add_documents__l:document:">
-int <tt class="descname">add_documents</tt><big>(</big>0: list&lt;<a class="reference internal" href="#document" title="document">document</a>&gt; <em>data</em><big>)</big><a class="headerlink" href="#burst::add_documents__l:document:" title="Permalink to this definition">¶</a></dt>
+int <code class="descname">add_documents</code><span class="sig-paren">(</span>0: list&lt;<a class="reference internal" href="#document" title="document">document</a>&gt; <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#burst::add_documents__l:document:" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -389,20 +390,20 @@ int <tt class="descname">add_documents</tt><big>(</big>0: list&lt;<a class="refe
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">number of documents successfully registered (will be the length of  <tt class="docutils literal"><span class="pre">data</span></tt> if all documents are registered successfully)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">number of documents successfully registered (will be the length of  <code class="docutils literal"><span class="pre">data</span></code> if all documents are registered successfully)</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>Register the document for burst detection.
-This This API is designed to accept bulk update with list of <tt class="docutils literal"><span class="pre">document</span></tt>.</p>
-<p>You need to register the keyword via <tt class="docutils literal"><span class="pre">add_keyword</span></tt> method before adding documents.</p>
-<p>A document whose location (<tt class="docutils literal"><span class="pre">pos</span></tt>) is out of range of the current window cannot be registered.</p>
+This This API is designed to accept bulk update with list of <code class="docutils literal"><span class="pre">document</span></code>.</p>
+<p>You need to register the keyword via <code class="docutils literal"><span class="pre">add_keyword</span></code> method before adding documents.</p>
+<p>A document whose location (<code class="docutils literal"><span class="pre">pos</span></code>) is out of range of the current window cannot be registered.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="burst::get_result__s">
-<a class="reference internal" href="#window" title="window">window</a> <tt class="descname">get_result</tt><big>(</big>0: string <em>keyword</em><big>)</big><a class="headerlink" href="#burst::get_result__s" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="#window" title="window">window</a> <code class="descname">get_result</code><span class="sig-paren">(</span>0: string <em>keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#burst::get_result__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -417,12 +418,12 @@ This This API is designed to accept bulk update with list of <tt class="docutils
 </tr>
 </tbody>
 </table>
-<p>Returns the burst detection result of the current window for pre-registered keyword <tt class="docutils literal"><span class="pre">keyword</span></tt>.</p>
+<p>Returns the burst detection result of the current window for pre-registered keyword <code class="docutils literal"><span class="pre">keyword</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="burst::get_result_at__s.double">
-<a class="reference internal" href="#window" title="window">window</a> <tt class="descname">get_result_at</tt><big>(</big>0: string <em>keyword</em>, 1: double <em>pos</em><big>)</big><a class="headerlink" href="#burst::get_result_at__s.double" title="Permalink to this definition">¶</a></dt>
+<a class="reference internal" href="#window" title="window">window</a> <code class="descname">get_result_at</code><span class="sig-paren">(</span>0: string <em>keyword</em>, 1: double <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#burst::get_result_at__s.double" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -438,12 +439,12 @@ This This API is designed to accept bulk update with list of <tt class="docutils
 </tr>
 </tbody>
 </table>
-<p>Returns the burst detection result at the specified position <tt class="docutils literal"><span class="pre">pos</span></tt> for pre-registered keyword <tt class="docutils literal"><span class="pre">keyword</span></tt>.</p>
+<p>Returns the burst detection result at the specified position <code class="docutils literal"><span class="pre">pos</span></code> for pre-registered keyword <code class="docutils literal"><span class="pre">keyword</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="burst::get_all_bursted_results">
-map&lt;string, <a class="reference internal" href="#window" title="window">window</a>&gt; <tt class="descname">get_all_bursted_results</tt><big>(</big><big>)</big><a class="headerlink" href="#burst::get_all_bursted_results" title="Permalink to this definition">¶</a></dt>
+map&lt;string, <a class="reference internal" href="#window" title="window">window</a>&gt; <code class="descname">get_all_bursted_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#burst::get_all_bursted_results" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -457,7 +458,7 @@ map&lt;string, <a class="reference internal" href="#window" title="window">windo
 
 <dl class="method">
 <dt id="burst::get_all_bursted_results_at__double">
-map&lt;string, <a class="reference internal" href="#window" title="window">window</a>&gt; <tt class="descname">get_all_bursted_results_at</tt><big>(</big>0: double <em>pos</em><big>)</big><a class="headerlink" href="#burst::get_all_bursted_results_at__double" title="Permalink to this definition">¶</a></dt>
+map&lt;string, <a class="reference internal" href="#window" title="window">window</a>&gt; <code class="descname">get_all_bursted_results_at</code><span class="sig-paren">(</span>0: double <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#burst::get_all_bursted_results_at__double" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -472,12 +473,12 @@ map&lt;string, <a class="reference internal" href="#window" title="window">windo
 </tr>
 </tbody>
 </table>
-<p>Returns the burst detection result at the specified position <tt class="docutils literal"><span class="pre">pos</span></tt> for all pre-registered keywords.</p>
+<p>Returns the burst detection result at the specified position <code class="docutils literal"><span class="pre">pos</span></code> for all pre-registered keywords.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="burst::get_all_keywords">
-list&lt;<a class="reference internal" href="#keyword_with_params" title="keyword_with_params">keyword_with_params</a>&gt; <tt class="descname">get_all_keywords</tt><big>(</big><big>)</big><a class="headerlink" href="#burst::get_all_keywords" title="Permalink to this definition">¶</a></dt>
+list&lt;<a class="reference internal" href="#keyword_with_params" title="keyword_with_params">keyword_with_params</a>&gt; <code class="descname">get_all_keywords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#burst::get_all_keywords" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -491,7 +492,7 @@ list&lt;<a class="reference internal" href="#keyword_with_params" title="keyword
 
 <dl class="method">
 <dt id="burst::add_keyword__keyword_with_params">
-bool <tt class="descname">add_keyword</tt><big>(</big>0: <a class="reference internal" href="#keyword_with_params" title="keyword_with_params">keyword_with_params</a> <em>keyword</em><big>)</big><a class="headerlink" href="#burst::add_keyword__keyword_with_params" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">add_keyword</code><span class="sig-paren">(</span>0: <a class="reference internal" href="#keyword_with_params" title="keyword_with_params">keyword_with_params</a> <em>keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#burst::add_keyword__keyword_with_params" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -506,12 +507,12 @@ bool <tt class="descname">add_keyword</tt><big>(</big>0: <a class="reference int
 </tr>
 </tbody>
 </table>
-<p>Registers the keyword <tt class="docutils literal"><span class="pre">keyword</span></tt> for burst detection.</p>
+<p>Registers the keyword <code class="docutils literal"><span class="pre">keyword</span></code> for burst detection.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="burst::remove_keyword__s">
-bool <tt class="descname">remove_keyword</tt><big>(</big>0: string <em>keyword</em><big>)</big><a class="headerlink" href="#burst::remove_keyword__s" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">remove_keyword</code><span class="sig-paren">(</span>0: string <em>keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#burst::remove_keyword__s" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -526,12 +527,12 @@ bool <tt class="descname">remove_keyword</tt><big>(</big>0: string <em>keyword</
 </tr>
 </tbody>
 </table>
-<p>Removes the keyword <tt class="docutils literal"><span class="pre">keyword</span></tt> from burst detection.</p>
+<p>Removes the keyword <code class="docutils literal"><span class="pre">keyword</span></code> from burst detection.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="burst::remove_all_keywords">
-bool <tt class="descname">remove_all_keywords</tt><big>(</big><big>)</big><a class="headerlink" href="#burst::remove_all_keywords" title="Permalink to this definition">¶</a></dt>
+bool <code class="descname">remove_all_keywords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#burst::remove_all_keywords" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -576,7 +577,7 @@ bool <tt class="descname">remove_all_keywords</tt><big>(</big><big>)</big><a cla
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

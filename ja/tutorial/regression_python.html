@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -120,11 +119,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="graph.html"
                         title="次の章へ">Graph チュートリアル</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/tutorial/regression_python.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/regression_python.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="../search.html" method="get">
@@ -381,7 +382,7 @@
 </pre></div>
 </td></tr></table></div>
 <p><strong>myhome.yml</strong></p>
-<div class="highlight-python"><pre>#
+<div class="highlight-python"><div class="highlight"><pre>#
 # distance : 駅からの徒歩時間 (分)
 # space    : 専有面積 (m*m)
 # age      : 築年数 (年)
@@ -392,7 +393,8 @@ distance : 8
 space    : 32.00
 age      : 15
 stair    : 5
-aspect   : "S"</pre>
+aspect   : &quot;S&quot;
+</pre></div>
 </div>
 </div>
 <div class="section" id="id2">
@@ -633,7 +635,8 @@ YAML（ヤムル）とは、構造化データやオブジェクトを文字列�
 <li><dl class="first docutils">
 <dt>Jubatus Serverでの作業</dt>
 <dd><p class="first">jubaregressionを起動します。</p>
-<div class="last highlight-python"><pre>$ jubaregression --configpath rent.json</pre>
+<div class="last highlight-python"><div class="highlight"><pre>$ jubaregression --configpath rent.json
+</pre></div>
 </div>
 </dd>
 </dl>
@@ -641,21 +644,24 @@ YAML（ヤムル）とは、構造化データやオブジェクトを文字列�
 <li><dl class="first docutils">
 <dt>Jubatus Clientでの作業</dt>
 <dd><p class="first">オプションを指定し下記のコマンドで実行します。</p>
-<div class="highlight-python"><pre>$ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
+<div class="highlight-python"><div class="highlight"><pre>$ python jubahomes.py -t ../dat/rent-data.csv -a ../dat/myhome.yml
 
   -t ：CSVファイルパス（学習データありの場合）
-  -a ：YMLファイルパス（必須）</pre>
+  -a ：YMLファイルパス（必須）
+</pre></div>
 </div>
 <p>実行結果:</p>
-<div class="highlight-python"><pre>train ... 145
-rent .... 9.9</pre>
+<div class="highlight-python"><div class="highlight"><pre>train ... 145
+rent .... 9.9
+</pre></div>
 </div>
 <p>myhome.yaml を変更し、いろんな条件で物件の家賃を推測できます。</p>
-<div class="last highlight-python"><pre>$ edit ../dat/myhome.yml
+<div class="last highlight-python"><div class="highlight"><pre>$ edit ../dat/myhome.yml
 $ python jubahomes.py -a ../dat/myhome.yml
 $ edit ../dat/myhome.yml
 $ python jubahomes.py -a ../dat/myhome.yml
-  :</pre>
+  :
+</pre></div>
 </div>
 </dd>
 </dl>
@@ -692,7 +698,7 @@ $ python jubahomes.py -a ../dat/myhome.yml
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

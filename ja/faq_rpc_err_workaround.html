@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,7 +30,7 @@
 </script>
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -124,11 +123,13 @@
   <h4>次のトピックへ</h4>
   <p class="topless"><a href="backup_and_recovery.html"
                         title="次の章へ">学習モデルのバックアップとリカバリ</a></p>
-  <h3>このページ</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/faq_rpc_err_workaround.txt"
-           rel="nofollow">ソースコードを表示</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq_rpc_err_workaround.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
           <div id="searchbox" style="display: none">
             <h3>Quick Search</h3>
               <form class="search" action="search.html" method="get">
@@ -185,16 +186,16 @@ RPCの再実行を行うと、その分応答性が低下します。該当ア�
 <div class="section" id="ruby">
 <h3>Ruby<a class="headerlink" href="#ruby" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
-<li>RPC呼び出しを行うコードは、 <tt class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">ensure</span></tt> ブロックにより、接続の明示的な破棄を保証するようにします。
-接続の明示的な破棄には、クライアントオブジェクトの <tt class="docutils literal"><span class="pre">get_client.close</span></tt> を使います。</li>
-<li>RPC呼び出しで発生するすべての例外は、 <tt class="docutils literal"><span class="pre">MessagePack::RPC::RPCError</span></tt> から派生しています。</li>
-<li>RPC呼び出しで、トランスポート層のエラーが発生した場合は <tt class="docutils literal"><span class="pre">MessagePack::RPC::TransportError</span></tt> が発生します。
-また、タイムアウトが発生した場合は <tt class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></tt> が発生します。
-サーバにより自動的に接続破棄された場合も <tt class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></tt> が発生します。
-<tt class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">rescue</span></tt> ブロックでこれらの例外を捕捉し、RPCを再実行します。RPC再実行を行うためには、接続を一旦明示的に破棄する必要があります。</li>
-<li>RPC呼び出しで、メソッド名や型の不一致が発生した場合は <tt class="docutils literal"><span class="pre">Jubatus::Common::InterfaceMismatch</span></tt> 例外が発生します。
-アルゴリズムのエラーが発生した場合は <tt class="docutils literal"><span class="pre">MessagePack::RPC::RemoteError</span></tt> または <tt class="docutils literal"><span class="pre">MessagePack::RPC::CallError</span></tt> 例外が発生します。
-これらの例外を捕捉し、接続を明示的に破棄します。 <tt class="docutils literal"><span class="pre">TransportError</span></tt> および <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> 以外の <tt class="docutils literal"><span class="pre">RPCError</span></tt> をまとめて捕捉してもよいでしょう。</li>
+<li>RPC呼び出しを行うコードは、 <code class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">ensure</span></code> ブロックにより、接続の明示的な破棄を保証するようにします。
+接続の明示的な破棄には、クライアントオブジェクトの <code class="docutils literal"><span class="pre">get_client.close</span></code> を使います。</li>
+<li>RPC呼び出しで発生するすべての例外は、 <code class="docutils literal"><span class="pre">MessagePack::RPC::RPCError</span></code> から派生しています。</li>
+<li>RPC呼び出しで、トランスポート層のエラーが発生した場合は <code class="docutils literal"><span class="pre">MessagePack::RPC::TransportError</span></code> が発生します。
+また、タイムアウトが発生した場合は <code class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></code> が発生します。
+サーバにより自動的に接続破棄された場合も <code class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></code> が発生します。
+<code class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">rescue</span></code> ブロックでこれらの例外を捕捉し、RPCを再実行します。RPC再実行を行うためには、接続を一旦明示的に破棄する必要があります。</li>
+<li>RPC呼び出しで、メソッド名や型の不一致が発生した場合は <code class="docutils literal"><span class="pre">Jubatus::Common::InterfaceMismatch</span></code> 例外が発生します。
+アルゴリズムのエラーが発生した場合は <code class="docutils literal"><span class="pre">MessagePack::RPC::RemoteError</span></code> または <code class="docutils literal"><span class="pre">MessagePack::RPC::CallError</span></code> 例外が発生します。
+これらの例外を捕捉し、接続を明示的に破棄します。 <code class="docutils literal"><span class="pre">TransportError</span></code> および <code class="docutils literal"><span class="pre">TimeoutError</span></code> 以外の <code class="docutils literal"><span class="pre">RPCError</span></code> をまとめて捕捉してもよいでしょう。</li>
 </ul>
 <div class="highlight-ruby"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
 
@@ -236,16 +237,16 @@ RPCの再実行を行うと、その分応答性が低下します。該当ア�
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
-<li>RPC呼び出しを行うコードは、 <tt class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">finally</span></tt> ブロックにより、接続の明示的な破棄を保証するようにします。
-接続の明示的な破棄には、クライアントオブジェクトの <tt class="docutils literal"><span class="pre">get_client().close()</span></tt> を使います。</li>
-<li>RPC呼び出しで発生する全ての例外は、 <tt class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></tt> から派生しています。</li>
-<li>RPC呼び出しで、トランスポート層のエラーが発生した場合は <tt class="docutils literal"><span class="pre">msgpackrpc.error.TransportError</span></tt> が発生します。
-また、タイムアウトが発生した場合は <tt class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></tt> が発生します。
-サーバにより自動的に接続破棄された場合も <tt class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></tt> が発生します。
-<tt class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">except</span></tt> ブロックでこれらの例外を捕捉し、RPCを再実行します。RPC再実行を行うためには、接続を一旦明示的に破棄し、さらに <strong>クライアントオブジェクトを再生成する必要があります</strong> 。</li>
-<li>RPC呼び出しで、メソッド名や型の不一致が発生した場合は、 <tt class="docutils literal"><span class="pre">jubatus.common.client.InterfaceMismatch</span></tt> が発生します。
-アルゴリズムのエラーやその他のエラーが発生した場合は <tt class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></tt> が発生します。
-これらの例外を捕捉し、接続を明示的に破棄します。 <tt class="docutils literal"><span class="pre">TransportError</span></tt> および <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> 以外の <tt class="docutils literal"><span class="pre">RPCError</span></tt> をまとめて捕捉してもよいでしょう。</li>
+<li>RPC呼び出しを行うコードは、 <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">finally</span></code> ブロックにより、接続の明示的な破棄を保証するようにします。
+接続の明示的な破棄には、クライアントオブジェクトの <code class="docutils literal"><span class="pre">get_client().close()</span></code> を使います。</li>
+<li>RPC呼び出しで発生する全ての例外は、 <code class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></code> から派生しています。</li>
+<li>RPC呼び出しで、トランスポート層のエラーが発生した場合は <code class="docutils literal"><span class="pre">msgpackrpc.error.TransportError</span></code> が発生します。
+また、タイムアウトが発生した場合は <code class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></code> が発生します。
+サーバにより自動的に接続破棄された場合も <code class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></code> が発生します。
+<code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">except</span></code> ブロックでこれらの例外を捕捉し、RPCを再実行します。RPC再実行を行うためには、接続を一旦明示的に破棄し、さらに <strong>クライアントオブジェクトを再生成する必要があります</strong> 。</li>
+<li>RPC呼び出しで、メソッド名や型の不一致が発生した場合は、 <code class="docutils literal"><span class="pre">jubatus.common.client.InterfaceMismatch</span></code> が発生します。
+アルゴリズムのエラーやその他のエラーが発生した場合は <code class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></code> が発生します。
+これらの例外を捕捉し、接続を明示的に破棄します。 <code class="docutils literal"><span class="pre">TransportError</span></code> および <code class="docutils literal"><span class="pre">TimeoutError</span></code> 以外の <code class="docutils literal"><span class="pre">RPCError</span></code> をまとめて捕捉してもよいでしょう。</li>
 </ul>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">jubatus</span>
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
@@ -295,17 +296,17 @@ RPCの再実行を行うと、その分応答性が低下します。該当ア�
 <h3>C++<a class="headerlink" href="#c" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li>クライアントオブジェクトを破棄することで、接続は自動的に破棄されます。
-明示的に接続破棄を行う必要はありません。明示的に接続破棄を行う場合は、クライアントオブジェクトの <tt class="docutils literal"><span class="pre">get_client().close()</span></tt> を使います。</li>
-<li>RPC呼び出しで発生するすべての例外は、 <tt class="docutils literal"><span class="pre">msgpack::rpc::rpc_error</span></tt> から派生しています。</li>
-<li>RPC呼び出しで発生するトランスポート層のエラーのうち、サーバ接続に失敗した場合は、 <tt class="docutils literal"><span class="pre">msgpack::rpc::connect_error</span></tt> が発生します。
-その他のトランスポート層のエラーの場合は <tt class="docutils literal"><span class="pre">msgpack::rpc::system_error</span></tt> が発生します。
-また、タイムアウトが発生した場合は <tt class="docutils literal"><span class="pre">msgpack::rpc::timeout_error</span></tt> が発生します。
-サーバにより自動的に接続破棄された場合は、 <tt class="docutils literal"><span class="pre">msgpack::rpc::connection_closed_error</span></tt> が発生します。
-<tt class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">catch</span></tt> ブロックでこれらの例外を補足し、RPCを再実行します。再実行するためには、接続を一旦明示的に破棄する必要があります。
-なお、 <tt class="docutils literal"><span class="pre">connect_error</span></tt> は <tt class="docutils literal"><span class="pre">timeout_error</span></tt> から派生しています。 <tt class="docutils literal"><span class="pre">connect_error</span></tt> を <tt class="docutils literal"><span class="pre">timeout_error</span></tt> として捕捉することができます。</li>
-<li>RPC呼び出しで、メソッド名がや型の不一致の場合、それぞれ <tt class="docutils literal"><span class="pre">msgpack::rpc::no_method_error</span></tt>, <tt class="docutils literal"><span class="pre">msgpack::rpc::argument_error</span></tt> が発生します。
-アルゴリズムのエラーが発生した場合は、 <tt class="docutils literal"><span class="pre">msgpack::rpc::remote_error</span></tt> 例外が発生します。
-これらの例外を <tt class="docutils literal"><span class="pre">rpc_error</span></tt> としてまとめて捕捉してもよいでしょう。</li>
+明示的に接続破棄を行う必要はありません。明示的に接続破棄を行う場合は、クライアントオブジェクトの <code class="docutils literal"><span class="pre">get_client().close()</span></code> を使います。</li>
+<li>RPC呼び出しで発生するすべての例外は、 <code class="docutils literal"><span class="pre">msgpack::rpc::rpc_error</span></code> から派生しています。</li>
+<li>RPC呼び出しで発生するトランスポート層のエラーのうち、サーバ接続に失敗した場合は、 <code class="docutils literal"><span class="pre">msgpack::rpc::connect_error</span></code> が発生します。
+その他のトランスポート層のエラーの場合は <code class="docutils literal"><span class="pre">msgpack::rpc::system_error</span></code> が発生します。
+また、タイムアウトが発生した場合は <code class="docutils literal"><span class="pre">msgpack::rpc::timeout_error</span></code> が発生します。
+サーバにより自動的に接続破棄された場合は、 <code class="docutils literal"><span class="pre">msgpack::rpc::connection_closed_error</span></code> が発生します。
+<code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">catch</span></code> ブロックでこれらの例外を補足し、RPCを再実行します。再実行するためには、接続を一旦明示的に破棄する必要があります。
+なお、 <code class="docutils literal"><span class="pre">connect_error</span></code> は <code class="docutils literal"><span class="pre">timeout_error</span></code> から派生しています。 <code class="docutils literal"><span class="pre">connect_error</span></code> を <code class="docutils literal"><span class="pre">timeout_error</span></code> として捕捉することができます。</li>
+<li>RPC呼び出しで、メソッド名がや型の不一致の場合、それぞれ <code class="docutils literal"><span class="pre">msgpack::rpc::no_method_error</span></code>, <code class="docutils literal"><span class="pre">msgpack::rpc::argument_error</span></code> が発生します。
+アルゴリズムのエラーが発生した場合は、 <code class="docutils literal"><span class="pre">msgpack::rpc::remote_error</span></code> 例外が発生します。
+これらの例外を <code class="docutils literal"><span class="pre">rpc_error</span></code> としてまとめて捕捉してもよいでしょう。</li>
 </ul>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;jubatus/client.hpp&gt;</span>
 
@@ -358,9 +359,9 @@ RPCの再実行を行うと、その分応答性が低下します。該当ア�
 <h3>Java<a class="headerlink" href="#java" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li>RPC呼び出しを行うコードは、try - finally構文により、接続の明示的な破棄を保証するようにします。
-接続の明示的な破棄には、クライアントオブジェクトの <tt class="docutils literal"><span class="pre">get_client().close()</span></tt> を使います。</li>
-<li>現在、RPC呼び出しで発生する全ての例外は、 <tt class="docutils literal"><span class="pre">org.msgpack.rpc.error.RPCError</span></tt> によって報告されます。
-例外クラスによってエラーを分類することはできません。 <tt class="docutils literal"><span class="pre">RPCError</span></tt> を捕捉し、接続を明示的に破棄します。</li>
+接続の明示的な破棄には、クライアントオブジェクトの <code class="docutils literal"><span class="pre">get_client().close()</span></code> を使います。</li>
+<li>現在、RPC呼び出しで発生する全ての例外は、 <code class="docutils literal"><span class="pre">org.msgpack.rpc.error.RPCError</span></code> によって報告されます。
+例外クラスによってエラーを分類することはできません。 <code class="docutils literal"><span class="pre">RPCError</span></code> を捕捉し、接続を明示的に破棄します。</li>
 <li>接続を明示的に破棄した後、同じクライアントオブジェクトを使ってRPCを再実行することができます。
 しかし、再実行により復旧の可能性があるトランスポート層のエラーのみを切り分けて再実行することができないので推奨いたしません。</li>
 </ul>
@@ -395,7 +396,7 @@ RPCの再実行を行うと、その分応答性が低下します。該当ア�
     </div>
     <div class="footer">
         &copy; Copyright 2011-2015 PFN &amp; NTT.
-      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3 で生成しました。
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->
