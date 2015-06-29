@@ -53,7 +53,7 @@ JavaScriptのコードではTrigger FunctionからHTTPリクエストとemailを
   引数で与えられたkey-valueペアをパラメータにURLにGETリクエストを行います。
 * ``jql.httpPost(url)``
   bodyが空のPOSTリクエストをURLに行います。
-* ``jql.httpPost(url, body)`
+* ``jql.httpPost(url, body)``
   引数で与えられた文字列のbodyでURLにPOSTリクエストを行います。
 * ``jql.httpPost(url, {"key": "value"})``
   引数で与えられたkey-valueペアを ``application/x-www-form-urlencoded`` の文字列としたbodyでPOSTリクエストをURLに行います
