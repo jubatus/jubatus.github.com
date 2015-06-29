@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -165,24 +165,32 @@
 <h1>クイックスタート<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="jubatus">
 <h2>Jubatus のインストール<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Red Hat Enterprise Linux 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS (64-bit) を公式にサポートしています。
+<p>Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS (64-bit) を公式にサポートしています。
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。</p>
 <p>また、その他の Linux 環境 (32-bit を含む) と Mac OS X が試験的にサポートされています。</p>
 <div class="section" id="red-hat-enterprise-linux-6-2-64-bit">
 <h3>Red Hat Enterprise Linux 6.2 以降 (64-bit)<a class="headerlink" href="#red-hat-enterprise-linux-6-2-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
+<div class="highlight-python"><div class="highlight"><pre>// RHEL 6 の場合
+$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-2.el6.x86_64.rpm
+
+// RHEL 7 の場合
+$ sudo rpm -Uvh http://download.jubat.us/yum/rhel/7/stable/x86_64/jubatus-release-7-2.el7.x86_64.rpm
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">jubatus</span></code> と <code class="docutils literal"><span class="pre">jubatus-client</span></code> のパッケージをインストールします。</p>
-<div class="highlight-python"><div class="highlight"><pre>// RHEL の場合
-$ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
-
-// RHEL クローン (CentOS, Scientific Linux など) の場合
-$ sudo yum install jubatus jubatus-client
+<div class="highlight-python"><div class="highlight"><pre>$ sudo yum install jubatus jubatus-client
 </pre></div>
 </div>
-<p>RHEL では、依存パッケージ (<code class="docutils literal"><span class="pre">oniguruma</span></code>) のインストールに <code class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></code> リポジトリを使用している点に注意してください。</p>
+<p>RHEL 6 では、依存パッケージ (<code class="docutils literal"><span class="pre">oniguruma</span></code>) のインストールに <code class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></code> または <code class="docutils literal"><span class="pre">jubatus-optional</span></code> リポジトリを使用します。
+上記の手順を実行した際、 <code class="docutils literal"><span class="pre">oniguruma</span></code> パッケージが存在しないエラーが表示された場合は、以下のコマンドのいずれかを実行してください。</p>
+<div class="highlight-python"><div class="highlight"><pre>// RHEL 6 で、oniguruma パッケージが存在しない場合
+$ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
+
+// RHEL 6 で、oniguruma パッケージが存在しない場合 (rhel-6-server-optional-rpms が利用できない場合)
+$ sudo yum --enablerepo=jubatus-optional install jubatus jubatus-client
+</pre></div>
+</div>
 </div>
 <div class="section" id="ubuntu-server-12-04-lts-64-bit">
 <h3>Ubuntu Server 12.04 LTS (64-bit)<a class="headerlink" href="#ubuntu-server-12-04-lts-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -277,7 +285,7 @@ $ sudo easy_install pip
   <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>us.jubat<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>jubatus<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>[0.7,)<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>[0.8,)<span class="nt">&lt;/version&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;/dependencies&gt;</span>
 </pre></div>

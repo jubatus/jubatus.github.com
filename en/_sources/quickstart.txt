@@ -5,7 +5,7 @@ Quick Start
 Install Jubatus
 ---------------
 
-We officially support Red Hat Enterprise Linux 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS (64-bit).
+We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS (64-bit).
 On supported systems, you can install all components of Jubatus using binary packages.
 
 Other Linux distributions (including 32-bit) and Mac OS X are experimentally supported.
@@ -17,19 +17,28 @@ Run the following command to register Jubatus Yum repository to the system.
 
 ::
 
-  $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
+  // For RHEL 6
+  $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-2.el6.x86_64.rpm
+
+  // For RHEL 7
+  $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/7/stable/x86_64/jubatus-release-7-2.el7.x86_64.rpm
 
 Now install ``jubatus`` and ``jubatus-client`` package.
 
 ::
 
-  // For RHEL
-  $ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
-
-  // For RHEL clones (CentOS, Scientific Linux, etc.)
   $ sudo yum install jubatus jubatus-client
 
-Note that we use ``rhel-6-server-optional-rpms`` repository to install dependency package (``oniguruma``) on RHEL.
+On RHEL 6 systems, we use ``rhel-6-server-optional-rpms`` or ``jubatus-optional`` repository to install dependency package (``oniguruma``).
+If the installation command above fails with the missing ``oniguruma`` package error, try one of the following commands:
+
+::
+
+  // For RHEL 6 systems that cannot find oniguruma package
+  $ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
+
+  // For RHEL 6 systems that cannot find oniguruma package (and rhel-6-server-optional-rpms is unavailable)
+  $ sudo yum --enablerepo=jubatus-optional install jubatus jubatus-client
 
 Ubuntu Server 12.04 LTS (64-bit)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,7 +166,7 @@ Please add these lines to ``pom.xml`` of your project.
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>[0.7,)</version>
+       <version>[0.8,)</version>
      </dependency>
    </dependencies>
 

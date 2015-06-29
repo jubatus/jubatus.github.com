@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -250,11 +250,11 @@ Check out the <a class="reference external" href="https://github.com/jubatus/jub
 <li>Client library occasionally throws RPC timeout errors; it seems that servers automatically disconnect clients. Why?</li>
 </ul>
 <blockquote>
-<div><p>Jubatus servers automatically close connections when the idle timeout (given by the command line parameter <a class="reference internal" href="commands.html#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a>) expires.
+<div><p>Jubatus servers automatically close connections when the idle timeout (given by the command line parameter <code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code>) expires.
 You need to retry the RPC call to re-establish the connection.
 Please refer <a class="reference internal" href="faq_rpc_err_workaround.html"><em>RPC Error Handling</em></a> to handle RPC errors including timeout error
 caused by server&#8217;s auto session-closing.</p>
-<p>To disable this auto-disconnect feature, set <a class="reference internal" href="commands.html#cmdoption-server-t"><code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code></a> to 0, which means &#8220;no timeout&#8221;.
+<p>To disable this auto-disconnect feature, set <code class="xref std std-option docutils literal"><span class="pre">server</span> <span class="pre">-t</span></code> to 0, which means &#8220;no timeout&#8221;.
 In this case, clients must explicitly close the TCP connection using <a class="reference internal" href="common_structs.html#get_client" title="get_client"><code class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></code></a>.
 Or, please set timeout enough longer than a client&#8217;s connection lifetime.</p>
 </div></blockquote>

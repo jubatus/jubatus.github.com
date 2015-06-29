@@ -1,0 +1,243 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JubaQL Overview &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="JubaQL" href="jubaql.html" />
+    <link rel="next" title="JubaQLアーキテクチャ" href="architecture.html" />
+    <link rel="prev" title="JubaQL クイックスタート" href="quickstart.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="JubaQLアーキテクチャ"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="JubaQL クイックスタート"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" accesskey="U">JubaQL</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JubaQL Overview</a><ul>
+<li><a class="reference internal" href="#jubaql">機械学習とJubaQL</a></li>
+<li><a class="reference internal" href="#id1">JubaQLの目的</a></li>
+<li><a class="reference internal" href="#id2">JubaQLの機能</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="前の章へ">JubaQL クイックスタート</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="次の章へ">JubaQLアーキテクチャ</a></p>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/jubaql/overview.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubaql-overview">
+<h1>JubaQL Overview<a class="headerlink" href="#jubaql-overview" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="jubaql">
+<h2>機械学習とJubaQL<a class="headerlink" href="#jubaql" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ビジネス上の需要からオンライン機械学習を用いるユーザが必要としているものは大きく5つのステップに分けられます。</p>
+<ol class="arabic simple">
+<li>データの収集</li>
+<li>仮説の構築</li>
+<li>仮説の検証</li>
+<li>仮説のモデル化</li>
+<li>モデルに基づいたオンラインシステム構築</li>
+</ol>
+<p>Jubatus には様々な機能が搭載されていますが、それらを正しく利用するためにはやや煩雑な準備が必要になります。
+Jubatus は上記の5つのステップの中では「仮説のモデル化」と「モデルに基づいたオンラインシステム構築」のフェーズにおいては有力な手段となり得ました。
+しかし、その前のステップすべてに於いて未だに各ユーザの努力が必要でした。</p>
+<p>そこで、SQL-like なクエリとして機械学習を実行可能とすることで、非プログラマかつSQLを扱える方々に対するJubatus導入の閾値を下げるために、SQL/CQLベースのDSL（ドメイン特化言語）としてJubaQLを開発しました。</p>
+</div>
+<div class="section" id="id1">
+<h2>JubaQLの目的<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>JubaQLとは、機械学習向けのストリーム処理・バッチ処理を実現するSQL/CQLベースのDSL（ドメイン特化言語）及びその処理系です。
+JubaQLは大きく分けて以下の2つを実現することを目標にしています。</p>
+<ol class="arabic simple">
+<li>SQL-Likeなインターフェースによる機械学習の実行</li>
+<li>バッチ処理とストリーム処理の統合的な処理</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>JubaQLの機能<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>JubaQL で提供されている主要な機能は以下の5つです。</p>
+<blockquote>
+<div><p>・ JubatusのアルゴリズムをCQL/SQLを介して実行でき、かつ処理をスケールさせる仕組み</p>
+<blockquote>
+<div>JubaQLはSQL-likeなシンタックスをベースとし、機械学習の観点で拡張された言語です。
+習得、利用が容易であり、親しみやすい言語を目指して作られています。</div></blockquote>
+<p>・ 継続的にデータを投入し、処理し続けることの出来る仕組み</p>
+<blockquote>
+<div>JubaQLはストリームデータを容易に再処理できます。
+すなわち、(例えばHDFSなどに)蓄積されたストリームデータを処理し始め、そこからシームレスに(例えばApach Kafkaから受け取る)最新のストリームデータを継続的に処理できます。
+これによって、結果に再現性が得られ、またパラメータチューニングが可能になります。</div></blockquote>
+<p>・ カスケード処理</p>
+<blockquote>
+<div>クライアント側でデータに変更を加えずに、サーバ側でストリームデータを加工することができます。
+あるモデルから得られた分析結果を入力として他のモデルに与えることが、ユーザの介在やクライアントとサーバ間の通信を必要とせずに実現できます。</div></blockquote>
+<p>・ トリガーベースのアクション</p>
+<blockquote>
+<div>ユーザ定義関数(UDF = user-defined function)を定義することができ、ストリームデータに対して特定の条件が満たされたときにそれを実行するトリガーとして設定することができます。
+これによって、特定のイベントが観測されたときに、データをデータベースに格納したり通知することがサーバをポーリングすることなく実現できます。</div></blockquote>
+<p>・ 時系列データ分析</p>
+<blockquote>
+<div>ストリームデータに対してタイムウィンドウを定義することで、そのウィンドウに対して特徴量を取得し、それを使ってJubatusで学習やクエリすることが出来ます。
+単一のイベントではなく、順に出現する複数のイベントに対する分析(例. 位置情報の追跡)が可能になります。</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="JubaQLアーキテクチャ"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="JubaQL クイックスタート"
+             >前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

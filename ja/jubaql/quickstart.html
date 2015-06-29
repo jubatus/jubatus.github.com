@@ -1,0 +1,425 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JubaQL クイックスタート &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="JubaQL" href="jubaql.html" />
+    <link rel="next" title="JubaQL Overview" href="overview.html" />
+    <link rel="prev" title="JubaQL" href="jubaql.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="JubaQL Overview"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="jubaql.html" title="JubaQL"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" accesskey="U">JubaQL</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JubaQL クイックスタート</a><ul>
+<li><a class="reference internal" href="#id1">JubaQL 要件</a><ul>
+<li><a class="reference internal" href="#maven">Mavenリポジトリの利用方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#development">Developmentモード</a><ul>
+<li><a class="reference internal" href="#id8">セットアップ</a></li>
+<li><a class="reference internal" href="#id9">動作確認</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#production-gatewayclient">Productionモード(GatewayとClientが同一ノード)</a><ul>
+<li><a class="reference internal" href="#id10">セットアップ</a></li>
+<li><a class="reference internal" href="#id12">動作確認</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">Productionモード(GatewayとClientが異なるノード)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="jubaql.html"
+                        title="前の章へ">JubaQL</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="overview.html"
+                        title="次の章へ">JubaQL Overview</a></p>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/jubaql/quickstart.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubaql">
+<h1>JubaQL クイックスタート<a class="headerlink" href="#jubaql" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id1">
+<h2>JubaQL 要件<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>JubaQLを動作させるために必要なソフトウェアは以下の通りです。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="11%" />
+<col width="10%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ソフトウェア</th>
+<th class="head">バージョン</th>
+<th class="head">必須</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>JDK</td>
+<td>7</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Spark</td>
+<td>1.2.x <a class="footnote-reference" href="#id5" id="id2">[1]</a></td>
+<td>✔ <a class="footnote-reference" href="#id6" id="id3">[2]</a></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Jubatus</td>
+<td>0.8.0</td>
+<td>✔ <a class="footnote-reference" href="#id7" id="id4">[3]</a></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Hadoop YARN</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>&nbsp;</td>
+<td>JubaQLをProductionモードで動作させる場合のみ必要。</td>
+</tr>
+<tr class="row-even"><td>Jubatus on YARN</td>
+<td>1.0</td>
+<td>&nbsp;</td>
+<td>JubaQLをProductionモードで動作させる場合のみ必要。</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Spark 1.1.x および 1.3.x 以降では動作しません。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>JubaQL Gatewayを実行するノードにSparkをインストールする必要があります。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td>JubaQLをDevelopmentモードで動作させる場合、JubaQL Gatewayを実行するノードにJubatusをインストールする必要があります。
+JubaQLをProductionモードで動作させる場合、すべてのYARNノード上にJubatusをインストールする必要があります。</td></tr>
+</tbody>
+</table>
+<p>JubaQLおよびJubatus on YARNをビルドするためには、 <a class="reference external" href="http://www.scala-sbt.org/">sbt</a> コマンドのインストールが必要です。</p>
+<div class="section" id="maven">
+<h3>Mavenリポジトリの利用方法<a class="headerlink" href="#maven" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Jubatus on YARNをScalaアプリケーションから利用する場合は、Mavenリポジトリを利用することができます。
+build.sbtに以下の情報を追記してください。</p>
+<div class="highlight-python"><div class="highlight"><pre>// Jubatus Maven Repository
+resolvers += &quot;Jubatus&quot; at &quot;http://download.jubat.us/maven&quot;
+
+// Dependencies
+libraryDependencies ++= Seq(
+  &quot;us.jubat&quot;                   %% &quot;jubatus-on-yarn-client&quot;    % &quot;1.0&quot;
+)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="development">
+<h2>Developmentモード<a class="headerlink" href="#development" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>はじめに、簡易な設定のDevelopmentモードのセットアップについて紹介します。
+このモードではHadoopクラスタを用意することなくJubaQLを動作させることができます。</p>
+<div class="section" id="id8">
+<h3>セットアップ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Hadoopが利用可能な <a class="reference external" href="http://spark.apache.org/">Apache Spark</a> 1.2.2 をダウンロードし、環境変数を設定します。</p>
+<div class="highlight-python"><div class="highlight"><pre>wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.2-bin-hadoop2.4.tgz
+tar -xzf spark-1.2.2-bin-hadoop2.4.tgz &amp;&amp; export SPARK_DIST=&quot;$(pwd)/spark-1.2.2-bin-hadoop2.4/&quot;
+</pre></div>
+</div>
+<p>JubaQLClientをビルドします。</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/jubatus/jubaql-client.git
+cd jubaql-client &amp;&amp; sbt start-script &amp;&amp; cd ..
+</pre></div>
+</div>
+<p>JubaQLServerをビルドします。</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/jubatus/jubaql-server.git
+cd jubaql-server/processor &amp;&amp; sbt assembly &amp;&amp; cd ../..
+cd jubaql-server/gateway &amp;&amp; sbt assembly &amp;&amp; cd ../..
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>動作確認<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>JubaQLでDevelopモードの動作確認をします。
+動作の確認には jubaql-server/data/shogun_data.jsonのデータを使用します。</p>
+<p>JubaQL Serverを起動します。</p>
+<div class="highlight-python"><div class="highlight"><pre>cd jubaql-server &amp;&amp; \
+java -Dspark.distribution=&quot;$SPARK_DIST&quot; \
+     -Djubaql.processor.fatjar=processor/target/scala-2.10/jubaql-processor-assembly-1.3.0.jar \
+     -jar gateway/target/scala-2.10/jubaql-gateway-assembly-1.3.0.jar \
+     -i 127.0.0.1
+</pre></div>
+</div>
+<p>JubaQL Clientを起動します。</p>
+<div class="highlight-python"><div class="highlight"><pre>./jubaql-client/target/start
+</pre></div>
+</div>
+<p>次にJubaQL Clientから以下のクエリを実行します。</p>
+<div class="highlight-python"><div class="highlight"><pre>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
+CREATE DATASOURCE shogun (label string, name string) FROM (STORAGE: &quot;file://jubaql-server/data/shogun_data.json&quot;)
+UPDATE MODEL test USING train FROM shogun
+START PROCESSING shogun
+ANALYZE &#39;{&quot;name&quot;: &quot;慶喜&quot;}&#39; BY MODEL test USING classify
+SHUTDOWN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="production-gatewayclient">
+<h2>Productionモード(GatewayとClientが同一ノード)<a class="headerlink" href="#production-gatewayclient" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>YARN、HDFSを利用するProductionモードのセットアップを説明します。
+はじめにJubaQL GatewayとJubaQL Clientが同一ノード上で動作する場合のセットアップについて説明します。</p>
+<div class="section" id="id10">
+<h3>セットアップ<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここでは上記開発モードのインストールに加え以下の条件を満たしている必要があります。</p>
+<ul class="simple">
+<li>YARN, HDFSと共にHadoopクラスタがセットアップされていること<ul>
+<li><a class="reference external" href="http://www.cloudera.com/content/cloudera/en/downloads/cloudera_manager.html">Cloudera Manager</a> や <a class="reference external" href="http://hortonworks.com/hdp/downloads/">Hortonworks Packages</a> 等を参照</li>
+</ul>
+</li>
+<li>Hadoopクラスタの全ノードにJubatusがインストールされていること</li>
+<li><a class="reference external" href="https://github.com/jubatus/jubatus-on-yarn">Jubatus-on-yarn</a> がインストールされていること<ul>
+<li><a class="reference external" href="https://github.com/jubatus/jubatus-on-yarn/blob/master/document/instruction_ja.md">Jubatus-on-yarnのドキュメント</a> 参照</li>
+<li>HDFS上に/jubatus-on-yarn/application-master/jubaconfig/ が存在し、JubaQLProcessorの実行ユーザに書き込み権限があることを確認</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>動作確認<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>動作確認用の訓練データshogun_data.jsonをHDFSにコピーします</p>
+<div class="highlight-python"><div class="highlight"><pre>hdfs dfs -put ./jubaql-server/data/shogun_data.json /jubatus-on-yarn/sample/shogun_data.json
+</pre></div>
+</div>
+<p>Hadoopクラスタの情報を持つcore-site.xml, yarn-site.xml, hdfs-site.xmlをJubaQL Gatewayが動作するマシンの適当なディレクトリにコピーし、環境変数HADOOP_CONF_DIRをそのディレクトリに設定します。</p>
+<div class="highlight-python"><div class="highlight"><pre>cp core-site.xml yarn-site.xml hdfs-site.xml /etc/hadoop/conf
+export HADOOP_CONF_DIR=&quot;/etc/hadoop/conf&quot;
+</pre></div>
+</div>
+<p>JubaQL Gatewayが動作するマシンのIPアドレスを取得します。</p>
+<div class="highlight-python"><div class="highlight"><pre>Linuxでは以下のようなコマンドで取得できます
+export MY_IP=$(ip route get 12.34.56.78 | grep -Po &#39;src \K.+&#39;)
+</pre></div>
+</div>
+<p>得られたIPアドレスにHadoopクラスタからアクセスできることを確認してください。
+アクセスできない場合にはネットワークの設定を確認してください。</p>
+<p>Zookeeperが動作するノードを <code class="docutils literal"><span class="pre">host:port</span></code> の形式で環境変数に設定します。</p>
+<div class="highlight-python"><div class="highlight"><pre>export MY_ZOOKEEPER=zk1:2181,zk2:2181
+</pre></div>
+</div>
+<p>Spark の checkpoint のための HDFS 上のディレクトリを指定します</p>
+<div class="highlight-python"><div class="highlight"><pre>export CHECKPOINT=hdfs:///tmp/spark
+</pre></div>
+</div>
+<p>JubaQL Gatewayを起動します。</p>
+<div class="highlight-python"><div class="highlight"><pre>cd jubaql-server &amp;&amp; \
+java -Drun.mode=production \
+     -Djubaql.checkpointdir=$CHECKPOINT \
+     -Djubaql.zookeeper=$MY_ZOOKEEPER \
+     -Dspark.distribution=&quot;$SPARK_DIST&quot; \
+     -Djubaql.processor.fatjar=processor/target/scala-2.10/jubaql-processor-assembly-1.3.0.jar \
+     -jar gateway/target/scala-2.10/jubaql-gateway-assembly-1.3.0.jar \
+     -i $MY_IP``
+</pre></div>
+</div>
+<p>新たにシェルを立ち上げ、JubaQL Clientを起動します</p>
+<div class="highlight-python"><div class="highlight"><pre>./jubaql-client/target/start
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">jubaql&gt;</span></code> というプロンプトが現れたら以下のようにクエリを実行します。</p>
+<div class="highlight-python"><div class="highlight"><pre>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
+CREATE DATASOURCE shogun (label string, name string) FROM (STORAGE: &quot;hdfs:///jubatus-on-yarn/sample/shogun_data.json&quot;)
+UPDATE MODEL test USING train FROM shogun
+START PROCESSING shogun
+ANALYZE &#39;{&quot;name&quot;: &quot;慶喜&quot;}&#39; BY MODEL test USING classify
+SHUTDOWN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>Productionモード(GatewayとClientが異なるノード)<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>次に、JubaQL GatewayがJubaQL Clientとは異なるノードで動作する場合について説明します。
+このモードでのセットアップ手順は上記同一ノード上で動作する場合のセットアップと概ね同様です。
+注意すべき点は以下の２点です。</p>
+<ul class="simple">
+<li>jarファイルやHadoopの設定ファイルを配置するサーバ<ul>
+<li>これらはJubaQL Gatewayが動作するマシン上に配置する必要があります。</li>
+</ul>
+</li>
+<li>JubaQL Clientの起動方法<ul>
+<li>JubaQL Clientの起動時に <code class="docutils literal"><span class="pre">-h</span> <span class="pre">hostname</span></code> でJubaQL Gatewayが動作するホストを指定しなければなりません。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="JubaQL Overview"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="jubaql.html" title="JubaQL"
+             >前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

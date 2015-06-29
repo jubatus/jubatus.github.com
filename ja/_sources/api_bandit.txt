@@ -30,6 +30,13 @@ JSON の各フィールドは以下のとおりである。
    アルゴリズムに渡すパラメータを指定する。
    ``method`` に応じて渡すパラメータは異なる。
 
+   共通
+     :assume_unrewarded:
+        報酬がゼロの場合に ``register_reward`` の呼び出しを省略できるか否かを指定する。
+        True の場合、 ``select_arm`` によって選択された腕から得られた報酬がゼロの場合には ``register_reward`` の呼び出しを省略できる。ただし、 ``register_reward`` の呼び出しは ``select_arm`` の結果に対応していなければならない。
+        False の場合、報酬がゼロであっても必ず ``register_reward`` を呼び出す必要があるが、 ``register_reward`` の呼び出しを ``select_arm`` の呼び出しとは無関係に行う事ができる。
+        (Boolean)
+
    epsilon_greedy
      :epsilon:
         腕の選択をランダムに行う確率を指定する。
@@ -64,6 +71,7 @@ JSON の各フィールドは以下のとおりである。
      {
        "method" : "epsilon_greedy",
        "parameter" : {
+         "assume_unrewarded" : false,
          "epsilon" : 0.1
        }
      }
@@ -128,14 +136,14 @@ Methods
 
    .. mpidl:method:: map<string, arm_info> get_arm_info(0: string player_id)
 
-      :param target_label: 腕の情報を取得するプレイヤー
-      :return:             指定されたプレイヤーの腕の情報
+      :param player_id: 腕の情報を取得するプレイヤー
+      :return:          指定されたプレイヤーの腕の情報
 
       ``player_id`` で指定されたプレイヤーの腕の情報を返却する。
 
    .. mpidl:method:: bool reset(0: string player_id)
 
-      :param target_label: 腕の情報をリセットするプレイヤー
-      :return:             情報のリセットに成功した場合 True 失敗した場合 False
+      :param player_id: 腕の情報をリセットするプレイヤー
+      :return:          情報のリセットに成功した場合 True 失敗した場合 False
 
       ``player_id`` で指定されたプレイヤーの腕の情報を全てリセットする。

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CREATE STREAM FROM SELECT &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CREATE STREAM FROM SELECT</a><ul>
+<li><a class="reference internal" href="#id1">解説</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/jubaql/syntax_create_stream_select.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="create-stream-from-select">
+<h1>CREATE STREAM FROM SELECT<a class="headerlink" href="#create-stream-from-select" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>CREATE STREAM stream_name FROM select_stmt
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre>jubaql&gt; CREATE STREAM tokugawa FROM
+        SELECT name FROM input WHERE label = &#39;徳川&#39;
+CREATE STREAM
+
+jubaql&gt; CREATE STREAM somename FROM
+        SELECT addABC(label) AS label, name FROM ds
+CREATE STREAM
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h2>解説<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SELECT</span></code> は　<code class="docutils literal"><span class="pre">SELECT</span></code> 文の結果からストリームを作成します。SQLの <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">VIEW</span></code> に似ています。</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">stream_name</span></code> はストリームを識別するためにユーザが決定する文字列です。</li>
+<li><code class="docutils literal"><span class="pre">select_stmt</span></code> はSparkSQLが実行できる任意の <code class="docutils literal"><span class="pre">SELECT</span></code> 文です。</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SELECT</span></code> 文が正常に実行されると、ユーザは他の文から <code class="docutils literal"><span class="pre">stream_name</span></code> で指定されたストリームを利用することができるようになります。</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>入力のストリームは各バッチで列や列の型が変化し、スキーマが推論される場合があるため、参照したストリームについては名前や型のチェックは行いません。</li>
+<li><code class="docutils literal"><span class="pre">JOIN</span></code> や <code class="docutils literal"><span class="pre">count()</span></code> のような高度なSQLを実行することもできますが、出力結果はSpark Streamingのバッチサイズ(ユーザが設定不可能)に依存するため、予期するのが困難です。</li>
+<li><code class="docutils literal"><span class="pre">select_stmt</span></code> で複数のストリームが使用された場合、それらは同一のデータソースに由来するものでなければなりません。</li>
+<li>入力ストリームのデータソースは、文が発行される際には処理されていない状態でなければなりません。</li>
+<li><code class="docutils literal"><span class="pre">SELECT</span></code> で参照された列がバッチデータのスキーマには存在するもののデータの欠損があった場合、 <code class="docutils literal"><span class="pre">null</span></code> が渡されます。</li>
+<li><code class="docutils literal"><span class="pre">SELECT</span></code> で参照した列がバッチデータのスキーマに存在しない場合、そのバッチの処理が失敗し、結果として全体のプロセスが失敗します。</li>
+<li>スキーマの推論を使用する場合、スキーマは各バッチデータごとに推論されます。空のバッチデータに対しては空のスキーマを返します。</li>
+<li>蓄積されたデータの処理が終わった後には空のバッチが常にいくつか渡されます。したがって、実行時にスキーマを推論するデータソースに対する <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SELECT</span></code> 文は失敗することになります。</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

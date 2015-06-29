@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -197,6 +197,20 @@ You can use the algorithms below.</p>
 <dd><p>Specify parameters for the algorithm.
 Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
+<dt>common</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">assume_unrewarded:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify whether it can be omitted to call <code class="docutils literal"><span class="pre">register_reward</span></code> when the reward is zero.
+When it is True, calling <code class="docutils literal"><span class="pre">register_reward</span></code> can be omitted, but calling <code class="docutils literal"><span class="pre">register_reward</span></code> must be associated with the result of <code class="docutils literal"><span class="pre">select_arm</span></code>.
+When it is False, although <code class="docutils literal"><span class="pre">register_reward</span></code> must be called when the reward is zero, it can be called independently of calling <code class="docutils literal"><span class="pre">select_arm</span></code>.
+(Boolean)</td>
+</tr>
+</tbody>
+</table>
+</dd>
 <dt>epsilon_greedy</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -258,6 +272,7 @@ The lower <code class="docutils literal"><span class="pre">gamma</span></code> i
 <dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;epsilon_greedy&quot;</span><span class="p">,</span>
   <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;assume_unrewarded&quot;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">&quot;epsilon&quot;</span> <span class="o">:</span> <span class="mf">0.1</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -382,7 +397,7 @@ map&lt;string, <a class="reference internal" href="#arm_info" title="arm_info">a
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>target_label</strong> &#8211; ID of the player</li>
+<li><strong>player_id</strong> &#8211; ID of the player</li>
 </ul>
 </td>
 </tr>
@@ -402,7 +417,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>target_label</strong> &#8211; ID of the user whose arms are to be reset.</li>
+<li><strong>player_id</strong> &#8211; ID of the user whose arms are to be reset.</li>
 </ul>
 </td>
 </tr>

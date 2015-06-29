@@ -1,0 +1,239 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JubaQL Overview &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="JubaQL" href="jubaql.html" />
+    <link rel="next" title="JubaQL Architecture" href="architecture.html" />
+    <link rel="prev" title="JubaQL Quick Start" href="quickstart.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="JubaQL Architecture"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="JubaQL Quick Start"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" accesskey="U">JubaQL</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JubaQL Overview</a><ul>
+<li><a class="reference internal" href="#data-modeling-using-machine-learning-and-jubaql">Data Modeling using Machine Learning and JubaQL</a></li>
+<li><a class="reference internal" href="#goal-of-jubaql">Goal of JubaQL</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="previous chapter">JubaQL Quick Start</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="next chapter">JubaQL Architecture</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/jubaql/overview.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jubaql-overview">
+<h1>JubaQL Overview<a class="headerlink" href="#jubaql-overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-modeling-using-machine-learning-and-jubaql">
+<h2>Data Modeling using Machine Learning and JubaQL<a class="headerlink" href="#data-modeling-using-machine-learning-and-jubaql" title="Permalink to this headline">¶</a></h2>
+<p>In general, there are five steps when use machine learning for business.</p>
+<ol class="arabic simple">
+<li>Data collection</li>
+<li>Hypothesis Generation</li>
+<li>Hypothesis Validation</li>
+<li>Data Modeling based on the hypothesis</li>
+<li>Building online system using the model</li>
+</ol>
+<p>Jubatus supports various machine learning algorithms, and is a powerful tool on the latter two steps above, i.e., data modeling based on the hypothesis and building online system using the model.
+However, Jubatus users need an effort that is inconvenient for the former three phases.</p>
+<p>Therefore, we developed JubaQL as a DSL based on SQL/CQL, so as to reduce the entry barriers to use Jubatus for machine learning tasks in a stream processing environment.</p>
+</div>
+<div class="section" id="goal-of-jubaql">
+<h2>Goal of JubaQL<a class="headerlink" href="#goal-of-jubaql" title="Permalink to this headline">¶</a></h2>
+<p><strong>JubaQL</strong> is a SQL/CQL based DSL(Domain Specific Language) and its implementation.
+The overall goal of JubaQL are as follows:</p>
+<ol class="arabic simple">
+<li>Making it easy to use for domain experts to use Jubatus for machine learning tasks with real-world data.</li>
+<li>Integration of batch-processing and stream-processing</li>
+</ol>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>The major functions of JubaQL are as follows:</p>
+<blockquote>
+<div><p>・ SQL-Like syntax</p>
+<blockquote>
+<div>JubaQL should be a language that is easy to learn, easy to use, and should look familiar to the typical data scientist.
+Therefore an SQL-like syntax was chosen and enriched by terms from machine learning where it seemed appropriate.</div></blockquote>
+<p>・ Stream Re-Processing</p>
+<blockquote>
+<div>JubaQL allow to do easy stream re-processing, i.e., start processing with previously archived stream data (e.g., stored in HDFS) and then seamlessly switch to live stream data (e.g., coming from <a class="reference external" href="http://kafka.apache.org/">Apache Kafka</a>.) This allows to obtain reproducible results and can be used for parameter tuning.</div></blockquote>
+<p>・ Cascaded Processing</p>
+<blockquote>
+<div>It is possible to modify and enhance streams entirely on the server side, without data being exchanged with the client.
+The most important use case is to use analysis results from one model as input for another model without user intervention or client-server traffic.</div></blockquote>
+<p>・ Trigger-based Actions</p>
+<blockquote>
+<div>JubaQL enables you to define functions (UDF = <em>user-defined function</em>) and install them as triggers on a stream that are executed when some condition is fulfilled.
+One important use case would be to store data in a database or send a notification when a certain event is discovered, without the need to poll the server repeatedly.</div></blockquote>
+<p>・ Time-Series Analysis</p>
+<blockquote>
+<div>You can define time windows on a stream, compute features for these time windows and train/query Jubatus using these features.
+This can be used whenever analysis of multiple subsequent events (as opposed to a single event in time) shall be done, e.g., for location traces.</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="JubaQL Architecture"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="JubaQL Quick Start"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

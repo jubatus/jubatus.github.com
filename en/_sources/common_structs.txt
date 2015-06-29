@@ -110,10 +110,10 @@ Constructor
 Methods
 ~~~~~~~
 
-.. mpidl:method:: bool save(0: string id)
+.. mpidl:method:: map<string, string> save(0: string id)
 
    :param id:   file name to save
-   :return:     True if this function saves files successfully at all servers
+   :return:     Path to the saved model for each server. The key of the map is in form of ``hostname_portnumber``.
 
    Store the learing model to the local disk at **ALL** servers.
 

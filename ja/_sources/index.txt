@@ -15,6 +15,7 @@ Jubatus は以下の特徴を持ったオンライン機械学習向け分散処
 
 `English documentation <../en/>`_ is also available.
 
+`JubaQL <./jubaql/jubaql.html>`_ を公開しました。
 
 Get Jubatus
 -----------
@@ -36,6 +37,7 @@ Table of Contents
    tutorial_distributed
    documentation
    references
+   jubaql/jubaql
    howtocontribute
    misc
    aboutus

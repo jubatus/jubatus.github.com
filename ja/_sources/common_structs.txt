@@ -110,10 +110,10 @@ Constructor
 Methods
 ~~~~~~~
 
-.. mpidl:method:: bool save(0: string id)
+.. mpidl:method:: map<string, string> save(0: string id)
 
    :param id:   保存されるファイル名
-   :return:     すべてのサーバで保存が成功したらTrue
+   :return:     それぞれのサーバの、 保存されたモデルファイルのパス。map のキーは ``ホスト名_ポート番号`` 形式である。
 
    **すべて** のサーバで学習モデルをローカルディスクに保存する。
 

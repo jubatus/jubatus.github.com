@@ -1,0 +1,324 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CREATE STREAM FROM SLIDING WINDOW &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="JubaQL Syntax" href="jubaql_syntax.html" />
+    <link rel="next" title="CREATE FUNCTION" href="syntax_create_function.html" />
+    <link rel="prev" title="CREATE STREAM FROM ANALYZE" href="syntax_create_stream_analyze.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_function.html" title="CREATE FUNCTION"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_stream_analyze.html" title="CREATE STREAM FROM ANALYZE"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li>
+          <li><a href="jubaql_syntax.html" accesskey="U">JubaQL Syntax</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CREATE STREAM FROM SLIDING WINDOW</a><ul>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#available-aggregate-functions">Available Aggregate Functions</a><ul>
+<li><a class="reference internal" href="#functions-on-numeric-input-values">Functions on Numeric Input Values</a></li>
+<li><a class="reference internal" href="#functions-on-string-input-values">Functions on String Input Values</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="syntax_create_stream_analyze.html"
+                        title="previous chapter">CREATE STREAM FROM ANALYZE</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="syntax_create_function.html"
+                        title="next chapter">CREATE FUNCTION</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/jubaql/syntax_create_stream_window.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="create-stream-from-sliding-window">
+<h1>CREATE STREAM FROM SLIDING WINDOW<a class="headerlink" href="#create-stream-from-sliding-window" title="Permalink to this headline">¶</a></h1>
+<p>Syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>CREATE STREAM stream_name FROM SLIDING WINDOW
+(SIZE window_length ADVANCE step_size { TIME | TUPLES })
+OVER input_stream WITH agg_fun(params) [ AS alias ] [, ... ]
+[ WHERE pre_filter ] [ HAVING post_filter ]
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre>jubaql&gt; CREATE STREAM tokugawa FROM SLIDING WINDOW
+        (SIZE 4 ADVANCE 2 TUPLES)
+        OVER ds WITH maxval(label) AS era
+        HAVING era = &#39;tokugawa&#39;
+CREATE STREAM
+
+jubaql&gt; CREATE STREAM sitstream FROM SLIDING WINDOW
+        (SIZE 10 ADVANCE 2 TIME)
+        OVER input WITH stddev(dx), quantile(0.3, v)
+        WHERE activity = &#39;sitting&#39;
+CREATE STREAM
+</pre></div>
+</div>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOW</span></code> creates a stream with aggregate values computed from sliding windows over a given input stream. One item in the created output stream corresponds to one window over the input stream.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">stream_name</span></code> is a user-defined string that will identify this stream later on.</li>
+<li><code class="docutils literal"><span class="pre">window_length</span></code> is an integer that defines how many items will go in one window, either as an absolute number (in count-based mode) or as the maximal temporal distance in seconds between first and last element of a window (in timestamp-based mode).</li>
+<li><code class="docutils literal"><span class="pre">step_size</span></code> is an integer that defines the distance between the start points of two subsequent windows, either as an absolute number (in count-based mode) or as the temporal distance in seconds between the respective start times of two windows (in timestamp-based mode).</li>
+<li>The <code class="docutils literal"><span class="pre">TIME</span></code> and <code class="docutils literal"><span class="pre">TUPLES</span></code> keywords determine the mode of the window stream. In both modes, the output stream will contain one item per window, with the columns holding the aggregate function values of all items in the respective window.<ul>
+<li><code class="docutils literal"><span class="pre">TUPLES</span></code> activates count-based mode, i.e., every window will have the exact same number of items, and the first <code class="docutils literal"><span class="pre">step_size</span></code> items of a window will not appear in the next window.</li>
+<li><code class="docutils literal"><span class="pre">TIME</span></code> activates timestamp-based mode. The input stream needs to have a column with the name <code class="docutils literal"><span class="pre">jubaql_timestamp</span></code> with a string timestamp in ISO 8601 format (optionally including milli-/micro-/nanosecond precision, but without timezone information). The items in the input stream are expected to be in order of their embedded timestamps. Then every window will contain all items in the range <em>[x, x+window_length)</em>, where <em>x</em> increases by <em>step_size</em> from one window to the next. The output stream will also have a column called <code class="docutils literal"><span class="pre">jubaql_timestamp</span></code> containing the value <em>x</em> in each item.
+Note that &#8211; as opposed to the count-based version &#8211; it is totally possible to have windows with varying number of items in them, including empty windows. (There will be no item in the output stream for an empty window.)</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">input_stream</span></code> is the stream to use as input. The data source that this stream is derived from must not yet be in process (or done with processing) when the statement is issued.</li>
+<li><code class="docutils literal"><span class="pre">agg_fun</span></code> is the name of an aggregate function to use. <code class="docutils literal"><span class="pre">params</span></code> is the list of input parameters for that function, where the <em>last</em> parameter is always the value/column/expression to aggregate over, the parameters before depend on the aggregate function and control that function&#8217;s behavior. See the next subsection for a list of available functions and the required/optional parameters. <code class="docutils literal"><span class="pre">alias</span></code> is the name of the column to hold the aggregated value. If it is not given, <code class="docutils literal"><span class="pre">agg_fun</span></code> will be used. The <code class="docutils literal"><span class="pre">agg_fun(params)</span> <span class="pre">[</span> <span class="pre">AS</span> <span class="pre">alias</span> <span class="pre">]</span></code> clause can be used multiple times to aggregate over different columns of the input stream.</li>
+<li><code class="docutils literal"><span class="pre">pre_filter</span></code> is a filter expression just like the ones that can be used in a <code class="docutils literal"><span class="pre">WHERE</span></code> clause of a Spark SQL <code class="docutils literal"><span class="pre">SELECT</span></code> statement. If given, only the items in the input stream matching that condition will be used for window computation. This means that a count-based stream with window length 10 will still always have 10 items in each window, even if the <code class="docutils literal"><span class="pre">pre_filter</span></code> drops half of the items in the input stream.</li>
+<li><code class="docutils literal"><span class="pre">post_filter</span></code> is a filter expression just like the ones that can be used in a <code class="docutils literal"><span class="pre">WHERE</span></code> clause of a Spark SQL <code class="docutils literal"><span class="pre">SELECT</span></code> statement. If given, only aggregate value items that match this condition will be emitted into the output stream. Note that here the column names of the output stream (i.e., either the given <code class="docutils literal"><span class="pre">alias</span></code> or <code class="docutils literal"><span class="pre">agg_fun</span></code>) must be used.</li>
+</ul>
+<p>After a <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SELECT</span></code> statement has been processed successfully, the user can use the specified <code class="docutils literal"><span class="pre">stream_name</span></code> in other statements.</p>
+</div>
+<div class="section" id="available-aggregate-functions">
+<h2>Available Aggregate Functions<a class="headerlink" href="#available-aggregate-functions" title="Permalink to this headline">¶</a></h2>
+<p>The following aggregate functions can be used in the <code class="docutils literal"><span class="pre">WITH</span> <span class="pre">agg_fun(expression)</span> <span class="pre">AS</span> <span class="pre">alias</span></code> clause of a <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOW</span></code> statement.
+All but the last parameter (which mentions the input column/expression to aggregate over) must be computable at the time when the statement is issued, i.e., cannot reference any stream columns.</p>
+<div class="section" id="functions-on-numeric-input-values">
+<h3>Functions on Numeric Input Values<a class="headerlink" href="#functions-on-numeric-input-values" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Average/Mean: <code class="docutils literal"><span class="pre">avg(_):</span> <span class="pre">Double</span></code><ul>
+<li>Returns: The arithmetic mean value of all input values.</li>
+</ul>
+</li>
+<li>Standard Deviation: <code class="docutils literal"><span class="pre">stddev(_):</span> <span class="pre">Double</span></code><ul>
+<li>Returns: The standard deviation of all input values, 0.0 if there is just one input value.</li>
+</ul>
+</li>
+<li>Quantile: <code class="docutils literal"><span class="pre">quantile(p:</span> <span class="pre">Double,</span> <span class="pre">_):</span> <span class="pre">Double</span></code><ul>
+<li>Returns: The <em>p</em>-quantile of all input values. In case of ambiguity (e.g., the median of <code class="docutils literal"><span class="pre">[0.0,</span> <span class="pre">1.0,</span> <span class="pre">2.0,</span> <span class="pre">3.0]</span></code>), the larger value is returned.</li>
+<li>Parameters:<ul>
+<li><code class="docutils literal"><span class="pre">p</span></code>: standard quantile parameter (<img class="math" src="../_images/math/f254389fec277299dbf49e8d6706a9bb52ef1950.png" alt="p=0.5"/> is the median)</li>
+</ul>
+</li>
+<li>Alternative forms:<ul>
+<li><code class="docutils literal"><span class="pre">quantile(expr)</span></code> equals <code class="docutils literal"><span class="pre">quantile(0.5,</span> <span class="pre">expr)</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Linear approximation: <code class="docutils literal"><span class="pre">linapprox(_):</span> <span class="pre">Map[String,</span> <span class="pre">Double]</span></code><ul>
+<li>Returns: A map with keys <code class="docutils literal"><span class="pre">&quot;a&quot;</span></code> for the slope <img class="math" src="../_images/math/7dd2a5ea01fbd72ad2a58dd1f3d6ecbfde6208a1.png" alt="a"/> and <code class="docutils literal"><span class="pre">&quot;b&quot;</span></code> for the axis intercept <img class="math" src="../_images/math/5e87bf41a96deddf6cb485ff530f153f2590e9cc.png" alt="b"/> of the best linear approximation to the input values. The value <img class="math" src="../_images/math/410a65f64e2a609a2a7f544ed72f0982b719807a.png" alt="y_i"/> at the <img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>-th position (<img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/> counting from 0) is interpreted as a data point <img class="math" src="../_images/math/76676033e16ab8c3512bdd135ddff33c60f5c64d.png" alt="(i, y_i)"/> for the linear approximation. Both  <img class="math" src="../_images/math/7dd2a5ea01fbd72ad2a58dd1f3d6ecbfde6208a1.png" alt="a"/> and  <img class="math" src="../_images/math/5e87bf41a96deddf6cb485ff530f153f2590e9cc.png" alt="b"/> are <code class="docutils literal"><span class="pre">NaN</span></code> if there is just one input value.</li>
+</ul>
+</li>
+<li>Fourier coefficients: <code class="docutils literal"><span class="pre">fourier(_):</span> <span class="pre">Map[String,</span> <span class="pre">Array[Double]]</span></code><ul>
+<li>Returns: A map with keys <code class="docutils literal"><span class="pre">&quot;re&quot;</span></code> and <code class="docutils literal"><span class="pre">&quot;im&quot;</span></code> for the real and imaginary parts of the Fourier coefficients of a function represented by the input values. The number of values should be a power of 2 (or zeros will be added) and they are interpreted as the values of a function at equidistant positions in the interval <img class="math" src="../_images/math/9d83c38ed2c34294a2a50325c2a2fed460a8764c.png" alt="[0, 2\pi)"/>. The coefficients are computed using the method  <code class="docutils literal"><span class="pre">FastFourierTransformer.transformInPlace(data,</span> <span class="pre">DftNormalization.STANDARD,</span> <span class="pre">TransformType.INVERSE)</span></code> from Apache Commons Math.</li>
+</ul>
+</li>
+<li>Wavelet coefficients: <code class="docutils literal"><span class="pre">wavelet(_):</span> <span class="pre">Array[Double]</span></code><ul>
+<li>Returns the Haar wavelets coefficients of a function represented by the input values. The number of values should be a power of 2 (or zeros will be added) and they are interpreted as the values of a function at equidistant positions in the interval <img class="math" src="../_images/math/787ef8897f85416cae83d74ef5630a9c5973d996.png" alt="[0, 1]"/>.</li>
+</ul>
+</li>
+<li>Histogram: <code class="docutils literal"><span class="pre">histogram(lowestUpperBound:</span> <span class="pre">Double,</span> <span class="pre">highestLowerBound:</span> <span class="pre">Double,</span> <span class="pre">numBins:</span> <span class="pre">Int,</span> <span class="pre">_):</span> <span class="pre">Array[Double]</span></code><ul>
+<li>Returns: An array of doubles in the range <img class="math" src="../_images/math/787ef8897f85416cae83d74ef5630a9c5973d996.png" alt="[0, 1]"/> with the <img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>-th number describing the fraction of items in the <img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>-th bin. Note that each bin describes a half-closed interval <img class="math" src="../_images/math/45ae0843d9db4fbcae5b511e84991b9af62b1202.png" alt="[a, b)"/>.</li>
+<li>Parameters:<ul>
+<li><code class="docutils literal"><span class="pre">lowestUpperBound</span></code>: upper bound of the lowest bin</li>
+<li><code class="docutils literal"><span class="pre">highestLowerBound</span></code>: lower bound of the highest bin</li>
+<li><code class="docutils literal"><span class="pre">numBins</span></code>: number of bins</li>
+</ul>
+</li>
+<li>Alternative forms:<ul>
+<li><code class="docutils literal"><span class="pre">histogram(lowestUpperBound,</span> <span class="pre">highestLowerBound,</span> <span class="pre">expr)</span></code> equals <code class="docutils literal"><span class="pre">histogram(lowestUpperBound,</span> <span class="pre">highestLowerBound,</span> <span class="pre">10,</span> <span class="pre">expr)</span></code></li>
+<li><code class="docutils literal"><span class="pre">histogram(numBins,</span> <span class="pre">expr)</span></code> equals <code class="docutils literal"><span class="pre">histogram(0.1,</span> <span class="pre">0.9,</span> <span class="pre">numBins,</span> <span class="pre">expr)</span></code></li>
+<li><code class="docutils literal"><span class="pre">histogram(expr)</span></code> equals <code class="docutils literal"><span class="pre">histogram(0.1,</span> <span class="pre">0.9,</span> <span class="pre">10,</span> <span class="pre">expr)</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="functions-on-string-input-values">
+<h3>Functions on String Input Values<a class="headerlink" href="#functions-on-string-input-values" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Concatenation: <code class="docutils literal"><span class="pre">concat(separator:</span> <span class="pre">String,</span> <span class="pre">_):</span> <span class="pre">String</span></code><ul>
+<li>Returns: The concatenation of all input values, separated by the given string.</li>
+<li>Parameters:<ul>
+<li><code class="docutils literal"><span class="pre">separator</span></code>: will be inserted between two subsequent input values</li>
+</ul>
+</li>
+<li>Alternative forms:<ul>
+<li><code class="docutils literal"><span class="pre">concat(expr)</span></code> equals <code class="docutils literal"><span class="pre">concat(&quot;</span> <span class="pre">&quot;,</span> <span class="pre">expr)</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Most frequent element: <code class="docutils literal"><span class="pre">maxelem(_):</span> <span class="pre">String</span></code><ul>
+<li>Returns: The most frequent of all items. If there are two equally frequent items, the one that appeared last will be returned.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>As opposed to all other processing statements, <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOWS</span></code> is the only one that cannot be implemented in an embarrassingly parallel manner. The reason is that if there is an overlap between two windows, then the items in that overlap must be known to the workers processing these two windows. If these workers are on different machines, then the items in the overlap must be shipped over the network (&#8220;shuffle&#8221; in Hadoop terms), i.e., there is a limit to scaling out.</li>
+<li>Also, as opposed to all other processing statements, <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOWS</span></code> is stateful across batch borders in a DStream. The reason is that we must keep track of &#8220;partial&#8221; windows, i.e., windows that are (maybe) not yet complete and where we will (maybe) receive further data in the next batch. This statefulness requires the use of <code class="docutils literal"><span class="pre">updateStateByKey()</span></code> in Spark Streaming which involves writing state to disk.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_function.html" title="CREATE FUNCTION"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_stream_analyze.html" title="CREATE STREAM FROM ANALYZE"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li>
+          <li><a href="jubaql_syntax.html" >JubaQL Syntax</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

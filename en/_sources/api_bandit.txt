@@ -30,6 +30,13 @@ We show each field below:
    Specify parameters for the algorithm.
    Its format differs for each ``method``.
 
+   common
+     :assume_unrewarded:
+        Specify whether it can be omitted to call ``register_reward`` when the reward is zero.
+        When it is True, calling ``register_reward`` can be omitted, but calling ``register_reward`` must be associated with the result of ``select_arm``.
+        When it is False, although ``register_reward`` must be called when the reward is zero, it can be called independently of calling ``select_arm``.
+        (Boolean)
+
    epsilon_greedy
      :epsilon:
         The probability of choosing arms randomly.
@@ -67,6 +74,7 @@ Example:
      {
        "method" : "epsilon_greedy",
        "parameter" : {
+         "assume_unrewarded" : false,
          "epsilon" : 0.1
        }
      }
@@ -132,14 +140,14 @@ Methods
 
    .. mpidl:method:: map<string, arm_info> get_arm_info(0: string player_id)
 
-      :param target_label: ID of the player
-      :return:             arm information of specified player
+      :param player_id: ID of the player
+      :return:          arm information of specified player
 
       Get all arms information of specified player.
 
    .. mpidl:method:: bool reset(0: string player_id)
 
-      :param target_label: ID of the user whose arms are to be reset.
-      :return:             True if succeeded in resetting the arm. False if failed to reset.
+      :param player_id: ID of the user whose arms are to be reset.
+      :return:          True if succeeded in resetting the arm. False if failed to reset.
 
       Reset all arms information of specified player.

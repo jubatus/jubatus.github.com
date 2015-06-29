@@ -1,0 +1,233 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CREATE STREAM FROM ANALYZE &mdash; Jubatus</title>
+    <link rel="stylesheet" href="../_static/jubatus.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+    
+<script type="text/javascript">
+   var GuideSentence = 'keyword';
+   function ShowFormGuide(obj) {
+      if( obj.value == '' ) {
+         obj.value = GuideSentence;
+         obj.style.color = '#cccccc';
+      }else{
+         obj.style.color = '#333333';
+      }
+   }
+   function HideFormGuide(obj) {
+      obj.style.color = '#827046';
+      if( obj.value == GuideSentence ) {
+         obj.value='';   
+      }
+   }
+</script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Jubatus" href="../index.html" />
+    <link rel="up" title="JubaQL Syntax" href="jubaql_syntax.html" />
+    <link rel="next" title="CREATE STREAM FROM SLIDING WINDOW" href="syntax_create_stream_window.html" />
+    <link rel="prev" title="CREATE MODEL" href="syntax_create_model.html" /> 
+
+<!--
+
+   _________         ___
+   \____   _|       | /             ___I_I___
+       |  |         | |             \__^ ^__/        ____
+       |  |         | | ___    ___  __ | |          / __/
+       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
+       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
+       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
+       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
+       | /
+      / /
+     |/
+
+-->
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26408953-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_stream_window.html" title="CREATE STREAM FROM SLIDING WINDOW"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_model.html" title="CREATE MODEL"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li>
+          <li><a href="jubaql_syntax.html" accesskey="U">JubaQL Syntax</a> &raquo;</li> 
+      </ul>
+    </div>
+          
+		<a href="../index.html">
+			 <div class="title"></div>
+		</a>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CREATE STREAM FROM ANALYZE</a><ul>
+<li><a class="reference internal" href="#id1">解説</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="syntax_create_model.html"
+                        title="前の章へ">CREATE MODEL</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="syntax_create_stream_window.html"
+                        title="次の章へ">CREATE STREAM FROM SLIDING WINDOW</a></p>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/jubaql/syntax_create_stream_analyze.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+          <div id="searchbox" style="display: none">
+            <h3>Quick Search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
+                <input type="submit" value="Go" class="searchBtn" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+	  
+          
+
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="create-stream-from-analyze">
+<h1>CREATE STREAM FROM ANALYZE<a class="headerlink" href="#create-stream-from-analyze" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>CREATE STREAM stream_name FROM ANALYZE input_stream
+BY MODEL model_name USING method_name [ AS alias ]
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre>jubaql&gt; CREATE STREAM clans FROM ANALYZE ds
+        BY MODEL cls USING classify AS clan
+CREATE STREAM
+
+jubaql&gt; CREATE STREAM output FROM ANALYZE nbpds
+        BY MODEL reco USING complete_row_from_id
+CREATE STREAM
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h2>解説<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">ANALYZW</span></code> は入力ストリームの各アイテムを分析する方法を指定し、入力データに分析結果を新たに加えたストリームを定義します。</li>
+<li><code class="docutils literal"><span class="pre">stream_name</span></code> はこのストリームを識別するためにユーザが決定する文字列です。</li>
+<li><code class="docutils literal"><span class="pre">input_stream</span></code> は入力に用いるストリームです。このストリームが使用するデータソースは文の発行時にまだ処理されていないものでなければなりません。</li>
+<li><code class="docutils literal"><span class="pre">model_name</span></code> は <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">MODEL</span></code> で事前に定義されたモデルの名前を使います。入力ストリームのアイテムは <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">MODEL</span></code> で定義されたルールに従い変換されます。</li>
+<li><code class="docutils literal"><span class="pre">method_name</span></code> は分析に用いるメソッドを指定します
+* <code class="docutils literal"><span class="pre">calc_score</span></code> は ANOMALYモデルで使います。
+* <code class="docutils literal"><span class="pre">classify</span></code> はCLASSIFIERモデルで使います。
+* <code class="docutils literal"><span class="pre">complete_row_from_id</span></code> と <code class="docutils literal"><span class="pre">complete_row_from_datum</span></code> はRECOMMENDERモデルで使います。</li>
+<li><code class="docutils literal"><span class="pre">alias</span></code> は分析結果を保持する列の名前です。していされなかった場合、 <code class="docutils literal"><span class="pre">method_name</span></code> が使われます。</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SELECT</span></code> 文が正常に実行されると、ユーザは他の文から <code class="docutils literal"><span class="pre">stream_name</span></code> で指定された名前を使用できるようになります。</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">complete_row_from_id</span></code> を <code class="docutils literal"><span class="pre">ANALYZE</span></code> 文で使う場合、入力値は <code class="docutils literal"><span class="pre">id</span></code> として直接渡されます： <code class="docutils literal"><span class="pre">ANALYZE</span> <span class="pre">'荻野貴司'</span> <span class="pre">BY</span> <span class="pre">MODEL</span> <span class="pre">reco</span> <span class="pre">USING</span> <span class="pre">compete_row_from_id</span></code> 。大して、 <code class="docutils literal"><span class="pre">complete_row_from_id</span></code> を <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">ANALYZE``で使用する場合、入力値は</span> <span class="pre">``CREATE</span> <span class="pre">MODEL</span></code> 文で指定された <code class="docutils literal"><span class="pre">id</span></code> 列のデータから取得されます。</li>
+<li>結果は各メソッドの返り値に対応する型で追加されます。
+* <code class="docutils literal"><span class="pre">calc__score</span></code> の場合は <code class="docutils literal"><span class="pre">double</span></code>
+* <code class="docutils literal"><span class="pre">classify</span></code> の場合は <code class="docutils literal"><span class="pre">array[struct{label:</span> <span class="pre">string,</span> <span class="pre">score:</span> <span class="pre">double}]</span></code>
+*  <code class="docutils literal"><span class="pre">complete_row_from_*</span></code> の場合は <code class="docutils literal"><span class="pre">struct{string_values:</span> <span class="pre">map[string,</span> <span class="pre">string],</span> <span class="pre">num_values:</span> <span class="pre">map[string,</span> <span class="pre">double]}</span></code> 。</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../rb-modindex.html" title="Ruby Module Index"
+             >モジュール</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_stream_window.html" title="CREATE STREAM FROM SLIDING WINDOW"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="syntax_create_model.html" title="CREATE MODEL"
+             >前へ</a> |</li>
+        <li><a href="../index.html">Jubatus</a> &raquo;</li>
+          <li><a href="jubaql.html" >JubaQL</a> &raquo;</li>
+          <li><a href="jubaql_syntax.html" >JubaQL Syntax</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2015 PFN &amp; NTT.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="http://github.com/jubatus/jubatus">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
+      </a>
+  </body>
+</html>

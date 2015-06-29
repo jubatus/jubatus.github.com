@@ -9,6 +9,8 @@ Jubatus is a distributed processing framework and streaming machine learning lib
 
 `Japanese documentation <../ja/>`_ is also available.
 
+`JubaQL <./jubaql/jubaql.html>`_ feature is now available.
+
 Get Jubatus
 -----------
 
@@ -29,6 +31,7 @@ Table of Contents
    tutorial_distributed
    documentation
    references
+   jubaql/jubaql
    howtocontribute
    misc
    aboutus

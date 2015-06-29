@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -149,9 +149,10 @@
 <li>Framework for Distributed Online Machine Learning with Fault Tolerance</li>
 </ul>
 <p><a class="reference external" href="../ja/">Japanese documentation</a> is also available.</p>
+<p><a class="reference external" href="./jubaql/jubaql.html">JubaQL</a> feature is now available.</p>
 <div class="section" id="get-jubatus">
 <h2>Get Jubatus<a class="headerlink" href="#get-jubatus" title="Permalink to this headline">¶</a></h2>
-<p>The latest version of Jubatus is 0.7.2 (<a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst">ChangeLog</a>). Jubatus is distributed under LGPL v2.1.</p>
+<p>The latest version of Jubatus is 0.8.0 (<a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst">ChangeLog</a>). Jubatus is distributed under LGPL v2.1.</p>
 <ul class="simple">
 <li>Download Source: <a class="reference external" href="https://github.com/jubatus/jubatus/tarball/master">TAR</a> / <a class="reference external" href="https://github.com/jubatus/jubatus/zipball/master">ZIP</a> / <a class="reference external" href="https://github.com/jubatus/jubatus.git">Git</a></li>
 <li>Binary Packages: see <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a></li>
@@ -277,9 +278,14 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="commands.html">Commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands.html#jubatus-servers">Jubatus Servers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands.html#distributed-environment">Distributed Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubatus_server.html">Jubatus Servers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubatus_proxy.html">Jubatus Proxies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubaconfig.html">jubaconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubavisor.html">jubavisor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubactl.html">jubactl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubaconv.html">jubaconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubadump.html">jubadump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jenerator.html">jenerator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html">Client API</a><ul>
@@ -294,6 +300,40 @@
 <li class="toctree-l3"><a class="reference internal" href="api_stat.html">Stat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_graph.html">Graph</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_bandit.html">Bandit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jubaql/jubaql.html">JubaQL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/quickstart.html">JubaQL Quick Start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#jubaql-requirements">JubaQL Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#development-mode">Development mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#run-on-yarn-with-local-gateway">Run on YARN with local gateway</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#run-on-yarn-with-remote-gateway">Run on YARN with remote gateway</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/overview.html">JubaQL Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/overview.html#data-modeling-using-machine-learning-and-jubaql">Data Modeling using Machine Learning and JubaQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/overview.html#goal-of-jubaql">Goal of JubaQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/overview.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/architecture.html">JubaQL Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/architecture.html#process-management-with-yarn">Process Management with YARN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/jubaql_syntax.html">JubaQL Syntax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_datasource.html">CREATE DATASOURCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_model.html">CREATE MODEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_stream_analyze.html">CREATE STREAM FROM ANALYZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_stream_window.html">CREATE STREAM FROM SLIDING WINDOW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_function.html">CREATE FUNCTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_update_model.html">UPDATE MODEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_analyze.html">ANALYZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_start.html">START PROCESSING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_stop.html">STOP PROCESSING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_status.html">STATUS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_shutdown.html">SHUTDOWN</a></li>
 </ul>
 </li>
 </ul>

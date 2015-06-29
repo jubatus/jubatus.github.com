@@ -147,7 +147,7 @@ OPAMをソースから入れる場合は、 `ocamlbrew <https://github.com/ocaml
 
   $ jenerator -l server -o . -n jubatus -t kvs.idl
 
-``jenerator`` の詳細な使い方については :ref:`jenerator` を参照すること。
+``jenerator`` の詳細な使い方については :doc:`commands/jenerator` を参照すること。
 
 サーバの実装
 -------------------

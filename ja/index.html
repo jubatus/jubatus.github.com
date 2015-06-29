@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -153,9 +153,10 @@
 <li>フォルトトレラントな分散機械学習のためのフレームワーク</li>
 </ul>
 <p><a class="reference external" href="../en/">English documentation</a> is also available.</p>
+<p><a class="reference external" href="./jubaql/jubaql.html">JubaQL</a> を公開しました。</p>
 <div class="section" id="get-jubatus">
 <h2>Get Jubatus<a class="headerlink" href="#get-jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Jubatus の最新バージョンは 0.7.2 (<a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst">ChangeLog</a>) です。Jubatus は LGPL v2.1 の下で配布されています。</p>
+<p>Jubatus の最新バージョンは 0.8.0 (<a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/ChangeLog.rst">ChangeLog</a>) です。Jubatus は LGPL v2.1 の下で配布されています。</p>
 <ul class="simple">
 <li>ソースコードのダウンロード: <a class="reference external" href="https://github.com/jubatus/jubatus/tarball/master">TAR</a> / <a class="reference external" href="https://github.com/jubatus/jubatus/zipball/master">ZIP</a> / <a class="reference external" href="https://github.com/jubatus/jubatus.git">Git</a></li>
 <li>バイナリパッケージ: <a class="reference internal" href="quickstart.html"><em>クイックスタート</em></a> をご覧ください。</li>
@@ -283,10 +284,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="commands.html">Commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands.html#jubatus">Jubatus サーバ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands.html#id1">分散環境</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands.html#id2">ユーティリティ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">コマンド</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubatus_server.html">Jubatus サーバ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubatus_proxy.html">Jubatus プロキシ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubaconfig.html">jubaconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubavisor.html">jubavisor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubactl.html">jubactl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubaconv.html">jubaconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jubadump.html">jubadump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/jenerator.html">jenerator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html">Client API</a><ul>
@@ -301,6 +307,40 @@
 <li class="toctree-l3"><a class="reference internal" href="api_stat.html">Stat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_graph.html">Graph</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_bandit.html">Bandit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jubaql/jubaql.html">JubaQL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/quickstart.html">JubaQL クイックスタート</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#id1">JubaQL 要件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#development">Developmentモード</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#production-gatewayclient">Productionモード(GatewayとClientが同一ノード)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/quickstart.html#id13">Productionモード(GatewayとClientが異なるノード)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/overview.html">JubaQL Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/overview.html#jubaql">機械学習とJubaQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/overview.html#id1">JubaQLの目的</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/overview.html#id2">JubaQLの機能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/architecture.html">JubaQLアーキテクチャ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/architecture.html#yarn">YARNによるマシンへのプロセスの割り当て</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jubaql/jubaql_syntax.html">JubaQL Syntax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_datasource.html">CREATE DATASOURCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_model.html">CREATE MODEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_stream_analyze.html">CREATE STREAM FROM ANALYZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_stream_window.html">CREATE STREAM FROM SLIDING WINDOW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_create_function.html">CREATE FUNCTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_update_model.html">UPDATE MODEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_analyze.html">ANALYZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_start.html">START PROCESSING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_stop.html">STOP PROCESSING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_status.html">STATUS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jubaql/syntax_shutdown.html">SHUTDOWN</a></li>
 </ul>
 </li>
 </ul>
