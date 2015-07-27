@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.0',
+        VERSION:     '0.8.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -203,7 +203,25 @@ JSON の各フィールドは以下のとおりである。</p>
 <code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
 <dt>inverted_index:</dt>
-<dd>なし</dd>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能を利用しない場合、 このパラメータを省略する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
+ここで指定された方法に基づいてデータを忘却する。</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
+<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
+ここで指定された件数以上のデータを忘却する。</td>
+</tr>
+</tbody>
+</table>
+<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
+</dd>
 <dt>minhash</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />

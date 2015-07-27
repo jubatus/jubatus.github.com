@@ -121,7 +121,7 @@ Ubuntu では、以下のコマンドを実行します。
 Python
 ~~~~~~
 
-クライアント (Python 2.6 または 2.7 が必要) は `PyPI <http://pypi.python.org/pypi/jubatus>`_ で配布されています。
+クライアント (Python 2.6, 2.7 または 3.x が必要) は `PyPI <http://pypi.python.org/pypi/jubatus>`_ で配布されています。
 
 ::
 

@@ -9,5 +9,4 @@ JubaQLは機械学習とデータ分析をSQLライクに実行するために�
    quickstart
    overview
    architecture
-   tutorial
    jubaql_syntax

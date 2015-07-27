@@ -35,7 +35,19 @@ JSON の各フィールドは以下のとおりである。
    ``method`` に応じて渡すパラメータは異なる。
 
    inverted_index:
-     なし
+     :unlearner:
+        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+        忘却機能を利用しない場合、 このパラメータを省略する。
+        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
+        ここで指定された方法に基づいてデータを忘却する。
+
+     :unlearner_parameter:
+        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
+        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
+        ここで指定された件数以上のデータを忘却する。
+
+     なおこれら2つのパラメータは **省略可能** である。
 
    minhash
      :hash_num:

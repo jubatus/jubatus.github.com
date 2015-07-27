@@ -9,5 +9,4 @@ JubaQL is a query language designed to execute machine learning and data analyti
    quickstart
    overview
    architecture
-   tutorial
    jubaql_syntax
