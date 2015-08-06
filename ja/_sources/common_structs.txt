@@ -171,7 +171,7 @@ Methods
 
 .. mpidl:method:: void set_name(0: string new_name)
 
-   :param id:   新しくターゲットに指定したいクラスタの名前
+   :param new_name:   新しくターゲットに指定したいクラスタの名前
 
    このクライアントインスタンスがターゲットとして参照する ``name`` を設定する。
    ``name`` とは、タスクを識別する ZooKeeper クラスタ内でユニークな名前である。

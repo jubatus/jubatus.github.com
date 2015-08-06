@@ -171,7 +171,7 @@ Methods
 
 .. mpidl:method:: void set_name(0: string new_name)
 
-   :param id:   Name of new target cluster
+   :param new_name:   Name of new target cluster
 
    Set ``name`` of target cluster of this client object.
    ``name`` is a string value to uniquely identify a task in the ZooKeeper cluster.
