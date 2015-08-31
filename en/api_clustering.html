@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.1',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -204,28 +204,24 @@ Its format differs for each <code class="docutils literal"><span class="pre">met
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">compressor_method:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify alghorithm for compressing points.
-You can choose from <code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> and <code class="docutils literal"><span class="pre">compressive_gmm</span></code>.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">bucket_size:</th><td class="field-body"><p class="first">Number of bulk compression size.
-It can be smaller than dataset size.
+<tr class="field-even field"><th class="field-name">bucket_size:</th><td class="field-body"><p class="first">Number of data points to trigger mini batch and compression.
+Clustering will run for each time <code class="docutils literal"><span class="pre">bucket_size</span></code> data is pushed.
+Note that the initial clustering will not run until <code class="docutils literal"><span class="pre">k</span></code> data is pushed.
 (Integer)</p>
 <ul class="simple">
 <li>Range: 2 &lt;= <code class="docutils literal"><span class="pre">bucket_size</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">bucket_length:</th><td class="field-body"><p class="first">Size of mini batch clustering.
+<tr class="field-odd field"><th class="field-name">bucket_length:</th><td class="field-body"><p class="first">Size of mini batch clustering.
 (Integer)</p>
 <ul class="simple">
 <li>Range: 2 &lt;= <code class="docutils literal"><span class="pre">bucket_length</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">compressed_bucket_size:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Number of compressed <code class="docutils literal"><span class="pre">bucket_size</span></code> .
+<tr class="field-even field"><th class="field-name" colspan="2">compressed_bucket_size:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Number of compressed <code class="docutils literal"><span class="pre">bucket_size</span></code> .
 Compression ratio = ( <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code> / <code class="docutils literal"><span class="pre">bucket_size</span></code> )
 (Integer)</p>
 <ul class="simple">
@@ -233,24 +229,24 @@ Compression ratio = ( <code class="docutils literal"><span class="pre">compresse
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">bicriteria_base_size:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify roughness of compression.
+<tr class="field-odd field"><th class="field-name" colspan="2">bicriteria_base_size:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify roughness of compression.
 (Integer)</p>
 <ul class="simple">
 <li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">bicriteria_base_size</span></code> &lt; <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">forgetting_factor:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Forgetting factor
+<tr class="field-even field"><th class="field-name" colspan="2">forgetting_factor:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Forgetting factor
 (Float)</p>
 <ul class="simple">
 <li>Range: 0.0 &lt;= <code class="docutils literal"><span class="pre">forgetting_factor</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">forgetting_threshold:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">When the summation of forgetting factors exceeds this value, it will not compress any more.
+<tr class="field-odd field"><th class="field-name" colspan="2">forgetting_threshold:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">When the summation of forgetting factors exceeds this value, it will not compress any more.
 (Float)</p>
 <ul class="last simple">
 <li>Range: 0.0 &lt;= <code class="docutils literal"><span class="pre">forgetting_threshold</span></code> &lt;= 1.0</li>
@@ -267,7 +263,7 @@ Compression ratio = ( <code class="docutils literal"><span class="pre">compresse
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify alghorithm for compressing points.
-You can choose from <code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> .
+You can choose from <code class="docutils literal"><span class="pre">simple</span></code> (no compression), <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> .
 (String)</td>
 </tr>
 </tbody>
@@ -280,13 +276,14 @@ You can choose from <code class="docutils literal"><span class="pre">simple</spa
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify alghorithm for compressing points.
-You can choose from <code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_gmm</span></code> .
+You can choose from <code class="docutils literal"><span class="pre">simple</span></code> (no compression), <code class="docutils literal"><span class="pre">compressive_gmm</span></code> .
 (String)</td>
 </tr>
 </tbody>
 </table>
 </dd>
 </dl>
+<p>When <code class="docutils literal"><span class="pre">compressor_method</span></code> is specified as <code class="docutils literal"><span class="pre">simple</span></code>, the following parameters will be ignored: <code class="docutils literal"><span class="pre">bucket_length</span></code>, <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code>, <code class="docutils literal"><span class="pre">bicriteria_base_size</span></code>, <code class="docutils literal"><span class="pre">forgetting_factor</span></code>, <code class="docutils literal"><span class="pre">forgetting_threshold</span></code>.</p>
 </dd></dl>
 
 <dl class="describe">

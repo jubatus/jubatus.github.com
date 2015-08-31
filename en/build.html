@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.1',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -164,9 +164,9 @@ For supported version of libraries, refer to the <a class="reference external" h
 <table border="1" class="docutils">
 <colgroup>
 <col width="17%" />
-<col width="9%" />
+<col width="12%" />
 <col width="8%" />
-<col width="65%" />
+<col width="63%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Software</th>
@@ -177,32 +177,32 @@ For supported version of libraries, refer to the <a class="reference external" h
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>jubatus_core</td>
-<td>&gt;= 0.0.1</td>
+<td>master</td>
 <td>✔</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>oniguruma</td>
 <td>&gt;= 5.9</td>
-<td><a class="footnote-reference" href="#id4" id="id2">[1]</a></td>
+<td><a class="footnote-reference" href="#id5" id="id2">[1]</a></td>
 <td>Required by jubatus_core.</td>
 </tr>
 <tr class="row-even"><td>re2</td>
 <td>master</td>
-<td><a class="footnote-reference" href="#id4" id="id3">[1]</a></td>
+<td><a class="footnote-reference" href="#id5" id="id3">[1]</a></td>
 <td>Required by jubatus_core when configuring with <code class="docutils literal"><span class="pre">--regexp-library=re2</span></code>.</td>
 </tr>
 <tr class="row-odd"><td>msgpack</td>
-<td>&gt;= 0.5.7</td>
+<td>&gt;= 0.5.7 <a class="footnote-reference" href="#id6" id="id4">[2]</a></td>
 <td>✔</td>
 <td>Required by jubatus_core and jubatus.</td>
 </tr>
 <tr class="row-even"><td>jubatus-mpio</td>
-<td>0.4.1</td>
+<td>0.4.5</td>
 <td>✔</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>jubatus-msgpack-rpc</td>
-<td>0.4.1</td>
+<td>0.4.4</td>
 <td>✔</td>
 <td>C++ client library must be installed.</td>
 </tr>
@@ -229,11 +229,17 @@ C client library must be installed.</td>
 </tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="id5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> By default, oniguruma is used by jubatus_core as a regexp library (<code class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></code>).
 You can completely disable regexp feature by configuring jubatus_core with <code class="docutils literal"><span class="pre">--regexp-library=none</span></code>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>MessagePack 1.x series are not supported yet.</td></tr>
 </tbody>
 </table>
 <p>Depending on your distribution, some libraries may be available as a binary package.

@@ -65,7 +65,7 @@ We show each field below:
         The lower ``gamma`` is, the higher the rate of each arm's weight is.
         (Float)
 
-        * Range: 0.0 <= ``gamma`` <= 1.0
+        * Range: 0.0 < ``gamma`` <= 1.0
 
 
 Example:

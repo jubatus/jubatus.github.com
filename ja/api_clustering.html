@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.1',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -204,7 +204,9 @@ JSON の各フィールドは以下のとおりである。</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">bucket_size:</th><td class="field-body"><p class="first">一度に圧縮する点数．データセットのサイズに等しく設定する。
+<tr class="field-even field"><th class="field-name">bucket_size:</th><td class="field-body"><p class="first">ミニバッチおよび圧縮を実行するデータの件数。
+<code class="docutils literal"><span class="pre">bucket_size</span></code> 件のデータが登録される度にクラスタリングが実行される。
+ただし初回のクラスタリングは <code class="docutils literal"><span class="pre">k</span></code> 件のデータが登録されるまで実行されない。
 (Integer)</p>
 <ul class="simple">
 <li>値域: 2 &lt;= <code class="docutils literal"><span class="pre">bucket_size</span></code></li>
@@ -261,7 +263,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">点を圧縮するアルゴリズムを指定する。
-<code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> から選ぶことができる。
+<code class="docutils literal"><span class="pre">simple</span></code> (圧縮しない), <code class="docutils literal"><span class="pre">compressive_kmeans</span></code> から選ぶことができる。
 (String)</td>
 </tr>
 </tbody>
@@ -274,13 +276,14 @@ JSON の各フィールドは以下のとおりである。</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">compressor_method:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">点を圧縮するアルゴリズムを指定する。
-<code class="docutils literal"><span class="pre">simple</span></code>, <code class="docutils literal"><span class="pre">compressive_gmm</span></code> から選ぶことができる。
+<code class="docutils literal"><span class="pre">simple</span></code> (圧縮しない), <code class="docutils literal"><span class="pre">compressive_gmm</span></code> から選ぶことができる。
 (String)</td>
 </tr>
 </tbody>
 </table>
 </dd>
 </dl>
+<p><code class="docutils literal"><span class="pre">compressor_method</span></code> が <code class="docutils literal"><span class="pre">simple</span></code> の場合、 <code class="docutils literal"><span class="pre">bucket_length</span></code>, <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code>, <code class="docutils literal"><span class="pre">bicriteria_base_size</span></code>, <code class="docutils literal"><span class="pre">forgetting_factor</span></code>, <code class="docutils literal"><span class="pre">forgetting_threshold</span></code> の各パラメタは無視される。</p>
 </dd></dl>
 
 <dl class="describe">

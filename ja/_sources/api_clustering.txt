@@ -37,7 +37,9 @@ JSON の各フィールドは以下のとおりである。
         * 値域: 1 <= ``k``
 
      :bucket_size:
-        一度に圧縮する点数．データセットのサイズに等しく設定する。
+        ミニバッチおよび圧縮を実行するデータの件数。
+        ``bucket_size`` 件のデータが登録される度にクラスタリングが実行される。
+        ただし初回のクラスタリングは ``k`` 件のデータが登録されるまで実行されない。
         (Integer)
 
         * 値域: 2 <= ``bucket_size``
@@ -76,14 +78,16 @@ JSON の各フィールドは以下のとおりである。
    kmeans
      :compressor_method:
         点を圧縮するアルゴリズムを指定する。
-        ``simple``, ``compressive_kmeans`` から選ぶことができる。
+        ``simple`` (圧縮しない), ``compressive_kmeans`` から選ぶことができる。
         (String)
 
    gmm
      :compressor_method:
         点を圧縮するアルゴリズムを指定する。
-        ``simple``, ``compressive_gmm`` から選ぶことができる。
+        ``simple`` (圧縮しない), ``compressive_gmm`` から選ぶことができる。
         (String)
+
+   ``compressor_method`` が ``simple`` の場合、 ``bucket_length``, ``compressed_bucket_size``, ``bicriteria_base_size``, ``forgetting_factor``, ``forgetting_threshold`` の各パラメタは無視される。
 
 .. describe:: converter
 
