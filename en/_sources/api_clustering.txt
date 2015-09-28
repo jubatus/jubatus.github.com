@@ -75,6 +75,12 @@ We show each field below:
 
         * Range: 0.0 <= ``forgetting_threshold`` <= 1.0
 
+     :seed:
+        Specify seed used to generate random number.
+        (Integer)
+
+        * Range: 0 <= ``seed`` <= :math:`2^{32} - 1`
+
    kmeans
      :compressor_method:
         Specify alghorithm for compressing points.

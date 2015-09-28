@@ -75,6 +75,12 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 0.0 <= ``forgetting_threshold`` <= 1.0
 
+     :seed:
+        乱数の生成に使用するシードを指定する。
+        (Integer)
+
+        * 値域: 0 <= ``seed`` <= :math:`2^{32} - 1`
+
    kmeans
      :compressor_method:
         点を圧縮するアルゴリズムを指定する。

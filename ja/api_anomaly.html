@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.2',
+        VERSION:     '0.8.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -249,22 +249,28 @@ JSON の各フィールドは以下のとおりである。</p>
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">method:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器のアルゴリズムを指定する。
+<tr class="field-odd field"><th class="field-name" colspan="2">ignore_kth_same_point:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">登録できる重複データの件数を <code class="docutils literal"><span class="pre">nearest_neighbor_num</span> <span class="pre">-</span> <span class="pre">1</span></code> 件に制限することにより、スコアが <code class="docutils literal"><span class="pre">inf</span></code> になることを防ぐ。
+このパラメタは省略可能であり、デフォルト値は <code class="docutils literal"><span class="pre">false</span></code> (無効) である。
+(Boolean)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">method:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器のアルゴリズムを指定する。
 <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> で説明される <code class="docutils literal"><span class="pre">method</span></code> を指定する。</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
+<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
 <a class="reference internal" href="api_nearest_neighbor.html"><em>Nearest Neighbor</em></a> で説明される <code class="docutils literal"><span class="pre">parameter</span></code> を指定する。</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
 忘却機能が不要な場合、このパラメータは省略する。
 <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
 ここで指定された方法に基づいてデータを忘却する。</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
 <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
 ここで指定された件数以上のデータは自動的に削除される。
 <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する際はこの <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。</p>

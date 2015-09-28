@@ -99,7 +99,7 @@ We show each field below:
         Seed of random number generator.
         (Integer)
 
-        * Range: 0 <= ``seed``
+        * Range: 0 <= ``seed`` <= :math:`2^{32} - 1`
 
      :retain_projection:
         When it is ``true``, projection vectors for hashing are cached in memory.

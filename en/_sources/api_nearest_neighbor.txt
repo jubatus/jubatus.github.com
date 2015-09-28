@@ -143,7 +143,7 @@ Methods
 
       Returns ``size`` rows (at maximum) of which :mpidl:type:`datum` are most similar to ``query`` and their distance values.
                    
-   .. mpidl:method:: list<id_with_score> similar_row_from_id(0: string id, 1: int ret_num)
+   .. mpidl:method:: list<id_with_score> similar_row_from_id(0: string id, 1: uint ret_num)
 
 
       :param id:  row ID in the nearest neighbor search table
@@ -152,7 +152,7 @@ Methods
 
       Returns ``ret_num`` rows (at maximum) that have most similar :mpidl:type:`datum` to ``id`` and their similarity values.
 
-   .. mpidl:method:: list<id_with_score> similar_row_from_datum(0: datum query, 1: int ret_num)
+   .. mpidl:method:: list<id_with_score> similar_row_from_datum(0: datum query, 1: uint ret_num)
 
       :param query: :mpidl:type:`datum` for nearest neighbor search
       :param ret_num: number of rows to be returned

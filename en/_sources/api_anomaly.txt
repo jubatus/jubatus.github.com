@@ -67,6 +67,11 @@ We show each field below:
 
         * Range: ``nearest_neighbor_num`` <= ``reverse_nearest_neighbor_num``
 
+     :ignore_kth_same_point:
+        Avoid scores to go ``inf`` by limiting the number of duplicate records to ``nearest_neighbor_num - 1``.
+        This parameter is optional and is ``false`` (disabled) by default.
+        (Boolean)
+
      :method:
         Algorithm name of nearest neighbor for nearest neighbor search.
         Refer ``method`` in :doc:`api_nearest_neighbor`.

@@ -47,7 +47,7 @@ We show each field below:
      If not specified, system clock is used as seed parameter.
      So you will get different result each experiment.
 
-     * range of value: 0 < ``seed`` < 9223372036854775808
+     * range of value: 0 <= ``seed`` <= :math:`2^{32} - 1`
 
 .. describe:: example
 
