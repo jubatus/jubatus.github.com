@@ -97,8 +97,8 @@ In this sample program, we will explain 1) how to configure the learning-algorit
          if not len(data) or data.startswith('#'):
            continue
          num += 1
- 
-         rent, distance, space, age, stair, aspect = map(str.strip, data.strip().split(','))
+
+         rent, distance, space, age, stair, aspect = list(map(str.strip, data.strip().split(',')))
          d = Datum({
              'aspect': aspect,
              'distance': float(distance),
@@ -111,8 +111,8 @@ In this sample program, we will explain 1) how to configure the learning-algorit
          client.train(train_data)
  
      # print train number
-     print 'train ...', num
- 
+     print ('train ... {}'.format(num)) 
+
    # anaylze
    with open(args.analyzedata, 'r') as analyzedata:
      myhome = yaml.load(analyzedata)
@@ -126,10 +126,10 @@ In this sample program, we will explain 1) how to configure the learning-algorit
      analyze_data = [d]
      result = client.estimate(analyze_data)
  
-     print 'rent ....', round(result[0], 1)
+     print ('rent .... {}'.format(round(result[0], 1)))
  
  if __name__ == '__main__':
-     main()
+   main()
 
 
 **myhome.yml**

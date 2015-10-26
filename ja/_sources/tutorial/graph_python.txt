@@ -31,11 +31,20 @@ Graph チュートリアル (Python)
 
  #!/usr/bin/env python
  # -*- coding: utf-8 -*-
+
+ # Python 2 compatibility:
+ from __future__ import unicode_literals
+
+ try:
+     # for Python 3
+     import urllib.request as urllib
+ except:
+     # for Python 2
+     import urllib
  
- import urllib
  from xml.dom import minidom, Node
- 
  from jubatus.graph import client, types
+
  
  host = '127.0.0.1'
  port = 9199
@@ -98,7 +107,7 @@ Graph チュートリアル (Python)
  
  def print_stations():
      for station in sorted(stations.keys(), key=lambda k: int(stations[k])):
-         print "%s\t%s" % (stations[station], station)
+         print ("{0}\t{1}".format(stations[station], station))
  
  if __name__ == '__main__':
      # Create jubagraph client.
@@ -114,7 +123,7 @@ Graph チュートリアル (Python)
      create_graph(c, get_station_join(11312)) # 中央線
  
      # Print station IDs; you need the ID to search route.
-     print "=== Station IDs ==="
+     print ("=== Station IDs ===")
      print_stations()
 
  
@@ -126,7 +135,10 @@ Graph チュートリアル (Python)
 
  #!/usr/bin/env python
  # -*- coding: utf-8 -*-
- 
+
+ # Python 2 compatibility:
+ from __future__ import unicode_literals
+
  import sys
  from jubatus.graph import client, types
  
@@ -141,17 +153,17 @@ Graph チュートリアル (Python)
      spreq = types.ShortestPathQuery(from_id, to_id, 100, pq)
      stations = c.get_shortest_path(spreq)
  
-     print "Pseudo-Shortest Path (hops) from %s to %s:" % (from_id, to_id)
+     print ("Pseudo-Shortest Path (hops) from {0} to {1}:".format(from_id, to_id))
      for station in stations:
          node = c.get_node(station)
          station_name = ''
          if 'name' in node.property:
              station_name = node.property['name']
-         print "  %s\t%s" % (station, station_name)
+         print ("  {0}\t{1}".format(station, station_name))
  
  if __name__ == '__main__':
      if len(sys.argv) < 2:
-         print "Usage: %s from_station_id to_station_id" % sys.argv[0]
+         print ("Usage: {0} from_station_id to_station_id".format(sys.argv[0]))
          sys.exit(1)
      search_route(str(sys.argv[1]), str(sys.argv[2]))
 

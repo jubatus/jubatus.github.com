@@ -40,7 +40,7 @@ We show each field below:
         Specify unlearner strategy.
         If you don't use unlearner, you should omit this parameter.
         You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
-        Data will be deleted based on strategy specified here.
+        Data will be deleted by the ID based on strategy specified here.
 
      :unlearner_parameter:
         Specify unlearner parameter.

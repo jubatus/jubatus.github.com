@@ -118,7 +118,7 @@ In this sample program, we will explain 1) how to configure the learning-algorit
  69 :         
  70 :         # 4.Display result
  71 :         if (ret[1] != float('Inf')) and (ret[1] != 1.0):
- 72 :             print ret, label
+ 72 :             print (ret, label)
  73 : 
 
 

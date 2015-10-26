@@ -6,17 +6,17 @@ JubaQL Requirements
 
 The following components are requried to run JubaQL.
 
-=================== ========== ========= ======================================================
-Software            Version    Required  Notes
-=================== ========== ========= ======================================================
+=================== ============ ========= ======================================================
+Software            Version      Required  Notes
+=================== ============ ========= ======================================================
 JDK                 7
-Spark               1.2.x [1]_ ✔ [2]_
-Jubatus             0.8.0      ✔ [3]_
-Hadoop YARN         -                    Only when running JubaQL in Production mode.
-Jubatus on YARN     1.0                  Only when running JubaQL in Production mode.
-=================== ========== ========= ======================================================
+Spark               1.2.1+ [1]_  ✔ [2]_
+Jubatus             0.8.0        ✔ [3]_
+Hadoop YARN         -                      Only when running JubaQL in Production mode.
+Jubatus on YARN     1.0                    Only when running JubaQL in Production mode.
+=================== ============ ========= ======================================================
 
-.. [1] Spark 1.1.x or 1.3.x cannot be used.
+.. [1] Spark 1.1.x (or earlier), 1.2.0 or 1.3.x (or later) cannot be used.
 .. [2] Spark must be installed on nodes that run JubaQL Gateway.
 .. [3] When running JubaQL in Development mode, Jubatus must be installed on nodes that run JubaQL Gateway.
        When running JubaQL in Production mode, Jubatus must be installed on all YARN nodes.

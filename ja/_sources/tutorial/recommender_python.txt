@@ -97,7 +97,7 @@ Recommender チュートリアル (Python)
      for line in open('dat/baseball.csv'):
        pname, team, bave, games, pa, atbat, hit, homerun, runsbat, stolen, bob, hbp, strikeout, sacrifice, dp, slg, obp, ops, rc27, xr27 = line[:-1].split(',')
        sr = recommender.similar_row_from_id(pname , 4)
-       print "player ", pname,  " is similar to :", sr[1].id, sr[2].id, sr[3].id 
+       print ("player ", pname,  " is similar to :", sr[1].id, sr[2].id, sr[3].id)
 
 
 --------------------------------

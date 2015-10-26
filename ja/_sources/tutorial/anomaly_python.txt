@@ -120,7 +120,7 @@ Anomaly チュートリアル (Python)
  
          # 4.結果の出力
          if (ret.score != float('Inf')) and (ret.score!= 1.0):
-             print ret, label
+             print (ret, label)
 
 
 --------------------------------

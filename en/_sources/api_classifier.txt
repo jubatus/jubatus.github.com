@@ -45,7 +45,7 @@ We show each field below:
         If you don't use unlearner function, you can omit this parameter.
         You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
         Labels will be deleted based on strategy specified here.
-        When ``method`` is ``"NN"``, each data (not labels) will be deleted.
+        When ``method`` is ``"NN"``, each data ( ``labeled_datum``, not labels) will be deleted.
 
      :unlearner_parameter:
         Specify unlearner parameter.

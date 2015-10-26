@@ -112,7 +112,7 @@ Regression チュートリアル (Python)
          client.train(train_data)
  
      # print train number
-     print 'train ...', num
+     print ('train ...', num)
  
    # anaylze
    with open(args.analyzedata, 'r') as analyzedata:
@@ -127,7 +127,7 @@ Regression チュートリアル (Python)
      analyze_data = [d]
      result = client.estimate(analyze_data)
  
-     print 'rent ....', round(result[0], 1)
+     print ('rent ....', round(result[0], 1))
  
  if __name__ == '__main__':
      main()
