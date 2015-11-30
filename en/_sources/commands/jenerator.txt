@@ -24,12 +24,13 @@ Options
 
 .. option:: -l <lang>
 
-   Language of the client code to generate. Currently ``cpp``, ``java``, ``python``, and ``ruby`` are supported.
+   Specify a language of the client code to generate.
+   Currently ``cpp``, ``java``, ``python``, ``ruby`` and ``go`` are supported.
    Specify ``server`` if you need to generate servers and proxies.
 
 .. option:: -o <dirpath>
 
-   Directory to output the generated source files.
+   Specify a directory to output the generated source files.
 
    If not specified, the current directory will be used.
 
@@ -43,7 +44,9 @@ Options
 
 .. option:: -n <namespace>
 
-   Declare the specified namespace for generated source.
+   Specify a namespace for generated source.
+
+   If not specified, the global namespace will be used.
 
 .. option:: -t
 
@@ -53,9 +56,17 @@ Options
 
 .. option:: -g <guard>
 
-   Prefix used for include guards in header files.
+   Specify a prefix used for include guards in header files.
 
    Effective only when generating C++ code (servers, proxies and C++ clients).
+   If not specified, include guards will not be prefixed.
+
+.. option:: --idl-version <version>
+
+   Specify a version number of the IDL file.
+   If specified, the version number will be embedded into the generated source code.
+
+   If not specified, version number will not be embedded.
 
 .. option:: -help, --help
 

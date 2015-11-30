@@ -66,6 +66,20 @@ We show each field below:
 
         * Range: 1 <= ``hash_num``
 
+     :unlearner:
+        Specify unlearner strategy.
+        If you don't use unlearner, you should omit this parameter.
+        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
+        Data will be deleted based on strategy specified here.
+
+     :unlearner_parameter:
+        Specify unlearner parameter.
+        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
+        You cannot omit this parameter when you specify ``unlearner``.
+        Data in excess of this number will be deleted automatically.
+
+     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
+
    euclid_lsh
      :hash_num:
         Number of hash values.

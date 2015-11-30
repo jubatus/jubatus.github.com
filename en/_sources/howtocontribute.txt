@@ -52,6 +52,8 @@ We always welcome your code and/or documentation contributions! Here are some ru
 
 * Please note that in accordance with our roadmap, sometimes it may take time to merge your pull-request.
 
+Prior to sending Pull-Requests on GitHub, we ask you to sign a :doc:`cla` (CLA.)
+You can sign and submit a CLA via `CLA Submission Form <https://docs.google.com/forms/d/1RCqBdmEquAL9iQq1ZWS_tRE7mCdMcYaIv8P3W1ow5L0/viewform>`_.
 
 Tips for Contributors
 ---------------------

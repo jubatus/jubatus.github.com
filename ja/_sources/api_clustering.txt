@@ -114,7 +114,8 @@ JSON の各フィールドは以下のとおりである。
          "bicriteria_base_size" : 10,
          "bucket_length" : 2,
          "forgetting_factor" : 0.0,
-         "forgetting_threshold" : 0.5
+         "forgetting_threshold" : 0.5,
+         "seed" : 0
        },
        "converter" : {
          "string_filter_types" : {},

@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.4',
+        VERSION:     '0.8.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -239,20 +239,34 @@ JSON の各フィールドは以下のとおりである。</p>
 </table>
 </dd>
 <dt>lsh</dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">ハッシュ値のビット数を指定する。
 大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
 (Integer)</p>
-<ul class="last simple">
+<ul class="simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能を利用しない場合、 このパラメータを省略する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
+ここで指定された方法に基づいてデータを忘却する。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
+<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
+ここで指定された件数以上のデータを忘却する。</p>
+</td>
+</tr>
 </tbody>
 </table>
+<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 <dt>euclid_lsh</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">

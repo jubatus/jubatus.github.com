@@ -52,6 +52,8 @@ Pull-Request ポリシー
 
 * Jubatus のロードマップによって、場合によっては Pull-Request のマージに時間がかかる場合もあります。
 
+Pull-Request を送信する場合は、事前に :doc:`cla` (CLA) への同意をお願い致します。
+CLA への同意は `CLA 送信フォーム <https://docs.google.com/forms/d/1Z2GjdN0uIYgpgdsTeOzhWjbPdsp1mXFT4zAUCVRXYPE/viewform>`_ から行うことができます。
 
 コントリビュータのための Tips
 ----------------------------------

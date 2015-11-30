@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.4',
+        VERSION:     '0.8.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -173,14 +173,15 @@
 <dl class="option">
 <dt id="cmdoption-jenerator-l">
 <code class="descname">-l</code><code class="descclassname"> &lt;lang&gt;</code><a class="headerlink" href="#cmdoption-jenerator-l" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>生成するクライアントコードの言語。現在は <code class="docutils literal"><span class="pre">cpp</span></code>, <code class="docutils literal"><span class="pre">java</span></code>, <code class="docutils literal"><span class="pre">python</span></code>, <code class="docutils literal"><span class="pre">ruby</span></code> がサポートされている。
+<dd><p>生成するクライアントコードの言語を指定する。
+現在は <code class="docutils literal"><span class="pre">cpp</span></code>, <code class="docutils literal"><span class="pre">java</span></code>, <code class="docutils literal"><span class="pre">python</span></code>, <code class="docutils literal"><span class="pre">ruby</span></code>, <code class="docutils literal"><span class="pre">go</span></code> がサポートされている。
 サーバ/Proxy を生成したい場合は <code class="docutils literal"><span class="pre">server</span></code> を指定する。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-o">
 <code class="descname">-o</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-jenerator-o" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>生成されたソースファイルを出力するディレクトリ。</p>
+<dd><p>生成されたソースファイルを出力するディレクトリを指定する。</p>
 <p>指定されない場合は、カレントディレクトリが使用される。</p>
 </dd></dl>
 
@@ -196,7 +197,8 @@
 <dl class="option">
 <dt id="cmdoption-jenerator-n">
 <code class="descname">-n</code><code class="descclassname"> &lt;namespace&gt;</code><a class="headerlink" href="#cmdoption-jenerator-n" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>生成されたソースで指定された名前空間を宣言する。</p>
+<dd><p>生成されるソースの名前空間を指定する。</p>
+<p>指定されない場合は、グローバル名前空間が使用される。</p>
 </dd></dl>
 
 <dl class="option">
@@ -210,7 +212,16 @@
 <dt id="cmdoption-jenerator-g">
 <code class="descname">-g</code><code class="descclassname"> &lt;guard&gt;</code><a class="headerlink" href="#cmdoption-jenerator-g" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ヘッダファイルに使用するインクルードガードのプレフィックスを指定する。</p>
-<p>C++ コード (サーバ/Proxy/C++ クライアント) を生成する場合のみ有効である。</p>
+<p>C++ コード (サーバ/Proxy/C++ クライアント) を生成する場合のみ有効である。
+指定されない場合は、インクルードガードにプレフィックスは付与されない。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jenerator--idl-version">
+<code class="descname">--idl-version</code><code class="descclassname"> &lt;version&gt;</code><a class="headerlink" href="#cmdoption-jenerator--idl-version" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>IDL ファイルのバージョンを指定する。
+指定されたバージョンは生成されたソースコードに埋め込まれる。</p>
+<p>指定されない場合は、バージョン番号は埋め込まれない。</p>
 </dd></dl>
 
 <dl class="option">

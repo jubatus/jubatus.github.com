@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.4',
+        VERSION:     '0.8.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -172,14 +172,15 @@
 <dl class="option">
 <dt id="cmdoption-jenerator-l">
 <code class="descname">-l</code><code class="descclassname"> &lt;lang&gt;</code><a class="headerlink" href="#cmdoption-jenerator-l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Language of the client code to generate. Currently <code class="docutils literal"><span class="pre">cpp</span></code>, <code class="docutils literal"><span class="pre">java</span></code>, <code class="docutils literal"><span class="pre">python</span></code>, and <code class="docutils literal"><span class="pre">ruby</span></code> are supported.
+<dd><p>Specify a language of the client code to generate.
+Currently <code class="docutils literal"><span class="pre">cpp</span></code>, <code class="docutils literal"><span class="pre">java</span></code>, <code class="docutils literal"><span class="pre">python</span></code>, <code class="docutils literal"><span class="pre">ruby</span></code> and <code class="docutils literal"><span class="pre">go</span></code> are supported.
 Specify <code class="docutils literal"><span class="pre">server</span></code> if you need to generate servers and proxies.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jenerator-o">
 <code class="descname">-o</code><code class="descclassname"> &lt;dirpath&gt;</code><a class="headerlink" href="#cmdoption-jenerator-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directory to output the generated source files.</p>
+<dd><p>Specify a directory to output the generated source files.</p>
 <p>If not specified, the current directory will be used.</p>
 </dd></dl>
 
@@ -195,7 +196,8 @@ You don&#8217;t need this option except you&#8217;re going to build generated co
 <dl class="option">
 <dt id="cmdoption-jenerator-n">
 <code class="descname">-n</code><code class="descclassname"> &lt;namespace&gt;</code><a class="headerlink" href="#cmdoption-jenerator-n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Declare the specified namespace for generated source.</p>
+<dd><p>Specify a namespace for generated source.</p>
+<p>If not specified, the global namespace will be used.</p>
 </dd></dl>
 
 <dl class="option">
@@ -208,8 +210,17 @@ You don&#8217;t need this option except you&#8217;re going to build generated co
 <dl class="option">
 <dt id="cmdoption-jenerator-g">
 <code class="descname">-g</code><code class="descclassname"> &lt;guard&gt;</code><a class="headerlink" href="#cmdoption-jenerator-g" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prefix used for include guards in header files.</p>
-<p>Effective only when generating C++ code (servers, proxies and C++ clients).</p>
+<dd><p>Specify a prefix used for include guards in header files.</p>
+<p>Effective only when generating C++ code (servers, proxies and C++ clients).
+If not specified, include guards will not be prefixed.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jenerator--idl-version">
+<code class="descname">--idl-version</code><code class="descclassname"> &lt;version&gt;</code><a class="headerlink" href="#cmdoption-jenerator--idl-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a version number of the IDL file.
+If specified, the version number will be embedded into the generated source code.</p>
+<p>If not specified, version number will not be embedded.</p>
 </dd></dl>
 
 <dl class="option">

@@ -33,6 +33,7 @@ Table of Contents
    references
    jubaql/jubaql
    howtocontribute
+   cla
    misc
    aboutus
 
