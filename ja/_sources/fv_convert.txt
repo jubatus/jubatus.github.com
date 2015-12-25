@@ -709,6 +709,10 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
   :function:   "create"を指定する。
   :arg:        MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
                引数の指定の仕方は、 `MeCab のドキュメント <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ を参照すること。
+  :ngram:      MeCabによる単語分割の結果に基づいて構築する形態素N-gramの `N` を指定する。
+               この指定がないと、 `N` に `1` が指定されたものと見なされる (つまり形態素N-gramを構築せず、各形態素をそのまま特徴量として使用する)。
+               `N` は数値ではなく文字列として指定する点に注意する (以下の例を参照)。
+
 
  .. code-block:: js
 
@@ -717,7 +721,8 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
           "method": "dynamic",
           "path": "libmecab_splitter.so",
           "function": "create",
-          "arg": "-d /usr/lib64/mecab/dic/ipadic"
+          "arg": "-d /usr/lib64/mecab/dic/ipadic",
+          "ngram": "1"
         }
       }
 

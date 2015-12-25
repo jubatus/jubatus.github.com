@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.5',
+        VERSION:     '0.8.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -1147,6 +1147,10 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
 引数の指定の仕方は、 <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">MeCab のドキュメント</a> を参照すること。</td>
 </tr>
+<tr class="field-odd field"><th class="field-name">ngram:</th><td class="field-body">MeCabによる単語分割の結果に基づいて構築する形態素N-gramの <cite>N</cite> を指定する。
+この指定がないと、 <cite>N</cite> に <cite>1</cite> が指定されたものと見なされる (つまり形態素N-gramを構築せず、各形態素をそのまま特徴量として使用する)。
+<cite>N</cite> は数値ではなく文字列として指定する点に注意する (以下の例を参照)。</td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -1155,7 +1159,8 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span>
+    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ngram&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.5',
+        VERSION:     '0.8.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -975,6 +975,10 @@ This plugin is available only when compiled with <code class="docutils literal">
 <tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). &#8220;arg&#8221; is not specified, Mecab works with default configuration.
 Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">document of MeCab</a> about how to specify arguments.</td>
 </tr>
+<tr class="field-odd field"><th class="field-name">ngram:</th><td class="field-body">Specify <cite>N</cite> of morpheme (word) N-gram that is constructed from morphemes extracted by MeCab.
+When &#8220;ngram&#8221; is not specified,  <cite>N</cite> is assumed as <cite>1</cite>, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
+Note that <cite>N</cite> must be specified as string, not integer (see the example below.)</td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -983,7 +987,8 @@ Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span>
+    <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ngram&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

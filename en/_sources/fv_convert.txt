@@ -616,6 +616,9 @@ Note that some plugins are not available depending on your compile options.
   :function:   Specify "create".
   :arg:        Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). "arg" is not specified, Mecab works with default configuration.
                Refer to the `document of MeCab <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ about how to specify arguments.
+  :ngram:      Specify `N` of morpheme (word) N-gram that is constructed from morphemes extracted by MeCab.
+               When "ngram" is not specified,  `N` is assumed as `1`, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
+               Note that `N` must be specified as string, not integer (see the example below.)
 
  .. code-block:: js
 
@@ -624,7 +627,8 @@ Note that some plugins are not available depending on your compile options.
           "method": "dynamic",
           "path": "libmecab_splitter.so",
           "function": "create",
-          "arg": "-d /usr/lib64/mecab/dic/ipadic"
+          "arg": "-d /usr/lib64/mecab/dic/ipadic",
+          "ngram": "1"
         }
       }
 
