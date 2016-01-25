@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.6',
+        VERSION:     '0.8.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -178,18 +178,21 @@ JSON の各フィールドは以下のとおりである。</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;inverted_index&quot;</span></code></td>
-<td>転置インデックスを利用する。</td>
+<td>コサイン類似度版の転置インデックスを利用する。</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;minhash&quot;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;inverted_index_euclid&quot;</span></code></td>
+<td>Euclid 距離版の転置インデックスを利用する。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;minhash&quot;</span></code></td>
 <td>MinHash を利用する。 <a class="reference internal" href="method.html#ping2010" id="id1">[Ping2010]</a></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;lsh&quot;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;lsh&quot;</span></code></td>
 <td>Locality Sensitive Hashing を利用する。</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;euclid_lsh&quot;</span></code></td>
 <td>Euclid 距離版の LSH を利用する。 <a class="reference internal" href="method.html#andoni2005" id="id2">[Andoni2005]</a></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender&quot;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;nearest_neighbor_recommender&quot;</span></code></td>
 <td><code class="docutils literal"><span class="pre">nearest_neighbor</span></code> 実装を利用する。</td>
 </tr>
 </tbody>
@@ -223,20 +226,34 @@ JSON の各フィールドは以下のとおりである。</p>
 <p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 <dt>minhash</dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">ハッシュの個数を指定する。
 大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
 (Integer)</p>
-<ul class="last simple">
+<ul class="simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能を利用しない場合、 このパラメータを省略する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
+ここで指定された方法に基づいてデータを忘却する。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
+<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
+ここで指定された件数以上のデータを忘却する。</p>
+</td>
+</tr>
 </tbody>
 </table>
+<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 <dt>lsh</dt>
 <dd><table class="first docutils field-list" frame="void" rules="none">
@@ -655,7 +672,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011-2015 PFN &amp; NTT.
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
 

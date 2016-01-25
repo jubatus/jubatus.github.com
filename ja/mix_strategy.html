@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>クライアントの入手方法 &mdash; Jubatus</title>
+    <title>MIX 戦略 &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -43,9 +43,9 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="フレームワークの利用" href="framework.html" />
-    <link rel="next" title="MIX 戦略" href="mix_strategy.html" />
-    <link rel="prev" title="コード生成器の利用" href="server.html" /> 
+    <link rel="up" title="ドキュメント" href="documentation.html" />
+    <link rel="next" title="RPC エラーのハンドリング" href="faq_rpc_err_workaround.html" />
+    <link rel="prev" title="クライアントの入手方法" href="howtogetclients.html" /> 
 
 <!--
 
@@ -87,14 +87,13 @@
           <a href="rb-modindex.html" title="Ruby Module Index"
              >モジュール</a> |</li>
         <li class="right" >
-          <a href="mix_strategy.html" title="MIX 戦略"
+          <a href="faq_rpc_err_workaround.html" title="RPC エラーのハンドリング"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
-          <a href="server.html" title="コード生成器の利用"
+          <a href="howtogetclients.html" title="クライアントの入手方法"
              accesskey="P">前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li>
-          <li><a href="framework.html" accesskey="U">フレームワークの利用</a> &raquo;</li> 
+          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -105,23 +104,22 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">クライアントの入手方法</a><ul>
-<li><a class="reference internal" href="#id2">生成済みクライアントの利用</a></li>
-<li><a class="reference internal" href="#jenerator">jenerator でクライアントを生成する</a></li>
+<li><a class="reference internal" href="#">MIX 戦略</a><ul>
+<li><a class="reference internal" href="#id1">MIX 戦略のサポート状況</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>前のトピックへ</h4>
-  <p class="topless"><a href="server.html"
-                        title="前の章へ">コード生成器の利用</a></p>
+  <p class="topless"><a href="howtogetclients.html"
+                        title="前の章へ">クライアントの入手方法</a></p>
   <h4>次のトピックへ</h4>
-  <p class="topless"><a href="mix_strategy.html"
-                        title="次の章へ">MIX 戦略</a></p>
+  <p class="topless"><a href="faq_rpc_err_workaround.html"
+                        title="次の章へ">RPC エラーのハンドリング</a></p>
   <div role="note" aria-label="source link">
     <h3>このページ</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/howtogetclients.txt"
+      <li><a href="_sources/mix_strategy.txt"
             rel="nofollow">ソースコードを表示</a></li>
     </ul>
    </div>
@@ -150,32 +148,128 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="how-to-get-clients">
-<span id="id1"></span><h1>クライアントの入手方法<a class="headerlink" href="#how-to-get-clients" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>各言語版のJubatusクライアントを取得する方法は、二種類あります。</p>
+  <div class="section" id="mix">
+<h1>MIX 戦略<a class="headerlink" href="#mix" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Jubatus では 2 種類の MIX 戦略を利用することができる。</p>
 <ul class="simple">
-<li>パッケージ管理システムを使用する (<a class="reference internal" href="quickstart.html"><em>クイックスタート</em></a> 参照)。</li>
-<li>jenerator と .idl ファイルから生成する。</li>
+<li><strong>Linear MIX</strong> (<cite>linear_mixer</cite>):
+クラスタ内の全サーバで同期的に MIX を実行する戦略である。
+クラスタ内のいずれかのサーバが MIX 開始条件を満たすと、クラスタ内から 1 台の MIX マスタサーバが選定される。
+MIX マスタは、クラスタ内の全てのサーバから前回の MIX 以降に学習した内容の差分を収集・結合し、その結果を全てのサーバに配信する。</li>
+<li><strong>Push/Pull MIX</strong> (<cite>skip_mixer</cite>, <cite>random_mixer</cite>, <cite>broadcast_mixer</cite>):
+クラスタ内の各サーバが、各々非同期的に MIX を実行する戦略である。
+MIX 開始条件を満たしたサーバは、クラスタ内から MIX 対象サーバを 1 台以上選択し、自身と選択されたサーバ間で前回の MIX 以降に学習した内容を交換する。</li>
 </ul>
-<p>以降の章で、それぞれの方法を解説します。</p>
-<div class="section" id="id2">
-<h2>生成済みクライアントの利用<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>後述の通り、クライアントコードは jenerator で生成されています。
-ただし、クライアント用コードを簡単に使いたいならば、パッケージ管理システムを使用してクライアントライブラリをインストールすることを推奨します。</p>
-</div>
-<div class="section" id="jenerator">
-<h2>jenerator でクライアントを生成する<a class="headerlink" href="#jenerator" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>新機能追加など、これまでのクライアントが利用できないなどの場合は、クライアントコードを <a class="reference external" href="http://github.com/msgpack/msgpack-haskell/tree/master/msgpack-idl">msgpack-idl</a> のidlファイルをjeneratorで変換することで生成されます。
-jenerator は、OCamlで書かれたIDLコンパイラで、idlファイルで定義されたインターフェイスを各言語に変換します。
-サーバーコードの生成にも利用されています。
-詳しくは <a class="reference internal" href="server.html"><em>コード生成器の利用</em></a> を参照。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jenerator -l cpp -o . classifier.idl
-...
-$ ls
-classifier_types.hpp classifier_client.hpp classifier_server.hpp
-</pre></div>
-</div>
-<p>このコード生成システムにより、jubatusは様々なプログラミング言語から利用することができます。</p>
+<p>Push/Pull MIX には、MIX 対象サーバの選択方法によって、以下の 3 つのバリエーションが存在する:</p>
+<ul class="simple">
+<li><cite>skip_mixer</cite>: N 台で構成されるクラスタの場合、自サーバから見て N/2 台先, N/4 台先, N/8 台先, ... のサーバを MIX 対象サーバとして選択する。
+サーバの順序は各サーバの IP アドレスおよびポート番号により一意に決定される。</li>
+<li><cite>random_mixer</cite>: クラスタ内のサーバからランダムに 1 台を MIX 対象サーバとして選択する。</li>
+<li><cite>broadcast_mixer</cite>: クラスタ内のすべてのサーバを MIX 対象サーバとして選択する。</li>
+</ul>
+<div class="section" id="id1">
+<h2>MIX 戦略のサポート状況<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>使用するエンジンおよびアルゴリズムによってサポートされる MIX 戦略が異なる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="43%" />
+<col width="17%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">エンジン</th>
+<th class="head">アルゴリズム</th>
+<th class="head">Linear MIX</th>
+<th class="head">Push/Pull MIX</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">Classifier</td>
+<td><cite>nn</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>その他</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Regression</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">Recommender</td>
+<td><cite>nearest_neighbor_recommender</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>その他</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Nearest Neighbor</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td rowspan="2">Anomaly</td>
+<td><cite>lof</cite></td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><cite>light_lof</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>Clustering</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Burst</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Stat</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Graph</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Bandit</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -195,14 +289,13 @@ classifier_types.hpp classifier_client.hpp classifier_server.hpp
           <a href="rb-modindex.html" title="Ruby Module Index"
              >モジュール</a> |</li>
         <li class="right" >
-          <a href="mix_strategy.html" title="MIX 戦略"
+          <a href="faq_rpc_err_workaround.html" title="RPC エラーのハンドリング"
              >次へ</a> |</li>
         <li class="right" >
-          <a href="server.html" title="コード生成器の利用"
+          <a href="howtogetclients.html" title="クライアントの入手方法"
              >前へ</a> |</li>
         <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li>
-          <li><a href="framework.html" >フレームワークの利用</a> &raquo;</li> 
+          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

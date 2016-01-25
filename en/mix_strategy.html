@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Documentation &mdash; Jubatus</title>
+    <title>MIX Strategies &mdash; Jubatus</title>
     <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
@@ -42,8 +42,9 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="next" title="Architecture" href="processes.html" />
-    <link rel="prev" title="Setup in Distributed Mode" href="tutorial_distributed.html" /> 
+    <link rel="up" title="Documentation" href="documentation.html" />
+    <link rel="next" title="RPC Error Handling" href="faq_rpc_err_workaround.html" />
+    <link rel="prev" title="How to Get Clients" href="howtogetclients.html" /> 
 
 <!--
 
@@ -85,12 +86,13 @@
           <a href="rb-modindex.html" title="Ruby Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="processes.html" title="Architecture"
+          <a href="faq_rpc_err_workaround.html" title="RPC Error Handling"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial_distributed.html" title="Setup in Distributed Mode"
+          <a href="howtogetclients.html" title="How to Get Clients"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Jubatus</a> &raquo;</li> 
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
       </ul>
     </div>
           
@@ -99,16 +101,24 @@
 		</a>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MIX Strategies</a><ul>
+<li><a class="reference internal" href="#supported-mix-strategies">Supported MIX Strategies</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial_distributed.html"
-                        title="previous chapter">Setup in Distributed Mode</a></p>
+  <p class="topless"><a href="howtogetclients.html"
+                        title="previous chapter">How to Get Clients</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="processes.html"
-                        title="next chapter">Architecture</a></p>
+  <p class="topless"><a href="faq_rpc_err_workaround.html"
+                        title="next chapter">RPC Error Handling</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/documentation.txt"
+      <li><a href="_sources/mix_strategy.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -137,66 +147,128 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="processes.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fv_convert.html">Data Conversion</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#datum">Datum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#flow-of-data-conversion">Flow of Data Conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#filter">Filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#feature-extraction-from-strings">Feature Extraction from Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#feature-extraction-from-numbers">Feature Extraction from Numbers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#feature-extraction-from-binary-data">Feature Extraction from Binary Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fv_convert.html#plugins">Plugins</a></li>
+  <div class="section" id="mix-strategies">
+<h1>MIX Strategies<a class="headerlink" href="#mix-strategies" title="Permalink to this headline">¶</a></h1>
+<p>Jubatus supports two MIX strategies.</p>
+<ul class="simple">
+<li><strong>Linear MIX</strong> (<cite>linear_mixer</cite>):
+In this strategy, all servers in a cluster runs MIX synchronously.
+When a server in a cluster satisfies a condition to start MIX, single MIX master server is selected from the cluster.
+The MIX master collects difference of training models of all servers since last MIX, merges the differences, then distributes the merged differences to all servers.</li>
+<li><strong>Push/Pull MIX</strong> (<cite>skip_mixer</cite>, <cite>random_mixer</cite>, <cite>broadcast_mixer</cite>):
+In this strategy, each server in a cluster runs MIX asynchronously.
+When a server in a cluster satisfies a condition to start MIX, the server selects one or more MIX peer nodes from the cluster, then exchanges the differences of training models since last MIX with them.</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="plugin.html">Plugin Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plugin.html#plugin-for-data-conversion">Plugin for Data Conversion</a></li>
+<p>The following three variations of Push/Pull MIX strategy are implemented, each uses different MIX peer selection algorithm:</p>
+<ul class="simple">
+<li><cite>skip_mixer</cite>: When a cluster has N servers, <cite>N/2</cite> th, <cite>N/4</cite> th, <cite>N/8</cite> th, ... server from the server initiating MIX are selected as MIX peers.
+The order of servers is determined by IP address and port number of each server.</li>
+<li><cite>random_mixer</cite>: One server is randomly selected from the cluster as a MIX peer.</li>
+<li><cite>broadcast_mixer</cite>: All servers in the cluster are selected as a MIX peer.</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="admin.html">Cluster Administration Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#recommended-process-configuration">Recommended Process Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#managing-clusters">Managing Clusters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#monitoring">Monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#logging">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin.html#save-and-load">Save and Load</a></li>
+<div class="section" id="supported-mix-strategies">
+<h2>Supported MIX Strategies<a class="headerlink" href="#supported-mix-strategies" title="Permalink to this headline">¶</a></h2>
+<p>MIX strategies supported depends on a type of engine and its algorithm.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="43%" />
+<col width="17%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Engine</th>
+<th class="head">Algorithm</th>
+<th class="head">Linear MIX</th>
+<th class="head">Push/Pull MIX</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">Classifier</td>
+<td><cite>nn</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>Others</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Regression</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Building Jubatus from Source</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="build.html#requirements">Requirements</a></li>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">Recommender</td>
+<td><cite>nearest_neighbor_recommender</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>Others</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Nearest Neighbor</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="framework.html">Using Framework</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="server.html">Using Code Generators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html">How to Get Clients</a></li>
+</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td rowspan="2">Anomaly</td>
+<td><cite>lof</cite></td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><cite>light_lof</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>Clustering</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="mix_strategy.html">MIX Strategies</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mix_strategy.html#supported-mix-strategies">Supported MIX Strategies</a></li>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Burst</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="faq_rpc_err_workaround.html">RPC Error Handling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq_rpc_err_workaround.html#common-issues">Common Issues</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq_rpc_err_workaround.html#recommendation-for-each-client-languages">Recommendation for each client languages</a></li>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Stat</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="backup_and_recovery.html">Backup and Recovery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="backup_and_recovery.html#save-and-load">Save and Load</a></li>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Graph</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#rpc-errors">RPC Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#distributed-environment">Distributed Environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#learning-model">Learning Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#anomaly-detection">Anomaly detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#miscellaneous">Miscellaneous</a></li>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Bandit</td>
+<td><ul class="first last simple">
+<li></li>
 </ul>
-</li>
-</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -216,12 +288,13 @@
           <a href="rb-modindex.html" title="Ruby Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="processes.html" title="Architecture"
+          <a href="faq_rpc_err_workaround.html" title="RPC Error Handling"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial_distributed.html" title="Setup in Distributed Mode"
+          <a href="howtogetclients.html" title="How to Get Clients"
              >previous</a> |</li>
-        <li><a href="index.html">Jubatus</a> &raquo;</li> 
+        <li><a href="index.html">Jubatus</a> &raquo;</li>
+          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

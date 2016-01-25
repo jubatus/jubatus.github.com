@@ -21,7 +21,8 @@ We show each field below:
       ===================================== ===================================
       Value                                 Method
       ===================================== ===================================
-      ``"inverted_index"``                  Use Inverted Index.
+      ``"inverted_index"``                  Use Inverted Index (with cosine similarity)
+      ``"inverted_index_euclid"``           Use Inverted Index (with Euclidean distance)
       ``"minhash"``                         Use MinHash. [Ping2010]_
       ``"lsh"``                             Use Locality Sensitive Hashing.
       ``"euclid_lsh"``                      Use Euclid-distance LSH. [Andoni2005]_
@@ -57,6 +58,20 @@ We show each field below:
         (Integer)
 
         * Range: 1 <= ``hash_num``
+
+     :unlearner:
+        Specify unlearner strategy.
+        If you don't use unlearner, you should omit this parameter.
+        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
+        Data will be deleted based on strategy specified here.
+
+     :unlearner_parameter:
+        Specify unlearner parameter.
+        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
+        You cannot omit this parameter when you specify ``unlearner``.
+        Data in excess of this number will be deleted automatically.
+
+     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
 
    lsh
      :hash_num:

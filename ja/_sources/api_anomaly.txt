@@ -44,6 +44,11 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: ``nearest_neighbor_num`` <= ``reverse_nearest_neighbor_num``
 
+     :ignore_kth_same_point:
+        登録できる重複データの件数を ``nearest_neighbor_num - 1`` 件に制限することにより、スコアが ``inf`` になることを防ぐ。
+        このパラメタは省略可能であり、デフォルト値は ``false`` (無効) である。
+        (Boolean)
+
      :method:
         近傍探索に利用するレコメンダーのアルゴリズムを指定する。
         :doc:`api_recommender` で説明される ``method`` を指定する。

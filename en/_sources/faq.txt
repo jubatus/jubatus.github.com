@@ -8,12 +8,6 @@ Installation
 
  Check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
 
-- Will Jubatus Ruby client work with Ruby 2.0?
-
- Currently we are not testing clients against Ruby 2.0.
-
- There is a known issue of msgpack 0.4.x (which Jubatus Ruby client indirectly depends on) that does not work with Ruby 2.0 when used from Rails application.
-
 - How to install through Proxy?
 
  Binary Package (Apt) in Ubuntu Environment

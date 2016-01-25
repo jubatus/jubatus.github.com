@@ -21,7 +21,8 @@ JSON の各フィールドは以下のとおりである。
       ===================================== ===================================
       設定値                                手法
       ===================================== ===================================
-      ``"inverted_index"``                  転置インデックスを利用する。
+      ``"inverted_index"``                  コサイン類似度版の転置インデックスを利用する。
+      ``"inverted_index_euclid"``           Euclid 距離版の転置インデックスを利用する。
       ``"minhash"``                         MinHash を利用する。 [Ping2010]_
       ``"lsh"``                             Locality Sensitive Hashing を利用する。
       ``"euclid_lsh"``                      Euclid 距離版の LSH を利用する。 [Andoni2005]_
@@ -56,6 +57,20 @@ JSON の各フィールドは以下のとおりである。
         (Integer)
 
         * 値域: 1 <= ``hash_num``
+
+     :unlearner:
+        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+        忘却機能を利用しない場合、 このパラメータを省略する。
+        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
+        ここで指定された方法に基づいてデータを忘却する。
+
+     :unlearner_parameter:
+        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
+        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
+        ここで指定された件数以上のデータを忘却する。
+
+     なおこれら2つのパラメータは **省略可能** である。
 
    lsh
      :hash_num:
