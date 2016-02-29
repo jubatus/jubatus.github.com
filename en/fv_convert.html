@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.7',
+        VERSION:     '0.8.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -979,6 +979,12 @@ Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn
 When &#8220;ngram&#8221; is not specified,  <cite>N</cite> is assumed as <cite>1</cite>, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
 Note that <cite>N</cite> must be specified as string, not integer (see the example below.)</td>
 </tr>
+<tr class="field-even field"><th class="field-name">base:</th><td class="field-body">Specify whether to use the base form of morphemes.
+Specify <cite>&#8220;true&#8221;</cite> to use the base form, or <cite>&#8220;false&#8221;</cite> to use the surface.
+Even when <cite>&#8220;true&#8221;</cite> is specified, the surface is used for morphemes that does not have the base form (e.g., proper nouns.)
+When &#8220;base&#8221; is not specified, <cite>&#8220;false&#8221;</cite> is assumed.
+Note that <cite>&#8220;true&#8221;</cite> or <cite>&#8220;false&#8221;</cite> must be specified as string (see the example below.)</td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -988,7 +994,8 @@ Note that <cite>N</cite> must be specified as string, not integer (see the examp
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ngram&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+    <span class="s2">&quot;ngram&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;base&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

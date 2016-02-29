@@ -36,7 +36,7 @@ We show each field below:
    Its format differs for each ``method``.
 
 
-   inverted_index
+   inverted_index, inverted_index_euclid
      :unlearner:
         Specify unlearner strategy.
         If you don't use unlearner, you should omit this parameter.

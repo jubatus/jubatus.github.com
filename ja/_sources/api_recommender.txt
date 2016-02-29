@@ -35,7 +35,7 @@ JSON の各フィールドは以下のとおりである。
    アルゴリズムに渡すパラメータを指定する。
    ``method`` に応じて渡すパラメータは異なる。
 
-   inverted_index:
+   inverted_index, inverted_index_euclid:
      :unlearner:
         忘却機能に利用するUnlearnerのアルゴリズムを指定する。
         忘却機能を利用しない場合、 このパラメータを省略する。
