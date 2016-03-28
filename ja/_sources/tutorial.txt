@@ -102,7 +102,7 @@ Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で `
 
   $ git clone https://github.com/jubatus/jubatus-tutorial-python.git
   $ cd jubatus-tutorial-python
-  $ wget http://qwone.com/~jason/20Newsgroups//20news-bydate.tar.gz
+  $ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
   $ tar xvzf 20news-bydate.tar.gz
 
 `jubaclassifier` を再起動します。

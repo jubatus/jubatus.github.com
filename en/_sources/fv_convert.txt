@@ -624,6 +624,17 @@ Note that some plugins are not available depending on your compile options.
                Even when `"true"` is specified, the surface is used for morphemes that does not have the base form (e.g., proper nouns.)
                When "base" is not specified, `"false"` is assumed.
                Note that `"true"` or `"false"` must be specified as string (see the example below.)
+  :include_features:  Specify pattern of part-of-speech to use.
+                      Patterns are expected to match with the CSV representation of MeCab output (e.g., ``名詞,固有名詞,組織,*,*,*,*``.)  The format is the same as in ``key`` of ``string_filter_rules``.
+                      For example, to extract nouns only, specify ``"名詞,*"``.
+                      To specify multiple patterns, join the patterns with `|` (e.g., ``"名詞,*|動詞,*"``.)
+                      When "include_features" is not specified, `"*"` is assumed, i.e., all morphemes are used.
+  :exclude_features:  Specify pattern of part-of-speech to exclude.
+                      The format is the same as ``include_features``.
+                      When both ``include_features`` and ``exclude_features`` are specified, morphemes that matches with ``include_features`` and does not match with ``exclude_features`` are extracted.
+                      When "exclude_features" is not specified, `""` is assumed, i.e., nothing is excluded.
+
+
 
  .. code-block:: js
 
@@ -634,7 +645,9 @@ Note that some plugins are not available depending on your compile options.
           "function": "create",
           "arg": "-d /usr/lib64/mecab/dic/ipadic",
           "ngram": "1",
-          "base": "false"
+          "base": "false",
+          "include_features": "*",
+          "exclude_features": ""
         }
       }
 

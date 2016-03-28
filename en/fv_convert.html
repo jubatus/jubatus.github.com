@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.8',
+        VERSION:     '0.8.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -985,6 +985,19 @@ Even when <cite>&#8220;true&#8221;</cite> is specified, the surface is used for 
 When &#8220;base&#8221; is not specified, <cite>&#8220;false&#8221;</cite> is assumed.
 Note that <cite>&#8220;true&#8221;</cite> or <cite>&#8220;false&#8221;</cite> must be specified as string (see the example below.)</td>
 </tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">include_features:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify pattern of part-of-speech to use.
+Patterns are expected to match with the CSV representation of MeCab output (e.g., <code class="docutils literal"><span class="pre">名詞,固有名詞,組織,*,*,*,*</span></code>.)  The format is the same as in <code class="docutils literal"><span class="pre">key</span></code> of <code class="docutils literal"><span class="pre">string_filter_rules</span></code>.
+For example, to extract nouns only, specify <code class="docutils literal"><span class="pre">&quot;名詞,*&quot;</span></code>.
+To specify multiple patterns, join the patterns with <cite>|</cite> (e.g., <code class="docutils literal"><span class="pre">&quot;名詞,*|動詞,*&quot;</span></code>.)
+When &#8220;include_features&#8221; is not specified, <cite>&#8220;*&#8221;</cite> is assumed, i.e., all morphemes are used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">exclude_features:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify pattern of part-of-speech to exclude.
+The format is the same as <code class="docutils literal"><span class="pre">include_features</span></code>.
+When both <code class="docutils literal"><span class="pre">include_features</span></code> and <code class="docutils literal"><span class="pre">exclude_features</span></code> are specified, morphemes that matches with <code class="docutils literal"><span class="pre">include_features</span></code> and does not match with <code class="docutils literal"><span class="pre">exclude_features</span></code> are extracted.
+When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite> is assumed, i.e., nothing is excluded.</td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -995,7 +1008,9 @@ Note that <cite>&#8220;true&#8221;</cite> or <cite>&#8220;false&#8221;</cite> mu
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
     <span class="s2">&quot;arg&quot;</span><span class="o">:</span> <span class="s2">&quot;-d /usr/lib64/mecab/dic/ipadic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ngram&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;base&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span>
+    <span class="s2">&quot;base&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;include_features&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;exclude_features&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

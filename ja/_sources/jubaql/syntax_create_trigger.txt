@@ -4,7 +4,7 @@ CREATE TRIGGER
 Syntax::
 
     CREATE TRIGGER ON input_stream FOR EACH ROW
-    [ WHERE filter ] EXECUTE func_name(params)
+    [ WHEN filter ] EXECUTE func_name(params)
 
 Example::
 
