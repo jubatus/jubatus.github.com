@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -236,7 +236,7 @@ JubaQLをProductionモードで動作させる場合、すべてのYARNノード
 <h3>Mavenリポジトリの利用方法<a class="headerlink" href="#maven" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Jubatus on YARNをScalaアプリケーションから利用する場合は、Mavenリポジトリを利用することができます。
 build.sbtに以下の情報を追記してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>// Jubatus Maven Repository
+<div class="highlight-python"><div class="highlight"><pre><span></span>// Jubatus Maven Repository
 resolvers += &quot;Jubatus&quot; at &quot;http://download.jubat.us/maven&quot;
 
 // Dependencies
@@ -254,17 +254,17 @@ libraryDependencies ++= Seq(
 <div class="section" id="id8">
 <h3>セットアップ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Hadoopが利用可能な <a class="reference external" href="http://spark.apache.org/">Apache Spark</a> 1.2.2 をダウンロードし、環境変数を設定します。</p>
-<div class="highlight-python"><div class="highlight"><pre>wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.2-bin-hadoop2.4.tgz
+<div class="highlight-python"><div class="highlight"><pre><span></span>wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.2-bin-hadoop2.4.tgz
 tar -xzf spark-1.2.2-bin-hadoop2.4.tgz &amp;&amp; export SPARK_DIST=&quot;$(pwd)/spark-1.2.2-bin-hadoop2.4/&quot;
 </pre></div>
 </div>
 <p>JubaQLClientをビルドします。</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/jubatus/jubaql-client.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/jubatus/jubaql-client.git
 cd jubaql-client &amp;&amp; sbt start-script &amp;&amp; cd ..
 </pre></div>
 </div>
 <p>JubaQLServerをビルドします。</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/jubatus/jubaql-server.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/jubatus/jubaql-server.git
 cd jubaql-server/processor &amp;&amp; sbt assembly &amp;&amp; cd ../..
 cd jubaql-server/gateway &amp;&amp; sbt assembly &amp;&amp; cd ../..
 </pre></div>
@@ -275,7 +275,7 @@ cd jubaql-server/gateway &amp;&amp; sbt assembly &amp;&amp; cd ../..
 <p>JubaQLでDevelopモードの動作確認をします。
 動作の確認には jubaql-server/data/shogun_data.jsonのデータを使用します。</p>
 <p>JubaQL Serverを起動します。</p>
-<div class="highlight-python"><div class="highlight"><pre>cd jubaql-server &amp;&amp; \
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd jubaql-server &amp;&amp; \
 java -Dspark.distribution=&quot;$SPARK_DIST&quot; \
      -Djubaql.processor.fatjar=processor/target/scala-2.10/jubaql-processor-assembly-1.3.0.jar \
      -jar gateway/target/scala-2.10/jubaql-gateway-assembly-1.3.0.jar \
@@ -283,11 +283,11 @@ java -Dspark.distribution=&quot;$SPARK_DIST&quot; \
 </pre></div>
 </div>
 <p>JubaQL Clientを起動します。</p>
-<div class="highlight-python"><div class="highlight"><pre>./jubaql-client/target/start
+<div class="highlight-python"><div class="highlight"><pre><span></span>./jubaql-client/target/start
 </pre></div>
 </div>
 <p>次にJubaQL Clientから以下のクエリを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
+<div class="highlight-python"><div class="highlight"><pre><span></span>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
 CREATE DATASOURCE shogun (label string, name string) FROM (STORAGE: &quot;file://jubaql-server/data/shogun_data.json&quot;)
 UPDATE MODEL test USING train FROM shogun
 START PROCESSING shogun
@@ -320,31 +320,31 @@ SHUTDOWN
 <div class="section" id="id12">
 <h3>動作確認<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>動作確認用の訓練データshogun_data.jsonをHDFSにコピーします</p>
-<div class="highlight-python"><div class="highlight"><pre>hdfs dfs -put ./jubaql-server/data/shogun_data.json /jubatus-on-yarn/sample/shogun_data.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>hdfs dfs -put ./jubaql-server/data/shogun_data.json /jubatus-on-yarn/sample/shogun_data.json
 </pre></div>
 </div>
 <p>Hadoopクラスタの情報を持つcore-site.xml, yarn-site.xml, hdfs-site.xmlをJubaQL Gatewayが動作するマシンの適当なディレクトリにコピーし、環境変数HADOOP_CONF_DIRをそのディレクトリに設定します。</p>
-<div class="highlight-python"><div class="highlight"><pre>cp core-site.xml yarn-site.xml hdfs-site.xml /etc/hadoop/conf
+<div class="highlight-python"><div class="highlight"><pre><span></span>cp core-site.xml yarn-site.xml hdfs-site.xml /etc/hadoop/conf
 export HADOOP_CONF_DIR=&quot;/etc/hadoop/conf&quot;
 </pre></div>
 </div>
 <p>JubaQL Gatewayが動作するマシンのIPアドレスを取得します。</p>
-<div class="highlight-python"><div class="highlight"><pre>Linuxでは以下のようなコマンドで取得できます
+<div class="highlight-python"><div class="highlight"><pre><span></span>Linuxでは以下のようなコマンドで取得できます
 export MY_IP=$(ip route get 12.34.56.78 | grep -Po &#39;src \K.+&#39;)
 </pre></div>
 </div>
 <p>得られたIPアドレスにHadoopクラスタからアクセスできることを確認してください。
 アクセスできない場合にはネットワークの設定を確認してください。</p>
 <p>Zookeeperが動作するノードを <code class="docutils literal"><span class="pre">host:port</span></code> の形式で環境変数に設定します。</p>
-<div class="highlight-python"><div class="highlight"><pre>export MY_ZOOKEEPER=zk1:2181,zk2:2181
+<div class="highlight-python"><div class="highlight"><pre><span></span>export MY_ZOOKEEPER=zk1:2181,zk2:2181
 </pre></div>
 </div>
 <p>Spark の checkpoint のための HDFS 上のディレクトリを指定します</p>
-<div class="highlight-python"><div class="highlight"><pre>export CHECKPOINT=hdfs:///tmp/spark
+<div class="highlight-python"><div class="highlight"><pre><span></span>export CHECKPOINT=hdfs:///tmp/spark
 </pre></div>
 </div>
 <p>JubaQL Gatewayを起動します。</p>
-<div class="highlight-python"><div class="highlight"><pre>cd jubaql-server &amp;&amp; \
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd jubaql-server &amp;&amp; \
 java -Drun.mode=production \
      -Djubaql.checkpointdir=$CHECKPOINT \
      -Djubaql.zookeeper=$MY_ZOOKEEPER \
@@ -355,11 +355,11 @@ java -Drun.mode=production \
 </pre></div>
 </div>
 <p>新たにシェルを立ち上げ、JubaQL Clientを起動します</p>
-<div class="highlight-python"><div class="highlight"><pre>./jubaql-client/target/start
+<div class="highlight-python"><div class="highlight"><pre><span></span>./jubaql-client/target/start
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">jubaql&gt;</span></code> というプロンプトが現れたら以下のようにクエリを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
+<div class="highlight-python"><div class="highlight"><pre><span></span>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
 CREATE DATASOURCE shogun (label string, name string) FROM (STORAGE: &quot;hdfs:///jubatus-on-yarn/sample/shogun_data.json&quot;)
 UPDATE MODEL test USING train FROM shogun
 START PROCESSING shogun
@@ -414,7 +414,7 @@ SHUTDOWN
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -35,14 +35,14 @@ zookeeper           >= 3.3                   ``--enable-zookeeper`` ありでビ
 
 お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
 バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
-`oniguruma <http://www.geocities.jp/kosako3/oniguruma/index_ja.html>`_,
-`re2 <http://code.google.com/p/re2/>`_,
+`oniguruma <https://github.com/kkos/oniguruma>`_,
+`re2 <https://github.com/google/re2>`_,
 `msgpack <http://msgpack.org/>`_,
 `jubatus-mpio <https://github.com/jubatus/jubatus-mpio>`_,
 `jubatus-msgpack-rpc <https://github.com/jubatus/jubatus-msgpack-rpc>`_,
 `log4cxx <http://logging.apache.org/log4cxx/>`_,
-`mecab <http://code.google.com/p/mecab/>`_,
-`ux-trie <http://code.google.com/p/ux-trie/>`_,
+`mecab <https://github.com/taku910/mecab>`_,
+`ux-trie <https://github.com/hillbig/ux-trie>`_,
 `zookeeper <http://zookeeper.apache.org/>`_
 )。
 

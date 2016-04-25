@@ -187,7 +187,7 @@ string_filter_types
   :pattern:  マッチさせる正規表現を指定する。
   :replace:  置き換え後の文字列を指定する。
 
- 利用できる正規表現は、使用する正規表現エンジンのドキュメント (`oniguruma <http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt>`_ または `re2 <http://code.google.com/p/re2/wiki/Syntax>`_) を参照すること。
+ 利用できる正規表現は、使用する正規表現エンジンのドキュメント (`oniguruma <https://github.com/kkos/oniguruma/blob/master/doc/RE.ja>`_ または `re2 <https://github.com/google/re2/wiki/Syntax>`_) を参照すること。
  使用する正規表現エンジンはコンパイル時に選択可能である (バイナリパッケージでインストールした場合は oniguruma が使用される)。
 
  HTMLのすべてのタグを消すには、例えば以下のようなstring_filter_typeを宣言すればよいだろう。
@@ -456,7 +456,7 @@ string_filter_typesなどと同様、<抽出器名>:<引数> からなる辞書�
   :pattern: マッチさせる正規表現を指定する。
   :group:   キーワードとして取り出すグループを指定する。0ならマッチした全体で、1以上の値を指定すると () で取り出したグループだけをキーワードとする。省略すると0として扱う。
 
- 利用できる正規表現は、使用する正規表現エンジンのドキュメント (`oniguruma <http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt>`_ または `re2 <http://code.google.com/p/re2/wiki/Syntax>`_) を参照すること。
+ 利用できる正規表現は、使用する正規表現エンジンのドキュメント (`oniguruma <https://github.com/kkos/oniguruma/blob/master/doc/RE.ja>`_ または `re2 <https://github.com/google/re2/wiki/Syntax>`_) を参照すること。
  使用する正規表現エンジンはコンパイル時に選択可能である (バイナリパッケージでインストールした場合は oniguruma が使用される)。
 
  最も簡単な例として、以下では日付表現 (YYYY/MM/DD) を全て取り出す。
@@ -703,12 +703,12 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
 .. describe:: libmecab_splitter.so
 
  string_typesで指定できる。
- `MeCab <http://code.google.com/p/mecab/>`_ を利用して文書を単語分割し、各単語を特徴量として利用する。
+ `MeCab <https://github.com/taku910/mecab>`_ を利用して文書を単語分割し、各単語を特徴量として利用する。
  ``--enable-mecab`` オプション付きでコンパイルした場合のみ利用可能である。
 
   :function:   "create"を指定する。
   :arg:        MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
-               引数の指定の仕方は、 `MeCab のドキュメント <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ を参照すること。
+               引数の指定の仕方は、 `MeCab のドキュメント <http://taku910.github.io/mecab/mecab.html>`_ を参照すること。
   :ngram:      MeCabによる単語分割の結果に基づいて構築する形態素N-gramの `N` を指定する。
                この指定がないと、 `N` に `1` が指定されたものと見なされる (つまり形態素N-gramを構築せず、各形態素をそのまま特徴量として使用する)。
                `N` は数値ではなく文字列として指定する点に注意する (以下の例を参照)。
@@ -747,7 +747,7 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
 .. describe:: libux_splitter.so
 
  string_typesで指定できる。
- `ux-trie <http://code.google.com/p/ux-trie/>`_ を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
+ `ux-trie <https://github.com/hillbig/ux-trie>`_ を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
  単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
  ``--enable-ux`` オプション付きでコンパイルした場合のみ利用可能である。
 

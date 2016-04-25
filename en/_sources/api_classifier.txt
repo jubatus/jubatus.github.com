@@ -17,18 +17,22 @@ We show each field below:
 
    .. table::
 
-      ================ ===================================
-      Value            Method
-      ================ ===================================
-      ``"perceptron"`` Use perceptron.
-      ``"PA"``         Use Passive Aggressive (PA). [Crammer06]_
-      ``"PA1"``        Use PA-I. [Crammer06]_
-      ``"PA2"``        Use PA-II. [Crammer06]_
-      ``"CW"``         Use Confidence Weighted Learning. [Dredze08]_
-      ``"AROW"``       Use Adaptive Regularization of Weight vectors. [Crammer09b]_
-      ``"NHERD"``      Use Normal Herd. [Crammer10]_
-      ``"NN"``         Use an inplementation of ``nearest_neighbor``
-      ================ ===================================
+      ================ ====================================================================== =====================
+      Value            Method                                                                 Classifier type
+      ================ ====================================================================== =====================
+      ``"perceptron"`` Use perceptron.                                                        linear classifier
+      ``"PA"``         Use Passive Aggressive (PA). [Crammer06]_                              linear classifier
+      ``"PA1"``        Use PA-I. [Crammer06]_                                                 linear classifier
+      ``"PA2"``        Use PA-II. [Crammer06]_                                                linear classifier
+      ``"CW"``         Use Confidence Weighted Learning. [Dredze08]_                          linear classifier
+      ``"AROW"``       Use Adaptive Regularization of Weight vectors. [Crammer09b]_           linear classifier
+      ``"NHERD"``      Use Normal Herd. [Crammer10]_                                          linear classifier
+      ``"NN"``         Use an inplementation of ``nearest_neighbor``                          k-Nearest Neighbor
+      ``"cosine"``     Use the result of nearest neighbor search by cosine similarity [1]_    k-Nearest Neighbor
+      ``"euclidean"``  Use the result of nearest neighbor search by euclidean distance [1]_   k-Nearest Neighbor
+      ================ ====================================================================== =====================
+
+   .. [1] These algorithms don't support ``delete_label`` API and ``unlearner`` option
 
 .. describe:: parameter
 
@@ -129,6 +133,35 @@ We show each field below:
 
         * Range: 0.0 <= ``local_sensitivity``
 
+   cosine
+     :nearest_neighbor_num:
+        Number of data which is used for calculating scores.
+        (Integer)
+
+        * Range: 1 <= ``nearest_neighbor_num``
+
+     :local_sensitivity:
+        Sensitivity used for caliculating scores.
+        When it is bigger, near data are weighted much more.
+        When it is 0, all data will be treated as same weight.
+        (Float)
+
+        * Range: 0.0 <= ``local_sensitivity``
+
+   euclidean
+     :nearest_neighbor_num:
+        Number of data which is used for calculating scores.
+        (Integer)
+
+        * Range: 1 <= ``nearest_neighbor_num``
+
+     :local_sensitivity:
+        Sensitivity used for caliculating scores.
+        When it is bigger, near data are weighted much more.
+        When it is 0, all data will be treated as same weight.
+        (Float)
+
+        * Range: 0.0 <= ``local_sensitivity``
 
 .. describe:: converter
 
@@ -226,11 +259,12 @@ Methods
       Estimates labels from given ``data``.
       This API is designed to accept bulk classification with list of :mpidl:type:`datum`.
 
-   .. mpidl:method:: list<string> get_labels()
+   .. mpidl:method:: map<string, ulong> get_labels()
 
-      :return:     list of all labels in the jubatus
+      :return:     Pairs of label and the number of trained data
 
-      Returns all label list.
+      Returns the number of trained data for each label.
+      If method is ``NN`` , the number of trained data that are deleted by ``unlearner`` is not include in this count.
 
    .. mpidl:method:: bool set_label(0: string new_label)
 

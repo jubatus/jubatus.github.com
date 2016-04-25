@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -177,7 +177,7 @@ News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の�
 <div class="section" id="id3">
 <h2>動作させてみる<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>分類器の機能を提供する <code class="docutils literal"><span class="pre">jubaclassifier</span></code> プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは <code class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></code> ディレクトリに格納されています。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
     pid                  : 1855
     user                 : oda
@@ -217,12 +217,12 @@ I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
 Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
 その他のポートを使用したい場合は、 <code class="docutils literal"><span class="pre">--rpc-port</span></code> オプションで指定することができます。
 例えば、19199 番ポートを使用するには、次のようにします。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
 </pre></div>
 </div>
 <p>Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> プロトコルを使用して通信します。</p>
 <div><img height="120" src="_images/blockdiag-062d5b706c7cac674038d80cf1b51ae6d315c75d.png" width="448" /></div><p>それでは、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードしましょう。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
 $ tar xvzf 20news-bydate.tar.gz
@@ -231,11 +231,11 @@ $ tar xvzf 20news-bydate.tar.gz
 <p><cite>jubaclassifier</cite> を再起動します。
 この時、チュートリアル用に用意された設定ファイルである <code class="docutils literal"><span class="pre">config.json</span></code> を利用して下さい。
 先ほど使用したサンプルの設定ファイル（ <code class="docutils literal"><span class="pre">pa.json</span></code> ）では正しく動作しません。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier --configpath config.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier --configpath config.json
 </pre></div>
 </div>
 <p>チュートリアルプログラムを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python tutorial.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python tutorial.py
 </pre></div>
 </div>
 <p>分類の結果が表示されました!
@@ -247,7 +247,7 @@ $ tar xvzf 20news-bydate.tar.gz
 <div class="section" id="dataset">
 <h3>Dataset<a class="headerlink" href="#dataset" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code> を展開すると、以下のようになります。</p>
-<div class="highlight-python"><div class="highlight"><pre>20news-bydate-train
+<div class="highlight-python"><div class="highlight"><pre><span></span>20news-bydate-train
 |-- alt.atheism
 |   |-- 49960
 |   |-- 51060
@@ -277,7 +277,7 @@ $ tar xvzf 20news-bydate.tar.gz
 </div>
 <p><code class="docutils literal"><span class="pre">49960</span></code> はメッセージの一つで、 <code class="docutils literal"><span class="pre">alt.atheism</span></code> はそのメッセージが投稿されたニュースグループの名前です。
 例えば、 <code class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></code> の内容は次のようなものです。</p>
-<div class="highlight-python"><div class="highlight"><pre>From: karr@cs.cornell.edu (David Karr)
+<div class="highlight-python"><div class="highlight"><pre><span></span>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
 Lines: 19
@@ -308,25 +308,25 @@ preferably longer, of course, and worth being part of.)
 <p>分類器サービスを使用するためには JSONの設定ファイルを用いて <code class="docutils literal"><span class="pre">jubaclassifier</span></code> の動作を規定する必要があります。
 <code class="docutils literal"><span class="pre">method</span></code> と <code class="docutils literal"><span class="pre">converter</span></code> と <code class="docutils literal"><span class="pre">parameter</span></code> の 3 つの設定可能なパラメタがあります。
 これらのパラメタのサンプルを以下に示します。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;PA&quot;</span><span class="p">,</span>
-  <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
     <span class="p">},</span>
-    <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
     <span class="p">],</span>
-    <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+    <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
     <span class="p">],</span>
-    <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
   <span class="p">},</span>
-  <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -346,21 +346,21 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 また、HTML タグなどは、内容を分類するのにノイズになりそうなので、 <code class="docutils literal"><span class="pre">&lt;</span></code> と <code class="docutils literal"><span class="pre">&gt;</span></code> で囲まれた部分を除去することにしましょう。</p>
 <p>この機能を使用すると、こういった自然言語処理や与えられた値の重み付けなど、様々なルール付けを行うことができます。
 今回のルールを JSON で表現すると、以下のようになります。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
-  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s2">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
   <span class="p">},</span>
-  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -369,25 +369,25 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
 <h3>Classifier API: 学習(train) と 分類(classify)<a class="headerlink" href="#classifier-api-train-classify" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>分類器に学習させる場合は、 <code class="docutils literal"><span class="pre">train</span></code> という API (RPC メソッド) を利用します。
 以下の例で、 <code class="docutils literal"><span class="pre">d1</span></code> はメッセージから作成された datum であり、 <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> はそのメッセージのラベル (ニュースグループの名前) です。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
-<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
+<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s2">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>この要領で、ラベルとメッセージの組み合わせを多数学習させます。</p>
 <p>学習結果を使って分類を行う場合は、 <code class="docutils literal"><span class="pre">classify</span></code> という API を利用します。
 <code class="docutils literal"><span class="pre">d2</span></code> はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d2</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>その結果、以下のような値が得られます。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span>
-     <span class="p">[</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[[</span>
+     <span class="p">[</span><span class="s2">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
      <span class="o">...</span>
-     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">0.2273217487300002</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
+     <span class="p">[</span><span class="s2">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">0.2273217487300002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
 <span class="p">]]</span>
 </pre></div>
 </div>
@@ -437,7 +437,7 @@ Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自�
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

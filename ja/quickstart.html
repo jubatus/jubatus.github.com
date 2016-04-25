@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -105,7 +105,7 @@
 <li><a class="reference internal" href="#">クイックスタート</a><ul>
 <li><a class="reference internal" href="#jubatus">Jubatus のインストール</a><ul>
 <li><a class="reference internal" href="#red-hat-enterprise-linux-6-2-64-bit">Red Hat Enterprise Linux 6.2 以降 (64-bit)</a></li>
-<li><a class="reference internal" href="#ubuntu-server-12-04-lts-64-bit">Ubuntu Server 12.04 LTS (64-bit)</a></li>
+<li><a class="reference internal" href="#ubuntu-server-64-bit">Ubuntu Server (64-bit)</a></li>
 <li><a class="reference internal" href="#linux-32-bit">その他の Linux 環境 (32-bit を含む)</a></li>
 <li><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
 </ul>
@@ -165,13 +165,13 @@
 <h1>クイックスタート<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="jubatus">
 <h2>Jubatus のインストール<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS (64-bit) を公式にサポートしています。
+<p>Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS / 14.04  (64-bit) を公式にサポートしています。
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。</p>
 <p>また、その他の Linux 環境 (32-bit を含む) と Mac OS X が試験的にサポートされています。</p>
 <div class="section" id="red-hat-enterprise-linux-6-2-64-bit">
 <h3>Red Hat Enterprise Linux 6.2 以降 (64-bit)<a class="headerlink" href="#red-hat-enterprise-linux-6-2-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下のコマンドを実行して、Jubatus の Yum リポジトリをシステムに登録します。</p>
-<div class="highlight-python"><div class="highlight"><pre>// RHEL 6 の場合
+<div class="highlight-python"><div class="highlight"><pre><span></span>// RHEL 6 の場合
 $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-2.el6.x86_64.rpm
 
 // RHEL 7 の場合
@@ -179,12 +179,12 @@ $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/7/stable/x86_64/jubatus-releas
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">jubatus</span></code> と <code class="docutils literal"><span class="pre">jubatus-client</span></code> のパッケージをインストールします。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo yum install jubatus jubatus-client
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo yum install jubatus jubatus-client
 </pre></div>
 </div>
 <p>RHEL 6 では、依存パッケージ (<code class="docutils literal"><span class="pre">oniguruma</span></code>) のインストールに <code class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></code> または <code class="docutils literal"><span class="pre">jubatus-optional</span></code> リポジトリを使用します。
 上記の手順を実行した際、 <code class="docutils literal"><span class="pre">oniguruma</span></code> パッケージが存在しないエラーが表示された場合は、以下のコマンドのいずれかを実行してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>// RHEL 6 で、oniguruma パッケージが存在しない場合
+<div class="highlight-python"><div class="highlight"><pre><span></span>// RHEL 6 で、oniguruma パッケージが存在しない場合
 $ sudo yum --enablerepo=rhel-6-server-optional-rpms install jubatus jubatus-client
 
 // RHEL 6 で、oniguruma パッケージが存在しない場合 (rhel-6-server-optional-rpms が利用できない場合)
@@ -192,29 +192,33 @@ $ sudo yum --enablerepo=jubatus-optional install jubatus jubatus-client
 </pre></div>
 </div>
 </div>
-<div class="section" id="ubuntu-server-12-04-lts-64-bit">
-<h3>Ubuntu Server 12.04 LTS (64-bit)<a class="headerlink" href="#ubuntu-server-12-04-lts-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="ubuntu-server-64-bit">
+<h3>Ubuntu Server (64-bit)<a class="headerlink" href="#ubuntu-server-64-bit" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以下の行を <code class="docutils literal"><span class="pre">/etc/apt/sources.list.d/jubatus.list</span></code> に記述して、Jubatus の Apt リポジトリをシステムに登録します。</p>
-<div class="highlight-python"><div class="highlight"><pre>deb http://download.jubat.us/apt binary/
+<div class="highlight-python"><div class="highlight"><pre><span></span>// Ubuntu 12.04 (Precise) の場合
+deb http://download.jubat.us/apt/ubuntu/precise binary/
+
+// Ubuntu 14.04 (Trusty) の場合
+deb http://download.jubat.us/apt/ubuntu/trusty binary/
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">jubatus</span></code> のパッケージをインストールします。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get update
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo apt-get update
 $ sudo apt-get install jubatus
 </pre></div>
 </div>
 <p>現在、パッケージには GPG 署名が行われていません。
 以下の警告メッセージが表示された場合は、 <code class="docutils literal"><span class="pre">y</span></code> を入力してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>Install these packages without verification [y/N]? y
+<div class="highlight-python"><div class="highlight"><pre><span></span>Install these packages without verification [y/N]? y
 </pre></div>
 </div>
 <p>これで、Jubatus が <code class="docutils literal"><span class="pre">/opt/jubatus</span></code> にインストールされました。</p>
-<p>Jubatus を使う前に、毎回 <code class="docutils literal"><span class="pre">profile</span></code> スクリプトから環境変数を読み込む必要があります。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ source /opt/jubatus/profile
+<p>Jubatus を使う前に、毎回 <code class="docutils literal"><span class="pre">profile</span></code> スクリプトから環境変数を読み込む必要があります (<code class="docutils literal"><span class="pre">~/.bash_profile</span></code> に追記しておくと便利です)。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ source /opt/jubatus/profile
 </pre></div>
 </div>
 <p>csh または tcsh をお使いの場合は、こちらを使用してください。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ source /opt/jubatus/profile.csh
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ source /opt/jubatus/profile.csh
 </pre></div>
 </div>
 </div>
@@ -240,22 +244,22 @@ $ sudo apt-get install jubatus
 <p>クライアントは Jubatus フレームワークに含まれている (<code class="docutils literal"><span class="pre">$PREFIX/include/jubatus/client/*_client.hpp</span></code>) ため、インストールは不要です。</p>
 <p>コンパイラや開発用のヘッダがインストールされていない場合は、以下の手順でセットアップを行ってください。
 RHEL では、以下のコマンドを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo yum groupinstall &quot;Development tools&quot; &quot;Additional Development&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo yum groupinstall &quot;Development tools&quot; &quot;Additional Development&quot;
 </pre></div>
 </div>
 <p>Ubuntu では、以下のコマンドを実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo apt-get install build-essential
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo apt-get install build-essential
 </pre></div>
 </div>
 </div>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>クライアント (Python 2.6, 2.7 または 3.x が必要) は <a class="reference external" href="http://pypi.python.org/pypi/jubatus">PyPI</a> で配布されています。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo pip install jubatus
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo pip install jubatus
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">pip</span></code> コマンドがインストールされていない場合は、以下の手順でインストールしてください。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ wget http://peak.telecommunity.com/dist/ez_setup.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ wget http://peak.telecommunity.com/dist/ez_setup.py
 $ sudo python ez_setup.py
 $ sudo easy_install pip
 </pre></div>
@@ -265,7 +269,7 @@ $ sudo easy_install pip
 <div class="section" id="ruby">
 <h3>Ruby<a class="headerlink" href="#ruby" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>クライアント (Ruby 1.9 以降が必要) は <a class="reference external" href="http://rubygems.org/gems/jubatus">RubyGems</a> で配布されています。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo gem install jubatus
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo gem install jubatus
 </pre></div>
 </div>
 </div>
@@ -273,7 +277,7 @@ $ sudo easy_install pip
 <h3>Java<a class="headerlink" href="#java" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>クライアントは Jubatus の Maven リポジトリで配布されています。
 以下の記述をあなたのプロジェクトの <code class="docutils literal"><span class="pre">pom.xml</span></code> に追加してください。</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;repositories&gt;</span>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;repositories&gt;</span>
   <span class="nt">&lt;repository&gt;</span>
     <span class="nt">&lt;id&gt;</span>jubat.us<span class="nt">&lt;/id&gt;</span>
     <span class="nt">&lt;name&gt;</span>Jubatus Repository for Maven<span class="nt">&lt;/name&gt;</span>
@@ -285,7 +289,7 @@ $ sudo easy_install pip
   <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>us.jubat<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>jubatus<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>[0.8,)<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>[0.9,)<span class="nt">&lt;/version&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;/dependencies&gt;</span>
 </pre></div>
@@ -338,7 +342,7 @@ Jubatus がどのような機能を持っているか知るには、 <a class="r
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

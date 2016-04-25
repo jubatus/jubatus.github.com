@@ -135,6 +135,20 @@ We show each field below:
         Response time is lower though more memory is required.
         (Boolean)
 
+     :unlearner:
+        Specify unlearner strategy.
+        If you don't use unlearner, you should omit this parameter.
+        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
+        Data will be deleted based on strategy specified here.
+
+     :unlearner_parameter:
+        Specify unlearner parameter.
+        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
+        You cannot omit this parameter when you specify ``unlearner``.
+        Data in excess of this number will be deleted automatically.
+
+     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
+
    nearest_neighbor_recommender
      :method:
         Specify algorithm for nearest neighbor.

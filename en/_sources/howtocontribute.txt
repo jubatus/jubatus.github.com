@@ -66,7 +66,7 @@ When contributing your code, check the following points before sending a pull-re
 
 * Pass the coding style test. (run ``./waf cpplint``)
 
-* Add unit tests for your code, if applicable. We use `Google Test <http://code.google.com/p/googletest/>`_ as a unit test framework.
+* Add unit tests for your code, if applicable. We use `Google Test <https://github.com/google/googletest>`_ as a unit test framework.
 
 * If you fixed an existing issue, please include the issue number (in format of "#XXX") in the commit log.
 

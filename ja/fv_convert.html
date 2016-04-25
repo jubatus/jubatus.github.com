@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -196,21 +196,21 @@ Jubatus における特徴ベクトルの中身は、文字列をキー、数値
 以下に最もシンプルな設定を記載する。
 この設定を利用すると、文字列データは全てスペース文字で分割してそれぞれの単語を特徴量とし、数値データはその値をそれぞれ特徴量として利用する。
 実際にアプリケーションを書くときに、より高い精度の学習結果を求める場合は、設定をチューニングすることで望ましい結果を得られる可能性がある。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span> <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span>  <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;num&quot;</span> <span class="p">}</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="s2">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -228,18 +228,18 @@ binary_values には画像や音声などのマルチメディアデータなど
 この3つのデータから、機械学習を行う際に必要となる特徴量を抽出するのが、このデータ変換モジュールである。
 また、効率を重視して、それぞれのkey-valueは、各言語のmap型や辞書型を利用せず、keyとvalueのペアの配列で表現される。</p>
 <p>以下に例を示す。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/id&quot;</span><span class="p">,</span> <span class="s2">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/image&quot;</span><span class="p">,</span> <span class="s">&quot;xxxxxxxx&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/image&quot;</span><span class="p">,</span> <span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -273,7 +273,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 <p>例として、&#8221;message&#8221;内の文字列からHTMLタグを取り除く。
 まず、「HTMLタグを取り除く」というルールを定義し、それを <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></code> に適用する。
 これは、以下のようなconfigで表現される。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -286,7 +286,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 次に、実際にdatumのどの要素にどう適用するのか書いたのが&#8221;string_filter_rules&#8221;である。
 ここでは、&#8221;message&#8221;という名前の&#8221;key&#8221;の要素に対して、先で定義した&#8221;detag&#8221;フィルターを適用し、&#8221;message&#8221;に&#8221;-detagged&#8221;を付与したkey、すなわち&#8221;message-detagged&#8221;に結果を格納することを示している。</p>
 <p>また、&#8221;age&#8221;を数え年に変換(+1歳に)するには、</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -296,17 +296,17 @@ binary_values には画像や音声などのマルチメディアデータなど
 </div>
 <p>とする。この挙動も先と同じで、&#8221;user/age&#8221;に1加えた結果が&#8221;user/age_kazoe&#8221;に格納される。</p>
 <p>これらのfilterを通すことにより、次の datum が得られる:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/id&quot;</span><span class="p">,</span> <span class="s2">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -336,10 +336,10 @@ binary_values には画像や音声などのマルチメディアデータなど
 </tbody>
 </table>
 </div></blockquote>
-<p>利用できる正規表現は、使用する正規表現エンジンのドキュメント (<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt">oniguruma</a> または <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2</a>) を参照すること。
+<p>利用できる正規表現は、使用する正規表現エンジンのドキュメント (<a class="reference external" href="https://github.com/kkos/oniguruma/blob/master/doc/RE.ja">oniguruma</a> または <a class="reference external" href="https://github.com/google/re2/wiki/Syntax">re2</a>) を参照すること。
 使用する正規表現エンジンはコンパイル時に選択可能である (バイナリパッケージでインストールした場合は oniguruma が使用される)。</p>
 <p>HTMLのすべてのタグを消すには、例えば以下のようなstring_filter_typeを宣言すればよいだろう。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -475,7 +475,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>この機能を使う際のコンフィグの一例は以下の通りである。</p>
 </dd></dl>
 
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;zero_to_hundred&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;linear_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="s2">&quot;100&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
@@ -507,7 +507,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>この機能を使う際のコンフィグの一例は以下の通りである。</p>
 </dd></dl>
 
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;gaussian_80_2.3&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;average&quot;</span><span class="o">:</span> <span class="s2">&quot;80&quot;</span><span class="p">,</span> <span class="s2">&quot;standard_deviation&quot;</span><span class="o">:</span><span class="s2">&quot;2.3&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
@@ -536,7 +536,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>この機能を使う際のコンフィグの一例は以下の通りである。</p>
 </dd></dl>
 
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;sigmoid&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;gain&quot;</span><span class="o">:</span> <span class="s2">&quot;0.05&quot;</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="o">:</span><span class="s2">&quot;5&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
@@ -591,7 +591,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。</p>
 <p>以下に、設定の例を示す。
 この例では、&#8221;user/name&#8221;の値はそのまま特徴量として使用し、&#8221;message&#8221;は文字2グラムを特徴量とし、&#8221;message-detagged&#8221;はスペース文字で分割した単語を特徴量とする。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -602,12 +602,12 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </pre></div>
 </div>
 <p>例えば、この規則を次のような datum に適用する。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/id&quot;</span><span class="p">,</span> <span class="s2">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[]</span>
 <span class="p">)</span>
@@ -751,7 +751,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 </table>
 </div></blockquote>
 <p>例として、連続する2文字および3文字を特徴として利用する、bigramとtrigramを定義する方法を記す。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">},</span>
   <span class="s2">&quot;trigram&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span> <span class="p">}</span>
 <span class="p">}</span>
@@ -776,10 +776,10 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 </tbody>
 </table>
 </div></blockquote>
-<p>利用できる正規表現は、使用する正規表現エンジンのドキュメント (<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt">oniguruma</a> または <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2</a>) を参照すること。
+<p>利用できる正規表現は、使用する正規表現エンジンのドキュメント (<a class="reference external" href="https://github.com/kkos/oniguruma/blob/master/doc/RE.ja">oniguruma</a> または <a class="reference external" href="https://github.com/google/re2/wiki/Syntax">re2</a>) を参照すること。
 使用する正規表現エンジンはコンパイル時に選択可能である (バイナリパッケージでインストールした場合は oniguruma が使用される)。</p>
 <p>最も簡単な例として、以下では日付表現 (YYYY/MM/DD) を全て取り出す。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;[0-9]{4}/[0-9]{2}/[0-9]{2}&quot;</span>
@@ -788,7 +788,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 </pre></div>
 </div>
 <p>パターンの一部だけを利用するときは、 &#8220;group&#8221; 引数を利用する。たとえば、以下の様な設定で年齢が取れるだろう。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
@@ -918,7 +918,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <p>数値型に対しても、文字列型同様変換ルールを記述する。
 また、数値型に関しても、ユーザー定義の変換器を定義することができる。</p>
 <p>以下に、設定の例を示す。</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
   <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age&quot;</span><span class="p">,</span>       <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">},</span>
@@ -928,12 +928,12 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </pre></div>
 </div>
 <p>例えば、この規則を次のような datum に適用する。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">100000</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -1095,18 +1095,18 @@ string_rulesなどと同様、複数の規則を羅列する。
 特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができるが、ハッシュの衝突により学習精度の低下が発生する可能性がある。</p>
 <p>この機能はデフォルトでは無効である。
 使用するには、変換設定に <code class="docutils literal"><span class="pre">hash_max_size</span></code> を指定する。値には0より大きい整数値を指定する。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}],</span>
-  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}],</span>
-  <span class="s">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}],</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;key&quot;</span> <span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}],</span>
+  <span class="s2">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1135,7 +1135,7 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <dt>
 <code class="descname">libmecab_splitter.so</code></dt>
 <dd><p>string_typesで指定できる。
-<a class="reference external" href="http://code.google.com/p/mecab/">MeCab</a> を利用して文書を単語分割し、各単語を特徴量として利用する。
+<a class="reference external" href="https://github.com/taku910/mecab">MeCab</a> を利用して文書を単語分割し、各単語を特徴量として利用する。
 <code class="docutils literal"><span class="pre">--enable-mecab</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -1145,7 +1145,7 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&#8220;create&#8221;を指定する。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
-引数の指定の仕方は、 <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">MeCab のドキュメント</a> を参照すること。</td>
+引数の指定の仕方は、 <a class="reference external" href="http://taku910.github.io/mecab/mecab.html">MeCab のドキュメント</a> を参照すること。</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">ngram:</th><td class="field-body">MeCabによる単語分割の結果に基づいて構築する形態素N-gramの <cite>N</cite> を指定する。
 この指定がないと、 <cite>N</cite> に <cite>1</cite> が指定されたものと見なされる (つまり形態素N-gramを構築せず、各形態素をそのまま特徴量として使用する)。
@@ -1173,7 +1173,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 </tbody>
 </table>
 </div></blockquote>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;mecab&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
@@ -1193,7 +1193,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 <dt>
 <code class="descname">libux_splitter.so</code></dt>
 <dd><p>string_typesで指定できる。
-<a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
+<a class="reference external" href="https://github.com/hillbig/ux-trie">ux-trie</a> を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
 単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
 <code class="docutils literal"><span class="pre">--enable-ux</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
 <blockquote>
@@ -1208,7 +1208,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 </tbody>
 </table>
 </div></blockquote>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;ux&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
@@ -1250,7 +1250,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

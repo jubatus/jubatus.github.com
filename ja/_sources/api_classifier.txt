@@ -17,18 +17,22 @@ JSON の各フィールドは以下のとおりである。
 
    .. table::
 
-      ================ ===================================
-      設定値           手法
-      ================ ===================================
-      ``"perceptron"`` パーセプトロン法を利用する。
-      ``"PA"``         Passive Aggressive (PA) を利用する。 [Crammer06]_
-      ``"PA1"``        PA-I を利用する。 [Crammer06]_
-      ``"PA2"``        PA-II を利用する。 [Crammer06]_
-      ``"CW"``         Confidence Weighted Learning を利用する。 [Dredze08]_
-      ``"AROW"``       Adaptive Regularization of Weight vectors を利用する。 [Crammer09b]_
-      ``"NHERD"``      Normal Herd を利用する。 [Crammer10]_
-      ``"NN"``         ``nearest_neighbor`` を利用する。
-      ================ ===================================
+      ================ ==================================================================== ============
+      設定値           手法                                                                 分類方法
+      ================ ==================================================================== ============
+      ``"perceptron"`` パーセプトロン法を利用する。                                         線形分類
+      ``"PA"``         Passive Aggressive (PA) を利用する。 [Crammer06]_                    線形分類
+      ``"PA1"``        PA-I を利用する。 [Crammer06]_                                       線形分類
+      ``"PA2"``        PA-II を利用する。 [Crammer06]_                                      線形分類
+      ``"CW"``         Confidence Weighted Learning を利用する。 [Dredze08]_                線形分類
+      ``"AROW"``       Adaptive Regularization of Weight vectors を利用する。 [Crammer09b]_ 線形分類
+      ``"NHERD"``      Normal Herd を利用する。 [Crammer10]_                                線形分類
+      ``"NN"``         ``nearest_neighbor`` を利用する。                                    k-近傍法
+      ``"cosine"``     コサイン類似度による近傍探索結果を利用する。[1]_                     k-近傍法
+      ``"euclidean"``  ユークリッド距離による近傍探索結果を利用する。[1]_                   k-近傍法
+      ================ ==================================================================== ============
+
+   .. [1] これらの手法では ``delete_label`` APIおよび ``unlearner`` を使用することができない。
 
 .. describe:: parameter
 
@@ -126,6 +130,35 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 0.0 <= ``local_sensitivity``
 
+   cosine
+     :nearest_neighbor_num:
+        スコア算出時に使われるデータの数を指定する。
+        (Integer)
+
+        * 値域: 1 <= ``nearest_neighbor_num``
+
+     :local_sensitivity:
+        スコア算出時に使われる感度パラメータを指定する。
+        0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
+        大きくすると距離の近いデータをより重視するようになる。
+        (Float)
+
+        * 値域: 0.0 <= ``local_sensitivity``
+
+   euclidean
+     :nearest_neighbor_num:
+        スコア算出時に使われるデータの数を指定する。
+        (Integer)
+
+        * 値域: 1 <= ``nearest_neighbor_num``
+
+     :local_sensitivity:
+        スコア算出時に使われる感度パラメータを指定する。
+        0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
+        大きくすると距離の近いデータをより重視するようになる。
+        (Float)
+
+        * 値域: 0.0 <= ``local_sensitivity``
 
 .. describe:: converter
 
@@ -223,11 +256,12 @@ Methods
       与えられた ``data`` から、ラベルを推定する。
       この API は、 :mpidl:type:`datum` をリスト形式でまとめて同時に受け付けることができる (バルク分類)。
 
-   .. mpidl:method:: list<string> get_labels()
+   .. mpidl:method:: map<string, ulong> get_labels()
 
-      :return:     現在登録されているラベルの一覧
+      :return:     現在登録されているラベルと学習した件数の組
 
-      登録されているラベルの一覧を返す。
+      登録されているラベルとそれぞれのラベルを学習した件数を返却する。
+      method が ``NN`` の場合、忘却機能によって削除された学習データの件数は含まれない。
 
    .. mpidl:method:: bool set_label(0: string new_label)
 

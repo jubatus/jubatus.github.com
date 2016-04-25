@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -285,7 +285,7 @@ Data in excess of this number will be deleted automatically.</p>
 <p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 <dt>euclid_lsh</dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -324,18 +324,32 @@ The bigger it is, the more results you can find, but the longer response time is
 <tr class="field-odd field"><th class="field-name">seed:</th><td class="field-body"><p class="first">Seed of random number generator.
 (Integer)</p>
 <ul class="simple">
-<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">seed</span></code> &lt;= <img class="math" src="_images/math/e760eb725ee8e28e18c891c950f12a9a131603f6.png" alt="2^{32} - 1"/></li>
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">seed</span></code> &lt;= <span class="math">2^{32} - 1</span></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">When it is <code class="docutils literal"><span class="pre">true</span></code>, projection vectors for hashing are cached in memory.
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">When it is <code class="docutils literal"><span class="pre">true</span></code>, projection vectors for hashing are cached in memory.
 Response time is lower though more memory is required.
 (Boolean)</p>
 </td>
 </tr>
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
+If you don&#8217;t use unlearner, you should omit this parameter.
+You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+Data will be deleted based on strategy specified here.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
+You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><em>Unlearner</em></a>.
+You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
+Data in excess of this number will be deleted automatically.</p>
+</td>
+</tr>
 </tbody>
 </table>
+<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 <dt>nearest_neighbor_recommender</dt>
 <dd><blockquote class="first">
@@ -392,7 +406,7 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 
 <dl class="docutils">
 <dt>Example:</dt>
-<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;lsh&quot;</span><span class="p">,</span>
   <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;hash_num&quot;</span> <span class="o">:</span> <span class="mi">64</span>
@@ -436,7 +450,7 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 Range of scores is <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">score</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code> (less than or equal to <code class="docutils literal"><span class="pre">-0</span></code> when using <code class="docutils literal"><span class="pre">euclid_lsh</span></code>).</p>
 </dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
 <span class="p">}</span>
@@ -686,7 +700,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

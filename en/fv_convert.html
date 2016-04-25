@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -187,21 +187,21 @@ Next, we extract features from sanitized data by feature-extraction process.</p>
 The followings is one of the easiest configuration.
 In this configuration, we use each word separated by spaces a feature for string data. For numeric data, we use the value itself a feature.
 It is probable that doing some tuning this configuration to obtain training model with high precision and desirable result.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span> <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span>  <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;num&quot;</span> <span class="p">}</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="s2">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -218,18 +218,18 @@ And, we can store in binary_values arbitrary binary data such as multimedia data
 The data-conversion module extracts features which are used in machine learning tasks from these three types of data.
 Each key-value is represented neither as a map type nor a dictionary type, but as a set of pairs of keys and values for efficiency.
 The following is an example of a datum.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/id&quot;</span><span class="p">,</span> <span class="s2">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/image&quot;</span><span class="p">,</span> <span class="s">&quot;xxxxxxxx&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/image&quot;</span><span class="p">,</span> <span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -263,7 +263,7 @@ We can make use of the filtering system in such cases.</p>
 <p>As an example of usage, we remove HTML tags from strings whose key is &#8220;message&#8221;. We do it in two steps.
 First, we define a rule which states &#8220;remove HTML tags&#8221;. Second, we apply this rule to data where <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></code>.
 This procedure is represented by the following configuration.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;string_filter_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -276,7 +276,7 @@ In &#8220;detag&#8221;, we define a filter which applies a method named &#8220;r
 Next, we define to which elements in datum and how we apply this filter. We write it in &#8220;string_filter_rules&#8221;.
 The example above indicates that we apply the &#8220;detag&#8221; filter defined earlier to the value whose key is &#8220;message&#8221;, and that we store the resultant to &#8220;message-detagged&#8221; key, that is generated from the original key &#8220;message&#8221; and a suffix &#8220;-detagged&#8221;.</p>
 <p>In another example, we can add one to &#8220;age&#8221; by the following configuration (in Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or East Asian age reckoning).</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -286,17 +286,17 @@ The example above indicates that we apply the &#8220;detag&#8221; filter defined
 </div>
 <p>The procedure is the same as the previous example. A value in &#8220;user/age&#8221; added by one is stored in &#8220;usr/age_kazoe&#8221;.</p>
 <p>By applying these two filters, we obtain the datum like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/id&quot;</span><span class="p">,</span> <span class="s">&quot;ippy&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/name&quot;</span><span class="p">,</span> <span class="s">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/id&quot;</span><span class="p">,</span> <span class="s2">&quot;ippy&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;Loren Ipsum&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="p">[</span>
-    <span class="p">(</span><span class="s">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
+    <span class="p">(</span><span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/age_kazoe&quot;</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">)</span>
   <span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -327,10 +327,10 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 </tbody>
 </table>
 </div></blockquote>
-<p>For list of regular expressions available, refer to the documentation of the regular expression engine (<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt">oniguruma</a> or <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2</a>).
+<p>For list of regular expressions available, refer to the documentation of the regular expression engine (<a class="reference external" href="https://github.com/kkos/oniguruma/blob/master/doc/RE">oniguruma</a> or <a class="reference external" href="https://github.com/google/re2/wiki/Syntax">re2</a>).
 The regular expression engine can be selected at compile time (oniguruma is used when using binary packages).</p>
 <p>For example, in order to remove all HTML tags, we should define such a string_filter_type.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -466,7 +466,7 @@ If &#8220;min&#8221; is greater than &#8220;max&#8221;, the invalid_parameter ex
 <p>An example of using this function is below.</p>
 </dd></dl>
 
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;zero_to_hundred&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;linear_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="s2">&quot;100&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
@@ -498,7 +498,7 @@ You cannot specify negative value for &#8220;standard_deviation&#8221;. It cause
 <p>An example of using this function is below.</p>
 </dd></dl>
 
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;gaussian_80_2.3&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;gaussian_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;average&quot;</span><span class="o">:</span> <span class="s2">&quot;80&quot;</span><span class="p">,</span> <span class="s2">&quot;standard_deviation&quot;</span><span class="o">:</span><span class="s2">&quot;2.3&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
@@ -527,7 +527,7 @@ It transforms given value x to be 0 to 1 with formula 1 / 1 + e ^ (-gain * (x - 
 <p>An example of using this function is below.</p>
 </dd></dl>
 
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;sigmoid&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;sigmoid_normalization&quot;</span><span class="p">,</span> <span class="s2">&quot;gain&quot;</span><span class="o">:</span> <span class="s2">&quot;0.05&quot;</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="o">:</span><span class="s2">&quot;5&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
@@ -582,7 +582,7 @@ Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221;
 <p>In this section, we explain mechanism of the feature extraction from strings. We also explain how to apply these extraction rules.
 The following is an example of a configuration.
 In this configuration, we use as features &#8220;user/name&#8221; itself, every 2-grams of &#8220;message&#8221;, and every word in &#8220;message-detagged&#8221; separated by spaces.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -616,7 +616,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 </table>
 </div></blockquote>
 <p>The following configuration specifies bigram (2-gram) and trigram (3-gram).</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">},</span>
   <span class="s2">&quot;trigram&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span> <span class="p">}</span>
 <span class="p">}</span>
@@ -641,10 +641,10 @@ Matching is executed continuously, that is, every match is used as a feature.</p
 </tbody>
 </table>
 </div></blockquote>
-<p>For list of regular expressions available, refer to the documentation of the regular expression engine (<a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt">oniguruma</a> or <a class="reference external" href="http://code.google.com/p/re2/wiki/Syntax">re2</a>).
+<p>For list of regular expressions available, refer to the documentation of the regular expression engine (<a class="reference external" href="https://github.com/kkos/oniguruma/blob/master/doc/RE">oniguruma</a> or <a class="reference external" href="https://github.com/google/re2/wiki/Syntax">re2</a>).
 The regular expression engine can be selected at compile time (oniguruma is used when using binary packages).</p>
 <p>The following is simplest example in which we extract every representation of date (YYYY/MM/DD).</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
@@ -654,7 +654,7 @@ The regular expression engine can be selected at compile time (oniguruma is used
 </pre></div>
 </div>
 <p>If we use only a part of the matches, we make use of &#8220;group&#8221; argument. For example, representation of age may be extracted with such a configuration.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
     <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;(age|Age)([ :=])([0-9]+)&quot;</span><span class="p">,</span>
@@ -783,7 +783,7 @@ In some kind of tasks, in which weight itself is trained, weight are adjusted au
 <h2>Feature Extraction from Numbers<a class="headerlink" href="#feature-extraction-from-numbers" title="Permalink to this headline">¶</a></h2>
 <p>As with strings, feature extraction rules are also described for numeric types.
 We can make user-defined extractors for numeric types, too.</p>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
 <span class="p">},</span>
 <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
   <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;user/age&quot;</span><span class="p">,</span>       <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">},</span>
@@ -923,18 +923,18 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 By hashing feature vector keys, you can limit a maximum dimension of feature vectors, although this may decrease the accuracy of the result when one hash value collides with another.</p>
 <p>This function is disabled by default.
 To use this option, specify the <code class="docutils literal"><span class="pre">hash_max_size</span></code> in the converter configuration. It must be a positive integer.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}],</span>
-  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}],</span>
-  <span class="s">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}],</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;key&quot;</span> <span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}],</span>
+  <span class="s2">&quot;binary_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;binary_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;hash_max_size&quot;</span><span class="p">:</span> <span class="mi">16</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -963,7 +963,7 @@ Note that some plugins are not available depending on your compile options.</p>
 <dt>
 <code class="descname">libmecab_splitter.so</code></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Separate given Japanese document into words by <a class="reference external" href="http://code.google.com/p/mecab/">MeCab</a> and use each word as a feature.
+Separate given Japanese document into words by <a class="reference external" href="https://github.com/taku910/mecab">MeCab</a> and use each word as a feature.
 This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-mecab</span></code>.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -973,7 +973,7 @@ This plugin is available only when compiled with <code class="docutils literal">
 <tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify &#8220;create&#8221;.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). &#8220;arg&#8221; is not specified, Mecab works with default configuration.
-Refer to the <a class="reference external" href="http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html">document of MeCab</a> about how to specify arguments.</td>
+Refer to the <a class="reference external" href="http://taku910.github.io/mecab/mecab.html">document of MeCab</a> about how to specify arguments.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">ngram:</th><td class="field-body">Specify <cite>N</cite> of morpheme (word) N-gram that is constructed from morphemes extracted by MeCab.
 When &#8220;ngram&#8221; is not specified,  <cite>N</cite> is assumed as <cite>1</cite>, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
@@ -1001,7 +1001,7 @@ When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite
 </tbody>
 </table>
 </div></blockquote>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;mecab&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libmecab_splitter.so&quot;</span><span class="p">,</span>
@@ -1021,7 +1021,7 @@ When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite
 <dt>
 <code class="descname">libux_splitter.so</code></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
-Extract keywords from given document by way of dictionary matching with <a class="reference external" href="http://code.google.com/p/ux-trie/">ux-trie</a> and use each keyword as a feature.
+Extract keywords from given document by way of dictionary matching with <a class="reference external" href="https://github.com/hillbig/ux-trie">ux-trie</a> and use each keyword as a feature.
 Matching is a simple longest matching. Note that it is fast but precision may be low.
 This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-ux</span></code>.</p>
 <blockquote>
@@ -1036,7 +1036,7 @@ This plugin is available only when compiled with <code class="docutils literal">
 </tbody>
 </table>
 </div></blockquote>
-<div class="highlight-js"><div class="highlight"><pre><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;ux&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libux_splitter.so&quot;</span><span class="p">,</span>
@@ -1078,7 +1078,7 @@ This plugin is available only when compiled with <code class="docutils literal">
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

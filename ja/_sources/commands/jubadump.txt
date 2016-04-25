@@ -15,7 +15,7 @@ Description
 
 現在、以下のモデルがサポートされている:
 
-* ``classifier``
+* ``classifier`` (線形回帰のみ)
 * ``regression``
 * ``recommender`` (``inverted_index`` のみ)
 * ``anomaly`` (``lof`` の ``inverted_index`` バックエンドのみ)

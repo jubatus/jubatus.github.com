@@ -96,12 +96,12 @@ RPC Errors
 
 - Client library occasionally throws RPC timeout errors; it seems that servers automatically disconnect clients. Why?
 
- Jubatus servers automatically close connections when the idle timeout (given by the command line parameter :option:`server -t`) expires.
+ Jubatus servers automatically close connections when the idle timeout (given by the command line parameter :option:`jubatus_server -t`) expires.
  You need to retry the RPC call to re-establish the connection.
  Please refer :doc:`faq_rpc_err_workaround` to handle RPC errors including timeout error
  caused by server's auto session-closing.
 
- To disable this auto-disconnect feature, set :option:`server -t` to 0, which means "no timeout".
+ To disable this auto-disconnect feature, set :option:`jubatus_server -t` to 0, which means "no timeout".
  In this case, clients must explicitly close the TCP connection using :mpidl:meth:`get_client`.
  Or, please set timeout enough longer than a client's connection lifetime.
 

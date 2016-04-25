@@ -66,7 +66,7 @@ CLA への同意は `CLA 送信フォーム <https://docs.google.com/forms/d/1Z2
 
 * コーディングスタイルのテストをパスしていること (``./waf cpplint`` を実行)
 
-* 該当する場合は、単体テストが追加されていること。Jubatus では単体テストフレームワークとして `Google Test <http://code.google.com/p/googletest/>`_ を使用しています。
+* 該当する場合は、単体テストが追加されていること。Jubatus では単体テストフレームワークとして `Google Test <https://github.com/google/googletest>`_ を使用しています。
 
 * 既存の Issue を修正した場合は、コミットログに "#XXX" の形で Issue No を含めてください。
 

@@ -23,7 +23,9 @@ We show each field below:
       ``"ucb1"``           Use UCB1.
       ``"softmax"``        Use softmax.
       ``"exp3"``           Use exp3.
+      ``"ts"``             Use Thompson sampling [#]_ .      
       ==================== ===================================
+   .. [#] Note that ``reward`` in register_reward API must be 0 or 1 when you use Thompson sampling method.
 
 .. describe:: parameter
 
@@ -67,6 +69,8 @@ We show each field below:
 
         * Range: 0.0 < ``gamma`` <= 1.0
 
+   ts
+     None
 
 Example:
   .. code-block:: javascript

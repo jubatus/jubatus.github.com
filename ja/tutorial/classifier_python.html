@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -178,7 +178,7 @@
 17
 18
 19
-20</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">{</span>
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;AROW&quot;</span><span class="p">,</span>
   <span class="s2">&quot;converter&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
@@ -307,15 +307,15 @@
 104
 105
 106
-107</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
-<span class="c"># coding: utf-8</span>
+107</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># coding: utf-8</span>
 
-<span class="c"># Python 2 compatibility:</span>
+<span class="c1"># Python 2 compatibility:</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 
-<span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+<span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span>
 <span class="n">port</span> <span class="o">=</span> <span class="mi">9199</span>
-<span class="n">name</span> <span class="o">=</span> <span class="s">&#39;test&#39;</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -325,93 +325,93 @@
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
 
 <span class="k">def</span> <span class="nf">_output</span><span class="p">(</span><span class="n">unicode_value</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="s">&#39;buffer&#39;</span><span class="p">):</span>
-        <span class="c"># for Python 3</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="s1">&#39;buffer&#39;</span><span class="p">):</span>
+        <span class="c1"># for Python 3</span>
         <span class="n">stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">buffer</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c"># for Python 2</span>
+        <span class="c1"># for Python 2</span>
         <span class="n">stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
-    <span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">unicode_value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+    <span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">unicode_value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">client</span><span class="p">):</span>
-    <span class="c"># prepare training data</span>
-    <span class="c"># predict the last ones (that are commented out)</span>
+    <span class="c1"># prepare training data</span>
+    <span class="c1"># predict the last ones (that are commented out)</span>
     <span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家康&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;秀忠&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家光&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家綱&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;綱吉&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家宣&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家継&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;吉宗&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家重&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家治&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家斉&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家慶&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家定&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;家茂&#39;</span><span class="p">})),</span>
-        <span class="c"># (u&#39;徳川&#39;, Datum({&#39;name&#39;: u&#39;慶喜&#39;})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家康&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;秀忠&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家光&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家綱&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;綱吉&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家宣&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家継&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;吉宗&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家重&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家治&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家斉&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家慶&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家定&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;徳川&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;家茂&#39;</span><span class="p">})),</span>
+        <span class="c1"># (u&#39;徳川&#39;, Datum({&#39;name&#39;: u&#39;慶喜&#39;})),</span>
 
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;尊氏&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義詮&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義満&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義持&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義量&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義教&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義勝&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義政&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義尚&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義稙&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義澄&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義稙&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義晴&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義輝&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義栄&#39;</span><span class="p">})),</span>
-        <span class="c"># (u&#39;足利&#39;, Datum({&#39;name&#39;: u&#39;義昭&#39;})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;尊氏&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義詮&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義満&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義持&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義量&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義教&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義勝&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義政&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義尚&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義稙&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義澄&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義稙&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義晴&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義輝&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;足利&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義栄&#39;</span><span class="p">})),</span>
+        <span class="c1"># (u&#39;足利&#39;, Datum({&#39;name&#39;: u&#39;義昭&#39;})),</span>
 
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;時政&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;泰時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;経時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;時頼&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;長時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;政村&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;時宗&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;貞時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;師時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;宗宣&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;煕時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;基時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;高時&#39;</span><span class="p">})),</span>
-        <span class="p">(</span><span class="s">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;貞顕&#39;</span><span class="p">})),</span>
-        <span class="c"># (u&#39;北条&#39;, Datum({&#39;name&#39;: u&#39;守時&#39;})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;時政&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;泰時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;経時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;時頼&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;長時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;政村&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;時宗&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;貞時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;師時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;宗宣&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;煕時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;基時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;高時&#39;</span><span class="p">})),</span>
+        <span class="p">(</span><span class="s1">u&#39;北条&#39;</span><span class="p">,</span> <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;貞顕&#39;</span><span class="p">})),</span>
+        <span class="c1"># (u&#39;北条&#39;, Datum({&#39;name&#39;: u&#39;守時&#39;})),</span>
     <span class="p">]</span>
 
-    <span class="c"># training data must be shuffled on online learning!</span>
+    <span class="c1"># training data must be shuffled on online learning!</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
 
-    <span class="c"># run train</span>
+    <span class="c1"># run train</span>
     <span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">client</span><span class="p">):</span>
-    <span class="c"># predict the last shogun</span>
+    <span class="c1"># predict the last shogun</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;慶喜&#39;</span><span class="p">}),</span>
-        <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;義昭&#39;</span><span class="p">}),</span>
-        <span class="n">Datum</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;守時&#39;</span><span class="p">}),</span>
+        <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;慶喜&#39;</span><span class="p">}),</span>
+        <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;義昭&#39;</span><span class="p">}),</span>
+        <span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">u&#39;守時&#39;</span><span class="p">}),</span>
     <span class="p">]</span>
     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d</span><span class="p">])</span>
-        <span class="c"># get the predicted shogun name</span>
+        <span class="c1"># get the predicted shogun name</span>
         <span class="n">shogun_name</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">score</span><span class="p">)</span><span class="o">.</span><span class="n">label</span>
         <span class="n">first_name</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">string_values</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">_output</span><span class="p">(</span><span class="s">&#39;{0} {1}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shogun_name</span><span class="p">,</span> <span class="n">first_name</span><span class="p">))</span>
+        <span class="n">_output</span><span class="p">(</span><span class="s1">&#39;{0} {1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shogun_name</span><span class="p">,</span> <span class="n">first_name</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c"># connect to the jubatus</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># connect to the jubatus</span>
     <span class="n">client</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-    <span class="c"># run example</span>
+    <span class="c1"># run example</span>
     <span class="n">train</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
     <span class="n">predict</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
 </pre></div>
@@ -615,7 +615,7 @@ valueが文字列の場合は、string_valuesに値がセットされます（18
 <li><dl class="first docutils">
 <dt>Jubatus Serverでの作業</dt>
 <dd><p class="first">jubaclassifierを起動します。</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ jubaclassifier --configpath shogun.json
+<div class="last highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier --configpath shogun.json
 </pre></div>
 </div>
 </dd>
@@ -623,7 +623,7 @@ valueが文字列の場合は、string_valuesに値がセットされます（18
 </li>
 <li><dl class="first docutils">
 <dt>Jubatus Clientでの作業</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre>$ python shogun.py
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span></span>$ python shogun.py
 </pre></div>
 </div>
 </dd>
@@ -661,7 +661,7 @@ valueが文字列の場合は、string_valuesに値がセットされます（18
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

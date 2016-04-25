@@ -5,7 +5,7 @@ Quick Start
 Install Jubatus
 ---------------
 
-We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS (64-bit).
+We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS / 14.04 LTS (64-bit).
 On supported systems, you can install all components of Jubatus using binary packages.
 
 Other Linux distributions (including 32-bit) and Mac OS X are experimentally supported.
@@ -40,14 +40,18 @@ If the installation command above fails with the missing ``oniguruma`` package e
   // For RHEL 6 systems that cannot find oniguruma package (and rhel-6-server-optional-rpms is unavailable)
   $ sudo yum --enablerepo=jubatus-optional install jubatus jubatus-client
 
-Ubuntu Server 12.04 LTS (64-bit)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ubuntu Server (64-bit)
+~~~~~~~~~~~~~~~~~~~~~~
 
 Write the following line to ``/etc/apt/sources.list.d/jubatus.list`` to register Jubatus Apt repository to the system.
 
 ::
 
-  deb http://download.jubat.us/apt binary/
+  // For Ubuntu 12.04 (Precise)
+  deb http://download.jubat.us/apt/ubuntu/precise binary/
+
+  // For Ubuntu 14.04 (Trusty)
+  deb http://download.jubat.us/apt/ubuntu/trusty binary/
 
 Now install ``jubatus`` package.
 
@@ -65,7 +69,7 @@ Bypass the warning by answering ``y`` to the prompt when asked:
 
 Now Jubatus is installed in ``/opt/jubatus``.
 
-Each time before using Jubatus, you need to load the environment variable from ``profile`` script.
+Each time before using Jubatus, you need to load the environment variable from ``profile`` script (you can add the line to ``~/.bash_profile``).
 
 ::
 
@@ -166,7 +170,7 @@ Please add these lines to ``pom.xml`` of your project.
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>[0.8,)</version>
+       <version>[0.9,)</version>
      </dependency>
    </dependencies>
 

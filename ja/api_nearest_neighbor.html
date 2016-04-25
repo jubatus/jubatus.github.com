@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -196,6 +196,41 @@ JSON の各フィールドは以下のとおりである。</p>
 <dd><p>アルゴリズムに渡すパラメータを指定する。
 <code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
+<dt>共通</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">threads:</th><td class="field-body"><p class="first">乱数生成や探索を行うスレッド数を指定する。
+この値を大きくすると、ハッシュ生成や探索において、データを分割しマルチスレッドで並列処理するためレイテンシが小さくなる。
+負の値を指定した場合は実行する環境の論理CPUコア数が利用される。
+実行環境の論理CPUコア数よりも大きい値を指定した場合、スレッドは論理CPUコア数分しか起動しないが、データは <code class="docutils literal"><span class="pre">threads</span></code> 数に分割され先に処理が終わったスレッドが処理する</p>
+<p>本パラメータは0.9.0から利用できる。</p>
+<p>本パラメータに値を設定したときの挙動は以下の通りである (Integer)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">threads</span></code> &lt; 0<ul>
+<li><code class="docutils literal"><span class="pre">threads</span></code> に論理CPUコア数が設定され場合と同様の挙動になる</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">threads</span></code> = 0<ul>
+<li><code class="docutils literal"><span class="pre">threads</span></code> に1を設定した場合と同様の挙動になる</li>
+</ul>
+</li>
+<li>1 &lt;= <code class="docutils literal"><span class="pre">threads</span></code> &lt;= 論理CPUコア数<ul>
+<li>指定した値のスレッド数の生成、データ分割が行われる</li>
+</ul>
+</li>
+<li>論理CPUコア数 &lt; <code class="docutils literal"><span class="pre">threads</span></code><ul>
+<li>論理CPUコア数分のスレッドが起動する。ただし、データは <code class="docutils literal"><span class="pre">threads</span></code> 数に分割される</li>
+</ul>
+</li>
+</ul>
+<p class="last">なお、<code class="docutils literal"><span class="pre">threads</span></code> は後方互換性を確保するため省略可能である。省略した場合は従来と同様に1スレッドで動作する</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
 <dt>lsh</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -256,7 +291,7 @@ JSON の各フィールドは以下のとおりである。</p>
 
 <dl class="docutils">
 <dt>例:</dt>
-<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;lsh&quot;</span><span class="p">,</span>
   <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;hash_num&quot;</span> <span class="o">:</span> <span class="mi">64</span>
@@ -300,7 +335,7 @@ JSON の各フィールドは以下のとおりである。</p>
 近傍性の値が大きいほど、よりお互いの近傍性が高いことを意味する。</p>
 </dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
 <span class="p">}</span>
@@ -470,7 +505,7 @@ list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-pa
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

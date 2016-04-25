@@ -23,7 +23,9 @@ JSON の各フィールドは以下のとおりである。
       ``"ucb1"``           UCB1法を利用する。
       ``"softmax"``        softmax法を利用する。
       ``"exp3"``           exp3法を利用する。
+      ``"ts"``             Thompson samplingを利用する [#]_ 
       ==================== ===================================
+   .. [#] Thompson Samplingを利用する場合、register_reward APIで登録する報酬が0または1に限られる点に注意。
 
 .. describe:: parameter
 
@@ -64,6 +66,8 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 0.0 < ``gamma`` <= 1.0
 
+   ts
+      なし
 
 例:
   .. code-block:: javascript

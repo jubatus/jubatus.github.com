@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -233,7 +233,7 @@ When running JubaQL in Production mode, Jubatus must be installed on all YARN no
 <h3>Using Maven Repository<a class="headerlink" href="#using-maven-repository" title="Permalink to this headline">¶</a></h3>
 <p>When using Jubatus on YARN from your Scala application, you can use the Maven repository.
 Add the following to the build.sbt file of your project.</p>
-<div class="highlight-python"><div class="highlight"><pre>// Jubatus Maven Repository
+<div class="highlight-python"><div class="highlight"><pre><span></span>// Jubatus Maven Repository
 resolvers += &quot;Jubatus&quot; at &quot;http://download.jubat.us/maven&quot;
 
 // Dependencies
@@ -250,20 +250,20 @@ libraryDependencies ++= Seq(
 without a Hadoop cluster. In this case the gateway will not start
 the processor using YARN but as a local process.</p>
 <p>Get a Hadoop-enabled version of <a class="reference external" href="http://spark.apache.org/">Apache Spark</a> 1.2.2:</p>
-<div class="highlight-python"><div class="highlight"><pre>wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.2-bin-hadoop2.4.tgz
+<div class="highlight-python"><div class="highlight"><pre><span></span>wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.2-bin-hadoop2.4.tgz
 </pre></div>
 </div>
 <p>and unpack it</p>
-<div class="highlight-python"><div class="highlight"><pre>tar -xzf spark-1.2.2-bin-hadoop2.4.tgz &amp;&amp; export SPARK_DIST=&quot;$(pwd)/spark-1.2.2-bin-hadoop2.4/&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>tar -xzf spark-1.2.2-bin-hadoop2.4.tgz &amp;&amp; export SPARK_DIST=&quot;$(pwd)/spark-1.2.2-bin-hadoop2.4/&quot;
 </pre></div>
 </div>
 <p>Build JubaQLClient</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/jubatus/jubaql-client.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/jubatus/jubaql-client.git
 cd jubaql-client &amp;&amp; sbt start-script &amp;&amp; cd ..
 </pre></div>
 </div>
 <p>Build JubaQLServer</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/jubatus/jubaql-server.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/jubatus/jubaql-server.git
 cd jubaql-server/processor &amp;&amp; sbt assembly &amp;&amp; cd ../..
 cd jubaql-server/gateway &amp;&amp; sbt assembly &amp;&amp; cd ../..
 </pre></div>
@@ -274,7 +274,7 @@ cd jubaql-server/gateway &amp;&amp; sbt assembly &amp;&amp; cd ../..
 simple classification using the data from the <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/shogun">shogun example</a>.
 The training data is located at ./jubaql-server/data/shogun_data.json.</p>
 <p>Start the JubaQLGateway</p>
-<div class="highlight-python"><div class="highlight"><pre>cd jubaql-server &amp;&amp; \
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd jubaql-server &amp;&amp; \
 java -Dspark.distribution=&quot;$SPARK_DIST&quot; \
      -Djubaql.processor.fatjar=processor/target/scala-2.10/jubaql-processor-assembly-1.3.0.jar \
      -jar gateway/target/scala-2.10/jubaql-gateway-assembly-1.3.0.jar \
@@ -282,7 +282,7 @@ java -Dspark.distribution=&quot;$SPARK_DIST&quot; \
 </pre></div>
 </div>
 <p>In a different shell, start the JubaQLClient:</p>
-<div class="highlight-python"><div class="highlight"><pre>./jubaql-client/target/start
+<div class="highlight-python"><div class="highlight"><pre><span></span>./jubaql-client/target/start
 </pre></div>
 </div>
 <ul class="simple">
@@ -292,7 +292,7 @@ up and running correctly, you will see the message: &#8220;This session has
 not been registered. Wait a second.&#8221;</li>
 </ul>
 <p>Run the following JubaQL commands in the client:</p>
-<div class="highlight-python"><div class="highlight"><pre>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
+<div class="highlight-python"><div class="highlight"><pre><span></span>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
 CREATE DATASOURCE shogun (label string, name string) FROM (STORAGE: &quot;file://jubaql-server/data/shogun_data.json&quot;)
 UPDATE MODEL test USING train FROM shogun
 START PROCESSING shogun
@@ -328,37 +328,37 @@ writeable by the user running the JubaQLProcessor application.</li>
 <p>To test the setup, also copy the file <code class="docutils literal"><span class="pre">shogun-data.json</span></code> from the
 JubaQL source tree&#8217;s <code class="docutils literal"><span class="pre">data/</span></code> directory to
 <code class="docutils literal"><span class="pre">/jubatus-on-yarn/sample/shogun_data.json</span></code> in HDFS.</p>
-<div class="highlight-python"><div class="highlight"><pre>hdfs dfs -put ./jubaql-server/data/shogun_data.json /jubatus-on-yarn/sample/
+<div class="highlight-python"><div class="highlight"><pre><span></span>hdfs dfs -put ./jubaql-server/data/shogun_data.json /jubatus-on-yarn/sample/
 </pre></div>
 </div>
 <p>Copy the files <code class="docutils literal"><span class="pre">core-site.xml</span></code>, <code class="docutils literal"><span class="pre">yarn-site.xml</span></code>,
 <code class="docutils literal"><span class="pre">hdfs-site.xml</span></code> containing your Hadoop setup description from one
 of your cluster nodes to some directory and point the environment
 variable <code class="docutils literal"><span class="pre">HADOOP_CONF_DIR</span></code> (e.g. /etc/hadoop/conf)to that directory.</p>
-<div class="highlight-python"><div class="highlight"><pre>cp core-site.xml yarn-site.xml hdfs-site.xml /etc/hadoop/conf
+<div class="highlight-python"><div class="highlight"><pre><span></span>cp core-site.xml yarn-site.xml hdfs-site.xml /etc/hadoop/conf
 export HADOOP_CONF_DIR=/etc/hadoop/conf
 </pre></div>
 </div>
 <p>Get your local computer&#8217;s IP address that points towards the cluster.
 On Linux, given the IP address of one of your cluster nodes, this
 should be possible with something like</p>
-<div class="highlight-python"><div class="highlight"><pre>export MY_IP=$(ip route get 12.34.56.78 | grep -Po &#39;src \K.+&#39;)
+<div class="highlight-python"><div class="highlight"><pre><span></span>export MY_IP=$(ip route get 12.34.56.78 | grep -Po &#39;src \K.+&#39;)
 </pre></div>
 </div>
 <p>Make sure that this IP address can be connected to from the cluster
 nodes and no firewall rules etc. are blocking access.</p>
 <p>Get the addresses of your Zookeeper nodes and concatenate their
 <code class="docutils literal"><span class="pre">host:port</span></code> locations with a comma</p>
-<div class="highlight-python"><div class="highlight"><pre>export MY_ZOOKEEPER=zk1:2181,zk2:2181
+<div class="highlight-python"><div class="highlight"><pre><span></span>export MY_ZOOKEEPER=zk1:2181,zk2:2181
 </pre></div>
 </div>
 <p>Locate a temporary directory in HDFS that Spark can use for
 checkpointing</p>
-<div class="highlight-python"><div class="highlight"><pre>export CHECKPOINT=hdfs:///tmp/spark
+<div class="highlight-python"><div class="highlight"><pre><span></span>export CHECKPOINT=hdfs:///tmp/spark
 </pre></div>
 </div>
 <p>Start the JubaQLGateway</p>
-<div class="highlight-python"><div class="highlight"><pre>cd jubaql-server &amp;&amp; \
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd jubaql-server &amp;&amp; \
 java -Drun.mode=production \
      -Djubaql.checkpointdir=$CHECKPOINT \
      -Djubaql.zookeeper=$MY_ZOOKEEPER \
@@ -369,7 +369,7 @@ java -Drun.mode=production \
 </pre></div>
 </div>
 <p>In adifferent shell, start the JubaQLClient</p>
-<div class="highlight-python"><div class="highlight"><pre>./jubaql-client/target/start
+<div class="highlight-python"><div class="highlight"><pre><span></span>./jubaql-client/target/start
 </pre></div>
 </div>
 <p>You will see the prompt <code class="docutils literal"><span class="pre">jubaql&gt;</span></code> in the shell and you will in fact
@@ -379,7 +379,7 @@ not been registered. Wait a second.&#8221;</p>
 <p>In order to test that your setup is working correctly, you can do a
 simple classification using the <code class="docutils literal"><span class="pre">shogun-data.json</span></code> file you copied to
 HDFS before. Run the following JubaQL commands in the client:</p>
-<div class="highlight-python"><div class="highlight"><pre>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
+<div class="highlight-python"><div class="highlight"><pre><span></span>CREATE CLASSIFIER MODEL test (label: label) AS name WITH unigram CONFIG &#39;{&quot;method&quot;: &quot;AROW&quot;, &quot;parameter&quot;: {&quot;regularization_weight&quot; : 1.0}}&#39;
 CREATE DATASOURCE shogun (label string, name string) FROM (STORAGE: &quot;hdfs:///jubatus-on-yarn/sample/shogun_data.json&quot;)
 UPDATE MODEL test USING train FROM shogun
 START PROCESSING shogun
@@ -449,7 +449,7 @@ server.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

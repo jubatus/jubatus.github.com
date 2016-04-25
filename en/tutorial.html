@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -178,7 +178,7 @@ News20 is divided into learning data (20news-bydate-train, 80%) and experimental
 <div class="section" id="run-tutorial">
 <h2>Run Tutorial<a class="headerlink" href="#run-tutorial" title="Permalink to this headline">¶</a></h2>
 <p>Run <code class="docutils literal"><span class="pre">jubaclassifier</span></code> program, which provides classification feature, specifying a configuration file. Examples of configuration file are stored in <code class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></code> directory.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
 I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
     pid                  : 1855
     user                 : oda
@@ -218,12 +218,12 @@ I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
 Jubatus servers listen on TCP port 9199 by default.
 If you would like to use another port, specify it using <code class="docutils literal"><span class="pre">--rpc-port</span></code> option.
 For example, to use port 19199:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
 </pre></div>
 </div>
 <p>Jubatus and Jubatus clients communicate with each other in <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> protocol over the TCP/IP network.</p>
 <div><img height="120" src="_images/blockdiag-062d5b706c7cac674038d80cf1b51ae6d315c75d.png" width="448" /></div><p>OK, let&#8217;s download the <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">tutorial program</a> and the dataset.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
 $ cd jubatus-tutorial-python
 $ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
 $ tar xvzf 20news-bydate.tar.gz
@@ -231,11 +231,11 @@ $ tar xvzf 20news-bydate.tar.gz
 </div>
 <p>Reboot <cite>jubaclassifier</cite> with <code class="docutils literal"><span class="pre">config.json</span></code> , which is a configuration file prepared for this tutorial.
 Note: do not use the previous configuration file ( <code class="docutils literal"><span class="pre">pa.json</span></code> ) that was used above.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaclassifier --configpath config.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaclassifier --configpath config.json
 </pre></div>
 </div>
 <p>Then, run the program.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python tutorial.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python tutorial.py
 </pre></div>
 </div>
 <p>Now you see the result of classification!
@@ -247,7 +247,7 @@ For each message, <code class="docutils literal"><span class="pre">OK</span></co
 <div class="section" id="dataset">
 <h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
 <p>After expanding <code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code>, you see files like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>20news-bydate-train
+<div class="highlight-python"><div class="highlight"><pre><span></span>20news-bydate-train
 |-- alt.atheism
 |   |-- 49960
 |   |-- 51060
@@ -277,7 +277,7 @@ For each message, <code class="docutils literal"><span class="pre">OK</span></co
 </div>
 <p><code class="docutils literal"><span class="pre">49960</span></code> is one of messages and <code class="docutils literal"><span class="pre">alt.atheism</span></code> is one of newsgroups the message is posted.
 For example, <code class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></code> contains:</p>
-<div class="highlight-python"><div class="highlight"><pre>From: karr@cs.cornell.edu (David Karr)
+<div class="highlight-python"><div class="highlight"><pre><span></span>From: karr@cs.cornell.edu (David Karr)
 Subject: Re: BMW MOA members read this!
 Organization: Cornell Univ. CS Dept, Ithaca NY 14853
 Lines: 19
@@ -308,25 +308,25 @@ preferably longer, of course, and worth being part of.)
 <p>Before using classification service, you need to setup a behavior of <code class="docutils literal"><span class="pre">jubaclassifier</span></code> with JSON as follows.
 There are three configurable parameters: <code class="docutils literal"><span class="pre">method</span></code>, <code class="docutils literal"><span class="pre">converter</span></code> and <code class="docutils literal"><span class="pre">parameter</span></code>.
 Example of these parameters is as follows.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;PA&quot;</span><span class="p">,</span>
-  <span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
     <span class="p">},</span>
-    <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
     <span class="p">],</span>
-    <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+    <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
     <span class="p">],</span>
-    <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
   <span class="p">},</span>
-  <span class="s">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -346,21 +346,21 @@ Jubatus supports this kind of feature vector extraction (in this case, from text
 Additionally, HTML tags are noisy to classify the contents so we will remove the part that is enclosed in <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code>.</p>
 <p>Using this feature, you can apply multiple rules such as natural language process and weighting of values.
 These rules expressed as follows in JSON.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
-  <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&quot;method&quot;</span><span class="p">:</span> <span class="s">&quot;regexp&quot;</span><span class="p">,</span> <span class="s">&quot;pattern&quot;</span><span class="p">:</span> <span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span> <span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s2">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
   <span class="p">},</span>
-  <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;detag&quot;</span><span class="p">,</span> <span class="s">&quot;suffix&quot;</span><span class="p">:</span> <span class="s">&quot;-detagged&quot;</span> <span class="p">}</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;space&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
   <span class="p">],</span>
-  <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-  <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -369,25 +369,25 @@ These rules expressed as follows in JSON.</p>
 <h3>Use of Classifier API: Train &amp; Classify<a class="headerlink" href="#use-of-classifier-api-train-classify" title="Permalink to this headline">¶</a></h3>
 <p>Call <code class="docutils literal"><span class="pre">train</span></code> API (RPC method) to update models in the classifier.
 In the following example, <code class="docutils literal"><span class="pre">d1</span></code> is a datum constructed from a message, and <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> is a label (name of newsgroup) for the message.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
-<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
+<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s2">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>Repeat training the model using many instances of labels and messages in this way.</p>
 <p>Now, call <code class="docutils literal"><span class="pre">classify</span></code> API to analyze with models.
 <code class="docutils literal"><span class="pre">d2</span></code> is a datum constructed from a message, but you don&#8217;t know the newsgroup the message was posted to; so let Jubatus predict it.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s">&quot;message&quot;</span> <span class="p">:</span> <span class="s">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d2</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>The result is as follows.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span>
-     <span class="p">[</span><span class="s">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[[</span>
+     <span class="p">[</span><span class="s2">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
      <span class="o">...</span>
-     <span class="p">[</span><span class="s">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">0.2273217487300002</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
-     <span class="p">[</span><span class="s">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
+     <span class="p">[</span><span class="s2">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">0.2273217487300002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
 <span class="p">]]</span>
 </pre></div>
 </div>
@@ -437,7 +437,7 @@ In the following example, <code class="docutils literal"><span class="pre">d1</s
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

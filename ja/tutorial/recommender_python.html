@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -174,7 +174,7 @@
 13
 14
 15
-16</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">{</span>
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;inverted_index&quot;</span><span class="p">,</span>
   <span class="s2">&quot;converter&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
@@ -230,42 +230,42 @@
 35
 36
 37
-38</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
+38</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">client</span>
 <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">types</span>
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
 
-<span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;recommender_baseball&quot;</span><span class="p">;</span>
+<span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;recommender_baseball&quot;</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
-    <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
+    <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
-        <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
+        <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span>
-          <span class="s">&quot;チーム&quot;</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
-          <span class="s">&quot;打率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">bave</span><span class="p">),</span>
-          <span class="s">&quot;試合数&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">games</span><span class="p">),</span>
-          <span class="s">&quot;打席&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">pa</span><span class="p">),</span>
-          <span class="s">&quot;打数&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">atbat</span><span class="p">),</span>
-          <span class="s">&quot;安打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">hit</span><span class="p">),</span>
-          <span class="s">&quot;本塁打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">homerun</span><span class="p">),</span>
-          <span class="s">&quot;打点&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">runsbat</span><span class="p">),</span>
-          <span class="s">&quot;盗塁&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">stolen</span><span class="p">),</span>
-          <span class="s">&quot;四球&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">bob</span><span class="p">),</span>
-          <span class="s">&quot;死球&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">hbp</span><span class="p">),</span>
-          <span class="s">&quot;三振&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">strikeout</span><span class="p">),</span>
-          <span class="s">&quot;犠打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">sacrifice</span><span class="p">),</span>
-          <span class="s">&quot;併殺打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span>
-          <span class="s">&quot;長打率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">slg</span><span class="p">),</span>
-          <span class="s">&quot;出塁率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">obp</span><span class="p">),</span>
-          <span class="s">&quot;OPS&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">ops</span><span class="p">),</span>
-          <span class="s">&quot;RC27&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">rc27</span><span class="p">),</span>
-          <span class="s">&quot;XR27&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">xr27</span><span class="p">)</span>
+          <span class="s2">&quot;チーム&quot;</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
+          <span class="s2">&quot;打率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">bave</span><span class="p">),</span>
+          <span class="s2">&quot;試合数&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">games</span><span class="p">),</span>
+          <span class="s2">&quot;打席&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">pa</span><span class="p">),</span>
+          <span class="s2">&quot;打数&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">atbat</span><span class="p">),</span>
+          <span class="s2">&quot;安打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">hit</span><span class="p">),</span>
+          <span class="s2">&quot;本塁打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">homerun</span><span class="p">),</span>
+          <span class="s2">&quot;打点&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">runsbat</span><span class="p">),</span>
+          <span class="s2">&quot;盗塁&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">stolen</span><span class="p">),</span>
+          <span class="s2">&quot;四球&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">bob</span><span class="p">),</span>
+          <span class="s2">&quot;死球&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">hbp</span><span class="p">),</span>
+          <span class="s2">&quot;三振&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">strikeout</span><span class="p">),</span>
+          <span class="s2">&quot;犠打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">sacrifice</span><span class="p">),</span>
+          <span class="s2">&quot;併殺打&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span>
+          <span class="s2">&quot;長打率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">slg</span><span class="p">),</span>
+          <span class="s2">&quot;出塁率&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">obp</span><span class="p">),</span>
+          <span class="s2">&quot;OPS&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">ops</span><span class="p">),</span>
+          <span class="s2">&quot;RC27&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">rc27</span><span class="p">),</span>
+          <span class="s2">&quot;XR27&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">xr27</span><span class="p">)</span>
           <span class="p">})</span>
         <span class="n">recommender</span><span class="o">.</span><span class="n">update_row</span><span class="p">(</span><span class="n">pname</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 </pre></div>
@@ -287,23 +287,23 @@
 14
 15
 16
-17</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">client</span>
 <span class="kn">from</span> <span class="nn">jubatus.recommender</span> <span class="kn">import</span> <span class="n">types</span>
 
-<span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;recommender_baseball&quot;</span><span class="p">;</span>
+<span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;recommender_baseball&quot;</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
-    <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
+    <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
-      <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;dat/baseball.csv&#39;</span><span class="p">):</span>
+      <span class="n">pname</span><span class="p">,</span> <span class="n">team</span><span class="p">,</span> <span class="n">bave</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">pa</span><span class="p">,</span> <span class="n">atbat</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">homerun</span><span class="p">,</span> <span class="n">runsbat</span><span class="p">,</span> <span class="n">stolen</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">hbp</span><span class="p">,</span> <span class="n">strikeout</span><span class="p">,</span> <span class="n">sacrifice</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">slg</span><span class="p">,</span> <span class="n">obp</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">rc27</span><span class="p">,</span> <span class="n">xr27</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
       <span class="n">sr</span> <span class="o">=</span> <span class="n">recommender</span><span class="o">.</span><span class="n">similar_row_from_id</span><span class="p">(</span><span class="n">pname</span> <span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-      <span class="k">print</span> <span class="p">(</span><span class="s">&quot;player &quot;</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span>  <span class="s">&quot; is similar to :&quot;</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+      <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;player &quot;</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span>  <span class="s2">&quot; is similar to :&quot;</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -544,7 +544,7 @@ update.pyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り�
 <li><dl class="first docutils">
 <dt>Jubatus Serverでの作業</dt>
 <dd><p class="first">jubarecommenderを起動します。</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ jubarecommender --configpath npb_similar_player.json
+<div class="last highlight-python"><div class="highlight"><pre><span></span>$ jubarecommender --configpath npb_similar_player.json
 </pre></div>
 </div>
 </dd>
@@ -553,12 +553,12 @@ update.pyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り�
 <li><dl class="first docutils">
 <dt>Jubatus Clientでの作業</dt>
 <dd><p class="first">下記のコマンドで実行します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python update.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python update.py
 $ python analyze.py
 </pre></div>
 </div>
 <p>実行結果:</p>
-<div class="last highlight-python"><div class="highlight"><pre>player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
+<div class="last highlight-python"><div class="highlight"><pre><span></span>player 長野久義 is similar to : 糸井嘉男 ミレッジ 栗山巧
 player 大島洋平 is similar to : 本多雄一 石川雄洋 荒波翔
 player 鳥谷敬 is similar to : サブロー 糸井嘉男 和田一浩
 player 坂本勇人 is similar to : 角中勝也 稲葉篤紀 秋山翔吾
@@ -602,7 +602,7 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

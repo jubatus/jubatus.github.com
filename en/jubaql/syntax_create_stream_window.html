@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -157,14 +157,14 @@
   <div class="section" id="create-stream-from-sliding-window">
 <h1>CREATE STREAM FROM SLIDING WINDOW<a class="headerlink" href="#create-stream-from-sliding-window" title="Permalink to this headline">¶</a></h1>
 <p>Syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre>CREATE STREAM stream_name FROM SLIDING WINDOW
+<div class="highlight-python"><div class="highlight"><pre><span></span>CREATE STREAM stream_name FROM SLIDING WINDOW
 (SIZE window_length ADVANCE step_size { TIME | TUPLES })
 OVER input_stream WITH agg_fun(params) [ AS alias ] [, ... ]
 [ WHERE pre_filter ] [ HAVING post_filter ]
 </pre></div>
 </div>
 <p>Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre>jubaql&gt; CREATE STREAM tokugawa FROM SLIDING WINDOW
+<div class="highlight-python"><div class="highlight"><pre><span></span>jubaql&gt; CREATE STREAM tokugawa FROM SLIDING WINDOW
         (SIZE 4 ADVANCE 2 TUPLES)
         OVER ds WITH maxval(label) AS era
         HAVING era = &#39;tokugawa&#39;
@@ -215,7 +215,7 @@ All but the last parameter (which mentions the input column/expression to aggreg
 <li>Quantile: <code class="docutils literal"><span class="pre">quantile(p:</span> <span class="pre">Double,</span> <span class="pre">_):</span> <span class="pre">Double</span></code><ul>
 <li>Returns: The <em>p</em>-quantile of all input values. In case of ambiguity (e.g., the median of <code class="docutils literal"><span class="pre">[0.0,</span> <span class="pre">1.0,</span> <span class="pre">2.0,</span> <span class="pre">3.0]</span></code>), the larger value is returned.</li>
 <li>Parameters:<ul>
-<li><code class="docutils literal"><span class="pre">p</span></code>: standard quantile parameter (<img class="math" src="../_images/math/f254389fec277299dbf49e8d6706a9bb52ef1950.png" alt="p=0.5"/> is the median)</li>
+<li><code class="docutils literal"><span class="pre">p</span></code>: standard quantile parameter (<span class="math">p=0.5</span> is the median)</li>
 </ul>
 </li>
 <li>Alternative forms:<ul>
@@ -225,19 +225,19 @@ All but the last parameter (which mentions the input column/expression to aggreg
 </ul>
 </li>
 <li>Linear approximation: <code class="docutils literal"><span class="pre">linapprox(_):</span> <span class="pre">Map[String,</span> <span class="pre">Double]</span></code><ul>
-<li>Returns: A map with keys <code class="docutils literal"><span class="pre">&quot;a&quot;</span></code> for the slope <img class="math" src="../_images/math/7dd2a5ea01fbd72ad2a58dd1f3d6ecbfde6208a1.png" alt="a"/> and <code class="docutils literal"><span class="pre">&quot;b&quot;</span></code> for the axis intercept <img class="math" src="../_images/math/5e87bf41a96deddf6cb485ff530f153f2590e9cc.png" alt="b"/> of the best linear approximation to the input values. The value <img class="math" src="../_images/math/410a65f64e2a609a2a7f544ed72f0982b719807a.png" alt="y_i"/> at the <img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>-th position (<img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/> counting from 0) is interpreted as a data point <img class="math" src="../_images/math/76676033e16ab8c3512bdd135ddff33c60f5c64d.png" alt="(i, y_i)"/> for the linear approximation. Both  <img class="math" src="../_images/math/7dd2a5ea01fbd72ad2a58dd1f3d6ecbfde6208a1.png" alt="a"/> and  <img class="math" src="../_images/math/5e87bf41a96deddf6cb485ff530f153f2590e9cc.png" alt="b"/> are <code class="docutils literal"><span class="pre">NaN</span></code> if there is just one input value.</li>
+<li>Returns: A map with keys <code class="docutils literal"><span class="pre">&quot;a&quot;</span></code> for the slope <span class="math">a</span> and <code class="docutils literal"><span class="pre">&quot;b&quot;</span></code> for the axis intercept <span class="math">b</span> of the best linear approximation to the input values. The value <span class="math">y_i</span> at the <span class="math">i</span>-th position (<span class="math">i</span> counting from 0) is interpreted as a data point <span class="math">(i, y_i)</span> for the linear approximation. Both  <span class="math">a</span> and  <span class="math">b</span> are <code class="docutils literal"><span class="pre">NaN</span></code> if there is just one input value.</li>
 </ul>
 </li>
 <li>Fourier coefficients: <code class="docutils literal"><span class="pre">fourier(_):</span> <span class="pre">Map[String,</span> <span class="pre">Array[Double]]</span></code><ul>
-<li>Returns: A map with keys <code class="docutils literal"><span class="pre">&quot;re&quot;</span></code> and <code class="docutils literal"><span class="pre">&quot;im&quot;</span></code> for the real and imaginary parts of the Fourier coefficients of a function represented by the input values. The number of values should be a power of 2 (or zeros will be added) and they are interpreted as the values of a function at equidistant positions in the interval <img class="math" src="../_images/math/9d83c38ed2c34294a2a50325c2a2fed460a8764c.png" alt="[0, 2\pi)"/>. The coefficients are computed using the method  <code class="docutils literal"><span class="pre">FastFourierTransformer.transformInPlace(data,</span> <span class="pre">DftNormalization.STANDARD,</span> <span class="pre">TransformType.INVERSE)</span></code> from Apache Commons Math.</li>
+<li>Returns: A map with keys <code class="docutils literal"><span class="pre">&quot;re&quot;</span></code> and <code class="docutils literal"><span class="pre">&quot;im&quot;</span></code> for the real and imaginary parts of the Fourier coefficients of a function represented by the input values. The number of values should be a power of 2 (or zeros will be added) and they are interpreted as the values of a function at equidistant positions in the interval <span class="math">[0, 2\pi)</span>. The coefficients are computed using the method  <code class="docutils literal"><span class="pre">FastFourierTransformer.transformInPlace(data,</span> <span class="pre">DftNormalization.STANDARD,</span> <span class="pre">TransformType.INVERSE)</span></code> from Apache Commons Math.</li>
 </ul>
 </li>
 <li>Wavelet coefficients: <code class="docutils literal"><span class="pre">wavelet(_):</span> <span class="pre">Array[Double]</span></code><ul>
-<li>Returns the Haar wavelets coefficients of a function represented by the input values. The number of values should be a power of 2 (or zeros will be added) and they are interpreted as the values of a function at equidistant positions in the interval <img class="math" src="../_images/math/787ef8897f85416cae83d74ef5630a9c5973d996.png" alt="[0, 1]"/>.</li>
+<li>Returns the Haar wavelets coefficients of a function represented by the input values. The number of values should be a power of 2 (or zeros will be added) and they are interpreted as the values of a function at equidistant positions in the interval <span class="math">[0, 1]</span>.</li>
 </ul>
 </li>
 <li>Histogram: <code class="docutils literal"><span class="pre">histogram(lowestUpperBound:</span> <span class="pre">Double,</span> <span class="pre">highestLowerBound:</span> <span class="pre">Double,</span> <span class="pre">numBins:</span> <span class="pre">Int,</span> <span class="pre">_):</span> <span class="pre">Array[Double]</span></code><ul>
-<li>Returns: An array of doubles in the range <img class="math" src="../_images/math/787ef8897f85416cae83d74ef5630a9c5973d996.png" alt="[0, 1]"/> with the <img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>-th number describing the fraction of items in the <img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>-th bin. Note that each bin describes a half-closed interval <img class="math" src="../_images/math/45ae0843d9db4fbcae5b511e84991b9af62b1202.png" alt="[a, b)"/>.</li>
+<li>Returns: An array of doubles in the range <span class="math">[0, 1]</span> with the <span class="math">i</span>-th number describing the fraction of items in the <span class="math">i</span>-th bin. Note that each bin describes a half-closed interval <span class="math">[a, b)</span>.</li>
 <li>Parameters:<ul>
 <li><code class="docutils literal"><span class="pre">lowestUpperBound</span></code>: upper bound of the lowest bin</li>
 <li><code class="docutils literal"><span class="pre">highestLowerBound</span></code>: lower bound of the highest bin</li>
@@ -313,7 +313,7 @@ All but the last parameter (which mentions the input column/expression to aggreg
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

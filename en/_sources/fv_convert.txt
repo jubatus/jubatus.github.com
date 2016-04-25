@@ -176,7 +176,7 @@ The followings are available values of "method" and keys that must be specified.
   :pattern:  Specifies a regular expression to match.
   :replace:  Specifies a string to replace with.
 
- For list of regular expressions available, refer to the documentation of the regular expression engine (`oniguruma <http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt>`_ or `re2 <http://code.google.com/p/re2/wiki/Syntax>`_).
+ For list of regular expressions available, refer to the documentation of the regular expression engine (`oniguruma <https://github.com/kkos/oniguruma/blob/master/doc/RE>`_ or `re2 <https://github.com/google/re2/wiki/Syntax>`_).
  The regular expression engine can be selected at compile time (oniguruma is used when using binary packages).
 
  For example, in order to remove all HTML tags, we should define such a string_filter_type.
@@ -385,7 +385,7 @@ The followings are available values of "method" and keys that must be specified.
   :pattern:   Specifies mathing pattrn.
   :group:     Specifies group to be extracted as a keyword. If this value is 0, whole match is used as a keyword. If value is positive integer, only specified group extracted with () is used. Default value is 0. "group" must be specified with string type (e.g. "2"), not numeric type (e.g. 2).
 
- For list of regular expressions available, refer to the documentation of the regular expression engine (`oniguruma <http://www.geocities.jp/kosako3/oniguruma/doc/RE.txt>`_ or `re2 <http://code.google.com/p/re2/wiki/Syntax>`_).
+ For list of regular expressions available, refer to the documentation of the regular expression engine (`oniguruma <https://github.com/kkos/oniguruma/blob/master/doc/RE>`_ or `re2 <https://github.com/google/re2/wiki/Syntax>`_).
  The regular expression engine can be selected at compile time (oniguruma is used when using binary packages).
 
  The following is simplest example in which we extract every representation of date (YYYY/MM/DD).
@@ -610,12 +610,12 @@ Note that some plugins are not available depending on your compile options.
 .. describe:: libmecab_splitter.so
 
  We can specify this plugin in "string_types".
- Separate given Japanese document into words by `MeCab <http://code.google.com/p/mecab/>`_ and use each word as a feature.
+ Separate given Japanese document into words by `MeCab <https://github.com/taku910/mecab>`_ and use each word as a feature.
  This plugin is available only when compiled with ``--enable-mecab``.
 
   :function:   Specify "create".
   :arg:        Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). "arg" is not specified, Mecab works with default configuration.
-               Refer to the `document of MeCab <http://mecab.googlecode.com/svn/trunk/mecab/doc/mecab.html>`_ about how to specify arguments.
+               Refer to the `document of MeCab <http://taku910.github.io/mecab/mecab.html>`_ about how to specify arguments.
   :ngram:      Specify `N` of morpheme (word) N-gram that is constructed from morphemes extracted by MeCab.
                When "ngram" is not specified,  `N` is assumed as `1`, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
                Note that `N` must be specified as string, not integer (see the example below.)
@@ -654,7 +654,7 @@ Note that some plugins are not available depending on your compile options.
 .. describe:: libux_splitter.so
 
  We can specify this plugin in "string_types".
- Extract keywords from given document by way of dictionary matching with `ux-trie <http://code.google.com/p/ux-trie/>`_ and use each keyword as a feature.
+ Extract keywords from given document by way of dictionary matching with `ux-trie <https://github.com/hillbig/ux-trie>`_ and use each keyword as a feature.
  Matching is a simple longest matching. Note that it is fast but precision may be low.
  This plugin is available only when compiled with ``--enable-ux``.
 

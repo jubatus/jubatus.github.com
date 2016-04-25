@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -158,31 +158,31 @@
 <h2>ソースコード<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>このサンプルプログラムでは、学習の設定をするconfig.jsonと外れ値検知を行うanomaly.rbを利用します。以下にソースコードを記載します。</p>
 <p><strong>config.json</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="p">{</span>
-<span class="mo">02</span> <span class="p">:</span>  <span class="s">&quot;method&quot;</span> <span class="p">:</span> <span class="s">&quot;lof&quot;</span><span class="p">,</span>
-<span class="mo">03</span> <span class="p">:</span>  <span class="s">&quot;parameter&quot;</span> <span class="p">:</span> <span class="p">{</span>
-<span class="mo">04</span> <span class="p">:</span>   <span class="s">&quot;nearest_neighbor_num&quot;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-<span class="mo">05</span> <span class="p">:</span>   <span class="s">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-<span class="mo">06</span> <span class="p">:</span>   <span class="s">&quot;method&quot;</span> <span class="p">:</span> <span class="s">&quot;euclid_lsh&quot;</span><span class="p">,</span>
-<span class="mo">07</span> <span class="p">:</span>   <span class="s">&quot;parameter&quot;</span> <span class="p">:</span> <span class="p">{</span>
-<span class="mi">08</span> <span class="p">:</span>    <span class="s">&quot;hash_num&quot;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-<span class="mi">09</span> <span class="p">:</span>    <span class="s">&quot;table_num&quot;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-<span class="mi">10</span> <span class="p">:</span>    <span class="s">&quot;probe_num&quot;</span> <span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
-<span class="mi">11</span> <span class="p">:</span>    <span class="s">&quot;bin_width&quot;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-<span class="mi">12</span> <span class="p">:</span>    <span class="s">&quot;seed&quot;</span> <span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
-<span class="mi">13</span> <span class="p">:</span>    <span class="s">&quot;retain_projection&quot;</span> <span class="p">:</span> <span class="n">true</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="mo">01</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mo">02</span> <span class="p">:</span>  <span class="s2">&quot;method&quot;</span> <span class="p">:</span> <span class="s2">&quot;lof&quot;</span><span class="p">,</span>
+<span class="mo">03</span> <span class="p">:</span>  <span class="s2">&quot;parameter&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mo">04</span> <span class="p">:</span>   <span class="s2">&quot;nearest_neighbor_num&quot;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="mo">05</span> <span class="p">:</span>   <span class="s2">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+<span class="mo">06</span> <span class="p">:</span>   <span class="s2">&quot;method&quot;</span> <span class="p">:</span> <span class="s2">&quot;euclid_lsh&quot;</span><span class="p">,</span>
+<span class="mo">07</span> <span class="p">:</span>   <span class="s2">&quot;parameter&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mi">08</span> <span class="p">:</span>    <span class="s2">&quot;hash_num&quot;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+<span class="mi">09</span> <span class="p">:</span>    <span class="s2">&quot;table_num&quot;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+<span class="mi">10</span> <span class="p">:</span>    <span class="s2">&quot;probe_num&quot;</span> <span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+<span class="mi">11</span> <span class="p">:</span>    <span class="s2">&quot;bin_width&quot;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="mi">12</span> <span class="p">:</span>    <span class="s2">&quot;seed&quot;</span> <span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
+<span class="mi">13</span> <span class="p">:</span>    <span class="s2">&quot;retain_projection&quot;</span> <span class="p">:</span> <span class="n">true</span>
 <span class="mi">14</span> <span class="p">:</span>   <span class="p">}</span>
 <span class="mi">15</span> <span class="p">:</span>  <span class="p">},</span>
 <span class="mi">16</span> <span class="p">:</span>
-<span class="mi">17</span> <span class="p">:</span>  <span class="s">&quot;converter&quot;</span> <span class="p">:</span> <span class="p">{</span>
-<span class="mi">18</span> <span class="p">:</span>   <span class="s">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mi">19</span> <span class="p">:</span>   <span class="s">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-<span class="mi">20</span> <span class="p">:</span>   <span class="s">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mi">21</span> <span class="p">:</span>   <span class="s">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
-<span class="mi">22</span> <span class="p">:</span>   <span class="s">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mi">23</span> <span class="p">:</span>   <span class="s">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span><span class="p">:</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">:</span><span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="s">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">,</span> <span class="s">&quot;sample_weight&quot;</span> <span class="p">:</span> <span class="s">&quot;bin&quot;</span><span class="p">}],</span>
-<span class="mi">24</span> <span class="p">:</span>   <span class="s">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
-<span class="mi">25</span> <span class="p">:</span>   <span class="s">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;key&quot;</span> <span class="p">:</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="s">&quot;num&quot;</span><span class="p">}]</span>
+<span class="mi">17</span> <span class="p">:</span>  <span class="s2">&quot;converter&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="mi">18</span> <span class="p">:</span>   <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">19</span> <span class="p">:</span>   <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">20</span> <span class="p">:</span>   <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">21</span> <span class="p">:</span>   <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="mi">22</span> <span class="p">:</span>   <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">23</span> <span class="p">:</span>   <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span> <span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}],</span>
+<span class="mi">24</span> <span class="p">:</span>   <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="mi">25</span> <span class="p">:</span>   <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;key&quot;</span> <span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}]</span>
 <span class="mi">26</span> <span class="p">:</span>  <span class="p">}</span>
 <span class="mi">27</span> <span class="p">:</span> <span class="p">}</span>
 </pre></div>
@@ -190,7 +190,7 @@
 <p><strong>anomaly.rb</strong></p>
 <p>このクライアントは Jubatus 0.4.x 向けです。
 Jubatus 0.5.x 以降で使用するためには微修正が必要です。</p>
-<div class="highlight-ruby"><div class="highlight"><pre><span class="mo">01</span> <span class="p">:</span> <span class="c1">#!/usr/bin/env ruby</span>
+<div class="highlight-ruby"><div class="highlight"><pre><span></span><span class="mo">01</span> <span class="p">:</span> <span class="c1">#!/usr/bin/env ruby</span>
 <span class="mo">02</span> <span class="p">:</span> <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="mo">03</span> <span class="p">:</span>
 <span class="mo">04</span> <span class="p">:</span> <span class="vg">$host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
@@ -337,7 +337,7 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
 <p><strong>［Jubatus Serverでの作業］</strong></p>
 <blockquote>
 <div><p>jubaanomalyを起動します。</p>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaanomaly --configpath config.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaanomaly --configpath config.json
 </pre></div>
 </div>
 </div></blockquote>
@@ -345,7 +345,7 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
 <blockquote>
 <div>必要なパッケージとRubyクライアントを用意し、実行します。</div></blockquote>
 <p><strong>［実行結果］</strong></p>
-<div class="highlight-python"><div class="highlight"><pre>(&#39;574&#39;, 0.99721104) normal.
+<div class="highlight-python"><div class="highlight"><pre><span></span>(&#39;574&#39;, 0.99721104) normal.
 (&#39;697&#39;, 1.4958459) normal.
 (&#39;1127&#39;, 0.79527026) normal.
 (&#39;1148&#39;, 1.1487594) normal.
@@ -394,7 +394,7 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

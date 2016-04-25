@@ -5,7 +5,7 @@
 Jubatus のインストール
 ----------------------
 
-Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS (64-bit) を公式にサポートしています。
+Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS / 14.04  (64-bit) を公式にサポートしています。
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
 
 また、その他の Linux 環境 (32-bit を含む) と Mac OS X が試験的にサポートされています。
@@ -40,14 +40,18 @@ RHEL 6 では、依存パッケージ (``oniguruma``) のインストールに `
   // RHEL 6 で、oniguruma パッケージが存在しない場合 (rhel-6-server-optional-rpms が利用できない場合)
   $ sudo yum --enablerepo=jubatus-optional install jubatus jubatus-client
 
-Ubuntu Server 12.04 LTS (64-bit)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ubuntu Server (64-bit)
+~~~~~~~~~~~~~~~~~~~~~~
 
 以下の行を ``/etc/apt/sources.list.d/jubatus.list`` に記述して、Jubatus の Apt リポジトリをシステムに登録します。
 
 ::
 
-  deb http://download.jubat.us/apt binary/
+  // Ubuntu 12.04 (Precise) の場合
+  deb http://download.jubat.us/apt/ubuntu/precise binary/
+
+  // Ubuntu 14.04 (Trusty) の場合
+  deb http://download.jubat.us/apt/ubuntu/trusty binary/
 
 ``jubatus`` のパッケージをインストールします。
 
@@ -65,7 +69,7 @@ Ubuntu Server 12.04 LTS (64-bit)
 
 これで、Jubatus が ``/opt/jubatus`` にインストールされました。
 
-Jubatus を使う前に、毎回 ``profile`` スクリプトから環境変数を読み込む必要があります。
+Jubatus を使う前に、毎回 ``profile`` スクリプトから環境変数を読み込む必要があります (``~/.bash_profile`` に追記しておくと便利です)。
 
 ::
 
@@ -166,7 +170,7 @@ Java
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>[0.8,)</version>
+       <version>[0.9,)</version>
      </dependency>
    </dependencies>
 

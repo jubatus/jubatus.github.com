@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -157,13 +157,13 @@
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
 <p>In this sample program, we will explain 1) how to configure the learning-algorithms in Jubatus with the config file &#8216;config.json&#8217;; 2) how to detect the anomaly data with the example file ‘lof.java’. Here are the source codes of &#8216;config.json&#8217; and &#8216;lof.java&#8217;.</p>
 <p><strong>config.json</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="mi">01</span> <span class="o">:</span> <span class="o">{</span>
-<span class="mi">02</span> <span class="o">:</span>  <span class="s">&quot;method&quot;</span> <span class="o">:</span> <span class="s">&quot;lof&quot;</span><span class="o">,</span>
-<span class="mi">03</span> <span class="o">:</span>  <span class="s">&quot;parameter&quot;</span> <span class="o">:</span> <span class="o">{</span>
-<span class="mi">04</span> <span class="o">:</span>   <span class="s">&quot;nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="o">,</span>
-<span class="mi">05</span> <span class="o">:</span>   <span class="s">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">30</span><span class="o">,</span>
-<span class="mi">06</span> <span class="o">:</span>   <span class="s">&quot;method&quot;</span> <span class="o">:</span> <span class="s">&quot;euclid_lsh&quot;</span><span class="o">,</span>
-<span class="mi">07</span> <span class="o">:</span>   <span class="s">&quot;parameter&quot;</span> <span class="o">:</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="mo">01</span> <span class="o">:</span> <span class="o">{</span>
+<span class="mo">02</span> <span class="o">:</span>  <span class="s">&quot;method&quot;</span> <span class="o">:</span> <span class="s">&quot;lof&quot;</span><span class="o">,</span>
+<span class="mo">03</span> <span class="o">:</span>  <span class="s">&quot;parameter&quot;</span> <span class="o">:</span> <span class="o">{</span>
+<span class="mo">04</span> <span class="o">:</span>   <span class="s">&quot;nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="o">,</span>
+<span class="mo">05</span> <span class="o">:</span>   <span class="s">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">30</span><span class="o">,</span>
+<span class="mo">06</span> <span class="o">:</span>   <span class="s">&quot;method&quot;</span> <span class="o">:</span> <span class="s">&quot;euclid_lsh&quot;</span><span class="o">,</span>
+<span class="mo">07</span> <span class="o">:</span>   <span class="s">&quot;parameter&quot;</span> <span class="o">:</span> <span class="o">{</span>
 <span class="mi">08</span> <span class="o">:</span>    <span class="s">&quot;lsh_num&quot;</span> <span class="o">:</span> <span class="mi">8</span><span class="o">,</span>
 <span class="mi">09</span> <span class="o">:</span>    <span class="s">&quot;table_num&quot;</span> <span class="o">:</span> <span class="mi">16</span><span class="o">,</span>
 <span class="mi">10</span> <span class="o">:</span>    <span class="s">&quot;probe_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="o">,</span>
@@ -187,85 +187,85 @@
 </pre></div>
 </div>
 <p><strong>anomaly.java</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="mi">001</span> <span class="o">:</span> <span class="kn">package</span> <span class="nn">lof</span><span class="o">;</span>
-<span class="mi">002</span> <span class="o">:</span>
-<span class="mi">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
-<span class="mi">004</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
-<span class="mi">005</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
-<span class="mi">006</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="mi">007</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
-<span class="mi">008</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
-<span class="mi">009</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-<span class="mi">010</span> <span class="o">:</span>
-<span class="mi">011</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.anomaly.*</span><span class="o">;</span>
-<span class="mi">012</span> <span class="o">:</span>
-<span class="mi">013</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lof</span> <span class="o">{</span>
-<span class="mi">014</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
-<span class="mi">015</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
-<span class="mi">016</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;anom_kddcup&quot;</span><span class="o">;</span>
-<span class="mi">017</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FILE_PATH</span> <span class="o">=</span> <span class="s">&quot;./src/main/resources/&quot;</span><span class="o">;</span>
-<span class="mi">018</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TEXT_NAME</span> <span class="o">=</span> <span class="s">&quot;kddcup.data_10_percent.txt&quot;</span><span class="o">;</span>
-<span class="mi">019</span> <span class="o">:</span>
-<span class="mi">020</span> <span class="o">:</span>  <span class="c1">// declare all the data items consisted in each piece of training data</span>
-<span class="mi">021</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">TEXT_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
-<span class="mi">022</span> <span class="o">:</span>          <span class="s">&quot;duration&quot;</span><span class="o">,</span>
-<span class="mi">023</span> <span class="o">:</span>          <span class="s">&quot;protocol_type&quot;</span><span class="o">,</span>
-<span class="mi">024</span> <span class="o">:</span>          <span class="s">&quot;service&quot;</span><span class="o">,</span>
-<span class="mi">025</span> <span class="o">:</span>          <span class="s">&quot;flag&quot;</span><span class="o">,</span>
-<span class="mi">026</span> <span class="o">:</span>          <span class="s">&quot;src_bytes&quot;</span><span class="o">,</span>
-<span class="mi">027</span> <span class="o">:</span>          <span class="s">&quot;dst_bytes&quot;</span><span class="o">,</span>
-<span class="mi">028</span> <span class="o">:</span>          <span class="s">&quot;land&quot;</span><span class="o">,</span>
-<span class="mi">029</span> <span class="o">:</span>          <span class="s">&quot;wrong_fragment&quot;</span><span class="o">,</span>
-<span class="mi">030</span> <span class="o">:</span>          <span class="s">&quot;urgent&quot;</span><span class="o">,</span>
-<span class="mi">031</span> <span class="o">:</span>          <span class="s">&quot;hot&quot;</span><span class="o">,</span>
-<span class="mi">032</span> <span class="o">:</span>          <span class="s">&quot;num_failed_logins&quot;</span><span class="o">,</span>
-<span class="mi">033</span> <span class="o">:</span>          <span class="s">&quot;logged_in&quot;</span><span class="o">,</span>
-<span class="mi">034</span> <span class="o">:</span>          <span class="s">&quot;num_compromised&quot;</span><span class="o">,</span>
-<span class="mi">035</span> <span class="o">:</span>          <span class="s">&quot;root_shell&quot;</span><span class="o">,</span>
-<span class="mi">036</span> <span class="o">:</span>          <span class="s">&quot;su_attempted&quot;</span><span class="o">,</span>
-<span class="mi">037</span> <span class="o">:</span>          <span class="s">&quot;num_root&quot;</span><span class="o">,</span>
-<span class="mi">038</span> <span class="o">:</span>          <span class="s">&quot;num_file_creations&quot;</span><span class="o">,</span>
-<span class="mi">039</span> <span class="o">:</span>          <span class="s">&quot;num_shells&quot;</span><span class="o">,</span>
-<span class="mi">040</span> <span class="o">:</span>          <span class="s">&quot;num_access_files&quot;</span><span class="o">,</span>
-<span class="mi">041</span> <span class="o">:</span>          <span class="s">&quot;num_outbound_cmds&quot;</span><span class="o">,</span>
-<span class="mi">042</span> <span class="o">:</span>          <span class="s">&quot;is_host_login&quot;</span><span class="o">,</span>
-<span class="mi">043</span> <span class="o">:</span>          <span class="s">&quot;is_guest_login&quot;</span><span class="o">,</span>
-<span class="mi">044</span> <span class="o">:</span>          <span class="s">&quot;count&quot;</span><span class="o">,</span>
-<span class="mi">045</span> <span class="o">:</span>          <span class="s">&quot;srv_count&quot;</span><span class="o">,</span>
-<span class="mi">046</span> <span class="o">:</span>          <span class="s">&quot;serror_rate&quot;</span><span class="o">,</span>
-<span class="mi">047</span> <span class="o">:</span>          <span class="s">&quot;srv_serror_rate&quot;</span><span class="o">,</span>
-<span class="mi">048</span> <span class="o">:</span>          <span class="s">&quot;rerror_rate&quot;</span><span class="o">,</span>
-<span class="mi">049</span> <span class="o">:</span>          <span class="s">&quot;srv_rerror_rate&quot;</span><span class="o">,</span>
-<span class="mi">050</span> <span class="o">:</span>          <span class="s">&quot;same_srv_rate&quot;</span><span class="o">,</span>
-<span class="mi">051</span> <span class="o">:</span>          <span class="s">&quot;diff_srv_rate&quot;</span><span class="o">,</span>
-<span class="mi">052</span> <span class="o">:</span>          <span class="s">&quot;srv_diff_host_rate&quot;</span><span class="o">,</span>
-<span class="mi">053</span> <span class="o">:</span>          <span class="s">&quot;dst_host_count&quot;</span><span class="o">,</span>
-<span class="mi">054</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_count&quot;</span><span class="o">,</span>
-<span class="mi">055</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_srv_rate&quot;</span><span class="o">,</span>
-<span class="mi">056</span> <span class="o">:</span>          <span class="s">&quot;dst_host_diff_srv_rate&quot;</span><span class="o">,</span>
-<span class="mi">057</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_src_port_rate&quot;</span><span class="o">,</span>
-<span class="mi">058</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="o">,</span>
-<span class="mi">059</span> <span class="o">:</span>          <span class="s">&quot;dst_host_serror_rate&quot;</span><span class="o">,</span>
-<span class="mi">060</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_serror_rate&quot;</span><span class="o">,</span>
-<span class="mi">061</span> <span class="o">:</span>          <span class="s">&quot;dst_host_rerror_rate&quot;</span><span class="o">,</span>
-<span class="mi">062</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_rerror_rate&quot;</span><span class="o">,</span>
-<span class="mi">063</span> <span class="o">:</span>          <span class="s">&quot;label&quot;</span>
-<span class="mi">064</span> <span class="o">:</span>  <span class="o">};</span>
-<span class="mi">065</span> <span class="o">:</span>
-<span class="mi">066</span> <span class="o">:</span>  <span class="c1">// items in String type</span>
-<span class="mi">067</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">STRING_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
-<span class="mi">068</span> <span class="o">:</span>          <span class="s">&quot;protocol_type&quot;</span><span class="o">,</span>
-<span class="mi">069</span> <span class="o">:</span>          <span class="s">&quot;service&quot;</span><span class="o">,</span>
-<span class="mi">070</span> <span class="o">:</span>          <span class="s">&quot;flag&quot;</span><span class="o">,</span>
-<span class="mi">071</span> <span class="o">:</span>          <span class="s">&quot;land&quot;</span><span class="o">,</span>
-<span class="mi">072</span> <span class="o">:</span>          <span class="s">&quot;logged_in&quot;</span><span class="o">,</span>
-<span class="mi">073</span> <span class="o">:</span>          <span class="s">&quot;is_host_login&quot;</span><span class="o">,</span>
-<span class="mi">074</span> <span class="o">:</span>          <span class="s">&quot;is_guest_login&quot;</span>
-<span class="mi">075</span> <span class="o">:</span>  <span class="o">};</span>
-<span class="mi">076</span> <span class="o">:</span>
-<span class="mi">077</span> <span class="o">:</span>  <span class="c1">// items in Double type</span>
-<span class="mi">078</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">DOUBLE_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
-<span class="mi">079</span> <span class="o">:</span>          <span class="s">&quot;duration&quot;</span><span class="o">,</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="mo">001</span> <span class="o">:</span> <span class="kn">package</span> <span class="nn">lof</span><span class="o">;</span>
+<span class="mo">002</span> <span class="o">:</span>
+<span class="mo">003</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="mo">004</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
+<span class="mo">005</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+<span class="mo">006</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="mo">007</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="mo">00</span><span class="mi">8</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="mo">00</span><span class="mi">9</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="mo">010</span> <span class="o">:</span>
+<span class="mo">011</span> <span class="o">:</span> <span class="kn">import</span> <span class="nn">us.jubat.anomaly.*</span><span class="o">;</span>
+<span class="mo">012</span> <span class="o">:</span>
+<span class="mo">013</span> <span class="o">:</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lof</span> <span class="o">{</span>
+<span class="mo">014</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HOST</span> <span class="o">=</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">;</span>
+<span class="mo">015</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PORT</span> <span class="o">=</span> <span class="mi">9199</span><span class="o">;</span>
+<span class="mo">016</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s">&quot;anom_kddcup&quot;</span><span class="o">;</span>
+<span class="mo">017</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FILE_PATH</span> <span class="o">=</span> <span class="s">&quot;./src/main/resources/&quot;</span><span class="o">;</span>
+<span class="mo">01</span><span class="mi">8</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TEXT_NAME</span> <span class="o">=</span> <span class="s">&quot;kddcup.data_10_percent.txt&quot;</span><span class="o">;</span>
+<span class="mo">01</span><span class="mi">9</span> <span class="o">:</span>
+<span class="mo">020</span> <span class="o">:</span>  <span class="c1">// declare all the data items consisted in each piece of training data</span>
+<span class="mo">021</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">TEXT_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mo">022</span> <span class="o">:</span>          <span class="s">&quot;duration&quot;</span><span class="o">,</span>
+<span class="mo">023</span> <span class="o">:</span>          <span class="s">&quot;protocol_type&quot;</span><span class="o">,</span>
+<span class="mo">024</span> <span class="o">:</span>          <span class="s">&quot;service&quot;</span><span class="o">,</span>
+<span class="mo">025</span> <span class="o">:</span>          <span class="s">&quot;flag&quot;</span><span class="o">,</span>
+<span class="mo">026</span> <span class="o">:</span>          <span class="s">&quot;src_bytes&quot;</span><span class="o">,</span>
+<span class="mo">027</span> <span class="o">:</span>          <span class="s">&quot;dst_bytes&quot;</span><span class="o">,</span>
+<span class="mo">02</span><span class="mi">8</span> <span class="o">:</span>          <span class="s">&quot;land&quot;</span><span class="o">,</span>
+<span class="mo">02</span><span class="mi">9</span> <span class="o">:</span>          <span class="s">&quot;wrong_fragment&quot;</span><span class="o">,</span>
+<span class="mo">030</span> <span class="o">:</span>          <span class="s">&quot;urgent&quot;</span><span class="o">,</span>
+<span class="mo">031</span> <span class="o">:</span>          <span class="s">&quot;hot&quot;</span><span class="o">,</span>
+<span class="mo">032</span> <span class="o">:</span>          <span class="s">&quot;num_failed_logins&quot;</span><span class="o">,</span>
+<span class="mo">033</span> <span class="o">:</span>          <span class="s">&quot;logged_in&quot;</span><span class="o">,</span>
+<span class="mo">034</span> <span class="o">:</span>          <span class="s">&quot;num_compromised&quot;</span><span class="o">,</span>
+<span class="mo">035</span> <span class="o">:</span>          <span class="s">&quot;root_shell&quot;</span><span class="o">,</span>
+<span class="mo">036</span> <span class="o">:</span>          <span class="s">&quot;su_attempted&quot;</span><span class="o">,</span>
+<span class="mo">037</span> <span class="o">:</span>          <span class="s">&quot;num_root&quot;</span><span class="o">,</span>
+<span class="mo">03</span><span class="mi">8</span> <span class="o">:</span>          <span class="s">&quot;num_file_creations&quot;</span><span class="o">,</span>
+<span class="mo">03</span><span class="mi">9</span> <span class="o">:</span>          <span class="s">&quot;num_shells&quot;</span><span class="o">,</span>
+<span class="mo">040</span> <span class="o">:</span>          <span class="s">&quot;num_access_files&quot;</span><span class="o">,</span>
+<span class="mo">041</span> <span class="o">:</span>          <span class="s">&quot;num_outbound_cmds&quot;</span><span class="o">,</span>
+<span class="mo">042</span> <span class="o">:</span>          <span class="s">&quot;is_host_login&quot;</span><span class="o">,</span>
+<span class="mo">043</span> <span class="o">:</span>          <span class="s">&quot;is_guest_login&quot;</span><span class="o">,</span>
+<span class="mo">044</span> <span class="o">:</span>          <span class="s">&quot;count&quot;</span><span class="o">,</span>
+<span class="mo">045</span> <span class="o">:</span>          <span class="s">&quot;srv_count&quot;</span><span class="o">,</span>
+<span class="mo">046</span> <span class="o">:</span>          <span class="s">&quot;serror_rate&quot;</span><span class="o">,</span>
+<span class="mo">047</span> <span class="o">:</span>          <span class="s">&quot;srv_serror_rate&quot;</span><span class="o">,</span>
+<span class="mo">04</span><span class="mi">8</span> <span class="o">:</span>          <span class="s">&quot;rerror_rate&quot;</span><span class="o">,</span>
+<span class="mo">04</span><span class="mi">9</span> <span class="o">:</span>          <span class="s">&quot;srv_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mo">050</span> <span class="o">:</span>          <span class="s">&quot;same_srv_rate&quot;</span><span class="o">,</span>
+<span class="mo">051</span> <span class="o">:</span>          <span class="s">&quot;diff_srv_rate&quot;</span><span class="o">,</span>
+<span class="mo">052</span> <span class="o">:</span>          <span class="s">&quot;srv_diff_host_rate&quot;</span><span class="o">,</span>
+<span class="mo">053</span> <span class="o">:</span>          <span class="s">&quot;dst_host_count&quot;</span><span class="o">,</span>
+<span class="mo">054</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_count&quot;</span><span class="o">,</span>
+<span class="mo">055</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_srv_rate&quot;</span><span class="o">,</span>
+<span class="mo">056</span> <span class="o">:</span>          <span class="s">&quot;dst_host_diff_srv_rate&quot;</span><span class="o">,</span>
+<span class="mo">057</span> <span class="o">:</span>          <span class="s">&quot;dst_host_same_src_port_rate&quot;</span><span class="o">,</span>
+<span class="mo">05</span><span class="mi">8</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="o">,</span>
+<span class="mo">05</span><span class="mi">9</span> <span class="o">:</span>          <span class="s">&quot;dst_host_serror_rate&quot;</span><span class="o">,</span>
+<span class="mo">060</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_serror_rate&quot;</span><span class="o">,</span>
+<span class="mo">061</span> <span class="o">:</span>          <span class="s">&quot;dst_host_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mo">062</span> <span class="o">:</span>          <span class="s">&quot;dst_host_srv_rerror_rate&quot;</span><span class="o">,</span>
+<span class="mo">063</span> <span class="o">:</span>          <span class="s">&quot;label&quot;</span>
+<span class="mo">064</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mo">065</span> <span class="o">:</span>
+<span class="mo">066</span> <span class="o">:</span>  <span class="c1">// items in String type</span>
+<span class="mo">067</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">STRING_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mo">06</span><span class="mi">8</span> <span class="o">:</span>          <span class="s">&quot;protocol_type&quot;</span><span class="o">,</span>
+<span class="mo">06</span><span class="mi">9</span> <span class="o">:</span>          <span class="s">&quot;service&quot;</span><span class="o">,</span>
+<span class="mo">070</span> <span class="o">:</span>          <span class="s">&quot;flag&quot;</span><span class="o">,</span>
+<span class="mo">071</span> <span class="o">:</span>          <span class="s">&quot;land&quot;</span><span class="o">,</span>
+<span class="mo">072</span> <span class="o">:</span>          <span class="s">&quot;logged_in&quot;</span><span class="o">,</span>
+<span class="mo">073</span> <span class="o">:</span>          <span class="s">&quot;is_host_login&quot;</span><span class="o">,</span>
+<span class="mo">074</span> <span class="o">:</span>          <span class="s">&quot;is_guest_login&quot;</span>
+<span class="mo">075</span> <span class="o">:</span>  <span class="o">};</span>
+<span class="mo">076</span> <span class="o">:</span>
+<span class="mo">077</span> <span class="o">:</span>  <span class="c1">// items in Double type</span>
+<span class="mo">07</span><span class="mi">8</span> <span class="o">:</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">DOUBLE_COLUMN</span> <span class="o">=</span> <span class="o">{</span>
+<span class="mo">07</span><span class="mi">9</span> <span class="o">:</span>          <span class="s">&quot;duration&quot;</span><span class="o">,</span>
 <span class="mi">080</span> <span class="o">:</span>          <span class="s">&quot;src_bytes&quot;</span><span class="o">,</span>
 <span class="mi">081</span> <span class="o">:</span>          <span class="s">&quot;dst_bytes&quot;</span><span class="o">,</span>
 <span class="mi">082</span> <span class="o">:</span>          <span class="s">&quot;wrong_fragment&quot;</span><span class="o">,</span>
@@ -469,7 +469,7 @@ The anomaly value should not be infinity or　1.0　(Row 155).</div></blockquote
 <dt><strong>［At Jubatus Server］</strong></dt>
 <dd>start &#8220;jubaanomaly&#8221; process.</dd>
 </dl>
-<div class="highlight-python"><div class="highlight"><pre>$ jubaanomaly --configpath config.json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ jubaanomaly --configpath config.json
 </pre></div>
 </div>
 <dl class="docutils">
@@ -478,7 +478,7 @@ The anomaly value should not be infinity or　1.0　(Row 155).</div></blockquote
 Run!</dd>
 </dl>
 <p><strong>［Result］</strong></p>
-<div class="highlight-python"><div class="highlight"><pre>(&#39;574&#39;, 0.99721104) normal.
+<div class="highlight-python"><div class="highlight"><pre><span></span>(&#39;574&#39;, 0.99721104) normal.
 (&#39;697&#39;, 1.4958459) normal.
 (&#39;1127&#39;, 0.79527026) normal.
 (&#39;1148&#39;, 1.1487594) normal.
@@ -527,7 +527,7 @@ Run!</dd>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

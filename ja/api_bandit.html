@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -188,6 +188,15 @@ JSON の各フィールドは以下のとおりである。</p>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;exp3&quot;</span></code></td>
 <td>exp3法を利用する。</td>
 </tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;ts&quot;</span></code></td>
+<td>Thompson samplingを利用する <a class="footnote-reference" href="#id2" id="id1">[1]</a></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Thompson Samplingを利用する場合、register_reward APIで登録する報酬が0または1に限られる点に注意。</td></tr>
 </tbody>
 </table>
 </dd></dl>
@@ -262,12 +271,14 @@ gammaを大きくするほど全腕共通の重みの比率が高くなり、小
 </tbody>
 </table>
 </dd>
+<dt>ts</dt>
+<dd>なし</dd>
 </dl>
 </dd></dl>
 
 <dl class="docutils">
 <dt>例:</dt>
-<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;epsilon_greedy&quot;</span><span class="p">,</span>
   <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;assume_unrewarded&quot;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -297,7 +308,7 @@ gammaを大きくするほど全腕共通の重みの比率が高くなり、小
 <dd><p>腕の重みを表す。</p>
 </dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">arm_info</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">arm_info</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="kt">int</span> <span class="n">trial_count</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">weight</span>
 <span class="p">}</span>
@@ -466,7 +477,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

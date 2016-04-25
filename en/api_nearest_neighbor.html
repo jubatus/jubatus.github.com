@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.9',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -195,6 +195,40 @@ You can use these algorithms.</p>
 <dd><p>Specify parameters for the algorithm.
 Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
+<dt>common</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">threads:</th><td class="field-body"><p class="first">The number of threads execute random_projection and search.
+The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
+This option has been added since 0.9.0. Single thread is used in before versions.
+(Integer)</p>
+<p>The behavior of this option varies as below:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">threads</span></code> &lt; 0<ul>
+<li>threads is set to the number of logical CPU cores</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">threads</span></code> = 0<ul>
+<li>The same behavior as <code class="docutils literal"><span class="pre">threads</span></code> is set to 1.</li>
+</ul>
+</li>
+<li>1 &lt;= <code class="docutils literal"><span class="pre">threads</span></code> &lt;= The number of logical cores of CPU<ul>
+<li>The number of threads is set to <code class="docutils literal"><span class="pre">threads</span></code> .</li>
+</ul>
+</li>
+<li>The number of logical cores of CPU &lt; <code class="docutils literal"><span class="pre">threads</span></code> .<ul>
+<li>The number of threads is set to the number of logical CPU cores. In addtion, data points are divided into threads parts.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="last">note: <code class="docutils literal"><span class="pre">threads</span></code> <strong>can be omitted</strong> (It works with 1 thread) .</p>
+</dd>
 <dt>lsh</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -255,7 +289,7 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 
 <dl class="docutils">
 <dt>Example:</dt>
-<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;lsh&quot;</span><span class="p">,</span>
   <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;hash_num&quot;</span> <span class="o">:</span> <span class="mi">64</span>
@@ -298,7 +332,7 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
 <dd><p>Score.</p>
 </dd></dl>
 
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
   <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
 <span class="p">}</span>
@@ -468,7 +502,7 @@ list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-pa
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

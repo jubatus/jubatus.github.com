@@ -15,7 +15,7 @@ Description
 
 Currently, following models are supported:
 
-* ``classifier``
+* ``classifier`` (linear classifiers only)
 * ``regression``
 * ``recommender`` (``inverted_index`` only)
 * ``anomaly`` (``lof`` with ``inverted_index`` backend only)

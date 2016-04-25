@@ -32,6 +32,33 @@ We show each field below:
    Specify parameters for the algorithm.
    Its format differs for each ``method``.
 
+   common
+     :threads:
+        The number of threads execute random_projection and search.
+        The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
+        This option has been added since 0.9.0. Single thread is used in before versions.
+        (Integer)
+
+        The behavior of this option varies as below:
+
+        * ``threads`` < 0
+
+          * threads is set to the number of logical CPU cores
+
+        * ``threads`` = 0
+
+          *  The same behavior as ``threads`` is set to 1.
+
+        * 1 <= ``threads`` <= The number of logical cores of CPU
+
+          *  The number of threads is set to ``threads`` .
+
+        * The number of logical cores of CPU < ``threads`` .
+
+          *  The number of threads is set to the number of logical CPU cores. In addtion, data points are divided into threads parts.
+
+     note: ``threads`` **can be omitted** (It works with 1 thread) . 
+
    lsh
      :hash_num:
         Bit length of hash values.
