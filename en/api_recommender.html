@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -204,17 +204,18 @@ You can use these algorithms.</p>
 <dd><p>Specify parameters for the algorithm.
 Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
-<dt>inverted_index, inverted_index_euclid</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dt>common</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
+<tr class="field-odd field"><th class="field-name" colspan="2">unlearner(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify unlearner strategy.
 If you don&#8217;t use unlearner, you should omit this parameter.
 You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
 Data will be deleted by the ID based on strategy specified here.</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter(optional):</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
 You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
 You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
@@ -222,40 +223,27 @@ Data in excess of this number will be deleted automatically.</td>
 </tr>
 </tbody>
 </table>
-<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
+<dt>inverted_index, inverted_index_euclid</dt>
+<dd>None</dd>
 <dt>minhash</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">Number of hash values.
 The bigger it is, the more accurate results you can get, but the more memory is required.
 (Integer)</p>
-<ul class="simple">
+<ul class="last simple">
 <li>Range: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
-If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-Data will be deleted based on strategy specified here.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
-Data in excess of this number will be deleted automatically.</p>
-</td>
-</tr>
 </tbody>
 </table>
-<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 <dt>lsh</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -267,25 +255,48 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
-If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-Data will be deleted based on strategy specified here.</p>
+<tr class="field-even field"><th class="field-name" colspan="2">threads(optional):</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of threads which execute random_projection and search.
+If <code class="docutils literal"><span class="pre">threads</span></code> is omitted, those are executed with 1 thread.
+The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
+This option has been added since 0.9.1. Single thread is used in before versions.
+(Integer)</p>
+<p>The behavior of this option varies as below:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">threads</span></code> &lt; 0<ul>
+<li>threads is set to the number of logical CPU cores</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">threads</span></code> = 0<ul>
+<li>The same behavior as <code class="docutils literal"><span class="pre">threads</span></code> is set to 1.</li>
+</ul>
+</li>
+<li>1 &lt;= <code class="docutils literal"><span class="pre">threads</span></code> &lt;= The number of logical cores of CPU<ul>
+<li>The number of threads is set to <code class="docutils literal"><span class="pre">threads</span></code> .</li>
+</ul>
+</li>
+<li>The number of logical cores of CPU &lt; <code class="docutils literal"><span class="pre">threads</span></code> .<ul>
+<li>The number of threads is set to the number of logical CPU cores. In addtion, data points are divided into threads parts.</li>
+</ul>
+</li>
+</ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
-Data in excess of this number will be deleted automatically.</p>
+<tr class="field-odd field"><th class="field-name" colspan="2">cache_size(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of vectors to cache projection vectors for hashing.
+If <code class="docutils literal"><span class="pre">cache_size</span></code> is omitted, projection vectors are generated in each hash calculation.
+The bigger it is, response time can be lower thoough more memory is required.
+(Integer)</p>
+<ul class="last simple">
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">cache_size</span></code></li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 <dt>euclid_lsh</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -328,68 +339,56 @@ The bigger it is, the more results you can find, but the longer response time is
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">When it is <code class="docutils literal"><span class="pre">true</span></code>, projection vectors for hashing are cached in memory.
-Response time is lower though more memory is required.
-(Boolean)</p>
+<tr class="field-even field"><th class="field-name" colspan="2">threads(optional):</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of threads which execute random_projection and search(optional).
+If <code class="docutils literal"><span class="pre">threads</span></code> is omitted, those are executed with 1 thread.
+The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
+This option has been added since 0.9.1. Single thread is used in before versions.
+(Integer)</p>
+<p>The behavior of this option varies as below:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">threads</span></code> &lt; 0<ul>
+<li>threads is set to the number of logical CPU cores</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">threads</span></code> = 0<ul>
+<li>The same behavior as <code class="docutils literal"><span class="pre">threads</span></code> is set to 1.</li>
+</ul>
+</li>
+<li>1 &lt;= <code class="docutils literal"><span class="pre">threads</span></code> &lt;= The number of logical cores of CPU<ul>
+<li>The number of threads is set to <code class="docutils literal"><span class="pre">threads</span></code> .</li>
+</ul>
+</li>
+<li>The number of logical cores of CPU &lt; <code class="docutils literal"><span class="pre">threads</span></code> .<ul>
+<li>The number of threads is set to the number of logical CPU cores. In addtion, data points are divided into threads parts.</li>
+</ul>
+</li>
+</ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
-If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-Data will be deleted based on strategy specified here.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
-Data in excess of this number will be deleted automatically.</p>
+<tr class="field-odd field"><th class="field-name" colspan="2">cache_size(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of vectors to cache projection vectors for hashing(optional).
+If <code class="docutils literal"><span class="pre">cache_size</span></code> is omitted, projection vectors are generated in each hash calculation.
+The bigger it is, response time can be lower thoough more memory is required.
+(Integer)</p>
+<ul class="last simple">
+<li>Range: 0 &lt;= <code class="docutils literal"><span class="pre">cache_size</span></code></li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 <dt>nearest_neighbor_recommender</dt>
-<dd><blockquote class="first">
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">method:</th><td class="field-body">Specify algorithm for nearest neighbor.
 Refer to <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> for the list of algorithms available.</td>
 </tr>
-</tbody>
-</table>
-</div></blockquote>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><blockquote class="first">
-<div><p>Specify parameters for the algorithm.
-Refer to <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> for the list of parameters.</p>
-</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
-If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-Data will be deleted based on strategy specified here.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
-Data in excess of this number will be deleted automatically.</td>
-</tr>
-</tbody>
-</table>
-<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
-</td>
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body">Specify parameters for the algorithm.
+Refer to <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> for the list of parameters.</td>
 </tr>
 </tbody>
 </table>

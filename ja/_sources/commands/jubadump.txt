@@ -19,6 +19,7 @@ Description
 * ``regression``
 * ``recommender`` (``inverted_index`` のみ)
 * ``anomaly`` (``lof`` の ``inverted_index`` バックエンドのみ)
+* ``nearest_neighbor``
 
 Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

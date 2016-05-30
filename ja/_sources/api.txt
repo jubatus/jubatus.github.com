@@ -28,6 +28,7 @@ Jubatus と Jubatus クライアントのバージョンは異なることがあ
    api_stat
    api_graph
    api_bandit
+   api_weight
 
 .. toctree::
    :hidden:

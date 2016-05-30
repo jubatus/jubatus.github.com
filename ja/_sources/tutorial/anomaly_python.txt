@@ -25,8 +25,7 @@ Anomaly チュートリアル (Python)
     "table_num" : 16,
     "probe_num" : 64,
     "bin_width" : 10,
-    "seed" : 1234,
-    "retain_projection" : true
+    "seed" : 1234
    }
   },
  

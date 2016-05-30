@@ -28,6 +28,7 @@ See the `Jubatus Wiki <https://github.com/jubatus/jubatus/wiki/Client-Compatibil
    api_stat
    api_graph
    api_bandit
+   api_weight
 
 .. toctree::
    :hidden:

@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -205,17 +205,18 @@ JSON の各フィールドは以下のとおりである。</p>
 <dd><p>アルゴリズムに渡すパラメータを指定する。
 <code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
-<dt>inverted_index, inverted_index_euclid:</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dt>共通</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+<tr class="field-odd field"><th class="field-name" colspan="2">unlearner(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
 忘却機能を利用しない場合、 このパラメータを省略する。
 <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
-ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。</td>
+ここで指定された方法に基づいてデータを忘却する。</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter(optional):</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
 <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
 <code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
@@ -223,40 +224,27 @@ JSON の各フィールドは以下のとおりである。</p>
 </tr>
 </tbody>
 </table>
-<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
+<dt>inverted_index, inverted_index_euclid:</dt>
+<dd>なし</dd>
 <dt>minhash</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">hash_num:</th><td class="field-body"><p class="first">ハッシュの個数を指定する。
 大きくすると正確な値に近づく代わりに、多くのメモリを消費する。
 (Integer)</p>
-<ul class="simple">
+<ul class="last simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">hash_num</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-忘却機能を利用しない場合、 このパラメータを省略する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
-ここで指定された方法に基づいてデータを忘却する。</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
-<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
-ここで指定された件数以上のデータを忘却する。</p>
-</td>
-</tr>
 </tbody>
 </table>
-<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 <dt>lsh</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -268,25 +256,49 @@ JSON の各フィールドは以下のとおりである。</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-忘却機能を利用しない場合、 このパラメータを省略する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
-ここで指定された方法に基づいてデータを忘却する。</p>
+<tr class="field-even field"><th class="field-name" colspan="2">threads(optional):</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">乱数生成や探索を行うスレッド数を指定する。
+省略した場合は従来と同様に1スレッドで動作する
+この値を大きくすると、ハッシュ生成や探索において、データを分割しマルチスレッドで並列処理するためレイテンシが小さくなる。
+負の値を指定した場合は実行する環境の論理CPUコア数が利用される。
+実行環境の論理CPUコア数よりも大きい値を指定した場合、スレッドは論理CPUコア数分しか起動しないが、データは <code class="docutils literal"><span class="pre">threads</span></code> 数に分割され先に処理が終わったスレッドが処理する。</p>
+<p>本パラメータはバージョン0.9.1から利用できる。</p>
+<p>本パラメータに値を設定したときの挙動は以下の通りである (Integer)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">threads</span></code> &lt; 0<ul>
+<li><code class="docutils literal"><span class="pre">threads</span></code> に論理CPUコア数が設定され場合と同様の挙動になる</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">threads</span></code> = 0<ul>
+<li><code class="docutils literal"><span class="pre">threads</span></code> に1を設定した場合と同様の挙動になる</li>
+</ul>
+</li>
+<li>1 &lt;= <code class="docutils literal"><span class="pre">threads</span></code> &lt;= 論理CPUコア数<ul>
+<li>指定した値のスレッド数の生成、データ分割が行われる</li>
+</ul>
+</li>
+<li>論理CPUコア数 &lt; <code class="docutils literal"><span class="pre">threads</span></code><ul>
+<li>論理CPUコア数分のスレッドが起動する。ただし、データは <code class="docutils literal"><span class="pre">threads</span></code> 数に分割される</li>
+</ul>
+</li>
+</ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
-<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
-ここで指定された件数以上のデータを忘却する。</p>
+<tr class="field-odd field"><th class="field-name" colspan="2">cache_size(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">ハッシュに利用する射影ベクトルをキャッシュする個数を指定する。
+省略された場合射影ベクトルはキャッシュせず、ハッシュ計算の度に乱数を生成する。
+この数値を大きくするとレイテンシが小さくなる代わりに、消費メモリが増大する。
+(Integer)</p>
+<ul class="last simple">
+<li>値域 0 &lt;= cache_size</li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 <dt>euclid_lsh</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -329,31 +341,49 @@ JSON の各フィールドは以下のとおりである。</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">retain_projection:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">true</span></code> ならハッシュに利用する射影ベクトルをキャッシュする。
-レスポンス時間が低下する代わりに、メモリを消費する。
-(Boolean)</p>
+<tr class="field-even field"><th class="field-name" colspan="2">threads(optional):</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">乱数生成や探索を行うスレッド数を指定する。
+省略した場合は従来と同様に1スレッドで動作する
+この値を大きくすると、ハッシュ生成や探索において、データを分割しマルチスレッドで並列処理するためレイテンシが小さくなる。
+負の値を指定した場合は実行する環境の論理CPUコア数が利用される。
+実行環境の論理CPUコア数よりも大きい値を指定した場合、スレッドは論理CPUコア数分しか起動しないが、データは <code class="docutils literal"><span class="pre">threads</span></code> 数に分割され先に処理が終わったスレッドが処理する。</p>
+<p>本パラメータはバージョン0.9.1から利用できる。</p>
+<p>本パラメータに値を設定したときの挙動は以下の通りである (Integer)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">threads</span></code> &lt; 0<ul>
+<li><code class="docutils literal"><span class="pre">threads</span></code> に論理CPUコア数が設定され場合と同様の挙動になる</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">threads</span></code> = 0<ul>
+<li><code class="docutils literal"><span class="pre">threads</span></code> に1を設定した場合と同様の挙動になる</li>
+</ul>
+</li>
+<li>1 &lt;= <code class="docutils literal"><span class="pre">threads</span></code> &lt;= 論理CPUコア数<ul>
+<li>指定した値のスレッド数の生成、データ分割が行われる</li>
+</ul>
+</li>
+<li>論理CPUコア数 &lt; <code class="docutils literal"><span class="pre">threads</span></code><ul>
+<li>論理CPUコア数分のスレッドが起動する。ただし、データは <code class="docutils literal"><span class="pre">threads</span></code> 数に分割される</li>
+</ul>
+</li>
+</ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-忘却機能を利用しない場合、 このパラメータを省略する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
-ここで指定された方法に基づいてデータを忘却する。</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
-<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
-ここで指定された件数以上のデータを忘却する。</p>
+<tr class="field-odd field"><th class="field-name" colspan="2">cache_size(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">ハッシュに利用する射影ベクトルをキャッシュする個数を指定する。
+省略された場合、射影ベクトルのキャッシュをせず、ハッシュ計算の度にベクトルを生成する。
+この数値を大きくするとレイテンシが小さくなる代わりに、消費メモリが増大する。
+(Integer)</p>
+<ul class="last simple">
+<li>値域 0 &lt;= cache_size</li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 <dt>nearest_neighbor_recommender</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -363,20 +393,8 @@ JSON の各フィールドは以下のとおりである。</p>
 <tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body">アルゴリズムに渡すパラメータを指定する。
 パラメータの一覧は <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> を参照のこと。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-忘却機能を利用しない場合、 このパラメータを省略する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
-ここで指定された方法に基づいてデータを忘却する。</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
-<code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
-ここで指定された件数以上のデータを忘却する。</td>
-</tr>
 </tbody>
 </table>
-<p class="last">なおこれら2つのパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 </dl>
 </dd></dl>

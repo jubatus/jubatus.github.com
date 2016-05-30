@@ -15,6 +15,9 @@ Description
 
 ``jubaconv`` simulates the internal behavior of fv_converter and displays the result of conversion on the command-line.
 
+As ``jubaconv`` only processes 1 record, ``global_weight`` of string feature extraction rules (``string_rules``) will not be calculated.
+Use :doc:`../api_weight` if you need a simulation including ``global_weight``.
+
 Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -26,19 +29,46 @@ Options
 
    Format of the input. [json]
 
-   ``<format>`` must be one of ``json`` or ``datum``.
+   ``<format>`` must be one of ``datum`` or ``json``.
 
 .. option:: -o <format>, --output-format <format>
 
    Format of the output. [fv]
 
-   ``<format>`` must be one of ``json``, ``datum`` or ``fv``.
+   ``<format>`` must be one of ``fv``, ``datum`` or ``json``.
 
 .. option:: -c <config>, --conf <config>
 
    Jubatus server configuration file in JSON.
 
    This option must be given only if ``fv`` is specified for :option:`-o`.
+
+File Formats
+--------------------------------------------------
+
+Input
+~~~~~
+
+Supported formats are ``datum`` and ``json``.
+See the Examples section for details.
+
+* ``datum`` is a Datum-styled JSON data structure.
+  The root must have 3 keys (``string_values``, ``num_values`` and ``binary_values``), and whose values must be a flat object, whose keys are string and values are string (for ``string_values`` and ``binary_values``) or integer/float (for ``num_values``).
+
+* ``json`` is an arbitrary JSON data structure.
+  JSON data structure will be flatten to key-value format by joining keys with ``/`` separator.
+
+Output
+~~~~~~
+
+Supported formats are ``fv``, ``datum`` and ``json``.
+
+* ``fv`` prints the feature vectors extracted from the input record by fv_converter.
+
+* ``datum`` prints the input record converted to Datum as Datum-styled JSON data structure.
+
+* ``json`` pretty-prints the input record without any conversion.
+  This can only be used if the input format is ``json``.
 
 Examples
 --------------------------------------------------
@@ -59,6 +89,8 @@ Examples
      },
      "num_values": {
        "age": 31
+     },
+     "binary_values": {
      }
    }
 

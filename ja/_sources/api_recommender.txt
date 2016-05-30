@@ -35,20 +35,21 @@ JSON の各フィールドは以下のとおりである。
    アルゴリズムに渡すパラメータを指定する。
    ``method`` に応じて渡すパラメータは異なる。
 
-   inverted_index, inverted_index_euclid:
-     :unlearner:
+   共通
+     :unlearner(optional):
         忘却機能に利用するUnlearnerのアルゴリズムを指定する。
         忘却機能を利用しない場合、 このパラメータを省略する。
         :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
-        ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。
+        ここで指定された方法に基づいてデータを忘却する。
 
-     :unlearner_parameter:
+     :unlearner_parameter(optional):
         忘却機能に利用するUnlearnerに渡すパラメータを指定する。
         :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
         ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
         ここで指定された件数以上のデータを忘却する。
 
-     なおこれら2つのパラメータは **省略可能** である。
+   inverted_index, inverted_index_euclid:
+     なし
 
    minhash
      :hash_num:
@@ -58,20 +59,6 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 1 <= ``hash_num``
 
-     :unlearner:
-        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-        忘却機能を利用しない場合、 このパラメータを省略する。
-        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
-        ここで指定された方法に基づいてデータを忘却する。
-
-     :unlearner_parameter:
-        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
-        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
-        ここで指定された件数以上のデータを忘却する。
-
-     なおこれら2つのパラメータは **省略可能** である。
-
    lsh
      :hash_num:
         ハッシュ値のビット数を指定する。
@@ -80,19 +67,40 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 1 <= ``hash_num``
 
-     :unlearner:
-        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-        忘却機能を利用しない場合、 このパラメータを省略する。
-        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
-        ここで指定された方法に基づいてデータを忘却する。
+     :threads(optional):
+        乱数生成や探索を行うスレッド数を指定する。
+        省略した場合は従来と同様に1スレッドで動作する
+        この値を大きくすると、ハッシュ生成や探索において、データを分割しマルチスレッドで並列処理するためレイテンシが小さくなる。
+	負の値を指定した場合は実行する環境の論理CPUコア数が利用される。
+	実行環境の論理CPUコア数よりも大きい値を指定した場合、スレッドは論理CPUコア数分しか起動しないが、データは ``threads`` 数に分割され先に処理が終わったスレッドが処理する。
 
-     :unlearner_parameter:
-        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
-        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
-        ここで指定された件数以上のデータを忘却する。
+	本パラメータはバージョン0.9.1から利用できる。
 
-     なおこれら2つのパラメータは **省略可能** である。
+        本パラメータに値を設定したときの挙動は以下の通りである (Integer)
+
+        * ``threads`` < 0 
+
+          * ``threads`` に論理CPUコア数が設定され場合と同様の挙動になる
+
+        * ``threads`` = 0
+
+          *  ``threads`` に1を設定した場合と同様の挙動になる
+
+        * 1 <= ``threads`` <= 論理CPUコア数
+
+          * 指定した値のスレッド数の生成、データ分割が行われる
+
+        * 論理CPUコア数 < ``threads`` 
+
+          * 論理CPUコア数分のスレッドが起動する。ただし、データは ``threads`` 数に分割される
+
+     :cache_size(optional):
+        ハッシュに利用する射影ベクトルをキャッシュする個数を指定する。
+        省略された場合射影ベクトルはキャッシュせず、ハッシュ計算の度に乱数を生成する。
+        この数値を大きくするとレイテンシが小さくなる代わりに、消費メモリが増大する。
+        (Integer)
+
+        * 値域 0 <= cache_size          
 
    euclid_lsh
      :hash_num:
@@ -129,24 +137,40 @@ JSON の各フィールドは以下のとおりである。
 
         * 値域: 0 <= ``seed`` <= :math:`2^{32} - 1`
 
-     :retain_projection:
-        ``true`` ならハッシュに利用する射影ベクトルをキャッシュする。
-        レスポンス時間が低下する代わりに、メモリを消費する。
-        (Boolean)
+     :threads(optional):
+        乱数生成や探索を行うスレッド数を指定する。
+        省略した場合は従来と同様に1スレッドで動作する
+        この値を大きくすると、ハッシュ生成や探索において、データを分割しマルチスレッドで並列処理するためレイテンシが小さくなる。
+	負の値を指定した場合は実行する環境の論理CPUコア数が利用される。
+	実行環境の論理CPUコア数よりも大きい値を指定した場合、スレッドは論理CPUコア数分しか起動しないが、データは ``threads`` 数に分割され先に処理が終わったスレッドが処理する。
 
-     :unlearner:
-        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-        忘却機能を利用しない場合、 このパラメータを省略する。
-        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
-        ここで指定された方法に基づいてデータを忘却する。
+	本パラメータはバージョン0.9.1から利用できる。
 
-     :unlearner_parameter:
-        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
-        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
-        ここで指定された件数以上のデータを忘却する。
+        本パラメータに値を設定したときの挙動は以下の通りである (Integer)
 
-     なおこれら2つのパラメータは **省略可能** である。
+        * ``threads`` < 0 
+
+          * ``threads`` に論理CPUコア数が設定され場合と同様の挙動になる
+
+        * ``threads`` = 0
+
+          *  ``threads`` に1を設定した場合と同様の挙動になる
+
+        * 1 <= ``threads`` <= 論理CPUコア数
+
+          * 指定した値のスレッド数の生成、データ分割が行われる
+
+        * 論理CPUコア数 < ``threads`` 
+
+          * 論理CPUコア数分のスレッドが起動する。ただし、データは ``threads`` 数に分割される
+
+     :cache_size(optional):
+        ハッシュに利用する射影ベクトルをキャッシュする個数を指定する。
+        省略された場合、射影ベクトルのキャッシュをせず、ハッシュ計算の度にベクトルを生成する。
+        この数値を大きくするとレイテンシが小さくなる代わりに、消費メモリが増大する。
+        (Integer)
+
+        * 値域 0 <= cache_size
 
    nearest_neighbor_recommender
      :method:
@@ -156,20 +180,6 @@ JSON の各フィールドは以下のとおりである。
      :parameter:
         アルゴリズムに渡すパラメータを指定する。
         パラメータの一覧は :doc:`api_nearest_neighbor` を参照のこと。
-
-     :unlearner:
-        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-        忘却機能を利用しない場合、 このパラメータを省略する。
-        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
-        ここで指定された方法に基づいてデータを忘却する。
-
-     :unlearner_parameter:
-        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
-        ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
-        ここで指定された件数以上のデータを忘却する。
-
-     なおこれら2つのパラメータは **省略可能** である。
 
 .. describe:: converter
 

@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -110,6 +110,11 @@
 <li><a class="reference internal" href="#options">Options</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#file-formats">File Formats</a><ul>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
@@ -165,6 +170,8 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">jubaconv</span></code> is a tool to test your fv_converter configuration.</p>
 <p><code class="docutils literal"><span class="pre">jubaconv</span></code> simulates the internal behavior of fv_converter and displays the result of conversion on the command-line.</p>
+<p>As <code class="docutils literal"><span class="pre">jubaconv</span></code> only processes 1 record, <code class="docutils literal"><span class="pre">global_weight</span></code> of string feature extraction rules (<code class="docutils literal"><span class="pre">string_rules</span></code>) will not be calculated.
+Use <a class="reference internal" href="../api_weight.html"><span class="doc">Weight</span></a> if you need a simulation including <code class="docutils literal"><span class="pre">global_weight</span></code>.</p>
 <div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -174,14 +181,14 @@
 <dt id="cmdoption-jubaconv-i">
 <span id="cmdoption-jubaconv--input-format"></span><code class="descname">-i</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--input-format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format of the input. [json]</p>
-<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">json</span></code> or <code class="docutils literal"><span class="pre">datum</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">datum</span></code> or <code class="docutils literal"><span class="pre">json</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconv-o">
 <span id="cmdoption-jubaconv--output-format"></span><code class="descname">-o</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--output-format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format of the output. [fv]</p>
-<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">json</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> or <code class="docutils literal"><span class="pre">fv</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> must be one of <code class="docutils literal"><span class="pre">fv</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> or <code class="docutils literal"><span class="pre">json</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
@@ -191,6 +198,30 @@
 <p>This option must be given only if <code class="docutils literal"><span class="pre">fv</span></code> is specified for <a class="reference internal" href="#cmdoption-jubaconv-o"><code class="xref std std-option docutils literal"><span class="pre">-o</span></code></a>.</p>
 </dd></dl>
 
+</div>
+</div>
+<div class="section" id="file-formats">
+<h2>File Formats<a class="headerlink" href="#file-formats" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="input">
+<h3>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
+<p>Supported formats are <code class="docutils literal"><span class="pre">datum</span></code> and <code class="docutils literal"><span class="pre">json</span></code>.
+See the Examples section for details.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">datum</span></code> is a Datum-styled JSON data structure.
+The root must have 3 keys (<code class="docutils literal"><span class="pre">string_values</span></code>, <code class="docutils literal"><span class="pre">num_values</span></code> and <code class="docutils literal"><span class="pre">binary_values</span></code>), and whose values must be a flat object, whose keys are string and values are string (for <code class="docutils literal"><span class="pre">string_values</span></code> and <code class="docutils literal"><span class="pre">binary_values</span></code>) or integer/float (for <code class="docutils literal"><span class="pre">num_values</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">json</span></code> is an arbitrary JSON data structure.
+JSON data structure will be flatten to key-value format by joining keys with <code class="docutils literal"><span class="pre">/</span></code> separator.</li>
+</ul>
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
+<p>Supported formats are <code class="docutils literal"><span class="pre">fv</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> and <code class="docutils literal"><span class="pre">json</span></code>.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">fv</span></code> prints the feature vectors extracted from the input record by fv_converter.</li>
+<li><code class="docutils literal"><span class="pre">datum</span></code> prints the input record converted to Datum as Datum-styled JSON data structure.</li>
+<li><code class="docutils literal"><span class="pre">json</span></code> pretty-prints the input record without any conversion.
+This can only be used if the input format is <code class="docutils literal"><span class="pre">json</span></code>.</li>
+</ul>
 </div>
 </div>
 <div class="section" id="examples">
@@ -209,6 +240,8 @@ $ cat datum.json
   },
   &quot;num_values&quot;: {
     &quot;age&quot;: 31
+  },
+  &quot;binary_values&quot;: {
   }
 }
 

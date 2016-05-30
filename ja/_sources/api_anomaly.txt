@@ -29,6 +29,21 @@ JSON の各フィールドは以下のとおりである。
    アルゴリズムに渡すパラメータを指定する。
    ``method`` に応じて渡すパラメータは異なる。
 
+   共通
+     :unlearner:
+        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+        忘却機能が不要な場合、このパラメータは省略する。
+        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
+        ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。
+
+     :unlearner_parameter:
+        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
+        ここで指定された件数以上のデータは自動的に削除される。
+        ``unlearner`` を指定する際はこの ``unlearner_parameter`` の指定は必須である。
+
+     なお ``unlearner`` と ``unlearner_parameter`` のパラメータは **省略可能** である。
+
    lof
      :nearest_neighbor_num:
         対象データに対する近傍の数を指定する。
@@ -85,20 +100,6 @@ JSON の各フィールドは以下のとおりである。
         近傍探索に利用する近傍探索器に渡すパラメータを指定する。
         :doc:`api_nearest_neighbor` で説明される ``parameter`` を指定する。
 
-     :unlearner:
-        忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-        忘却機能が不要な場合、このパラメータは省略する。
-        :doc:`api_unlearner` で説明される ``unlearner`` を指定する。
-        ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。
-
-     :unlearner_parameter:
-        忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-        :doc:`api_unlearner` で説明される ``unlearner_parameter`` を指定する。
-        ここで指定された件数以上のデータは自動的に削除される。
-        ``unlearner`` を指定する際はこの ``unlearner_parameter`` の指定は必須である。
-
-     なお ``unlearner`` と ``unlearner_parameter`` のパラメータは **省略可能** である。
-
 .. describe:: converter
 
    特徴変換の設定を指定する。
@@ -119,8 +120,7 @@ JSON の各フィールドは以下のとおりである。
            "table_num" : 4,
            "seed" : 1091,
            "probe_num" : 64,
-           "bin_width" : 100,
-           "retain_projection" : false
+           "bin_width" : 100
          }
        },
        "converter" : {

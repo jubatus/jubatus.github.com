@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -111,6 +111,11 @@
 <li><a class="reference internal" href="#options">Options</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#file-formats">File Formats</a><ul>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
@@ -166,6 +171,8 @@
 <h2>Description<a class="headerlink" href="#description" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">jubaconv</span></code> は fv_converter の設定をテストするためのツールである。</p>
 <p><code class="docutils literal"><span class="pre">jubaconv</span></code> は fv_converter 内部の動作をシミュレーションし、変換結果をコマンドラインで表示することができる。</p>
+<p><code class="docutils literal"><span class="pre">jubaconv</span></code> は 1 件のデータだけを対象に処理を行うため、文字列特徴抽出ルール (<code class="docutils literal"><span class="pre">string_rules</span></code>) の <code class="docutils literal"><span class="pre">global_weight</span></code> は計算されない。
+<code class="docutils literal"><span class="pre">global_weight</span></code> も含めたシミュレーションが必要な場合は <a class="reference internal" href="../api_weight.html"><span class="doc">Weight</span></a> を使用すること。</p>
 <div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
@@ -175,14 +182,14 @@
 <dt id="cmdoption-jubaconv-i">
 <span id="cmdoption-jubaconv--input-format"></span><code class="descname">-i</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--input-format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-i" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>入力のフォーマット。 [json]</p>
-<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> には <code class="docutils literal"><span class="pre">json</span></code> または <code class="docutils literal"><span class="pre">datum</span></code> のいずれかを指定する。</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> には <code class="docutils literal"><span class="pre">datum</span></code> または <code class="docutils literal"><span class="pre">json</span></code> のいずれかを指定する。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubaconv-o">
 <span id="cmdoption-jubaconv--output-format"></span><code class="descname">-o</code><code class="descclassname"> &lt;format&gt;</code><code class="descclassname">, </code><code class="descname">--output-format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-jubaconv-o" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>出力のフォーマット。 [fv]</p>
-<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> には <code class="docutils literal"><span class="pre">json</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> または <code class="docutils literal"><span class="pre">fv</span></code> のいずれかを指定する。</p>
+<p><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> には <code class="docutils literal"><span class="pre">fv</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> または <code class="docutils literal"><span class="pre">json</span></code> のいずれかを指定する。</p>
 </dd></dl>
 
 <dl class="option">
@@ -192,6 +199,30 @@
 <p><a class="reference internal" href="#cmdoption-jubaconv-o"><code class="xref std std-option docutils literal"><span class="pre">-o</span></code></a> に <code class="docutils literal"><span class="pre">fv</span></code> が指定されている場合のみ、このオプションを指定する必要がある。</p>
 </dd></dl>
 
+</div>
+</div>
+<div class="section" id="file-formats">
+<h2>File Formats<a class="headerlink" href="#file-formats" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="input">
+<h3>Input<a class="headerlink" href="#input" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">datum</span></code> または <code class="docutils literal"><span class="pre">json</span></code> がサポートされています。
+詳細は Examples セクションを参照してください。</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">datum</span></code> は Datum 形式の JSON データ構造です。
+ルートには 3 つのキー (<code class="docutils literal"><span class="pre">string_values</span></code>, <code class="docutils literal"><span class="pre">num_values</span></code> および <code class="docutils literal"><span class="pre">binary_values</span></code>) を指定する必要があります。また、それぞれの値はフラットなオブジェクトで、そのキーは String 型、値は String 型 (<code class="docutils literal"><span class="pre">string_values</span></code> と <code class="docutils literal"><span class="pre">binary_values</span></code> の場合) または整数/浮動小数点型 (<code class="docutils literal"><span class="pre">num_values</span></code> の場合) である必要があります。</li>
+<li><code class="docutils literal"><span class="pre">json</span></code> は任意の JSON データ構造です。
+JSON データ構造はキーを <code class="docutils literal"><span class="pre">/</span></code> で結合することによってフラットな key-value データ構造に変換されます。</li>
+</ul>
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">fv</span></code>, <code class="docutils literal"><span class="pre">datum</span></code> または <code class="docutils literal"><span class="pre">json</span></code> がサポートされています。</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">fv</span></code> は fv_converter によって入力データから抽出された特徴ベクトルを出力します。</li>
+<li><code class="docutils literal"><span class="pre">datum</span></code> は入力データを Datum 形式の JSON データ構造に変換したものを出力します。</li>
+<li><code class="docutils literal"><span class="pre">json</span></code> は入力データをそのまま、フォーマットした形で出力します。
+このオプションは入力データのフォーマットが <code class="docutils literal"><span class="pre">json</span></code> の場合のみ利用できます。</li>
+</ul>
 </div>
 </div>
 <div class="section" id="examples">
@@ -210,6 +241,8 @@ $ cat datum.json
   },
   &quot;num_values&quot;: {
     &quot;age&quot;: 31
+  },
+  &quot;binary_values&quot;: {
   }
 }
 

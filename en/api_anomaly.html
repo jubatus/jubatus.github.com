@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -191,6 +191,26 @@ You can use these algorithms.</p>
 <dd><p>Specify parameters for the algorithm.
 Its format differs for each <code class="docutils literal"><span class="pre">method</span></code>.</p>
 <dl class="docutils">
+<dt>common</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">Specify unlearner strategy.
+If you don&#8217;t use unlearner, you should omit this parameter.
+You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
+Data will be deleted by the ID based on strategy specified here.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
+You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
+You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
+Data in excess of this number will be deleted automatically.</td>
+</tr>
+</tbody>
+</table>
+<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
+</dd>
 <dt>lof</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -232,7 +252,7 @@ Refer <code class="docutils literal"><span class="pre">parameter</span></code> i
 </table>
 </dd>
 <dt>light_lof</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -264,26 +284,12 @@ This parameter is optional and is <code class="docutils literal"><span class="pr
 Refer <code class="docutils literal"><span class="pre">method</span></code> in <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a>.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">Parameters of the nearest neighbor for nearest neighbor search.
+<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">Parameters of the nearest neighbor for nearest neighbor search.
 Refer <code class="docutils literal"><span class="pre">parameter</span></code> in <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a>.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">Specify unlearner strategy.
-If you don&#8217;t use unlearner, you should omit this parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-Data will be deleted by the ID based on strategy specified here.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">Specify unlearner parameter.
-You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
-You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
-Data in excess of this number will be deleted automatically.</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">note: <code class="docutils literal"><span class="pre">unlearner</span></code> and <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <strong>can be omitted</strong> .</p>
 </dd>
 </dl>
 </dd></dl>
@@ -308,8 +314,7 @@ Its format is described in <a class="reference internal" href="fv_convert.html">
       <span class="s2">&quot;table_num&quot;</span> <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
       <span class="s2">&quot;seed&quot;</span> <span class="o">:</span> <span class="mi">1091</span><span class="p">,</span>
       <span class="s2">&quot;probe_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
-      <span class="s2">&quot;bin_width&quot;</span> <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
-      <span class="s2">&quot;retain_projection&quot;</span> <span class="o">:</span> <span class="kc">false</span>
+      <span class="s2">&quot;bin_width&quot;</span> <span class="o">:</span> <span class="mi">100</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>

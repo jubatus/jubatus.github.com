@@ -12,36 +12,35 @@ Anomaly チュートリアル (Ruby)
 **config.json**
 
 .. code-block:: python
+ :linenos:
 
- 01 : {
- 02 :  "method" : "lof",
- 03 :  "parameter" : {
- 04 :   "nearest_neighbor_num" : 10,
- 05 :   "reverse_nearest_neighbor_num" : 30,
- 06 :   "method" : "euclid_lsh",
- 07 :   "parameter" : {
- 08 :    "hash_num" : 8,
- 09 :    "table_num" : 16,
- 10 :    "probe_num" : 64,
- 11 :    "bin_width" : 10,
- 12 :    "seed" : 1234,
- 13 :    "retain_projection" : true
- 14 :   }
- 15 :  },
- 16 : 
- 17 :  "converter" : {
- 18 :   "string_filter_types": {},
- 19 :   "string_filter_rules": [],
- 20 :   "num_filter_types": {},
- 21 :   "num_filter_rules": [],
- 22 :   "string_types": {},
- 23 :   "string_rules": [{"key":"*", "type":"str", "global_weight" : "bin", "sample_weight" : "bin"}],
- 24 :   "num_types": {},
- 25 :   "num_rules": [{"key" : "*", "type" : "num"}]
- 26 :  }
- 27 : }
-
+ {
+  "method" : "lof",
+  "parameter" : {
+   "nearest_neighbor_num" : 10,
+   "reverse_nearest_neighbor_num" : 30,
+   "method" : "euclid_lsh",
+   "parameter" : {
+    "hash_num" : 8,
+    "table_num" : 16,
+    "probe_num" : 64,
+    "bin_width" : 10,
+    "seed" : 1234
+   }
+  },
  
+  "converter" : {
+   "string_filter_types": {},
+   "string_filter_rules": [],
+   "num_filter_types": {},
+   "num_filter_rules": [],
+   "string_types": {},
+   "string_rules": [{"key":"*", "type":"str", "global_weight" : "bin", "sample_weight" : "bin"}],
+   "num_types": {},
+   "num_rules": [{"key" : "*", "type" : "num"}]
+  }
+ }
+
 
 **anomaly.rb**
 

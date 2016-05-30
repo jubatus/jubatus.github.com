@@ -35,21 +35,21 @@ We show each field below:
    Specify parameters for the algorithm.
    Its format differs for each ``method``.
 
-
-   inverted_index, inverted_index_euclid
-     :unlearner:
+   common
+     :unlearner(optional):
         Specify unlearner strategy.
         If you don't use unlearner, you should omit this parameter.
         You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
         Data will be deleted by the ID based on strategy specified here.
 
-     :unlearner_parameter:
+     :unlearner_parameter(optional):
         Specify unlearner parameter.
         You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
         You cannot omit this parameter when you specify ``unlearner``.
         Data in excess of this number will be deleted automatically.
 
-     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
+   inverted_index, inverted_index_euclid
+     None
 
    minhash
      :hash_num:
@@ -59,20 +59,6 @@ We show each field below:
 
         * Range: 1 <= ``hash_num``
 
-     :unlearner:
-        Specify unlearner strategy.
-        If you don't use unlearner, you should omit this parameter.
-        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
-        Data will be deleted based on strategy specified here.
-
-     :unlearner_parameter:
-        Specify unlearner parameter.
-        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
-        You cannot omit this parameter when you specify ``unlearner``.
-        Data in excess of this number will be deleted automatically.
-
-     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
-
    lsh
      :hash_num:
         Bit length of hash values.
@@ -81,19 +67,38 @@ We show each field below:
 
         * Range: 1 <= ``hash_num``
 
-     :unlearner:
-        Specify unlearner strategy.
-        If you don't use unlearner, you should omit this parameter.
-        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
-        Data will be deleted based on strategy specified here.
+     :threads(optional):
+        Specify the number of threads which execute random_projection and search.
+        If ``threads`` is omitted, those are executed with 1 thread. 
+        The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
+        This option has been added since 0.9.1. Single thread is used in before versions.
+        (Integer)
 
-     :unlearner_parameter:
-        Specify unlearner parameter.
-        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
-        You cannot omit this parameter when you specify ``unlearner``.
-        Data in excess of this number will be deleted automatically.
+        The behavior of this option varies as below:
 
-     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
+        * ``threads`` < 0
+
+          * threads is set to the number of logical CPU cores
+
+        * ``threads`` = 0
+
+          *  The same behavior as ``threads`` is set to 1.
+
+        * 1 <= ``threads`` <= The number of logical cores of CPU
+
+          *  The number of threads is set to ``threads`` .
+
+        * The number of logical cores of CPU < ``threads`` .
+
+          *  The number of threads is set to the number of logical CPU cores. In addtion, data points are divided into threads parts.
+
+     :cache_size(optional):
+        Specify the number of vectors to cache projection vectors for hashing.
+        If ``cache_size`` is omitted, projection vectors are generated in each hash calculation.
+        The bigger it is, response time can be lower thoough more memory is required.
+        (Integer)
+        
+        * Range: 0 <= ``cache_size``
 
    euclid_lsh
      :hash_num:
@@ -130,48 +135,47 @@ We show each field below:
 
         * Range: 0 <= ``seed`` <= :math:`2^{32} - 1`
 
-     :retain_projection:
-        When it is ``true``, projection vectors for hashing are cached in memory.
-        Response time is lower though more memory is required.
-        (Boolean)
+     :threads(optional):
+        Specify the number of threads which execute random_projection and search(optional).
+        If ``threads`` is omitted, those are executed with 1 thread. 
+        The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
+        This option has been added since 0.9.1. Single thread is used in before versions.
+        (Integer)
 
-     :unlearner:
-        Specify unlearner strategy.
-        If you don't use unlearner, you should omit this parameter.
-        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
-        Data will be deleted based on strategy specified here.
+        The behavior of this option varies as below:
 
-     :unlearner_parameter:
-        Specify unlearner parameter.
-        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
-        You cannot omit this parameter when you specify ``unlearner``.
-        Data in excess of this number will be deleted automatically.
+        * ``threads`` < 0
 
-     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
+          * threads is set to the number of logical CPU cores
+
+        * ``threads`` = 0
+
+          *  The same behavior as ``threads`` is set to 1.
+
+        * 1 <= ``threads`` <= The number of logical cores of CPU
+
+          *  The number of threads is set to ``threads`` .
+
+        * The number of logical cores of CPU < ``threads`` .
+
+          *  The number of threads is set to the number of logical CPU cores. In addtion, data points are divided into threads parts.
+
+     :cache_size(optional):
+        Specify the number of vectors to cache projection vectors for hashing(optional).
+        If ``cache_size`` is omitted, projection vectors are generated in each hash calculation.
+        The bigger it is, response time can be lower thoough more memory is required.
+        (Integer)
+        
+        * Range: 0 <= ``cache_size``
 
    nearest_neighbor_recommender
      :method:
         Specify algorithm for nearest neighbor.
         Refer to :doc:`api_nearest_neighbor` for the list of algorithms available.
 
-    :parameter:
+     :parameter:
         Specify parameters for the algorithm.
         Refer to :doc:`api_nearest_neighbor` for the list of parameters.
-
-     :unlearner:
-        Specify unlearner strategy.
-        If you don't use unlearner, you should omit this parameter.
-        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
-        Data will be deleted based on strategy specified here.
-
-     :unlearner_parameter:
-        Specify unlearner parameter.
-        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
-        You cannot omit this parameter when you specify ``unlearner``.
-        Data in excess of this number will be deleted automatically.
-
-     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
-
 
 .. describe:: converter
 

@@ -29,6 +29,21 @@ We show each field below:
    Specify parameters for the algorithm.
    Its format differs for each ``method``.
 
+   common
+     :unlearner:
+        Specify unlearner strategy.
+        If you don't use unlearner, you should omit this parameter.
+        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
+        Data will be deleted by the ID based on strategy specified here.
+
+     :unlearner_parameter:
+        Specify unlearner parameter.
+        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
+        You cannot omit this parameter when you specify ``unlearner``.
+        Data in excess of this number will be deleted automatically.
+
+     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
+
    lof
      :nearest_neighbor_num:
         Number of neighbors
@@ -85,20 +100,6 @@ We show each field below:
         Parameters of the nearest neighbor for nearest neighbor search.
         Refer ``parameter`` in :doc:`api_nearest_neighbor`.
 
-     :unlearner:
-        Specify unlearner strategy.
-        If you don't use unlearner, you should omit this parameter.
-        You can specify ``unlearner`` strategy described in :doc:`api_unlearner`.
-        Data will be deleted by the ID based on strategy specified here.
-
-     :unlearner_parameter:
-        Specify unlearner parameter.
-        You can specify ``unlearner_parameter`` :doc:`api_unlearner`.
-        You cannot omit this parameter when you specify ``unlearner``.
-        Data in excess of this number will be deleted automatically.
-
-     note: ``unlearner`` and ``unlearner_parameter`` **can be omitted** .
-
 .. describe:: converter
 
    Specify configuration for data conversion.
@@ -119,8 +120,7 @@ Example:
            "table_num" : 4,
            "seed" : 1091,
            "probe_num" : 64,
-           "bin_width" : 100,
-           "retain_projection" : false
+           "bin_width" : 100
          }
        },
        "converter" : {

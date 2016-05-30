@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -192,6 +192,26 @@ JSON の各フィールドは以下のとおりである。</p>
 <dd><p>アルゴリズムに渡すパラメータを指定する。
 <code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
 <dl class="docutils">
+<dt>共通</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能が不要な場合、このパラメータは省略する。
+<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
+ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
+ここで指定された件数以上のデータは自動的に削除される。
+<code class="docutils literal"><span class="pre">unlearner</span></code> を指定する際はこの <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。</td>
+</tr>
+</tbody>
+</table>
+<p class="last">なお <code class="docutils literal"><span class="pre">unlearner</span></code> と <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> のパラメータは <strong>省略可能</strong> である。</p>
+</dd>
 <dt>lof</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -233,7 +253,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </table>
 </dd>
 <dt>light_lof</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -265,26 +285,12 @@ JSON の各フィールドは以下のとおりである。</p>
 <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> で説明される <code class="docutils literal"><span class="pre">method</span></code> を指定する。</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
+<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
 <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> で説明される <code class="docutils literal"><span class="pre">parameter</span></code> を指定する。</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">unlearner:</th><td class="field-body"><p class="first">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
-忘却機能が不要な場合、このパラメータは省略する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
-ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
-<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
-ここで指定された件数以上のデータは自動的に削除される。
-<code class="docutils literal"><span class="pre">unlearner</span></code> を指定する際はこの <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">なお <code class="docutils literal"><span class="pre">unlearner</span></code> と <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> のパラメータは <strong>省略可能</strong> である。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -309,8 +315,7 @@ JSON の各フィールドは以下のとおりである。</p>
       <span class="s2">&quot;table_num&quot;</span> <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
       <span class="s2">&quot;seed&quot;</span> <span class="o">:</span> <span class="mi">1091</span><span class="p">,</span>
       <span class="s2">&quot;probe_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
-      <span class="s2">&quot;bin_width&quot;</span> <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
-      <span class="s2">&quot;retain_projection&quot;</span> <span class="o">:</span> <span class="kc">false</span>
+      <span class="s2">&quot;bin_width&quot;</span> <span class="o">:</span> <span class="mi">100</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>

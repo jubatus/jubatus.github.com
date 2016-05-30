@@ -19,6 +19,7 @@ Currently, following models are supported:
 * ``regression``
 * ``recommender`` (``inverted_index`` only)
 * ``anomaly`` (``lof`` with ``inverted_index`` backend only)
+* ``nearest_neighbor``
 
 Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
