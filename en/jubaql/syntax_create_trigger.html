@@ -151,13 +151,13 @@
   <div class="section" id="create-trigger">
 <h1>CREATE TRIGGER<a class="headerlink" href="#create-trigger" title="Permalink to this headline">¶</a></h1>
 <p>Syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>CREATE TRIGGER ON input_stream FOR EACH ROW
-[ WHEN filter ] EXECUTE func_name(params)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">TRIGGER</span> <span class="n">ON</span> <span class="n">input_stream</span> <span class="n">FOR</span> <span class="n">EACH</span> <span class="n">ROW</span>
+<span class="p">[</span> <span class="n">WHEN</span> <span class="nb">filter</span> <span class="p">]</span> <span class="n">EXECUTE</span> <span class="n">func_name</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>jubaql&gt; CREATE TRIGGER ON ds FOR EACH ROW
-        EXECUTE printLines(3, label)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jubaql</span><span class="o">&gt;</span> <span class="n">CREATE</span> <span class="n">TRIGGER</span> <span class="n">ON</span> <span class="n">ds</span> <span class="n">FOR</span> <span class="n">EACH</span> <span class="n">ROW</span>
+        <span class="n">EXECUTE</span> <span class="n">printLines</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="explanation">
@@ -166,7 +166,7 @@
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">input_stream</span></code> is the stream to use as input. The data source that this stream is derived from must not yet be in process (or done with processing) when the statement is issued.</li>
 <li><code class="docutils literal"><span class="pre">filter</span></code> is a filter expression just like the ones that can be used in a <code class="docutils literal"><span class="pre">WHERE</span></code> clause of a Spark SQL <code class="docutils literal"><span class="pre">SELECT</span></code> statement. If given, the function will be called only for the items in the input stream matching that condition.</li>
-<li><code class="docutils literal"><span class="pre">func_name</span></code> is the name of a function previously defined using <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TRIGGER</span> <span class="pre">FUNCTION</span></code> (see <a class="reference internal" href="syntax_create_function.html"><em>CREATE FUNCTION</em></a>). <code class="docutils literal"><span class="pre">params</span></code> is a list of expressions to be used as a parameter for that function.</li>
+<li><code class="docutils literal"><span class="pre">func_name</span></code> is the name of a function previously defined using <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TRIGGER</span> <span class="pre">FUNCTION</span></code> (see <a class="reference internal" href="syntax_create_function.html"><span class="doc">CREATE FUNCTION</span></a>). <code class="docutils literal"><span class="pre">params</span></code> is a list of expressions to be used as a parameter for that function.</li>
 </ul>
 </div>
 </div>
@@ -199,7 +199,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.1.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->
