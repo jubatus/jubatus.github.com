@@ -473,12 +473,16 @@ In concrete, the weight is the product of these two weights.
     ============= =====================
     ``"bin"``     global_weight is 1 for all features.
     ``"idf"``     global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.
+    ``"idf1"``    global_weight is calculated by ``"idf"`` value + 1.0.  See the description under the table for details.
     ``"bm25"``    global_weight is calculated by Okapi BM25 method. In addition to the feature frequency, BM25 uses the length of the document that the feature appears. Roughly speaking, the less feature frequently appears and the short the length of the document the feature is in, the greater its weight is. Generally used in combination with ``"sample_weight": "tf"``. It is empirically known that BM25 weighting is better than IDF.  Note that calculation cost is higher than IDF.
     ============= =====================
 
 In most of machine learning tasks, it works well even if we use "bin" in both sample_weight and global_weight.
 In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set "bin" in sample_weight and global_weight. Classification is an example of such a task.
 
+By using ``"idf1"`` instead of ``"idf"`` in ``global_weight``, you can workaroud the problem that features in the first document or features that appear in all documents are not added to the model.
+When ``"idf"`` is used, IDF value of features of the first document (e.g., the first record registered to Recommender) or features that appear in all documents (e.g., a feature ``"the"`` appear in 1,000 out of 1,000 documents) become ``0``; this makes the weight of the feature to become ``0``, causing the feature not be trained to the model.
+``"idf1"`` uses ``IDF value + 1.0`` as a weight value to train features in such situations.
 
 Feature Extraction from Numbers
 -------------------------------

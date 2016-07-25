@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.2',
+        VERSION:     '0.9.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -284,79 +284,101 @@
 70
 71
 72
-73</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
+<span class="kn">import</span> <span class="nn">signal</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">jubatus.anomaly</span> <span class="kn">import</span> <span class="n">client</span>
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
 
 <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;anom_kddcup&quot;</span><span class="p">;</span>
 
+<span class="c1"># handle keyboard interruption&quot;</span>
+<span class="k">def</span> <span class="nf">do_exit</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">stack</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;You pressed Ctrl+C.&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Stop running the job.&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># 0. set KeyboardInterrupt handler</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">do_exit</span><span class="p">)</span>
 
-    <span class="c1"># 1.Jubatus Serverへの接続設定</span>
-    <span class="n">anom</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Anomaly</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="mi">9199</span><span class="p">,</span><span class="n">NAME</span><span class="p">)</span>
+    <span class="c1"># 1. set jubatus server</span>
+    <span class="n">anom</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Anomaly</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
 
-    <span class="c1"># 2.学習用データの準備</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./kddcup.data_10_percent.txt&#39;</span><span class="p">):</span>
-        <span class="n">duration</span><span class="p">,</span> <span class="n">protocol_type</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">src_bytes</span><span class="p">,</span> <span class="n">dst_bytes</span><span class="p">,</span> <span class="n">land</span><span class="p">,</span> <span class="n">wrong_fragment</span><span class="p">,</span> <span class="n">urgent</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span> <span class="n">num_failed_logins</span><span class="p">,</span> <span class="n">logged_in</span><span class="p">,</span> <span class="n">num_compromised</span><span class="p">,</span> <span class="n">root_shell</span><span class="p">,</span> <span class="n">su_attempted</span><span class="p">,</span> <span class="n">num_root</span><span class="p">,</span> <span class="n">num_file_creations</span><span class="p">,</span> <span class="n">num_shells</span><span class="p">,</span> <span class="n">num_access_files</span><span class="p">,</span> <span class="n">num_outbound_cmds</span><span class="p">,</span> <span class="n">is_host_login</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">srv_count</span><span class="p">,</span> <span class="n">serror_rate</span><span class="p">,</span> <span class="n">srv_serror_rate</span><span class="p">,</span> <span class="n">rerror_rate</span><span class="p">,</span> <span class="n">srv_rerror_rate</span><span class="p">,</span> <span class="n">same_srv_rate</span><span class="p">,</span> <span class="n">diff_srv_rate</span><span class="p">,</span> <span class="n">srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_count</span><span class="p">,</span> <span class="n">dst_host_srv_count</span><span class="p">,</span> <span class="n">dst_host_same_srv_rate</span><span class="p">,</span> <span class="n">dst_host_diff_srv_rate</span><span class="p">,</span> <span class="n">dst_host_same_src_port_rate</span><span class="p">,</span> <span class="n">dst_host_srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_serror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_serror_rate</span><span class="p">,</span> <span class="n">dst_host_rerror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_rerror_rate</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="c1"># 2. prepare training data</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;kddcup.data_10_percent.txt&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">:</span>
+            <span class="n">duration</span><span class="p">,</span> <span class="n">protocol_type</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">src_bytes</span><span class="p">,</span> <span class="n">dst_bytes</span><span class="p">,</span> <span class="n">land</span><span class="p">,</span> <span class="n">wrong_fragment</span><span class="p">,</span> <span class="n">urgent</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span> <span class="n">num_failed_logins</span><span class="p">,</span> <span class="n">logged_in</span><span class="p">,</span> <span class="n">num_compromised</span><span class="p">,</span> <span class="n">root_shell</span><span class="p">,</span> <span class="n">su_attempted</span><span class="p">,</span> <span class="n">num_root</span><span class="p">,</span> <span class="n">num_file_creations</span><span class="p">,</span> <span class="n">num_shells</span><span class="p">,</span> <span class="n">num_access_files</span><span class="p">,</span> <span class="n">num_outbound_cmds</span><span class="p">,</span> <span class="n">is_host_login</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">srv_count</span><span class="p">,</span> <span class="n">serror_rate</span><span class="p">,</span> <span class="n">srv_serror_rate</span><span class="p">,</span> <span class="n">rerror_rate</span><span class="p">,</span> <span class="n">srv_rerror_rate</span><span class="p">,</span> <span class="n">same_srv_rate</span><span class="p">,</span> <span class="n">diff_srv_rate</span><span class="p">,</span> <span class="n">srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_count</span><span class="p">,</span> <span class="n">dst_host_srv_count</span><span class="p">,</span> <span class="n">dst_host_same_srv_rate</span><span class="p">,</span> <span class="n">dst_host_diff_srv_rate</span><span class="p">,</span> <span class="n">dst_host_same_src_port_rate</span><span class="p">,</span> <span class="n">dst_host_srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_serror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_serror_rate</span><span class="p">,</span> <span class="n">dst_host_rerror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_rerror_rate</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 
-        <span class="n">datum</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">()</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span>
-                <span class="p">[</span><span class="s2">&quot;protocol_type&quot;</span><span class="p">,</span> <span class="n">protocol_type</span><span class="p">],</span>
-                <span class="p">[</span><span class="s2">&quot;service&quot;</span><span class="p">,</span> <span class="n">service</span><span class="p">],</span>
-                <span class="p">[</span><span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="p">],</span>
-                <span class="p">[</span><span class="s2">&quot;land&quot;</span><span class="p">,</span> <span class="n">land</span><span class="p">],</span>
-                <span class="p">[</span><span class="s2">&quot;logged_in&quot;</span><span class="p">,</span> <span class="n">logged_in</span><span class="p">],</span>
-                <span class="p">[</span><span class="s2">&quot;is_host_login&quot;</span><span class="p">,</span> <span class="n">is_host_login</span><span class="p">],</span>
-                <span class="p">[</span><span class="s2">&quot;is_guest_login&quot;</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="p">],</span>
-                <span class="p">]:</span>
-            <span class="n">datum</span><span class="o">.</span><span class="n">add_string</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">datum</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">()</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="p">[</span><span class="s2">&quot;protocol_type&quot;</span><span class="p">,</span> <span class="n">protocol_type</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;service&quot;</span><span class="p">,</span> <span class="n">service</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;land&quot;</span><span class="p">,</span> <span class="n">land</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;logged_in&quot;</span><span class="p">,</span> <span class="n">logged_in</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;is_host_login&quot;</span><span class="p">,</span> <span class="n">is_host_login</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;is_guest_login&quot;</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="p">],</span>
+                    <span class="p">]:</span>
+                <span class="n">datum</span><span class="o">.</span><span class="n">add_string</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span>
-                <span class="p">[</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">duration</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;src_bytes&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">src_bytes</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_bytes&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dst_bytes</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;wrong_fragment&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">wrong_fragment</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;urgent&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">urgent</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">hot</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_failed_logins&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_failed_logins</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_compromised&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_compromised</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;root_shell&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">root_shell</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;su_attempted&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">su_attempted</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_root&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_root</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_file_creations&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_file_creations</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_shells&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_shells</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_access_files&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_access_files</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;num_outbound_cmds&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">num_outbound_cmds</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">count</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;srv_count&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">srv_count</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;serror_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">serror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;srv_serror_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">srv_serror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;rerror_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">rerror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;srv_rerror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">srv_rerror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;same_srv_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">same_srv_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;diff_srv_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">diff_srv_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;srv_diff_host_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">srv_diff_host_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_count&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">dst_host_count</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_srv_count&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_count</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_same_srv_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">dst_host_same_srv_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_same_src_port_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">dst_host_same_src_port_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_diff_srv_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dst_host_diff_srv_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_diff_host_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_serror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_serror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_srv_serror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_serror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_rerror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_rerror_rate</span><span class="p">)],</span>
-                <span class="p">[</span><span class="s2">&quot;dst_host_srv_rerror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_rerror_rate</span><span class="p">)],</span>
-                <span class="p">]:</span>
-            <span class="n">datum</span><span class="o">.</span><span class="n">add_number</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="p">[</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">duration</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;src_bytes&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">src_bytes</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_bytes&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dst_bytes</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;wrong_fragment&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">wrong_fragment</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;urgent&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">urgent</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">hot</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_failed_logins&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_failed_logins</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_compromised&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_compromised</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;root_shell&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">root_shell</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;su_attempted&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">su_attempted</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_root&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_root</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_file_creations&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_file_creations</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_shells&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_shells</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_access_files&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_access_files</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;num_outbound_cmds&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">num_outbound_cmds</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">count</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;srv_count&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">srv_count</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;serror_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">serror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;srv_serror_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">srv_serror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;rerror_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">rerror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;srv_rerror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">srv_rerror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;same_srv_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">same_srv_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;diff_srv_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">diff_srv_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;srv_diff_host_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">srv_diff_host_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_count&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">dst_host_count</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_srv_count&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_count</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_same_srv_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">dst_host_same_srv_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_same_src_port_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span> <span class="n">dst_host_same_src_port_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_diff_srv_rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dst_host_diff_srv_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_diff_host_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_serror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_serror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_srv_serror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_serror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_rerror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_rerror_rate</span><span class="p">)],</span>
+                    <span class="p">[</span><span class="s2">&quot;dst_host_srv_rerror_rate&quot;</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">dst_host_srv_rerror_rate</span><span class="p">)],</span>
+                    <span class="p">]:</span>
+                <span class="n">datum</span><span class="o">.</span><span class="n">add_number</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
-        <span class="c1"># 3.データの学習（学習モデルの更新）</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">anom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">datum</span><span class="p">)</span>
+            <span class="c1"># 3. train data and update jubatus model</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">anom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">datum</span><span class="p">)</span>
 
-        <span class="c1"># 4.結果の出力</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;Inf&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">score</span><span class="o">!=</span> <span class="mf">1.0</span><span class="p">):</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="c1"># 4. output results</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;Inf&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">score</span><span class="o">!=</span> <span class="mf">1.0</span><span class="p">):</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -368,8 +390,16 @@
 <li>method</li>
 </ul>
 <blockquote>
-<div>分類に使用するアルコリズムを指定します。
-Anomalyで指定できるのは、現在&#8221;LOF&#8221;のみなので&#8221;LOF&#8221;（Local Outlier Factor）を指定します。</div></blockquote>
+<div>異常検知に使用するアルコリズムを指定します。
+Anomalyで指定できるのは、Recommenderベースの&#8221;lof&#8221;およびNearest Neighborベースの&#8221;light lof&#8221;です。
+今回は&#8221;lof&#8221;（Local Outlier Factor）を指定します。</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<dl class="docutils">
+<dt>　methodで設定した異常検知アルゴリズムのパラメータを設定します。</dt>
+<dd>今回は&#8221;lof&#8221;を利用するため、<a class="reference external" href="http://jubat.us/ja/api_recommender.html">Recommender API</a> に従ってパラメータを設定します。</dd>
+</dl>
 <ul class="simple">
 <li>converter</li>
 </ul>
@@ -382,12 +412,8 @@ Anomalyで指定できるのは、現在&#8221;LOF&#8221;のみなので&#8221;L
 <p>&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
 &#8220;key&#8221;は&#8221;*&#8221;、&#8221;type&#8221;は&#8221;str&#8221;、&#8221;sample_weight&#8221;は&#8221;bin&#8221;、&#8221;global_weight&#8221;は&#8221;bin&#8221;としています。
 これは、すべての文字列に対して、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に&#8221;1&#8221;とする設定です。</p>
+<p>･･･</p>
 </div></blockquote>
-<ul class="simple">
-<li>parameter（要修正）</li>
-</ul>
-<blockquote>
-<div>･･･</div></blockquote>
 <p><strong>anomaly.py</strong></p>
 <blockquote>
 <div><p>anomaly.pyでは、csvから読み込んだデータをJubatusにサーバ与え、外れ値を検出し出力します。</p>
@@ -395,7 +421,7 @@ Anomalyで指定できるのは、現在&#8221;LOF&#8221;のみなので&#8221;L
 <li>Jubatus Serverへの接続設定</li>
 </ol>
 <blockquote>
-<div>Jubatus Serverへの接続を行います（12行目）。
+<div>Jubatus Serverへの接続を行います（22行目）。
 Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定します。</div></blockquote>
 <ol class="arabic simple" start="2">
 <li>学習用データの準備</li>
@@ -403,14 +429,14 @@ Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定�
 <blockquote>
 <div>AnomalyClientでは、Datumをaddメソッドに与えることで、学習および外れ値検知が行われます。
 今回はKDDカップ（Knowledge Discovery and Data Mining Cup）の結果（TEXTファイル）を元に学習用データを作成していきます。
-まず、学習用データの元となるTEXTファイルを読み込みます（15行目）。
-このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（16行目）。
-取得した要素を用いて学習用データdatumを作成します（18-65行目）。</div></blockquote>
+まず、学習用データの元となるTEXTファイルを読み込みます（25行目）。
+このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（27行目）。
+取得した要素を用いて学習用データdatumを作成します（29-77行目）。</div></blockquote>
 <ol class="arabic simple" start="3">
 <li>データの学習（学習モデルの更新）</li>
 </ol>
 <blockquote>
-<div>AnomalyClientのaddメソッドに2. で作成したデータを渡します（68行目）。
+<div>AnomalyClientのaddメソッドに2. で作成したデータを渡します（80行目）。
 addメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（&#8221;&#8220;）を指定）
 第2引数として、先ほど2. で作成したDatumを指定します。
 戻り値として、tuple&lt;string, float&gt;型で点IDと異常値を返却します。</div></blockquote>
@@ -419,11 +445,19 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
 </ol>
 <blockquote>
 <div>addメソッドの戻り値である異常値から外れ値かどうかを判定します。
-異常値が無限ではなく、1.0以外の場合は外れ値と判断し出力します（71,72行目）。</div></blockquote>
+異常値が無限ではなく、1.0以外の場合は外れ値と判断し出力します（83,84行目）。</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラムの実行<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>[データのダウンロード]</strong></p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ wget http://kdd.ics.uci.edu/databases/kddcup99/kddcup.data_10_percent.gz
+$ gunzip kddcup.data_10_percent.gz
+$ mv kddcup.data_10_percent kddcup.data_10_percent.txt
+</pre></div>
+</div>
+</div></blockquote>
 <p><strong>［Jubatus Serverでの作業］</strong></p>
 <blockquote>
 <div><p>jubaanomalyを起動します。</p>
@@ -433,26 +467,27 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
 </div></blockquote>
 <p><strong>［Jubatus Clientでの作業］</strong></p>
 <blockquote>
-<div>$ python anomaly.py</div></blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ python anomaly.py
+</pre></div>
+</div>
+</div></blockquote>
 <p><strong>［実行結果］</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>(&#39;574&#39;, 0.99721104) normal.
-(&#39;697&#39;, 1.4958459) normal.
-(&#39;1127&#39;, 0.79527026) normal.
-(&#39;1148&#39;, 1.1487594) normal.
-(&#39;1149&#39;, 1.2) normal.
-(&#39;2382&#39;, 0.9994011) normal.
-(&#39;2553&#39;, 1.2638165) normal.
-(&#39;2985&#39;, 1.4081864) normal.
-(&#39;3547&#39;, 1.275244) normal.
-(&#39;3557&#39;, 0.90432936) normal.
-(&#39;3572&#39;, 0.75777346) normal.
-(&#39;3806&#39;, 0.9943142) normal.
-(&#39;3816&#39;, 1.0017062) normal.
-(&#39;3906&#39;, 0.5671135) normal.
-…
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>id_with_score{id: 194, score: 1.0000441074371338} normal.
+id_with_score{id: 494, score: 1.4595649242401123} normal.
+id_with_score{id: 1127, score: 1.0642377138137817} normal.
+id_with_score{id: 1148, score: 1.0404019355773926} normal.
+id_with_score{id: 1709, score: 1.2717968225479126} normal.
+id_with_score{id: 2291, score: 1.388629674911499} normal.
+id_with_score{id: 2357, score: 1.0560613870620728} normal.
+id_with_score{id: 2382, score: 0.9994010925292969} normal.
+id_with_score{id: 2499, score: 0.7581642270088196} normal.
+
+
 …（以下略）
 </pre></div>
 </div>
+</div></blockquote>
 </div>
 </div>
 

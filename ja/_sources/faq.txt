@@ -8,6 +8,39 @@
 
  mecab 辞書と mecab コマンドで UTF-8 が使えるようになっていることを確かめてください。
 
+- ``jubadump`` コマンドをインストールしたい
+
+ ``jubadump`` バイナリパッケージでインストールすることができます。
+
+ * DEBパッケージ(Ubuntu環境): ``jubatus`` パッケージ内に ``jubadump`` が含まれています。
+ * RPMパッケージ(RHEL環境): ``sudo yum install jubadump`` でインストールすることができます。
+
+ 上記以外の環境ではソースコードからのビルドを行ってください。
+
+- RPMパッケージ(RHEL環境)でインストールしたJubatusパッケージをアップデートしたい
+
+ 以下のコマンドを実行してください。
+
+ ::
+
+  $ sudo yum update jubatus
+
+ ``jubatus`` をアップデートしても、 ``jubadump``, ``jubatus-release``, ``oniguruma`` は自動的にアップデートされません。
+ アップデートが必要な場合は個別に ``yum update`` を行ってください。
+
+- DEBパッケージ(Ubuntu環境)でインストールしたJubatusパッケージをアップデートしたい
+
+ 以下のコマンドを実行してください。
+
+ ::
+
+  $ sudo apt-get update
+  $ sudo apt-get install jubatus
+
+- クライアントのアップデート手順は?
+
+ `Jubatus Wiki: Installing and Updating Clients <https://github.com/jubatus/jubatus/wiki/Installing-and-Updating-Clients-(ja)>`_ をご覧ください。
+
 - プロキシを経由している場合のインストール方法は?
 
  Ubuntu環境のバイナリパッケージ(Apt)

@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.2',
+        VERSION:     '0.9.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -925,7 +925,10 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code></td>
 <td>文書正規化頻度の逆数の対数を利用する。例えば文書1000件中で50件にその特徴が含まれた場合、重みはlog(1000/50)にする。大まかには出現頻度の少ない特徴ほど大きな重みが設定される。</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;bm25&quot;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code></td>
+<td><code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> の値に 1.0 を加算した値を使用する。表下の説明も参照のこと。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;bm25&quot;</span></code></td>
 <td>Okapi BM25 による重み付けを利用する。特徴の出現頻度だけでなく、その特徴が出現した文書の長さを考慮して重み付けを行う。大まかには、出現頻度が少なく、かつ出現した文書の長さが短い特徴ほど、大きな重みが設定される。通常は <code class="docutils literal"><span class="pre">&quot;sample_weight&quot;:</span> <span class="pre">&quot;tf&quot;</span></code> とセットで使用する。経験的には IDF よりも良い結果が得られることが多い。IDF よりも計算量が大きくなる点に留意すること。</td>
 </tr>
 </tbody>
@@ -937,6 +940,9 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </div></blockquote>
 <p>sample_weightとglobal_weightは、ともにbinにしておいても通常のケースでは正しく動作する。
 また、例えば分類問題など重み自体を学習するケースでは、ともにbinにしておいても自動的に調整される。</p>
+<p><code class="docutils literal"><span class="pre">global_weight</span></code> において、 <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> の代わりに <code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code> を使用することで、最初の文書に出現する特徴や全ての文書に出現する特徴が学習モデルに登録されない問題を回避することができる。
+通常の <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> の場合、最初の文書(例えばRecommenderにおいて最初に登録したレコード)の特徴や、すべての文書に出現する特徴(例えば <code class="docutils literal"><span class="pre">&quot;the&quot;</span></code> という単語が文書1,000件中で1,000件に含まれた場合)、それらの特徴のIDF値が <code class="docutils literal"><span class="pre">0</span></code> すなわち特徴の重みが <code class="docutils literal"><span class="pre">0</span></code> となってしまい、学習が行われない。
+<code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code> は <code class="docutils literal"><span class="pre">IDF値</span> <span class="pre">+</span> <span class="pre">1.0</span></code> を重みとして使うことで、そのような状況でも特徴の学習を行うことができるようにしている。</p>
 </div>
 </div>
 <div class="section" id="id8">

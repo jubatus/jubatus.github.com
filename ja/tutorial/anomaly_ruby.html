@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.2',
+        VERSION:     '0.9.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -212,87 +212,162 @@
 </pre></div>
 </td></tr></table></div>
 <p><strong>anomaly.rb</strong></p>
-<p>このクライアントは Jubatus 0.4.x 向けです。
-Jubatus 0.5.x 以降で使用するためには微修正が必要です。</p>
-<div class="highlight-ruby"><div class="highlight"><pre><span></span><span class="mo">01</span> <span class="p">:</span> <span class="c1">#!/usr/bin/env ruby</span>
-<span class="mo">02</span> <span class="p">:</span> <span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="mo">03</span> <span class="p">:</span>
-<span class="mo">04</span> <span class="p">:</span> <span class="vg">$host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
-<span class="mo">05</span> <span class="p">:</span> <span class="vg">$port</span> <span class="o">=</span> <span class="mi">9199</span>
-<span class="mo">06</span> <span class="p">:</span> <span class="vg">$name</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
-<span class="mo">07</span> <span class="p">:</span>
-<span class="mi">08</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-<span class="mi">09</span> <span class="p">:</span>
-<span class="mi">10</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;jubatus/anomaly/client&#39;</span>
-<span class="mi">11</span> <span class="p">:</span> <span class="nb">require</span> <span class="s1">&#39;jubatus/anomaly/types&#39;</span>
-<span class="mi">12</span> <span class="p">:</span>
-<span class="mi">13</span> <span class="p">:</span>
-<span class="mi">14</span> <span class="p">:</span> <span class="c1"># 1.Jubatus Serverへの接続設定</span>
-<span class="mi">15</span> <span class="p">:</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Anomaly</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Anomaly</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vg">$host</span><span class="p">,</span> <span class="vg">$port</span><span class="p">)</span>
-<span class="mi">16</span> <span class="p">:</span>
-<span class="mi">17</span> <span class="p">:</span> <span class="c1"># 2.学習用データの準備</span>
-<span class="mi">18</span> <span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;kddcup.data_10_percent.txt&quot;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span>
-<span class="mi">19</span> <span class="p">:</span>   <span class="n">f</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
-<span class="mi">20</span> <span class="p">:</span>     <span class="n">duration</span><span class="p">,</span> <span class="n">protocol_type</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">src_bytes</span><span class="p">,</span> <span class="n">dst_bytes</span><span class="p">,</span> <span class="n">land</span><span class="p">,</span> <span class="n">wrong_fragment</span><span class="p">,</span> <span class="n">urgent</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span> <span class="n">num_failed_logins</span><span class="p">,</span> <span class="n">logged_in</span><span class="p">,</span> <span class="n">num_compromised</span><span class="p">,</span> <span class="n">root_shell</span><span class="p">,</span> <span class="n">su_attempted</span><span class="p">,</span> <span class="n">num_root</span><span class="p">,</span> <span class="n">num_file_creations</span><span class="p">,</span> <span class="n">num_shells</span><span class="p">,</span> <span class="n">num_access_files</span><span class="p">,</span> <span class="n">num_outbound_cmds</span><span class="p">,</span> <span class="n">is_host_login</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">srv_count</span><span class="p">,</span> <span class="n">serror_rate</span><span class="p">,</span> <span class="n">srv_serror_rate</span><span class="p">,</span> <span class="n">rerror_rate</span><span class="p">,</span> <span class="n">srv_rerror_rate</span><span class="p">,</span> <span class="n">same_srv_rate</span><span class="p">,</span> <span class="n">diff_srv_rate</span><span class="p">,</span> <span class="n">srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_count</span><span class="p">,</span> <span class="n">dst_host_srv_count</span><span class="p">,</span> <span class="n">dst_host_same_srv_rate</span><span class="p">,</span> <span class="n">dst_host_diff_srv_rate</span><span class="p">,</span> <span class="n">dst_host_same_src_port_rate</span><span class="p">,</span> <span class="n">dst_host_srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_serror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_serror_rate</span><span class="p">,</span> <span class="n">dst_host_rerror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_rerror_rate</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="mi">21</span> <span class="p">:</span>     <span class="n">datum</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Anomaly</span><span class="o">::</span><span class="no">Datum</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-<span class="mi">22</span> <span class="p">:</span>        <span class="o">[</span>
-<span class="mi">23</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;protocol_type&quot;</span><span class="p">,</span> <span class="n">protocol_type</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">24</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;service&quot;</span><span class="p">,</span> <span class="n">service</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">25</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">26</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;land&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">27</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;logged_in&quot;</span><span class="p">,</span> <span class="n">logged_in</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">28</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;is_host_login&quot;</span><span class="p">,</span> <span class="n">is_host_login</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">29</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;is_guest_login&quot;</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">30</span> <span class="p">:</span>        <span class="o">]</span><span class="p">,</span>
-<span class="mi">31</span> <span class="p">:</span>        <span class="o">[</span>
-<span class="mi">32</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span><span class="n">duration</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">33</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;src_bytes&quot;</span><span class="p">,</span> <span class="n">src_bytes</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">34</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_bytes&quot;</span><span class="p">,</span> <span class="n">dst_bytes</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">35</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;wrong_fragment&quot;</span><span class="p">,</span> <span class="n">wrong_fragment</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">36</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;urgent&quot;</span><span class="p">,</span> <span class="n">urgent</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">37</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="n">hot</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">38</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_failed_logins&quot;</span><span class="p">,</span> <span class="n">num_failed_logins</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">39</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_compromised&quot;</span><span class="p">,</span> <span class="n">num_compromised</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">40</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;root_shell&quot;</span><span class="p">,</span> <span class="n">root_shell</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">41</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;su_attempted&quot;</span><span class="p">,</span> <span class="n">su_attempted</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">42</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_root&quot;</span><span class="p">,</span> <span class="n">num_root</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">43</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_file_creations&quot;</span><span class="p">,</span> <span class="n">num_file_creations</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">44</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_shells&quot;</span><span class="p">,</span> <span class="n">num_shells</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">45</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_access_files&quot;</span><span class="p">,</span> <span class="n">num_access_files</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">46</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;num_outbound_cmds&quot;</span><span class="p">,</span><span class="n">num_outbound_cmds</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">47</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">48</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;srv_count&quot;</span><span class="p">,</span> <span class="n">srv_count</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">49</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;serror_rate&quot;</span><span class="p">,</span> <span class="n">serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">50</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;srv_serror_rate&quot;</span><span class="p">,</span> <span class="n">srv_serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">51</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;rerror_rate&quot;</span><span class="p">,</span> <span class="n">rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">52</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;srv_rerror_rate&quot;</span><span class="p">,</span> <span class="n">srv_rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">53</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;same_srv_rate&quot;</span><span class="p">,</span> <span class="n">same_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">54</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;diff_srv_rate&quot;</span><span class="p">,</span> <span class="n">diff_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">55</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;srv_diff_host_rate&quot;</span><span class="p">,</span> <span class="n">srv_diff_host_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">56</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_count&quot;</span><span class="p">,</span> <span class="n">dst_host_count</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">57</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_srv_count&quot;</span><span class="p">,</span> <span class="n">dst_host_srv_count</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">58</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_same_srv_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_same_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">59</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_same_src_port_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_same_src_port_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">60</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_diff_srv_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_diff_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">61</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_srv_diff_host_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_srv_diff_host_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">62</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_serror_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">63</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_srv_serror_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_srv_serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">64</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_rerror_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">65</span> <span class="p">:</span>         <span class="o">[</span><span class="s2">&quot;dst_host_srv_rerror_rate&quot;</span><span class="p">,</span> <span class="n">dst_host_srv_rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="o">]</span><span class="p">,</span>
-<span class="mi">66</span> <span class="p">:</span>         <span class="o">]</span>
-<span class="mi">67</span> <span class="p">:</span>        <span class="p">)</span>
-<span class="mi">68</span> <span class="p">:</span>     <span class="c1"># 3.データの学習（学習モデルの更新）</span>
-<span class="mi">69</span> <span class="p">:</span>     <span class="n">ret</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="vg">$name</span><span class="p">,</span> <span class="n">datum</span><span class="p">)</span>
-<span class="mi">70</span> <span class="p">:</span>
-<span class="mi">71</span> <span class="p">:</span>     <span class="c1"># 4.結果の出力</span>
-<span class="mi">72</span> <span class="p">:</span>     <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">!=</span> <span class="nb">Float</span><span class="o">::</span><span class="no">INFINITY</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ret</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<span class="mi">73</span> <span class="p">:</span>       <span class="nb">print</span> <span class="n">ret</span><span class="p">,</span> <span class="n">label</span>
-<span class="mi">74</span> <span class="p">:</span>     <span class="k">end</span>
-<span class="mi">75</span> <span class="p">:</span>   <span class="p">}</span>
-<span class="mi">76</span> <span class="p">:</span> <span class="p">}</span>
-<span class="mi">77</span> <span class="p">:</span>
+<p>このクライアントは Jubatus 0.5.x 以降で動作します。</p>
+<div class="highlight-ruby"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1">#!/usr/bin/env ruby</span>
+ <span class="c1"># -*- coding: utf-8 -*-</span>
+
+ <span class="vg">$host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+ <span class="vg">$port</span> <span class="o">=</span> <span class="mi">9199</span>
+ <span class="vg">$name</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
+
+ <span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+
+ <span class="nb">require</span> <span class="s1">&#39;jubatus/anomaly/client&#39;</span>
+
+ <span class="c1"># 0. set keyboard interruption handler&quot;</span>
+ <span class="no">Signal</span><span class="o">.</span><span class="n">trap</span><span class="p">(</span><span class="ss">:INT</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nb">print</span> <span class="s2">&quot;You pressed Ctrl+C.&quot;</span>
+     <span class="nb">print</span> <span class="s2">&quot;Stop running the job.&quot;</span>
+     <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+ <span class="p">}</span>
+
+ <span class="c1"># 1. Configuration to connect Jubatus Server</span>
+ <span class="n">client</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Anomaly</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Anomaly</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vg">$host</span><span class="p">,</span> <span class="vg">$port</span><span class="p">,</span> <span class="vg">$name</span><span class="p">)</span>
+
+ <span class="c1"># 2. prepare training dataset</span>
+ <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../kddcup.data_10_percent.txt&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+   <span class="n">f</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+     <span class="n">duration</span><span class="p">,</span> <span class="n">protocol_type</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">src_bytes</span><span class="p">,</span> <span class="n">dst_bytes</span><span class="p">,</span> <span class="n">land</span><span class="p">,</span> <span class="n">wrong_fragment</span><span class="p">,</span> <span class="n">urgent</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span> <span class="n">num_failed_logins</span><span class="p">,</span> <span class="n">logged_in</span><span class="p">,</span> <span class="n">num_compromised</span><span class="p">,</span> <span class="n">root_shell</span><span class="p">,</span> <span class="n">su_attempted</span><span class="p">,</span> <span class="n">num_root</span><span class="p">,</span> <span class="n">num_file_creations</span><span class="p">,</span> <span class="n">num_shells</span><span class="p">,</span> <span class="n">num_access_files</span><span class="p">,</span> <span class="n">num_outbound_cmds</span><span class="p">,</span> <span class="n">is_host_login</span><span class="p">,</span> <span class="n">is_guest_login</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">srv_count</span><span class="p">,</span> <span class="n">serror_rate</span><span class="p">,</span> <span class="n">srv_serror_rate</span><span class="p">,</span> <span class="n">rerror_rate</span><span class="p">,</span> <span class="n">srv_rerror_rate</span><span class="p">,</span> <span class="n">same_srv_rate</span><span class="p">,</span> <span class="n">diff_srv_rate</span><span class="p">,</span> <span class="n">srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_count</span><span class="p">,</span> <span class="n">dst_host_srv_count</span><span class="p">,</span> <span class="n">dst_host_same_srv_rate</span><span class="p">,</span> <span class="n">dst_host_diff_srv_rate</span><span class="p">,</span> <span class="n">dst_host_same_src_port_rate</span><span class="p">,</span> <span class="n">dst_host_srv_diff_host_rate</span><span class="p">,</span> <span class="n">dst_host_serror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_serror_rate</span><span class="p">,</span> <span class="n">dst_host_rerror_rate</span><span class="p">,</span> <span class="n">dst_host_srv_rerror_rate</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+           <span class="n">data</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Common</span><span class="o">::</span><span class="no">Datum</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+       <span class="s2">&quot;protocol_type&quot;</span> <span class="o">=&gt;</span> <span class="n">protocol_type</span><span class="p">,</span>
+       <span class="s2">&quot;service&quot;</span> <span class="o">=&gt;</span> <span class="n">service</span><span class="p">,</span>
+       <span class="s2">&quot;flag&quot;</span> <span class="o">=&gt;</span> <span class="n">flag</span><span class="p">,</span>
+       <span class="s2">&quot;land&quot;</span> <span class="o">=&gt;</span> <span class="n">land</span><span class="p">,</span>
+       <span class="s2">&quot;logged_in&quot;</span> <span class="o">=&gt;</span> <span class="n">logged_in</span><span class="p">,</span>
+       <span class="s2">&quot;is_host_login&quot;</span> <span class="o">=&gt;</span> <span class="n">is_host_login</span><span class="p">,</span>
+       <span class="s2">&quot;is_guest_login&quot;</span> <span class="o">=&gt;</span> <span class="n">is_guest_login</span><span class="p">,</span>
+           <span class="s2">&quot;duration&quot;</span> <span class="o">=&gt;</span> <span class="n">duration</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;src_bytes&quot;</span> <span class="o">=&gt;</span> <span class="n">src_bytes</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_bytes&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_bytes</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;wrong_fragment&quot;</span> <span class="o">=&gt;</span> <span class="n">wrong_fragment</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;urgent&quot;</span> <span class="o">=&gt;</span> <span class="n">urgent</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;hot&quot;</span> <span class="o">=&gt;</span> <span class="n">hot</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_failed_logins&quot;</span> <span class="o">=&gt;</span> <span class="n">num_failed_logins</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_compromised&quot;</span> <span class="o">=&gt;</span> <span class="n">num_compromised</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;root_shell&quot;</span> <span class="o">=&gt;</span> <span class="n">root_shell</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;su_attempted&quot;</span> <span class="o">=&gt;</span> <span class="n">su_attempted</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_root&quot;</span> <span class="o">=&gt;</span> <span class="n">num_root</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_file_creations&quot;</span> <span class="o">=&gt;</span> <span class="n">num_file_creations</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_shells&quot;</span> <span class="o">=&gt;</span> <span class="n">num_shells</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_access_files&quot;</span> <span class="o">=&gt;</span> <span class="n">num_access_files</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;num_outbound_cmds&quot;</span> <span class="o">=&gt;</span> <span class="n">num_outbound_cmds</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;count&quot;</span> <span class="o">=&gt;</span> <span class="n">count</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;srv_count&quot;</span> <span class="o">=&gt;</span> <span class="n">srv_count</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;serror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;srv_serror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">srv_serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;rerror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;srv_rerror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">srv_rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;same_srv_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">same_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;diff_srv_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">diff_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;srv_diff_host_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">srv_diff_host_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_count&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_count</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_srv_count&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_srv_count</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_same_srv_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_same_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_same_src_port_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_same_src_port_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_diff_srv_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_diff_srv_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_srv_diff_host_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_srv_diff_host_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_serror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_srv_serror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_srv_serror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_rerror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">,</span>
+       <span class="s2">&quot;dst_host_srv_rerror_rate&quot;</span> <span class="o">=&gt;</span> <span class="n">dst_host_srv_rerror_rate</span><span class="o">.</span><span class="n">to_f</span><span class="p">)</span>
+     <span class="c1"># 3. training</span>
+           <span class="n">ret</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+     <span class="c1"># 4. output results</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="nb">Float</span><span class="o">::</span><span class="no">INFINITY</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+               <span class="nb">print</span> <span class="n">ret</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">label</span>
+           <span class="k">end</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="id2">
 <h2>解説<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -302,8 +377,16 @@ Jubatus 0.5.x 以降で使用するためには微修正が必要です。</p>
 <li>method</li>
 </ul>
 <blockquote>
-<div>分類に使用するアルコリズムを指定します。
-Anomalyで指定できるのは、現在&#8221;LOF&#8221;のみなので&#8221;LOF&#8221;（Local Outlier Factor）を指定します。</div></blockquote>
+<div>異常検知に使用するアルコリズムを指定します。
+Anomalyで指定できるのは、Recommenderベースの&#8221;lof&#8221;およびNearest Neighborベースの&#8221;light_lof&#8221;です。
+今回は&#8221;lof&#8221;（Local Outlier Factor）を指定します。</div></blockquote>
+<ul class="simple">
+<li>parameter</li>
+</ul>
+<dl class="docutils">
+<dt>　methodで設定した異常検知アルゴリズムのパラメータを設定します。</dt>
+<dd>今回は&#8221;lof&#8221;を利用するため、<a class="reference external" href="http://jubat.us/ja/api_recommender.html">Recommender API</a> に従ってパラメータを設定します。</dd>
+</dl>
 <ul class="simple">
 <li>converter</li>
 </ul>
@@ -317,11 +400,6 @@ Anomalyで指定できるのは、現在&#8221;LOF&#8221;のみなので&#8221;L
 &#8220;key&#8221;は&#8221;*&#8221;、&#8221;type&#8221;は&#8221;str&#8221;、&#8221;sample_weight&#8221;は&#8221;bin&#8221;、&#8221;global_weight&#8221;は&#8221;bin&#8221;としています。
 これは、すべての文字列に対して、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に&#8221;1&#8221;とする設定です。</p>
 </div></blockquote>
-<ul class="simple">
-<li>parameter（要修正）</li>
-</ul>
-<blockquote>
-<div>･･･</div></blockquote>
 <p><strong>anomaly.rb</strong></p>
 <blockquote>
 <div><p>anomaly.rbでは、csvから読み込んだデータをJubatusサーバ与え、外れ値を検出し出力します。</p>
@@ -329,7 +407,7 @@ Anomalyで指定できるのは、現在&#8221;LOF&#8221;のみなので&#8221;L
 <li>Jubatus Serverへの接続設定</li>
 </ol>
 <blockquote>
-<div>Jubatus Serverへの接続を行います（15行目）。
+<div>Jubatus Serverへの接続を行います（20行目）。
 Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定します。</div></blockquote>
 <ol class="arabic simple" start="2">
 <li>学習用データの準備</li>
@@ -337,9 +415,9 @@ Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定�
 <blockquote>
 <div>AnomalyClientでは、Datumをaddメソッドに与えることで、学習および外れ値検知が行われます。
 今回はKDDカップ（Knowledge Discovery and Data Mining Cup）の結果（TEXTファイル）を元に学習用データを作成していきます。
-まず、学習用データの元となるTEXTファイルを読み込みます（18-19行目）。
-このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（20行目）。
-取得した要素を用いて学習用データdatumを作成します（21-67行目）。</div></blockquote>
+まず、学習用データの元となるTEXTファイルを読み込みます（23-24行目）。
+このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（25行目）。
+取得した要素を用いて学習用データdatumを作成します（26-67行目）。</div></blockquote>
 <ol class="arabic simple" start="3">
 <li>データの学習（学習モデルの更新）</li>
 </ol>
@@ -358,6 +436,14 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
 </div>
 <div class="section" id="id3">
 <h2>サンプルプログラムの実行<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>[データのダウンロード]</strong></p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ wget http://kdd.ics.uci.edu/databases/kddcup99/kddcup.data_10_percent.gz
+$ gunzip kddcup.data_10_percent.gz
+$ mv kddcup.data_10_percent kddcup.data_10_percent.txt
+</pre></div>
+</div>
+</div></blockquote>
 <p><strong>［Jubatus Serverでの作業］</strong></p>
 <blockquote>
 <div><p>jubaanomalyを起動します。</p>
@@ -367,26 +453,31 @@ addメソッドの第1引数は、タスクを識別するZookeeperクラスタ�
 </div></blockquote>
 <p><strong>［Jubatus Clientでの作業］</strong></p>
 <blockquote>
-<div>必要なパッケージとRubyクライアントを用意し、実行します。</div></blockquote>
-<p><strong>［実行結果］</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>(&#39;574&#39;, 0.99721104) normal.
-(&#39;697&#39;, 1.4958459) normal.
-(&#39;1127&#39;, 0.79527026) normal.
-(&#39;1148&#39;, 1.1487594) normal.
-(&#39;1149&#39;, 1.2) normal.
-(&#39;2382&#39;, 0.9994011) normal.
-(&#39;2553&#39;, 1.2638165) normal.
-(&#39;2985&#39;, 1.4081864) normal.
-(&#39;3547&#39;, 1.275244) normal.
-(&#39;3557&#39;, 0.90432936) normal.
-(&#39;3572&#39;, 0.75777346) normal.
-(&#39;3806&#39;, 0.9943142) normal.
-(&#39;3816&#39;, 1.0017062) normal.
-(&#39;3906&#39;, 0.5671135) normal.
-…
-…（以下略）
+<div><p>必要なパッケージとRubyクライアントを用意し、実行します。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ruby anomaly.rb
 </pre></div>
 </div>
+</div></blockquote>
+<p><strong>［実行結果］</strong></p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>id_with_score{id: 194, score: 1.0000441074371338} normal.
+id_with_score{id: 494, score: 1.4595649242401123} normal.
+id_with_score{id: 1127, score: 1.0642377138137817} normal.
+id_with_score{id: 1148, score: 1.0404019355773926} normal.
+id_with_score{id: 1709, score: 1.2717968225479126} normal.
+id_with_score{id: 2291, score: 1.388629674911499} normal.
+id_with_score{id: 2357, score: 1.0560613870620728} normal.
+id_with_score{id: 2382, score: 0.9994010925292969} normal.
+id_with_score{id: 2499, score: 0.7581642270088196} normal.
+id_with_score{id: 2549, score: 1.011017084121704} normal.
+id_with_score{id: 2553, score: 1.263816475868225} normal.
+id_with_score{id: 2985, score: 1.408186435699463} normal.
+
+...
+...（以下略）
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </div>
 

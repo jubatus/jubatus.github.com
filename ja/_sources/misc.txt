@@ -1,10 +1,57 @@
 その他の情報
 =============
 
+Jubatusコミュニティイベント
+------------
+2016
+~~~~
+
+2016/06/18
+  **第4回 Jubatus Casual Talks #4** [`blog <http://blog.jubat.us/2016/06/4jubatus.html>`__]
+2016/02/27
+  **第2回 Jubatusカジュアルもくもく会** [`blog <http://blog.jubat.us/2016/03/2jubatus.html>`__]
+
+2015
+~~~~
+
+2015/08/22-23
+  **Jubatusハッカソン with 読売新聞** [`link <http://jubatus.connpass.com/event/18166/>`__]
+2015/02/22
+  **第1回 Jubatusカジュアルもくもく会** [`blog <http://blog.jubat.us/2015/03/jubatusmokumoku.html>`__]
+
+2014
+~~~~
+
+2014/10/3-4
+  **第1回 Jubatusハッカソン** [`blog <http://blog.jubat.us/2014/10/jubatus.html>`__]
+2014/06/29
+  **Jubatus Casual Talks #3 ビジネス応用編** [`blog <http://blog.jubat.us/2014/07/jubatus-casual-talks-3.html>`__]
+2014/04/21
+  **第4回 Jubatusハンズオン 分散編** [`blog <http://blog.jubat.us/2014/04/4jubatus.html>`__]
+
+2013
+~~~~
+
+2013/12/14
+  **Jubatus Casual Talks #2 異常検知編** [`blog <http://blog.jubat.us/2013/12/jubatus-casual-talks-2.html>`__]
+2013/09/09
+  **第3回 Jubatusハンズオン 分散編** [`blog <http://blog.jubat.us/2013/09/jubatus.html>`__]
+2013/06/03
+  **Jubatus Casual Talks #1** [`blog <http://blog.jubat.us/2013/06/jubatus-casual-talks-1.html>`__]
+2013/04/15
+  **第2回 Jubatusハンズオン**
+2013/02/18
+  **第1回 Jubatusハンズオン** [`slide <http://www.slideshare.net/JubatusOfficial/jubauts-handson>`__]
+
 発表
 ------------
 
 `English publicatoin list is available here <http://jubat.us/en/misc.html>`__
+
+2015
+~~~~
+2015/09/10
+  熊崎 宏樹, **Jubatusによる異常検知**, データサイエンティスト養成読本, 169-187
 
 2013
 ~~~~
@@ -15,8 +62,6 @@
   Shohei Hido, **Jubatus: real-time and highly-scalable machine learning platform**, Hadoop Summit 2013, San Jose. [`slide <http://www.slideshare.net/pfi/hido-june27-1150amroom210c>`__]
 2013/03/22
   **Jubatusビッグデータへの挑戦** [`1 <http://www.youtube.com/watch?v=4_cLskbwIs0>`__, `2 <http://www.youtube.com/watch?v=U2REUvfkxRU>`__]
-2013/02/18
-  Jubatus Team, **第1回 Jubatusハンズオン**, Tokyo. [`slide <http://www.slideshare.net/JubatusOfficial/jubauts-handson>`__]
 2013/01/15
   岡野原 大輔, 他, **大規模リアルタイム解析エンジンJubatus の創り方**, 情報処理学会デジタルプラクティス 4(1), 20-28. [`link <http://ci.nii.ac.jp/naid/110009526392>`__]
 

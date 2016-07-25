@@ -44,88 +44,89 @@ Anomaly チュートリアル (Ruby)
 
 **anomaly.rb**
 
-このクライアントは Jubatus 0.4.x 向けです。
-Jubatus 0.5.x 以降で使用するためには微修正が必要です。
+このクライアントは Jubatus 0.5.x 以降で動作します。
 
 .. code-block:: ruby
+ :linenos:
 
- 01 : #!/usr/bin/env ruby
- 02 : # -*- coding: utf-8 -*-
- 03 : 
- 04 : $host = "127.0.0.1"
- 05 : $port = 9199
- 06 : $name = "test"
- 07 : 
- 08 : require 'json'
- 09 : 
- 10 : require 'jubatus/anomaly/client'
- 11 : require 'jubatus/anomaly/types'
- 12 : 
- 13 : 
- 14 : # 1.Jubatus Serverへの接続設定
- 15 : client = Jubatus::Anomaly::Client::Anomaly.new($host, $port)
- 16 : 
- 17 : # 2.学習用データの準備
- 18 : open("kddcup.data_10_percent.txt") {|f|
- 19 :   f.each { |line|
- 20 :     duration, protocol_type, service, flag, src_bytes, dst_bytes, land, wrong_fragment, urgent, hot, num_failed_logins, logged_in, num_compromised, root_shell, su_attempted, num_root, num_file_creations, num_shells, num_access_files, num_outbound_cmds, is_host_login, is_guest_login, count, srv_count, serror_rate, srv_serror_rate, rerror_rate, srv_rerror_rate, same_srv_rate, diff_srv_rate, srv_diff_host_rate, dst_host_count, dst_host_srv_count, dst_host_same_srv_rate, dst_host_diff_srv_rate, dst_host_same_src_port_rate, dst_host_srv_diff_host_rate, dst_host_serror_rate, dst_host_srv_serror_rate, dst_host_rerror_rate, dst_host_srv_rerror_rate, label = line.split(",")
- 21 :     datum = Jubatus::Anomaly::Datum.new(
- 22 :        [
- 23 :         ["protocol_type", protocol_type],
- 24 :         ["service", service],
- 25 :         ["flag", flag],
- 26 :         ["land", land],
- 27 :         ["logged_in", logged_in],
- 28 :         ["is_host_login", is_host_login],
- 29 :         ["is_guest_login", is_guest_login],
- 30 :        ],
- 31 :        [
- 32 :         ["duration",duration.to_f],
- 33 :         ["src_bytes", src_bytes.to_f],
- 34 :         ["dst_bytes", dst_bytes.to_f],
- 35 :         ["wrong_fragment", wrong_fragment.to_f],
- 36 :         ["urgent", urgent.to_f],
- 37 :         ["hot", hot.to_f],
- 38 :         ["num_failed_logins", num_failed_logins.to_f],
- 39 :         ["num_compromised", num_compromised.to_f],
- 40 :         ["root_shell", root_shell.to_f],
- 41 :         ["su_attempted", su_attempted.to_f],
- 42 :         ["num_root", num_root.to_f],
- 43 :         ["num_file_creations", num_file_creations.to_f],
- 44 :         ["num_shells", num_shells.to_f],
- 45 :         ["num_access_files", num_access_files.to_f],
- 46 :         ["num_outbound_cmds",num_outbound_cmds.to_f],
- 47 :         ["count", count.to_f],
- 48 :         ["srv_count", srv_count.to_f],
- 49 :         ["serror_rate", serror_rate.to_f],
- 50 :         ["srv_serror_rate", srv_serror_rate.to_f],
- 51 :         ["rerror_rate", rerror_rate.to_f],
- 52 :         ["srv_rerror_rate", srv_rerror_rate.to_f],
- 53 :         ["same_srv_rate", same_srv_rate.to_f],
- 54 :         ["diff_srv_rate", diff_srv_rate.to_f],
- 55 :         ["srv_diff_host_rate", srv_diff_host_rate.to_f],
- 56 :         ["dst_host_count", dst_host_count.to_f],
- 57 :         ["dst_host_srv_count", dst_host_srv_count.to_f],
- 58 :         ["dst_host_same_srv_rate", dst_host_same_srv_rate.to_f],
- 59 :         ["dst_host_same_src_port_rate", dst_host_same_src_port_rate.to_f],
- 60 :         ["dst_host_diff_srv_rate", dst_host_diff_srv_rate.to_f],
- 61 :         ["dst_host_srv_diff_host_rate", dst_host_srv_diff_host_rate.to_f],
- 62 :         ["dst_host_serror_rate", dst_host_serror_rate.to_f],
- 63 :         ["dst_host_srv_serror_rate", dst_host_srv_serror_rate.to_f],
- 64 :         ["dst_host_rerror_rate", dst_host_rerror_rate.to_f],
- 65 :         ["dst_host_srv_rerror_rate", dst_host_srv_rerror_rate.to_f],
- 66 :         ]
- 67 :        )
- 68 :     # 3.データの学習（学習モデルの更新）
- 69 :     ret = client.add($name, datum)
- 70 :     
- 71 :     # 4.結果の出力
- 72 :     if (ret[1] != Float::INFINITY) and (ret[1] != 1.0) then
- 73 :       print ret, label
- 74 :     end
- 75 :   }
- 76 : }
- 77 : 
+  #!/usr/bin/env ruby
+  # -*- coding: utf-8 -*-
+
+  $host = "127.0.0.1"
+  $port = 9199
+  $name = "test"
+
+  require 'json'
+
+  require 'jubatus/anomaly/client'
+
+  # 0. set keyboard interruption handler"
+  Signal.trap(:INT) {
+      print "You pressed Ctrl+C."
+      print "Stop running the job."
+      exit(0)
+  }
+
+  # 1. Configuration to connect Jubatus Server
+  client = Jubatus::Anomaly::Client::Anomaly.new($host, $port, $name)
+
+  # 2. prepare training dataset
+  open("../kddcup.data_10_percent.txt") { |f|
+    f.each { |line|
+      duration, protocol_type, service, flag, src_bytes, dst_bytes, land, wrong_fragment, urgent, hot, num_failed_logins, logged_in, num_compromised, root_shell, su_attempted, num_root, num_file_creations, num_shells, num_access_files, num_outbound_cmds, is_host_login, is_guest_login, count, srv_count, serror_rate, srv_serror_rate, rerror_rate, srv_rerror_rate, same_srv_rate, diff_srv_rate, srv_diff_host_rate, dst_host_count, dst_host_srv_count, dst_host_same_srv_rate, dst_host_diff_srv_rate, dst_host_same_src_port_rate, dst_host_srv_diff_host_rate, dst_host_serror_rate, dst_host_srv_serror_rate, dst_host_rerror_rate, dst_host_srv_rerror_rate, label = line.split(",")
+            data = Jubatus::Common::Datum.new(
+        "protocol_type" => protocol_type,
+        "service" => service,
+        "flag" => flag,
+        "land" => land,
+        "logged_in" => logged_in,
+        "is_host_login" => is_host_login,
+        "is_guest_login" => is_guest_login,
+            "duration" => duration.to_f,
+        "src_bytes" => src_bytes.to_f,
+        "dst_bytes" => dst_bytes.to_f,
+        "wrong_fragment" => wrong_fragment.to_f,
+        "urgent" => urgent.to_f,
+        "hot" => hot.to_f,
+        "num_failed_logins" => num_failed_logins.to_f,
+        "num_compromised" => num_compromised.to_f,
+        "root_shell" => root_shell.to_f,
+        "su_attempted" => su_attempted.to_f,
+        "num_root" => num_root.to_f,
+        "num_file_creations" => num_file_creations.to_f,
+        "num_shells" => num_shells.to_f,
+        "num_access_files" => num_access_files.to_f,
+        "num_outbound_cmds" => num_outbound_cmds.to_f,
+        "count" => count.to_f,
+        "srv_count" => srv_count.to_f,
+        "serror_rate" => serror_rate.to_f,
+        "srv_serror_rate" => srv_serror_rate.to_f,
+        "rerror_rate" => rerror_rate.to_f,
+        "srv_rerror_rate" => srv_rerror_rate.to_f,
+        "same_srv_rate" => same_srv_rate.to_f,
+        "diff_srv_rate" => diff_srv_rate.to_f,
+        "srv_diff_host_rate" => srv_diff_host_rate.to_f,
+        "dst_host_count" => dst_host_count.to_f,
+        "dst_host_srv_count" => dst_host_srv_count.to_f,
+        "dst_host_same_srv_rate" => dst_host_same_srv_rate.to_f,
+        "dst_host_same_src_port_rate" => dst_host_same_src_port_rate.to_f,
+        "dst_host_diff_srv_rate" => dst_host_diff_srv_rate.to_f,
+        "dst_host_srv_diff_host_rate" => dst_host_srv_diff_host_rate.to_f,
+        "dst_host_serror_rate" => dst_host_serror_rate.to_f,
+        "dst_host_srv_serror_rate" => dst_host_srv_serror_rate.to_f,
+        "dst_host_rerror_rate" => dst_host_rerror_rate.to_f,
+        "dst_host_srv_rerror_rate" => dst_host_srv_rerror_rate.to_f)
+      # 3. training
+            ret = client.add(data)
+
+
+      # 4. output results
+            if (ret.score != Float::INFINITY) and (ret.score != 1.0) then
+                print ret, ' ', label
+            end
+    }
+  }
+	
 
 
 --------------------------------
@@ -138,9 +139,14 @@ Jubatus 0.5.x 以降で使用するためには微修正が必要です。
 
 * method
 
- 分類に使用するアルコリズムを指定します。
- Anomalyで指定できるのは、現在"LOF"のみなので"LOF"（Local Outlier Factor）を指定します。
+ 異常検知に使用するアルコリズムを指定します。
+ Anomalyで指定できるのは、Recommenderベースの"lof"およびNearest Neighborベースの"light_lof"です。
+ 今回は"lof"（Local Outlier Factor）を指定します。
 
+* parameter
+
+　methodで設定した異常検知アルゴリズムのパラメータを設定します。 
+ 今回は"lof"を利用するため、`Recommender API <http://jubat.us/ja/api_recommender.html>`_ に従ってパラメータを設定します。
 
 * converter
 
@@ -155,9 +161,7 @@ Jubatus 0.5.x 以降で使用するためには微修正が必要です。
  "key"は"*"、"type"は"str"、"sample_weight"は"bin"、"global_weight"は"bin"としています。
  これは、すべての文字列に対して、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に"1"とする設定です。
 
-* parameter（要修正）
 
- ･･･
 
 **anomaly.rb**
 
@@ -165,16 +169,16 @@ Jubatus 0.5.x 以降で使用するためには微修正が必要です。
 
  1. Jubatus Serverへの接続設定
 
-  Jubatus Serverへの接続を行います（15行目）。
+  Jubatus Serverへの接続を行います（20行目）。
   Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定します。
   
  2. 学習用データの準備
 
   AnomalyClientでは、Datumをaddメソッドに与えることで、学習および外れ値検知が行われます。
   今回はKDDカップ（Knowledge Discovery and Data Mining Cup）の結果（TEXTファイル）を元に学習用データを作成していきます。
-  まず、学習用データの元となるTEXTファイルを読み込みます（18-19行目）。
-  このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（20行目）。
-  取得した要素を用いて学習用データdatumを作成します（21-67行目）。
+  まず、学習用データの元となるTEXTファイルを読み込みます（23-24行目）。
+  このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（25行目）。
+  取得した要素を用いて学習用データdatumを作成します（26-67行目）。
   
  3. データの学習（学習モデルの更新）
 
@@ -192,36 +196,48 @@ Jubatus 0.5.x 以降で使用するためには微修正が必要です。
 サンプルプログラムの実行
 -------------------------------------
 
+**[データのダウンロード]**
+
+ :: 
+ 
+  $ wget http://kdd.ics.uci.edu/databases/kddcup99/kddcup.data_10_percent.gz
+  $ gunzip kddcup.data_10_percent.gz
+  $ mv kddcup.data_10_percent kddcup.data_10_percent.txt
+
+
 **［Jubatus Serverでの作業］**
 
  jubaanomalyを起動します。
  
  ::
  
-  $ jubaanomaly --configpath config.json
+   $ jubaanomaly --configpath config.json
  
 
 **［Jubatus Clientでの作業］**
 
  必要なパッケージとRubyクライアントを用意し、実行します。
+
+ ::
+  
+   $ ruby anomaly.rb
  
 **［実行結果］**
 
-::
+ ::
 
- ('574', 0.99721104) normal.
- ('697', 1.4958459) normal.
- ('1127', 0.79527026) normal.
- ('1148', 1.1487594) normal.
- ('1149', 1.2) normal.
- ('2382', 0.9994011) normal.
- ('2553', 1.2638165) normal.
- ('2985', 1.4081864) normal.
- ('3547', 1.275244) normal.
- ('3557', 0.90432936) normal.
- ('3572', 0.75777346) normal.
- ('3806', 0.9943142) normal.
- ('3816', 1.0017062) normal.
- ('3906', 0.5671135) normal.
- …
- …（以下略）
+   id_with_score{id: 194, score: 1.0000441074371338} normal.
+   id_with_score{id: 494, score: 1.4595649242401123} normal.
+   id_with_score{id: 1127, score: 1.0642377138137817} normal.
+   id_with_score{id: 1148, score: 1.0404019355773926} normal.
+   id_with_score{id: 1709, score: 1.2717968225479126} normal.
+   id_with_score{id: 2291, score: 1.388629674911499} normal.
+   id_with_score{id: 2357, score: 1.0560613870620728} normal.
+   id_with_score{id: 2382, score: 0.9994010925292969} normal.
+   id_with_score{id: 2499, score: 0.7581642270088196} normal.
+   id_with_score{id: 2549, score: 1.011017084121704} normal.
+   id_with_score{id: 2553, score: 1.263816475868225} normal.
+   id_with_score{id: 2985, score: 1.408186435699463} normal.
+
+   ...
+   ...（以下略）

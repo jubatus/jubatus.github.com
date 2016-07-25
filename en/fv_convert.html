@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.2',
+        VERSION:     '0.9.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -791,7 +791,10 @@ In concrete, the weight is the product of these two weights.</p>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code></td>
 <td>global_weight is the inverse of logarithm of normalized document frequency. It is called Inverse Document Frequency. For example, if a feature is included in 50 documents of all 1000 documents, its global_weight is log(1000/50). Roughly speaking, the less a feature frequently appears, the greater its idf is.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;bm25&quot;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code></td>
+<td>global_weight is calculated by <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> value + 1.0.  See the description under the table for details.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;bm25&quot;</span></code></td>
 <td>global_weight is calculated by Okapi BM25 method. In addition to the feature frequency, BM25 uses the length of the document that the feature appears. Roughly speaking, the less feature frequently appears and the short the length of the document the feature is in, the greater its weight is. Generally used in combination with <code class="docutils literal"><span class="pre">&quot;sample_weight&quot;:</span> <span class="pre">&quot;tf&quot;</span></code>. It is empirically known that BM25 weighting is better than IDF.  Note that calculation cost is higher than IDF.</td>
 </tr>
 </tbody>
@@ -803,6 +806,9 @@ In concrete, the weight is the product of these two weights.</p>
 </div></blockquote>
 <p>In most of machine learning tasks, it works well even if we use &#8220;bin&#8221; in both sample_weight and global_weight.
 In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight. Classification is an example of such a task.</p>
+<p>By using <code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code> instead of <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> in <code class="docutils literal"><span class="pre">global_weight</span></code>, you can workaroud the problem that features in the first document or features that appear in all documents are not added to the model.
+When <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> is used, IDF value of features of the first document (e.g., the first record registered to Recommender) or features that appear in all documents (e.g., a feature <code class="docutils literal"><span class="pre">&quot;the&quot;</span></code> appear in 1,000 out of 1,000 documents) become <code class="docutils literal"><span class="pre">0</span></code>; this makes the weight of the feature to become <code class="docutils literal"><span class="pre">0</span></code>, causing the feature not be trained to the model.
+<code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code> uses <code class="docutils literal"><span class="pre">IDF</span> <span class="pre">value</span> <span class="pre">+</span> <span class="pre">1.0</span></code> as a weight value to train features in such situations.</p>
 </div>
 </div>
 <div class="section" id="feature-extraction-from-numbers">

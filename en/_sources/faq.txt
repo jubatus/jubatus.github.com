@@ -8,6 +8,39 @@ Installation
 
  Check your mecab dictionary and ensure that your mecab command accept UTF-8 charsets.
 
+- How do I install ``jubadump``?
+
+ ``jubadump`` can be installed via binary packages.
+
+ * DEB packages (Ubuntu): ``jubadump`` is included in ``jubatus`` package.
+ * RPM packages (RHEL): Run ``sudo yum install jubadump``.
+
+ On other environments, you need to build it from source.
+
+- How do I update Jubatus RPM package (RHEL)?
+
+ Run the following command:
+
+ ::
+
+  $ sudo yum update jubatus
+
+ ``jubadump``, ``jubatus-release``, ``oniguruma`` will not be updated automatically even if ``jubatus`` package is updated.
+ Run ``yum update`` for them if needed.
+
+- How do I update Jubatus DEB package (Ubuntu)?
+
+ Run the following command:
+
+ ::
+
+  $ sudo apt-get update
+  $ sudo apt-get install jubatus
+
+- How do I update Jubatus client?
+
+ See `Jubatus Wiki: Installing and Updating Clients <https://github.com/jubatus/jubatus/wiki/Installing-and-Updating-Clients>`_ for instructions.
+
 - How to install through Proxy?
 
  Binary Package (Apt) in Ubuntu Environment
