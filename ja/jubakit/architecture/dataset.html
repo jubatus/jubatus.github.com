@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dataset &mdash; jubakit  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="jubakit  documentation" href="../index.html"/>
+        <link rel="up" title="Architecture" href="index.html"/>
+        <link rel="next" title="Service" href="service.html"/>
+        <link rel="prev" title="Schema" href="schema.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> jubakit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="loader.html">Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html">Schema</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#static-and-non-static-datasets">Static and Non-static Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#schema-prediction">Schema Prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-records">Accessing Records</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transformation">Transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#persisting-datasets">Persisting Datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="service.html">Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Architecture</a> &raquo;</li>
+      
+    <li>Dataset</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/architecture/dataset.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dataset">
+<h1>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h1>
+<p>Dataset is an abstract representation of a sequence of data that transforms records loaded from Loader into Jubatus Datum using data type information defined in Schema.
+Dataset can be constructed from Loader and Schema.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Schema</span><span class="p">,</span> <span class="n">Dataset</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Some Services provides additional ways to construct Dataset.
+For example, <a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Dataset" title="jubakit.classifier.Dataset"><code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Dataset</span></code></a> provides <a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Dataset.from_array" title="jubakit.classifier.Dataset.from_array"><code class="xref py py-func docutils literal"><span class="pre">from_array</span></code></a> and <a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Dataset.from_matrix" title="jubakit.classifier.Dataset.from_matrix"><code class="xref py py-func docutils literal"><span class="pre">from_matrix</span></code></a> which are convenient when using datasets generated by scikit-learn.
+Other than noted, features mentioned in this section are implemented in <a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseDataset" title="jubakit.base.BaseDataset"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseDataset</span></code></a>, which is a base Dataset class for all Services.</p>
+<div class="section" id="static-and-non-static-datasets">
+<h2>Static and Non-static Datasets<a class="headerlink" href="#static-and-non-static-datasets" title="Permalink to this headline">¶</a></h2>
+<p>By default, all records are loaded from Loader to memory when creating Dataset instance.
+Such Datasets are called <em>Static Dataset</em>.
+If you want to load records one by one from Loader, instead of loading everything first, you can specify <code class="docutils literal"><span class="pre">static</span></code> option to create Dataset as <em>Non-static Dataset</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that some features like index-based record access cannot be used over non-static Datasets.</p>
+<p>Datasets constructed from infinite Loaders are non-static by default.
+You cannot specify <code class="docutils literal"><span class="pre">static=True</span></code> when using infinite Loaders.</p>
+</div>
+<div class="section" id="schema-prediction">
+<h2>Schema Prediction<a class="headerlink" href="#schema-prediction" title="Permalink to this headline">¶</a></h2>
+<p>If you don&#8217;t specify Schema class when constructing Dataset, the Schema will automatically be predicted from the first record of the Dataset.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">get_schema</span><span class="p">())</span>
+<span class="go">{&#39;types&#39;: {&#39;k1&#39;: &#39;s&#39;, &#39;k2&#39;: &#39;n&#39;}, &#39;fallback_type&#39;: None, &#39;keys&#39;: {&#39;k1&#39;: &#39;k1&#39;, &#39;k2&#39;: &#39;k2&#39;}}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">types</span></code> sections shows the predicted Schema.
+In the example above <code class="docutils literal"><span class="pre">k1</span></code> and <code class="docutils literal"><span class="pre">k2</span></code> columns are typed as <code class="docutils literal"><span class="pre">STRING</span></code> and <code class="docutils literal"><span class="pre">NUMBER</span></code> respectively.</p>
+</div>
+<div class="section" id="accessing-records">
+<h2>Accessing Records<a class="headerlink" href="#accessing-records" title="Permalink to this headline">¶</a></h2>
+<p>You can access the raw record (i.e., record loaded from Loader) using <code class="docutils literal"><span class="pre">get</span></code> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">{&#39;k1&#39;: &#39;hello world&#39;, &#39;k2&#39;: 5}</span>
+</pre></div>
+</div>
+<p>You can access the transformed record (i.e., Datum) using index operator.
+You don&#8217;t need this in most cases, though.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">(None, None, &lt;jubatus.common.datum.Datum object at 0xdeadbeef&gt;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">datum{string_values: [[&#39;k1&#39;, &#39;hello world&#39;], num_values: [[&#39;k2&#39;, 5.0]], binary_values: []}</span>
+</pre></div>
+</div>
+<p>You can create a subset of Dataset using index operator with slice or numeric array.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset2</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">dataset2</span><span class="p">)</span>
+<span class="go">&lt;class &#39;jubakit.anomaly.Dataset&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">dataset2</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>This allows you to use <a class="reference external" href="http://scikit-learn.org/stable/modules/cross_validation.html">cross-validation modules of scikit-learn</a> easily.
+The following code shows how to apply <code class="docutils literal"><span class="pre">KFold</span></code> on Dataset instance <code class="docutils literal"><span class="pre">dataset</span></code>.
+This code creates two new Dataset instances called <code class="docutils literal"><span class="pre">ds_train</span></code> and <code class="docutils literal"><span class="pre">ds_test</span></code>, which are both subset of <code class="docutils literal"><span class="pre">dataset</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">KFold</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="n">ds_train</span><span class="p">,</span> <span class="n">ds_test</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">train</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[</span><span class="n">test</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Note that non-static Datasets cannot be random-accessed; they only allow accessing the current raw record in the iteration by specifying the index currently being iterated to <code class="docutils literal"><span class="pre">get</span></code> method.</p>
+</div>
+<div class="section" id="transformation">
+<h2>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h2>
+<p>Static Datasets can be bulk transformed by a user-defined lambda function using <code class="docutils literal"><span class="pre">convert</span></code> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shuffled_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>The lambda function must take 1 argument, which is a list of raw records to be processed.
+The lambda function must not modify the given list.
+The result will become an another Dataset instance.</p>
+<p>For convenience, Dataset class provides <code class="docutils literal"><span class="pre">shuffle</span></code> method, which shuffles the order of records.</p>
+</div>
+<div class="section" id="persisting-datasets">
+<h2>Persisting Datasets<a class="headerlink" href="#persisting-datasets" title="Permalink to this headline">¶</a></h2>
+<p>You can use the standard <code class="docutils literal"><span class="pre">pickle</span></code> module to persist the Dataset instance.
+Please note that pickled Dataset instances may not be able to be unpickled in other versions of Jubakit.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="service.html" class="btn btn-neutral float-right" title="Service" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="schema.html" class="btn btn-neutral" title="Schema" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

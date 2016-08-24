@@ -1,0 +1,1036 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jubakit.base &mdash; jubakit  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="jubakit  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> jubakit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>jubakit.base</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for jubakit.base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">import</span> <span class="nn">jubatus</span>
+<span class="kn">import</span> <span class="nn">msgpackrpc</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+
+<span class="kn">from</span> <span class="nn">.compat</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="k">import</span> <span class="n">get_logger</span>
+
+<span class="n">_logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BaseLoader"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseLoader">[docs]</a><span class="k">class</span> <span class="nc">BaseLoader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Loader loads rows from various data sources.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseLoader.is_infinite"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseLoader.is_infinite">[docs]</a>  <span class="k">def</span> <span class="nf">is_infinite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if the length of the data source is indeterminate (e.g., MQ.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="BaseLoader.preprocess"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseLoader.preprocess">[docs]</a>  <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Preprocesses the given dict-like object into another dict-like object.</span>
+<span class="sd">    The default implementation does not alter the object.  Users can override</span>
+<span class="sd">    this method to perform custom process.  You can yield None to skip the</span>
+<span class="sd">    record.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ent</span></div>
+
+  <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads each row from the data source.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">():</span>
+      <span class="n">processed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">processed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">processed</span>
+
+<div class="viewcode-block" id="BaseLoader.rows"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseLoader.rows">[docs]</a>  <span class="k">def</span> <span class="nf">rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses must override this method and yield each row of data source</span>
+<span class="sd">    in flat dict-like object.  You can yield None to skip the record.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="BaseSchema"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseSchema">[docs]</a><span class="k">class</span> <span class="nc">BaseSchema</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Schema defines data types for each key of the data.</span>
+
+<span class="sd">  BaseSchema defines the fundamental 3 data types.</span>
+
+<span class="sd">  - IGNORE: ignores the key (mainly intended for fallback)</span>
+<span class="sd">  - AUTO: use the type of the key as its data type</span>
+<span class="sd">  - INFER: guess the type of the key from its value; note that this is</span>
+<span class="sd">           discouraged as it may result in unstable result.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="c1"># Data Types: single-character type names are reserved by jubakit.</span>
+  <span class="c1"># External subclasses must use 2+ characters for type names.</span>
+  <span class="n">IGNORE</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span>
+  <span class="n">AUTO</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+  <span class="n">INFER</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span>
+
+<div class="viewcode-block" id="BaseSchema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseSchema.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines a Schema.  Schema is an immutable object and cannot be modified.</span>
+<span class="sd">    `mapping` is a dict-like object that maps row keys to the data type.</span>
+<span class="sd">    Optionally you can assign an alias name for the key to handle different</span>
+<span class="sd">    loaders with the same configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_fallback</span> <span class="o">=</span> <span class="n">fallback</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_key2type</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_key2name</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">ent</span><span class="p">)</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ent</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="p">)):</span>
+        <span class="p">(</span><span class="n">key_type</span><span class="p">,</span> <span class="n">key_name</span><span class="p">)</span> <span class="o">=</span> <span class="n">ent</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">key_type</span><span class="p">,</span> <span class="n">key_name</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">ent</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_key2type</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">key_type</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_key2name</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">key_name</span></div>
+
+<div class="viewcode-block" id="BaseSchema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseSchema.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transform the row (dict-like) into data structures required by the</span>
+<span class="sd">    corresponding Service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseSchema.predict"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseSchema.predict">[docs]</a>  <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">typed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predicts a Schema from dict-like row object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">_get_unique_mapping</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="n">key_type</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validates the schema key uniqueness.</span>
+<span class="sd">    This is an utility method for subclasses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fallback</span> <span class="o">==</span> <span class="n">key_type</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> key cannot be specified as fallback in schema&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">mapping</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">key_type</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">optional</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> key must be specified in schema&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> key must be an unique key in schema&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">({</span><span class="s1">&#39;keys&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key2name</span><span class="p">,</span> <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key2type</span><span class="p">,</span> <span class="s1">&#39;fallback_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fallback</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="GenericSchema"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericSchema">[docs]</a><span class="k">class</span> <span class="nc">GenericSchema</span><span class="p">(</span><span class="n">BaseSchema</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  GenericSchema is a base Schema class for all engines using Datum.</span>
+
+<span class="sd">  GenericSchema defines 3 data types:</span>
+
+<span class="sd">  - STRING: string features (string_values)</span>
+<span class="sd">  - NUMBER: numeric features (num_values)</span>
+<span class="sd">  - BINARY: binary features (binary_values)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="n">STRING</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+  <span class="n">NUMBER</span> <span class="o">=</span> <span class="s1">&#39;n&#39;</span>
+  <span class="n">BINARY</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+
+<div class="viewcode-block" id="GenericSchema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericSchema.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transforms the row (represented in dict-like object) as Datum.</span>
+<span class="sd">    Subclasses that define their own data types should override this method</span>
+<span class="sd">    and handle them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_as_datum</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_add_to_datum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add value `v` whose type and name are `t` and `k` resp. to Datum `d`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">STRING</span><span class="p">:</span>
+      <span class="n">d</span><span class="o">.</span><span class="n">add_string</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">unicode_t</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">:</span>
+      <span class="c1"># Empty unicode/bytes values cannot be cast to float; treat them as NA.</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">unicode_t</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+      <span class="n">d</span><span class="o">.</span><span class="n">add_number</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">BINARY</span><span class="p">:</span>
+      <span class="n">d</span><span class="o">.</span><span class="n">add_binary</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">AUTO</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">INFER</span><span class="p">:</span>
+      <span class="p">(</span><span class="n">pred_type</span><span class="p">,</span> <span class="n">pred_v</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_type</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">AUTO</span><span class="p">))</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;key </span><span class="si">%s</span><span class="s1"> predicted as type </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">pred_type</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_datum</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">pred_type</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">pred_v</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">IGNORE</span><span class="p">:</span>
+      <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;invalid type </span><span class="si">{0}</span><span class="s1"> for key </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">_transform_as_datum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip_keys</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transforms the row as Datum.  If the original Datum `d` is specified,</span>
+<span class="sd">    feature vectors will be added to it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">Datum</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">skip_keys</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+      <span class="n">key_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key2type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fallback</span><span class="p">)</span>
+      <span class="n">key_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key2name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">key_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;schema does not match: unknown key </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_datum</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key_type</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">d</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericSchema.predict"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericSchema.predict">[docs]</a>  <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">typed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predicts a schema from dict-like row object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="p">(</span><span class="n">mapping</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_predict_type</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">typed</span><span class="p">)</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;key </span><span class="si">%s</span><span class="s1"> predicted as type </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mapping</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_predict_type</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">typed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predicts a data type for the given data.</span>
+<span class="sd">    if `typed` is True, no type conversion will be tried against `v`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">long_t</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">unicode_t</span><span class="p">):</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">typed</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="k">pass</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">typed</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span> <span class="k">pass</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot detect data type of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BaseDataset"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset">[docs]</a><span class="k">class</span> <span class="nc">BaseDataset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Dataset is an abstract representation of set of data.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseDataset.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines a new dataset.  Datasets are immutable and cannot be modified.</span>
+
+<span class="sd">    Data will be loaded from the given `loader` using `schema`.</span>
+
+<span class="sd">    When `static` is set to True (which is the default for non-infinite</span>
+<span class="sd">    loaders), data will be loaded on memory immedeately; otherwise data</span>
+<span class="sd">    will be loaded one-by-one from `loader`, which may be better when processing</span>
+<span class="sd">    a large dataset.  For &quot;infinite&quot; loaders (like MQ and Twitter stream),</span>
+<span class="sd">    `static` cannot be set to True.  Note that some features</span>
+<span class="sd">    (e.g., index access) are not available for non-static datasets, which</span>
+<span class="sd">    may be needed for some features like cross-validation etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span> <span class="o">=</span> <span class="n">loader</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="n">schema</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">static</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="c1"># Non-infinite loaders are static by default.</span>
+      <span class="n">static</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">loader</span><span class="o">.</span><span class="n">is_infinite</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_static</span> <span class="o">=</span> <span class="n">static</span>
+
+    <span class="c1"># `_data` is internally used to create a shallow subset of the Dataset.</span>
+    <span class="k">if</span> <span class="n">_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span>
+      <span class="k">return</span>  <span class="c1"># the data is already loaded</span>
+
+    <span class="k">if</span> <span class="n">static</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">loader</span><span class="o">.</span><span class="n">is_infinite</span><span class="p">():</span>
+        <span class="c1"># Infinite data sources (e.g., MQ) cannot be loaded statically on memory.</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;infinite loaders cannot be staticized&#39;</span><span class="p">)</span>
+
+      <span class="c1"># Load all data entries.</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;loading all records from loader </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">loader</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+        <span class="c1"># Predict schema.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;records loaded (</span><span class="si">%d</span><span class="s1"> entries)&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
+
+      <span class="c1"># Don&#39;t hold a ref to the loader for static datasets.</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predict the Schema for the given row using the corresponding Schema class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># return GenericSchema.predict(row, False)</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BaseDataset.is_static"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset.is_static">[docs]</a>  <span class="k">def</span> <span class="nf">is_static</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True for static datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span></div>
+
+<div class="viewcode-block" id="BaseDataset.get_schema"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset.get_schema">[docs]</a>  <span class="k">def</span> <span class="nf">get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the Schema for this dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span></div>
+
+<div class="viewcode-block" id="BaseDataset.shuffle"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset.shuffle">[docs]</a>  <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a new immutable Dataset whose records are shuffled.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;non-static datasets cannot be shuffled&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_shuffle</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">_shuffle</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseDataset.convert"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset.convert">[docs]</a>  <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies the given callable (which is expected to perform batch</span>
+<span class="sd">    pre-processing like `shuffle`) to the whole data entries and returns</span>
+<span class="sd">    a new immutable Dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;non-static datasets cannot be converted&#39;</span><span class="p">)</span>
+    <span class="n">new_data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;convert function returned non-iterable: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_data</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">new_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseDataset.get"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseDataset.get">[docs]</a>  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the raw entry loaded by Loader.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">:</span>
+      <span class="c1"># For convenience, even non-static datasets can access the raw record for</span>
+      <span class="c1"># the index that is currently being iterated.</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;non-static datasets cannot be random accessed by index&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+
+  <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of entries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;length of non-static datasets cannot be retrieved&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns row(s) at the position `index`.</span>
+<span class="sd">    `index` can be an iterable (like numpy array) or just an int.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">:</span>
+      <span class="c1"># For convenience, even non-static datasets can access the record for the</span>
+      <span class="c1"># index that is currently being iterated.</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;non-static datasets cannot be random accessed by index&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+      <span class="n">subdata</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+        <span class="n">subdata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">subdata</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iteratively access each transformed rows.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+          <span class="c1"># May contain None in self._data if Dataset.convert is used.</span>
+          <span class="k">continue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="n">row</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">finally</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="BaseService"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService">[docs]</a><span class="k">class</span> <span class="nc">BaseService</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Service provides an interface to machine learning features.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseService.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9199</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new service that connects to the exsiting server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cluster</span> <span class="o">=</span> <span class="n">cluster</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+  <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Destroys the backend process if exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span>
+    <span class="k">if</span> <span class="n">backend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">backend</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseService.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.name">[docs]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses (Classifier, NearestNeighbor, ... etc.) must override this</span>
+<span class="sd">    method and return its service name (classifier, nearest_neighbor, ... etc.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#return &#39;classifier&#39;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses must override this method and return the client class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#return jubatus.classifier.client.Classifier</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseService.run"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.run">[docs]</a>  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs a new standalone server and returns the serivce instance to access</span>
+<span class="sd">    the server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">_ServiceBackend</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">config</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;service </span><span class="si">%s</span><span class="s1"> started on port </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">backend</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+
+    <span class="c1"># Returns the Service instance.</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">_backend</span> <span class="o">=</span> <span class="n">backend</span>
+    <span class="k">return</span> <span class="n">service</span></div>
+
+  <span class="k">def</span> <span class="nf">_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_class</span><span class="p">()(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cluster</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BaseService.stop"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.stop">[docs]</a>  <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stops the backend process if exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BaseService.clear"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.clear">[docs]</a>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clears the model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">():</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;failed to clear model&#39;</span><span class="p">)</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;model cleared&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseService.save"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.save">[docs]</a>  <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves the model using `name`.  If `path` is specified, copy the saved</span>
+<span class="sd">    model file to local `path`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;model saved: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+    <span class="c1"># TODO copy source from `jubafetch` and make path option work.</span>
+
+<div class="viewcode-block" id="BaseService.load"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.load">[docs]</a>  <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads the model using `name`.  If `path` is specified, copy the model</span>
+<span class="sd">    file from local `path` to remote location.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;failed to load model: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;model loaded: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+    <span class="c1"># TODO copy source from `jubafetch` and make path option work.</span>
+
+<div class="viewcode-block" id="BaseService.get_status"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseService.get_status">[docs]</a>  <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the status of this server.  In distributed mode, returns statuses</span>
+<span class="sd">    of all members.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span></div></div>
+
+<span class="k">class</span> <span class="nc">_ServiceBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Service backend handles messy process-related things.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="c1"># Disable verbose tornado WARN logs on connect failure.</span>
+  <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;tornado&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+  <span class="c1"># Global Port-to-PID mapping.</span>
+  <span class="n">port2pid</span> <span class="o">=</span> <span class="p">{}</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_check_installed</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_free_port</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">port2pid</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;port </span><span class="si">{0}</span><span class="s1"> currently in use by another service (PID </span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port2pid</span><span class="p">[</span><span class="n">port</span><span class="p">]))</span>
+
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;jubakit-config-&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+      <span class="n">config_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+      <span class="n">config_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+      <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;juba</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+        <span class="s1">&#39;--listen_addr&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;--rpc-port&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">),</span>
+        <span class="s1">&#39;--timeout&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;--configpath&#39;</span><span class="p">,</span> <span class="n">config_file</span><span class="o">.</span><span class="n">name</span>
+      <span class="p">]</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;starting service: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;jubakit-log-&#39;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_assign_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+
+      <span class="c1"># Wait until the RPC server start.</span>
+      <span class="n">started</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_until_rpc_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">started</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">status</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">pid</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+          <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;server cannot be started as port </span><span class="si">{0}</span><span class="s1"> conflicts with external Jubatus process (PID: </span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">pid</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">started</span><span class="p">:</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;failed to start service&#39;</span><span class="p">)</span>
+      <span class="n">log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span>
+    <span class="k">if</span> <span class="n">proc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">proc</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># still running</span>
+      <span class="n">proc</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_unassign_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+    <span class="n">logbuf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span>
+    <span class="k">if</span> <span class="n">logbuf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">logbuf</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>  <span class="c1"># log buffer is still open</span>
+      <span class="n">logbuf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stops the server instance and return the server log.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">proc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># still running</span>
+        <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;process is still running; will be terminated&#39;</span><span class="p">)</span>
+        <span class="n">proc</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;process already terminated&#39;</span><span class="p">)</span>
+
+      <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;waiting for process to exit&#39;</span><span class="p">)</span>
+      <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_logbuf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+      <span class="n">retval</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;process exit with status </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">retval</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_unassign_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">retval</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;server exit with status </span><span class="si">{0}</span><span class="s1">; confirm that the config is valid: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">stdout</span><span class="p">))</span>
+      <span class="k">return</span> <span class="n">stdout</span>
+
+  <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">msgpackrpc</span><span class="o">.</span><span class="n">Address</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">),</span> <span class="n">unpack_encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;get_status&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)[</span><span class="s1">&#39;127.0.0.1_</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)]</span>
+    <span class="k">finally</span><span class="p">:</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_get_free_port</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">30000</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds the free port available to listen.</span>
+
+<span class="sd">    The default range of [10000,30000] is chosen to avoid the default</span>
+<span class="sd">    ephemeral port range on most platforms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">used_ports</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_ports_in_use</span><span class="p">()</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">port</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">used_ports</span><span class="p">:</span> <span class="k">return</span> <span class="n">port</span>
+      <span class="n">port</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="n">port</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;no free port available in range [</span><span class="si">{0}</span><span class="s1">,</span><span class="si">{1}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_get_ports_in_use</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns sorted list of ports currently used on localhost.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">laddr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">net_connections</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;inet4&#39;</span><span class="p">)]))</span>
+    <span class="k">except</span> <span class="n">psutil</span><span class="o">.</span><span class="n">AccessDenied</span><span class="p">:</span>
+      <span class="c1"># On some platforms (such as OS X), root privilege is required to get used ports.</span>
+      <span class="c1"># In that case we avoid port confliction to the best of our knowledge.</span>
+      <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;ports in use cannot be obtained on this platform; ports will be assigned sequentially&#39;</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">port2pid</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_assign_port</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">port2pid</span>
+    <span class="k">if</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;port </span><span class="si">{0}</span><span class="s1"> currently in use by PID </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="n">port</span><span class="p">]))</span>
+    <span class="n">m</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">pid</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_unassign_port</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">port2pid</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">pass</span>   <span class="c1"># maybe destruction is running.</span>
+    <span class="k">if</span> <span class="n">port</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;port </span><span class="si">{0}</span><span class="s1"> is not in use&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">!=</span> <span class="n">pid</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;port </span><span class="si">{0}</span><span class="s1"> is used by PID </span><span class="si">{1}</span><span class="s1">, not PID </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="n">port</span><span class="p">],</span> <span class="n">pid</span><span class="p">))</span>
+    <span class="k">del</span> <span class="n">m</span><span class="p">[</span><span class="n">port</span><span class="p">]</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_wait_until_rpc_ready</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">sleep_time</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+      <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="o">/</span><span class="mf">1000000.0</span><span class="p">)</span> <span class="c1"># from usec to sec</span>
+      <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">_ping_rpc</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
+        <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;service RPC ready after </span><span class="si">%d</span><span class="s1"> tries&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+      <span class="n">sleep_time</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_ping_rpc</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">msgpackrpc</span><span class="o">.</span><span class="n">Address</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;__ping__&#39;</span><span class="p">)</span>
+      <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;dummy RPC succeeded&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">RPCError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># &quot;no such method&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">finally</span><span class="p">:</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="kc">False</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_check_installed</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="n">procname</span> <span class="o">=</span> <span class="s1">&#39;juba</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;checking if service process </span><span class="si">%s</span><span class="s1"> is available&#39;</span><span class="p">,</span> <span class="n">procname</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">procname</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">],</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span>
+      <span class="p">)</span>
+      <span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> exit with status </span><span class="si">{1}</span><span class="s1">; confirm that (DY)LD_LIBRARY_PATH is properly set: </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">procname</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span> <span class="n">stdout</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> could not be started; confirm that PATH is properly set: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">procname</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+<div class="viewcode-block" id="BaseConfig"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseConfig">[docs]</a><span class="k">class</span> <span class="nc">BaseConfig</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Config is a convenient class to build new config.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseConfig.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseConfig.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new Config with default configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">BaseConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes the given config (dict-like) with the default configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseConfig.default"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.BaseConfig.default">[docs]</a>  <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a new default configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cls</span><span class="o">.</span><span class="n">_default</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cfg</span></div></div>
+
+<div class="viewcode-block" id="GenericConfig"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericConfig">[docs]</a><span class="k">class</span> <span class="nc">GenericConfig</span><span class="p">(</span><span class="n">BaseConfig</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  GenericConfig is a base Config class for generic services that have</span>
+<span class="sd">  `converter`, `method` and `parameter` in its config data.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="n">_CONVERTER_TEMPLATE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;string_filter_types&#39;</span> <span class="p">:</span> <span class="p">{},</span>
+    <span class="s1">&#39;string_filter_rules&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;num_filter_types&#39;</span> <span class="p">:</span> <span class="p">{},</span>
+    <span class="s1">&#39;num_filter_rules&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;string_types&#39;</span> <span class="p">:</span> <span class="p">{},</span>
+    <span class="s1">&#39;string_rules&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;num_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s1">&#39;num_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;binary_types&#39;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s1">&#39;binary_rules&#39;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="p">}</span>
+
+<div class="viewcode-block" id="GenericConfig.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericConfig.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">GenericConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
+      <span class="n">default_parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_parameter</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">default_parameter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;parameter&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span> <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_parameter</span>
+
+    <span class="k">if</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s1">&#39;parameter&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter</span>
+
+    <span class="k">if</span> <span class="n">converter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s1">&#39;converter&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">converter</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converter</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="n">cfg</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="n">method</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_method</span><span class="p">()</span>
+    <span class="n">parameter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_parameter</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">converter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_converter</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">method</span>    <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
+    <span class="k">if</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter</span>
+    <span class="k">if</span> <span class="n">converter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converter</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses must override this method and return the preferred default</span>
+<span class="sd">    method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#return &#39;AROW&#39;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses must override this method and return the preferred default</span>
+<span class="sd">    parameter set for the specified method.  Return `None` if  the method</span>
+<span class="sd">    does not require `parameter` block.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#return {&#39;regularization_weight&#39;: 0.1}</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default_converter</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a default converter contents.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">_CONVERTER_TEMPLATE</span><span class="p">)</span>
+    <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;string_types&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;unigram&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="s1">&#39;char_num&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">},</span>
+      <span class="s1">&#39;bigram&#39;</span><span class="p">:</span>  <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="s1">&#39;char_num&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">},</span>
+      <span class="s1">&#39;trigram&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;ngram&#39;</span><span class="p">,</span> <span class="s1">&#39;char_num&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">},</span>
+    <span class="p">}</span>
+    <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;string_rules&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;unigram&#39;</span><span class="p">,</span> <span class="s1">&#39;sample_weight&#39;</span><span class="p">:</span> <span class="s1">&#39;tf&#39;</span><span class="p">,</span> <span class="s1">&#39;global_weight&#39;</span><span class="p">:</span> <span class="s1">&#39;idf&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+    <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;num_rules&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;num&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">cfg</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericConfig.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericConfig.methods">[docs]</a>  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses must override this method and return methods available for</span>
+<span class="sd">    this service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#return [&#39;perceptron&#39;, &#39;PA&#39;, &#39;AROW&#39;]</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GenericConfig.clear_converter"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericConfig.clear_converter">[docs]</a>  <span class="k">def</span> <span class="nf">clear_converter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize the `converter` section of the config with an empty template.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_CONVERTER_TEMPLATE</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GenericConfig.add_mecab"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.base.GenericConfig.add_mecab">[docs]</a>  <span class="k">def</span> <span class="nf">add_mecab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mecab&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ngram</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_features</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">exclude_features</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add MeCab feature extraction to string_types.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">include_features</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+      <span class="n">include_features</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">include_features</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exclude_features</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+      <span class="n">exclude_features</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">exclude_features</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">][</span><span class="s1">&#39;string_types&#39;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;dynamic&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;libmecab_splitter.so&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;function&#39;</span><span class="p">:</span> <span class="s1">&#39;create&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;arg&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="p">,</span>
+      <span class="s1">&#39;ngram&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">ngram</span><span class="p">),</span>
+      <span class="s1">&#39;base&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span> <span class="k">if</span> <span class="n">base</span> <span class="k">else</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;include_features&#39;</span><span class="p">:</span> <span class="n">include_features</span><span class="p">,</span>
+      <span class="s1">&#39;exclude_features&#39;</span><span class="p">:</span> <span class="n">exclude_features</span><span class="p">,</span>
+    <span class="p">}</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
