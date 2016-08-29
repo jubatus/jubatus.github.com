@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Schema &mdash; jubakit  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="jubakit  documentation" href="../index.html"/>
+        <link rel="up" title="Architecture" href="index.html"/>
+        <link rel="next" title="Dataset" href="dataset.html"/>
+        <link rel="prev" title="Loader" href="loader.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> jubakit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="loader.html">Loader</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Schema</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fallback-type">Fallback Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alias-names">Alias Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-data-types">List of Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service.html">Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Architecture</a> &raquo;</li>
+      
+    <li>Schema</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/architecture/schema.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="schema">
+<h1>Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h1>
+<p>Schema defines the meaning of each column of record loaded from Loader.
+The basic usage of Schema is to specify data types for each key one by one.
+In the following example, <code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">age</span></code> columns are used as features and <code class="docutils literal"><span class="pre">gender</span></code> column is used as a label when training classifier.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Schema</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+  <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">,</span>
+  <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">LABEL</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="section" id="fallback-type">
+<h2>Fallback Type<a class="headerlink" href="#fallback-type" title="Permalink to this headline">¶</a></h2>
+<p>Data types must be defined for all column keys that may input from Loader.
+If you have many columns in your data and only a part of the columns is of your interest, you can specify a fallback data type.
+The Schema in the following example ignores columns other than <code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">age</span></code> and <code class="docutils literal"><span class="pre">gender</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+  <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">,</span>
+  <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">LABEL</span><span class="p">,</span>
+<span class="p">},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">IGNORE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, if you know that all of your records are numeric feature, you can just specify Schema as follows using fallback data type.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="alias-names">
+<h2>Alias Names<a class="headerlink" href="#alias-names" title="Permalink to this headline">¶</a></h2>
+<p>By default, the column key names passed from Loader is used as a Datum key name.
+However, you can manually assign the Datum key name by giving alias names.
+In the following example, <code class="docutils literal"><span class="pre">user_name</span></code> and <code class="docutils literal"><span class="pre">user_profile</span></code> columns will become <code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">profile</span></code> in Datum respectively.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({</span>
+  <span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">Schema</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;user_profile&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">Schema</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;profile&#39;</span><span class="p">),</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Alias names are convenient when training records from multiple data sources that have different Schema into one Service.</p>
+</div>
+<div class="section" id="list-of-data-types">
+<h2>List of Data Types<a class="headerlink" href="#list-of-data-types" title="Permalink to this headline">¶</a></h2>
+<p>Following data types can be specified for Schema.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">NUMBER</span></code></td>
+<td>Feature (numeric)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">STRING</span></code></td>
+<td>Feature (string)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">BINARY</span></code></td>
+<td>Feature (binary)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">INFER</span></code></td>
+<td>Feature (infer data type automatically <a class="footnote-reference" href="#id3" id="id1">[1]</a>)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">AUTO</span></code></td>
+<td>Feature (use data type loaded by Loader <a class="footnote-reference" href="#id4" id="id2">[2]</a>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">LABEL</span></code></td>
+<td>Ground truth (label column) &#8211; Classifier only</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">FLAG</span></code></td>
+<td>Flag if the record is anomaly or not &#8211; Anomaly only</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">ID</span></code></td>
+<td>Key that uniquely identifies each record &#8211; Anomaly only</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">IGNORE</span></code></td>
+<td>Discard the column</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Each data is tried to be cast to  <code class="docutils literal"><span class="pre">NUMBER</span></code>, <code class="docutils literal"><span class="pre">STRING</span></code> and <code class="docutils literal"><span class="pre">BINARY</span></code>, and treated as that type once cast succeeds.
+Type will be estimated for every single record, so be aware that result of type inference for the same key may different between records.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><code class="docutils literal"><span class="pre">AUTO</span></code> is intended to be used with Loader that loads records from typed data sources like RDBMS.
+Note that all data will become STRING when using <code class="xref py py-class docutils literal"><span class="pre">CSVLoader</span></code> as CSV files is not typed data source.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dataset.html" class="btn btn-neutral float-right" title="Dataset" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="loader.html" class="btn btn-neutral" title="Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

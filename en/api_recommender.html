@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.3',
+        VERSION:     '0.9.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -224,8 +224,23 @@ Data in excess of this number will be deleted automatically.</td>
 </tbody>
 </table>
 </dd>
-<dt>inverted_index, inverted_index_euclid</dt>
+<dt>inverted_index</dt>
 <dd>None</dd>
+<dt>inverted_index_euclid</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">ignore_orthogonal(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Ignore the points which don&#8217;t have any same key with the query when searching neighbors.
+If this option is specified, the result includes only points which have inverted index similarity with the query.
+In addition, this option contributes to accelerate calculation in specific cases (e.g. when most points don&#8217;t have any same key).
+This parameter is optional and is <code class="docutils literal"><span class="pre">false</span></code> (disabled) by default.
+(Boolean)</td>
+</tr>
+</tbody>
+</table>
+</dd>
 <dt>minhash</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -699,7 +714,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

@@ -78,6 +78,16 @@ Data Structures
 
       * 値域: 1 < ``scaling_param``
 
+      スケーリングパラメタは、各ウィンドウにおける全文書の数(``total_documents``)とキーワードを含む関連文書の数(``relevant_documents``)によって適切に決める必要がある。
+
+      
+      jubaburstでは、各ウィンドウにおいて 
+      
+        ``scaling_param < total_documents / relevant_documents``
+
+      だと、``burst_weight`` の値が ``INF`` を返す仕様となっている。
+      (詳細に関しては元論文参照 `[Kleinburg02] <http://www.cs.cornell.edu/home/kleinber/bhs.pdf>`_)
+
    .. mpidl:member:: 2: double gamma
 
       このキーワードに適用されるγ値を表す。

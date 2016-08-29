@@ -48,8 +48,16 @@ We show each field below:
         You cannot omit this parameter when you specify ``unlearner``.
         Data in excess of this number will be deleted automatically.
 
-   inverted_index, inverted_index_euclid
+   inverted_index
      None
+
+   inverted_index_euclid
+     :ignore_orthogonal(optional):
+        Ignore the points which don't have any same key with the query when searching neighbors.
+        If this option is specified, the result includes only points which have inverted index similarity with the query.
+        In addition, this option contributes to accelerate calculation in specific cases (e.g. when most points don't have any same key).
+        This parameter is optional and is ``false`` (disabled) by default.
+        (Boolean)
 
    minhash
      :hash_num:

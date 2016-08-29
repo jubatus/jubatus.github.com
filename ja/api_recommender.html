@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.3',
+        VERSION:     '0.9.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -225,8 +225,23 @@ JSON の各フィールドは以下のとおりである。</p>
 </tbody>
 </table>
 </dd>
-<dt>inverted_index, inverted_index_euclid:</dt>
+<dt>inverted_index</dt>
 <dd>なし</dd>
+<dt>inverted_index_euclid</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">ignore_orthogonal(optional):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">クエリ点と同一のキーを１つも持たない点を近傍探索時に無視する。
+これにより、転置インデックスによる類似度を有する点のみが探索結果に含まれるようになる。
+また、特定のユースケース(同一のキーを持つ点が少ない場合)では高速化に寄与する。
+このパラメータは省略可能であり、デフォルト値は <code class="docutils literal"><span class="pre">false</span></code> (無効)である。
+(Boolean)</td>
+</tr>
+</tbody>
+</table>
+</dd>
 <dt>minhash</dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -705,7 +720,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

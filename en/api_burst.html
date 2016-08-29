@@ -31,7 +31,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.3',
+        VERSION:     '0.9.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -261,6 +261,12 @@ When <code class="docutils literal"><span class="pre">0</span></code> is specifi
 <ul class="simple">
 <li>Range: 1 &lt; <code class="docutils literal"><span class="pre">scaling_param</span></code></li>
 </ul>
+<p>This parameter need to be set by the number of total documents and the number of relevant documents that contains the keyword in each window (call <code class="docutils literal"><span class="pre">total_documents</span></code> and <code class="docutils literal"><span class="pre">relevant_documents</span></code>.)</p>
+<p>In jubaburst, to notify the inappropriate parameter setting, if</p>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">scaling_param</span> <span class="pre">&lt;</span> <span class="pre">total_documents</span> <span class="pre">/</span> <span class="pre">relevant_documents</span></code></div></blockquote>
+<p>at each batch, <code class="docutils literal"><span class="pre">burst_weight</span></code> will return <code class="docutils literal"><span class="pre">INF</span></code>.
+( For more detail, see the original paper <a class="reference external" href="http://www.cs.cornell.edu/home/kleinber/bhs.pdf">[Kleinburg02]</a>)</p>
 </dd></dl>
 
 <dl class="member">
@@ -577,7 +583,7 @@ bool <code class="descname">remove_all_keywords</code><span class="sig-paren">(<
     </div>
     <div class="footer">
         &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.6.
     </div>
 
     <!-- https://github.com/blog/273-github-ribbons -->

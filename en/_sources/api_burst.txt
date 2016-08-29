@@ -78,6 +78,15 @@ Data Structures
 
       * Range: 1 < ``scaling_param``
 
+      This parameter need to be set by the number of total documents and the number of relevant documents that contains the keyword in each window (call ``total_documents`` and ``relevant_documents``.)
+
+      In jubaburst, to notify the inappropriate parameter setting, if 
+
+        ``scaling_param < total_documents / relevant_documents``
+      
+      at each batch, ``burst_weight`` will return ``INF``. 
+      ( For more detail, see the original paper `[Kleinburg02] <http://www.cs.cornell.edu/home/kleinber/bhs.pdf>`_)
+
    .. mpidl:member:: 2: double gamma
 
       A γ value applied for this keyword.

@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Config &mdash; jubakit  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="jubakit  documentation" href="../index.html"/>
+        <link rel="up" title="Architecture" href="index.html"/>
+        <link rel="next" title="Shell" href="shell.html"/>
+        <link rel="prev" title="Service" href="service.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> jubakit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="loader.html">Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service.html">Service</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-structure">Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machine-learning-parameters">Machine Learning Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-extraction-rules">Feature Extraction Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Architecture</a> &raquo;</li>
+      
+    <li>Config</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/architecture/config.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="config">
+<h1>Config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
+<p>Config defines machine learning parameters and feature extraction rules of Service.</p>
+<div class="section" id="data-structure">
+<h2>Data Structure<a class="headerlink" href="#data-structure" title="Permalink to this headline">¶</a></h2>
+<p>Config classes inherits <code class="docutils literal"><span class="pre">dict</span></code> class.
+Here is a default Config contents for Classifier Service.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+<span class="go">{&#39;converter&#39;: {&#39;string_filter_rules&#39;: [], &#39;num_filter_types&#39;: {}, &#39;num_types&#39;: {}, &#39;num_filter_rules&#39;: [], &#39;string_rules&#39;: [{&#39;global_weight&#39;: &#39;idf&#39;, &#39;sample_weight&#39;: &#39;tf&#39;, &#39;key&#39;: &#39;*&#39;, &#39;type&#39;: &#39;unigram&#39;}], &#39;string_filter_types&#39;: {}, &#39;num_rules&#39;: [{&#39;key&#39;: &#39;*&#39;, &#39;type&#39;: &#39;num&#39;}], &#39;binary_types&#39;: {}, &#39;binary_rules&#39;: [], &#39;string_types&#39;: {&#39;bigram&#39;: {&#39;method&#39;: &#39;ngram&#39;, &#39;char_num&#39;: &#39;2&#39;}, &#39;trigram&#39;: {&#39;method&#39;: &#39;ngram&#39;, &#39;char_num&#39;: &#39;3&#39;}, &#39;unigram&#39;: {&#39;method&#39;: &#39;ngram&#39;, &#39;char_num&#39;: &#39;1&#39;}}}, &#39;method&#39;: &#39;AROW&#39;, &#39;parameter&#39;: {&#39;regularization_weight&#39;: 1.0}}</span>
+</pre></div>
+</div>
+<p>The data structure is same as the Jubatus servers&#8217; JSON configuration file.
+See the <a class="reference external" href="http://jubat.us/en/api.html">Jubatus API Reference</a> for details.</p>
+</div>
+<div class="section" id="machine-learning-parameters">
+<h2>Machine Learning Parameters<a class="headerlink" href="#machine-learning-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Machine learning parameters consist of Methods and Hyper Parameters.
+Parameters that works well in most cases are set to Config class by default, so you can start using machine learning features without configuring them.</p>
+<p>You can create Config instance using these parameters specified.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;PA&#39;</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;regularization_weight&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>If you only specify <code class="docutils literal"><span class="pre">method</span></code>, the default parameter for the specified method will be set automatically.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;NN&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span>
+<span class="go">{&#39;local_sensitivity&#39;: 1.0, &#39;nearest_neighbor_num&#39;: 128, &#39;parameter&#39;: {&#39;threads&#39;: -1, &#39;hash_num&#39;: 64}, &#39;method&#39;: &#39;euclid_lsh&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;NHERD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span>
+<span class="go">{&#39;regularization_weight&#39;: 1.0}</span>
+</pre></div>
+</div>
+<p>You can even modify parameters after creating Config instance as if it is a <code class="docutils literal"><span class="pre">dict</span></code> object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">])</span>
+<span class="go">AROW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">][</span><span class="s1">&#39;regularization_weight&#39;</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;NHERD&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">][</span><span class="s1">&#39;regularization_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="feature-extraction-rules">
+<h2>Feature Extraction Rules<a class="headerlink" href="#feature-extraction-rules" title="Permalink to this headline">¶</a></h2>
+<p>The default feature extraction rules are as follows:</p>
+<ul class="simple">
+<li>String features are processed with <code class="docutils literal"><span class="pre">unigram</span></code> with TF-IDF weighting.
+For convenience <code class="docutils literal"><span class="pre">bigram</span></code> and <code class="docutils literal"><span class="pre">trigram</span></code> are also defined in <code class="docutils literal"><span class="pre">string_types</span></code> by default.</li>
+<li>Numeric features are processed as is (using <code class="docutils literal"><span class="pre">num</span></code> type).</li>
+<li>Binary features are not processed.</li>
+</ul>
+<p>You can clear these default rules by calling <code class="docutils literal"><span class="pre">clear_converter</span></code> method.
+It is convenient when writing rules from scratch.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="o">.</span><span class="n">clear_converter</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span>
+<span class="go">{&#39;converter&#39;: {&#39;string_filter_rules&#39;: [], &#39;num_filter_types&#39;: {}, &#39;num_types&#39;: {}, &#39;num_filter_rules&#39;: [], &#39;string_rules&#39;: [], &#39;string_filter_types&#39;: {}, &#39;num_rules&#39;: [], &#39;binary_types&#39;: {}, &#39;binary_rules&#39;: [], &#39;string_types&#39;: {}}, &#39;method&#39;: &#39;AROW&#39;, &#39;parameter&#39;: {&#39;regularization_weight&#39;: 1.0}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="shell.html" class="btn btn-neutral float-right" title="Shell" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="service.html" class="btn btn-neutral" title="Service" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

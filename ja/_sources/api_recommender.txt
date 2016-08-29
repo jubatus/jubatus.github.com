@@ -48,8 +48,16 @@ JSON の各フィールドは以下のとおりである。
         ``unlearner`` を設定する場合、 ``unlearner_parameter`` の指定は必須である。
         ここで指定された件数以上のデータを忘却する。
 
-   inverted_index, inverted_index_euclid:
+   inverted_index
      なし
+
+   inverted_index_euclid
+     :ignore_orthogonal(optional):
+        クエリ点と同一のキーを１つも持たない点を近傍探索時に無視する。
+        これにより、転置インデックスによる類似度を有する点のみが探索結果に含まれるようになる。
+        また、特定のユースケース(同一のキーを持つ点が少ない場合)では高速化に寄与する。
+        このパラメータは省略可能であり、デフォルト値は ``false`` (無効)である。
+        (Boolean)
 
    minhash
      :hash_num:

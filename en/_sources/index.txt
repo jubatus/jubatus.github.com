@@ -7,9 +7,9 @@ Jubatus is a distributed processing framework and streaming machine learning lib
 - Feature Vector Converter (fv_converter): Data Preprocess and Feature Extraction
 - Framework for Distributed Online Machine Learning with Fault Tolerance
 
-`Japanese documentation <../ja/>`_ is also available.
+Jubatus can be integrated with Spark (:doc:`jubaql/jubaql`) and Python / scikit-learn (`Jubakit <./jubakit/>`_).
 
-`JubaQL <./jubaql/jubaql.html>`_ feature is now available.
+`Japanese documentation <../ja/>`_ is also available.
 
 Get Jubatus
 -----------
