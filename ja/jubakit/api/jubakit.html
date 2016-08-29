@@ -96,7 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-jubakit.compat">jubakit.compat module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#jubakit-dumb-module">jubakit.dumb module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-jubakit.logger">jubakit.logger module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#jubakit-shell-module">jubakit.shell module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-jubakit.shell">jubakit.shell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#jubakit-weight-module">jubakit.weight module</a></li>
 </ul>
 </li>
@@ -203,8 +203,156 @@ to print their own logs.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="jubakit-shell-module">
-<h2>jubakit.shell module<a class="headerlink" href="#jubakit-shell-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-jubakit.shell">
+<span id="jubakit-shell-module"></span><h2>jubakit.shell module<a class="headerlink" href="#module-jubakit.shell" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="jubakit.shell.JubaShell">
+<em class="property">class </em><code class="descclassname">jubakit.shell.</code><code class="descname">JubaShell</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>cluster</em>, <em>service</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>JubaShell provides a shell environment to call Jubatus RPC API.</p>
+<p>The interactive interface is provided in <code class="docutils literal"><span class="pre">cli</span></code> submodule.</p>
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>cluster</em>, <em>service</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new shell environment using parameters specified.</p>
+<p>If <code class="docutils literal"><span class="pre">service</span></code> is <code class="docutils literal"><span class="pre">None</span></code>, it will be automatically probed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discard the current connection (if connected) and create new client instance.
+Note that TCP connection will not be established until RPC method is called.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects from the server (if connected).</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="jubakit.shell.JubaShell.get_cli_classes">
+<em class="property">classmethod </em><code class="descname">get_cli_classes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.get_cli_classes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.get_cli_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns map of service name to CLI implementation class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.get_client">
+<code class="descname">get_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.get_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.get_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the client instance.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="jubakit.shell.JubaShell.get_client_classes">
+<em class="property">classmethod </em><code class="descname">get_client_classes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.get_client_classes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.get_client_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns map of service name to Jubatus client instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.get_timeout">
+<code class="descname">get_timeout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.get_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.get_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current client-side timeout value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.interact">
+<code class="descname">interact</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.interact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.interact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the interactive shell environment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.is_connected">
+<code class="descname">is_connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.is_connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.is_connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the client exists.
+Note that its backend TCP connection may already be closed.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="jubakit.shell.JubaShell.probe_facts">
+<em class="property">classmethod </em><code class="descname">probe_facts</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>cluster</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.probe_facts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.probe_facts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probe the service name and remote server type.
+Returns tuple of (service_name, is_proxy).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs one-shot command.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.set_remote">
+<code class="descname">set_remote</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>cluster</em>, <em>service</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.set_remote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.set_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switches to the new remote server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubaShell.set_timeout">
+<code class="descname">set_timeout</code><span class="sig-paren">(</span><em>timeout</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShell.set_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShell.set_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets new client-side timeout value.
+Existing connection will be discarded.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="jubakit.shell.JubaShellAssertionError">
+<em class="property">exception </em><code class="descclassname">jubakit.shell.</code><code class="descname">JubaShellAssertionError</code><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShellAssertionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShellAssertionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jubakit.shell.JubaShellException" title="jubakit.shell.JubaShellException"><code class="xref py py-class docutils literal"><span class="pre">jubakit.shell.JubaShellException</span></code></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="jubakit.shell.JubaShellException">
+<em class="property">exception </em><code class="descclassname">jubakit.shell.</code><code class="descname">JubaShellException</code><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShellException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShellException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="jubakit.shell.JubaShellRPCError">
+<em class="property">exception </em><code class="descclassname">jubakit.shell.</code><code class="descname">JubaShellRPCError</code><span class="sig-paren">(</span><em>msg</em>, <em>host</em>, <em>port</em>, <em>e=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShellRPCError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShellRPCError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jubakit.shell.JubaShellException" title="jubakit.shell.JubaShellException"><code class="xref py py-class docutils literal"><span class="pre">jubakit.shell.JubaShellException</span></code></a></p>
+<dl class="method">
+<dt id="jubakit.shell.JubaShellRPCError.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>msg</em>, <em>host</em>, <em>port</em>, <em>e=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubaShellRPCError.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubaShellRPCError.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jubakit.shell.JubashCommand">
+<em class="property">class </em><code class="descclassname">jubakit.shell.</code><code class="descname">JubashCommand</code><a class="reference internal" href="../_modules/jubakit/shell.html#JubashCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubashCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Provides command line interface for <code class="docutils literal"><span class="pre">jubash</span></code> command.</p>
+<dl class="classmethod">
+<dt id="jubakit.shell.JubashCommand.start">
+<em class="property">classmethod </em><code class="descname">start</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubashCommand.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubashCommand.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jubakit.shell.JubashOptionParser">
+<em class="property">class </em><code class="descclassname">jubakit.shell.</code><code class="descname">JubashOptionParser</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubashOptionParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubashOptionParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">optparse.OptionParser</span></code>, <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="jubakit.shell.JubashOptionParser.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubashOptionParser.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubashOptionParser.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.shell.JubashOptionParser.error">
+<code class="descname">error</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#JubashOptionParser.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.JubashOptionParser.error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="jubakit.shell.main">
+<code class="descclassname">jubakit.shell.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/shell.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.shell.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point for <code class="docutils literal"><span class="pre">jubash</span></code> command.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="jubakit-weight-module">
 <h2>jubakit.weight module<a class="headerlink" href="#jubakit-weight-module" title="Permalink to this headline">¶</a></h2>
