@@ -164,7 +164,7 @@ The method must return the preprocessed dict-like object or <code class="docutil
 <p>Although not mandatory, the output of <code class="docutils literal"><span class="pre">preprocess</span></code> method should be a flat dict-like object, i.e., values should not be objects.</p>
 <div class="section" id="transformation">
 <h3>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h3>
-<p>For example, if you want to process JSONL files (files that contain one JSON record per line), you can create a class that inherits from <code class="xref py py-class docutils literal"><span class="pre">LineBasedFileLoader</span></code> which loads a single text file and emits record for each line, and implement <code class="docutils literal"><span class="pre">preprocess</span></code> method as follows:</p>
+<p>For example, if you want to process JSONL files (files that contain one JSON record per line), you can create a class that inherits from <a class="reference internal" href="../api/jubakit.loader.html#jubakit.loader.core.LineBasedFileLoader" title="jubakit.loader.core.LineBasedFileLoader"><code class="xref py py-class docutils literal"><span class="pre">LineBasedFileLoader</span></code></a> which loads a single text file and emits record for each line, and implement <code class="docutils literal"><span class="pre">preprocess</span></code> method as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">jubakit.loader.core</span> <span class="kn">import</span> <span class="n">LineBasedFileLoader</span>
 
@@ -225,7 +225,7 @@ Here is an example of Loader that calculates moving average over <code class="do
 <p>If none of the existing Loaders work for you, create your own Loader from scratch.
 It is quite simple &#8211; the minimum requirements for Loader classes are:</p>
 <ul class="simple">
-<li>Loaders must inherit from <code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code> class.</li>
+<li>Loaders must inherit from <a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseLoader" title="jubakit.base.BaseLoader"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code></a> class.</li>
 <li>Loaders must implement <code class="docutils literal"><span class="pre">rows</span></code> method, which yields a <code class="docutils literal"><span class="pre">dict</span></code> object.</li>
 </ul>
 <p>Here is a simple example of a Loader, which emits 2-dimensional random number records for 5 times.</p>
