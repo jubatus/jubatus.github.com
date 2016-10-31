@@ -1,176 +1,180 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Data Conversion &mdash; Jubatus</title>
-    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Conversion &mdash; Jubatus</title>
+  
 
-    
-<script type="text/javascript">
-   var GuideSentence = 'keyword';
-   function ShowFormGuide(obj) {
-      if( obj.value == '' ) {
-         obj.value = GuideSentence;
-         obj.style.color = '#cccccc';
-      }else{
-         obj.style.color = '#333333';
-      }
-   }
-   function HideFormGuide(obj) {
-      obj.style.color = '#827046';
-      if( obj.value == GuideSentence ) {
-         obj.value='';   
-      }
-   }
-</script>
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.9.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+  
+  
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="Documentation" href="documentation.html" />
-    <link rel="next" title="Plugin Development" href="plugin.html" />
-    <link rel="prev" title="Architecture" href="processes.html" /> 
+  
 
-<!--
+  
 
-   _________         ___
-   \____   _|       | /             ___I_I___
-       |  |         | |             \__^ ^__/        ____
-       |  |         | | ___    ___  __ | |          / __/
-       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
-       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
-       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
-       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
-       | /
-      / /
-     |/
+  
+  
+    
 
--->
-  <script type="text/javascript">
+  
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-26408953-1']);
-  _gaq.push(['_trackPageview']);
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-  </script>
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="rb-modindex.html" title="Ruby Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="plugin.html" title="Plugin Development"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="processes.html" title="Architecture"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-          
-		<a href="index.html">
-			 <div class="title"></div>
-		</a>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Data Conversion</a><ul>
-<li><a class="reference internal" href="#datum">Datum</a></li>
-<li><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
-<li><a class="reference internal" href="#filter">Filter</a><ul>
-<li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
-<li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
-<li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
-<li><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#feature-extraction-from-strings">Feature Extraction from Strings</a><ul>
-<li><a class="reference internal" href="#string-types">string_types</a></li>
-<li><a class="reference internal" href="#string-rules">string_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#feature-extraction-from-numbers">Feature Extraction from Numbers</a><ul>
-<li><a class="reference internal" href="#num-types">num_types</a></li>
-<li><a class="reference internal" href="#num-rules">num_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#feature-extraction-from-binary-data">Feature Extraction from Binary Data</a><ul>
-<li><a class="reference internal" href="#binary-types">binary_types</a></li>
-<li><a class="reference internal" href="#binary-rules">binary_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
-<li><a class="reference internal" href="#plugins">Plugins</a></li>
-</ul>
-</li>
-</ul>
+  
+    <link rel="top" title="Jubatus" href="index.html"/>
+        <link rel="next" title="Algorithms" href="method.html"/>
+        <link rel="prev" title="Distributed Mode" href="tutorial_distributed.html"/> 
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="processes.html"
-                        title="previous chapter">Architecture</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="plugin.html"
-                        title="next chapter">Plugin Development</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/fv_convert.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-          <div id="searchbox" style="display: none">
-            <h3>Quick Search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
-                <input type="submit" value="Go" class="searchBtn" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
-	  
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
           
 
-<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          
+            <a href="index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_distributed.html">Distributed Mode</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Conversion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#datum">Datum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flow-of-data-conversion">Flow of Data Conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filter">Filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-extraction-from-strings">Feature Extraction from Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#string-types">string_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-rules">string_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-extraction-from-numbers">Feature Extraction from Numbers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#num-types">num_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-rules">num_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-extraction-from-binary-data">Feature Extraction from Binary Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binary-types">binary_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-rules">binary_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-extraction-from-combination-data">Feature Extraction from Combination Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#combination-types">combination_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combination-rules">combination_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hashing-key-of-feature-vector">Hashing Key of Feature Vector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugins">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Feature Extraction from Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-extraction-from-images">Feature Extraction from Images</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="method.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Client API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about/index.html">About This Project</a></li>
+</ul>
+
+            
+          
         </div>
       </div>
+    </nav>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Data Conversion</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="data-conversion">
 <span id="conversion"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="Permalink to this headline">¶</a></h1>
@@ -248,7 +252,7 @@ Then, features are extracted from string data with &#8220;string_rules&#8221;.</
 Then, features are extracted from string data with &#8220;num_rules&#8221;.</p>
 <p>For binary data, features are extracted from binary data with &#8220;binary_rules&#8221;.</p>
 <p>As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
-<div class="figure" id="id3">
+<div class="figure" id="id4">
 <a class="reference internal image-reference" href="_images/convert_flow.png"><img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" /></a>
 <p class="caption"><span class="caption-text">Figure : System of Conversion Engine</span></p>
 </div>
@@ -883,7 +887,7 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 <td>Use given number itself as weight.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;log&quot;</span></code></td>
-<td>Use logarithm of given number as weight. If the number is not positive, weight is 0.</td>
+<td>Use natural logarithm of given number as weight. If the number is not positive, weight is 0.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;str&quot;</span></code></td>
 <td>Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.</td>
@@ -949,6 +953,109 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 </div></blockquote>
 </div>
 </div>
+<div class="section" id="feature-extraction-from-combination-data">
+<h2>Feature Extraction from Combination Data<a class="headerlink" href="#feature-extraction-from-combination-data" title="Permalink to this headline">¶</a></h2>
+<p>We can make new combination features by combining number features or string features.
+As with strings and numbers, feature extraction rules are also described for combination types.
+We can make user-defined extractors for combination types, too.</p>
+<p>We show a sample configuration.
+We can make new features by summing up (&#8216;add&#8217;) or multiplying (&#8216;mul&#8217;) two numeric features or string features.</p>
+<p>In this configuration, we can combinate string features that are converted by &#8220;bin/bin&#8221; method,
+i.e. sample_weight and global weight are &#8220;bin&#8221;.
+If you want to combinate all string features, you needs to write keys like &#8220;*&#64;str*&#8221;.</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="o">:</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">},</span>
+<span class="p">],</span>
+<span class="s2">&quot;combination_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+<span class="s2">&quot;combination_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;mul&quot;</span><span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">}</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;mul&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="combination-types">
+<h3>combination_types<a class="headerlink" href="#combination-types" title="Permalink to this headline">¶</a></h3>
+<p>Feature extractors for combination data are defined in &#8220;combination_types&#8221;.
+As with &#8220;string_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named &#8220;method&#8221;.
+The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
+The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<dl class="describe">
+<dt>
+<code class="descname">dynamic</code></dt>
+<dd><p>Use a plugin. See below for further detail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">Specifies a path to a plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">Specifies a function to be called in a plugin.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="combination-rules">
+<h3>combination_rules<a class="headerlink" href="#combination-rules" title="Permalink to this headline">¶</a></h3>
+<p>Specifies how to extract combination features.
+As &#8220;string_rules&#8221;, it consists of multiple rules.
+Each rule is a dictionary whose keys are &#8220;key_left&#8221;, &#8220;key_right&#8221;, &#8220;except_left&#8221; (optional), &#8220;except_right&#8221; (optional) and &#8220;type&#8221;.
+It depends on &#8220;type&#8221; how to specify weight and name features.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key_left:</th><td class="field-body"><p class="first">The first argument. It specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">key_right:</th><td class="field-body"><p class="first">The second argument.　Same as above.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">except_left:</th><td class="field-body"><p class="first">The exception key for &#8220;key_left&#8221;. It specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">except_right:</th><td class="field-body"><p class="first">The exception key for &#8220;key_right&#8221;. Same as above.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">It specifies the name of extractor in use. The extractor is either one defined in &#8220;combination_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;add&quot;</span></code></td>
+<td>Use sum of given values as weight.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;mul&quot;</span></code></td>
+<td>Use product of given values as weight.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
 <div class="section" id="hashing-key-of-feature-vector">
 <h2>Hashing Key of Feature Vector<a class="headerlink" href="#hashing-key-of-feature-vector" title="Permalink to this headline">¶</a></h2>
 <p>To reduce memory consumption, Jubatus can hash keys of feature vectors.
@@ -989,8 +1096,12 @@ When the path doesn&#8217;t contain &#8216;/&#8217; character, Jubatus try to lo
 <li>The default plugin directory set in build step (<code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></code> or <code class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></code> in most cases).</li>
 </ol>
 <p>Argument of the function is specified by other parameters.</p>
-<p>In Jubatus we can make use of two pre-defined plugins which aim to extraction of features from strings.
+<p>In Jubatus, we can extract features from strings using two pre-defined plugins.
+We can also extract features from images using a pre-defined plugin.
 Note that some plugins are not available depending on your compile options.</p>
+<div class="section" id="id3">
+<h3>Feature Extraction from Strings<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>We can use MeCab pluigin and ux plugin in jubatus.</p>
 <dl class="describe">
 <dt>
 <code class="descname">libmecab_splitter.so</code></dt>
@@ -1081,41 +1192,143 @@ This plugin is available only when compiled with <code class="docutils literal">
 </dd></dl>
 
 </div>
+<div class="section" id="feature-extraction-from-images">
+<h3>Feature Extraction from Images<a class="headerlink" href="#feature-extraction-from-images" title="Permalink to this headline">¶</a></h3>
+<p>We can use OpenCV in jubatus.</p>
+<dl class="describe">
+<dt>
+<code class="descname">libimage_feature.so</code></dt>
+<dd><p>We can specify this plugin in &#8220;binary_types&#8221;.
+It extracts features from given images by <a class="reference external" href="https://github.com/opencv">OpenCV</a> .
+This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-opencv</span></code>.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body"><p class="first">Specifies &#8220;create&#8221;.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">algorithm:</th><td class="field-body"><p class="first">Specifies the feature extraction algorithm. In jubatus, we can use RGB or ORB to extact featrures from images.  It should be noted that in both algorithm, we detect keypoints by Dense Sampling (which extracts features from all pixels of the image.)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="92%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;RGB&quot;</span></code></td>
+<td>Extracts RGB values in each pixel.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;ORB&quot;</span></code></td>
+<td>Makes binary strings by using intensity of pixels. We can refer <a class="reference external" href="http://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html">OpenCV documentation</a> in detail.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">resize:</th><td class="field-body"><p class="first">Specifies whether to resize the image. Specify <cite>&#8220;true&#8221;</cite> to resize image, or <cite>&#8220;false&#8221;</cite> not to resize it. When <code class="docutils literal"><span class="pre">resize</span></code> is not specified, <cite>&#8220;false&#8221;</cite> is assumed.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">x_size:</th><td class="field-body"><p class="first">Specifies the length of resized images. We can specify it when <code class="docutils literal"><span class="pre">resize</span></code> is <cite>&#8220;true&#8221;</cite>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">y_size:</th><td class="field-body"><p class="first last">Specifies the height of resized images. We can specify it when <code class="docutils literal"><span class="pre">resize</span></code> is <cite>&#8220;true&#8221;</cite>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;binary_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;image&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libimage_feature.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;algorithm&quot;</span><span class="o">:</span><span class="s2">&quot;ORB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resize&quot;</span><span class="o">:</span><span class="s2">&quot;true&quot;</span>
+    <span class="s2">&quot;x_size&quot;</span><span class="o">:</span><span class="s2">&quot;120.0&quot;</span>
+    <span class="s2">&quot;y_size&quot;</span><span class="o">:</span><span class="s2">&quot;120.0&quot;</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="method.html" class="btn btn-neutral float-right" title="Algorithms" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial_distributed.html" class="btn btn-neutral" title="Distributed Mode" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="rb-modindex.html" title="Ruby Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="plugin.html" title="Plugin Development"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="processes.html" title="Architecture"
-             >previous</a> |</li>
-        <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >Documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.6.
-    </div>
 
-    <!-- https://github.com/blog/273-github-ribbons -->
-    <a href="http://github.com/jubatus/jubatus">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
-      </a>
-  </body>
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

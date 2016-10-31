@@ -75,15 +75,23 @@ Options
 
    ``--zookeeper`` を指定しない (スタンドアローンモードで動作させる) 場合のみ、このオプションを使用する必要がある。
 
+.. option:: -m <model>, --model_file <model>
+
+   サーバ起動時に読み込むモデルファイルへのパスを指定する。
+
+.. option:: -D, --daemon
+
+   デーモンモードで起動する (コンソールから切り離す)。
+
+.. option:: -T, --config_test
+
+   設定ファイルの内容の妥当性を確認して、すぐに終了する。
+
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
 
    指定されていない場合、Jubatus サーバはスタンドアローンモードで動作する。
-
-.. option:: -m <model>, --model_file <model>
-
-   サーバ起動時に読み込むモデルファイルへのパスを指定する。
 
 .. option:: -n <name>, --name <name>
 

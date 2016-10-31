@@ -1,9 +1,9 @@
-Setup in Distributed Mode
+Distributed Mode
 ============================
 
 In this page, we describe how to setup Jubatus distributed in multiple nodes.
 
-We recommend trying this tutorial after you experience :doc:`tutorial` in standalone mode.
+We recommend trying this tutorial after you experience :doc:`../tutorial/tutorial` in standalone mode.
 
 Distributed Mode
 ----------------
@@ -131,7 +131,7 @@ IP Address     Processes
 192.168.0.213  ZooKeeper - 3
 =============  =======================================
 
-For the best practices, see :doc:`admin`.
+For the best practices, see :doc:`../tips_faqs/admin`.
 
 .. blockdiag::
 

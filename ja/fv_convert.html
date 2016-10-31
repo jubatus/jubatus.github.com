@@ -1,178 +1,181 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>データ変換 &mdash; Jubatus</title>
-    <link rel="stylesheet" href="_static/jubatus.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>データ変換 &mdash; Jubatus</title>
+  
 
-    
-<script type="text/javascript">
-   var GuideSentence = 'keyword';
-   function ShowFormGuide(obj) {
-      if( obj.value == '' ) {
-         obj.value = GuideSentence;
-         obj.style.color = '#cccccc';
-      }else{
-         obj.style.color = '#333333';
-      }
-   }
-   function HideFormGuide(obj) {
-      obj.style.color = '#827046';
-      if( obj.value == GuideSentence ) {
-         obj.value='';   
-      }
-   }
-</script>
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.9.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+  
+  
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Jubatus" href="index.html" />
-    <link rel="up" title="ドキュメント" href="documentation.html" />
-    <link rel="next" title="プラグインの開発" href="plugin.html" />
-    <link rel="prev" title="ドキュメント" href="documentation.html" /> 
+  
 
-<!--
+  
 
-   _________         ___
-   \____   _|       | /             ___I_I___
-       |  |         | |             \__^ ^__/        ____
-       |  |         | | ___    ___  __ | |          / __/
-       |  | |-|  |-|| |/   \  /   \| | | | |^|  |^|| (__
-       |  | | |  | ||    ^  ||  ^    | | | | |  | | \__ \
-       |  | | \_/  ||    O   || O    | | |_| \_/  | ___) |
-       |  |  \__/|_||_|\___/  \___/|_| |__/ \__/|_| \___/
-       | /
-      / /
-     |/
+  
+  
+    
 
--->
-  <script type="text/javascript">
+  
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-26408953-1']);
-  _gaq.push(['_trackPageview']);
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-  </script>
-  </head>
-  <body>
-    <div class="related">
-      <h3>ナビゲーション</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="総合索引"
-             accesskey="I">索引</a></li>
-        <li class="right" >
-          <a href="rb-modindex.html" title="Ruby Module Index"
-             >モジュール</a> |</li>
-        <li class="right" >
-          <a href="plugin.html" title="プラグインの開発"
-             accesskey="N">次へ</a> |</li>
-        <li class="right" >
-          <a href="documentation.html" title="ドキュメント"
-             accesskey="P">前へ</a> |</li>
-        <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" accesskey="U">ドキュメント</a> &raquo;</li> 
-      </ul>
-    </div>
-          
-		<a href="index.html">
-			 <div class="title"></div>
-		</a>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">目次</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">データ変換</a><ul>
-<li><a class="reference internal" href="#id2">概要</a></li>
-<li><a class="reference internal" href="#datum">Datum</a></li>
-<li><a class="reference internal" href="#id3">データ変換の流れ</a></li>
-<li><a class="reference internal" href="#id4">フィルター</a><ul>
-<li><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
-<li><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
-<li><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
-<li><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#construct">文字列からの特徴抽出</a><ul>
-<li><a class="reference internal" href="#string-types">string_types</a></li>
-<li><a class="reference internal" href="#string-rules">string_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id8">数値からの特徴抽出</a><ul>
-<li><a class="reference internal" href="#num-types">num_types</a></li>
-<li><a class="reference internal" href="#num-rules">num_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id9">バイナリデータからの特徴抽出</a><ul>
-<li><a class="reference internal" href="#binary-types">binary_types</a></li>
-<li><a class="reference internal" href="#binary-rules">binary_rules</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id10">特徴ベクトルのキーのハッシュ化</a></li>
-<li><a class="reference internal" href="#conversion-plugin">プラグイン</a></li>
-</ul>
-</li>
-</ul>
+  
+    <link rel="top" title="Jubatus" href="index.html"/>
+        <link rel="next" title="Commands" href="commands/index.html"/>
+        <link rel="prev" title="アルゴリズム" href="method.html"/> 
 
-  <h4>前のトピックへ</h4>
-  <p class="topless"><a href="documentation.html"
-                        title="前の章へ">ドキュメント</a></p>
-  <h4>次のトピックへ</h4>
-  <p class="topless"><a href="plugin.html"
-                        title="次の章へ">プラグインの開発</a></p>
-  <div role="note" aria-label="source link">
-    <h3>このページ</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/fv_convert.txt"
-            rel="nofollow">ソースコードを表示</a></li>
-    </ul>
-   </div>
-          <div id="searchbox" style="display: none">
-            <h3>Quick Search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" class="keyword" value="keyword" onFocus="HideFormGuide(this);" onBlur="ShowFormGuide(this);" />
-                <input type="submit" value="Go" class="searchBtn" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
-	  
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
           
 
-<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/JubatusOfficial"  data-widget-id="258379257628196864">Tweets by @JubatusOfficial</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          
+            <a href="index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview/index.html">Jubatus Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">クイックスタート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_distributed.html">分散モード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="method.html">アルゴリズム</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">データ変換</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datum">Datum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">データ変換の流れ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">フィルター</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#string-filter-types">string_filter_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-filter-rules">string_filter_rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-filter-types">num_filter_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-filter-rules">num_filter_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#construct">文字列からの特徴抽出</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#string-types">string_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-rules">string_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">数値からの特徴抽出</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#num-types">num_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-rules">num_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">バイナリデータからの特徴抽出</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binary-types">binary_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-rules">binary_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">組み合わせ特徴量による特徴抽出</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#combination-types">combination_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combination-rules">combination_rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">特徴ベクトルのキーのハッシュ化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conversion-plugin">プラグイン</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">文字列特徴量プラグイン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">画像特徴量プラグイン</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Client API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/index.html">開発者ガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about/index.html">プロジェクトについて</a></li>
+</ul>
+
+            
+          
         </div>
       </div>
+    </nav>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>データ変換</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="conversion">
 <span id="id1"></span><h1>データ変換<a class="headerlink" href="#conversion" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -258,7 +261,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 その状態で、num_rulesによって数値データからの特徴量が抽出される。</p>
 <p>バイナリデータにはbinary_rulesによって特徴量が抽出される。</p>
 <p>フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
-<div class="figure" id="id13">
+<div class="figure" id="id17">
 <a class="reference internal image-reference" href="_images/convert_flow.png"><img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" /></a>
 <p class="caption"><span class="caption-text">図: 変換エンジンの構成</span></p>
 </div>
@@ -973,9 +976,9 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <p>結果として得られる特徴抽出結果は、以下のようになる。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="34%" />
-<col width="32%" />
-<col width="34%" />
+<col width="31%" />
+<col width="29%" />
+<col width="40%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">キー</th>
@@ -990,7 +993,7 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 <tr class="row-odd"><td>&#8220;user/income&#8221;</td>
 <td>100000</td>
-<td>log(100000) = 5</td>
+<td>log(100000) = 11.5129...</td>
 </tr>
 <tr class="row-even"><td>&#8220;user/age_kazoe&#8221;</td>
 <td>30</td>
@@ -1057,7 +1060,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <td>与えられた数値をそのまま重みに利用する。</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;log&quot;</span></code></td>
-<td>与えられた数値の対数を重みに利用する。但し、数値が1以下の場合は0とする。</td>
+<td>与えられた数値の自然対数を重みに利用する。但し、数値が1以下の場合は0とする。</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;str&quot;</span></code></td>
 <td>与えられた数値を文字列として扱う。これは、例えばIDなど、数値自体の大きさに意味のないデータに対して利用する。重みは1とする。</td>
@@ -1122,7 +1125,158 @@ string_rulesなどと同様、複数の規則を羅列する。
 </div>
 </div>
 <div class="section" id="id10">
-<h2>特徴ベクトルのキーのハッシュ化<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>組み合わせ特徴量による特徴抽出<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>数値特徴量や文字列特徴量の組み合わせにより、新たな特徴量を抽出することができる。</p>
+<p>以下に、設定の例を示す。
+この例では、数値型の特徴量の和(&#8220;add&#8221;)と積(&#8220;mul&#8221;)を新たな特徴量とする。
+また、文字列型の特徴量を&#8221;bin/bin&#8221;で変換した特徴量の和(&#8220;add&#8221;)と積(&#8220;mul&#8221;)を新たな特徴量とする。</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="o">:</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">},</span>
+<span class="p">],</span>
+<span class="s2">&quot;combination_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+<span class="s2">&quot;combination_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@num&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;mul&quot;</span><span class="p">},</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">}</span>
+  <span class="p">{</span> <span class="s2">&quot;key_left&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;key_right&quot;</span><span class="o">:</span> <span class="s2">&quot;*@str#bin/bin&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;mul&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>例えば、この規則を次のようなdatumに適用する。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
+  <span class="p">[],</span>
+  <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;user/age&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/income&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;user/name&quot;</span><span class="p">,</span> <span class="s2">&quot;Loren&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+  <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>結果として得られる特徴抽出結果は、以下のようになる。
+&#8220;num_rules&#8221;, &#8220;string_rules&#8221;で抽出された特徴量に対して、
+&#8220;combination_rules&#8221;によって特徴量の和と積が計算されているのがわかる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="89%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">キー</th>
+<th class="head">重み</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;user/age&#64;num&#8221;</td>
+<td>25</td>
+</tr>
+<tr class="row-odd"><td>&#8220;user/income&#64;num&#8221;</td>
+<td>1000</td>
+</tr>
+<tr class="row-even"><td>&#8220;user/income&#64;num&amp;user/age&#64;num/add&#8221;</td>
+<td>1025</td>
+</tr>
+<tr class="row-odd"><td>&#8220;user/income&#64;num&amp;user/age&#64;num/mul&#8221;</td>
+<td>25000</td>
+</tr>
+<tr class="row-even"><td>&#8220;message$Hello&#64;str#bin/bin&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&#8220;user/name$Loren&#64;str#bin/bin&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>&#8220;message$Hello&#64;str#bin/bin&amp;user/name$Loren&#64;str#bin/bin/mul&#8221;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&#8220;message$Hello&#64;str#bin/bin&amp;user/name$Loren&#64;str#bin/bin/add&#8221;</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="combination-types">
+<h3>combination_types<a class="headerlink" href="#combination-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>combination_types で組み合わせデータに対する特徴抽出器を定義する。
+string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる辞書を指定する。
+引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
+それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
+指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+<dl class="describe">
+<dt>
+<code class="descname">dynamic</code></dt>
+<dd><p>プラグインを利用する。詳細は後述する。</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">path:</th><td class="field-body">プラグインのパスを指定する。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">function:</th><td class="field-body">プラグインの呼び出し関数を指定する。</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="combination-rules">
+<h3>combination_rules<a class="headerlink" href="#combination-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>組み合わせ特徴量の抽出規則を指定する。
+string_rulesなどと同様、複数の規則を羅列する。
+各規則は、&#8221;key_left&#8221;, &#8220;key_right&#8221;, &#8220;except_left&#8221; (オプション), &#8220;except_right&#8221; (オプション), &#8220;type&#8221;からなる辞書で指定する。
+重みの付け方や特徴量の指定の仕方もそれぞれの&#8221;type&#8221;ごとに異なる。</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">key_left:</th><td class="field-body"><p class="first">第一引数。datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。なお、&#8221;*&#8221; や &#8220;&#8221; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">key_right:</th><td class="field-body"><p class="first">第二引数。同上。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">except_left:</th><td class="field-body"><p class="first">第一引数の除外パターン。 key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">except_right:</th><td class="field-body"><p class="first">第二引数の除外パターン。同上。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">利用する抽出器名を指定する。これはcombination_typesの項で作った抽出器名を指定する。ただし、以下の抽出器はデフォルトで利用できる。</p>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">値</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;add&quot;</span></code></td>
+<td>&#8220;key_left&#8221; と &#8220;key_right&#8221; で指定された特徴量の和を重みに利用する。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;mul&quot;</span></code></td>
+<td>&#8220;key_left&#8221; と &#8220;key_right&#8221; で指定された特徴量の積を重みに利用する。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>特徴ベクトルのキーのハッシュ化<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus では特徴ベクトルのキーをハッシュ化することでメモリ消費を抑えることができる。
 特徴ベクトルのキーをハッシュ化することで、特徴ベクトルの次元数の最大長を制限することができるが、ハッシュの衝突により学習精度の低下が発生する可能性がある。</p>
 <p>この機能はデフォルトでは無効である。
@@ -1146,7 +1300,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 <code class="docutils literal"><span class="pre">hash_max_size</span></code> が制限するのは入力される datum のキー数ではなく、(変換後の) 特徴ベクトルのキー数であることに注意する。</p>
 </div>
 <div class="section" id="conversion-plugin">
-<span id="id11"></span><h2>プラグイン<a class="headerlink" href="#conversion-plugin" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<span id="id12"></span><h2>プラグイン<a class="headerlink" href="#conversion-plugin" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>フィルターと抽出器では、それぞれプラグインを利用することができる。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
@@ -1161,8 +1315,11 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <li>ビルド時に指定したデフォルトのプラグインディレクトリ（多くの場合は <code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></code> または <code class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></code> ）</li>
 </ol>
 <p>また、その他のパラメータに関しては、各プラグイン固有のパラメータを渡す。</p>
-<p>Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグインが提供されている。
+<p>Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグインと1つの画像特徴量プラグインが提供されている。
 ただし、コンパイルオプションによっては一部のプラグインがビルドされないため、注意すること。</p>
+<div class="section" id="id13">
+<h3>文字列特徴量プラグイン<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>文字列特徴量プラグインではMeCabプラグインとuxプラグインを提供している。</p>
 <dl class="describe">
 <dt>
 <code class="descname">libmecab_splitter.so</code></dt>
@@ -1253,41 +1410,145 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 </dd></dl>
 
 </div>
+<div class="section" id="id15">
+<h3>画像特徴量プラグイン<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>画像特徴量プラグインではOpenCVプラグインを提供している。</p>
+<dl class="describe">
+<dt>
+<code class="descname">libimage_feature.so</code></dt>
+<dd></dd></dl>
+
+<p>binary_typesで指定できる。<a class="reference external" href="https://github.com/opencv">OpenCV</a> を利用して、与えられた画像から特徴量を抜き出して利用する。
+<code class="docutils literal"><span class="pre">--enable-opencv</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<blockquote>
+<div><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body"><p class="first">&#8220;create&#8221;を指定する。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">algorithm:</th><td class="field-body"><p class="first">利用する特徴量記述アルゴリズムを指定する。画像特徴量抽出プラグインでは、下記の２つのアルゴリズムを提供している。なお、いずれもキーポイントの抽出はDense sampling (すべての画素について特徴量を抽出する手法) で行っている。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">値</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;RGB&quot;</span></code></td>
+<td>画素のRGB値を抽出する</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;ORB&quot;</span></code></td>
+<td>パッチ内で選ばれた2点の輝度差によってバイナリ列を作る。詳細は <a class="reference external" href="http://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html">OpenCVドキュメント</a> を参照。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">resize:</th><td class="field-body"><p class="first">画像をリサイズするかどうかを決定する。リサイズする場合は <cite>&#8220;true&#8221;</cite> を指定し、しない場合は <cite>&#8220;false&#8221;</cite> を指定する。デフォルトでは <cite>&#8220;false&#8221;</cite> が指定される</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">x_size:</th><td class="field-body"><p class="first">画像の幅を指定しリサイズする。 <code class="docutils literal"><span class="pre">resize</span></code> が <cite>&#8220;true&#8221;</cite> のときのみ有効</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">y_size:</th><td class="field-body"><p class="first last">画像の高さを指定しリサイズする。 <code class="docutils literal"><span class="pre">resize</span></code> が <cite>&#8220;true&#8221;</cite> のときのみ有効</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;binary_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;image&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libimage_feature.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;algorithm&quot;</span><span class="o">:</span><span class="s2">&quot;ORB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resize&quot;</span><span class="o">:</span><span class="s2">&quot;true&quot;</span>
+    <span class="s2">&quot;x_size&quot;</span><span class="o">:</span><span class="s2">&quot;120.0&quot;</span>
+    <span class="s2">&quot;y_size&quot;</span><span class="o">:</span><span class="s2">&quot;120.0&quot;</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="commands/index.html" class="btn btn-neutral float-right" title="Commands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="method.html" class="btn btn-neutral" title="アルゴリズム" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>ナビゲーション</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="総合索引"
-             >索引</a></li>
-        <li class="right" >
-          <a href="rb-modindex.html" title="Ruby Module Index"
-             >モジュール</a> |</li>
-        <li class="right" >
-          <a href="plugin.html" title="プラグインの開発"
-             >次へ</a> |</li>
-        <li class="right" >
-          <a href="documentation.html" title="ドキュメント"
-             >前へ</a> |</li>
-        <li><a href="index.html">Jubatus</a> &raquo;</li>
-          <li><a href="documentation.html" >ドキュメント</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011-2016 PFN &amp; NTT.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.4.6.
-    </div>
 
-    <!-- https://github.com/blog/273-github-ribbons -->
-    <a href="http://github.com/jubatus/jubatus">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" />
-      </a>
-  </body>
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

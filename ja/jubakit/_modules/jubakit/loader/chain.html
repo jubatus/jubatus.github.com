@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.loader.chain &mdash; jubakit  documentation</title>
+  <title>jubakit.loader.chain &mdash; jubakit 0.4.0 documentation</title>
   
 
   
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
   
 
   
@@ -28,9 +30,11 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
 
   
-    <link rel="top" title="jubakit  documentation" href="../../../index.html"/>
+    <link rel="top" title="jubakit 0.4.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -53,13 +57,16 @@
           
 
           
+            
+            <img src="../../../_static/title.png" class="logo" />
+          
           </a>
 
           
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -172,6 +179,18 @@
     <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="p">:</span>
       <span class="n">ent</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapping</span><span class="p">[</span><span class="n">ent</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">]]</span>
       <span class="k">yield</span> <span class="n">ent</span></div></div>
+
+<div class="viewcode-block" id="ConcatLoader"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.chain.ConcatLoader">[docs]</a><span class="k">class</span> <span class="nc">ConcatLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  ConcatLoader is a loader to concat multiple loaders.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ConcatLoader.__init__"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.chain.ConcatLoader.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">loaders</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loaders</span> <span class="o">=</span> <span class="n">loaders</span></div>
+
+<div class="viewcode-block" id="ConcatLoader.rows"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.chain.ConcatLoader.rows">[docs]</a>  <span class="k">def</span> <span class="nf">rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">loader</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaders</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">loader</span><span class="o">.</span><span class="n">rows</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="n">row</span></div></div>
 </pre></div>
 
            </div>
@@ -205,7 +224,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'',
+            VERSION:'0.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

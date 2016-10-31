@@ -13,7 +13,7 @@ Jubatus は以下の特徴を持ったオンライン機械学習向け分散処
 - 特徴ベクトル変換器 (fv_converter): データの前処理と特徴抽出
 - フォルトトレラントな分散機械学習のためのフレームワーク
 
-Jubatus は Spark (:doc:`jubaql/jubaql`) や Python / scikit-learn (`Jubakit <./jubakit/>`_) と連携して動作させることも可能です。
+Jubatus は Spark (:doc:`jubaql/index`) や Python / scikit-learn (`Jubakit <./jubakit/>`_) と連携して動作させることも可能です。
 
 `English documentation <../en/>`_ is also available.
 
@@ -29,19 +29,20 @@ Table of Contents
 -----------------
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
 
+   overview/index
    quickstart
-   overview/summary
-   tutorial
+   tutorial/index
    tutorial_distributed
-   documentation
-   references
-   jubaql/jubaql
-   howtocontribute
-   cla
-   misc
-   aboutus
+   method
+   fv_convert
+   commands/index
+   api/index
+   tips_faqs/index
+   developers/index
+   jubaql/index
+   about/index
 
 Other Resources
 ===============

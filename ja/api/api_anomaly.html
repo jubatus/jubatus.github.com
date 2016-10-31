@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Anomaly &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Client API" href="index.html"/>
+        <link rel="next" title="Clustering" href="api_clustering.html"/>
+        <link rel="prev" title="Nearest Neighbor" href="api_nearest_neighbor.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">分散モード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">データ変換</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Client API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="common_structs.html">データ構造と共通メソッド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_classifier.html">Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_regression.html">Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_recommender.html">Recommender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_nearest_neighbor.html">Nearest Neighbor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Anomaly</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_clustering.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_burst.html">Burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_graph.html">Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_bandit.html">Bandit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_weight.html">Weight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_unlearner.html">Unlearner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">開発者ガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">プロジェクトについて</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Client API</a> &raquo;</li>
+      
+    <li>Anomaly</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="anomaly">
+<h1>Anomaly<a class="headerlink" href="#anomaly" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul class="simple">
+<li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/anomaly.idl">IDL 定義</a> を参照してください。</li>
+</ul>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>設定は単体の JSON で与えられる。
+JSON の各フィールドは以下のとおりである。</p>
+<dl class="describe">
+<dt>
+<code class="descname">method</code></dt>
+<dd><p>異常検知に使用するアルゴリズムを指定する。
+以下のアルゴリズムを指定できる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">設定値</th>
+<th class="head">手法</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;lof&quot;</span></code></td>
+<td>Recommenderベースの Local Outlier Factor を利用する。 <a class="reference internal" href="../method.html#breunig2000" id="id1">[Breunig2000]</a></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;light_lof&quot;</span></code></td>
+<td>Nearest Neighborベースの LOF を利用する。</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">parameter</code></dt>
+<dd><p>アルゴリズムに渡すパラメータを指定する。
+<code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
+<dl class="docutils">
+<dt>共通</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unlearner:</th><td class="field-body">忘却機能に利用するUnlearnerのアルゴリズムを指定する。
+忘却機能が不要な場合、このパラメータは省略する。
+<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner</span></code> を指定する。
+ここで指定された方法に基づいてデータを忘却する。忘却の単位は、ID単位である。</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
+ここで指定された件数以上のデータは自動的に削除される。
+<code class="docutils literal"><span class="pre">unlearner</span></code> を指定する際はこの <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。</td>
+</tr>
+</tbody>
+</table>
+<p class="last">なお <code class="docutils literal"><span class="pre">unlearner</span></code> と <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> のパラメータは <strong>省略可能</strong> である。</p>
+</dd>
+<dt>lof</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">対象データに対する近傍の数を指定する。
+大きくすると誤検出が減る代わりに、検出漏れが増える。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 2 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">reverse_nearest_neighbor_num:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">異常値の情報を更新する際に、逆近傍候補の個数を指定する。
+大きくすると検出が正確になる代わりに、更新に時間がかかる。
+(Integer)</p>
+<ul class="simple">
+<li>値域: <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code> &lt;= <code class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">ignore_kth_same_point:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">登録できる重複データの件数を <code class="docutils literal"><span class="pre">nearest_neighbor_num</span> <span class="pre">-</span> <span class="pre">1</span></code> 件に制限することにより、スコアが <code class="docutils literal"><span class="pre">inf</span></code> になることを防ぐ。
+このパラメタは省略可能であり、デフォルト値は <code class="docutils literal"><span class="pre">false</span></code> (無効) である。
+(Boolean)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">method:</th><td class="field-body"><p class="first">近傍探索に利用するレコメンダーのアルゴリズムを指定する。
+<a class="reference internal" href="api_recommender.html"><span class="doc">Recommender</span></a> で説明される <code class="docutils literal"><span class="pre">method</span></code> を指定する。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">近傍探索に利用するレコメンダーに渡すパラメータを指定する。
+<a class="reference internal" href="api_recommender.html"><span class="doc">Recommender</span></a> で説明される <code class="docutils literal"><span class="pre">parameter</span></code> を指定する。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>light_lof</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">対象データに対する近傍の数を指定する。
+大きくすると誤検出が減る代わりに、検出漏れが増える。
+(Integer)</p>
+<ul class="simple">
+<li>値域: 2 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">reverse_nearest_neighbor_num:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">異常値の情報更新する際に、逆近傍候補の個数を指定する。
+大きくすると検出が正確になる代わりに、更新に時間がかかる。
+(Integer)</p>
+<ul class="simple">
+<li>値域: <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code> &lt;= <code class="docutils literal"><span class="pre">reverse_nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">ignore_kth_same_point:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">登録できる重複データの件数を <code class="docutils literal"><span class="pre">nearest_neighbor_num</span> <span class="pre">-</span> <span class="pre">1</span></code> 件に制限することにより、スコアが <code class="docutils literal"><span class="pre">inf</span></code> になることを防ぐ。
+このパラメタは省略可能であり、デフォルト値は <code class="docutils literal"><span class="pre">false</span></code> (無効) である。
+(Boolean)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">method:</th><td class="field-body"><p class="first">近傍探索に利用する近傍探索器のアルゴリズムを指定する。
+<a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> で説明される <code class="docutils literal"><span class="pre">method</span></code> を指定する。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">parameter:</th><td class="field-body"><p class="first last">近傍探索に利用する近傍探索器に渡すパラメータを指定する。
+<a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> で説明される <code class="docutils literal"><span class="pre">parameter</span></code> を指定する。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">converter</code></dt>
+<dd><p>特徴変換の設定を指定する。
+フォーマットは <a class="reference internal" href="../fv_convert.html"><span class="doc">データ変換</span></a> で説明する。</p>
+</dd></dl>
+
+<dl class="docutils">
+<dt>例:</dt>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;lof&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;reverse_nearest_neighbor_num&quot;</span> <span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span> <span class="o">:</span> <span class="s2">&quot;euclid_lsh&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;hash_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
+      <span class="s2">&quot;table_num&quot;</span> <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+      <span class="s2">&quot;seed&quot;</span> <span class="o">:</span> <span class="mi">1091</span><span class="p">,</span>
+      <span class="s2">&quot;probe_num&quot;</span> <span class="o">:</span> <span class="mi">64</span><span class="p">,</span>
+      <span class="s2">&quot;bin_width&quot;</span> <span class="o">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span> <span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;num_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="message">
+<dt id="id_with_score">
+<em class="property">message </em><code class="descname">id_with_score</code><a class="headerlink" href="#id_with_score" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スコア付きのデータIDを表す。</p>
+<dl class="member">
+<dt id="id_with_score::id__s">
+0: string <code class="descname">id</code><a class="headerlink" href="#id_with_score::id__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>データのIDを表す。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="id_with_score::score__float">
+1: float <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>IDに対して紐付くスコアを表す。
+陰性の (正常な) データのスコアは <cite>1.0</cite> 近辺になる。
+スコアが大きくなるほど、より異常度が高いことを意味する。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="service">
+<dt>
+<em class="property">service </em><code class="descname">anomaly</code></dt>
+<dd><dl class="method">
+<dt id="anomaly::clear_row__s">
+bool <code class="descname">clear_row</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::clear_row__s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 削除する点 ID</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">点の削除に成功した場合 True</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>ID <code class="docutils literal"><span class="pre">id</span></code> で指定される点データを削除する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anomaly::add__datum">
+<a class="reference internal" href="#id_with_score" title="id_with_score">id_with_score</a> <code class="descname">add</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::add__datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>row</strong> &#8211; 点の <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">点 ID と異常値のタプル</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>点データ <code class="docutils literal"><span class="pre">row</span></code> を追加する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anomaly::update__s.datum">
+float <code class="descname">update</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::update__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 更新する点 ID</li>
+<li><strong>row</strong> &#8211; 点の新しい <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">異常値</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>点 <code class="docutils literal"><span class="pre">id</span></code> をデータ <code class="docutils literal"><span class="pre">row</span></code> で更新する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anomaly::overwrite__s.datum">
+float <code class="descname">overwrite</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::overwrite__s.datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 更新する点 ID</li>
+<li><strong>row</strong> &#8211; 点の新しい <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">異常値</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>点 <code class="docutils literal"><span class="pre">id</span></code> をデータ <code class="docutils literal"><span class="pre">row</span></code> で上書き更新する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anomaly::calc_score__datum">
+float <code class="descname">calc_score</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::calc_score__datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">与えられた <code class="docutils literal"><span class="pre">row</span></code> に対する異常度</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>点を追加せずに、与えられた点データ <code class="docutils literal"><span class="pre">row</span></code> の異常度を計算する。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anomaly::get_all_rows">
+list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#anomaly::get_all_rows" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">戻り値:</th><td class="field-body">すべての点の ID リスト</td>
+</tr>
+</tbody>
+</table>
+<p>すべての点の ID リストを返す。</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_clustering.html" class="btn btn-neutral float-right" title="Clustering" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api_nearest_neighbor.html" class="btn btn-neutral" title="Nearest Neighbor" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

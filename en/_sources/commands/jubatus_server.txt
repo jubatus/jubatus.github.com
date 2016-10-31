@@ -75,15 +75,23 @@ Options
 
    This option must be given when ``--zookeeper`` is not specified (i.e., running in standalone mode).
 
+.. option:: -m <model>, --model_file <model>
+
+   Path of the model file to load at startup.
+
+.. option:: -D, --daemon
+
+   Launch in daemon mode (detach from console).
+
+.. option:: -T, --config_test
+
+   Validate the contents of configuration file and exit immediately.
+
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    List of ZooKeeper server(s).
 
    If not specified, Jubatus servers run in standalone mode.
-
-.. option:: -m <model>, --model_file <model>
-
-   Path of the model file to load at startup.
 
 .. option:: -n <name>, --name <name>
 

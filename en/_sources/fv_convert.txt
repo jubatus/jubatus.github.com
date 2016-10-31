@@ -534,7 +534,7 @@ It depends on "type" how to specify weight and name features.
     Value         Meaning
     ============= =====================
     ``"num"``     Use given number itself as weight.
-    ``"log"``     Use logarithm of given number as weight. If the number is not positive, weight is 0.
+    ``"log"``     Use natural logarithm of given number as weight. If the number is not positive, weight is 0.
     ``"str"``     Use given number as a string. This extractor is used when the value of the number is not important, such as user ID. Weight is set to be 1.
     ============= =====================
 
@@ -573,6 +573,78 @@ It depends on "type" how to specify weight and name features.
  :key:    Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
  :except: Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in "string_filter_rules" section.
  :type:   Specifies the name of extractor in use. The extractor is either one defined in "binary_types". Note that no pre-defined extractors are prepared.
+
+
+Feature Extraction from Combination Data
+----------------------------------------
+
+We can make new combination features by combining number features or string features. 
+As with strings and numbers, feature extraction rules are also described for combination types.
+We can make user-defined extractors for combination types, too.
+
+We show a sample configuration.
+We can make new features by summing up ('add') or multiplying ('mul') two numeric features or string features.
+
+In this configuration, we can combinate string features that are converted by "bin/bin" method,
+i.e. sample_weight and global weight are "bin".
+If you want to combinate all string features, you needs to write keys like "\*\@str\*".
+
+.. code-block:: js     
+
+      "num_types": {},
+      "num_rules": [
+        {"key": "*", "type": "num"}
+      ],
+      "string_types": {},
+      "string_rules": [
+        {"key": "*": "type": "str", "sample_weight": "bin", "global_weight": "bin"},
+      ],
+      "combination_types": {},
+      "combination_rules": [
+        { "key_left": "*@num", "key_right": "*@num", "type": "add"},
+        { "key_left": "*@num", "key_right": "*@num", "type": "mul"},
+        { "key_left": "*@str#bin/bin", "key_right": "*@str#bin/bin", "type": "add"}
+        { "key_left": "*@str#bin/bin", "key_right": "*@str#bin/bin", "type": "mul"}
+      ]
+
+
+combination_types
+~~~~~~~~~~~~~~~~~~
+
+Feature extractors for combination data are defined in "combination_types".
+As with "string_types", it specifies a dictionary which consists of <extractor name>:<argument>.
+<argument> is a dictionary whose keys and values are both strings and must contain a key named "method".
+The rest of keys in <argument> are dependent on the value of "method".
+The followings are available values of "method" and keys that must be specified.
+
+.. describe:: dynamic
+
+ Use a plugin. See below for further detail.
+
+  :path:      Specifies a path to a plugin.
+  :function:  Specifies a function to be called in a plugin.
+
+
+combination_rules
+~~~~~~~~~~~~~~~~~~
+
+Specifies how to extract combination features.
+As "string_rules", it consists of multiple rules.
+Each rule is a dictionary whose keys are "key_left", "key_right", "except_left" (optional), "except_right" (optional) and "type".
+It depends on "type" how to specify weight and name features.
+
+ :key_left:   The first argument. It specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in "string_filter_rules" section.
+ :key_right:  The second argument.　Same as above.
+ :except_left: The exception key for "key_left". It specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in "string_filter_rules" section.
+ :except_right:   The exception key for "key_right". Same as above.
+ :type: It specifies the name of extractor in use. The extractor is either one defined in "combination_types" or one of pre-defined extractors. The followings are the pre-defined extractors.
+
+    ============= =====================
+    Value         Meaning
+    ============= =====================
+    ``"add"``     Use sum of given values as weight.
+    ``"mul"``     Use product of given values as weight.
+    ============= =====================
 
 
 Hashing Key of Feature Vector
@@ -624,8 +696,13 @@ When the path doesn't contain '/' character, Jubatus try to load it from two loa
 
 Argument of the function is specified by other parameters.
 
-In Jubatus we can make use of two pre-defined plugins which aim to extraction of features from strings.
+In Jubatus, we can extract features from strings using two pre-defined plugins.
+We can also extract features from images using a pre-defined plugin.
 Note that some plugins are not available depending on your compile options.
+
+Feature Extraction from Strings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We can use MeCab pluigin and ux plugin in jubatus.
 
 .. describe:: libmecab_splitter.so
 
@@ -689,5 +766,44 @@ Note that some plugins are not available depending on your compile options.
           "path": "libux_splitter.so",
           "function": "create",
           "dict_path": "/path/to/keyword/dic.txt"
+        }
+      }
+
+Feature Extraction from Images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We can use OpenCV in jubatus.
+
+.. describe:: libimage_feature.so
+
+ We can specify this plugin in "binary_types".
+ It extracts features from given images by `OpenCV <https://github.com/opencv>`_ .
+ This plugin is available only when compiled with ``--enable-opencv``.
+
+  :function:  Specifies "create".
+  :algorithm: Specifies the feature extraction algorithm. In jubatus, we can use RGB or ORB to extact featrures from images.  It should be noted that in both algorithm, we detect keypoints by Dense Sampling (which extracts features from all pixels of the image.)
+
+   ============= ====================
+   Value         Meaning
+   ============= ====================
+   ``"RGB"``     Extracts RGB values in each pixel.
+   ``"ORB"``     Makes binary strings by using intensity of pixels. We can refer `OpenCV documentation <http://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html>`_ in detail.
+   ============= ====================
+
+
+  :resize: Specifies whether to resize the image. Specify `"true"` to resize image, or `"false"` not to resize it. When ``resize`` is not specified, `"false"` is assumed.
+  :x_size: Specifies the length of resized images. We can specify it when ``resize`` is `"true"`.
+  :y_size: Specifies the height of resized images. We can specify it when ``resize`` is `"true"`.
+
+ .. code-block:: js
+
+      "binary_types": {
+        "image": {
+          "method": "dynamic",
+          "path": "libimage_feature.so",
+          "algorithm":"ORB",
+          "resize":"true"
+          "x_size":"120.0"
+          "y_size":"120.0"
+          "function": "create",
         }
       }

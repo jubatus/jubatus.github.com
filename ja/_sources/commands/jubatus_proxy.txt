@@ -61,21 +61,13 @@ Options
 
    Jubatus Proxy と Jubatus サーバ間の RPC リクエストのタイムアウト時間 (秒)。 [10]
 
+.. option:: -D, --daemon
+
+   デーモンモードで起動する (コンソールから切り離す)。
+
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    ZooKeeper サーバの一覧。
-
-.. option:: -l <dirpath>, --logdir <dirpath>
-
-   ZooKeeper のログファイルを出力するディレクトリ。
-
-   指定されていない場合、ログは標準エラーに出力される。
-
-.. option:: -g <log_config>, --log_config <log_config>
-
-   ログの出力設定を log4cxx 設定ファイル (XML) で指定する。
-
-   指定されていない場合、ログは標準出力に出力される。
 
 .. option:: -E <seconds>, --pool_expire <seconds>
 
@@ -88,6 +80,18 @@ Options
    スレッドごとに保持するセッション・プールの最大数。 [0]
 
    ``0`` は制限を設定しないことを示す。
+
+.. option:: -l <dirpath>, --logdir <dirpath>
+
+   ZooKeeper のログファイルを出力するディレクトリ。
+
+   指定されていない場合、ログは標準エラーに出力される。
+
+.. option:: -g <log_config>, --log_config <log_config>
+
+   ログの出力設定を log4cxx 設定ファイル (XML) で指定する。
+
+   指定されていない場合、ログは標準出力に出力される。
 
 .. option:: -v, --version
 

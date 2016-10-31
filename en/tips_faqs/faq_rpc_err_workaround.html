@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RPC Error Handling &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Tips and FAQs" href="index.html"/>
+        <link rel="next" title="Backup and Recovery" href="backup_and_recovery.html"/>
+        <link rel="prev" title="Cluster Administration Guide" href="admin.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">Distributed Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">Data Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tips and FAQs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_strategy.html">MIX Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html">Cluster Administration Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RPC Error Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recommendation-for-each-client-languages">Recommendation for each client languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ruby">Ruby</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c">C++</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#java">Java</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="backup_and_recovery.html">Backup and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tips and FAQs</a> &raquo;</li>
+      
+    <li>RPC Error Handling</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rpc-error-handling">
+<h1>RPC Error Handling<a class="headerlink" href="#rpc-error-handling" title="Permalink to this headline">¶</a></h1>
+<p>Jubatus causes RPC-errors with various reasons (Among these, you&#8217;ll often encounter timeout errors caused by server-side auto session close).
+In this page, we describe how to handle RPC-errors.</p>
+<div class="section" id="common-issues">
+<h2>Common Issues<a class="headerlink" href="#common-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If you perform RPC, exceptions may be raised. When exceptions occur, in some client language, connections aren&#8217;t closed automatically.
+To avoid resource leaks, you must catch exceptions and close connections explicitly.
+It is also the same when you dispose an client object.</li>
+<li>RPC errors caused by application layer problems like RPC method or type mismatching, and also caused by transport layer problems like communication errors or timeout.
+Trasport layer problems may recover by retrying RPC.</li>
+<li>You must consider the following points before retrying RPC:<ul>
+<li><strong>validity of retrying UPDATE methods</strong> :
+In general, re-performing one non-idempotent UPDATE method may make an EM model different.
+Ideally, we want to retry RPC only which isn&#8217;t performed by server actually.
+But Jubatus client can&#8217;t detect that. Thus, you need to restrict retrying UPDATE methods to idempotent ones.
+On the other hand, retrying ANALYZE methods aren&#8217;t restricted.</li>
+<li><strong>latency</strong> :
+Retrying RPC will increase latency. You must consider your application can allow that.</li>
+</ul>
+</li>
+<li>It is recommended that retrying RPC are performed after some interval and limit the number of retrying.</li>
+</ul>
+</div>
+<div class="section" id="recommendation-for-each-client-languages">
+<h2>Recommendation for each client languages<a class="headerlink" href="#recommendation-for-each-client-languages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ruby">
+<h3>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>RPC performing code should guarantee explicit session closing by <code class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">ensure</span></code> block.
+To close sessions explicitly, you execute client object&#8217;s <code class="docutils literal"><span class="pre">get_client.close</span></code> .</li>
+<li>Any RPC exceptions are derived from <code class="docutils literal"><span class="pre">MessagePack::RPC::RPCError</span></code> .</li>
+<li>When transport layer error occurs by RPC,  <code class="docutils literal"><span class="pre">MessagePack::RPC::TransportError</span></code> exception will be raised.
+Timeout raises <code class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></code> exception.
+Server-side connection close also raises <code class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></code> .
+You should catch these exceptions by <code class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">rescue</span></code> block and will retry RPC.
+Before you retry, you must close sessions explicitly.</li>
+<li>When RPC methods mismatching, type mismatching errors occur by RPC, <code class="docutils literal"><span class="pre">Jubatus::Common::InterfaceMismatch</span></code> exception will be raised.
+When algorithm errors occur by RPC, <code class="docutils literal"><span class="pre">MessagePack::RPC::RemoteError</span></code> or <code class="docutils literal"><span class="pre">MessagePack::RPC::CallError</span></code> exception will be raised.
+You should catch these exceptions and close sessions explicitly.
+You can catch any RPC exceptions by <code class="docutils literal"><span class="pre">RPCError</span></code>  excluding <code class="docutils literal"><span class="pre">TransportError</span></code> and <code class="docutils literal"><span class="pre">TimeoutError</span></code> .</li>
+</ul>
+<div class="highlight-ruby"><div class="highlight"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
+
+<span class="no">RETRY_MAX</span> <span class="o">=</span> <span class="mi">3</span>      <span class="c1"># maximum number of retries</span>
+<span class="no">RETRY_INTERVAL</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># retry interval (sec)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Classifier</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="nb">name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="k">begin</span>
+  <span class="n">retry_count</span> <span class="o">=</span> <span class="no">RETRY_MAX</span>
+  <span class="k">begin</span>
+
+    <span class="c1"># performing RPC</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">query_data</span><span class="p">)</span>
+
+  <span class="c1"># retry against transport error and timeout</span>
+  <span class="k">rescue</span> <span class="no">MessagePack</span><span class="o">::</span><span class="no">RPC</span><span class="o">::</span><span class="no">TimeoutError</span><span class="p">,</span> <span class="no">MessagePack</span><span class="o">::</span><span class="no">RPC</span><span class="o">::</span><span class="no">TransportError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+    <span class="c1"># stop retrying if the number of retry reaches limit</span>
+    <span class="k">raise</span> <span class="k">if</span> <span class="p">(</span><span class="n">retry_count</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+
+    <span class="c1"># preparing retry: close session explicitly</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">get_client</span><span class="o">.</span><span class="n">close</span>
+
+    <span class="c1"># retry after some inteval</span>
+    <span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span> <span class="n">e</span>
+    <span class="nb">sleep</span> <span class="no">RETRY_INTERVAL</span>
+    <span class="k">retry</span>
+  <span class="k">end</span>
+
+<span class="c1"># catch any RPC exceptions</span>
+<span class="k">rescue</span> <span class="no">MessagePack</span><span class="o">::</span><span class="no">RPC</span><span class="o">::</span><span class="no">RPCError</span><span class="p">,</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Common</span><span class="o">::</span><span class="no">InterfaceMismatch</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span> <span class="n">e</span>
+<span class="k">ensure</span>
+  <span class="c1"># close session always</span>
+  <span class="n">client</span><span class="o">.</span><span class="n">get_client</span><span class="o">.</span><span class="n">close</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>RPC performing code should guarantee explicit session closing by <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">finally</span></code> block.
+To close sessions explicitly, you execute client object&#8217;s <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
+<li>Any RPC exceptions are derived from <code class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></code> .</li>
+<li>When transport layer error occurs by RPC, <code class="docutils literal"><span class="pre">msgpackrpc.error.TransportError</span></code> exception will be raised.
+Timeout raises <code class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></code> exception.
+Server-side connection close also raises <code class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></code> .
+You should catch these exceptions by <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">except</span></code> block and will retry RPC.
+Before you retry, you must close sessions explicitly and <strong>re-create a client object</strong> .</li>
+<li>When RPC method or type mismatching occur, <code class="docutils literal"><span class="pre">jubatus.common.client.InterfaceMismatch</span></code> exception will be raised.
+Algorithm error and other RPC errors raise <code class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></code> exception.
+You should catch these exceptions and close sessions explicitly.
+You can catch any RPC exceptions by <code class="docutils literal"><span class="pre">RPCError</span></code> excluding <code class="docutils literal"><span class="pre">TransportError</span></code> and <code class="docutils literal"><span class="pre">TimeoutError</span></code> .</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jubatus</span>
+<span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
+<span class="kn">import</span> <span class="nn">msgpackrpc</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">retry_max</span> <span class="o">=</span> <span class="mi">3</span>      <span class="c1"># maximum number of retries</span>
+<span class="n">retry_interval</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># retry interval (sec)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">retry_count</span> <span class="o">=</span> <span class="n">retry_max</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="c1"># performing RPC</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">query_data</span><span class="p">)</span>
+            <span class="k">break</span>
+
+        <span class="c1"># retry against transport error and timeout</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">TransportError</span><span class="p">,</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># stop retrying if the number of retry reaches limit</span>
+            <span class="n">retry_count</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">retry_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span>
+
+            <span class="c1"># preparing retry: close session explicitly and re-create client object</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+            <span class="c1"># retry after some interval</span>
+            <span class="k">print</span> <span class="n">e</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">retry_interval</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+<span class="c1"># catch any RPC exceptions</span>
+<span class="k">except</span> <span class="p">(</span><span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">RPCError</span><span class="p">,</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">InterfaceMismatch</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">e</span>
+
+<span class="k">finally</span><span class="p">:</span>
+    <span class="c1"># close session always</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c">
+<h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>When you dispose client objects, connections are closed automatically.
+You don&#8217;t need to close sessions explicitly. But if you want to do so, you execute client object&#8217;s <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
+<li>Any RPC exceptions are derived from <code class="docutils literal"><span class="pre">msgpack::rpc::rpc_error</span></code> .</li>
+<li>When client object fails to connect server ( one of the transport layer errors ) , <code class="docutils literal"><span class="pre">msgpack::rpc::connect_error</span></code> will be raised.
+Other transport layer errors will raise <code class="docutils literal"><span class="pre">msgpack::rpc::system_error</span></code> exceptions.
+Timeout will raise <code class="docutils literal"><span class="pre">msgpack::rpc::timeout_error</span></code> exception.
+And server-side connection close will raise <code class="docutils literal"><span class="pre">msgpack::rpc::connection_closed_error</span></code> exception.
+You should catch these exceptions by <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">catch</span></code> block and will retry RPC.
+Before you retry, you must close sessions explicitly.
+In addition, <code class="docutils literal"><span class="pre">connect_error</span></code> exception is derived from <code class="docutils literal"><span class="pre">timeout_error</span></code>.
+You can catch <code class="docutils literal"><span class="pre">connect_error</span></code> exceptions as <code class="docutils literal"><span class="pre">timeout_error</span></code> .</li>
+<li>When RPC method mismatch and type mismatch occur by RPC, <code class="docutils literal"><span class="pre">msgpack::rpc::no_method_error</span></code> and <code class="docutils literal"><span class="pre">msgpack::rpc::argument_error</span></code> exception will be raised respectively.
+Algorithm error will raise <code class="docutils literal"><span class="pre">msgpack::rpc::remote_error</span></code> exception.
+You can catch these exceptions as <code class="docutils literal"><span class="pre">rpc_error</span></code> .</li>
+</ul>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;jubatus/client.hpp&gt;</span><span class="cp"></span>
+
+<span class="cp">#define RETRY_MAX 3       </span><span class="c1">// maximum number of retries</span>
+<span class="cp">#define RETRY_INTERVAL 3  </span><span class="c1">// retry interval (sec)</span>
+
+<span class="c1">// RPC exception handler macro</span>
+<span class="cp">#define RPC_RETRY_EXCEPTION_COMMON_HANDLER()              \</span>
+<span class="cp">    </span><span class="c1">// stop retrying if the number of retry reaches limit \</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">--</span><span class="n">retry_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">throw</span><span class="p">;</span>                        \
+                                                          \
+    <span class="c1">// preparing retry: close session explicitly          \</span>
+<span class="c1">    client.get_client().close();                          \</span>
+<span class="c1">                                                          \</span>
+<span class="c1">    // retry after some interval                          \</span>
+<span class="c1">    std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;                   \</span>
+<span class="c1">    ::sleep(RETRY_INTERVAL);                              \</span>
+<span class="c1">    continue;</span>
+
+<span class="p">{</span>
+  <span class="n">jubatus</span><span class="o">::</span><span class="n">classifier</span><span class="o">::</span><span class="n">client</span><span class="o">::</span><span class="n">classifier</span> <span class="n">client</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">retry_count</span> <span class="o">=</span> <span class="n">RETRY_MAX</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+
+        <span class="c1">// performing RPC</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">classify</span><span class="p">(</span><span class="n">query_data</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="c1">// retry against transport errors and timeout</span>
+      <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">msgpack</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">connection_closed_error</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">RPC_RETRY_EXCEPTION_COMMON_HANDLER</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">msgpack</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">system_error</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">RPC_RETRY_EXCEPTION_COMMON_HANDLER</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">msgpack</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">timeout_error</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">RPC_RETRY_EXCEPTION_COMMON_HANDLER</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+  <span class="c1">// catch any RPC exceptions</span>
+  <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">msgpack</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">rpc_error</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// close connections automatically by disposing client object</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="java">
+<h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>RPC performing code should guarantee explicit session closing by <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">finally</span></code> block.
+To close sessions explicitly, you execute client objects&#8217; <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
+<li>Any RPC errors are reported by <code class="docutils literal"><span class="pre">org.msgpack.rpc.error.RPCError</span></code> exceptions.
+You <strong>can not</strong> distinguish errors by exception classes.
+You should catch <code class="docutils literal"><span class="pre">RPCError</span></code> exceptions and close sessions explicitly.</li>
+<li>After closing session explicitly, you can retry RPC by same client object.
+But retrying RPC is not recommended because you can not detect transport layer error which may recover by retrying.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="backup_and_recovery.html" class="btn btn-neutral float-right" title="Backup and Recovery" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="admin.html" class="btn btn-neutral" title="Cluster Administration Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

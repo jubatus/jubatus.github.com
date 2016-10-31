@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cluster Administration Guide &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Tips and FAQs" href="index.html"/>
+        <link rel="next" title="RPC Error Handling" href="faq_rpc_err_workaround.html"/>
+        <link rel="prev" title="MIX Strategies" href="mix_strategy.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">Distributed Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">Data Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tips and FAQs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mix_strategy.html">MIX Strategies</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cluster Administration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-process-configuration">Recommended Process Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#jubatus-proxies">Jubatus Proxies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jubatus-servers">Jubatus Servers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zookeeper">ZooKeeper</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-clusters">Managing Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-and-load">Save and Load</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="faq_rpc_err_workaround.html">RPC Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup_and_recovery.html">Backup and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tips and FAQs</a> &raquo;</li>
+      
+    <li>Cluster Administration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cluster-administration-guide">
+<h1>Cluster Administration Guide<a class="headerlink" href="#cluster-administration-guide" title="Permalink to this headline">¶</a></h1>
+<p>This page describes how to administer a Jubatus cluster.</p>
+<div class="section" id="recommended-process-configuration">
+<h2>Recommended Process Configuration<a class="headerlink" href="#recommended-process-configuration" title="Permalink to this headline">¶</a></h2>
+<p>For reliable Jubatus service, you should run Jubatus in a distributed environment.
+Additionally, to ensure high performance, you should carefully plan the process configuration of Jubatus servers and processes that Jubatus depends on.</p>
+<p>This is the process configuration that we recommend.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/process_configuration.png"><img alt="process configuration" src="../_images/process_configuration.png" style="width: 90%;" /></a>
+</div>
+<div class="section" id="jubatus-proxies">
+<h3>Jubatus Proxies<a class="headerlink" href="#jubatus-proxies" title="Permalink to this headline">¶</a></h3>
+<p>To keep operation and implementation of the client application simple, we recommend assigning one Jubatus Proxy for each instance of the application.</p>
+<p>In case that the client application cannot connect to the Jubatus Proxy (e.g., the Jubatus Proxy is down), it is necessary to consider the way to recover, depending on your requirement of service. For example:</p>
+<ol class="arabic simple">
+<li>Monitor the Jubatus Proxy processes. When the Jubatus Proxy goes down, block the access to the application from users.</li>
+<li>Switch over to another Jubatus Proxy.</li>
+</ol>
+</div>
+<div class="section" id="jubatus-servers">
+<h3>Jubatus Servers<a class="headerlink" href="#jubatus-servers" title="Permalink to this headline">¶</a></h3>
+<p>If you set the same name using <code class="docutils literal"><span class="pre">--name</span></code> option, processes collaborate with one another. As long as one of processes is running, Jubatus service is available.</p>
+<p>In the figure above, processes is distributed on <code class="docutils literal"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">1</span></code> machines. Even when a failure occurs in <code class="docutils literal"><span class="pre">N</span></code> of machines, all of instances are available.</p>
+<p>Jubatus processes all data in memory. In order to prevent the lack of resources (especially memory), you should pay to attention to the placement of the process.</p>
+</div>
+<div class="section" id="zookeeper">
+<h3>ZooKeeper<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h3>
+<p>When running Jubatus in a distributed environment, it is a fatal condition that ZooKeeper is not available. For reliable ZooKeeper service, you should note the following:</p>
+<ol class="arabic simple">
+<li>Deploy ZooKeeper in a cluster (an ensemble) using an odd number of machines.</li>
+<li>To avoid degradation of performance and stability, deploy ZooKeeper on a dedicated machine.</li>
+</ol>
+<p>For details, See <a class="reference external" href="http://zookeeper.apache.org/doc/current/">the documentation of ZooKeeper</a>.</p>
+</div>
+</div>
+<div class="section" id="managing-clusters">
+<h2>Managing Clusters<a class="headerlink" href="#managing-clusters" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+<div class="section" id="save-and-load">
+<h2>Save and Load<a class="headerlink" href="#save-and-load" title="Permalink to this headline">¶</a></h2>
+<p>[tbd]</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="faq_rpc_err_workaround.html" class="btn btn-neutral float-right" title="RPC Error Handling" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mix_strategy.html" class="btn btn-neutral" title="MIX Strategies" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

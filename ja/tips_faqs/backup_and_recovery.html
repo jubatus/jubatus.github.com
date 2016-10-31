@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>学習モデルのバックアップとリカバリ &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Tips and FAQs" href="index.html"/>
+        <link rel="next" title="RPC エラーのハンドリング" href="faq_rpc_err_workaround.html"/>
+        <link rel="prev" title="MIX 戦略" href="mix_strategy.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">分散モード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">データ変換</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tips and FAQs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mix_strategy.html">MIX 戦略</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">学習モデルのバックアップとリカバリ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#save-and-load">Save and Load</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#save">Save</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load">Load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="faq_rpc_err_workaround.html">RPC エラーのハンドリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">よくある質問と回答 (FAQs)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">開発者ガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">プロジェクトについて</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tips and FAQs</a> &raquo;</li>
+      
+    <li>学習モデルのバックアップとリカバリ</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>学習モデルのバックアップとリカバリ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>サーバープロセスは、メモリ上で機械学習に関するデータを管理しています。 メモリ上でデータを管理するという性質上、サーバープロセスの終了とともに Jubatus 上のデータは失われます。</p>
+<p>Jubatus では、予期せぬプロセスの終了や誤ったオペレーションに備え、バックアップとリカバリのための機能を提供しています。</p>
+<p>現在、Jubatus では、以下の手段を提供しています。</p>
+<div class="section" id="save-and-load">
+<h2>Save and Load<a class="headerlink" href="#save-and-load" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>サーバープロセスの学習モデルをファイルに保存し、そのファイルを読み込むことで、サーバープロセスの学習モデルを復元する機能です。</p>
+<p>Jubatus では、この機能をクライアント向けに MessagePack-RPC インタフェースで提供しています。</p>
+<p><strong>現在、学習モデルを保存した環境と異なる環境(Jubatusのバージョン、クラスタ構成台数、configファイルの内容)への復元はサポートしていません。</strong></p>
+<div class="section" id="save">
+<h3>Save<a class="headerlink" href="#save" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Save は、クライアントからの <code class="docutils literal"><span class="pre">save</span></code> という RPCメソッド の呼び出しによりサーバープロセスの学習モデルをファイル出力する機能です。</p>
+<p>ファイルの出力先は、サーバープロセスの起動オプション <code class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></code> で指定することができ、標準では <code class="docutils literal"><span class="pre">/tmp</span></code> が設定されます。</p>
+<p>ファイルは、以下の命名規則に従ったファイル名で出力されます。すでに同じ名前のファイルが存在する場合、ファイルの上書きを行うため、<code class="docutils literal"><span class="pre">save</span></code> メソッドの引数には十分に注意する必要があります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">IPADDR</span><span class="si">}</span>_<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>_<span class="si">${</span><span class="nv">TYPE</span><span class="si">}</span>_<span class="si">${</span><span class="nv">ID</span><span class="si">}</span>.jubatus
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>${IPADDR}</td>
+<td>Jubatus サーバが RPCリクエストを受け付ける Ipv4 アドレス</td>
+</tr>
+<tr class="row-even"><td>${PORT}</td>
+<td>Jubatus サーバが RPCリクエストを受け付ける ポート番号</td>
+</tr>
+<tr class="row-odd"><td>${TYPE}</td>
+<td>サーバプログラムの種類 (classifier, recommender, ...)</td>
+</tr>
+<tr class="row-even"><td>${ID}</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal"><span class="pre">save</span></code> メソッドの引数</div>
+<div class="line">a-zA-Z0-9_- からなる 100文字</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Save で出力されたファイルは、Jubatus のバージョンに依存する形式で出力され、互換性のあるバージョンの Jubatus でしか後述する Load を行うことができません。</p>
+<p>Save による出力されたファイルの構造に関しては、 <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Save-and-Load-Policy-(ja)">開発者向けWikiの該当ページ</a> を参照してください。</p>
+</div>
+<div class="section" id="load">
+<h3>Load<a class="headerlink" href="#load" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Load は、Save で作成されたファイルを読み込み、サーバープロセスの学習モデルをファイルに保存された状態へ復元する機能です。
+クライアントからの <code class="docutils literal"><span class="pre">load</span></code> メソッドコールにより実行されます。</p>
+<p>ファイルの読込先は、Jubatus サーバの起動オプション <code class="docutils literal"><span class="pre">-d,</span> <span class="pre">--datadir</span></code> で指定することができ、標準では <code class="docutils literal"><span class="pre">/tmp</span></code> が設定されます。</p>
+<p><code class="docutils literal"><span class="pre">save</span></code> メソッドでの引数で指定した <code class="docutils literal"><span class="pre">${ID}</span></code> を <code class="docutils literal"><span class="pre">load</span></code> メソッドの引数に指定することで、読み込み対象のファイルを指定します。</p>
+<p>ファイルの読み込み時、サーバープロセスは保存されたデータに対しバージョンの互換換性や設定内容のチェックを行います。</p>
+<p>保存データが復元先と異なるバージョンのJubatusで保存されていた場合や、復元先と設定ファイルの内容が異なる環境で保存された場合、保存データの復元には失敗します。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="faq_rpc_err_workaround.html" class="btn btn-neutral float-right" title="RPC エラーのハンドリング" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mix_strategy.html" class="btn btn-neutral" title="MIX 戦略" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

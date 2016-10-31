@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MIX Strategies &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Tips and FAQs" href="index.html"/>
+        <link rel="next" title="Cluster Administration Guide" href="admin.html"/>
+        <link rel="prev" title="Architecture" href="architecture.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">Distributed Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">Data Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tips and FAQs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MIX Strategies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-mix-strategies">Supported MIX Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html">Cluster Administration Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq_rpc_err_workaround.html">RPC Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup_and_recovery.html">Backup and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tips and FAQs</a> &raquo;</li>
+      
+    <li>MIX Strategies</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mix-strategies">
+<h1>MIX Strategies<a class="headerlink" href="#mix-strategies" title="Permalink to this headline">¶</a></h1>
+<p>Jubatus supports two MIX strategies.</p>
+<ul class="simple">
+<li><strong>Linear MIX</strong> (<cite>linear_mixer</cite>):
+In this strategy, all servers in a cluster runs MIX synchronously.
+When a server in a cluster satisfies a condition to start MIX, single MIX master server is selected from the cluster.
+The MIX master collects difference of training models of all servers since last MIX, merges the differences, then distributes the merged differences to all servers.</li>
+<li><strong>Push/Pull MIX</strong> (<cite>skip_mixer</cite>, <cite>random_mixer</cite>, <cite>broadcast_mixer</cite>):
+In this strategy, each server in a cluster runs MIX asynchronously.
+When a server in a cluster satisfies a condition to start MIX, the server selects one or more MIX peer nodes from the cluster, then exchanges the differences of training models since last MIX with them.</li>
+</ul>
+<p>The following three variations of Push/Pull MIX strategy are implemented, each uses different MIX peer selection algorithm:</p>
+<ul class="simple">
+<li><cite>skip_mixer</cite>: When a cluster has N servers, <cite>N/2</cite> th, <cite>N/4</cite> th, <cite>N/8</cite> th, ... server from the server initiating MIX are selected as MIX peers.
+The order of servers is determined by IP address and port number of each server.</li>
+<li><cite>random_mixer</cite>: One server is randomly selected from the cluster as a MIX peer.</li>
+<li><cite>broadcast_mixer</cite>: All servers in the cluster are selected as a MIX peer.</li>
+</ul>
+<div class="section" id="supported-mix-strategies">
+<h2>Supported MIX Strategies<a class="headerlink" href="#supported-mix-strategies" title="Permalink to this headline">¶</a></h2>
+<p>MIX strategies supported depends on a type of engine and its algorithm.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="43%" />
+<col width="17%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Engine</th>
+<th class="head">Algorithm</th>
+<th class="head">Linear MIX</th>
+<th class="head">Push/Pull MIX</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">Classifier</td>
+<td><cite>nn</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>Others</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Regression</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">Recommender</td>
+<td><cite>nearest_neighbor_recommender</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>Others</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Nearest Neighbor</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td rowspan="2">Anomaly</td>
+<td><cite>lof</cite></td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><cite>light_lof</cite></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>Clustering</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Burst</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Stat</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Graph</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Bandit</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="admin.html" class="btn btn-neutral float-right" title="Cluster Administration Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="architecture.html" class="btn btn-neutral" title="Architecture" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

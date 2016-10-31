@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Common Data Structures and Methods &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Client API" href="index.html"/>
+        <link rel="next" title="Classifier" href="api_classifier.html"/>
+        <link rel="prev" title="Client API" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">Distributed Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">Data Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Client API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Common Data Structures and Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constructor">Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#language-specific-features">Language-Specific Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Ruby</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_classifier.html">Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_regression.html">Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_recommender.html">Recommender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_nearest_neighbor.html">Nearest Neighbor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_anomaly.html">Anomaly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_clustering.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_burst.html">Burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_graph.html">Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_bandit.html">Bandit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_weight.html">Weight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_unlearner.html">Unlearner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Client API</a> &raquo;</li>
+      
+    <li>Common Data Structures and Methods</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="common-data-structures-and-methods">
+<h1>Common Data Structures and Methods<a class="headerlink" href="#common-data-structures-and-methods" title="Permalink to this headline">¶</a></h1>
+<p>These data structures and methods are available in each server.</p>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<dl class="message">
+<dt id="datum">
+<em class="property">message </em><code class="descname">datum</code><a class="headerlink" href="#datum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a set of data used for machine learning in Jubatus.
+See <a class="reference internal" href="../fv_convert.html"><span class="doc">Data Conversion</span></a> for details.</p>
+<p>You can change internal values of a datum with these methods.</p>
+<dl class="method">
+<dt id="datum::add_string__s.s">
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_string</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: string <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_string__s.s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The key of the value to add. Cannot contain &#8220;$&#8221;.</li>
+<li><strong>value</strong> &#8211; The value to add.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a pointer to itself.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Add a string value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="datum::add_number__s.double">
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_number</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_number__s.double" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The key of the value to add.</li>
+<li><strong>value</strong> &#8211; The value to add.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a pointer to itself.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Add a numeric value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="datum::add_binary__s.raw">
+<a class="reference internal" href="#datum" title="datum">datum</a> <code class="descname">add_binary</code><span class="sig-paren">(</span>0: string <em>key</em>, 1: raw <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#datum::add_binary__s.raw" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The key of the value to add.</li>
+<li><strong>value</strong> &#8211; The value to add.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a pointer to itself.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Add a binary value.</p>
+</dd></dl>
+
+<p>Internal representation of a datum is below:</p>
+<dl class="member">
+<dt id="datum::string_values__l:tuple:s.s::">
+0: list&lt;tuple&lt;string, string&gt;&gt; <code class="descname">string_values</code><a class="headerlink" href="#datum::string_values__l:tuple:s.s::" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input data represented in string.
+It is represented as key-value pairs of data.
+Name of keys cannot contain &#8220;$&#8221; sign.</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="datum::num_values__l:tuple:s.double::">
+1: list&lt;tuple&lt;string, double&gt;&gt; <code class="descname">num_values</code><a class="headerlink" href="#datum::num_values__l:tuple:s.double::" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input data represented in numeric value.
+It is represented as key-value pairs of data.</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="datum::binary_values__l:tuple:s.raw::">
+2: list&lt;tuple&lt;string, raw&gt;&gt; <code class="descname">binary_values</code><a class="headerlink" href="#datum::binary_values__l:tuple:s.raw::" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input data represented in binary value.
+It is represented as key-value pairs of data.</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">datum</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">string_values</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">num_values</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">raw</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">binary_values</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<dl class="describe">
+<dt>
+<code class="descname">constructor(string host, int port, string name, int timeout_sec)</code></dt>
+<dd><p>Creates a new RPC client instance.
+<code class="docutils literal"><span class="pre">name</span></code> is a string value to uniquely identify a task in the ZooKeeper cluster.
+When using standalone mode, this must be left blank (<code class="docutils literal"><span class="pre">&quot;&quot;</span></code>).
+<code class="docutils literal"><span class="pre">timeout_sec</span></code> is a length of timeout between the RPC method invocation and response.</p>
+<p>Example usage of constructors are as follows:</p>
+</dd></dl>
+
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// C++</span>
+<span class="cp">#include</span> <span class="cpf">&lt;jubatus/client.hpp&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="n">jubatus</span><span class="o">::</span><span class="n">classifier</span><span class="o">::</span><span class="n">client</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+<span class="c1">// ...</span>
+<span class="n">classifier</span> <span class="nf">client</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Python</span>
+<span class="kn">from</span> <span class="nn">jubatus.classifier.client</span> <span class="kn">import</span> <span class="n">classifier</span>
+<span class="c1"># ...</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-ruby"><div class="highlight"><pre><span></span><span class="sr">//</span> <span class="no">Ruby</span>
+<span class="nb">require</span> <span class="s1">&#39;jubatus/classifier/client&#39;</span>
+<span class="kp">include</span> <span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span>
+<span class="sr">//</span> <span class="o">...</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Classifier</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// Java</span>
+<span class="kn">import</span> <span class="nn">us.jubat.classifier.ClassifierClient</span><span class="o">;</span>
+<span class="c1">// ...</span>
+<span class="n">ClassifierClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassifierClient</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">9199</span><span class="o">,</span> <span class="s">&quot;cluster&quot;</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="save__s">
+map&lt;string, string&gt; <code class="descname">save</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#save__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; file name to save</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Path to the saved model for each server. The key of the map is in form of <code class="docutils literal"><span class="pre">hostname_portnumber</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Store the learing model to the local disk at <strong>ALL</strong> servers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="load__s">
+bool <code class="descname">load</code><span class="sig-paren">(</span>0: string <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#load__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; file name to load</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if this function loads files successfully at all servers</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Restore the saved model from local disk at <strong>ALL</strong> servers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="clear">
+bool <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clear" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True when the model was cleared successfully</td>
+</tr>
+</tbody>
+</table>
+<p>Completely clears the model at <strong>ALL</strong> servers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_config">
+string <code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_config" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">server configuration set on initialization</td>
+</tr>
+</tbody>
+</table>
+<p>Returns server configuration from a server.
+For format of configuration, see API reference of each services.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_status">
+map&lt;string, map&lt;string, string&gt;&gt; <code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for each servers. The key of most outer map is in form of <code class="docutils literal"><span class="pre">hostname_portnumber</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns server status from <strong>ALL</strong> servers.
+Each server is represented by a pair of host name and port.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="do_mix">
+bool <code class="descname">do_mix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#do_mix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True when model mixed successfully</td>
+</tr>
+</tbody>
+</table>
+<p>Force cluster to fire mix.
+Call this RPC to Jubatus server <strong>directly</strong>.
+When you call this to proxy, RPC error will be raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_proxy_status">
+map&lt;string, map&lt;string, string&gt;&gt; <code class="descname">get_proxy_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_proxy_status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Internal state for proxy. The key of most outer map is in form of <code class="docutils literal"><span class="pre">hostname_portnumber</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns proxy status.</p>
+<p>This is an RPC method for <strong>proxy</strong>.
+When you use this for server, RPC error will be raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_name">
+string <code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Name of target cluster</td>
+</tr>
+</tbody>
+</table>
+<p>Get <code class="docutils literal"><span class="pre">name</span></code> of target cluster of this client object.
+<code class="docutils literal"><span class="pre">name</span></code> is a string value to uniquely identify a task in the ZooKeeper cluster.
+This is not an RPC method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="set_name__s">
+void <code class="descname">set_name</code><span class="sig-paren">(</span>0: string <em>new_name</em><span class="sig-paren">)</span><a class="headerlink" href="#set_name__s" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>new_name</strong> &#8211; Name of new target cluster</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Set <code class="docutils literal"><span class="pre">name</span></code> of target cluster of this client object.
+<code class="docutils literal"><span class="pre">name</span></code> is a string value to uniquely identify a task in the ZooKeeper cluster.
+You can switch the target Jubatus cluster among multiple tasks with one client object.
+This is not an RPC method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="get_client">
+mprpc_client <code class="descname">get_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_client" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">MessagePack-RPC client instance</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the reference to the raw MessagePack-RPC client instance which is used by Jubatus client libraries.
+This is not an RPC method.</p>
+<p>The common use case of this method is to close the TCP connection explicitly or to change the timeout.</p>
+<p><code class="docutils literal"><span class="pre">mprpc_client</span></code> is a type of MessagePack-RPC client that is different between languages (<a class="reference external" href="http://ci.jubat.us/job/msgpack-rpc/doxygen/classmsgpack_1_1rpc_1_1client.html">C++</a> / <a class="reference external" href="https://github.com/msgpack/msgpack-rpc-python/blob/master/msgpackrpc/client.py">Python</a> / <a class="reference external" href="http://msgpack.org/rpc/rdoc/current/MessagePack/RPC/Client.html">Ruby</a> / <a class="reference external" href="http://msgpack.org/rpc/javadoc/current/org/msgpack/rpc/Client.html">Java</a>).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="language-specific-features">
+<h2>Language-Specific Features<a class="headerlink" href="#language-specific-features" title="Permalink to this headline">¶</a></h2>
+<p>Python / Ruby clients have language-specific features.</p>
+<div class="section" id="id1">
+<h3>Python<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>By using <code class="docutils literal"><span class="pre">embedded_jubatus</span></code> module (<a class="reference external" href="https://github.com/jubatus/embedded-jubatus-python">embedded-jubatus-python</a>) you can call machine learning algorithms provided in Jubatus Core library directly from Python code.
+To install the module run <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">embedded_jubatus</span></code>.
+Jubatus and Jubatus Core must be installed to install the module.</p>
+<p>As illustrated in the example below, <code class="docutils literal"><span class="pre">embedded_jubatus</span></code> provides the same interface as RPC clients.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubatus.anomaly.types</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Use RPC:</span>
+<span class="kn">from</span> <span class="nn">jubatus.anomaly.client</span> <span class="kn">import</span> <span class="n">Anomaly</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Anomaly</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Use Embedded</span>
+<span class="kn">from</span> <span class="nn">jubatus.embedded</span> <span class="kn">import</span> <span class="n">Anomaly</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Anomaly</span><span class="p">({</span>
+    <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;lof&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;parameter&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+    <span class="s1">&#39;converter&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="c1"># Use Embedded (using JSON config file instead of dict)</span>
+<span class="kn">from</span> <span class="nn">jubatus.embedded</span> <span class="kn">import</span> <span class="n">Anomaly</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Anomaly</span><span class="p">(</span><span class="s1">&#39;/path/to/config.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># Both Embedded/RPC client supports the same API:</span>
+<span class="n">client</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>In addition, the following auxiliary method is available.</p>
+<dl class="function">
+<dt id="jubatus.commmon.connect">
+<code class="descclassname">jubatus.commmon.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>cls</em>, <em>host</em>, <em>port</em>, <em>name</em>, <em>timeout=10</em><span class="sig-paren">)</span><a class="headerlink" href="#jubatus.commmon.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a client instance of specified class <cite>cls</cite>, then connect to the server specified using <cite>host</cite>, <cite>port</cite> and <cite>name</cite>.
+As this method creates a context manager, use this method in <cite>with</cite> block.
+The target will be a client object.
+When leaving <cite>with</cite> block, this client object disconnects from the server.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">jubatus</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Classifier</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s1">&#39;cluster_name&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Ruby<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>The following auxiliary method is available.</p>
+<span class="target" id="module-Jubatus::Common"></span><dl class="class">
+<dt id="Jubatus::Common::ClientBase">
+<em class="property">class </em><code class="descclassname">Jubatus::Common::</code><code class="descname">ClientBase</code><a class="headerlink" href="#Jubatus::Common::ClientBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>All client objects are defined as subclass of <cite>ClientBase</cite> class.</p>
+<dl class="classmethod">
+<dt id="Jubatus::Common::ClientBase.connect">
+<em class="property">classmethod ClientBase.</em><code class="descname">connect</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>name</em>, <em>timeout_sec</em>, <em>&amp;block</em><span class="sig-paren">)</span><a class="headerlink" href="#Jubatus::Common::ClientBase.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using <cite>connect</cite> method of client classes of each algorithms ensures safely closing client connections.
+<cite>connect</cite> method takes host name, port number, cluster name, time-out period and block as arguments. It automatically creates a client object and connects to the server specified.
+The block can then use the client object.
+When leaving the block, this client object disconnects from the server.</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span></span><span class="no">Jubatus</span><span class="o">::</span><span class="no">Classifier</span><span class="o">::</span><span class="no">Client</span><span class="o">::</span><span class="no">Classifier</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="s1">&#39;cluster_name&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">client</span><span class="o">|</span>
+  <span class="n">client</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_classifier.html" class="btn btn-neutral float-right" title="Classifier" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Client API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

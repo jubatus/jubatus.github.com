@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic チュートリアル &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="チュートリアル" href="index.html"/>
+        <link rel="next" title="Classifier チュートリアル" href="classifier.html"/>
+        <link rel="prev" title="チュートリアル" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Basic チュートリアル</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">シナリオ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">動作させてみる</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">チュートリアルの詳細</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dataset">Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">サーバの設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#classifier-api-train-classify">Classifier API: 学習(train) と 分類(classify)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classifier.html">Classifier チュートリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recommender.html">Recommender チュートリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anomaly.html">Anomaly チュートリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression.html">Regression チュートリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html">Graph チュートリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stat.html">Stat チュートリアル</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">分散モード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">データ変換</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">開発者ガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">プロジェクトについて</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">チュートリアル</a> &raquo;</li>
+      
+    <li>Basic チュートリアル</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic">
+<h1>Basic チュートリアル<a class="headerlink" href="#basic" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>チュートリアルを始める前に、Jubatus および Jubatus Python クライアントをインストールする必要があります。この手順については <a class="reference internal" href="../quickstart.html"><span class="doc">クイックスタート</span></a> を参照してください。</p>
+<div class="section" id="id1">
+<h2>シナリオ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>このチュートリアルでは、自然言語の分類に対する評価用データとして有名な <a class="reference external" href="http://qwone.com/~jason/20Newsgroups/">News20</a> (<code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code>) を利用します。
+News20では、話題が20個のニュースグループに分かれており、人々は自分が適していると思ったニュースグループに投稿します。
+News20は便宜上、80%の学習用データ(20news-bydate-train)と、20%の実験用データ(20news-bydata-test)の二種類に分けられています。</p>
+<p>このチュートリアルプログラムの目的は、学習用データを(投稿先ニュースグループ, 投稿内容)のセットとして学習し、テスト用データ(投稿内容)から、投稿先ニュースグループを推測することです。</p>
+<p>このチュートリアルでは、以下のトピックをカバーします。</p>
+<ul class="simple">
+<li>Jubatus サーバをスタンドアローン構成で起動する<ul>
+<li>分散環境での動作に興味がある方は、このチュートリアルの <em>後で</em> <a class="reference internal" href="../tutorial_distributed.html"><span class="doc">分散モード</span></a> をご覧ください。</li>
+</ul>
+</li>
+<li>Jubatus サーバを JSON スタイル で設定する</li>
+<li>Jubatus の分類器を <code class="docutils literal"><span class="pre">train</span></code> と <code class="docutils literal"><span class="pre">classify</span></code> API で使用する</li>
+<li>分類に関する基本的なコンセプト</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>動作させてみる<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>分類器の機能を提供する <code class="docutils literal"><span class="pre">jubaclassifier</span></code> プログラムを設定ファイルを指定して起動します。設定ファイルのサンプルは <code class="docutils literal"><span class="pre">$PREFIX/share/jubatus/example/config</span></code> ディレクトリに格納されています。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ jubaclassifier -f /path/to/share/jubatus/example/config/classifier/pa.json
+I0110 13:43:07.789201  1855 server_util.cpp:250] starting jubaclassifier 0.5.0 RPC server at 192.168.0.1:9199
+    pid                  : 1855
+    user                 : oda
+    mode                 : standalone mode
+    timeout              : 10
+    thread               : 2
+    datadir              : /tmp
+    logdir               :
+    loglevel             : INFO(0)
+    zookeeper            :
+    name                 :
+    interval sec         : 16
+    interval count       : 512
+    zookeeper timeout    : 10
+    interconnect timeout : 10
+I0110 13:43:07.789721  1855 server_util.cpp:77] load config from local file :/path/to/share/jubatus/example/config/classifier/pa.json
+I0110 13:43:07.790897  1855 classifier_serv.cpp:117] config loaded: {
+  &quot;converter&quot; : {
+    &quot;string_filter_types&quot; : {},
+    &quot;string_filter_rules&quot; : [],
+    &quot;num_filter_types&quot; : {},
+    &quot;num_filter_rules&quot; : [],
+    &quot;string_types&quot; : {},
+    &quot;string_rules&quot; : [
+      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;str&quot;, &quot;sample_weight&quot; : &quot;bin&quot;, &quot;global_weight&quot; : &quot;bin&quot; }
+    ],
+    &quot;num_types&quot; : {},
+    &quot;num_rules&quot; : [
+      { &quot;key&quot; : &quot;*&quot;, &quot;type&quot; : &quot;num&quot; }
+    ]
+  },
+  &quot;method&quot; : &quot;PA&quot;
+}
+</pre></div>
+</div>
+<p>Jubatus の分類器サーバが起動しました。
+Jubatus サーバは、デフォルトでは TCP 9199 番ポートを利用して待ち受けます。
+その他のポートを使用したい場合は、 <code class="docutils literal"><span class="pre">--rpc-port</span></code> オプションで指定することができます。
+例えば、19199 番ポートを使用するには、次のようにします。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ jubaclassifier  --configpath /path/to/share/jubatus/example/config/classifier/pa.json --rpc-port 19199
+</pre></div>
+</div>
+<p>Jubatus と Jubatus クライアントは、TCP/IP ネットワーク経由で <a class="reference external" href="http://msgpack.org">MessagePack-RPC</a> プロトコルを使用して通信します。</p>
+<div><img height="120" src="../_images/blockdiag-062d5b706c7cac674038d80cf1b51ae6d315c75d.png" width="448" /></div><p>それでは、 <a class="reference external" href="https://github.com/jubatus/jubatus-tutorial-python">チュートリアルプログラム</a> とデータセットをダウンロードしましょう。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/jubatus/jubatus-tutorial-python.git
+$ cd jubatus-tutorial-python
+$ wget http://qwone.com/~jason/20Newsgroups/20news-bydate.tar.gz
+$ tar xvzf 20news-bydate.tar.gz
+</pre></div>
+</div>
+<p><cite>jubaclassifier</cite> を再起動します。
+この時、チュートリアル用に用意された設定ファイルである <code class="docutils literal"><span class="pre">config.json</span></code> を利用して下さい。
+先ほど使用したサンプルの設定ファイル（ <code class="docutils literal"><span class="pre">pa.json</span></code> ）では正しく動作しません。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ jubaclassifier --configpath config.json
+</pre></div>
+</div>
+<p>チュートリアルプログラムを実行します。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python tutorial.py
+</pre></div>
+</div>
+<p>分類の結果が表示されました!
+それぞれのメッセージについて、 <code class="docutils literal"><span class="pre">OK</span></code> は Jubatus の分類したラベルが正しかったことを、 <code class="docutils literal"><span class="pre">NG</span></code> は誤っていたことを表します。</p>
+<p>より詳しい説明は以下を参照してください。</p>
+</div>
+<div class="section" id="id4">
+<h2>チュートリアルの詳細<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">20news-bydate.tar.gz</span></code> を展開すると、以下のようになります。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>20news-bydate-train
+|-- alt.atheism
+|   |-- 49960
+|   |-- 51060
+|   |-- 51119
+|   |-- 51120
+:   :     :
+|-- comp.graphics
+|-- comp.os.ms-windows.misc
+|-- comp.sys.ibm.pc.hardware
+|-- comp.sys.mac.hardware
+|-- comp.windows.x
+|-- misc.forsale
+|-- rec.autos
+|-- rec.motorcycles
+|-- rec.sport.baseball
+|-- rec.sport.hockey
+|-- sci.crypt
+|-- sci.electronics
+|-- sci.med
+|-- sci.space
+|-- soc.religion.christian
+|-- talk.politics.guns
+|-- talk.politics.mideast
+|-- talk.politics.misc
+`-- talk.religion.misc
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">49960</span></code> はメッセージの一つで、 <code class="docutils literal"><span class="pre">alt.atheism</span></code> はそのメッセージが投稿されたニュースグループの名前です。
+例えば、 <code class="docutils literal"><span class="pre">20news-bydate-train/rec.motorcycles/104435</span></code> の内容は次のようなものです。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>From: karr@cs.cornell.edu (David Karr)
+Subject: Re: BMW MOA members read this!
+Organization: Cornell Univ. CS Dept, Ithaca NY 14853
+Lines: 19
+
+In article &lt;C5Joz9.HLn@cup.hp.com&gt; Chris Steinbroner &lt;hesh@cup.hp.com&gt; writes:
+&gt;Wm. L. Ranck (ranck@joesbar.cc.vt.edu) wrote:
+&gt;: As a new BMW owner I was thinking about signing up for the MOA, but
+&gt;: right now it is beginning to look suspiciously like throwing money
+&gt;: down a rathole.
+&gt;
+&gt;[...] i&#39;m going to
+&gt;let my current membership lapse when it&#39;s
+&gt;up for renewal.
+&gt;
+&gt;-- hesh
+
+In my case that&#39;s not for another 3+ years, so I&#39;d appreciate any
+hints on what will keep the organization in business that long.  (And
+preferably longer, of course, and worth being part of.)
+
+-- David Karr (karr@cs.cornell.edu)
+</pre></div>
+</div>
+<p>このチュートリアルでは、これらのテキストを学習データとして利用します。</p>
+</div>
+<div class="section" id="id5">
+<h3>サーバの設定<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>分類器サービスを使用するためには JSONの設定ファイルを用いて <code class="docutils literal"><span class="pre">jubaclassifier</span></code> の動作を規定する必要があります。
+<code class="docutils literal"><span class="pre">method</span></code> と <code class="docutils literal"><span class="pre">converter</span></code> と <code class="docutils literal"><span class="pre">parameter</span></code> の 3 つの設定可能なパラメタがあります。
+これらのパラメタのサンプルを以下に示します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">method</span></code> は、以下のアルゴリズムのうちいずれかを指定することができます。</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">perceptron</span></code></li>
+<li><code class="docutils literal"><span class="pre">PA</span></code>, <code class="docutils literal"><span class="pre">PA1</span></code>, <code class="docutils literal"><span class="pre">PA2</span></code></li>
+<li><code class="docutils literal"><span class="pre">CW</span></code></li>
+<li><code class="docutils literal"><span class="pre">AROW</span></code></li>
+<li><code class="docutils literal"><span class="pre">NHERD</span></code></li>
+</ul>
+<p>このチュートリアルでは、 <code class="docutils literal"><span class="pre">PA</span></code> を選択します。</p>
+<p><code class="docutils literal"><span class="pre">converter</span></code> は、入力データをどのように加工して、特徴ベクトルに変換するのかを指定します (詳細は <a class="reference internal" href="../fv_convert.html"><span class="doc">データ変換</span></a> を参照してください)。</p>
+<p>このチュートリアルで使用する学習データは、自然言語のテキストです。
+英語など多くの言語は、空白と改行で区切るだけで単語を抽出できます。
+Jubatus はこのような特徴ベクトルの抽出機能 (ここでは、自然言語のテキストを単語に分割) をデフォルトで備えています。
+また、HTML タグなどは、内容を分類するのにノイズになりそうなので、 <code class="docutils literal"><span class="pre">&lt;</span></code> と <code class="docutils literal"><span class="pre">&gt;</span></code> で囲まれた部分を除去することにしましょう。</p>
+<p>この機能を使用すると、こういった自然言語処理や与えられた値の重み付けなど、様々なルール付けを行うことができます。
+今回のルールを JSON で表現すると、以下のようになります。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s2">&quot;converter&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;string_filter_types&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;detag&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;string_filter_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;detag&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;-detagged&quot;</span> <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;num_filter_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_filter_rules&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;string_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;string_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;message-detagged&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;num_types&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;num_rules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="classifier-api-train-classify">
+<h3>Classifier API: 学習(train) と 分類(classify)<a class="headerlink" href="#classifier-api-train-classify" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>分類器に学習させる場合は、 <code class="docutils literal"><span class="pre">train</span></code> という API (RPC メソッド) を利用します。
+以下の例で、 <code class="docutils literal"><span class="pre">d1</span></code> はメッセージから作成された datum であり、 <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> はそのメッセージのラベル (ニュースグループの名前) です。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d1</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;I want to buy mac book air...&quot;</span><span class="p">})</span>
+<span class="n">client</span><span class="o">.</span><span class="n">train</span><span class="p">([(</span><span class="s2">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="n">d1</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>この要領で、ラベルとメッセージの組み合わせを多数学習させます。</p>
+<p>学習結果を使って分類を行う場合は、 <code class="docutils literal"><span class="pre">classify</span></code> という API を利用します。
+<code class="docutils literal"><span class="pre">d2</span></code> はメッセージから作成された datum ですが、どのニュースグループに投稿されたものであるかは判りません。Jubatus に推測させてみましょう。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d2</span> <span class="o">=</span> <span class="n">Datum</span><span class="p">({</span><span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;Just bought a new mac book air...&quot;</span><span class="p">})</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">d2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>その結果、以下のような値が得られます。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[[</span>
+     <span class="p">[</span><span class="s2">&quot;comp.sys.mac.hardware&quot;</span><span class="p">,</span> <span class="mf">1.10477745533</span><span class="p">],</span>
+     <span class="o">...</span>
+     <span class="p">[</span><span class="s2">&quot;rec.sport.hockey&quot;</span><span class="p">,</span> <span class="mf">0.2273217487300002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;comp.os.ms-windows.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.065333858132400002</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;sci.electronics&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.184129983187</span><span class="p">],</span>
+     <span class="p">[</span><span class="s2">&quot;talk.religion.misc&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.092822007834899994</span><span class="p">]</span>
+<span class="p">]]</span>
+</pre></div>
+</div>
+<p>メッセージ <code class="docutils literal"><span class="pre">d2</span></code> は <code class="docutils literal"><span class="pre">&quot;comp.sys.mac.hardware&quot;</span></code> に投稿された可能性が高いことが分かりました。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classifier.html" class="btn btn-neutral float-right" title="Classifier チュートリアル" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="チュートリアル" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

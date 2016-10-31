@@ -16,7 +16,7 @@ Description
 ``jubaconv`` simulates the internal behavior of fv_converter and displays the result of conversion on the command-line.
 
 As ``jubaconv`` only processes 1 record, ``global_weight`` of string feature extraction rules (``string_rules``) will not be calculated.
-Use :doc:`../api_weight` if you need a simulation including ``global_weight``.
+Use :doc:`../api/api_weight` if you need a simulation including ``global_weight``.
 
 Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,6 +42,10 @@ Options
    Jubatus server configuration file in JSON.
 
    This option must be given only if ``fv`` is specified for :option:`-o`.
+
+* Note: If the input format is ``json``, we have to add a slash symbol ``/`` at the start of ``key`` in jubatus server config files.
+    * If the input format is ``datum``: ``"num_rules" : [{"key": "number", "type": "num"}]``
+    * If the input format is ``json``:  ``"num_rules" : [{"key": "/number", "type": "num"}]``
 
 File Formats
 --------------------------------------------------

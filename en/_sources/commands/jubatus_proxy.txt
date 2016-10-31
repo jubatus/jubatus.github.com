@@ -61,21 +61,13 @@ Options
 
    Timeout of RPC between Jubatus Proxy and Jubatus Servers in seconds. [10]
 
+.. option:: -D, --daemon
+
+   Launch in daemon mode (detach from console).
+
 .. option:: -z <zookeeper_list>, --zookeeper <zookeeper_list>
 
    List of ZooKeeper server(s).
-
-.. option:: -l <dirpath>, --logdir <dirpath>
-
-   Path of directory to output ZooKeeper log files.
-
-   If not specified, logs are dumped to the standard error.
-
-.. option:: -g <log_config>, --log_config <log_config>
-
-   Path of the logging configuration file in log4cxx (XML) format.
-
-   If not specified, logs are dumped to the standard output.
 
 .. option:: -E <seconds>, --pool_expire <seconds>
 
@@ -88,6 +80,18 @@ Options
    Maximum size of session pool for each thread. [0]
 
    ``0`` means unlimited.
+
+.. option:: -l <dirpath>, --logdir <dirpath>
+
+   Path of directory to output ZooKeeper log files.
+
+   If not specified, logs are dumped to the standard error.
+
+.. option:: -g <log_config>, --log_config <log_config>
+
+   Path of the logging configuration file in log4cxx (XML) format.
+
+   If not specified, logs are dumped to the standard output.
 
 .. option:: -v, --version
 

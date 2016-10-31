@@ -1,5 +1,5 @@
 クイックスタート
-=================
+=====================
 
 
 Jubatus のインストール
@@ -39,6 +39,20 @@ RHEL 6 では、依存パッケージ (``oniguruma``) のインストールに `
 
   // RHEL 6 で、oniguruma パッケージが存在しない場合 (rhel-6-server-optional-rpms が利用できない場合)
   $ sudo yum --enablerepo=jubatus-optional install jubatus jubatus-client
+
+また、必要に応じてプラグインをインストールします。 [1]_ [2]_
+プラグインを導入することにより、自然言語(日本語)や画像からの特徴抽出が行えるようになります。
+
+::
+
+  // RHEL 6 の場合
+  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux
+
+  // RHEL 7 の場合
+  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux jubatus-plugin-image
+
+.. [1] Jubatus 1.0 以前はすべてのプラグインが ``jubatus`` パッケージに同梱されていましたが、Jubatus 1.0 以降は必要なものだけを個別にインストールできるようになりました。
+.. [2] ``jubatus-plugin-image`` パッケージは RHEL 6 では利用できません。
 
 Ubuntu Server (64-bit)
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -84,14 +98,14 @@ csh または tcsh をお使いの場合は、こちらを使用してくださ�
 その他の Linux 環境 (32-bit を含む)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`jubatus-installer <https://github.com/jubatus/jubatus-installer>`_ を使用するか、 :doc:`build` を参照してソースからビルドしてください。
+`jubatus-installer <https://github.com/jubatus/jubatus-installer>`_ を使用するか、 :doc:`../developers/build` を参照してソースからビルドしてください。
 
 Mac OS X
 ~~~~~~~~~
 
 Homebrew をお使いの場合は、 `tap リポジトリ <https://github.com/jubatus/homebrew-jubatus>`_ を使用すると簡単にインストールが行えます。
 
-それ以外の場合は、 `jubatus-installer`_ を使用するか、 :doc:`build` を参照してソースからビルドしてください。
+それ以外の場合は、 `jubatus-installer`_ を使用するか、 :doc:`../developers/build` を参照してソースからビルドしてください。
 
 Jubatus クライアントのインストール
 -----------------------------------
@@ -100,7 +114,7 @@ Jubatus を使ったクライアントアプリケーションは C++, Python, R
 クライアントアプリケーションから Jubatus を使うには、各言語のクライアントライブラリをインストールする必要があります。
 クライアントライブラリは MIT License の下で配布されています。
 
-:doc:`tutorial` を試す場合は、Python クライアントだけをインストールすれば十分です。
+:doc:`../tutorial/tutorial` を試す場合は、Python クライアントだけをインストールすれば十分です。
 
 Jubatus と Jubatus クライアントのバージョンは異なることがあります。これは、Jubatus の API が変更されない場合はクライアント側のアップデートが不要なためです。
 
@@ -170,7 +184,7 @@ Java
      <dependency>
        <groupId>us.jubat</groupId>
        <artifactId>jubatus</artifactId>
-       <version>[0.9,)</version>
+       <version>[1.0,)</version>
      </dependency>
    </dependencies>
 
@@ -178,7 +192,7 @@ Java
 チュートリアル
 ---------------
 
-:doc:`tutorial` を試してみましょう (Python クライアントが必要です)。
+:doc:`../tutorial/tutorial` を試してみましょう (Python クライアントが必要です)。
 
 
 作ってみよう！
@@ -186,7 +200,7 @@ Java
 
 おめでとうございます!
 これで、Jubatus を使ってあなた独自のアプリケーションを書く準備ができました。
-Jubatus がどのような機能を持っているか知るには、 :doc:`api` をチェックしてください。
+Jubatus がどのような機能を持っているか知るには、 :doc:`../api/index` をチェックしてください。
 
 各言語のスケルトンプロジェクトを使用すると、容易にアプリケーションの開発を始めることができます。
 

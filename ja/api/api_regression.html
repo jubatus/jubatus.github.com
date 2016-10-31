@@ -1,0 +1,650 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Regression &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Client API" href="index.html"/>
+        <link rel="next" title="Recommender" href="api_recommender.html"/>
+        <link rel="prev" title="Classifier" href="api_classifier.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">分散モード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">データ変換</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Client API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="common_structs.html">データ構造と共通メソッド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_classifier.html">Classifier</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Regression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-structures">Data Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_recommender.html">Recommender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_nearest_neighbor.html">Nearest Neighbor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_anomaly.html">Anomaly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_clustering.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_burst.html">Burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_graph.html">Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_bandit.html">Bandit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_weight.html">Weight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_unlearner.html">Unlearner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">開発者ガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">プロジェクトについて</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Client API</a> &raquo;</li>
+      
+    <li>Regression</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="regression">
+<h1>Regression<a class="headerlink" href="#regression" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul class="simple">
+<li>詳細な仕様は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/server/regression.idl">IDL 定義</a> を参照してください。</li>
+<li>使用されているアルゴリズムの詳細については <a class="reference internal" href="../method.html"><span class="doc">アルゴリズム</span></a> を参照してください。</li>
+</ul>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>設定は単体の JSON で与えられる。
+JSON の各フィールドは以下のとおりである。</p>
+<dl class="describe">
+<dt>
+<code class="descname">method</code></dt>
+<dd><p>回帰に使用するアルゴリズムを指定する。
+以下のアルゴリズムを指定できる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="71%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">設定値</th>
+<th class="head">手法</th>
+<th class="head">回帰方法</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;perceptron&quot;</span></code></td>
+<td>パーセプトロン法を利用する。</td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;PA&quot;</span></code></td>
+<td>Passive Aggressive (PA) を利用する。 <a class="reference internal" href="../method.html#crammer06" id="id1">[Crammer06]</a></td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;PA1&quot;</span></code></td>
+<td>PA-I を利用する。 <a class="reference internal" href="../method.html#crammer06" id="id2">[Crammer06]</a></td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;PA2&quot;</span></code></td>
+<td>PA-II を利用する。 <a class="reference internal" href="../method.html#crammer06" id="id3">[Crammer06]</a></td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;CW&quot;</span></code></td>
+<td>Confidence Weighted Learning を利用する。 <a class="reference internal" href="../method.html#dredze08" id="id4">[Dredze08]</a></td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;AROW&quot;</span></code></td>
+<td>Adaptive Regularization of Weight vectors を利用する。 <a class="reference internal" href="../method.html#crammer09b" id="id5">[Crammer09b]</a></td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;NHERD&quot;</span></code></td>
+<td>Normal Herd を利用する。 <a class="reference internal" href="../method.html#crammer10" id="id6">[Crammer10]</a></td>
+<td>線形回帰</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;NN&quot;</span></code></td>
+<td><code class="docutils literal"><span class="pre">nearest_neighbor</span></code> を利用する。</td>
+<td>k-近傍法</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;cosine&quot;</span></code></td>
+<td>コサイン類似度による近傍探索結果を利用する。</td>
+<td>k-近傍法</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;euclidean&quot;</span></code></td>
+<td>ユークリッド距離による近傍探索結果を利用する。</td>
+<td>k-近傍法</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">parameter</code></dt>
+<dd><p>アルゴリズムに渡すパラメータを指定する。
+<code class="docutils literal"><span class="pre">method</span></code> に応じて渡すパラメータは異なる。</p>
+<dl class="docutils">
+<dt>perceptron</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">learning_rate:</th><td class="field-body"><blockquote class="first">
+<div><p>学習率パラメータを設定する。
+大きくすると学習が早くなる代わりに、ノイズに弱くなる。
+(Float)</p>
+</div></blockquote>
+<ul class="last simple">
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">learning_rate</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>PA</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">sensitivity:</th><td class="field-body"><p class="first">許容する誤差の幅を指定する。
+大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>PA1</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">sensitivity:</th><td class="field-body"><p class="first">許容する誤差の幅を指定する。
+大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+大きくすると学習が早くなる代わりに、ノイズに弱くなる。
+元論文 <a class="reference internal" href="../method.html#crammer06" id="id7">[Crammer06]</a> における <span class="math">\(C\)</span> に相当する。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">regularization_weight</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>PA2</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">sensitivity:</th><td class="field-body"><p class="first">許容する誤差の幅を指定する。
+大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+大きくすると学習が早くなる代わりに、ノイズに弱くなる。
+元論文 <a class="reference internal" href="../method.html#crammer06" id="id8">[Crammer06]</a> における <span class="math">\(C\)</span> に相当する。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">regularization_weight</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>CW</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">sensitivity:</th><td class="field-body"><p class="first">許容する誤差の幅を指定する。
+大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+大きくすると学習が早くなる代わりに、ノイズに弱くなる。
+元論文 <a class="reference internal" href="../method.html#dredze08" id="id9">[Dredze08]</a> における <span class="math">\(\phi\)</span> に相当する。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">regularization_weight</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>AROW</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">sensitivity:</th><td class="field-body"><p class="first">許容する誤差の幅を指定する。
+大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+大きくすると学習が早くなる代わりに、ノイズに弱くなる。
+元論文 <a class="reference internal" href="../method.html#crammer09b" id="id10">[Crammer09b]</a> における <span class="math">\(1/r\)</span> に相当する。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">regularization_weight</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>NHERD</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">sensitivity:</th><td class="field-body"><p class="first">許容する誤差の幅を指定する。
+大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">sensitivity</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+大きくすると学習が早くなる代わりに、ノイズに弱くなる。
+元論文 <a class="reference internal" href="../method.html#crammer10" id="id11">[Crammer10]</a> における <span class="math">\(C\)</span> に相当する。
+(Float)</p>
+<ul class="last simple">
+<li>値域: 0.0 &lt; <code class="docutils literal"><span class="pre">regularization_weight</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>NN</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">method:</th><td class="field-body"><p class="first">近傍探索に使用するアルゴリズムを指定する。
+使用可能なアルゴリズムの一覧は <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> を参照のこと。</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">parameter:</th><td class="field-body"><p class="first">アルゴリズムに渡すパラメータを指定する。
+パラメータの一覧は <a class="reference internal" href="api_nearest_neighbor.html"><span class="doc">Nearest Neighbor</span></a> を参照のこと。</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>cosine</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>euclidean</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">converter</code></dt>
+<dd><p>特徴変換の設定を指定する。
+フォーマットは <a class="reference internal" href="../fv_convert.html"><span class="doc">データ変換</span></a> で説明する。</p>
+</dd></dl>
+
+<dl class="docutils">
+<dt>例:</dt>
+<dd><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;PA1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;parameter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;sensitivity&quot;</span> <span class="o">:</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="s2">&quot;regularization_weight&quot;</span> <span class="o">:</span> <span class="mf">3.402823</span><span class="nx">e</span><span class="o">+</span><span class="mi">38</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;string_filter_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;num_filter_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span> <span class="o">:</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span> <span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;num_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;num_rules&quot;</span> <span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="s2">&quot;key&quot;</span> <span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span> <span class="o">:</span> <span class="s2">&quot;num&quot;</span> <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="message">
+<dt id="scored_datum">
+<em class="property">message </em><code class="descname">scored_datum</code><a class="headerlink" href="#scored_datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スコア付きのデータを表す。</p>
+<dl class="member">
+<dt id="scored_datum::score__float">
+0: float <code class="descname">score</code><a class="headerlink" href="#scored_datum::score__float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>このデータに紐付けられたスコアを表す。このスコアを当てるのが、回帰問題の目的となる。</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="scored_datum::data__datum">
+1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <code class="descname">data</code><a class="headerlink" href="#scored_datum::data__datum" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ラベルに紐付けられたデータを表す。</p>
+</dd></dl>
+
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">scored_datum</span> <span class="p">{</span>
+  <span class="mi">0</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="n">datum</span> <span class="n">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="service">
+<dt>
+<em class="property">service </em><code class="descname">regression</code></dt>
+<dd><dl class="method">
+<dt id="regression::train__l:scored_datum:">
+int <code class="descname">train</code><span class="sig-paren">(</span>0: list&lt;<a class="reference internal" href="#scored_datum" title="scored_datum">scored_datum</a>&gt; <em>train_data</em><span class="sig-paren">)</span><a class="headerlink" href="#regression::train__l:scored_datum:" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>train_data</strong> &#8211; float と <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> で構成される組のリスト</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">学習した件数 (<code class="docutils literal"><span class="pre">train_data</span></code> の長さに等しい)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>学習し、モデルを更新する。
+この関数は <code class="docutils literal"><span class="pre">scored_datum</span></code> をリスト形式でまとめて同時に受け付けることができる (バルク更新)。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="regression::estimate__l:datum:">
+list&lt;float&gt; <code class="descname">estimate</code><span class="sig-paren">(</span>0: list&lt;<a class="reference internal" href="common_structs.html#datum" title="datum">datum</a>&gt; <em>estimate_data</em><span class="sig-paren">)</span><a class="headerlink" href="#regression::estimate__l:datum:" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>estimate_data</strong> &#8211; 推定する <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> のリスト</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last">推定値のリスト (入れられた <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> の順に並ぶ)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>与えられた <code class="docutils literal"><span class="pre">estimate_data</span></code> から結果を推定する。
+この関数は <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> をリスト形式でまとめて同時に受け付けることができる (バルク推定)。</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_recommender.html" class="btn btn-neutral float-right" title="Recommender" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api_classifier.html" class="btn btn-neutral" title="Classifier" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jubatus をソースからビルドする &mdash; Jubatus</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="開発者ガイド" href="index.html"/>
+        <link rel="next" title="プラグインの開発" href="plugin.html"/>
+        <link rel="prev" title="開発者ガイド" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Jubatus
+          
+
+          
+            
+            <img src="../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_distributed.html">分散モード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../method.html">アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fv_convert.html">データ変換</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">開発者ガイド</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Jubatus をソースからビルドする</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">要件</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">その他の環境</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html">プラグインの開発</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.html">フレームワークの利用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtogetclients.html">クライアントの入手方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtocontribute.html">プロジェクトに貢献する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cla.html">Jubatus 貢献者ライセンス同意書</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">プロジェクトについて</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">開発者ガイド</a> &raquo;</li>
+      
+    <li>Jubatus をソースからビルドする</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jubatus">
+<h1>Jubatus をソースからビルドする<a class="headerlink" href="#jubatus" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Jubatus をソースからビルドすることは可能ですが、できる限りバイナリパッケージ (<a class="reference internal" href="../quickstart.html"><span class="doc">クイックスタート</span></a> 参照) を使用することを推奨します。
+ソースからビルドする場合は、 <a class="reference external" href="https://github.com/jubatus/jubatus-installer">jubatus-installer</a> が参考になるでしょう。</p>
+<div class="section" id="requirements">
+<span id="id1"></span><h2>要件<a class="headerlink" href="#requirements" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubatus をソースからビルドするには、 <code class="docutils literal"><span class="pre">gcc</span></code> (バージョン 4.4 以降), <code class="docutils literal"><span class="pre">pkg-config</span></code> (バージョン 0.26 以降) および <code class="docutils literal"><span class="pre">python</span></code> (バージョン 2.4 以降,  <code class="docutils literal"><span class="pre">waf</span></code> で使用される) が必要です。
+加えて、以下のライブラリも必要になります。
+サポートされているライブラリのバージョンについては <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Supported-Library-Versions">Jubatus Wiki</a> をご覧ください。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="12%" />
+<col width="8%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ソフトウェア</th>
+<th class="head">バージョン</th>
+<th class="head">必須</th>
+<th class="head">備考</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>jubatus_core</td>
+<td>master</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>oniguruma</td>
+<td>&gt;= 5.9</td>
+<td><a class="footnote-reference" href="#id5" id="id2">[1]</a></td>
+<td>jubatus_core に必要。</td>
+</tr>
+<tr class="row-even"><td>re2</td>
+<td>master</td>
+<td><a class="footnote-reference" href="#id5" id="id3">[1]</a></td>
+<td>jubatus_core に必要 (<code class="docutils literal"><span class="pre">--regexp-library=re2</span></code> ありでビルドする場合のみ)</td>
+</tr>
+<tr class="row-odd"><td>msgpack</td>
+<td>&gt;= 0.5.7 <a class="footnote-reference" href="#id6" id="id4">[2]</a></td>
+<td>✔</td>
+<td>jubatus_core および jubatus に必要。</td>
+</tr>
+<tr class="row-even"><td>jubatus-mpio</td>
+<td>0.4.5</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>jubatus-msgpack-rpc</td>
+<td>0.4.4</td>
+<td>✔</td>
+<td>C++ クライアントライブラリが必要である。</td>
+</tr>
+<tr class="row-even"><td>log4cxx</td>
+<td>&gt;= 0.10.0</td>
+<td>✔</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>mecab</td>
+<td>&gt;= 0.99</td>
+<td>&nbsp;</td>
+<td><code class="docutils literal"><span class="pre">--enable-mecab</span></code> ありでビルドする場合のみ。</td>
+</tr>
+<tr class="row-even"><td>ux-trie</td>
+<td>master</td>
+<td>&nbsp;</td>
+<td><code class="docutils literal"><span class="pre">--enable-ux</span></code> ありでビルドする場合のみ。</td>
+</tr>
+<tr class="row-odd"><td>opencv</td>
+<td>&gt;= 2.3.0</td>
+<td>&nbsp;</td>
+<td><code class="docutils literal"><span class="pre">--enable-opencv</span></code> ありでビルドする場合のみ。</td>
+</tr>
+<tr class="row-even"><td>zookeeper</td>
+<td>&gt;= 3.3</td>
+<td>&nbsp;</td>
+<td><code class="docutils literal"><span class="pre">--enable-zookeeper</span></code> ありでビルドする場合のみ。
+C クライアントライブラリが必要である。</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> デフォルトでは oniguruma が jubatus_core の正規表現ライブラリとして使用されます (<code class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></code>)。
+jubatus_core のビルド時に <code class="docutils literal"><span class="pre">--regexp-library=none</span></code> を指定することで正規表現機能を完全に無効にすることができます。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>MessagePack 1.x 系はサポートされていません。</td></tr>
+</tbody>
+</table>
+<p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
+バイナリパッケージが利用できない場合は、これらのライブラリもソースからビルドする必要があります。以下の各サイトからダウンロードできます (
+<a class="reference external" href="https://github.com/kkos/oniguruma">oniguruma</a>,
+<a class="reference external" href="https://github.com/google/re2">re2</a>,
+<a class="reference external" href="http://msgpack.org/">msgpack</a>,
+<a class="reference external" href="https://github.com/jubatus/jubatus-mpio">jubatus-mpio</a>,
+<a class="reference external" href="https://github.com/jubatus/jubatus-msgpack-rpc">jubatus-msgpack-rpc</a>,
+<a class="reference external" href="http://logging.apache.org/log4cxx/">log4cxx</a>,
+<a class="reference external" href="https://github.com/taku910/mecab">mecab</a>,
+<a class="reference external" href="https://github.com/hillbig/ux-trie">ux-trie</a>,
+<a class="reference external" href="http://opencv.org/">opencv</a>,
+<a class="reference external" href="http://zookeeper.apache.org/">zookeeper</a>
+)。</p>
+<div class="section" id="ubuntu-12-04">
+<h3>Ubuntu 12.04<a class="headerlink" href="#ubuntu-12-04" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Ubuntu 12.04 でのビルドを行う例です。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install build-essential git-core pkg-config
+
+$ sudo apt-get install libmsgpack-dev libonig-dev liblog4cxx10-dev
+
+$ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
+$ tar xzf jubatus_mpio-0.4.1.tar.gz
+$ cd jubatus_mpio-0.4.1
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+
+$ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.1.tar.gz
+$ tar xzf jubatus_msgpack-rpc-0.4.1.tar.gz
+$ cd jubatus_msgpack-rpc-0.4.1
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+</pre></div>
+</div>
+<p>Jubatus のビルドを行います。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ wget -O jubatus_core.tar.gz https://github.com/jubatus/jubatus_core/archive/master.tar.gz
+$ tar xzf jubatus_core.tar.gz
+$ cd jubatus_core-master
+$ ./waf configure
+$ ./waf build
+$ sudo ./waf install
+$ sudo ldconfig
+
+$ wget -O jubatus-master.tar.gz https://github.com/jubatus/jubatus/archive/master.tar.gz
+$ tar xzf jubatus-master.tar.gz
+$ cd jubatus-master
+$ ./waf configure
+$ ./waf build
+$ sudo ./waf install
+$ sudo ldconfig
+</pre></div>
+</div>
+<p>この例は最小限の設定でビルドしているため (どのようなオプションが利用可能かは <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span> <span class="pre">--help</span></code> をご覧ください)、分散モードや特徴抽出プラグインなど一部の機能は利用できません。</p>
+</div>
+<div class="section" id="mac-os-x">
+<h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mac OS X では、スタンドアロンモードのビルドと実行が試験的にサポートされています。</p>
+<p><a class="reference external" href="https://github.com/jubatus/homebrew-jubatus">Homebrew tap リポジトリ</a> を使用すると簡単にインストールすることができます。</p>
+</div>
+<div class="section" id="id7">
+<h3>その他の環境<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Debian GNU/Linux では動作しています。</li>
+<li>Arch Linux ではスタンドアローンモードで動作しています。</li>
+<li>他の *BSD systems や Solarisでの動作報告をお待ちしています。</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plugin.html" class="btn btn-neutral float-right" title="プラグインの開発" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="開発者ガイド" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
