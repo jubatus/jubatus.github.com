@@ -113,7 +113,7 @@ Methods
 .. mpidl:method:: map<string, string> save(0: string id)
 
    :param id:   保存されるファイル名
-   :return:     それぞれのサーバの、 保存されたモデルファイルのパス。map のキーは ``ホスト名_ポート番号`` 形式である。
+   :return:     それぞれのサーバの、 保存されたモデルファイルのパス。map のキーは ``IPアドレス_ポート番号`` 形式である。
 
    **すべて** のサーバで学習モデルをローカルディスクに保存する。
 
@@ -139,10 +139,10 @@ Methods
 
 .. mpidl:method:: map<string, map<string, string> > get_status()
 
-   :return:     それぞれのサーバの内部状態。最上位の map のキーは ``ホスト名_ポート番号`` 形式である。
+   :return:     それぞれのサーバの内部状態。最上位の map のキーは ``IPアドレス_ポート番号`` 形式である。
 
    **すべての** サーバの内部状態を取得する。
-   サーバはホスト名、ポート番号で識別する。
+   サーバはIPアドレス、ポート番号で識別する。
 
 .. mpidl:method:: bool do_mix()
 
@@ -154,7 +154,7 @@ Methods
 
 .. mpidl:method:: map<string, map<string, string> > get_proxy_status()
 
-   :return:     プロキシの内部状態。最上位の map のキーは ``ホスト名_ポート番号`` 形式である。
+   :return:     プロキシの内部状態。最上位の map のキーは ``IPアドレス_ポート番号`` 形式である。
 
    プロキシの内部状態を取得する。
 

@@ -113,7 +113,7 @@ Methods
 .. mpidl:method:: map<string, string> save(0: string id)
 
    :param id:   file name to save
-   :return:     Path to the saved model for each server. The key of the map is in form of ``hostname_portnumber``.
+   :return:     Path to the saved model for each server. The key of the map is in form of ``ipaddr_portnumber``.
 
    Store the learing model to the local disk at **ALL** servers.
 
@@ -139,10 +139,10 @@ Methods
 
 .. mpidl:method:: map<string, map<string, string> >  get_status()
 
-   :return:     Internal state for each servers. The key of most outer map is in form of ``hostname_portnumber``.
+   :return:     Internal state for each servers. The key of most outer map is in form of ``ipaddr_portnumber``.
 
    Returns server status from **ALL** servers.
-   Each server is represented by a pair of host name and port.
+   Each server is represented by a pair of IP address and port.
 
 .. mpidl:method:: bool do_mix()
 
@@ -154,7 +154,7 @@ Methods
 
 .. mpidl:method:: map<string, map<string, string> >  get_proxy_status()
 
-   :return:     Internal state for proxy. The key of most outer map is in form of ``hostname_portnumber``.
+   :return:     Internal state for proxy. The key of most outer map is in form of ``ipaddr_portnumber``.
 
    Returns proxy status.
 
