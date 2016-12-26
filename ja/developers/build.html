@@ -100,7 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#requirements">要件</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ubuntu-12-04">Ubuntu 12.04</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">その他の環境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">その他の環境</a></li>
 </ul>
 </li>
 </ul>
@@ -112,6 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cla.html">Jubatus 貢献者ライセンス同意書</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">プロジェクトについて</a></li>
 </ul>
@@ -189,16 +190,16 @@
 </tr>
 <tr class="row-odd"><td>oniguruma</td>
 <td>&gt;= 5.9</td>
-<td><a class="footnote-reference" href="#id5" id="id2">[1]</a></td>
+<td><a class="footnote-reference" href="#id6" id="id2">[1]</a></td>
 <td>jubatus_core に必要。</td>
 </tr>
 <tr class="row-even"><td>re2</td>
 <td>master</td>
-<td><a class="footnote-reference" href="#id5" id="id3">[1]</a></td>
+<td><a class="footnote-reference" href="#id6" id="id3">[1]</a></td>
 <td>jubatus_core に必要 (<code class="docutils literal"><span class="pre">--regexp-library=re2</span></code> ありでビルドする場合のみ)</td>
 </tr>
 <tr class="row-odd"><td>msgpack</td>
-<td>&gt;= 0.5.7 <a class="footnote-reference" href="#id6" id="id4">[2]</a></td>
+<td>&gt;= 0.5.7 <a class="footnote-reference" href="#id7" id="id4">[2]</a></td>
 <td>✔</td>
 <td>jubatus_core および jubatus に必要。</td>
 </tr>
@@ -228,8 +229,8 @@
 <td><code class="docutils literal"><span class="pre">--enable-ux</span></code> ありでビルドする場合のみ。</td>
 </tr>
 <tr class="row-odd"><td>opencv</td>
-<td>&gt;= 2.3.0</td>
-<td>&nbsp;</td>
+<td>&gt;= 2.0.0</td>
+<td><a class="footnote-reference" href="#id8" id="id5">[3]</a></td>
 <td><code class="docutils literal"><span class="pre">--enable-opencv</span></code> ありでビルドする場合のみ。</td>
 </tr>
 <tr class="row-even"><td>zookeeper</td>
@@ -240,17 +241,23 @@ C クライアントライブラリが必要である。</td>
 </tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> デフォルトでは oniguruma が jubatus_core の正規表現ライブラリとして使用されます (<code class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></code>)。
 jubatus_core のビルド時に <code class="docutils literal"><span class="pre">--regexp-library=none</span></code> を指定することで正規表現機能を完全に無効にすることができます。</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>MessagePack 1.x 系はサポートされていません。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>opencv &lt;= 2.2.0では、 <code class="docutils literal"><span class="pre">ORB</span></code> アルゴリズムは利用できず、 <code class="docutils literal"><span class="pre">RGB</span></code> アルゴリズムのみの提供となっています。</td></tr>
 </tbody>
 </table>
 <p>お使いのディストリビューションによっては、一部のライブラリがバイナリパッケージとして提供されている場合もあります。
@@ -315,8 +322,8 @@ $ sudo ldconfig
 <p>Mac OS X では、スタンドアロンモードのビルドと実行が試験的にサポートされています。</p>
 <p><a class="reference external" href="https://github.com/jubatus/homebrew-jubatus">Homebrew tap リポジトリ</a> を使用すると簡単にインストールすることができます。</p>
 </div>
-<div class="section" id="id7">
-<h3>その他の環境<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id9">
+<h3>その他の環境<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li>Debian GNU/Linux では動作しています。</li>
 <li>Arch Linux ではスタンドアローンモードで動作しています。</li>
@@ -367,7 +374,7 @@ $ sudo ldconfig
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.0',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

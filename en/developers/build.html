@@ -112,6 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cla.html">Jubatus Contributor License Agreement</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
 </ul>
@@ -189,16 +190,16 @@ For supported version of libraries, refer to the <a class="reference external" h
 </tr>
 <tr class="row-odd"><td>oniguruma</td>
 <td>&gt;= 5.9</td>
-<td><a class="footnote-reference" href="#id5" id="id2">[1]</a></td>
+<td><a class="footnote-reference" href="#id6" id="id2">[1]</a></td>
 <td>Required by jubatus_core.</td>
 </tr>
 <tr class="row-even"><td>re2</td>
 <td>master</td>
-<td><a class="footnote-reference" href="#id5" id="id3">[1]</a></td>
+<td><a class="footnote-reference" href="#id6" id="id3">[1]</a></td>
 <td>Required by jubatus_core when configuring with <code class="docutils literal"><span class="pre">--regexp-library=re2</span></code>.</td>
 </tr>
 <tr class="row-odd"><td>msgpack</td>
-<td>&gt;= 0.5.7 <a class="footnote-reference" href="#id6" id="id4">[2]</a></td>
+<td>&gt;= 0.5.7 <a class="footnote-reference" href="#id7" id="id4">[2]</a></td>
 <td>✔</td>
 <td>Required by jubatus_core and jubatus.</td>
 </tr>
@@ -228,8 +229,8 @@ For supported version of libraries, refer to the <a class="reference external" h
 <td>Required when configured with <code class="docutils literal"><span class="pre">--enable-ux</span></code>.</td>
 </tr>
 <tr class="row-odd"><td>opencv</td>
-<td>&gt;= 2.3.0</td>
-<td>&nbsp;</td>
+<td>&gt;= 2.0.0</td>
+<td><a class="footnote-reference" href="#id8" id="id5">[3]</a></td>
 <td>Required when configured with  <code class="docutils literal"><span class="pre">--enable-opencv</span></code>.</td>
 </tr>
 <tr class="row-even"><td>zookeeper</td>
@@ -240,17 +241,23 @@ C client library must be installed.</td>
 </tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> By default, oniguruma is used by jubatus_core as a regexp library (<code class="docutils literal"><span class="pre">--regexp-library=oniguruma</span></code>).
 You can completely disable regexp feature by configuring jubatus_core with <code class="docutils literal"><span class="pre">--regexp-library=none</span></code>.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>MessagePack 1.x series are not supported yet.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td><code class="docutils literal"><span class="pre">ORB</span></code> algorithm is not available if opencv &lt;= 2.2.0.</td></tr>
 </tbody>
 </table>
 <p>Depending on your distribution, some libraries may be available as a binary package.
@@ -367,7 +374,7 @@ $ sudo ldconfig
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.0',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

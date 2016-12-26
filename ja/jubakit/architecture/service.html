@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Service &mdash; jubakit 0.4.0 documentation</title>
+  <title>Service &mdash; jubakit 0.4.1 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
   
 
   
-    <link rel="top" title="jubakit 0.4.0 documentation" href="../index.html"/>
+    <link rel="top" title="jubakit 0.4.1 documentation" href="../index.html"/>
         <link rel="up" title="Architecture" href="index.html"/>
         <link rel="next" title="Config" href="config.html"/>
         <link rel="prev" title="Dataset" href="dataset.html"/> 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
             
           
@@ -100,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#process-invocation">Process Invocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#working-with-external-jubatus">Working with External Jubatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embedded-jubatus">Embedded Jubatus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#list-of-services">List of Services</a></li>
 </ul>
 </li>
@@ -198,14 +199,30 @@ Once the Service instance (<code class="docutils literal"><span class="pre">clas
 </pre></div>
 </div>
 </div>
+<div class="section" id="embedded-jubatus">
+<h2>Embedded Jubatus<a class="headerlink" href="#embedded-jubatus" title="Permalink to this headline">¶</a></h2>
+<p>Jubakit can use &#8220;embedded&#8221; version of Jubatus as a backend, which reduces the cost of process invocation and RPC overhead.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Classifier</span>
+
+<span class="c1"># Create a default configuration.</span>
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+<span class="c1"># Create a new service in &quot;Embedded&quot; mode.</span>
+<span class="n">classifier_service</span> <span class="o">=</span> <span class="n">Classifier</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">embedded</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># ... do some train/classify tasks ...</span>
+</pre></div>
+</div>
+<p>To use &#8220;embedded&#8221; feature, <code class="docutils literal"><span class="pre">embedded_jubatus</span></code> ([embedded-jubatus-python](<a class="reference external" href="https://github.com/jubatus/embedded-jubatus-python">https://github.com/jubatus/embedded-jubatus-python</a>)) Python module, which is a wrapper module to call machine learning algorithms provided in Jubatus Core library, needs to be installed.</p>
+</div>
 <div class="section" id="list-of-services">
 <h2>List of Services<a class="headerlink" href="#list-of-services" title="Permalink to this headline">¶</a></h2>
 <p>Currently the following Services are available in Jubakit.</p>
 <ul class="simple">
-<li><a class="reference external" href="http://jubat.us/en/api_classifier.html">Classifier</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Classifier" title="jubakit.classifier.Classifier"><code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Classifier</span></code></a></li>
-<li><a class="reference external" href="http://jubat.us/en/api_anomaly.html">Anomaly</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.anomaly.Anomaly" title="jubakit.anomaly.Anomaly"><code class="xref py py-class docutils literal"><span class="pre">jubakit.anomaly.Anomaly</span></code></a></li>
-<li><a class="reference external" href="http://jubat.us/en/api_recommender.html">Recommender</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.recommender.Recommender" title="jubakit.recommender.Recommender"><code class="xref py py-class docutils literal"><span class="pre">jubakit.recommender.Recommender</span></code></a></li>
-<li><a class="reference external" href="http://jubat.us/en/api_weight.html">Weight</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.weight.Weight" title="jubakit.weight.Weight"><code class="xref py py-class docutils literal"><span class="pre">jubakit.weight.Weight</span></code></a></li>
+<li><a class="reference external" href="http://jubat.us/en/api_classifier.html">Classifier</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Classifier</span></code></li>
+<li><a class="reference external" href="http://jubat.us/en/api_anomaly.html">Anomaly</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.anomaly.Anomaly</span></code></li>
+<li><a class="reference external" href="http://jubat.us/en/api_recommender.html">Recommender</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.recommender.Recommender</span></code></li>
+<li><a class="reference external" href="http://jubat.us/en/api_weight.html">Weight</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.weight.Weight</span></code></li>
 </ul>
 <p>Support of other Services is ongoing.</p>
 </div>
@@ -252,7 +269,7 @@ Once the Service instance (<code class="docutils literal"><span class="pre">clas
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.4.0',
+            VERSION:'0.4.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -25,7 +25,7 @@ jubatus-msgpack-rpc 0.4.4          ✔         C++ client library must be instal
 log4cxx             >= 0.10.0      ✔
 mecab               >= 0.99                  Required when configured with ``--enable-mecab``.
 ux-trie             master                   Required when configured with ``--enable-ux``.
-opencv              >= 2.3.0                 Required when configured with  ``--enable-opencv``.
+opencv              >= 2.0.0       [3]_      Required when configured with  ``--enable-opencv``.
 zookeeper           >= 3.3                   Required when configured with ``--enable-zookeeper``.
                                              C client library must be installed.
 =================== ============== ========= ======================================================
@@ -33,6 +33,7 @@ zookeeper           >= 3.3                   Required when configured with ``--e
 .. [1] By default, oniguruma is used by jubatus_core as a regexp library (``--regexp-library=oniguruma``).
        You can completely disable regexp feature by configuring jubatus_core with ``--regexp-library=none``.
 .. [2] MessagePack 1.x series are not supported yet.
+.. [3] ``ORB`` algorithm is not available if opencv <= 2.2.0.
 
 Depending on your distribution, some libraries may be available as a binary package.
 When binary packages are not available, you also need to build these libraries from source; download them from each website (

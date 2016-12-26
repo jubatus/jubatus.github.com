@@ -45,14 +45,10 @@ By installing plug-ins, Jubatus can perform feature extractions from Japanese na
 
 ::
 
-  // For RHEL 6
-  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux
-
-  // For RHEL 7
   $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux jubatus-plugin-image
 
 .. [1] Prior to Jubatus 1.0, all plugins were bundled with ``jubatus`` package.  In Jubatus 1.0 or later, you can selectively install plug-ins you need.
-.. [2] ``jubatus-plugin-image`` package is not available in RHEL 6.
+.. [2] A part of fuction in ``jubatus-plugin-image`` is not available in RHEL 6.
 
 Ubuntu Server (64-bit)
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -94,6 +90,16 @@ If you're using csh or tcsh, use this instead:
 ::
 
   $ source /opt/jubatus/profile.csh
+
+Docker
+~~~~~~
+
+You can use Docker image distributed at Dockerhub.
+
+::
+
+  $ docker pull jubatus/jubatus
+  $ docker run --expose 9199 jubatus/jubatus jubaclassifier -f /opt/jubatus/share/jubatus/example/config/classifier/pa.json
 
 Other Linux Distributions (including 32-bit)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

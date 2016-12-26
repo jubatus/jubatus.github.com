@@ -41,6 +41,7 @@ Table of Contents
    api/index
    tips_faqs/index
    developers/index
+   jubakit/index
    jubaql/index
    about/index
 
