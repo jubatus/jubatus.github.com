@@ -5,7 +5,7 @@
 Jubatus のインストール
 ----------------------
 
-Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS / 14.04  (64-bit) を公式にサポートしています。
+Red Hat Enterprise Linux (RHEL) 6.2 以降 (64-bit) と Ubuntu Server 12.04 LTS / 14.04 LTS / 16.04 LTS (64-bit) を公式にサポートしています。
 これらのシステムでは、Jubatus のすべてのコンポーネントをバイナリパッケージでインストールすることができます。
 
 また、その他の Linux 環境 (32-bit を含む) と Mac OS X が試験的にサポートされています。
@@ -64,6 +64,9 @@ Ubuntu Server (64-bit)
 
   // Ubuntu 14.04 (Trusty) の場合
   deb http://download.jubat.us/apt/ubuntu/trusty binary/
+
+  // Ubuntu 16.04 (Xenial) の場合
+  deb http://download.jubat.us/apt/ubuntu/xenial binary/
 
 ``jubatus`` のパッケージをインストールします。
 
@@ -152,6 +155,8 @@ Python
 ::
 
   $ sudo pip install jubatus
+
+Python 3.x のみがインストールされた環境では、 ``pip`` の代わりに ``pip3`` を使用する必要があるかもしれません。
 
 ``pip`` コマンドがインストールされていない場合は、以下の手順でインストールしてください。
 

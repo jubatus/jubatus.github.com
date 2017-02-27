@@ -5,7 +5,7 @@ Quick Start
 Install Jubatus
 ---------------
 
-We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS / 14.04 LTS (64-bit).
+We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS / 14.04 LTS / 16.04 LTS (64-bit).
 On supported systems, you can install all components of Jubatus using binary packages.
 
 Other Linux distributions (including 32-bit) and Mac OS X are experimentally supported.
@@ -62,6 +62,9 @@ Write the following line to ``/etc/apt/sources.list.d/jubatus.list`` to register
 
   // For Ubuntu 14.04 (Trusty)
   deb http://download.jubat.us/apt/ubuntu/trusty binary/
+
+  // For Ubuntu 16.04 (Xenial)
+  deb http://download.jubat.us/apt/ubuntu/xenial binary/
 
 Now install ``jubatus`` package.
 
@@ -150,6 +153,8 @@ The client (requires Python 2.6, 2.7 or 3.x) is available in `PyPI <http://pypi.
 ::
 
   $ sudo pip install jubatus
+
+If you only have Python 3.x, you may need to use ``pip3`` instead of ``pip``.
 
 If you don't have ``pip`` command, run the following command:
 

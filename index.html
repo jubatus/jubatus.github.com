@@ -2,13 +2,30 @@
 <html>
   <head>
     <title>Jubatus</title>
-    <meta http-equiv="refresh" content="0;url=en/">
+    <script type="text/javascript">
+      function browserLanguage() {
+        try {
+          return((window.navigator.languages && window.navigator.languages[0]) ||
+              window.navigator.language ||
+              window.navigator.userLanguage ||
+              window.navigator.browserLanguage)
+        }
+        catch(e) {
+          return undefined;
+        }
+      }
+      if (browserLanguage().indexOf("ja") != -1) {
+        setTimeout("location.href='ja/';", 5000)
+      } else {
+        setTimeout("location.href='en/';", 5000)
+      }
+    </script>
   </head>
   <body>
     <h1>Jubatus</h1>
     <ul>
       <li><a href="en/">English</a></li>
       <li><a href="ja/">Japanese</a></li>
-   </ul>
+    </ul>
   </body>
 </html>

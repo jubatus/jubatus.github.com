@@ -98,6 +98,9 @@ Now build Jubatus.
 
 As this is a minimal configuration (see ``./waf configure --help`` for other configuration options available), some features like distributed mode and feature extraction plugins are not available.
 
+``waf`` command requires ``python`` command.
+If you are building Jubatus on platform that does not provide ``python`` command (like Ubuntu 16.04), run ``sudo apt-get install python2.7`` to install ``python``, or try running ``waf`` via ``python3`` (e.g., ``python3 ./waf configure``).
+
 Mac OS X
 ~~~~~~~~
 
