@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.model &mdash; jubakit 0.4.2 documentation</title>
+  <title>jubakit.model &mdash; jubakit 0.5.0 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
   
 
   
-    <link rel="top" title="jubakit 0.4.2 documentation" href="../../index.html"/>
+    <link rel="top" title="jubakit 0.5.0 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.4.2
+                0.5.0
               </div>
             
           
@@ -533,7 +533,9 @@
 
   <span class="nd">@classmethod</span>
   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">in_fmt</span><span class="p">,</span> <span class="n">out_fmt</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-          <span class="n">fix_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">no_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+          <span class="n">fix_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">replace_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">no_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="c1"># Predict model file format</span>
     <span class="k">if</span> <span class="n">in_fmt</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
@@ -557,6 +559,22 @@
       <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to parse model as </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">in_fmt</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
       <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to load from model&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Replace config file</span>
+    <span class="k">if</span> <span class="n">replace_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">replace_config</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">fix_header</span><span class="p">:</span>
+        <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Warning: replacing config without fixing header; may generate corrupt model&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Replace version</span>
+    <span class="k">if</span> <span class="n">replace_version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="p">(</span><span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">maint</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">replace_version</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">jubatus_version_major</span> <span class="o">=</span> <span class="n">major</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">jubatus_version_minor</span> <span class="o">=</span> <span class="n">minor</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">jubatus_version_maint</span> <span class="o">=</span> <span class="n">maint</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">fix_header</span><span class="p">:</span>
+        <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Warning: replacing version without fixing header; may generate corrupt model&#39;</span><span class="p">)</span>
 
     <span class="c1"># Repair header</span>
     <span class="k">if</span> <span class="n">fix_header</span><span class="p">:</span>
@@ -617,10 +635,14 @@
                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;specify output file instead of stdout&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-C&#39;</span><span class="p">,</span> <span class="s1">&#39;--output-config&#39;</span><span class="p">,</span>   <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;specify output file of config extracted from model&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-R&#39;</span><span class="p">,</span> <span class="s1">&#39;--replace-config&#39;</span><span class="p">,</span>  <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;replace configuration in model with specified file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-Z&#39;</span><span class="p">,</span> <span class="s1">&#39;--replace-version&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;replace Jubatus version in model file&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--no-validate&#39;</span><span class="p">,</span>     <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>              <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;disable validation of binary model files&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-F&#39;</span><span class="p">,</span> <span class="s1">&#39;--fix-header&#39;</span><span class="p">,</span>      <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>              <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;fix corrupt header if possible&#39;</span><span class="p">)</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;recompute CRC32 checksum and fix corrupt header if possible&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">,</span>            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>              <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;show usage&#39;</span><span class="p">)</span>
 
@@ -667,6 +689,8 @@
         <span class="n">out_fmt</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_format</span><span class="p">,</span>
         <span class="n">output</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
         <span class="n">output_config</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output_config</span><span class="p">,</span>
+        <span class="n">replace_config</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">replace_config</span><span class="p">,</span>
+        <span class="n">replace_version</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">replace_version</span><span class="p">,</span>
         <span class="n">no_validate</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">no_validate</span><span class="p">,</span>
         <span class="n">fix_header</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">fix_header</span><span class="p">,</span>
       <span class="p">)</span>
@@ -714,7 +738,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.4.2',
+            VERSION:'0.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

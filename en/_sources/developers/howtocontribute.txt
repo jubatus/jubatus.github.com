@@ -24,14 +24,14 @@ You can communicate with other users and even developers via:
 
   * Host: chat.freenode.net / Port: 6667 / UTF-8
 
-Issue Openning Policy
+Issue Opening Policy
 -------------------------
 
-A standard issue-opening format is preferred for our better work efficiency. Therefore, we annouce our issue openning policy here for our contributors below.
+A standard issue-opening format is preferred for our better work efficiency. Therefore, we announce our issue opening policy here for our contributors below.
 
 * As for the bugs reporting, your information should be adequate for our developers to reproduce and understand the bugs.
 
-* As for other reporting, please tell us "why this part should be improved or required refactoring", "who will be benefied", etc.
+* As for other reporting, please tell us "why this part should be improved or required refactoring", "who will be benefit from the feature", etc.
 
   * It is no problem to write "Because I just want it!", "It makes Jubatus Cool!", your comment here will help us to decide the importance of the issue anyway.
 
@@ -72,4 +72,4 @@ When contributing your code, check the following points before sending a pull-re
 
 * If you have implemented new algorithm, add a reference to the paper you referenced in the pull-request description.
 
-* Please make sure that you started your work on top of the develop branch. We only accept pull-requets sent to the ``develop`` branch (NOT ``master``).
+* Please make sure that you started your work on top of the develop branch. We only accept pull-requests sent to the ``develop`` branch (NOT ``master``).

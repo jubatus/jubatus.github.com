@@ -103,7 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#rpc">RPC エラー</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">分散環境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">学習モデル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">異常値検知</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faqs-anomaly-ja">異常検知</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">その他</a></li>
 </ul>
 </li>
@@ -333,10 +333,13 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
 </li>
 </ul>
 <blockquote>
-<div>モデルに差異は発生しません。</div></blockquote>
+<div><p>モデルに差異は発生しません。</p>
+<blockquote>
+<div></div></blockquote>
+</div></blockquote>
 </div>
-<div class="section" id="id5">
-<h2>異常値検知<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="faqs-anomaly-ja">
+<span id="id5"></span><h2>異常検知<a class="headerlink" href="#faqs-anomaly-ja" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li>jubaanomaly が常に 1.0 か無限値 (infinity) を返却する</li>
 </ul>
@@ -352,6 +355,17 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
 <li>2: euclid LSH 側のパラメタを変更する</li>
 </ul>
 <p>特に、最も重要なパラメタである <code class="docutils literal"><span class="pre">bin_width</span></code> を変更するとよいでしょう。</p>
+</div></blockquote>
+<ul class="simple">
+<li>jubaanomalyのスコアが極端に大きな値を返却する</li>
+</ul>
+<blockquote>
+<div><p>ある一点の近傍に多数の点が集中しすぎると、 <code class="docutils literal"><span class="pre">kth_ignore_same_point</span></code> のオプションを付与しても、
+anomalyのスコアが極端に大きくなる場合があります。
+これは、floatでの数値計算の丸め誤差により起こる問題です。</p>
+<p>Jubatus 1.0.2以前は、0除算が発生するため <code class="docutils literal"><span class="pre">inf</span></code> を返却するようになっていましたが、
+1.0.3以降では問題の切り分けを行いやすくするため、
+<code class="docutils literal"><span class="pre">inf</span></code> を避け、大きな(10e9-10e10程度のオーダーの)値を返却するように設計しています。</p>
 </div></blockquote>
 <ul class="simple">
 <li>多数のサンプルを投入すると jubaanomaly の動作速度が低下する</li>
@@ -439,7 +453,7 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.2',
+            VERSION:'1.0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

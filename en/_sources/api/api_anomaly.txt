@@ -206,6 +206,8 @@ Methods
 
       Calculates an anomaly measure value for the point data ``row`` without adding a point.
 
+      At this time, extremely large numbers can be returned. For the detail, please refer to :ref:`FAQs:anomaly detection<faqs-anomaly-en>` .
+
    .. mpidl:method:: list<string> get_all_rows()
 
       :return:     List of all point IDs

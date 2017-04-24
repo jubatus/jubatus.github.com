@@ -205,6 +205,8 @@ Methods
       :return:     与えられた ``row`` に対する異常度
 
       点を追加せずに、与えられた点データ ``row`` の異常度を計算する。
+      
+      この時、極端に大きな値を返却する場合がある。原因の詳細については :ref:`FAQs:異常検知<faqs-anomaly-ja>` を参照してください。
 
    .. mpidl:method:: list<string> get_all_rows()
 

@@ -5,7 +5,7 @@ Quick Start
 Install Jubatus
 ---------------
 
-We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 12.04 LTS / 14.04 LTS / 16.04 LTS (64-bit).
+We officially support Red Hat Enterprise Linux (RHEL) 6.2 or later (64-bit) and Ubuntu Server 14.04 LTS / 16.04 LTS (64-bit).
 On supported systems, you can install all components of Jubatus using binary packages.
 
 Other Linux distributions (including 32-bit) and Mac OS X are experimentally supported.
@@ -57,7 +57,7 @@ Write the following line to ``/etc/apt/sources.list.d/jubatus.list`` to register
 
 ::
 
-  // For Ubuntu 12.04 (Precise)
+  // For Ubuntu 12.04 (Precise) - Deprecated (unsupported)
   deb http://download.jubat.us/apt/ubuntu/precise binary/
 
   // For Ubuntu 14.04 (Trusty)

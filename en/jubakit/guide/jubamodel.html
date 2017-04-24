@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Jubamodel Reference &mdash; jubakit 0.4.2 documentation</title>
+  <title>Jubamodel Reference &mdash; jubakit 0.5.0 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
   
 
   
-    <link rel="top" title="jubakit 0.4.2 documentation" href="../index.html"/>
+    <link rel="top" title="jubakit 0.5.0 documentation" href="../index.html"/>
         <link rel="up" title="User’s Guide" href="index.html"/>
         <link rel="next" title="Frequently Asked Questions" href="faq.html"/>
         <link rel="prev" title="Jubash Reference" href="jubash.html"/> 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.4.2
+                0.5.0
               </div>
             
           
@@ -161,6 +161,7 @@
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-shell"><div class="highlight"><pre><span></span>jubamodel <span class="o">[</span>--in-format IN_FORMAT<span class="o">]</span> <span class="o">[</span>--out-format OUT_FORMAT<span class="o">]</span>
           <span class="o">[</span>--output OUTPUT<span class="o">]</span> <span class="o">[</span>--output-config OUTPUT_CONFIG<span class="o">]</span>
+          <span class="o">[</span>--replace-config REPLACE_CONFIG<span class="o">]</span> <span class="o">[</span>--replace-version REPLACE_VERSION<span class="o">]</span>
           <span class="o">[</span>--no-validate<span class="o">]</span> <span class="o">[</span>--fix-header<span class="o">]</span> <span class="o">[</span>--help<span class="o">]</span>  model_file
 </pre></div>
 </div>
@@ -211,6 +212,24 @@ When specified, Jubatus configuration (JSON) will be extracted from the model an
 </dd></dl>
 
 <dl class="option">
+<dt id="cmdoption-jubamodel-R">
+<span id="cmdoption-jubamodel--replace-config"></span><code class="descname">-R</code><code class="descclassname"> &lt;replace_config&gt;</code><code class="descclassname">, </code><code class="descname">--replace-config</code><code class="descclassname"> &lt;replace_config&gt;</code><a class="headerlink" href="#cmdoption-jubamodel-R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to the configuration file to use.
+When specified, Jubatus configuration (JSON) in the original model file will be overwritten by the contents of the specified file.
+You may also want to specify <a class="reference internal" href="#cmdoption-jubamodel--fix-header"><code class="xref std std-option docutils literal"><span class="pre">--fix-header</span></code></a> together, so that CRC32 checksum and other header values are updated according to the new configuration.</p>
+<p>When using this option, be sure you truly understand what you are doing, as some hyper parameters are not expected to be changed after training models.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubamodel-Z">
+<span id="cmdoption-jubamodel--replace-version"></span><code class="descname">-Z</code><code class="descclassname"> &lt;replace_version&gt;</code><code class="descclassname">, </code><code class="descname">--replace-version</code><code class="descclassname"> &lt;replace_version&gt;</code><a class="headerlink" href="#cmdoption-jubamodel-Z" title="Permalink to this definition">¶</a></dt>
+<dd><p>New Jubatus version string (e.g., <cite>1.0.1</cite>) to use.
+When specified, Jubatus version embedded in the model file will be overwritten by the specified version.
+You may also want to specify <a class="reference internal" href="#cmdoption-jubamodel--fix-header"><code class="xref std std-option docutils literal"><span class="pre">--fix-header</span></code></a> together, so that CRC32 checksum and other header values are updated according to the new version.</p>
+<p>Although this may help migrating models between different Jubatus versions, there is no guarantee that the modified model can be loaded to the specified Jubatus version.</p>
+</dd></dl>
+
+<dl class="option">
 <dt id="cmdoption-jubamodel-f">
 <span id="cmdoption-jubamodel--no-validate"></span><code class="descname">-f</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--no-validate</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubamodel-f" title="Permalink to this definition">¶</a></dt>
 <dd><p>When loading model files in <code class="docutils literal"><span class="pre">binary</span></code> format, <code class="docutils literal"><span class="pre">jubamodel</span></code> validates the model data structure (including CRC32 checksum).
@@ -220,8 +239,9 @@ When this option is specified, the validation will be disabled.</p>
 <dl class="option">
 <dt id="cmdoption-jubamodel-F">
 <span id="cmdoption-jubamodel--fix-header"></span><code class="descname">-F</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--fix-header</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubamodel-F" title="Permalink to this definition">¶</a></dt>
-<dd><p>When this option is specified, the model data structure will be fixed.
-See the example section for details.</p>
+<dd><p>When this option is specified, the model data structure is tried to be fixed.
+This includes recomputation of CRC32 checksum and container lengths.</p>
+<p>See the example section for details.</p>
 </dd></dl>
 
 <dl class="option">
@@ -243,7 +263,7 @@ See the example section for details.</p>
 </pre></div>
 </div>
 <p>Once converted into JSON format, you can manually modify the JSON file.
-You can then convert the modified JSON model back to the binary model; note the <code class="docutils literal"><span class="pre">-F</span></code> option, which recomputes CRC32 checksum and other system data.</p>
+You can then convert the modified JSON model back to the binary model; note the <a class="reference internal" href="#cmdoption-jubamodel-F"><code class="xref std std-option docutils literal"><span class="pre">-F</span></code></a> option, which recomputes CRC32 checksum and other system data.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ jubamodel -fF -o binary -O /tmp/127.0.0.1_9199_classifier_test2.jubatus /tmp/model.json
 </pre></div>
 </div>
@@ -291,7 +311,7 @@ You can then convert the modified JSON model back to the binary model; note the 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.4.2',
+            VERSION:'0.5.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

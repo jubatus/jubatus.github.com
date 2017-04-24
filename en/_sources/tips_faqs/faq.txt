@@ -174,6 +174,8 @@ Learning Model
 
  No difference in the final result of trained model.
 
+.. _faqs-anomaly-en:
+
 Anomaly detection
 :::::::::::::::::
 
@@ -192,6 +194,14 @@ Anomaly detection
  - 2: Change parameters for underlying euclid LSH
 
  Especially, we recommend you to change the most important parameter ``bin_width`` for some values.
+
+- jubaanomaly outputs extremely large score. Why?
+
+ When many points concentrated on a certain point, lof score can be extremely large.
+ Floating point rounding errors cause this problem.
+ In this case, Before Jubatus 1.0.2, jubaanomaly outputs ``inf`` because of zero division.
+ Jubatus 1.0.3 or later, in order to specify the problem easily, jubaanomaly avoids zero division and outputs large numbers (about 10e9-10e10) instead of ``inf``.
+
 
 - Why jubaanomaly gets slow after adding many samples?
 

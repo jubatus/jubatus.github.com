@@ -150,6 +150,22 @@ We show each field below:
 
         * Range: 1 <= ``nearest_neighbor_num``
 
+     :weight:
+         Specify method to weight each neighbor points.
+         You can use these methods.
+
+         .. table::
+
+            ============== =====================================================================================
+            Value          Method
+            ============== =====================================================================================
+            ``"distance"`` weights neighbors by their distance or similarity.
+                           Closer neighbors will have greater influence than those are far away from the query.
+            ``"uniform"``  weights neighbors equally.
+            ============== =====================================================================================
+
+         Note: ``weight`` option can be omitted (It works with ``"uniform"``)
+
    cosine
      :nearest_neighbor_num:
         Number of data which is used for calculating scores.
@@ -157,12 +173,44 @@ We show each field below:
 
         * Range: 1 <= ``nearest_neighbor_num``
 
+     :weight:
+         Specify method to weight each neighbor points.
+         You can use these methods.
+
+         .. table::
+
+            ============== =====================================================================================
+            Value          Method
+            ============== =====================================================================================
+            ``"distance"`` weights neighbors by their similarity.
+                           Closer neighbors will have greater influence than those are far away from the query.
+            ``"uniform"``  weights neighbors equally.
+            ============== =====================================================================================
+
+         Note: ``weight`` option can be omitted (It works with ``"uniform"``)
+
    euclidean
      :nearest_neighbor_num:
         Number of data which is used for calculating scores.
         (Integer)
 
         * Range: 1 <= ``nearest_neighbor_num``
+
+     :weight:
+         Specify method to weight each neighbor points.
+         You can use these methods.
+
+         .. table::
+
+            ============== =====================================================================================
+            Value          Method
+            ============== =====================================================================================
+            ``"distance"`` weights neighbors by their distance.
+                           Closer neighbors will have greater influence than those are far away from the query.
+            ``"uniform"``  weights neighbors equally.
+            ============== =====================================================================================
+
+         Note: ``weight`` option can be omitted (It works with ``"uniform"``)
 
 .. describe:: converter
 
