@@ -82,7 +82,7 @@ Bypass the warning by answering ``y`` to the prompt when asked:
 
 Now Jubatus is installed in ``/opt/jubatus``.
 
-Each time before using Jubatus, you need to load the environment variable from ``profile`` script (you can add the line to ``~/.bash_profile``).
+Each time before using Jubatus, you need to load the environment variable from ``profile`` script (you can add the line to ``~/.profile``).
 
 ::
 

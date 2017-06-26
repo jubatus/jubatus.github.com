@@ -48,6 +48,13 @@ We show each field below:
 
         * Range: 0.0 <= ``epsilon`` <= 1.0
 
+     :seed(optional):
+        Specify random seed when you use ``random`` for unlearning strategy.
+        If not specified, system clock is used as seed parameter.
+        So you will get different result each experiment.
+
+        * range of value: 0 <= ``seed`` <= :math:`2^{32} - 1`
+
    ucb1
      None
 
@@ -60,6 +67,13 @@ We show each field below:
 
         * Range: 0.0 < ``tau``
 
+     :seed(optional):
+        Specify random seed when you use ``random`` for unlearning strategy.
+        If not specified, system clock is used as seed parameter.
+        So you will get different result each experiment.
+
+        * range of value: 0 <= ``seed`` <= :math:`2^{32} - 1`
+
    exp3
      :gamma:
         Mixture rate of constant weight and each arm's weight.
@@ -69,8 +83,21 @@ We show each field below:
 
         * Range: 0.0 < ``gamma`` <= 1.0
 
+     :seed(optional):
+        Specify random seed when you use ``random`` for unlearning strategy.
+        If not specified, system clock is used as seed parameter.
+        So you will get different result each experiment.
+
+        * range of value: 0 <= ``seed`` <= :math:`2^{32} - 1`
+
    ts
-     None
+     :seed(optional):
+        Specify random seed when you use ``random`` for unlearning strategy.
+        If not specified, system clock is used as seed parameter.
+        So you will get different result each experiment.
+
+        * range of value: 0 <= ``seed`` <= :math:`2^{32} - 1`
+     
 
 Example:
   .. code-block:: javascript

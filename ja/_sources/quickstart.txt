@@ -84,7 +84,7 @@ Ubuntu Server (64-bit)
 
 これで、Jubatus が ``/opt/jubatus`` にインストールされました。
 
-Jubatus を使う前に、毎回 ``profile`` スクリプトから環境変数を読み込む必要があります (``~/.bash_profile`` に追記しておくと便利です)。
+Jubatus を使う前に、毎回 ``profile`` スクリプトから環境変数を読み込む必要があります (``~/.profile`` に追記しておくと便利です)。
 
 ::
 
