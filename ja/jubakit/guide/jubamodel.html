@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Jubamodel Reference &mdash; jubakit 0.5.0 documentation</title>
+  <title>Jubamodel Reference &mdash; jubakit 0.5.1 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.0 documentation" href="../index.html"/>
+    <link rel="top" title="jubakit 0.5.1 documentation" href="../index.html"/>
         <link rel="up" title="User’s Guide" href="index.html"/>
         <link rel="next" title="Frequently Asked Questions" href="faq.html"/>
         <link rel="prev" title="Jubash Reference" href="jubash.html"/> 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -162,6 +162,7 @@
 <div class="highlight-shell"><div class="highlight"><pre><span></span>jubamodel <span class="o">[</span>--in-format IN_FORMAT<span class="o">]</span> <span class="o">[</span>--out-format OUT_FORMAT<span class="o">]</span>
           <span class="o">[</span>--output OUTPUT<span class="o">]</span> <span class="o">[</span>--output-config OUTPUT_CONFIG<span class="o">]</span>
           <span class="o">[</span>--replace-config REPLACE_CONFIG<span class="o">]</span> <span class="o">[</span>--replace-version REPLACE_VERSION<span class="o">]</span>
+          <span class="o">[</span>--transform TRANSFORM<span class="o">]</span>
           <span class="o">[</span>--no-validate<span class="o">]</span> <span class="o">[</span>--fix-header<span class="o">]</span> <span class="o">[</span>--help<span class="o">]</span>  model_file
 </pre></div>
 </div>
@@ -227,6 +228,61 @@ You may also want to specify <a class="reference internal" href="#cmdoption-juba
 When specified, Jubatus version embedded in the model file will be overwritten by the specified version.
 You may also want to specify <a class="reference internal" href="#cmdoption-jubamodel--fix-header"><code class="xref std std-option docutils literal"><span class="pre">--fix-header</span></code></a> together, so that CRC32 checksum and other header values are updated according to the new version.</p>
 <p>Although this may help migrating models between different Jubatus versions, there is no guarantee that the modified model can be loaded to the specified Jubatus version.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubamodel-T">
+<span id="cmdoption-jubamodel--transform"></span><code class="descname">-T</code><code class="descclassname"> &lt;transform&gt;</code><code class="descclassname">, </code><code class="descname">--transform</code><code class="descclassname"> &lt;TRANSFORM&gt;</code><a class="headerlink" href="#cmdoption-jubamodel-T" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform the input model file for the specified service.</p>
+<p>For example, if you are using NN-based methods in Classifier (<code class="docutils literal"><span class="pre">NN</span></code>) or Anomaly (<code class="docutils literal"><span class="pre">light_lof</span></code>), you can transform the model file into Nearest Neighbor model by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ jubamodel --transform nearest_neighbor -o binary -O output_transformed_model.jubatus input_classifier_model.jubatus
+</pre></div>
+</div>
+<p>You can then load the transformed model into Nearest Neighbor.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ jubanearest_neighbor --model_file output_transformed_model.jubatus
+</pre></div>
+</div>
+<p>Supported transformations are as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="63%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models of service (method)</th>
+<th class="head">... can be transformed into:</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Classifier (<code class="docutils literal"><span class="pre">NN</span></code>)</td>
+<td>Nearest Neighbor / Weight</td>
+</tr>
+<tr class="row-odd"><td>Classifier (others)</td>
+<td>Weight</td>
+</tr>
+<tr class="row-even"><td>Regression (<code class="docutils literal"><span class="pre">NN</span></code>)</td>
+<td>Nearest Neighbor / Weight</td>
+</tr>
+<tr class="row-odd"><td>Regression (others)</td>
+<td>Weight</td>
+</tr>
+<tr class="row-even"><td>Recommender (<code class="docutils literal"><span class="pre">nearest_neighbor_recommender</span></code>)</td>
+<td>Nearest Neighbor / Weight</td>
+</tr>
+<tr class="row-odd"><td>Recommender (others)</td>
+<td>Weight</td>
+</tr>
+<tr class="row-even"><td>Anomaly (<code class="docutils literal"><span class="pre">lof</span></code>)</td>
+<td>Recommender / Weight</td>
+</tr>
+<tr class="row-odd"><td>Anomaly (<code class="docutils literal"><span class="pre">light_lof</span></code>)</td>
+<td>Nearest Neighbor / Weight</td>
+</tr>
+<tr class="row-even"><td>Clustering</td>
+<td>Weight</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="option">
@@ -311,7 +367,7 @@ You can then convert the modified JSON model back to the binary model; note the 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.0',
+            VERSION:'0.5.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

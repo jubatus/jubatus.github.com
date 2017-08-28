@@ -127,6 +127,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#id15">画像特徴量プラグイン</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#python-bridge">Python Bridge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id17">設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python">Python モジュールに対する共通要件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-feature"><code class="docutils literal"><span class="pre">string_feature</span></code> インタフェース</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#word-splitter"><code class="docutils literal"><span class="pre">word_splitter</span></code> インタフェース</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-feature"><code class="docutils literal"><span class="pre">num_feature</span></code> インタフェース</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-feature"><code class="docutils literal"><span class="pre">binary_feature</span></code> インタフェース</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">Commands</a></li>
@@ -262,7 +271,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 その状態で、num_rulesによって数値データからの特徴量が抽出される。</p>
 <p>バイナリデータにはbinary_rulesによって特徴量が抽出される。</p>
 <p>フィルターと特徴抽出器には引数を必要とするものもあるため、それらはtypesで事前に準備することによって各規則で利用することができるようになる。</p>
-<div class="figure" id="id17">
+<div class="figure" id="id18">
 <a class="reference internal image-reference" href="_images/convert_flow.png"><img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" /></a>
 <p class="caption"><span class="caption-text">図: 変換エンジンの構成</span></p>
 </div>
@@ -1326,7 +1335,8 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <code class="descname">libmecab_splitter.so</code></dt>
 <dd><p>string_typesで指定できる。
 <a class="reference external" href="https://github.com/taku910/mecab">MeCab</a> を利用して文書を単語分割し、各単語を特徴量として利用する。
-<code class="docutils literal"><span class="pre">--enable-mecab</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<code class="docutils literal"><span class="pre">--enable-mecab</span></code> オプション付きでコンパイルした場合のみ利用可能である。
+バイナリパッケージでもこのプラグインは利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1385,7 +1395,8 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 <dd><p>string_typesで指定できる。
 <a class="reference external" href="https://github.com/hillbig/ux-trie">ux-trie</a> を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
 単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
-<code class="docutils literal"><span class="pre">--enable-ux</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<code class="docutils literal"><span class="pre">--enable-ux</span></code> オプション付きでコンパイルした場合のみ利用可能である。
+バイナリパッケージでもこのプラグインは利用可能である。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1420,7 +1431,8 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 <dd></dd></dl>
 
 <p>binary_typesで指定できる。<a class="reference external" href="https://github.com/opencv">OpenCV</a> を利用して、与えられた画像から特徴量を抜き出して利用する。
-<code class="docutils literal"><span class="pre">--enable-opencv</span></code> オプション付きでコンパイルした場合のみ利用可能である。</p>
+<code class="docutils literal"><span class="pre">--enable-opencv</span></code> オプション付きでコンパイルした場合のみ利用可能である。
+バイナリパッケージでもこのプラグインは利用可能である。</p>
 <blockquote>
 <div><blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -1480,6 +1492,253 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 </div></blockquote>
 </div>
 </div>
+<div class="section" id="python-bridge">
+<h2>Python Bridge<a class="headerlink" href="#python-bridge" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Python Bridge を使用すると、C++ でプラグインを作成しなくても、特徴抽出ロジックを Python で記述することができる。
+現在、以下のブリッジインタフェースが利用できる。</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">インタフェース</th>
+<th class="head">用途</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">string_feature</span></code></td>
+<td>文字列に対する特徴抽出。 (<code class="docutils literal"><span class="pre">string_types</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">word_splitter</span></code></td>
+<td>文字列に対する特徴抽出 (部分文字列の抽出のみ)。 (<code class="docutils literal"><span class="pre">string_types</span></code>)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_feature</span></code></td>
+<td>数値に対する特徴抽出。 (<code class="docutils literal"><span class="pre">num_types</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">binary_feature</span></code></td>
+<td>バリナリデータに対する特徴抽出。 (<code class="docutils literal"><span class="pre">binary_types</span></code>)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="section" id="id17">
+<h3>設定<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python Bridge はプラグイン形式で提供されている。</p>
+<dl class="describe">
+<dt>
+<code class="descname">libpython_bridge.so</code></dt>
+<dd><p><code class="docutils literal"><span class="pre">string_types</span></code>, <code class="docutils literal"><span class="pre">num_types</span></code>, <code class="docutils literal"><span class="pre">binary_types</span></code> で指定できる。
+<code class="docutils literal"><span class="pre">--enable-python-plugin</span></code> または <code class="docutils literal"><span class="pre">--enable-python3-plugin</span></code> オプション付きでコンパイルした場合のみ利用可能である。
+バイナリパッケージ (RHEL 6 を除く) でもこのプラグインは利用可能である。</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">上記のインタフェース名を指定する (例: <code class="docutils literal"><span class="pre">string_feature</span></code>)。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">module:</th><td class="field-body">Pythonモジュール名を指定する。</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">class:</th><td class="field-body">Pythonモジュール内のクラス名を指定する。</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;multiply_by_3&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;num_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;number_multiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;NumberMultiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>上記に加えて、Pythonクラスに渡す任意のパラメタを指定することができる。
+パラメタのキーとバリューは共に文字列型である必要がある。</p>
+</div>
+<div class="section" id="python">
+<h3>Python モジュールに対する共通要件<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python で特徴抽出ロジックを実装する場合、Pythonクラスをモジュールに定義する必要がある。
+以下に例を示す。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFeatureExtractor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="s1">u&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s1">u&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Pythonクラスに対する要件を以下に示す。</p>
+<ul class="simple">
+<li>クラスは <code class="docutils literal"><span class="pre">create</span></code> クラスメソッドを実装する必要がある。
+引数 <code class="docutils literal"><span class="pre">param</span></code> は、設定ファイルで指定されたパラメタ (<code class="docutils literal"><span class="pre">dict</span></code> 型) である。</li>
+<li>各クラスは、各インタフェースで要求されているシグネチャのインスタンスメソッドを実装する必要がある。
+以下の各セクションを参照のこと。</li>
+<li>モジュールは、 <code class="docutils literal"><span class="pre">sys.path</span></code> 内のいずれかのパス、 <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> 環境変数内のいずれかのパス、またはデフォルトの Python モジュールディレクトリ (<code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/python</span></code>) のいずれかに配置されている必要がある。
+バイナリパッケージでインストールした Python Bridge は <code class="docutils literal"><span class="pre">pyenv</span></code> を認識しないため注意すること。
+<code class="docutils literal"><span class="pre">pyenv</span></code> でインストールした Python パッケージを利用したい場合は、Jubatus プロセスを開始する前に <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> を定義すること (例: <code class="docutils literal"><span class="pre">export</span> <span class="pre">PYTHONPATH=&quot;$HOME/.pyenv/versions/3.5.1/lib/python3.5/site-packages&quot;</span></code>)。</li>
+</ul>
+<p>Python コードでエラーが発生した場合は標準エラー出力に出力される。</p>
+<p>以下の各セクションでは、Python 3.x の型名で説明を行う。
+Python 2.x を使用している場合は、 <code class="docutils literal"><span class="pre">str</span></code> と <code class="docutils literal"><span class="pre">bytes</span></code> は <code class="docutils literal"><span class="pre">unicode</span></code> と <code class="docutils literal"><span class="pre">str</span></code> にそれぞれ読み替えること。</p>
+</div>
+<div class="section" id="string-feature">
+<h3><code class="docutils literal"><span class="pre">string_feature</span></code> インタフェース<a class="headerlink" href="#string-feature" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスにインスタンスメソッド <code class="docutils literal"><span class="pre">extract</span></code> (1 引数) を定義する必要がある。</p>
+<ul>
+<li><p class="first">引数は入力のテキストである (<code class="docutils literal"><span class="pre">str</span></code> 型)。</p>
+</li>
+<li><p class="first">戻り値は 4 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。</p>
+<blockquote>
+<div><ul class="simple">
+<li>抽出したデータの開始位置 (<code class="docutils literal"><span class="pre">int</span></code> 型); <code class="docutils literal"><span class="pre">0</span></code> でも良い。</li>
+<li>抽出したデータの長さ (<code class="docutils literal"><span class="pre">int</span></code> 型); <code class="docutils literal"><span class="pre">0</span></code> でも良い。</li>
+<li>抽出した文字列データ (<code class="docutils literal"><span class="pre">str</span></code> 型)。</li>
+<li>抽出した文字列データに対するスコア (<code class="docutils literal"><span class="pre">float</span></code> 型); 通常は <code class="docutils literal"><span class="pre">1.0</span></code> を使用すれば良い。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>サンプルとして、英語の文章に対するステミング (Porter Stemmer) を行う実装がデフォルトで提供されている。
+詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/sentence_stemmer.py">sentence_stemmer モジュール</a> のソースを参照すること。
+このサンプルを動作させるには <a class="reference external" href="http://www.nltk.org/">Natural Language Toolkit</a> のインストールが必要である (<code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nltk</span></code>)。</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;stem_sentence&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;string_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;sentence_stemmer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;SentenceStemmer&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;stem_sentence&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="word-splitter">
+<h3><code class="docutils literal"><span class="pre">word_splitter</span></code> インタフェース<a class="headerlink" href="#word-splitter" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスにインスタンスメソッド <code class="docutils literal"><span class="pre">split</span></code> (1 引数) を定義する必要がある。</p>
+<ul>
+<li><p class="first">引数は入力のテキストである (<code class="docutils literal"><span class="pre">str</span></code> 型)。</p>
+</li>
+<li><p class="first">戻り値は 2 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。</p>
+<blockquote>
+<div><ul class="simple">
+<li>抽出したデータの開始位置 (<code class="docutils literal"><span class="pre">int</span></code> 型)。</li>
+<li>抽出したデータの長さ (<code class="docutils literal"><span class="pre">int</span></code> 型)。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>サンプルとして、空白文字で文章を区切る実装がデフォルトで提供されている。
+詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/space_splitter.py">space_splitter モジュール</a> のソースを参照すること。</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;split_by_space&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;word_splitter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;space_splitter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;SpaceSplitter&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;split_by_space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="num-feature">
+<h3><code class="docutils literal"><span class="pre">num_feature</span></code> インタフェース<a class="headerlink" href="#num-feature" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスにインスタンスメソッド <code class="docutils literal"><span class="pre">extract</span></code> (2 引数) を定義する必要がある。</p>
+<ul>
+<li><p class="first">引数は入力の datum のキー名 (<code class="docutils literal"><span class="pre">str</span></code> 型) とその値 (<code class="docutils literal"><span class="pre">float</span></code> 型) である。</p>
+</li>
+<li><p class="first">戻り値は 2 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。</p>
+<blockquote>
+<div><ul class="simple">
+<li>特徴次元のキー名 (<code class="docutils literal"><span class="pre">str</span></code> 型)。</li>
+<li>そのキー名に対応する値 (<code class="docutils literal"><span class="pre">float</span></code> 型)。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>サンプルとして、入力された数値を N 倍に変換する実装がデフォルトで提供されている。
+詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/number_multiplier.py">number_multiplier モジュール</a> のソースを参照すること。</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;multiply_by_3&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;num_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;number_multiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;NumberMultiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;multiply_by_3&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="binary-feature">
+<h3><code class="docutils literal"><span class="pre">binary_feature</span></code> インタフェース<a class="headerlink" href="#binary-feature" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスにインスタンスメソッド <code class="docutils literal"><span class="pre">extract</span></code> (2 引数) を定義する必要がある。</p>
+<ul>
+<li><p class="first">引数は入力の datum のキー名 (<code class="docutils literal"><span class="pre">str</span></code> 型) とその値 (<code class="docutils literal"><span class="pre">bytes</span></code> 型) である。</p>
+</li>
+<li><p class="first">戻り値は 2 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。</p>
+<blockquote>
+<div><ul class="simple">
+<li>特徴次元のキー名 (<code class="docutils literal"><span class="pre">str</span></code> 型)。</li>
+<li>そのキー名に対応する値 (<code class="docutils literal"><span class="pre">float</span></code> 型)。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))]</span>
+</pre></div>
+</div>
+<p>サンプルとして、入力されたバイナリデータを特徴として抽出する実装がデフォルトで提供されている。
+詳細は <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/binary_length.py">binary_length モジュール</a> のソースを参照すること。</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;binary_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;extract_length&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;binary_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;binary_length&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;BinaryLengthExtractor&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;binary_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;extract_length&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -1523,7 +1782,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.4',
+            VERSION:'1.0.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

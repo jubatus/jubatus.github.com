@@ -125,6 +125,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#feature-extraction-from-images">Feature Extraction from Images</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#python-bridge">Python Bridge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-requirements-for-python-module">Common Requirements for Python Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-feature-interface"><code class="docutils literal"><span class="pre">string_feature</span></code> Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#word-splitter-interface"><code class="docutils literal"><span class="pre">word_splitter</span></code> Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#num-feature-interface"><code class="docutils literal"><span class="pre">num_feature</span></code> Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-feature-interface"><code class="docutils literal"><span class="pre">binary_feature</span></code> Interface</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="method.html">Algorithms</a></li>
@@ -1108,7 +1117,8 @@ Note that some plugins are not available depending on your compile options.</p>
 <code class="descname">libmecab_splitter.so</code></dt>
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
 Separate given Japanese document into words by <a class="reference external" href="https://github.com/taku910/mecab">MeCab</a> and use each word as a feature.
-This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-mecab</span></code>.</p>
+This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-mecab</span></code>.
+This plugin is available in binary package.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1167,7 +1177,8 @@ When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite
 <dd><p>We can specify this plugin in &#8220;string_types&#8221;.
 Extract keywords from given document by way of dictionary matching with <a class="reference external" href="https://github.com/hillbig/ux-trie">ux-trie</a> and use each keyword as a feature.
 Matching is a simple longest matching. Note that it is fast but precision may be low.
-This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-ux</span></code>.</p>
+This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-ux</span></code>.
+This plugin is available in binary package.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1201,7 +1212,8 @@ This plugin is available only when compiled with <code class="docutils literal">
 <code class="descname">libimage_feature.so</code></dt>
 <dd><p>We can specify this plugin in &#8220;binary_types&#8221;.
 It extracts features from given images by <a class="reference external" href="https://github.com/opencv">OpenCV</a> .
-This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-opencv</span></code>.</p>
+This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-opencv</span></code>.
+This plugin is available in binary package.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1261,6 +1273,253 @@ This plugin is available only when compiled with <code class="docutils literal">
 
 </div>
 </div>
+<div class="section" id="python-bridge">
+<h2>Python Bridge<a class="headerlink" href="#python-bridge" title="Permalink to this headline">¶</a></h2>
+<p>Using Python Bridge, you can write your own feature extraction types in Python.
+The following bridge interfaces are available.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Interface</th>
+<th class="head">Usage</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">string_feature</span></code></td>
+<td>Feature extraction for string values. (<code class="docutils literal"><span class="pre">string_types</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">word_splitter</span></code></td>
+<td>Feature extraction (split from input text only) for string values. (<code class="docutils literal"><span class="pre">string_types</span></code>)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">num_feature</span></code></td>
+<td>Feature extraction for number values. (<code class="docutils literal"><span class="pre">num_types</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">binary_feature</span></code></td>
+<td>Feature extraction for binary values. (<code class="docutils literal"><span class="pre">binary_types</span></code>)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>The Python Bridge is provided as a plugin.</p>
+<dl class="describe">
+<dt>
+<code class="descname">libpython_bridge.so</code></dt>
+<dd><p>You can specify this plugin in <code class="docutils literal"><span class="pre">string_types</span></code>, <code class="docutils literal"><span class="pre">num_types</span></code> or <code class="docutils literal"><span class="pre">binary_types</span></code>.
+This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-python-plugin</span></code> or <code class="docutils literal"><span class="pre">--enable-python3-plugin</span></code>.
+This plugin is available in binary package (except for RHEL 6).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify the interface name described above (e.g., <code class="docutils literal"><span class="pre">string_feature</span></code>).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">module:</th><td class="field-body">Specifies a Python module.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">class:</th><td class="field-body">Specifies a Python class in the module.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;multiply_by_3&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;num_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;number_multiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;NumberMultiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>In addition, you can specify other parameters to be passed to the Python class.
+Note that both keys and values of parameters must be string.</p>
+</div>
+<div class="section" id="common-requirements-for-python-module">
+<h3>Common Requirements for Python Module<a class="headerlink" href="#common-requirements-for-python-module" title="Permalink to this headline">¶</a></h3>
+<p>To implement a feature extraction type in Python, you need to define a Python class in a module, instead of writing plugin in C++.
+Here is an example.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFeatureExtractor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="s1">u&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s1">u&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Requirements for the Python class is as follows:</p>
+<ul class="simple">
+<li>The class must implement <code class="docutils literal"><span class="pre">create</span></code> class method.
+The argument <code class="docutils literal"><span class="pre">param</span></code> is a dict object of configuration parameters.</li>
+<li>The class must implement an instance method with signature required for each interface.
+See sections below for details.</li>
+<li>The module containing the class must be in any of <code class="docutils literal"><span class="pre">sys.path</span></code>, any of paths defined in <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> environment variable, or the default Python plugin module directory (<code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/python</span></code>).
+Note that the Python Bridge plugin installed via binary package does not recognize <code class="docutils literal"><span class="pre">pyenv</span></code>.
+To use packages installed via <code class="docutils literal"><span class="pre">pyenv</span></code>, use <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> before starting Jubatus process (e.g., <code class="docutils literal"><span class="pre">export</span> <span class="pre">PYTHONPATH=&quot;$HOME/.pyenv/versions/3.5.1/lib/python3.5/site-packages&quot;</span></code>).</li>
+</ul>
+<p>Errors of Python codes are reported to the standard error.</p>
+<p>In the following sections, we use Python 3.x type names.
+If you are using Python 2.x, <code class="docutils literal"><span class="pre">str</span></code> and <code class="docutils literal"><span class="pre">bytes</span></code> types should read <code class="docutils literal"><span class="pre">unicode</span></code> and <code class="docutils literal"><span class="pre">str</span></code> types, respectively.</p>
+</div>
+<div class="section" id="string-feature-interface">
+<h3><code class="docutils literal"><span class="pre">string_feature</span></code> Interface<a class="headerlink" href="#string-feature-interface" title="Permalink to this headline">¶</a></h3>
+<p>Instance method named <code class="docutils literal"><span class="pre">extract</span></code> that takes 1 argument is required for the class.</p>
+<ul>
+<li><p class="first">The arguments is a input text (<code class="docutils literal"><span class="pre">str</span></code> type).</p>
+</li>
+<li><p class="first">The return value must be a list of 4 element tuples. Each element represents:</p>
+<blockquote>
+<div><ul class="simple">
+<li>beginning position of the extracted part (<code class="docutils literal"><span class="pre">int</span></code> type); can be <code class="docutils literal"><span class="pre">0</span></code>.</li>
+<li>length of the part (<code class="docutils literal"><span class="pre">int</span></code> type); can be <code class="docutils literal"><span class="pre">0</span></code>.</li>
+<li>extracted string for the part (<code class="docutils literal"><span class="pre">str</span></code> type)</li>
+<li>score for the part (<code class="docutils literal"><span class="pre">float</span></code> type); generally use <code class="docutils literal"><span class="pre">1.0</span></code>.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>The example implementation to apply stemming (Porter Stemmer) for English sentence is available by default.
+See the source of <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/sentence_stemmer.py">sentence_stemmer module</a> for details.
+You need to install <a class="reference external" href="http://www.nltk.org/">Natural Language Toolkit</a> for this example to work (<code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nltk</span></code>).</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;stem_sentence&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;string_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;sentence_stemmer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;SentenceStemmer&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;stem_sentence&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="word-splitter-interface">
+<h3><code class="docutils literal"><span class="pre">word_splitter</span></code> Interface<a class="headerlink" href="#word-splitter-interface" title="Permalink to this headline">¶</a></h3>
+<p>Instance method named <code class="docutils literal"><span class="pre">split</span></code> that takes 1 argument is required for the class.</p>
+<ul>
+<li><p class="first">The arguments is a input text (<code class="docutils literal"><span class="pre">str</span></code> type).</p>
+</li>
+<li><p class="first">The return value must be a list of 2 element tuples. Each element represents:</p>
+<blockquote>
+<div><ul class="simple">
+<li>beginning position of the extracted part (<code class="docutils literal"><span class="pre">int</span></code> type).</li>
+<li>length of the part (<code class="docutils literal"><span class="pre">int</span></code> type).</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>The example implementation to split the text with space is available by default.
+See the source of <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/space_splitter.py">space_splitter module</a> for details.</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;split_by_space&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;word_splitter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;space_splitter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;SpaceSplitter&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;string_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;split_by_space&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;tf&quot;</span><span class="p">,</span> <span class="s2">&quot;global_weight&quot;</span><span class="o">:</span> <span class="s2">&quot;bin&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="num-feature-interface">
+<h3><code class="docutils literal"><span class="pre">num_feature</span></code> Interface<a class="headerlink" href="#num-feature-interface" title="Permalink to this headline">¶</a></h3>
+<p>Instance method named <code class="docutils literal"><span class="pre">extract</span></code> that takes 2 arguments is required for the class.</p>
+<ul>
+<li><p class="first">The arguments are datum key name (<code class="docutils literal"><span class="pre">str</span></code> type) and its value (<code class="docutils literal"><span class="pre">float</span></code> type).</p>
+</li>
+<li><p class="first">The return value must be a list of 2 element tuples. Each element represents:</p>
+<blockquote>
+<div><ul class="simple">
+<li>name of the feature key (<code class="docutils literal"><span class="pre">str</span></code> type).</li>
+<li>value for the key (<code class="docutils literal"><span class="pre">float</span></code> type).</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>The example implementation to apply multiplication for numbers is available by default.
+See the source of <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/number_multiplier.py">number_multiplier module</a> for details.</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;multiply_by_3&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;num_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;number_multiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;NumberMultiplier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n&quot;</span><span class="o">:</span> <span class="s2">&quot;3&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;multiply_by_3&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="binary-feature-interface">
+<h3><code class="docutils literal"><span class="pre">binary_feature</span></code> Interface<a class="headerlink" href="#binary-feature-interface" title="Permalink to this headline">¶</a></h3>
+<p>Instance method named <code class="docutils literal"><span class="pre">extract</span></code> that takes 2 arguments is required for the class.</p>
+<ul>
+<li><p class="first">The arguments are datum key name (<code class="docutils literal"><span class="pre">str</span></code> type) and its value (<code class="docutils literal"><span class="pre">bytes</span></code> type).</p>
+</li>
+<li><p class="first">The return value must be a list of 2 element tuples. Each element represents:</p>
+<blockquote>
+<div><ul class="simple">
+<li>name of the feature key (<code class="docutils literal"><span class="pre">str</span></code> type).</li>
+<li>value for the key (<code class="docutils literal"><span class="pre">float</span></code> type).</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))]</span>
+</pre></div>
+</div>
+<p>The example implementation to extract length of the binary data is available by default.
+See the source of <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/binary_length.py">binary_length module</a> for details.</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;binary_types&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;extract_length&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="s2">&quot;libpython_bridge.so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="o">:</span> <span class="s2">&quot;binary_feature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="o">:</span> <span class="s2">&quot;binary_length&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;BinaryLengthExtractor&quot;</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;binary_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;extract_length&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -1304,7 +1563,7 @@ This plugin is available only when compiled with <code class="docutils literal">
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.4',
+            VERSION:'1.0.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

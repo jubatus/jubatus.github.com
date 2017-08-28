@@ -278,3 +278,25 @@ Reference
 
 .. [Feldman2011a] D. Feldman, M. Langberg. "A Unified Framework for Approximating and Clustering Data." STOC '11: Proceedings of the 43rd annual ACM Symposium on Theory of Computing, pp. 569-578.
 .. [Feldman2011b] D. Feldman, M. Faulkner, A. Krause. "Scalable Training of Mixture Models via Coresets." Advances in Neural Information Processing Systems 24, 2011.
+
+
+Bandit
+======
+
+Reference
+---------
+
+**Epsilon Greedy, Softmax**
+  .. [Sutton1998] R. S. Sutton, A. G. Barto, "Introduction to Reinforcement Learning.", MIT Press, 1998.
+
+**Epsilon decreasing (Greedy Mix)**
+  .. [Bianchi1998] N. Cesa-Bianchi, P. Fischer, "Finite-time Regret Bounds for the Multiarmed Bandit Problem", ICML, 1998.
+
+**UCB1**
+  .. [Auer2002a] P. Auer, N. Cesa-Bianchi, P. Fischer, "Finite Analysis of the Multiarmed bandit problem." Machine Learning, Vol. 47, pp. 235-256, 2002.
+
+**EXP3**
+  .. [Auer2002b] P. Auer, N. Cesa-Bianchi, Y. Freund, R. E. Schapire, "Gambling in a rigged casino: The adversarial multi-arm bandit problem." FOCS'95, pp. 322-331, 1995.  
+
+**Thompson Sampling**
+  .. [Thompson1933] Thompson, William R. “On the likelihood that one unknown probability exceeds another in view of the evidence of two samples.” Biometrika 25.3/4 (1933): 285-294.

@@ -678,7 +678,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 この例では、数値型の特徴量の和("add")と積("mul")を新たな特徴量とする。
 また、文字列型の特徴量を"bin/bin"で変換した特徴量の和("add")と積("mul")を新たな特徴量とする。
 
-.. code-block:: js     
+.. code-block:: js
 
       "num_types": {},
       "num_rules": [
@@ -699,7 +699,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 例えば、この規則を次のようなdatumに適用する。
 
 .. code-block:: python
- 
+
  (
    [],
    [
@@ -714,7 +714,7 @@ string_rulesなどと同様、複数の規則を羅列する。
 結果として得られる特徴抽出結果は、以下のようになる。
 "num_rules", "string_rules"で抽出された特徴量に対して、
 "combination_rules"によって特徴量の和と積が計算されているのがわかる。
- 
+
 +---------------------------------------------------------------+--------+
 |キー                                                           |重み    |
 +===============================================================+========+
@@ -828,7 +828,8 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
 ただし、コンパイルオプションによっては一部のプラグインがビルドされないため、注意すること。
 
 文字列特徴量プラグイン
-~~~~~~~~~~~~~~~~~~~~~~	
+~~~~~~~~~~~~~~~~~~~~~~
+
 文字列特徴量プラグインではMeCabプラグインとuxプラグインを提供している。
 
 .. describe:: libmecab_splitter.so
@@ -836,6 +837,7 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
  string_typesで指定できる。
  `MeCab <https://github.com/taku910/mecab>`_ を利用して文書を単語分割し、各単語を特徴量として利用する。
  ``--enable-mecab`` オプション付きでコンパイルした場合のみ利用可能である。
+ バイナリパッケージでもこのプラグインは利用可能である。
 
   :function:   "create"を指定する。
   :arg:        MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
@@ -881,6 +883,7 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
  `ux-trie <https://github.com/hillbig/ux-trie>`_ を利用して、与えられた文書から最長一致で辞書マッチするキーワードを抜き出して、それぞれを特徴量として利用する。
  単純な最長一致なので、高速だが精度が悪い可能性がある点には注意すること。
  ``--enable-ux`` オプション付きでコンパイルした場合のみ利用可能である。
+ バイナリパッケージでもこのプラグインは利用可能である。
 
   :function:   "create"を指定する。
   :dict_path:  1行1キーワードで書かれたテキスト形式の辞書ファイルを、フルパスで指定する。
@@ -898,24 +901,25 @@ Jubatusでは、デフォルトで以下の2つの文字列特徴量のプラグ
 
 
 画像特徴量プラグイン
-~~~~~~~~~~~~~~~~~~~~	
+~~~~~~~~~~~~~~~~~~~~
 画像特徴量プラグインではOpenCVプラグインを提供している。
 
 .. describe:: libimage_feature.so
 
 binary_typesで指定できる。`OpenCV <https://github.com/opencv>`_ を利用して、与えられた画像から特徴量を抜き出して利用する。
 ``--enable-opencv`` オプション付きでコンパイルした場合のみ利用可能である。
+バイナリパッケージでもこのプラグインは利用可能である。
 
   :function:  "create"を指定する。
   :algorithm: 利用する特徴量記述アルゴリズムを指定する。画像特徴量抽出プラグインでは、下記の２つのアルゴリズムを提供している。なお、いずれもキーポイントの抽出はDense sampling (すべての画素について特徴量を抽出する手法) で行っている。
-  
+
    ============ =====================
    値           意味
    ============ =====================
    ``"RGB"``    画素のRGB値を抽出する
    ``"ORB"``    パッチ内で選ばれた2点の輝度差によってバイナリ列を作る。詳細は `OpenCVドキュメント <http://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html>`_ を参照。
    ============ =====================
- 
+
   :resize: 画像をリサイズするかどうかを決定する。リサイズする場合は `"true"` を指定し、しない場合は `"false"` を指定する。デフォルトでは `"false"` が指定される
   :x_size: 画像の幅を指定しリサイズする。 ``resize`` が `"true"` のときのみ有効
   :y_size: 画像の高さを指定しリサイズする。 ``resize`` が `"true"` のときのみ有効
@@ -933,3 +937,220 @@ binary_typesで指定できる。`OpenCV <https://github.com/opencv>`_ を利用
           "function": "create",
         }
       }
+
+Python Bridge
+-------------
+
+Python Bridge を使用すると、C++ でプラグインを作成しなくても、特徴抽出ロジックを Python で記述することができる。
+現在、以下のブリッジインタフェースが利用できる。
+
+   ==================== ====================
+   インタフェース       用途
+   ==================== ====================
+   ``string_feature``   文字列に対する特徴抽出。 (``string_types``)
+   ``word_splitter``    文字列に対する特徴抽出 (部分文字列の抽出のみ)。 (``string_types``)
+   ``num_feature``      数値に対する特徴抽出。 (``num_types``)
+   ``binary_feature``   バリナリデータに対する特徴抽出。 (``binary_types``)
+   ==================== ====================
+
+設定
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python Bridge はプラグイン形式で提供されている。
+
+.. describe:: libpython_bridge.so
+
+ ``string_types``, ``num_types``, ``binary_types`` で指定できる。
+ ``--enable-python-plugin`` または ``--enable-python3-plugin`` オプション付きでコンパイルした場合のみ利用可能である。
+ バイナリパッケージ (RHEL 6 を除く) でもこのプラグインは利用可能である。
+
+  :function:  上記のインタフェース名を指定する (例: ``string_feature``)。
+  :module:    Pythonモジュール名を指定する。
+  :class:     Pythonモジュール内のクラス名を指定する。
+
+ .. code-block:: js
+
+      "num_types": {
+        "multiply_by_3": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "num_feature",
+          "module": "number_multiplier",
+          "class": "NumberMultiplier",
+          "n": "3"
+        }
+      }
+
+上記に加えて、Pythonクラスに渡す任意のパラメタを指定することができる。
+パラメタのキーとバリューは共に文字列型である必要がある。
+
+Python モジュールに対する共通要件
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python で特徴抽出ロジックを実装する場合、Pythonクラスをモジュールに定義する必要がある。
+以下に例を示す。
+
+.. code-block:: python
+
+  class MyFeatureExtractor(object):
+      @classmethod
+      def create(cls, param):
+          return cls()
+
+      def extract(self, key, value):
+          return [(u'key1', 1.0), (u'key2', 2.0)]
+
+Pythonクラスに対する要件を以下に示す。
+
+* クラスは ``create`` クラスメソッドを実装する必要がある。
+  引数 ``param`` は、設定ファイルで指定されたパラメタ (``dict`` 型) である。
+* 各クラスは、各インタフェースで要求されているシグネチャのインスタンスメソッドを実装する必要がある。
+  以下の各セクションを参照のこと。
+* モジュールは、 ``sys.path`` 内のいずれかのパス、 ``PYTHONPATH`` 環境変数内のいずれかのパス、またはデフォルトの Python モジュールディレクトリ (``$PREFIX/lib/jubatus/python``) のいずれかに配置されている必要がある。
+  バイナリパッケージでインストールした Python Bridge は ``pyenv`` を認識しないため注意すること。
+  ``pyenv`` でインストールした Python パッケージを利用したい場合は、Jubatus プロセスを開始する前に ``PYTHONPATH`` を定義すること (例: ``export PYTHONPATH="$HOME/.pyenv/versions/3.5.1/lib/python3.5/site-packages"``)。
+
+Python コードでエラーが発生した場合は標準エラー出力に出力される。
+
+以下の各セクションでは、Python 3.x の型名で説明を行う。
+Python 2.x を使用している場合は、 ``str`` と ``bytes`` は ``unicode`` と ``str`` にそれぞれ読み替えること。
+
+``string_feature`` インタフェース
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+クラスにインスタンスメソッド ``extract`` (1 引数) を定義する必要がある。
+
+* 引数は入力のテキストである (``str`` 型)。
+* 戻り値は 4 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。
+
+    * 抽出したデータの開始位置 (``int`` 型); ``0`` でも良い。
+    * 抽出したデータの長さ (``int`` 型); ``0`` でも良い。
+    * 抽出した文字列データ (``str`` 型)。
+    * 抽出した文字列データに対するスコア (``float`` 型); 通常は ``1.0`` を使用すれば良い。
+
+.. code-block:: python
+
+  def extract(self, text):
+      return [(0, 0, text, 1.0)]
+
+サンプルとして、英語の文章に対するステミング (Porter Stemmer) を行う実装がデフォルトで提供されている。
+詳細は `sentence_stemmer モジュール <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/sentence_stemmer.py>`_ のソースを参照すること。
+このサンプルを動作させるには `Natural Language Toolkit <http://www.nltk.org/>`_ のインストールが必要である (``pip install nltk``)。
+
+.. code-block:: js
+
+      "string_types": {
+        "stem_sentence": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "string_feature",
+          "module": "sentence_stemmer",
+          "class": "SentenceStemmer"
+        }
+      },
+      "string_rules": [
+        { "key": "*", "type": "stem_sentence", "sample_weight": "tf", "global_weight": "bin" }
+      ]
+
+``word_splitter`` インタフェース
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+クラスにインスタンスメソッド ``split`` (1 引数) を定義する必要がある。
+
+* 引数は入力のテキストである (``str`` 型)。
+* 戻り値は 2 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。
+
+    * 抽出したデータの開始位置 (``int`` 型)。
+    * 抽出したデータの長さ (``int`` 型)。
+
+.. code-block:: python
+
+  def split(self, text):
+      return [(0, 1)]
+
+サンプルとして、空白文字で文章を区切る実装がデフォルトで提供されている。
+詳細は `space_splitter モジュール <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/space_splitter.py>`_ のソースを参照すること。
+
+.. code-block:: js
+
+      "string_types": {
+        "split_by_space": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "word_splitter",
+          "module": "space_splitter",
+          "class": "SpaceSplitter"
+        }
+      },
+      "string_rules": [
+        { "key": "*", "type": "split_by_space", "sample_weight": "tf", "global_weight": "bin" }
+      ]
+
+``num_feature`` インタフェース
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+クラスにインスタンスメソッド ``extract`` (2 引数) を定義する必要がある。
+
+* 引数は入力の datum のキー名 (``str`` 型) とその値 (``float`` 型) である。
+* 戻り値は 2 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。
+
+    * 特徴次元のキー名 (``str`` 型)。
+    * そのキー名に対応する値 (``float`` 型)。
+
+.. code-block:: python
+
+  def extract(self, key, value):
+      return [(key, value)]
+
+サンプルとして、入力された数値を N 倍に変換する実装がデフォルトで提供されている。
+詳細は `number_multiplier モジュール <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/number_multiplier.py>`_ のソースを参照すること。
+
+.. code-block:: js
+
+      "num_types": {
+        "multiply_by_3": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "num_feature",
+          "module": "number_multiplier",
+          "class": "NumberMultiplier",
+          "n": "3"
+        }
+      },
+      "num_rules": [
+        { "key": "*", "type": "multiply_by_3" }
+      ]
+
+``binary_feature`` インタフェース
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+クラスにインスタンスメソッド ``extract`` (2 引数) を定義する必要がある。
+
+* 引数は入力の datum のキー名 (``str`` 型) とその値 (``bytes`` 型) である。
+* 戻り値は 2 要素のタプルのリストである。タプルの各要素の意味は以下の通りである。
+
+    * 特徴次元のキー名 (``str`` 型)。
+    * そのキー名に対応する値 (``float`` 型)。
+
+.. code-block:: python
+
+  def extract(self, key, value):
+      return [(key, len(value))]
+
+サンプルとして、入力されたバイナリデータを特徴として抽出する実装がデフォルトで提供されている。
+詳細は `binary_length モジュール <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/binary_length.py>`_ のソースを参照すること。
+
+.. code-block:: js
+
+      "binary_types": {
+        "extract_length": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "binary_feature",
+          "module": "binary_length",
+          "class": "BinaryLengthExtractor"
+        }
+      },
+      "binary_rules": [
+        { "key": "*", "type": "extract_length" }
+      ]

@@ -45,12 +45,12 @@ RHEL 6 では、依存パッケージ (``oniguruma``) のインストールに `
 
 ::
 
-  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux jubatus-plugin-image
+  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux jubatus-plugin-image jubatus-plugin-python
 
 
 
 .. [1] Jubatus 1.0 以前はすべてのプラグインが ``jubatus`` パッケージに同梱されていましたが、Jubatus 1.0 以降は必要なものだけを個別にインストールできるようになりました。
-.. [2] RHEL6では、 ``jubatus-plugin-image`` の機能の一部(``ORB`` アルゴリズム)が利用できません。
+.. [2] RHEL 6 では、 ``jubatus-plugin-image`` パッケージの機能の一部(``ORB`` アルゴリズム) および ``jubatus-plugin-python`` パッケージは利用できません。
 
 Ubuntu Server (64-bit)
 ~~~~~~~~~~~~~~~~~~~~~~

@@ -578,7 +578,7 @@ It depends on "type" how to specify weight and name features.
 Feature Extraction from Combination Data
 ----------------------------------------
 
-We can make new combination features by combining number features or string features. 
+We can make new combination features by combining number features or string features.
 As with strings and numbers, feature extraction rules are also described for combination types.
 We can make user-defined extractors for combination types, too.
 
@@ -589,7 +589,7 @@ In this configuration, we can combinate string features that are converted by "b
 i.e. sample_weight and global weight are "bin".
 If you want to combinate all string features, you needs to write keys like "\*\@str\*".
 
-.. code-block:: js     
+.. code-block:: js
 
       "num_types": {},
       "num_rules": [
@@ -709,6 +709,7 @@ We can use MeCab pluigin and ux plugin in jubatus.
  We can specify this plugin in "string_types".
  Separate given Japanese document into words by `MeCab <https://github.com/taku910/mecab>`_ and use each word as a feature.
  This plugin is available only when compiled with ``--enable-mecab``.
+ This plugin is available in binary package.
 
   :function:   Specify "create".
   :arg:        Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). "arg" is not specified, Mecab works with default configuration.
@@ -754,6 +755,7 @@ We can use MeCab pluigin and ux plugin in jubatus.
  Extract keywords from given document by way of dictionary matching with `ux-trie <https://github.com/hillbig/ux-trie>`_ and use each keyword as a feature.
  Matching is a simple longest matching. Note that it is fast but precision may be low.
  This plugin is available only when compiled with ``--enable-ux``.
+ This plugin is available in binary package.
 
   :function:   Specifies "create".
   :dict_path:  Specifies a full path of a dictionary file. The dictionary file is a text file that consists of keywords, one keyword per one line.
@@ -771,6 +773,7 @@ We can use MeCab pluigin and ux plugin in jubatus.
 
 Feature Extraction from Images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 We can use OpenCV in jubatus.
 
 .. describe:: libimage_feature.so
@@ -778,6 +781,7 @@ We can use OpenCV in jubatus.
  We can specify this plugin in "binary_types".
  It extracts features from given images by `OpenCV <https://github.com/opencv>`_ .
  This plugin is available only when compiled with ``--enable-opencv``.
+ This plugin is available in binary package.
 
   :function:  Specifies "create".
   :algorithm: Specifies the feature extraction algorithm. In jubatus, we can use RGB or ORB to extact featrures from images.  It should be noted that in both algorithm, we detect keypoints by Dense Sampling (which extracts features from all pixels of the image.)
@@ -807,3 +811,220 @@ We can use OpenCV in jubatus.
           "function": "create",
         }
       }
+
+Python Bridge
+-------------
+
+Using Python Bridge, you can write your own feature extraction types in Python.
+The following bridge interfaces are available.
+
+   ==================== ====================
+   Interface            Usage
+   ==================== ====================
+   ``string_feature``   Feature extraction for string values. (``string_types``)
+   ``word_splitter``    Feature extraction (split from input text only) for string values. (``string_types``)
+   ``num_feature``      Feature extraction for number values. (``num_types``)
+   ``binary_feature``   Feature extraction for binary values. (``binary_types``)
+   ==================== ====================
+
+Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Python Bridge is provided as a plugin.
+
+.. describe:: libpython_bridge.so
+
+ You can specify this plugin in ``string_types``, ``num_types`` or ``binary_types``.
+ This plugin is available only when compiled with ``--enable-python-plugin`` or ``--enable-python3-plugin``.
+ This plugin is available in binary package (except for RHEL 6).
+
+  :function:  Specify the interface name described above (e.g., ``string_feature``).
+  :module:    Specifies a Python module.
+  :class:     Specifies a Python class in the module.
+
+ .. code-block:: js
+
+      "num_types": {
+        "multiply_by_3": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "num_feature",
+          "module": "number_multiplier",
+          "class": "NumberMultiplier",
+          "n": "3"
+        }
+      }
+
+In addition, you can specify other parameters to be passed to the Python class.
+Note that both keys and values of parameters must be string.
+
+Common Requirements for Python Module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To implement a feature extraction type in Python, you need to define a Python class in a module, instead of writing plugin in C++.
+Here is an example.
+
+.. code-block:: python
+
+  class MyFeatureExtractor(object):
+      @classmethod
+      def create(cls, param):
+          return cls()
+
+      def extract(self, key, value):
+          return [(u'key1', 1.0), (u'key2', 2.0)]
+
+Requirements for the Python class is as follows:
+
+* The class must implement ``create`` class method.
+  The argument ``param`` is a dict object of configuration parameters.
+* The class must implement an instance method with signature required for each interface.
+  See sections below for details.
+* The module containing the class must be in any of ``sys.path``, any of paths defined in ``PYTHONPATH`` environment variable, or the default Python plugin module directory (``$PREFIX/lib/jubatus/python``).
+  Note that the Python Bridge plugin installed via binary package does not recognize ``pyenv``.
+  To use packages installed via ``pyenv``, use ``PYTHONPATH`` before starting Jubatus process (e.g., ``export PYTHONPATH="$HOME/.pyenv/versions/3.5.1/lib/python3.5/site-packages"``).
+
+Errors of Python codes are reported to the standard error.
+
+In the following sections, we use Python 3.x type names.
+If you are using Python 2.x, ``str`` and ``bytes`` types should read ``unicode`` and ``str`` types, respectively.
+
+``string_feature`` Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instance method named ``extract`` that takes 1 argument is required for the class.
+
+* The arguments is a input text (``str`` type).
+* The return value must be a list of 4 element tuples. Each element represents:
+
+    * beginning position of the extracted part (``int`` type); can be ``0``.
+    * length of the part (``int`` type); can be ``0``.
+    * extracted string for the part (``str`` type)
+    * score for the part (``float`` type); generally use ``1.0``.
+
+.. code-block:: python
+
+  def extract(self, text):
+      return [(0, 0, text, 1.0)]
+
+The example implementation to apply stemming (Porter Stemmer) for English sentence is available by default.
+See the source of `sentence_stemmer module <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/sentence_stemmer.py>`_ for details.
+You need to install `Natural Language Toolkit <http://www.nltk.org/>`_ for this example to work (``pip install nltk``).
+
+.. code-block:: js
+
+      "string_types": {
+        "stem_sentence": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "string_feature",
+          "module": "sentence_stemmer",
+          "class": "SentenceStemmer"
+        }
+      },
+      "string_rules": [
+        { "key": "*", "type": "stem_sentence", "sample_weight": "tf", "global_weight": "bin" }
+      ]
+
+``word_splitter`` Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instance method named ``split`` that takes 1 argument is required for the class.
+
+* The arguments is a input text (``str`` type).
+* The return value must be a list of 2 element tuples. Each element represents:
+
+    * beginning position of the extracted part (``int`` type).
+    * length of the part (``int`` type).
+
+.. code-block:: python
+
+  def split(self, text):
+      return [(0, 1)]
+
+The example implementation to split the text with space is available by default.
+See the source of `space_splitter module <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/space_splitter.py>`_ for details.
+
+.. code-block:: js
+
+      "string_types": {
+        "split_by_space": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "word_splitter",
+          "module": "space_splitter",
+          "class": "SpaceSplitter"
+        }
+      },
+      "string_rules": [
+        { "key": "*", "type": "split_by_space", "sample_weight": "tf", "global_weight": "bin" }
+      ]
+
+``num_feature`` Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instance method named ``extract`` that takes 2 arguments is required for the class.
+
+* The arguments are datum key name (``str`` type) and its value (``float`` type).
+* The return value must be a list of 2 element tuples. Each element represents:
+
+    * name of the feature key (``str`` type).
+    * value for the key (``float`` type).
+
+.. code-block:: python
+
+  def extract(self, key, value):
+      return [(key, value)]
+
+The example implementation to apply multiplication for numbers is available by default.
+See the source of `number_multiplier module <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/number_multiplier.py>`_ for details.
+
+.. code-block:: js
+
+      "num_types": {
+        "multiply_by_3": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "num_feature",
+          "module": "number_multiplier",
+          "class": "NumberMultiplier",
+          "n": "3"
+        }
+      },
+      "num_rules": [
+        { "key": "*", "type": "multiply_by_3" }
+      ]
+
+``binary_feature`` Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instance method named ``extract`` that takes 2 arguments is required for the class.
+
+* The arguments are datum key name (``str`` type) and its value (``bytes`` type).
+* The return value must be a list of 2 element tuples. Each element represents:
+
+    * name of the feature key (``str`` type).
+    * value for the key (``float`` type).
+
+.. code-block:: python
+
+  def extract(self, key, value):
+      return [(key, len(value))]
+
+The example implementation to extract length of the binary data is available by default.
+See the source of `binary_length module <https://github.com/jubatus/jubatus/blob/master/plugin/src/fv_converter/python_bridge/python/binary_length.py>`_ for details.
+
+.. code-block:: js
+
+      "binary_types": {
+        "extract_length": {
+          "method": "dynamic",
+          "path": "libpython_bridge.so",
+          "function": "binary_feature",
+          "module": "binary_length",
+          "class": "BinaryLengthExtractor"
+        }
+      },
+      "binary_rules": [
+        { "key": "*", "type": "extract_length" }
+      ]

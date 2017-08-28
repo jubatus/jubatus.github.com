@@ -26,6 +26,7 @@ log4cxx             >= 0.10.0      ✔
 mecab               >= 0.99                  ``--enable-mecab`` ありでビルドする場合のみ。
 ux-trie             master                   ``--enable-ux`` ありでビルドする場合のみ。
 opencv              >= 2.0.0       [3]_      ``--enable-opencv`` ありでビルドする場合のみ。
+python              >= 2.6                   ``--enable-python-bridge`` または ``--enable-python3-bridge`` ありでビルドする場合のみ。
 zookeeper           >= 3.3                   ``--enable-zookeeper`` ありでビルドする場合のみ。
                                              C クライアントライブラリが必要である。
 =================== ============== ========= ======================================================
@@ -46,6 +47,7 @@ zookeeper           >= 3.3                   ``--enable-zookeeper`` ありでビ
 `mecab <https://github.com/taku910/mecab>`_,
 `ux-trie <https://github.com/hillbig/ux-trie>`_,
 `opencv <http://opencv.org/>`_,
+`python <https://www.python.org/>`_,
 `zookeeper <http://zookeeper.apache.org/>`_
 )。
 

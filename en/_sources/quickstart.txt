@@ -45,10 +45,10 @@ By installing plug-ins, Jubatus can perform feature extractions from Japanese na
 
 ::
 
-  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux jubatus-plugin-image
+  $ sudo yum install jubatus-plugin-mecab jubatus-plugin-ux jubatus-plugin-image jubatus-plugin-python
 
 .. [1] Prior to Jubatus 1.0, all plugins were bundled with ``jubatus`` package.  In Jubatus 1.0 or later, you can selectively install plug-ins you need.
-.. [2] A part of fuction in ``jubatus-plugin-image`` is not available in RHEL 6.
+.. [2] A part of fuction in ``jubatus-plugin-image`` package (``ORB`` algorithm) and ``jubatus-plugin-python`` package are not available in RHEL 6.
 
 Ubuntu Server (64-bit)
 ~~~~~~~~~~~~~~~~~~~~~~

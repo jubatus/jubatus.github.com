@@ -179,8 +179,8 @@ JSON の各フィールドは以下のとおりである。</p>
 以下のアルゴリズムを指定できる。</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="36%" />
-<col width="64%" />
+<col width="42%" />
+<col width="58%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">設定値</th>
@@ -191,16 +191,19 @@ JSON の各フィールドは以下のとおりである。</p>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;epsilon_greedy&quot;</span></code></td>
 <td>epsilon-greedy法を利用する。</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;ucb1&quot;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;epsilon_decdeasing&quot;`</span></code></td>
+<td>Greedy Mix法を利用する</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;ucb1&quot;</span></code></td>
 <td>UCB1法を利用する。</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;softmax&quot;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;softmax&quot;</span></code></td>
 <td>softmax法を利用する。</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;exp3&quot;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;exp3&quot;</span></code></td>
 <td>exp3法を利用する。</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;ts&quot;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;ts&quot;</span></code></td>
 <td>Thompson samplingを利用する <a class="footnote-reference" href="#id2" id="id1">[1]</a></td>
 </tr>
 </tbody>
@@ -247,6 +250,30 @@ False の場合、報酬がゼロであっても必ず <code class="docutils lit
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">seed(optional):</th><td class="field-body"><p class="first">乱数の生成に使用するシードを指定する。
+省略した場合はシステムクロックがシードとして与えられる。そのため実験の再現性は保証されない。
+(Integer)</p>
+<ul class="last simple">
+<li>値域: 0 &lt;= <code class="docutils literal"><span class="pre">seed</span></code> &lt;= <span class="math">\(2^{32} - 1\)</span></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>epsilon_decreasing</dt>
+<dd><blockquote class="first">
+<div><p>腕をランダムに選択する確率を減衰させる割合を指定する。
+大きいほど、減衰の進み方は小さくなる。
+(Float)</p>
+<ul class="simple">
+<li>値域: 0 &lt; <code class="docutils literal"><span class="pre">decreasing_rate</span></code> &lt; 1</li>
+</ul>
+</div></blockquote>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">seed(optional):</th><td class="field-body"><p class="first">乱数の生成に使用するシードを指定する。
 省略した場合はシステムクロックがシードとして与えられる。そのため実験の再現性は保証されない。
 (Integer)</p>
 <ul class="last simple">
@@ -540,7 +567,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.4',
+            VERSION:'1.0.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

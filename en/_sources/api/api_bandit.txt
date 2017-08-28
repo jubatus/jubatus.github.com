@@ -16,15 +16,16 @@ We show each field below:
 
    .. table::
 
-      ==================== ===================================
-      Value                Method
-      ==================== ===================================
-      ``"epsilon_greedy"`` Use epsilon-greedy.
-      ``"ucb1"``           Use UCB1.
-      ``"softmax"``        Use softmax.
-      ``"exp3"``           Use exp3.
-      ``"ts"``             Use Thompson sampling [#]_ .      
-      ==================== ===================================
+      ========================= ===================================
+      Value                     Method
+      ========================= ===================================
+      ``"epsilon_greedy"``      Use epsilon-greedy.
+      ``"epsilon_decreasing"``` Use Greedy Mix.
+      ``"ucb1"``                Use UCB1
+      ``"softmax"``             Use softmax
+      ``"exp3"``                Use exp3
+      ``"ts"``                  Use Thompson sampling [#]_  
+      ========================= ===================================
    .. [#] Note that ``reward`` in register_reward API must be 0 or 1 when you use Thompson sampling method.
 
 .. describe:: parameter
@@ -49,7 +50,20 @@ We show each field below:
         * Range: 0.0 <= ``epsilon`` <= 1.0
 
      :seed(optional):
-        Specify random seed when you use ``random`` for unlearning strategy.
+        Specify seed used to generate random number.
+        If not specified, system clock is used as seed parameter.
+        So you will get different result each experiment.
+
+        * range of value: 0 <= ``seed`` <= :math:`2^{32} - 1`
+
+   epsilon_decreasing
+    :decreasing_rate:
+        Decreasing rate for the probability of selecting arms randomly. The bigger this parameter is, the more slowly the probability decreases. (Float)
+
+        * Range: 0 < ``decreasing_rate`` < 1
+    
+    :seed(optional):
+        Specify seed used to generate random number.
         If not specified, system clock is used as seed parameter.
         So you will get different result each experiment.
 
@@ -68,7 +82,7 @@ We show each field below:
         * Range: 0.0 < ``tau``
 
      :seed(optional):
-        Specify random seed when you use ``random`` for unlearning strategy.
+        Specify seed used to generate random number.
         If not specified, system clock is used as seed parameter.
         So you will get different result each experiment.
 
@@ -84,7 +98,7 @@ We show each field below:
         * Range: 0.0 < ``gamma`` <= 1.0
 
      :seed(optional):
-        Specify random seed when you use ``random`` for unlearning strategy.
+        Specify seed used to generate random number.
         If not specified, system clock is used as seed parameter.
         So you will get different result each experiment.
 
@@ -92,7 +106,7 @@ We show each field below:
 
    ts
      :seed(optional):
-        Specify random seed when you use ``random`` for unlearning strategy.
+        Specify seed used to generate random number.
         If not specified, system clock is used as seed parameter.
         So you will get different result each experiment.
 
