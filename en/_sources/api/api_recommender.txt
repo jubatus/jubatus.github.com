@@ -285,13 +285,45 @@ Methods
 
       Returns ``size`` rows (at maximum) which are most similar to the row ``id``.
 
+   .. mpidl:method:: list<id_with_score> similar_row_from_id_and_score(0: string id, 1: float score)
+
+      :param id:   row ID
+      :param score: threshold of similarity score
+      :return:     row IDs that are most similar to the row ``id``
+
+      Returns rows which are most similar to the row ``id`` and have a greater similarity score than ``score``.
+
+   .. mpidl:method:: list<id_with_score> similar_row_from_id_and_rate(0: string id, 1: float rate)
+
+      :param id:   row ID
+      :param rate: rate of all the rows to be returned (Range ``0 < rate <= 1``)
+      :return:     row IDs that are most similar to the row ``id``
+
+      Returns the top ``rate`` of all the rows which are most similar to the row ``id``. For example, return the top 40% of all the rows when ``0.4`` is specified as ``rate``.
+
    .. mpidl:method:: list<id_with_score> similar_row_from_datum(0: datum row, 1: uint size)
 
-      :param row:  original :mpidl:type:`datum` to be completed (possibly some values are missing)
+      :param row:  :mpidl:type:`datum` to find similar rows
       :param size: number of rows to be returned
       :return:     rows that most have a similar datum to ``row``
 
       Returns ``size`` rows (at maximum) that most have similar :mpidl:type:`datum` to ``row``.
+
+   .. mpidl:method:: list<id_with_score> similar_row_from_datum_and_score(0: datum row, 1: float score)
+
+      :param row:  :mpidl:type:`datum` to find similar rows
+      :param score: threshold of similarity score
+      :return:     rows that most have a similar datum to ``row``
+
+      Returns rows which are most similar to ``row`` and have a greater similarity score than ``score``.
+
+   .. mpidl:method:: list<id_with_score> similar_row_from_datum_and_rate(0: datum row, 1: float rate)
+
+      :param row:  :mpidl:type:`datum` to find similar rows
+      :param rate: rate of all the rows to be returned (Range ``0 < rate <= 1``)
+      :return:     rows that most have a similar datum to ``row``
+
+      Returns the top ``rate`` of all the rows which are most similar to ``row``. For example, return the top 40% of all the rows when ``0.4`` is specified as ``rate``.
 
    .. mpidl:method:: datum decode_row(0: string id)
 

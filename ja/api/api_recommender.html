@@ -603,6 +603,48 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </dd></dl>
 
 <dl class="method">
+<dt id="recommender::similar_row_from_id_and_score__s.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id_and_score</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: float <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id_and_score__s.float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 推薦テーブル内の行を表すID</li>
+<li><strong>score</strong> &#8211; 近傍性スコアの下限値</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">id</span></code> で指定した近傍のidとその近傍性の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した行 <code class="docutils literal"><span class="pre">id</span></code> に近い行とその近傍性のリストのうち近傍性の値が <code class="docutils literal"><span class="pre">score</span></code> 以上のものを返す。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recommender::similar_row_from_id_and_rate__s.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id_and_rate</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: float <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id_and_rate__s.float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; 推薦テーブル内の行を表すID</li>
+<li><strong>rate</strong> &#8211; 返す近傍の割合 (値域 <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">rate</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">id</span></code> で指定した近傍のidとその近傍性の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した行 <code class="docutils literal"><span class="pre">id</span></code> に近い行とその近傍性のリストを <code class="docutils literal"><span class="pre">rate</span></code> の割合の個数返す。例えば <code class="docutils literal"><span class="pre">0.4</span></code> を指定した場合には、近傍性の値が上位40%以内に含まれるものを返す。</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="recommender::similar_row_from_datum__datum.U">
 list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum__datum.U" title="この定義へのパーマリンク">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -610,17 +652,59 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; 補完したい <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+<li><strong>row</strong> &#8211; 近傍を探索したい <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
 <li><strong>size</strong> &#8211; 返す近傍の数</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">row</span></code> から構成された <code class="docutils literal"><span class="pre">similar_result</span></code></p>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">row</span></code> で指定した近傍のidとその近傍性の値のリスト</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>指定した <code class="docutils literal"><span class="pre">row</span></code> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> を持つ行とその近傍性のリストを (最大で) <code class="docutils literal"><span class="pre">size</span></code> 個返す。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recommender::similar_row_from_datum_and_score__datum.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum_and_score</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: float <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum_and_score__datum.float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>row</strong> &#8211; 近傍を探索したい <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+<li><strong>score</strong> &#8211; 近傍性スコアの下限値</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">row</span></code> で指定した近傍のidとその近傍性の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <code class="docutils literal"><span class="pre">row</span></code> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> を持つ行とその近傍性のリストのうち近傍性の値が <code class="docutils literal"><span class="pre">score</span></code> 以上のものを返す。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recommender::similar_row_from_datum_and_rate__datum.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum_and_rate</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: float <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum_and_rate__datum.float" title="この定義へのパーマリンク">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>row</strong> &#8211; 近傍を探索したい <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a></li>
+<li><strong>rate</strong> &#8211; 返す近傍の割合 (値域 <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">rate</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">row</span></code> で指定した近傍のidとその近傍性の値のリスト</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>指定した <code class="docutils literal"><span class="pre">row</span></code> に近い <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> を持つ行とその近傍性のリストを <code class="docutils literal"><span class="pre">rate</span></code> の割合の個数返す。例えば <code class="docutils literal"><span class="pre">0.4</span></code> を指定した場合には、近傍性の値が上位40%以内に含まれるものを返す。</p>
 </dd></dl>
 
 <dl class="method">
@@ -745,7 +829,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.5',
+            VERSION:'1.0.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -62,17 +62,17 @@ Here's an example on Ubuntu 12.04 systems.
 
   $ sudo apt-get install libmsgpack-dev libonig-dev liblog4cxx10-dev
 
-  $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.1.tar.gz
-  $ tar xzf jubatus_mpio-0.4.1.tar.gz
-  $ cd jubatus_mpio-0.4.1
+  $ wget http://download.jubat.us/files/source/jubatus_mpio/jubatus_mpio-0.4.5.tar.gz
+  $ tar xzf jubatus_mpio-0.4.5.tar.gz
+  $ cd jubatus_mpio-0.4.5
   $ ./configure
   $ make
   $ sudo make install
   $ cd ..
 
-  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.1.tar.gz
-  $ tar xzf jubatus_msgpack-rpc-0.4.1.tar.gz
-  $ cd jubatus_msgpack-rpc-0.4.1
+  $ wget http://download.jubat.us/files/source/jubatus_msgpack-rpc/jubatus_msgpack-rpc-0.4.4.tar.gz
+  $ tar xzf jubatus_msgpack-rpc-0.4.4.tar.gz
+  $ cd jubatus_msgpack-rpc-0.4.4
   $ ./configure
   $ make
   $ sudo make install

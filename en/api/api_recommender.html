@@ -598,6 +598,48 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </dd></dl>
 
 <dl class="method">
+<dt id="recommender::similar_row_from_id_and_score__s.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id_and_score</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: float <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id_and_score__s.float" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; row ID</li>
+<li><strong>score</strong> &#8211; threshold of similarity score</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are most similar to the row <code class="docutils literal"><span class="pre">id</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns rows which are most similar to the row <code class="docutils literal"><span class="pre">id</span></code> and have a greater similarity score than <code class="docutils literal"><span class="pre">score</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recommender::similar_row_from_id_and_rate__s.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id_and_rate</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: float <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id_and_rate__s.float" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> &#8211; row ID</li>
+<li><strong>rate</strong> &#8211; rate of all the rows to be returned (Range <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">rate</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">row IDs that are most similar to the row <code class="docutils literal"><span class="pre">id</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the top <code class="docutils literal"><span class="pre">rate</span></code> of all the rows which are most similar to the row <code class="docutils literal"><span class="pre">id</span></code>. For example, return the top 40% of all the rows when <code class="docutils literal"><span class="pre">0.4</span></code> is specified as <code class="docutils literal"><span class="pre">rate</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="recommender::similar_row_from_datum__datum.U">
 list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: uint <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum__datum.U" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -605,7 +647,7 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>row</strong> &#8211; original <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to be completed (possibly some values are missing)</li>
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to find similar rows</li>
 <li><strong>size</strong> &#8211; number of rows to be returned</li>
 </ul>
 </td>
@@ -616,6 +658,48 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </tbody>
 </table>
 <p>Returns <code class="docutils literal"><span class="pre">size</span></code> rows (at maximum) that most have similar <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to <code class="docutils literal"><span class="pre">row</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recommender::similar_row_from_datum_and_score__datum.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum_and_score</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: float <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum_and_score__datum.float" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to find similar rows</li>
+<li><strong>score</strong> &#8211; threshold of similarity score</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">rows that most have a similar datum to <code class="docutils literal"><span class="pre">row</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns rows which are most similar to <code class="docutils literal"><span class="pre">row</span></code> and have a greater similarity score than <code class="docutils literal"><span class="pre">score</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="recommender::similar_row_from_datum_and_rate__datum.float">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum_and_rate</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: float <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum_and_rate__datum.float" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>row</strong> &#8211; <a class="reference internal" href="common_structs.html#datum" title="datum"><code class="xref mpidl mpidl-type docutils literal"><span class="pre">datum</span></code></a> to find similar rows</li>
+<li><strong>rate</strong> &#8211; rate of all the rows to be returned (Range <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">rate</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">rows that most have a similar datum to <code class="docutils literal"><span class="pre">row</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the top <code class="docutils literal"><span class="pre">rate</span></code> of all the rows which are most similar to <code class="docutils literal"><span class="pre">row</span></code>. For example, return the top 40% of all the rows when <code class="docutils literal"><span class="pre">0.4</span></code> is specified as <code class="docutils literal"><span class="pre">rate</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -740,7 +824,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.5',
+            VERSION:'1.0.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
