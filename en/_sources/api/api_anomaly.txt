@@ -183,6 +183,14 @@ Methods
 
      Adds a point data ``row``.
 
+   .. mpidl:method:: list<datum> add_bulk(0: list<datum> data)
+
+      :param data: List of :mpidl:type:`datum` for the points
+      :return:     The list of successfully added IDs.
+
+      Adds a bulk of points.
+      In contrast to ``add``, this API doesn't return anomaly measure values.
+
    .. mpidl:method:: float update(0: string id, 1: datum row)
 
       :param id:   point ID to update
