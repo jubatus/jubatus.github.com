@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Loader Development Guide &mdash; jubakit 0.5.4 documentation</title>
+  <title>Loader Development Guide &mdash; jubakit 0.5.5 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="jubakit 0.5.5 documentation" href="../index.html"/>
         <link rel="up" title="User’s Guide" href="index.html"/>
         <link rel="next" title="Jubash Reference" href="jubash.html"/>
         <link rel="prev" title="User’s Guide" href="index.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -146,7 +149,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/guide/loader_develop.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/guide/loader_develop.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -204,10 +207,10 @@ Here is an example of Loader that calculates moving average over <code class="do
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 <span class="k">class</span> <span class="nc">MovingAverageLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_window</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="n">window_size</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MovingAverageLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MovingAverageLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ent</span><span class="p">):</span>
     <span class="c1"># Window holds the last N records.</span>
@@ -281,7 +284,7 @@ You can use a constructor.</p>
 <span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 <span class="k">class</span> <span class="nc">InfiniteRandomLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
 
   <span class="k">def</span> <span class="nf">is_infinite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -338,7 +341,7 @@ You can use a constructor.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Tips and FAQs" href="index.html"/>
         <link rel="next" title="開発者ガイド" href="../developers/index.html"/>
@@ -285,9 +288,9 @@ $ sudo apt-get install jubatus
 <li>クライアントライブラリが時々 RPC タイムアウトエラーを投げる (サーバからクライアントが自動切断される)</li>
 </ul>
 <blockquote>
-<div><p>Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus_server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> で設定される) が経過すると自動的に接続を切断します。
+<div><p>Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus-server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> で設定される) が経過すると自動的に接続を切断します。
 RPC呼び出しを再度実行することで接続が再確立されます。サーバによる接続自動切断に起因するタイムアウトを含むRPCエラーのハンドリングについては <a class="reference internal" href="faq_rpc_err_workaround.html"><span class="doc">RPC エラーのハンドリング</span></a> 参照してください。</p>
-<p>この自動切断機能を無効にするには、 <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus_server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> を 0 (タイムアウトなし) に設定します。
+<p>この自動切断機能を無効にするには、 <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus-server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> を 0 (タイムアウトなし) に設定します。
 この場合、クライアントは <a class="reference internal" href="../api/common_structs.html#get_client" title="get_client"><code class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></code></a> を使用して TCP 接続を明示的に切断する必要があります。
 もしくは、想定するクライアントの一接続毎の処理時間より十分長い時間を設定してください。</p>
 </div></blockquote>
@@ -360,7 +363,7 @@ Proxy の役割は、0.4.x 以前の Keeper と同様です。</div></blockquote
 <li>jubaanomalyのスコアが極端に大きな値を返却する</li>
 </ul>
 <blockquote>
-<div><p>ある一点の近傍に多数の点が集中しすぎると、 <code class="docutils literal"><span class="pre">kth_ignore_same_point</span></code> のオプションを付与しても、
+<div><p>ある一点の近傍に多数の点が集中しすぎると、 <code class="docutils literal"><span class="pre">ignore_kth_same_point</span></code> のオプションを付与しても、
 anomalyのスコアが極端に大きくなる場合があります。
 これは、floatでの数値計算の丸め誤差により起こる問題です。</p>
 <p>Jubatus 1.0.2以前は、0除算が発生するため <code class="docutils literal"><span class="pre">inf</span></code> を返却するようになっていましたが、
@@ -453,7 +456,7 @@ anomalyのスコアが極端に大きくなる場合があります。
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.8',
+            VERSION:'1.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -463,7 +466,7 @@ anomalyのスコアが極端に大きくなる場合があります。
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

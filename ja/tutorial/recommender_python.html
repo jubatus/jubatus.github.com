@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Recommender チュートリアル" href="recommender.html"/>
         <link rel="next" title="Recommender チュートリアル (Ruby)" href="recommender_ruby.html"/>
@@ -253,7 +256,7 @@
 
 <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;recommender_baseball&quot;</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
     <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
 
@@ -309,7 +312,7 @@
 
 <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;recommender_baseball&quot;</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
     <span class="n">recommender</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Recommender</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
 
@@ -445,8 +448,8 @@ methodに応じて渡すパラメータは異なります。</p>
 <div class="line">4.91</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>&#8220;高橋由伸&#8221;</td>
 <td>&#8220;チーム&#8221;</td>
@@ -469,8 +472,8 @@ methodに応じて渡すパラメータは異なります。</p>
 <div class="line">･･･</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -517,36 +520,32 @@ CSVファイルなので、取得した1行を’,’で分割し要素ごとに
 <p>推薦の手順を説明します。</p>
 <p>学習と同様にクライアントプログラムは、jubatus.Recommenderクラスを利用して作成します。
 使用するメソッドは、与えられたデータから推薦を行うsimilar_row_from_idメソッドです。</p>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><dl class="first docutils">
 <dt>Jubatus Serverへの接続設定</dt>
-<dd><p class="first last">update.pyと同様のため省略。</p>
-</dd>
+<dd>update.pyと同様のため省略。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>推薦用データの準備</dt>
-<dd><p class="first last">推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
-学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</p>
-</dd>
+<dd>推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
+学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推薦</dt>
-<dd><p class="first last">2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のlistを得ることができます（16行目）。
+<dd>2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のlistを得ることができます（16行目）。
 第1引数に、&#8221;名前&#8221;を指定します。
 第2引数は、似ているタイプを近傍順にいくつ出力するかを指定します。
 ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。
-なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</p>
-</dd>
+なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><p class="first last">3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったlistです。
+<dd>3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったlistです。
 listの1番目は自分自身なので、2番目から4番目までを結果として出力します。
-update.pyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</p>
-</dd>
+update.pyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</dd>
 </dl>
 </li>
 </ol>
@@ -628,7 +627,7 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.8',
+            VERSION:'1.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -638,7 +637,7 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

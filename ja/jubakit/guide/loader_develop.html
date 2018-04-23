@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Loader Development Guide &mdash; jubakit 0.5.4 documentation</title>
+  <title>Loader開発ガイド &mdash; jubakit 0.5.5 ドキュメント</title>
   
 
   
@@ -34,10 +34,13 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="../index.html"/>
-        <link rel="up" title="User’s Guide" href="index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.5.5 ドキュメント" href="../index.html"/>
+        <link rel="up" title="ユーザーズガイド" href="index.html"/>
         <link rel="next" title="Jubash Reference" href="jubash.html"/>
-        <link rel="prev" title="User’s Guide" href="index.html"/> 
+        <link rel="prev" title="ユーザーズガイド" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -91,22 +94,22 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User&#8217;s Guide</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Loader Development Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#extending-existing-loader">Extending Existing Loader</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#transformation">Transformation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#filtering">Filtering</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#window-processing">Window Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">アーキテクチャ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ユーザーズガイド</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Loader開発ガイド</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extending-existing-loader">既存のLoaderの拡張</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#transformation">加工</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering">フィルタリング</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#window-processing">ウインドウ処理</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#implementing-new-loader">Implementing New Loader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementing-new-loader">新しいLoaderの実装</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="jubash.html">Jubash Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jubamodel.html">Jubamodel Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">よくある質問</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
@@ -140,13 +143,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">User&#8217;s Guide</a> &raquo;</li>
+          <li><a href="index.html">ユーザーズガイド</a> &raquo;</li>
       
-    <li>Loader Development Guide</li>
+    <li>Loader開発ガイド</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/guide/loader_develop.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/guide/loader_develop.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,22 +160,20 @@
            <div itemprop="articleBody">
             
   <div class="section" id="loader-development-guide">
-<h1>Loader Development Guide<a class="headerlink" href="#loader-development-guide" title="Permalink to this headline">¶</a></h1>
-<p>Although Jubakit provides various kinds of built-in Loaders, you can also extend existing Loader or even develop your own one to suit your needs.</p>
+<h1>Loader開発ガイド<a class="headerlink" href="#loader-development-guide" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Jubakitには予め様々な種類のLoaderが実装されていますが、それらを拡張したり新しいLoaderを実装することもできるようになっています。</p>
 <div class="section" id="extending-existing-loader">
-<h2>Extending Existing Loader<a class="headerlink" href="#extending-existing-loader" title="Permalink to this headline">¶</a></h2>
-<p>All Loaders have an extension point called <code class="docutils literal"><span class="pre">preprocess</span></code>, which is a method you can override and perform operations on each record from the Loader.
-<code class="docutils literal"><span class="pre">preprocess</span></code> method takes only 1 argument, which is a single record loaded (dict-like object).
-The method must return the preprocessed dict-like object or <code class="docutils literal"><span class="pre">None</span></code>.</p>
-<p>The default implementation of <code class="docutils literal"><span class="pre">preprocess</span></code> method is as follows; it does nothing.</p>
+<h2>既存のLoaderの拡張<a class="headerlink" href="#extending-existing-loader" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>全てのLoaderには <code class="docutils literal"><span class="pre">preprocess</span></code> という拡張するためのポイントがあります。このメソッドをオーバーライドすることでレコードに対して様々な処理を行うことができます。<code class="docutils literal"><span class="pre">preprocess</span></code> メソッドの引数は、Loaderが読み込んだレコード(辞書形式)1つだけです。戻り値は処理をした辞書形式のオブジェクトか <code class="docutils literal"><span class="pre">None</span></code> でなければなりません。</p>
+<p><code class="docutils literal"><span class="pre">preprocess</span></code> のデフォルトの実装は以下の通り何もしません。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ent</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">ent</span>
 </pre></div>
 </div>
-<p>Although not mandatory, the output of <code class="docutils literal"><span class="pre">preprocess</span></code> method should be a flat dict-like object, i.e., values should not be objects.</p>
+<p>必須ではありませんが、 <code class="docutils literal"><span class="pre">preprocess</span></code> の出力はフラットな辞書形式、つまり、valueをオブジェクトにしないことが推奨されます。</p>
 <div class="section" id="transformation">
-<h3>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h3>
-<p>For example, if you want to process JSONL files (files that contain one JSON record per line), you can create a class that inherits from <a class="reference internal" href="../api/jubakit.loader.html#jubakit.loader.core.LineBasedFileLoader" title="jubakit.loader.core.LineBasedFileLoader"><code class="xref py py-class docutils literal"><span class="pre">LineBasedFileLoader</span></code></a> which loads a single text file and emits record for each line, and implement <code class="docutils literal"><span class="pre">preprocess</span></code> method as follows:</p>
+<h3>加工<a class="headerlink" href="#transformation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>例えばJSONLファイル(1行が1つのJSONレコードとなっているファイル)を扱う場合、テキストファイルを読み込み、一行ずつ出力する <a class="reference internal" href="../api/jubakit.loader.html#jubakit.loader.core.LineBasedFileLoader" title="jubakit.loader.core.LineBasedFileLoader"><code class="xref py py-class docutils literal"><span class="pre">LineBasedFileLoader</span></code></a> を継承したクラスを作成すると良いでしょう。そして、 <code class="docutils literal"><span class="pre">preprocess</span></code> メソッドを以下のように実装します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">jubakit.loader.core</span> <span class="kn">import</span> <span class="n">LineBasedFileLoader</span>
 
@@ -183,10 +184,8 @@ The method must return the preprocessed dict-like object or <code class="docutil
 </div>
 </div>
 <div class="section" id="filtering">
-<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
-<p>You can also use <code class="docutils literal"><span class="pre">preprocess</span></code> method for filtering.
-If you want to skip the record, just return <code class="docutils literal"><span class="pre">None</span></code>.
-The following Loader loads lines whose line number is odd.</p>
+<h3>フィルタリング<a class="headerlink" href="#filtering" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">preprocess</span></code> メソッドをフィルタリングに使うこともできます。あるレコードをスキップさせるには <code class="docutils literal"><span class="pre">None</span></code> を返すようにすれば良いでしょう。以下のLoaderは奇数行のみ返します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.loader.core</span> <span class="kn">import</span> <span class="n">LineBasedFileLoader</span>
 
 <span class="k">class</span> <span class="nc">OddLineLoader</span><span class="p">(</span><span class="n">LineBasedFileLoader</span><span class="p">):</span>
@@ -198,16 +197,15 @@ The following Loader loads lines whose line number is odd.</p>
 </div>
 </div>
 <div class="section" id="window-processing">
-<h3>Window Processing<a class="headerlink" href="#window-processing" title="Permalink to this headline">¶</a></h3>
-<p>As Loaders can be stateful, <code class="docutils literal"><span class="pre">preprocess</span></code> method can also be used for window processing.
-Here is an example of Loader that calculates moving average over <code class="docutils literal"><span class="pre">x</span></code>.</p>
+<h3>ウインドウ処理<a class="headerlink" href="#window-processing" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Loaderは状態を持つことができるため、 <code class="docutils literal"><span class="pre">preprocess</span></code> メソッドをウインドウ処理に使うこともできます。 以下は <code class="docutils literal"><span class="pre">x</span></code> の移動平均を求めるLoaderの例です。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 <span class="k">class</span> <span class="nc">MovingAverageLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_window</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="n">window_size</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MovingAverageLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MovingAverageLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ent</span><span class="p">):</span>
     <span class="c1"># Window holds the last N records.</span>
@@ -229,14 +227,13 @@ Here is an example of Loader that calculates moving average over <code class="do
 </div>
 </div>
 <div class="section" id="implementing-new-loader">
-<h2>Implementing New Loader<a class="headerlink" href="#implementing-new-loader" title="Permalink to this headline">¶</a></h2>
-<p>If none of the existing Loaders work for you, create your own Loader from scratch.
-It is quite simple &#8211; the minimum requirements for Loader classes are:</p>
+<h2>新しいLoaderの実装<a class="headerlink" href="#implementing-new-loader" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>既存のLoaderで対処できない場合には、Loaderを自分で実装することもできます。実装はとても簡単です。最低限必要なことは以下の２点です。</p>
 <ul class="simple">
-<li>Loaders must inherit from <a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseLoader" title="jubakit.base.BaseLoader"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code></a> class.</li>
-<li>Loaders must implement <code class="docutils literal"><span class="pre">rows</span></code> method, which yields a <code class="docutils literal"><span class="pre">dict</span></code> object.</li>
+<li><a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseLoader" title="jubakit.base.BaseLoader"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code></a> クラスを継承すること。</li>
+<li><code class="docutils literal"><span class="pre">rows</span></code> メソッドを実装すること。このメソッドは辞書形式のオブジェクトを生成します。</li>
 </ul>
-<p>Here is a simple example of a Loader, which emits 2-dimensional random number records for 5 times.</p>
+<p>以下は2次元の乱数のレコードを5回出力する単純なLoaderの例です。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">Random</span>
 <span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
@@ -247,7 +244,7 @@ It is quite simple &#8211; the minimum requirements for Loader classes are:</p>
       <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">random</span><span class="p">()}</span>
 </pre></div>
 </div>
-<p>Loaders can easily be tested as follows.</p>
+<p>Loaderのテストは以下のように簡単にできます。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">loader</span> <span class="o">=</span> <span class="n">RandomLoader</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
 <span class="gp">... </span>  <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -259,9 +256,8 @@ It is quite simple &#8211; the minimum requirements for Loader classes are:</p>
 <span class="go">{&#39;y&#39;: 0.6370897206201418, &#39;x&#39;: 0.01709999005458307}</span>
 </pre></div>
 </div>
-<p>It is advised to emit flat dict-like object (i.e., no objects in values) in <code class="docutils literal"><span class="pre">rows</span></code> method to avoid confusion.</p>
-<p>If you are developing <em>infinite</em> Loader (e.g., Twitter streams), it should implement <code class="docutils literal"><span class="pre">is_infinite</span></code> method and return <code class="docutils literal"><span class="pre">True</span></code>.
-Please note that all entries are loaded from Loader to memory when creating <code class="docutils literal"><span class="pre">Dataset</span></code> by default, unless <code class="docutils literal"><span class="pre">is_infinite</span></code> returns <code class="docutils literal"><span class="pre">True</span></code> (or <code class="docutils literal"><span class="pre">static</span></code> option of <code class="docutils literal"><span class="pre">Dataset</span></code> constructor is explicitly set to <code class="docutils literal"><span class="pre">False</span></code>).</p>
+<p><code class="docutils literal"><span class="pre">rows</span></code> メソッドではわかりやすさのためフラットな辞書形式のオブジェクト、すなわちvalueにオブジェクトを持たない辞書形式のオブジェクトを返すようにすることが推奨されます。</p>
+<p>Twitterストリームのように永続するLoaderを実装する場合には、<code class="docutils literal"><span class="pre">is_infinite</span></code> メソッドが <code class="docutils literal"><span class="pre">True</span></code> を返すよう実装してください。デフォルトでは <code class="docutils literal"><span class="pre">Dataset</span></code> を作成した際に全ての要素がメモリにロードされます。<code class="docutils literal"><span class="pre">is_infinite</span></code> が <code class="docutils literal"><span class="pre">True</span></code> を返す場合、または <code class="docutils literal"><span class="pre">Dataset</span></code> のコンストラクタの <code class="docutils literal"><span class="pre">static</span></code> オプションが明示的に <code class="docutils literal"><span class="pre">False</span></code> を指定された場合のみ、全ての要素のロードが行われません。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">Random</span>
 <span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
@@ -275,13 +271,12 @@ Please note that all entries are loaded from Loader to memory when creating <cod
       <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">random</span><span class="p">()}</span>
 </pre></div>
 </div>
-<p>Now you need a parameter for your Loader?
-You can use a constructor.</p>
+<p>Loaderにパラメータが必要な場合はコンストラクタを使います。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">Random</span>
 <span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 <span class="k">class</span> <span class="nc">InfiniteRandomLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
 
   <span class="k">def</span> <span class="nf">is_infinite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -293,7 +288,7 @@ You can use a constructor.</p>
       <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">random</span><span class="p">()}</span>
 </pre></div>
 </div>
-<p>If you wrote a Loader that can be commonly used, please consider submitting <a class="reference external" href="https://github.com/jubatus/jubakit/pulls">Pull-Request</a> to make the Loader as a part of Jubakit!</p>
+<p>汎用的にも使えそうなLoaderを作成した際には是非 <a class="reference external" href="https://github.com/jubatus/jubakit/pulls">Pull-Request</a> をお送りください!</p>
 </div>
 </div>
 
@@ -307,7 +302,7 @@ You can use a constructor.</p>
         <a href="jubash.html" class="btn btn-neutral float-right" title="Jubash Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="User’s Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="ユーザーズガイド" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -338,7 +333,7 @@ You can use a constructor.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -347,6 +342,7 @@ You can use a constructor.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
 
   
 

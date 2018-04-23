@@ -1,13 +1,13 @@
-Anomaly チュートリアル (Ruby)
-====================================
+Ruby
+==================
 
-ここではRuby版のAnomalyサンプルプログラムの解説をします。
+Here we explain the Ruby sample program of anomaly detection.
 
 --------------------------------
-ソースコード
+Source_code
 --------------------------------
 
-このサンプルプログラムでは、学習の設定をするconfig.jsonと外れ値検知を行うanomaly.rbを利用します。以下にソースコードを記載します。
+In this sample program, we will explain 1) how to configure the learning-algorithms in Jubatus with the config file 'config.json'; 2) how to detect the anomaly data with the example file ‘anomaly.rb’. Here are the source codes of 'config.json' and 'anomaly.rb'.
 
 **config.json**
 
@@ -41,10 +41,7 @@ Anomaly チュートリアル (Ruby)
   }
  }
 
-
 **anomaly.rb**
-
-このクライアントは Jubatus 0.5.x 以降で動作します。
 
 .. code-block:: ruby
  :linenos:
@@ -128,103 +125,100 @@ Anomaly チュートリアル (Ruby)
   }
 	
 
-
 --------------------------------
-解説
+Explanation
 --------------------------------
 
 **config.json**
 
-設定は単体のJSONで与えられます。JSONの各フィールドは以下のとおりです。
+The configuration information is given by the JSON unit. Here is the meaning of each JSON field.
 
-* method
 
- 異常検知に使用するアルコリズムを指定します。
- Anomalyで指定できるのは、Recommenderベースの"lof"およびNearest Neighborベースの"light_lof"です。
- 今回は"lof"（Local Outlier Factor）を指定します。
+ * method
 
-* parameter
+  Specify the algorithm used in anomaly detection. Currently, Recommender based "lof"(Local Outlier Factor) and Nearest Neighbor based "light_lof" are supported for anomaly detection. Here, we use "lof".
 
-　methodで設定した異常検知アルゴリズムのパラメータを設定します。 
- 今回は"lof"を利用するため、`Recommender API <http://jubat.us/ja/api_recommender.html>`_ に従ってパラメータを設定します。
+ * parameter
 
-* converter
+  Specify the parameters for anomaly detection algorithm set as method.
+  Here, we use "lof" algorithm and set the parameters according to `Recommender API <http://jubat.us/en/api/api_recommender.html>`_ .
 
- 特徴変換の設定を指定します。
- ここでは、"num_rules"と"string_rules"を設定しています。
+ * converter
+
+  Specify the configurations in feature converter. In this sample, we will set "num_rules" and "string_rules". 
+
+  "num_rules" specifies the value extracting rules for values in numerical format.
+  "key" is set as "*" here, which means all the "key" will be taken into account. "type" is set as "num", which means each value has its weight as equal as the value itself. For example, if data's value i "2", its weight is set as 2; if data's value is "6", its weight is set as 6.
+
  
- "num_rules"は数値特徴の抽出規則を指定します。
- "key"は"*"つまり、すべての"key"に対して、"type"は"num"なので、指定された数値をそのまま重みに利用する設定です。
- 具体的には、valueが"2"であれば"2"を、"6"であれば"6"を重みとします。
- 
- "string_rules"は文字列特徴の抽出規則を指定します。
- "key"は"*"、"type"は"str"、"sample_weight"は"bin"、"global_weight"は"bin"としています。
- これは、すべての文字列に対して、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に"1"とする設定です。
+  "string_rules" specifies the value extracting rules for values in string format.
+  Here, "key" is set as "*", "type" is "str", "sample_weight" is "bin", and "global_weight" is "bin".
+  This means, all the "key" will be taken into account, the features in strings values will be used without convertion, the weight of each key-value will be calculated throughout the whole data have been used, and the global weight is a constant value of "1".
+
 
 
 
 **anomaly.rb**
 
- anomaly.rbでは、csvから読み込んだデータをJubatusサーバ与え、外れ値を検出し出力します。
+ anomaly.rb will extract the data from text file, send them to Jubatus server, and get their anomaly detection result from the server.
 
- 1. Jubatus Serverへの接続設定
+ 1. Connect to Jubatus Server
 
-  Jubatus Serverへの接続を行います（20行目）。
-  Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定します。
+  Connect to Jubatus Server (Row 20).
+  Setting the IP addr., RPC port of Jubatus Server.
+
+ 2. Prepare the learning data
+
+  AnomalyClient will send the Datum to Jubatus server for data learning or anomaly detection, by using its "add" method.
+  In this example, the result-data in KDD Cup(Knowledge Discovery and Data Mining Cup) is used as the trainning data. At first, the program read the training data from the TEXT file, one line at a time (Row 23-24). The data in TEXT file are seperated by commas, so we split the items by ’,’ (Row 25).
+  Then, we make the data items stored in datum unit for model training later (Row 26-67).
   
- 2. 学習用データの準備
+ 3. Model training (update learning model)
 
-  AnomalyClientでは、Datumをaddメソッドに与えることで、学習および外れ値検知が行われます。
-  今回はKDDカップ（Knowledge Discovery and Data Mining Cup）の結果（TEXTファイル）を元に学習用データを作成していきます。
-  まず、学習用データの元となるTEXTファイルを読み込みます（23-24行目）。
-  このTEXTファイルはカンマ区切りで項目が並んでいるので、取得した1行を’,’で分割し要素ごとに分けます（25行目）。
-  取得した要素を用いて学習用データdatumを作成します（26-67行目）。
+  Input the training data generated in step.2 into the add() method of AnomalyClient (Row 69).
+  The first parameter in add() is the unique name for task identification in Zookeeper.
+  (use null charactor "" for the stand-alone mode)
+  The second parameter specifies the Datum generated in step.2.
+  The returned result <string, float> is consisted of the data ID and its estimated anomaly value.
   
- 3. データの学習（学習モデルの更新）
+ 4. Display result
 
-  AnomalyClientのaddメソッドに2. で作成したデータを渡します（69行目）。
-  addメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（""）を指定）
-  第2引数として、先ほど2. で作成したDatumを指定します。
-  戻り値として、tuple<string, float>型で点IDと異常値を返却します。
-  
- 4. 結果の出力
-
-  addメソッドの戻り値である異常値から外れ値かどうかを判定します。
-  異常値が無限ではなく、1.0以外の場合は外れ値と判断し出力します（72-74行目）。
+  Display the returned value from add() method after a correction checking.
+  The anomaly value should not be infinity or　1.0　(Row 72-74).
 
 -------------------------------------
-サンプルプログラムの実行
+Run the sample program
 -------------------------------------
 
-**[データのダウンロード]**
+**[Download Dataset]**
 
  :: 
  
   $ wget http://kdd.ics.uci.edu/databases/kddcup99/kddcup.data_10_percent.gz
   $ gunzip kddcup.data_10_percent.gz
-  $ mv kddcup.data_10_percent kddcup.data_10_percent.txt
+  $ mv kddcup.data_10_percent kddcup.data_10_percent.txt 
 
 
-**［Jubatus Serverでの作業］**
+**［At Jubatus Server］**
+ start "jubaanomaly" process.
 
- jubaanomalyを起動します。
- 
  ::
  
-   $ jubaanomaly --configpath config.json
+  $ jubaanomaly --configpath config.json
+
+
+**［At Jubatus Client］**
  
-
-**［Jubatus Clientでの作業］**
-
- 必要なパッケージとRubyクライアントを用意し、実行します。
+ Get the required package and Ruby client ready.
+ Run!
 
  ::
   
    $ ruby anomaly.rb
  
-**［実行結果］**
+**［Result］**
 
- ::
+  ::
 
    id_with_score{id: 194, score: 1.0000441074371338} normal.
    id_with_score{id: 494, score: 1.4595649242401123} normal.
@@ -237,7 +231,6 @@ Anomaly チュートリアル (Ruby)
    id_with_score{id: 2499, score: 0.7581642270088196} normal.
    id_with_score{id: 2549, score: 1.011017084121704} normal.
    id_with_score{id: 2553, score: 1.263816475868225} normal.
-   id_with_score{id: 2985, score: 1.408186435699463} normal.
-
+   
    ...
-   ...（以下略）
+   ...(omitted)

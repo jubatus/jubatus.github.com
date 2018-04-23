@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Recommender チュートリアル" href="recommender.html"/>
         <link rel="next" title="Anomaly チュートリアル" href="anomaly.html"/>
@@ -503,42 +506,37 @@ CSVファイルなので、取得した1行を要素ごとに分け、リスト�
 <p>推薦の手順を説明します。</p>
 <p>学習と同様にクライアントプログラムは、us.jubat.recommender.RecommenderClientを利用して作成します。
 使用するメソッドは、与えられたデータから推薦を行うsimilarRowFromId()メソッドです。</p>
-<ol class="arabic" start="0">
+<ol class="arabic simple" start="0">
 <li><dl class="first docutils">
 <dt>Jubatus Clientライブラリの準備</dt>
-<dd><p class="first last">update.groovyと同様のため省略。</p>
-</dd>
+<dd>update.groovyと同様のため省略。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Jubatus Serverへの接続設定</dt>
-<dd><p class="first last">update.groovyと同様のため省略。</p>
-</dd>
+<dd>update.groovyと同様のため省略。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>推薦用データの準備</dt>
-<dd><p class="first last">推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
-学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilarRowFromId()メソッドに与えることで、推薦が行われます。</p>
-</dd>
+<dd>推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
+学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilarRowFromId()メソッドに与えることで、推薦が行われます。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推薦</dt>
-<dd><p class="first last">2.で取得した選手の&#8221;名前&#8221;を、similarRowFromId()メソッドに渡すことで、推薦結果のリストを得ることができます(17行目)。
+<dd>2.で取得した選手の&#8221;名前&#8221;を、similarRowFromId()メソッドに渡すことで、推薦結果のリストを得ることができます(17行目)。
 第1引数に、&#8221;名前&#8221;を指定します。
 第2引数は、似ているタイプを近傍順にいくつ出力するかを指定します。
 ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。
-なぜ&#8221;4&#8221;かというと、トップには自身が出力される為です。</p>
-</dd>
+なぜ&#8221;4&#8221;かというと、トップには自身が出力される為です。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><p class="first last">3.で取得した、推薦結果のリストはsimilarRowFromId()メソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったリストです。
+<dd>3.で取得した、推薦結果のリストはsimilarRowFromId()メソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったリストです。
 リストの1番目は自分自身なので、2番目から4番目までを結果として出力します。
-update.groovyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</p>
-</dd>
+update.groovyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</dd>
 </dl>
 </li>
 </ol>
@@ -621,7 +619,7 @@ done!
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.8',
+            VERSION:'1.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -631,7 +629,7 @@ done!
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

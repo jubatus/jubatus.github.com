@@ -150,7 +150,7 @@ Anomaly チュートリアル (Python)
 * parameter
 
 　methodで設定した異常検知アルゴリズムのパラメータを設定します。 
- 今回は"lof"を利用するため、`Recommender API <http://jubat.us/ja/api_recommender.html>`_ に従ってパラメータを設定します。
+ 今回は"lof"を利用するため、`Recommender API <http://jubat.us/ja/api/api_recommender.html>`_ に従ってパラメータを設定します。
  
 
 * converter

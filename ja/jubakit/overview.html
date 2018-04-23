@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview &mdash; jubakit 0.5.4 documentation</title>
+  <title>概要 &mdash; jubakit 0.5.5 ドキュメント</title>
   
 
   
@@ -34,8 +34,11 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="index.html"/>
-        <link rel="next" title="Architecture" href="architecture/index.html"/>
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="jubakit 0.5.5 ドキュメント" href="index.html"/>
+        <link rel="next" title="アーキテクチャ" href="architecture/index.html"/>
         <link rel="prev" title="jubakit: Jubatus Toolkit" href="introduction.html"/> 
 
   
@@ -67,7 +70,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -90,9 +93,9 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">jubakit: Jubatus Toolkit</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="architecture/index.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/index.html">アーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/index.html">ユーザーズガイド</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 </ul>
 
@@ -124,11 +127,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Overview</li>
+    <li>概要</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/overview.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -139,23 +142,20 @@
            <div itemprop="articleBody">
             
   <div class="section" id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p>Jubakit is a Python module to access Jubatus features easily.
-The goal of Jubakit is to:</p>
+<h1>概要<a class="headerlink" href="#overview" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>JubakitはJubatusの機能を簡単に使うためのPythonモジュールです。Jubakitの目標は次の通りです。</p>
 <ul class="simple">
-<li>Accelerate cycles of data analysis by integrating powerful scikit-learn features into Jubatus</li>
-<li>Conceal the system architecture of Jubatus (config files, TCP port number assignment, process invocation, RPC call, etc.) to provide an interface that users can focus on data analysis</li>
+<li>強力なscikit-learnの機能をJubatusと統合することで、データ分析のサイクルを加速します。</li>
+<li>ユーザがデータ分析に集中できるように、Jubatusのシステムアーキテクチャ(configファイル、TCPポート番号、プロセス呼び出し、RPC callなど)を隠蔽します。</li>
 </ul>
-<p>Here is a shortest example of code using Jubakit.
-You can perform anomaly detection on CSV dataset only by 4 lines of Python code:</p>
+<p>Jubakitを使うことで、わずか4行のコードでCSV形式のデータセットの異常検知を実行することができます。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">CSVLoader</span><span class="p">(</span><span class="s2">&quot;dataset.csv&quot;</span><span class="p">))</span>
 <span class="n">service</span> <span class="o">=</span> <span class="n">Anomaly</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Config</span><span class="p">())</span>
 <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
   <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Jubakit provides a simple-to-use APIs while allowing users to customize detailed behaviors.
-Jubakit also comes with configuration parameters that works well in most cases, so you don&#8217;t have to configure them until necessary.</p>
+<p>Jubakitは、簡単に使えるAPIを提供し、ユーザーは詳細な動作をカスタマイズできます。Jubakitには、ほとんどのユースケースでうまく動作するパラメータが予め設定されているため、必要になるまでパラメータを設定する必要はありません。</p>
 </div>
 
 
@@ -165,7 +165,7 @@ Jubakit also comes with configuration parameters that works well in most cases, 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="architecture/index.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="architecture/index.html" class="btn btn-neutral float-right" title="アーキテクチャ" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="introduction.html" class="btn btn-neutral" title="jubakit: Jubatus Toolkit" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -199,7 +199,7 @@ Jubakit also comes with configuration parameters that works well in most cases, 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -208,6 +208,7 @@ Jubakit also comes with configuration parameters that works well in most cases, 
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
 
   
 

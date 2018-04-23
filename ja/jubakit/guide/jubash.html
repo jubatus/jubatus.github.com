@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Jubash Reference &mdash; jubakit 0.5.4 documentation</title>
+  <title>Jubash Reference &mdash; jubakit 0.5.5 ドキュメント</title>
   
 
   
@@ -34,10 +34,13 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="../index.html"/>
-        <link rel="up" title="User’s Guide" href="index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.5.5 ドキュメント" href="../index.html"/>
+        <link rel="up" title="ユーザーズガイド" href="index.html"/>
         <link rel="next" title="Jubamodel Reference" href="jubamodel.html"/>
-        <link rel="prev" title="Loader Development Guide" href="loader_develop.html"/> 
+        <link rel="prev" title="Loader開発ガイド" href="loader_develop.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -91,20 +94,20 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User&#8217;s Guide</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="loader_develop.html">Loader Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">アーキテクチャ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ユーザーズガイド</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="loader_develop.html">Loader開発ガイド</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Jubash Reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#description">Description</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synopsis">書式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description">説明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#options">オプション</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="jubamodel.html">Jubamodel Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">よくある質問</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
@@ -138,13 +141,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">User&#8217;s Guide</a> &raquo;</li>
+          <li><a href="index.html">ユーザーズガイド</a> &raquo;</li>
       
     <li>Jubash Reference</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/guide/jubash.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/guide/jubash.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -155,9 +158,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="jubash-reference">
-<h1>Jubash Reference<a class="headerlink" href="#jubash-reference" title="Permalink to this headline">¶</a></h1>
+<h1>Jubash Reference<a class="headerlink" href="#jubash-reference" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<h2>書式<a class="headerlink" href="#synopsis" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="highlight-shell"><div class="highlight"><pre><span></span>jubash <span class="o">[</span>--host HOST<span class="o">]</span> <span class="o">[</span>--port PORT<span class="o">]</span> <span class="o">[</span>--cluster CLUSTER<span class="o">]</span>
        <span class="o">[</span>--service SERVICE<span class="o">]</span> <span class="o">[</span>--command COMMAND<span class="o">]</span>
        <span class="o">[</span>--keepalive<span class="o">]</span> <span class="o">[</span>--fail-fast<span class="o">]</span> <span class="o">[</span>--prompt PROMPT<span class="o">]</span>
@@ -166,98 +169,91 @@
 </div>
 </div>
 <div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">jubash</span></code> is a command line interface to interactively communicate with Jubatus servers.
-See <a class="reference internal" href="../architecture/shell.html"><span class="doc">Shell</span></a> for the detailed description.</p>
+<h2>説明<a class="headerlink" href="#description" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">jubash</span></code> は、Jubatusサーバを対話的に操作するコマンドラインインタフェースです。詳細な説明は <a class="reference internal" href="../architecture/shell.html"><span class="doc">Shell</span></a> を参照ください。</p>
 <div class="section" id="options">
-<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<h3>オプション<a class="headerlink" href="#options" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">[]</span></code> indicates the default value.</li>
+<li><code class="docutils literal"><span class="pre">[]</span></code> 内の値はデフォルト値を示します。</li>
 </ul>
 <dl class="option">
-<dt id="cmdoption-jubash-H">
-<span id="cmdoption-jubash--host"></span><code class="descname">-H</code><code class="descclassname"> &lt;host&gt;</code><code class="descclassname">, </code><code class="descname">--host</code><code class="descclassname"> &lt;host&gt;</code><a class="headerlink" href="#cmdoption-jubash-H" title="Permalink to this definition">¶</a></dt>
-<dd><p>Host name or IP address of the server or proxy.  [127.0.0.1]</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-P">
-<span id="cmdoption-jubash--port"></span><code class="descname">-P</code><code class="descclassname"> &lt;port&gt;</code><code class="descclassname">, </code><code class="descname">--port</code><code class="descclassname"> &lt;port&gt;</code><a class="headerlink" href="#cmdoption-jubash-P" title="Permalink to this definition">¶</a></dt>
-<dd><p>Port number of the server or proxy.  [9199]</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-C">
-<span id="cmdoption-jubash--cluster"></span><code class="descname">-C</code><code class="descclassname"> &lt;cluster&gt;</code><code class="descclassname">, </code><code class="descname">--cluster</code><code class="descclassname"> &lt;cluster&gt;</code><a class="headerlink" href="#cmdoption-jubash-C" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jubatus cluster name.
-Required when connecting to a proxy.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-s">
-<span id="cmdoption-jubash--service"></span><code class="descname">-s</code><code class="descclassname"> &lt;service&gt;</code><code class="descclassname">, </code><code class="descname">--service</code><code class="descclassname"> &lt;service&gt;</code><a class="headerlink" href="#cmdoption-jubash-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name of Jubatus service (<code class="docutils literal"><span class="pre">classifier</span></code>, <code class="docutils literal"><span class="pre">nearest_neighbor</span></code>, etc.)
-Generally you don&#8217;t have to specify this option; it is auto-detected by default.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-e">
-<span id="cmdoption-jubash--engine"></span><code class="descname">-e</code><code class="descclassname"> &lt;engine&gt;</code><code class="descclassname">, </code><code class="descname">--engine</code><code class="descclassname"> &lt;engine&gt;</code><a class="headerlink" href="#cmdoption-jubash-e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deprecated; equivalent to <a class="reference internal" href="#cmdoption-jubash--service"><code class="xref std std-option docutils literal"><span class="pre">--service</span></code></a>.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-c">
-<span id="cmdoption-jubash--command"></span><code class="descname">-c</code><code class="descclassname"> &lt;command&gt;</code><code class="descclassname">, </code><code class="descname">--command</code><code class="descclassname"> &lt;command&gt;</code><a class="headerlink" href="#cmdoption-jubash-c" title="Permalink to this definition">¶</a></dt>
-<dd><p>When specified, run the specified one-shot command instead of starting an interactive shell.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-t">
-<span id="cmdoption-jubash--timeout"></span><code class="descname">-t</code><code class="descclassname"> &lt;timeout&gt;</code><code class="descclassname">, </code><code class="descname">--timeout</code><code class="descclassname"> &lt;timeout&gt;</code><a class="headerlink" href="#cmdoption-jubash-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>Client side timeout in seconds.  [10]</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-k">
-<span id="cmdoption-jubash--keepalive"></span><code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--keepalive</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-k" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use keep-alive connection mode.</p>
-<p>By default, <code class="docutils literal"><span class="pre">jubash</span></code> establishes new TCP connection for each RPC call.
-When this option is specified, <code class="docutils literal"><span class="pre">jubash</span></code> reuses TCP connection.
-Keep-alive mode provides better performance.</p>
-<p>Note that timeout of server or proxy must be disabled (e.g., <code class="docutils literal"><span class="pre">jubaclassifier</span> <span class="pre">--timeout</span> <span class="pre">0</span></code>) to use keep-alive mode.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-jubash-F">
-<span id="cmdoption-jubash--fail-fast"></span><code class="descname">-F</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--fail-fast</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-F" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop when error occurred when running script.</p>
+<dt id="cmdoption-jubash-h">
+<code class="descname">-H</code><code class="descclassname"> &lt;host&gt;</code><code class="descclassname">, </code><code class="descname">--host</code><code class="descclassname"> &lt;host&gt;</code><a class="headerlink" href="#cmdoption-jubash-h" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>接続先のServerまたはProxyが稼働するホスト名またはIPアドレス。 [127.0.0.1]</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubash-p">
-<span id="cmdoption-jubash--prompt"></span><code class="descname">-p</code><code class="descclassname"> &lt;prompt&gt;</code><code class="descclassname">, </code><code class="descname">--prompt</code><code class="descclassname"> &lt;prompt&gt;</code><a class="headerlink" href="#cmdoption-jubash-p" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use specified shell prompt format in interactive mode.  [<code class="docutils literal"><span class="pre">[Jubatus:{service}&lt;{cluster}&gt;&#64;{host}:{port}]</span> <span class="pre">#</span></code>]</p>
+<code class="descname">-P</code><code class="descclassname"> &lt;port&gt;</code><code class="descclassname">, </code><code class="descname">--port</code><code class="descclassname"> &lt;port&gt;</code><a class="headerlink" href="#cmdoption-jubash-p" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>接続先のServerまたはProxyのポート番号。 [9199]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-c">
+<code class="descname">-C</code><code class="descclassname"> &lt;cluster&gt;</code><code class="descclassname">, </code><code class="descname">--cluster</code><code class="descclassname"> &lt;cluster&gt;</code><a class="headerlink" href="#cmdoption-jubash-c" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>接続先のJubatusクラスタ名。接続先がProxyの場合は必須。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-s">
+<code class="descname">-s</code><code class="descclassname"> &lt;service&gt;</code><code class="descclassname">, </code><code class="descname">--service</code><code class="descclassname"> &lt;service&gt;</code><a class="headerlink" href="#cmdoption-jubash-s" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Jubatusサービス名(<code class="docutils literal"><span class="pre">classifier</span></code>, <code class="docutils literal"><span class="pre">nearest_neighbor</span></code>, etc.)。自動的に判別されるため、通常は指定しなくて良い。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-e">
+<code class="descname">-e</code><code class="descclassname"> &lt;engine&gt;</code><code class="descclassname">, </code><code class="descname">--engine</code><code class="descclassname"> &lt;engine&gt;</code><a class="headerlink" href="#cmdoption-jubash-e" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><a class="reference internal" href="#cmdoption-jubash-s"><code class="xref std std-option docutils literal"><span class="pre">--service</span></code></a> と同じ (非推奨)。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-command">
+<code class="descname">-c</code><code class="descclassname"> &lt;command&gt;</code><code class="descclassname">, </code><code class="descname">--command</code><code class="descclassname"> &lt;command&gt;</code><a class="headerlink" href="#cmdoption-jubash-command" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>指定された場合には、対話シェルを起動せず、引数に指定されたコマンドを実行する。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-t">
+<code class="descname">-t</code><code class="descclassname"> &lt;timeout&gt;</code><code class="descclassname">, </code><code class="descname">--timeout</code><code class="descclassname"> &lt;timeout&gt;</code><a class="headerlink" href="#cmdoption-jubash-t" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>通信タイムアウト(秒)。 [10]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-k">
+<code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--keepalive</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-k" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>keep-alive通信モード。</p>
+<p>デフォルトでは、 <code class="docutils literal"><span class="pre">jubash</span></code> はRPCの呼び出しのたびにTCPコネクションを確立するが、このオプションが指定された場合には、TCPコネクションを再利用する。デフォルトのコネクション確立方法と比べて、高い性能が期待できるモードである。</p>
+<p>このモードを利用する場合には、ServerやProxyのタイムアウトを無効にする必要がある(例: <code class="docutils literal"><span class="pre">jubaclassifier</span> <span class="pre">--timeout</span> <span class="pre">0</span></code>)。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-f">
+<code class="descname">-F</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--fail-fast</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-f" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>スクリプト実行時にエラーとなった場合に、処理を終了する。</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-jubash-prompt">
+<code class="descname">-p</code><code class="descclassname"> &lt;prompt&gt;</code><code class="descclassname">, </code><code class="descname">--prompt</code><code class="descclassname"> &lt;prompt&gt;</code><a class="headerlink" href="#cmdoption-jubash-prompt" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>対話シェルのプロンプトフォーマット。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubash-v">
-<span id="cmdoption-jubash--verbose"></span><code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-v" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable verbose mode.
-In verbose mode, the contents of Datum are displayed when making RPC call.</p>
+<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-v" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>冗長モード。本モードの場合、Datumの内容を出力する。</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-jubash-d">
-<span id="cmdoption-jubash--debug"></span><code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable debug mode.
-In debug mode, stacktrace will be displayed when fatal error occurred.</p>
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-d" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>デバッグモード。本モードの場合、異常発生時にスタックトレースを出力する。</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-jubash-h">
-<span id="cmdoption-jubash--help"></span><code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show the usage of the command.</p>
+<dt id="cmdoption-jubash-help">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-jubash-help" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>コマンドの使用方法を出力する。</p>
 </dd></dl>
 
 </div>
@@ -274,7 +270,7 @@ In debug mode, stacktrace will be displayed when fatal error occurred.</p>
         <a href="jubamodel.html" class="btn btn-neutral float-right" title="Jubamodel Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="loader_develop.html" class="btn btn-neutral" title="Loader Development Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="loader_develop.html" class="btn btn-neutral" title="Loader開発ガイド" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -305,7 +301,7 @@ In debug mode, stacktrace will be displayed when fatal error occurred.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -314,6 +310,7 @@ In debug mode, stacktrace will be displayed when fatal error occurred.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
 
   
 

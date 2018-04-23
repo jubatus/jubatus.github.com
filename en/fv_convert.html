@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Jubatus" href="index.html"/>
         <link rel="next" title="Algorithms" href="method.html"/>
         <link rel="prev" title="Distributed Mode" href="tutorial_distributed.html"/> 
@@ -504,7 +507,7 @@ You cannot specify negative value for &#8220;standard_deviation&#8221;. It cause
 <tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">Give average of input data. If average value is 80, you should specify like &#8220;80&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">standard_deviation:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Give standard deviation of input data. If standard deviation value is 2.3, you should specify like &#8220;2.3&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Give standard deviation of input data. If standard deviation value is 2.3, you should specify like &#8220;2.3&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
 </tr>
 </tbody>
 </table>
@@ -1140,14 +1143,14 @@ When &#8220;base&#8221; is not specified, <cite>&#8220;false&#8221;</cite> is as
 Note that <cite>&#8220;true&#8221;</cite> or <cite>&#8220;false&#8221;</cite> must be specified as string (see the example below.)</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">include_features:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify pattern of part-of-speech to use.
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Specify pattern of part-of-speech to use.
 Patterns are expected to match with the CSV representation of MeCab output (e.g., <code class="docutils literal"><span class="pre">名詞,固有名詞,組織,*,*,*,*</span></code>.)  The format is the same as in <code class="docutils literal"><span class="pre">key</span></code> of <code class="docutils literal"><span class="pre">string_filter_rules</span></code>.
 For example, to extract nouns only, specify <code class="docutils literal"><span class="pre">&quot;名詞,*&quot;</span></code>.
 To specify multiple patterns, join the patterns with <cite>|</cite> (e.g., <code class="docutils literal"><span class="pre">&quot;名詞,*|動詞,*&quot;</span></code>.)
 When &#8220;include_features&#8221; is not specified, <cite>&#8220;*&#8221;</cite> is assumed, i.e., all morphemes are used.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">exclude_features:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify pattern of part-of-speech to exclude.
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Specify pattern of part-of-speech to exclude.
 The format is the same as <code class="docutils literal"><span class="pre">include_features</span></code>.
 When both <code class="docutils literal"><span class="pre">include_features</span></code> and <code class="docutils literal"><span class="pre">exclude_features</span></code> are specified, morphemes that matches with <code class="docutils literal"><span class="pre">include_features</span></code> and does not match with <code class="docutils literal"><span class="pre">exclude_features</span></code> are extracted.
 When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite> is assumed, i.e., nothing is excluded.</td>
@@ -1350,11 +1353,11 @@ Note that both keys and values of parameters must be string.</p>
 Here is an example.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFeatureExtractor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[(</span><span class="s1">u&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s1">u&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>Requirements for the Python class is as follows:</p>
@@ -1563,7 +1566,7 @@ See the source of <a class="reference external" href="https://github.com/jubatus
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.8',
+            VERSION:'1.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -1572,7 +1575,7 @@ See the source of <a class="reference external" href="https://github.com/jubatus
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

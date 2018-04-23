@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Client API" href="index.html"/>
         <link rel="next" title="Burst" href="api_burst.html"/>
@@ -327,7 +330,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">compressed_bucket_size:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">bucket_size</span></code> を何点に圧縮するかを指定する。
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">bucket_size</span></code> を何点に圧縮するかを指定する。
 圧縮率 = (<code class="docutils literal"><span class="pre">compressed_bucket_size</span></code> / <code class="docutils literal"><span class="pre">bucket_size</span></code> )である。
 (Integer)</p>
 <ul class="simple">
@@ -336,7 +339,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">bicriteria_base_size:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">圧縮の粗さに関係するパラメータ。
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">圧縮の粗さに関係するパラメータ。
 (Integer)</p>
 <ul class="simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">bicriteria_base_size</span></code> &lt;= <code class="docutils literal"><span class="pre">compressed_bucket_size</span></code></li>
@@ -344,7 +347,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">forgetting_factor:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">忘却定数 <code class="docutils literal"><span class="pre">c_f</span></code> 。
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">忘却定数 <code class="docutils literal"><span class="pre">c_f</span></code> 。
 (Float)</p>
 <ul class="simple">
 <li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">forgetting_factor</span></code></li>
@@ -352,7 +355,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">forgetting_threshold:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">重みにかけられた忘却係数の和がこの値を超えたら、それより上位のレベルには圧縮しないようにする。
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">重みにかけられた忘却係数の和がこの値を超えたら、それより上位のレベルには圧縮しないようにする。
 (Float)</p>
 <ul class="simple">
 <li>値域: 0.0 &lt;= <code class="docutils literal"><span class="pre">forgetting_threshold</span></code> &lt;= 1.0</li>
@@ -370,6 +373,34 @@ JSON の各フィールドは以下のとおりである。</p>
 </table>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">distance(optional)</code></dt>
+<dd><p>データ間の距離を測る手法を指定する。
+設定可能な値は下表の通りである。
+このオプションは省略可能であり、省略された場合は <code class="docutils literal"><span class="pre">euclidean</span></code> が使用される。
+このオプションは <code class="docutils literal"><span class="pre">method</span></code> が <code class="docutils literal"><span class="pre">kmeans</span></code>, <code class="docutils literal"><span class="pre">dbscan</span></code> の時のみ有効である。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">設定値</th>
+<th class="head">手法</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;euclidean&quot;</span></code></td>
+<td>ユークリッド距離を使用する</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;cosine&quot;</span></code></td>
+<td>コサイン距離を使用する</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="describe">
@@ -397,6 +428,7 @@ JSON の各フィールドは以下のとおりである。</p>
     <span class="s2">&quot;forgetting_threshold&quot;</span> <span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="s2">&quot;seed&quot;</span> <span class="o">:</span> <span class="mi">0</span>
   <span class="p">},</span>
+  <span class="s2">&quot;distance&quot;</span><span class="o">:</span> <span class="s2">&quot;euclidean&quot;</span>
   <span class="s2">&quot;converter&quot;</span> <span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;string_filter_types&quot;</span> <span class="o">:</span> <span class="p">{},</span>
     <span class="s2">&quot;string_filter_rules&quot;</span> <span class="o">:</span> <span class="p">[],</span>
@@ -656,7 +688,7 @@ list&lt;<a class="reference internal" href="#weighted_index" title="weighted_ind
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.8',
+            VERSION:'1.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -666,7 +698,7 @@ list&lt;<a class="reference internal" href="#weighted_index" title="weighted_ind
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

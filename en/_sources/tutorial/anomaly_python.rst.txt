@@ -151,7 +151,7 @@ The configuration information is given by the JSON unit. Here is the meaning of 
  * parameter
 
   Specify the parameters for anomaly detection algorithm set as method.
-  Here, we use "lof" algorithm and set the parameters according to `Recommender API <http://jubat.us/ja/api_recommender.html>`_ .
+  Here, we use "lof" algorithm and set the parameters according to `Recommender API <http://jubat.us/en/api/api_recommender.html>`_ .
 
  * converter
 

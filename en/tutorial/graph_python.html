@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Graph" href="graph.html"/>
         <link rel="next" title="Stat" href="stat.html"/>
@@ -303,7 +306,7 @@
 <span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="k">class</span> <span class="nc">station_join</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station1</span> <span class="o">=</span> <span class="n">station1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station2</span> <span class="o">=</span> <span class="n">station2</span>
 
@@ -359,7 +362,7 @@
     <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;{0}</span><span class="se">\t</span><span class="s2">{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">station</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c1"># Create jubagraph client.</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
 
@@ -438,7 +441,7 @@
             <span class="n">station_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;  {0}</span><span class="se">\t</span><span class="s2">{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">station</span><span class="p">,</span> <span class="n">station_name</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Usage: {0} from_station_id to_station_id&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -450,20 +453,18 @@
 <h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
 <p><strong>train_route.json</strong></p>
 <p>The configuration information is given by the JSON unit. Here is the meaning of each JSON field.</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>method</dt>
-<dd><p class="first last">Specify the algorithm used in graph mining. Currently, In this example, we use the graph without indexing, so we specify it &#8220;graph_wo_index&#8221;.</p>
-</dd>
+<dd>Specify the algorithm used in graph mining. Currently, In this example, we use the graph without indexing, so we specify it &#8220;graph_wo_index&#8221;.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>parameter</dt>
-<dd><p class="first last">Specify the parameters to be passed to the algorithm.
+<dd>Specify the parameters to be passed to the algorithm.
 We specify two parameter here, &#8220;damping_factor&#8221; and &#8220;landmark_num&#8221;.
 &#8220;damping_factor&#8221; is the damping factor used in PageRank calculation. It adjusts scores for nodes with differenct degrees.The bigger it is, the more sensitive to graph structure PageRank score is, but the larger biases it causes. In the original paper, 0.85 is good.
-&#8220;landmark_num&#8221; is used for shortest path calculation. The bigger it is, more accurate value you can get, but the more memory is required.</p>
-</dd>
+&#8220;landmark_num&#8221; is used for shortest path calculation. The bigger it is, more accurate value you can get, but the more memory is required.</dd>
 </dl>
 </li>
 </ul>
@@ -531,17 +532,15 @@ In this sample program, we ignore the factor of &#8216;distance&#8217;, and only
 The number of instance created in [StationJoin] is the same as the number of &lt;station_join&gt; tags, and they are sotred in the ArrayList that created at Line 28 （Line 31-41).</p>
 <p>Next, we make the graph by using the list created above (Line 44-57).
 The method [create_graph] performs the following task.</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>Add station information and ID.</dt>
-<dd><p class="first last">Insert node into graph. Here, a node means a station. (eg. Shinagawa, Ochanomizu, Tokyo, etc.)</p>
-</dd>
+<dd>Insert node into graph. Here, a node means a station. (eg. Shinagawa, Ochanomizu, Tokyo, etc.)</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Create links between the added two neighbor stations</dt>
-<dd><p class="first last">Make the bi-link between the registed station to its neighbor stations. Here, a link means a route. (eg. Harajuku &lt;-&gt; Shibuya, etc.)</p>
-</dd>
+<dd>Make the bi-link between the registed station to its neighbor stations. Here, a link means a route. (eg. Harajuku &lt;-&gt; Shibuya, etc.)</dd>
 </dl>
 </li>
 </ul>
@@ -706,7 +705,7 @@ Pseudo-Shortest Path (hops) from 0 to 144:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.8',
+            VERSION:'1.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -715,7 +714,7 @@ Pseudo-Shortest Path (hops) from 0 to 144:
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

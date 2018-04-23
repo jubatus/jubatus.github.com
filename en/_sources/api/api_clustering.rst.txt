@@ -132,6 +132,23 @@ We show each field below:
 
         * Range: 0 <= ``seed`` <= :math:`2^{32} - 1`
 
+.. describe:: distance(optional)
+
+   Specify the distance function.
+   You can specify the values in the table below.
+   If ``distance`` is omitted, ``euclidean`` is used.
+   This option is effective when ``method`` is ``kmeans`` or ``dbscan``.           
+
+   .. table::
+
+      ==================== ===========================================
+      Value                Method
+      ==================== ===========================================
+      ``"euclidean"``      Use euclidean distance
+      ``"cosine"``         Use cosine distance
+      ==================== ===========================================
+
+
 .. describe:: converter
 
    Specify configuration for data conversion.
@@ -147,7 +164,7 @@ Example:
          "k" : 3,
          "seed" : 0
        },
-       "compressor_method" : "compressive_kmeans",
+       "compressor_method" : "compressive",
        "compressor_parameter" : {
          "bucket_size" : 1000,
          "compressed_bucket_size" : 100,
@@ -157,6 +174,7 @@ Example:
          "forgetting_threshold" : 0.5,
          "seed" : 0
        },
+       "distance": "euclidean",
        "converter" : {
          "string_filter_types" : {},
          "string_filter_rules" : [],

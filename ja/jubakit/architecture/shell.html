@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Shell &mdash; jubakit 0.5.4 documentation</title>
+  <title>Shell &mdash; jubakit 0.5.5 ドキュメント</title>
   
 
   
@@ -34,9 +34,12 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="../index.html"/>
-        <link rel="up" title="Architecture" href="index.html"/>
-        <link rel="next" title="User’s Guide" href="../guide/index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.5.5 ドキュメント" href="../index.html"/>
+        <link rel="up" title="アーキテクチャ" href="index.html"/>
+        <link rel="next" title="ユーザーズガイド" href="../guide/index.html"/>
         <link rel="prev" title="Config" href="config.html"/> 
 
   
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -91,26 +94,26 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">概要</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">アーキテクチャ</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="loader.html">Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html">Schema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service.html">Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Shell</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#using-repl-from-jubakit-script">Using REPL from Jubakit Script</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#using-repl-from-command-line">Using REPL from Command Line</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#integrating-with-command-line-workflow">Integrating with Command Line Workflow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#writing-jubash-script">Writing Jubash Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-repl-from-jubakit-script">JubakitスクリプトからREPLを利用する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-repl-from-command-line">コマンドラインからREPLを利用する</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integrating-with-command-line-workflow">コマンドライン処理との統合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writing-jubash-script">Jubashスクリプト</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations">制限事項</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">ユーザーズガイド</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 </ul>
 
@@ -142,13 +145,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Architecture</a> &raquo;</li>
+          <li><a href="index.html">アーキテクチャ</a> &raquo;</li>
       
     <li>Shell</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/shell.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/shell.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,43 +162,37 @@
            <div itemprop="articleBody">
             
   <div class="section" id="shell">
-<h1>Shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h1>
-<p>Shell provides an interactive command line interface, also known as REPL (read-eval-print loop), to communicate with Jubatus servers.</p>
+<h1>Shell<a class="headerlink" href="#shell" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ShellはJubatusサーバとの対話型評価環境(REPL)を提供します。</p>
 <div class="section" id="using-repl-from-jubakit-script">
-<h2>Using REPL from Jubakit Script<a class="headerlink" href="#using-repl-from-jubakit-script" title="Permalink to this headline">¶</a></h2>
-<p>The REPL interface can be started from <a class="reference internal" href="service.html"><span class="doc">Service</span></a> instances.</p>
+<h2>JubakitスクリプトからREPLを利用する<a class="headerlink" href="#using-repl-from-jubakit-script" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>REPLインタフェースは <a class="reference internal" href="service.html"><span class="doc">Service</span></a> インスタンスから開始することができます。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Classifier</span><span class="p">,</span> <span class="n">Config</span>
 <span class="n">service</span> <span class="o">=</span> <span class="n">Classifier</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Config</span><span class="p">())</span>
 <span class="n">service</span><span class="o">.</span><span class="n">shell</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>When <a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseService.shell" title="jubakit.base.BaseService.shell"><code class="xref py py-func docutils literal"><span class="pre">shell()</span></code></a> method is called, an interactive shell to control the Service is started.
-You can interactively call RPC API to the Jubatus server in the shell.
-The jubakit script stops until you exit the shell.</p>
-<p>See the next section for the usage of the interactive shell.</p>
+<p><a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseService.shell" title="jubakit.base.BaseService.shell"><code class="xref py py-func docutils literal"><span class="pre">shell()</span></code></a> メソッドを呼び出すと、Service インスタンスを操作するための対話シェルが起動します。対話シェルでは、RPCを対話的に呼び出すことができます。対話シェルを終了するまで、jubakitスクリプトは停止します。</p>
+<p>対話シェルの使い方は、次のセクションで説明します。</p>
 </div>
 <div class="section" id="using-repl-from-command-line">
-<h2>Using REPL from Command Line<a class="headerlink" href="#using-repl-from-command-line" title="Permalink to this headline">¶</a></h2>
-<p>Jubakit also provides <code class="docutils literal"><span class="pre">jubash</span></code> command, which is a standalone version of the Shell feature.
-It can be used as a handy tool to briefly tasting Jubatus without writing code.</p>
-<p>When using <code class="docutils literal"><span class="pre">jubash</span></code> command (outside Jubakit script), Jubatus servers needs to be started manually.</p>
+<h2>コマンドラインからREPLを利用する<a class="headerlink" href="#using-repl-from-command-line" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubakitは、Shell機能のスタンドアロンバージョンである <code class="docutils literal"><span class="pre">jubash</span></code> というコマンドを提供します。このツールを利用すれば、ソースコードを書かずに簡単にJubatusを利用することができます。</p>
+<p><code class="docutils literal"><span class="pre">jubash</span></code> コマンドを利用する場合(Jubakitスクリプト外から利用する場合)、Jubatusサーバを手動で起動しておく必要があります。</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span>$ jubaclassifier -f /usr/share/jubatus/example/config/classifier/default.json &amp;
 </pre></div>
 </div>
-<p>Now you can connect to the Classifier server using <code class="docutils literal"><span class="pre">jubash</span></code>.</p>
+<p>これで <code class="docutils literal"><span class="pre">jubash</span></code> コマンドを使ってClassifierサーバに接続することができます。</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span>$ jubash
 [Jubatus:classifier&lt;&gt;@127.0.0.1:9199] #
 </pre></div>
 </div>
-<p>The shell prompt appears when connected successfully.
-By default, <code class="docutils literal"><span class="pre">jubash</span></code> tries to connect to <code class="docutils literal"><span class="pre">127.0.0.1:9199</span></code>.
-You can also connect to a remote server and/or a custom port:</p>
+<p>接続に成功するとシェルプロンプトが現れます。デフォルトでは <code class="docutils literal"><span class="pre">jubash</span></code> コマンドは、 <code class="docutils literal"><span class="pre">127.0.0.1:9199</span></code> に接続します。もちろん、接続先のサーバやポートを変更することができます:</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span>$ jubash -H 192.168.1.2 -P 19199
 </pre></div>
 </div>
-<p>For other options refer to <a class="reference internal" href="../guide/jubash.html"><span class="doc">Jubash Reference</span></a> or <code class="docutils literal"><span class="pre">jubash</span> <span class="pre">--help</span></code>.</p>
-<p>Now you can call any methods defined in <a class="reference external" href="http://jubat.us/en/api/index.html">Jubatus RPC API</a> as if it is a command.
-For Classifier, you can use <code class="docutils literal"><span class="pre">train</span></code> and <code class="docutils literal"><span class="pre">classify</span></code> command to communicate with Jubatus server interactively.</p>
+<p>その他のオプションについては <a class="reference internal" href="../guide/jubash.html"><span class="doc">Jubash Reference</span></a> または <code class="docutils literal"><span class="pre">jubash</span> <span class="pre">--help</span></code> で確認してください。</p>
+<p>シェルプロンプトからは <a class="reference external" href="http://jubat.us/ja/api/index.html">Jubatus RPC API</a> で定義されている全てのRPCメソッドをコマンドのように呼び出すことができます。Classifierであれば、 <code class="docutils literal"><span class="pre">train</span></code> と <code class="docutils literal"><span class="pre">classify</span></code> コマンドをJubatusサーバに対して対話的に呼び出すことができます。</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Jubatus</span><span class="p">:</span><span class="n">classifier</span><span class="o">&lt;&gt;</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">9199</span><span class="p">]</span> <span class="c1"># train male height 170 weight 60</span>
 <span class="p">[</span><span class="n">Jubatus</span><span class="p">:</span><span class="n">classifier</span><span class="o">&lt;&gt;</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">9199</span><span class="p">]</span> <span class="c1"># train male height 185 weight 65</span>
 <span class="p">[</span><span class="n">Jubatus</span><span class="p">:</span><span class="n">classifier</span><span class="o">&lt;&gt;</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">9199</span><span class="p">]</span> <span class="c1"># train female height 150 weight 50</span>
@@ -205,8 +202,7 @@ For Classifier, you can use <code class="docutils literal"><span class="pre">tra
 <span class="n">male</span><span class="p">:</span> <span class="mf">0.0962741076946</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">train</span></code> method takes the label and the Datum (key-value record) as arguments, whereas <code class="docutils literal"><span class="pre">classify</span></code> method only takes the Datum.
-The above example is almost equivalent to the following Python code:</p>
+<p><code class="docutils literal"><span class="pre">train</span></code> メソッドはラベルと Datum (key-value データ) を引数に取ります。一方、 <code class="docutils literal"><span class="pre">classify</span></code> メソッドは Datum だけを引数に取ります。上記の例は、以下のPythonコードとほぼ同等となります。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubatus.classifier.client</span> <span class="kn">import</span> <span class="n">Classifier</span>
 <span class="kn">from</span> <span class="nn">jubatus.common</span> <span class="kn">import</span> <span class="n">Datum</span>
 <span class="kn">from</span> <span class="nn">jubatus.classifier.types</span> <span class="kn">import</span> <span class="n">LabeledDatum</span>
@@ -221,8 +217,7 @@ The above example is almost equivalent to the following Python code:</p>
 <span class="k">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">classify</span><span class="p">([</span><span class="n">Datum</span><span class="p">({</span><span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">140</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">})]))</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">help</span></code> command shows a list of commands available.
-If a command name is given to the <code class="docutils literal"><span class="pre">help</span></code> command (like <code class="docutils literal"><span class="pre">help</span> <span class="pre">train</span></code>), it will show you a brief description of its arguments.</p>
+<p><code class="docutils literal"><span class="pre">help</span></code> コマンドは利用可能なコマンドの一覧を表示します。 <code class="docutils literal"><span class="pre">help</span> <span class="pre">train</span></code> のように、 <code class="docutils literal"><span class="pre">help</span></code> に続けてコマンド名が与えられた場合は、そのコマンドの引数についての簡単な説明を表示します。</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Jubatus</span><span class="p">:</span><span class="n">classifier</span><span class="o">&lt;&gt;</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">9199</span><span class="p">]</span> <span class="c1"># help</span>
 
 <span class="n">Commands</span><span class="p">:</span>
@@ -240,15 +235,13 @@ If a command name is given to the <code class="docutils literal"><span class="pr
 </pre></div>
 </div>
 <div class="section" id="integrating-with-command-line-workflow">
-<h3>Integrating with Command Line Workflow<a class="headerlink" href="#integrating-with-command-line-workflow" title="Permalink to this headline">¶</a></h3>
-<p>You can also use <code class="docutils literal"><span class="pre">jubash</span></code> to easily integrate Jubatus with your existing command-line workflow or command-based data sources.</p>
-<p>You can use <code class="docutils literal"><span class="pre">-c,</span> <span class="pre">--command</span></code> option to execute a shell command in batch mode.
-For example, you can periodically monitor the status of Jubatus servers like this:</p>
+<h3>コマンドライン処理との統合<a class="headerlink" href="#integrating-with-command-line-workflow" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">jubash</span></code> を利用すれば、コマンドライン処理やコマンドから取得できるデータをJubatusと簡単に統合することができます。</p>
+<p>対話シェルで実行するコマンドを <code class="docutils literal"><span class="pre">-c,</span> <span class="pre">--command</span></code> オプションで指定すると、コマンドをバッチ実行することができます。例えば、Jubatusサーバの定期的な監視を行いたい場合には、以下のように実現することができます。</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span>$ watch -n 1 jubash -c get_status
 </pre></div>
 </div>
-<p>You can also execute <code class="docutils literal"><span class="pre">jubash</span></code> from shell scripts.
-The following example illustrates how to call Jubatus API from shell scripts.</p>
+<p><code class="docutils literal"><span class="pre">jubash</span></code> はシェルスクリプトからも実行することができます。以下の例では、シェルスクリプトからJubatusのAPIを実行する方法を説明します。</p>
 <div class="highlight-shell"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1"># Anomaly detection from number of packets on eth0</span>
@@ -261,7 +254,7 @@ tx<span class="o">()</span> <span class="o">{</span> ifconfig <span class="s2">&
 
 <span class="nv">RX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>rx<span class="k">)</span><span class="s2">&quot;</span> <span class="nv">TX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>tx<span class="k">)</span><span class="s2">&quot;</span>
 <span class="k">while</span> :<span class="p">;</span> <span class="k">do</span>
-  sleep 1
+  sleep <span class="m">1</span>
   <span class="nv">RX1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RX2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">TX1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TX2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">RX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>rx<span class="k">)</span><span class="s2">&quot;</span> <span class="nv">TX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>tx<span class="k">)</span><span class="s2">&quot;</span>
   jubash -c <span class="s2">&quot;add rx </span><span class="k">$((</span><span class="si">${</span><span class="nv">RX2</span><span class="si">}</span> <span class="o">-</span> <span class="si">${</span><span class="nv">RX1</span><span class="si">}</span><span class="k">))</span><span class="s2"> tx </span><span class="k">$((</span><span class="si">${</span><span class="nv">TX2</span><span class="si">}</span> <span class="o">-</span> <span class="si">${</span><span class="nv">TX1</span><span class="si">}</span><span class="k">))</span><span class="s2">&quot;</span>
 <span class="k">done</span>
@@ -269,33 +262,32 @@ tx<span class="o">()</span> <span class="o">{</span> ifconfig <span class="s2">&
 </div>
 </div>
 <div class="section" id="writing-jubash-script">
-<h3>Writing Jubash Script<a class="headerlink" href="#writing-jubash-script" title="Permalink to this headline">¶</a></h3>
-<p>As with the usual shell programs, <code class="docutils literal"><span class="pre">jubash</span></code> also works as an interpreter (note the shebang line).</p>
+<h3>Jubashスクリプト<a class="headerlink" href="#writing-jubash-script" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一般的なシェルプログラムと同様に、 <code class="docutils literal"><span class="pre">jubash</span></code> はインタプリタとして動作します。(シバン行に注目してください)</p>
 <div class="highlight-shell"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/jubash</span>
 
 <span class="c1"># expecting jubaclassifier is already running on localhost:9199</span>
-connect 127.0.0.1 9199
+connect <span class="m">127</span>.0.0.1 <span class="m">9199</span>
 
 get_config
 get_status
 
-train male height <span class="m">170</span> weight 60
-train male height <span class="m">185</span> weight 65
-train female height <span class="m">150</span> weight 50
-train female height <span class="m">155</span> weight 45
-classify height <span class="m">140</span> weight 40
+train male height <span class="m">170</span> weight <span class="m">60</span>
+train male height <span class="m">185</span> weight <span class="m">65</span>
+train female height <span class="m">150</span> weight <span class="m">50</span>
+train female height <span class="m">155</span> weight <span class="m">45</span>
+classify height <span class="m">140</span> weight <span class="m">40</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
-<p>Although commands in <code class="docutils literal"><span class="pre">jubash</span></code> are designed to be similar to its corresponding APIs, there are some limitations due to the limit of expression in REPL.</p>
+<h2>制限事項<a class="headerlink" href="#limitations" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">jubash</span></code> のコマンドは対応するAPIに似たインタフェースに設計されています。しかし、REPL表現の制約のため、いくつかの制限事項があります。</p>
 <ul class="simple">
-<li>Types of each data is automatically assumed as float or string.
-The interactive interface is not intended to handle data processing in use cases where strict consistency of data types is required.</li>
-<li>Binary features are not supported.</li>
-<li>Bulk RPC queries (throwing multiple records in single RPC call like <code class="docutils literal"><span class="pre">train</span></code> method of Classifier service) is not supported.</li>
+<li>それぞれのデータの型は自動的にfloatまたはstringに解釈されます。つまり、厳密なデータ型が要求されるケースを想定していません。</li>
+<li>バイナリ特徴量はサポートしていません。</li>
+<li>Classifierの <code class="docutils literal"><span class="pre">train</span></code> メソッドのように、1回のRPC実行で複数のデータを登録する一括登録の仕組みはサポートしていません。</li>
 </ul>
 </div>
 </div>
@@ -307,7 +299,7 @@ The interactive interface is not intended to handle data processing in use cases
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../guide/index.html" class="btn btn-neutral float-right" title="User’s Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../guide/index.html" class="btn btn-neutral float-right" title="ユーザーズガイド" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="config.html" class="btn btn-neutral" title="Config" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -341,7 +333,7 @@ The interactive interface is not intended to handle data processing in use cases
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -350,6 +342,7 @@ The interactive interface is not intended to handle data processing in use cases
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
 
   
 

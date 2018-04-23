@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Shell &mdash; jubakit 0.5.4 documentation</title>
+  <title>Shell &mdash; jubakit 0.5.5 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="jubakit 0.5.5 documentation" href="../index.html"/>
         <link rel="up" title="Architecture" href="index.html"/>
         <link rel="next" title="User’s Guide" href="../guide/index.html"/>
         <link rel="prev" title="Config" href="config.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -148,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/shell.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/shell.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -261,7 +264,7 @@ tx<span class="o">()</span> <span class="o">{</span> ifconfig <span class="s2">&
 
 <span class="nv">RX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>rx<span class="k">)</span><span class="s2">&quot;</span> <span class="nv">TX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>tx<span class="k">)</span><span class="s2">&quot;</span>
 <span class="k">while</span> :<span class="p">;</span> <span class="k">do</span>
-  sleep 1
+  sleep <span class="m">1</span>
   <span class="nv">RX1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RX2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">TX1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TX2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">RX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>rx<span class="k">)</span><span class="s2">&quot;</span> <span class="nv">TX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>tx<span class="k">)</span><span class="s2">&quot;</span>
   jubash -c <span class="s2">&quot;add rx </span><span class="k">$((</span><span class="si">${</span><span class="nv">RX2</span><span class="si">}</span> <span class="o">-</span> <span class="si">${</span><span class="nv">RX1</span><span class="si">}</span><span class="k">))</span><span class="s2"> tx </span><span class="k">$((</span><span class="si">${</span><span class="nv">TX2</span><span class="si">}</span> <span class="o">-</span> <span class="si">${</span><span class="nv">TX1</span><span class="si">}</span><span class="k">))</span><span class="s2">&quot;</span>
 <span class="k">done</span>
@@ -274,16 +277,16 @@ tx<span class="o">()</span> <span class="o">{</span> ifconfig <span class="s2">&
 <div class="highlight-shell"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/jubash</span>
 
 <span class="c1"># expecting jubaclassifier is already running on localhost:9199</span>
-connect 127.0.0.1 9199
+connect <span class="m">127</span>.0.0.1 <span class="m">9199</span>
 
 get_config
 get_status
 
-train male height <span class="m">170</span> weight 60
-train male height <span class="m">185</span> weight 65
-train female height <span class="m">150</span> weight 50
-train female height <span class="m">155</span> weight 45
-classify height <span class="m">140</span> weight 40
+train male height <span class="m">170</span> weight <span class="m">60</span>
+train male height <span class="m">185</span> weight <span class="m">65</span>
+train female height <span class="m">150</span> weight <span class="m">50</span>
+train female height <span class="m">155</span> weight <span class="m">45</span>
+classify height <span class="m">140</span> weight <span class="m">40</span>
 </pre></div>
 </div>
 </div>
@@ -341,7 +344,7 @@ The interactive interface is not intended to handle data processing in use cases
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

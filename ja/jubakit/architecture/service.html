@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Service &mdash; jubakit 0.5.4 documentation</title>
+  <title>Service &mdash; jubakit 0.5.5 ドキュメント</title>
   
 
   
@@ -34,8 +34,11 @@
   
 
   
-    <link rel="top" title="jubakit 0.5.4 documentation" href="../index.html"/>
-        <link rel="up" title="Architecture" href="index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.5.5 ドキュメント" href="../index.html"/>
+        <link rel="up" title="アーキテクチャ" href="index.html"/>
         <link rel="next" title="Config" href="config.html"/>
         <link rel="prev" title="Dataset" href="dataset.html"/> 
 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.4
+                0.5.5
               </div>
             
           
@@ -91,24 +94,24 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">概要</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">アーキテクチャ</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="loader.html">Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html">Schema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Service</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#process-invocation">Process Invocation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#working-with-external-jubatus">Working with External Jubatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-invocation">プロセス呼び出し</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-external-jubatus">外部のJubatusサーバで動作させる</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#embedded-jubatus">Embedded Jubatus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#list-of-services">List of Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-services">Service一覧</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shell.html">Shell</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">ユーザーズガイド</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 </ul>
 
@@ -140,13 +143,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Architecture</a> &raquo;</li>
+          <li><a href="index.html">アーキテクチャ</a> &raquo;</li>
       
     <li>Service</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/service.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/service.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,18 +160,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="service">
-<h1>Service<a class="headerlink" href="#service" title="Permalink to this headline">¶</a></h1>
-<p>Service makes update/analyze RPC calls to Jubatus servers for each record in Dataset and returns the result.</p>
+<h1>Service<a class="headerlink" href="#service" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ServiceはDatasetに含まれる各レコードを利用して、Jubatusサーバに対してupdateやanalyzeといったRPCコールを行い、結果を取得します。</p>
 <div class="section" id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<p>Service classes generally provide APIs that have the same name as the <a class="reference external" href="http://jubat.us/en/api/index.html">Jubatus RPC API</a>.
-These APIs takes Dataset as an argument.</p>
-<p>In addition to machine learning APIs, Service classes provide <code class="docutils literal"><span class="pre">clear</span></code>, <code class="docutils literal"><span class="pre">save</span></code>, <code class="docutils literal"><span class="pre">load</span></code> and <code class="docutils literal"><span class="pre">get_status</span></code> APIs.</p>
+<h2>API<a class="headerlink" href="#api" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Serviceクラスは <a class="reference external" href="http://jubat.us/ja/api/index.html">Jubatus RPC API</a> と同じAPIを提供します。これらのAPIはDatasetを引数に取ります。</p>
+<p>機械学習APIに加えて、Serviceクラスは <code class="docutils literal"><span class="pre">clear</span></code>、 <code class="docutils literal"><span class="pre">save</span></code> 、 <code class="docutils literal"><span class="pre">load</span></code> および <code class="docutils literal"><span class="pre">get_status</span></code> API を提供します。</p>
 </div>
 <div class="section" id="process-invocation">
-<h2>Process Invocation<a class="headerlink" href="#process-invocation" title="Permalink to this headline">¶</a></h2>
-<p>Service classes can launch Jubatus server processes.
-The following example runs <code class="docutils literal"><span class="pre">jubaclassifier</span></code> process with the default configuration.</p>
+<h2>プロセス呼び出し<a class="headerlink" href="#process-invocation" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ServiceクラスはJubatusサーバプロセスを起動することができます。 <code class="docutils literal"><span class="pre">jubaclassifier</span></code> プロセスをデフォルト設定で起動する例を以下に示します。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Classifier</span>
 
 <span class="c1"># Create a default configuration.</span>
@@ -183,13 +184,11 @@ The following example runs <code class="docutils literal"><span class="pre">juba
 <span class="n">classifier_service</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The server process will run in the standalone mode.
-A TCP port that does not conflict with other processes will be picked and assigned automatically.
-Once the Service instance (<code class="docutils literal"><span class="pre">classifier_service</span></code>) got out of focus, the server process will be terminated by the destructor.</p>
+<p>サーバプロセスはスタンドアロンモードで起動します。TCPポートは他のプロセスに競合しないように自動的に採番されます。一度Serviceインスタンスがフォーカスから外れたら、サーバプロセスはデストラクタにより停止します。</p>
 </div>
 <div class="section" id="working-with-external-jubatus">
-<h2>Working with External Jubatus<a class="headerlink" href="#working-with-external-jubatus" title="Permalink to this headline">¶</a></h2>
-<p>Jubakit can even be used with externally managed Jubatus processes.</p>
+<h2>外部のJubatusサーバで動作させる<a class="headerlink" href="#working-with-external-jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubakitは外部で動作しているJubatusサーバプロセスへもアクセスし、動作させることができます。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Classifier</span>
 
 <span class="c1"># Classifier Service connects to ``127.0.0.1:9199`` using cluster name ``my_cluster``.</span>
@@ -200,8 +199,8 @@ Once the Service instance (<code class="docutils literal"><span class="pre">clas
 </div>
 </div>
 <div class="section" id="embedded-jubatus">
-<h2>Embedded Jubatus<a class="headerlink" href="#embedded-jubatus" title="Permalink to this headline">¶</a></h2>
-<p>Jubakit can use &#8220;embedded&#8221; version of Jubatus as a backend, which reduces the cost of process invocation and RPC overhead.</p>
+<h2>Embedded Jubatus<a class="headerlink" href="#embedded-jubatus" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubakitは &#8220;embedded&#8221; 版Jubatusをバックエンドとして利用することができます。これによりRPC通信のオーバヘッドを削減することができます。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.classifier</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Classifier</span>
 
 <span class="c1"># Create a default configuration.</span>
@@ -213,19 +212,19 @@ Once the Service instance (<code class="docutils literal"><span class="pre">clas
 <span class="c1"># ... do some train/classify tasks ...</span>
 </pre></div>
 </div>
-<p>To use &#8220;embedded&#8221; feature, <code class="docutils literal"><span class="pre">embedded_jubatus</span></code> ([embedded-jubatus-python](<a class="reference external" href="https://github.com/jubatus/embedded-jubatus-python">https://github.com/jubatus/embedded-jubatus-python</a>)) Python module, which is a wrapper module to call machine learning algorithms provided in Jubatus Core library, needs to be installed.</p>
+<p>&#8220;embedded&#8221; 版の機能を利用するためには、<code class="docutils literal"><span class="pre">embedded_jubatus</span></code> ([embedded-jubatus-python](<a class="reference external" href="https://github.com/jubatus/embedded-jubatus-python">https://github.com/jubatus/embedded-jubatus-python</a>))Pythonモジュールをインストールしている必要があります。embedded_jubatusはJubatusの機械学習部分を直接呼び出し可能なモジュールです。</p>
 </div>
 <div class="section" id="list-of-services">
-<h2>List of Services<a class="headerlink" href="#list-of-services" title="Permalink to this headline">¶</a></h2>
-<p>Currently the following Services are available in Jubakit.</p>
+<h2>Service一覧<a class="headerlink" href="#list-of-services" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Jubakitでは現在、以下のServiceをサポートしています。</p>
 <ul class="simple">
-<li><a class="reference external" href="http://jubat.us/en/api/api_classifier.html">Classifier</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Classifier</span></code></li>
-<li><a class="reference external" href="http://jubat.us/en/api/api_regression.html">Regression</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.regression.Regression</span></code></li>
-<li><a class="reference external" href="http://jubat.us/en/api/api_anomaly.html">Anomaly</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.anomaly.Anomaly</span></code></li>
-<li><a class="reference external" href="http://jubat.us/en/api/api_recommender.html">Recommender</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.recommender.Recommender</span></code></li>
-<li><a class="reference external" href="http://jubat.us/en/api/api_weight.html">Weight</a> &#8211; <code class="xref py py-class docutils literal"><span class="pre">jubakit.weight.Weight</span></code></li>
+<li><a class="reference external" href="http://jubat.us/en/api/api_classifier.html">Classifier</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Classifier" title="jubakit.classifier.Classifier"><code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Classifier</span></code></a></li>
+<li><a class="reference external" href="http://jubat.us/en/api/api_regression.html">Regression</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.regression.Regression" title="jubakit.regression.Regression"><code class="xref py py-class docutils literal"><span class="pre">jubakit.regression.Regression</span></code></a></li>
+<li><a class="reference external" href="http://jubat.us/en/api/api_anomaly.html">Anomaly</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.anomaly.Anomaly" title="jubakit.anomaly.Anomaly"><code class="xref py py-class docutils literal"><span class="pre">jubakit.anomaly.Anomaly</span></code></a></li>
+<li><a class="reference external" href="http://jubat.us/en/api/api_recommender.html">Recommender</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.recommender.Recommender" title="jubakit.recommender.Recommender"><code class="xref py py-class docutils literal"><span class="pre">jubakit.recommender.Recommender</span></code></a></li>
+<li><a class="reference external" href="http://jubat.us/en/api/api_weight.html">Weight</a> &#8211; <a class="reference internal" href="../api/jubakit.html#jubakit.weight.Weight" title="jubakit.weight.Weight"><code class="xref py py-class docutils literal"><span class="pre">jubakit.weight.Weight</span></code></a></li>
 </ul>
-<p>Support of other Services is ongoing.</p>
+<p>他の機能のService化は対応中です。</p>
 </div>
 </div>
 
@@ -270,7 +269,7 @@ Once the Service instance (<code class="docutils literal"><span class="pre">clas
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.5.4',
+            VERSION:'0.5.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -279,6 +278,7 @@ Once the Service instance (<code class="docutils literal"><span class="pre">clas
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
 
   
 
