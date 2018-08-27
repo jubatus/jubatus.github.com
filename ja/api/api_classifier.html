@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -24,31 +26,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="索引"
-              href="../genindex.html"/>
-        <link rel="search" title="検索" href="../search.html"/>
-    <link rel="top" title="Jubatus" href="../index.html"/>
-        <link rel="up" title="Client API" href="index.html"/>
-        <link rel="next" title="Regression" href="api_regression.html"/>
-        <link rel="prev" title="データ構造と共通メソッド" href="common_structs.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="next" title="Regression" href="api_regression.html" />
+    <link rel="prev" title="データ構造と共通メソッド" href="common_structs.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +54,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" />
+            <img src="../_static/title.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -88,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">チュートリアル</a></li>
@@ -133,34 +127,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Jubatus</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Jubatus</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">Client API</a> &raquo;</li>
-      
-    <li>Classifier</li>
+        
+      <li>Classifier</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -263,7 +277,7 @@ JSON の各フィールドは以下のとおりである。</p>
 ただし、<code class="docutils literal"><span class="pre">method</span></code> が <code class="docutils literal"><span class="pre">&quot;NN&quot;</span></code> の場合、ラベル単位ではなく、 学習データ( <code class="docutils literal"><span class="pre">labeled_datum</span></code> )単位である。</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">忘却機能に利用するUnlearnerに渡すパラメータを指定する。
 <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a> で説明される <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> を指定する。
 <code class="docutils literal"><span class="pre">unlearner</span></code> を設定する場合、 <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> の指定は必須である。
 ここで指定された件数以上のラベルまたはデータを忘却する。</td>
@@ -282,7 +296,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
 元論文 <a class="reference internal" href="../method.html#crammer06" id="id10">[Crammer06]</a> における <span class="math">\(C\)</span> に相当する。
 (Float)</p>
@@ -300,7 +314,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
 元論文 <a class="reference internal" href="../method.html#crammer06" id="id11">[Crammer06]</a> における <span class="math">\(C\)</span> に相当する。
 (Float)</p>
@@ -318,7 +332,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
 元論文 <a class="reference internal" href="../method.html#dredze08" id="id12">[Dredze08]</a> における <span class="math">\(\phi\)</span> に相当する。
 (Float)</p>
@@ -336,7 +350,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
 元論文 <a class="reference internal" href="../method.html#crammer09b" id="id13">[Crammer09b]</a> における <span class="math">\(1/r\)</span> に相当する。
 (Float)</p>
@@ -354,7 +368,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">regularization_weight:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">学習に対する感度パラメータを指定する。
 大きくすると学習が早くなる代わりに、ノイズに弱くなる。
 元論文 <a class="reference internal" href="../method.html#crammer10" id="id14">[Crammer10]</a> における <span class="math">\(C\)</span> に相当する。
 (Float)</p>
@@ -380,7 +394,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
 (Integer)</p>
 <ul class="simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
@@ -388,7 +402,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">local_sensitivity:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">スコア算出時に使われる感度パラメータを指定する。
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われる感度パラメータを指定する。
 0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
 大きくすると距離の近いデータをより重視するようになる。
 (Float)</p>
@@ -406,7 +420,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
 (Integer)</p>
 <ul class="simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
@@ -414,7 +428,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">local_sensitivity:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">スコア算出時に使われる感度パラメータを指定する。
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われる感度パラメータを指定する。
 0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
 大きくすると距離の近いデータをより重視するようになる。
 (Float)</p>
@@ -432,7 +446,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">nearest_neighbor_num:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われるデータの数を指定する。
 (Integer)</p>
 <ul class="simple">
 <li>値域: 1 &lt;= <code class="docutils literal"><span class="pre">nearest_neighbor_num</span></code></li>
@@ -440,7 +454,7 @@ JSON の各フィールドは以下のとおりである。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">local_sensitivity:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">スコア算出時に使われる感度パラメータを指定する。
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">スコア算出時に使われる感度パラメータを指定する。
 0 の場合は近傍探索で得られた全てのデータを同じ重みで評価し、
 大きくすると距離の近いデータをより重視するようになる。
 (Float)</p>
@@ -654,15 +668,16 @@ bool <code class="descname">delete_label</code><span class="sig-paren">(</span>0
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api_regression.html" class="btn btn-neutral float-right" title="Regression" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api_regression.html" class="btn btn-neutral float-right" title="Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="common_structs.html" class="btn btn-neutral" title="データ構造と共通メソッド" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="common_structs.html" class="btn btn-neutral" title="データ構造と共通メソッド" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -675,7 +690,7 @@ bool <code class="descname">delete_label</code><span class="sig-paren">(</span>0
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -693,33 +708,29 @@ bool <code class="descname">delete_label</code><span class="sig-paren">(</span>0
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.9',
+            VERSION:'1.1.0',
+            LANGUAGE:'ja',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

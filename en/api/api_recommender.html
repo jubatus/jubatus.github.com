@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -24,31 +26,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Jubatus" href="../index.html"/>
-        <link rel="up" title="Client API" href="index.html"/>
-        <link rel="next" title="Nearest Neighbor" href="api_nearest_neighbor.html"/>
-        <link rel="prev" title="Regression" href="api_regression.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="next" title="Nearest Neighbor" href="api_nearest_neighbor.html" />
+    <link rel="prev" title="Regression" href="api_regression.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +54,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" />
+            <img src="../_static/title.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -88,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
@@ -133,34 +127,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Jubatus</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Jubatus</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">Client API</a> &raquo;</li>
-      
-    <li>Recommender</li>
+        
+      <li>Recommender</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -226,13 +240,13 @@ Its format differs for each <code class="docutils literal"><span class="pre">met
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">unlearner(optional):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Specify unlearner strategy.
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify unlearner strategy.
 If you don&#8217;t use unlearner, you should omit this parameter.
 You can specify <code class="docutils literal"><span class="pre">unlearner</span></code> strategy described in <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
 Data will be deleted by the ID based on strategy specified here.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">unlearner_parameter(optional):</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">Specify unlearner parameter.
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify unlearner parameter.
 You can specify <code class="docutils literal"><span class="pre">unlearner_parameter</span></code> <a class="reference internal" href="api_unlearner.html"><span class="doc">Unlearner</span></a>.
 You cannot omit this parameter when you specify <code class="docutils literal"><span class="pre">unlearner</span></code>.
 Data in excess of this number will be deleted automatically.</td>
@@ -248,7 +262,7 @@ Data in excess of this number will be deleted automatically.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">ignore_orthogonal(optional):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Ignore the points which don&#8217;t have any same key with the query when searching neighbors.
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Ignore the points which don&#8217;t have any same key with the query when searching neighbors.
 If this option is specified, the result includes only points which have inverted index similarity with the query.
 In addition, this option contributes to accelerate calculation in specific cases (e.g. when most points don&#8217;t have any same key).
 This parameter is optional and is <code class="docutils literal"><span class="pre">false</span></code> (disabled) by default.
@@ -287,7 +301,7 @@ The bigger it is, the more accurate results you can get, but the more memory is 
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">threads(optional):</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">Specify the number of threads which execute random_projection and search.
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of threads which execute random_projection and search.
 If <code class="docutils literal"><span class="pre">threads</span></code> is omitted, those are executed with 1 thread.
 The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
 This option has been added since 0.9.1. Single thread is used in before versions.
@@ -314,7 +328,7 @@ This option has been added since 0.9.1. Single thread is used in before versions
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">cache_size(optional):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">Specify the number of vectors to cache projection vectors for hashing.
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of vectors to cache projection vectors for hashing.
 If <code class="docutils literal"><span class="pre">cache_size</span></code> is omitted, projection vectors are generated in each hash calculation.
 The bigger it is, response time can be lower thoough more memory is required.
 (Integer)</p>
@@ -371,7 +385,7 @@ The bigger it is, the more results you can find, but the longer response time is
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">threads(optional):</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">Specify the number of threads which execute random_projection and search(optional).
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of threads which execute random_projection and search(optional).
 If <code class="docutils literal"><span class="pre">threads</span></code> is omitted, those are executed with 1 thread.
 The bigger it is, query latency becomes smaller because data is divided into several parts and processed by multiple threads in parallel.
 This option has been added since 0.9.1. Single thread is used in before versions.
@@ -398,7 +412,7 @@ This option has been added since 0.9.1. Single thread is used in before versions
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">cache_size(optional):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">Specify the number of vectors to cache projection vectors for hashing(optional).
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Specify the number of vectors to cache projection vectors for hashing(optional).
 If <code class="docutils literal"><span class="pre">cache_size</span></code> is omitted, projection vectors are generated in each hash calculation.
 The bigger it is, response time can be lower thoough more memory is required.
 (Integer)</p>
@@ -474,15 +488,15 @@ Its format is described in <a class="reference internal" href="../fv_convert.htm
 </dd></dl>
 
 <dl class="member">
-<dt id="id_with_score::score__float">
-1: float <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__float" title="Permalink to this definition">¶</a></dt>
+<dt id="id_with_score::score__double">
+1: double <code class="descname">score</code><a class="headerlink" href="#id_with_score::score__double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Score.
 Range of scores is <code class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">score</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code> (less than or equal to <code class="docutils literal"><span class="pre">-0</span></code> when using <code class="docutils literal"><span class="pre">euclid_lsh</span></code>).</p>
 </dd></dl>
 
 <div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">id_with_score</span> <span class="p">{</span>
   <span class="mi">0</span><span class="o">:</span> <span class="n">string</span> <span class="n">id</span>
-  <span class="mi">1</span><span class="o">:</span> <span class="kt">float</span> <span class="n">score</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="kt">double</span> <span class="n">score</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -601,8 +615,8 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </dd></dl>
 
 <dl class="method">
-<dt id="recommender::similar_row_from_id_and_score__s.float">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id_and_score</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: float <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id_and_score__s.float" title="Permalink to this definition">¶</a></dt>
+<dt id="recommender::similar_row_from_id_and_score__s.double">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_id_and_score</code><span class="sig-paren">(</span>0: string <em>id</em>, 1: double <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_id_and_score__s.double" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -664,8 +678,8 @@ list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" titl
 </dd></dl>
 
 <dl class="method">
-<dt id="recommender::similar_row_from_datum_and_score__datum.float">
-list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum_and_score</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: float <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum_and_score__datum.float" title="Permalink to this definition">¶</a></dt>
+<dt id="recommender::similar_row_from_datum_and_score__datum.double">
+list&lt;<a class="reference internal" href="api_anomaly.html#id_with_score" title="id_with_score">id_with_score</a>&gt; <code class="descname">similar_row_from_datum_and_score</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em>, 1: double <em>score</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::similar_row_from_datum_and_score__datum.double" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -742,7 +756,7 @@ list&lt;string&gt; <code class="descname">get_all_rows</code><span class="sig-pa
 
 <dl class="method">
 <dt id="recommender::calc_similarity__datum.datum">
-float <code class="descname">calc_similarity</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>lhs</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::calc_similarity__datum.datum" title="Permalink to this definition">¶</a></dt>
+double <code class="descname">calc_similarity</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>lhs</em>, 1: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::calc_similarity__datum.datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -763,7 +777,7 @@ float <code class="descname">calc_similarity</code><span class="sig-paren">(</sp
 
 <dl class="method">
 <dt id="recommender::calc_l2norm__datum">
-float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::calc_l2norm__datum" title="Permalink to this definition">¶</a></dt>
+double <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0: <a class="reference internal" href="common_structs.html#datum" title="datum">datum</a> <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#recommender::calc_l2norm__datum" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -788,15 +802,16 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api_nearest_neighbor.html" class="btn btn-neutral float-right" title="Nearest Neighbor" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api_nearest_neighbor.html" class="btn btn-neutral float-right" title="Nearest Neighbor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="api_regression.html" class="btn btn-neutral" title="Regression" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="api_regression.html" class="btn btn-neutral" title="Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -809,7 +824,7 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -827,32 +842,28 @@ float <code class="descname">calc_l2norm</code><span class="sig-paren">(</span>0
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.9',
+            VERSION:'1.1.0',
+            LANGUAGE:'en',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
