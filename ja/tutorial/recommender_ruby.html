@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -15,8 +15,6 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
-  
-  
 
   
 
@@ -26,20 +24,28 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-    <link rel="next" title="Recommender チュートリアル (Groovy)" href="recommender_groovy.html" />
-    <link rel="prev" title="Recommender チュートリアル (Python)" href="recommender_python.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Recommender チュートリアル" href="recommender.html"/>
+        <link rel="next" title="Recommender チュートリアル (Groovy)" href="recommender_groovy.html"/>
+        <link rel="prev" title="Recommender チュートリアル (Python)" href="recommender_python.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -54,7 +60,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" alt="Logo"/>
+            <img src="../_static/title.png" class="logo" />
           
           </a>
 
@@ -79,10 +85,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">チュートリアル</a><ul class="current">
@@ -126,56 +129,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Jubatus</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="index.html">チュートリアル</a> &raquo;</li>
-        
+      
           <li><a href="recommender.html">Recommender チュートリアル</a> &raquo;</li>
-        
-      <li>Recommender チュートリアル (Ruby)</li>
-    
-    
+      
+    <li>Recommender チュートリアル (Ruby)</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -509,32 +492,36 @@ CSVファイルなので、取得した1行を要素ごとに分け、それぞ�
 <p>推薦の手順を説明します。</p>
 <p>学習と同様にクライアントプログラムは、Jubatus::Recommender::Client::Recommenderを利用して作成します。
 使用するメソッドは、与えられたデータから推薦を行うsimilar_row_from_idメソッドです。</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><dl class="first docutils">
 <dt>Jubatus Serverへの接続設定</dt>
-<dd>update.rbと同様のため省略。</dd>
+<dd><p class="first last">update.rbと同様のため省略。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>推薦用データの準備</dt>
-<dd>推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
-学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</dd>
+<dd><p class="first last">推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
+学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilar_row_from_idメソッドに与えることで、推薦が行われます。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推薦</dt>
-<dd>2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のArrayを得ることができます（16行目）。
+<dd><p class="first last">2.で取得した選手の&#8221;名前&#8221;を、similar_row_from_idメソッドに渡すことで、推薦結果のArrayを得ることができます（16行目）。
 第1引数に、&#8221;名前&#8221;を指定します。
 第2引数は、似ているタイプを近傍順にいくつ出力するかを指定します。
 ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。
-なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</dd>
+なぜ、&#8221;4&#8221;かというとトップは自身が出力される為です。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd>3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったArrayです。
+<dd><p class="first last">3.で取得した、推薦結果のリストはsimilar_row_from_idメソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったArrayです。
 Arrayの1番目は自分自身なので、2番目から4番目までを結果として出力します。
-update.rbと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</dd>
+update.rbと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</p>
+</dd>
 </dl>
 </li>
 </ol>
@@ -577,16 +564,15 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="recommender_groovy.html" class="btn btn-neutral float-right" title="Recommender チュートリアル (Groovy)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="recommender_groovy.html" class="btn btn-neutral float-right" title="Recommender チュートリアル (Groovy)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="recommender_python.html" class="btn btn-neutral" title="Recommender チュートリアル (Python)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="recommender_python.html" class="btn btn-neutral" title="Recommender チュートリアル (Python)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -599,7 +585,7 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -618,11 +604,9 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.1.0',
-            LANGUAGE:'ja',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -633,13 +617,19 @@ player 中田翔 is similar to : 井口資仁 新井貴浩 中村紀洋
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

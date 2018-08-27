@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jubakit.burst &mdash; jubakit 0.6.0 ドキュメント</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../../index.html"/>
+        <link rel="up" title="モジュールコード" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> jubakit
+          
+
+          
+            
+            <img src="../../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">アーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">ユーザーズガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">モジュールコード</a> &raquo;</li>
+      
+    <li>jubakit.burst</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jubakit.burst のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">import</span> <span class="nn">jubatus</span>
+<span class="kn">import</span> <span class="nn">jubatus.embedded</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">GenericSchema</span><span class="p">,</span> <span class="n">BaseDataset</span><span class="p">,</span> <span class="n">BaseService</span><span class="p">,</span> <span class="n">GenericConfig</span><span class="p">,</span> <span class="n">Utils</span>
+<span class="kn">from</span> <span class="nn">.loader.array</span> <span class="k">import</span> <span class="n">ArrayLoader</span><span class="p">,</span> <span class="n">ZipArrayLoader</span>
+<span class="kn">from</span> <span class="nn">.loader.sparse</span> <span class="k">import</span> <span class="n">SparseMatrixLoader</span>
+<span class="kn">from</span> <span class="nn">.loader.chain</span> <span class="k">import</span> <span class="n">ValueMapChainLoader</span><span class="p">,</span> <span class="n">MergeChainLoader</span>
+<span class="kn">from</span> <span class="nn">.compat</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<span class="k">def</span> <span class="nf">_try_convert_str_to_float</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Try to convert input value to float value.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Invalid parameter: </span><span class="si">{}</span><span class="s1"> cannot cast string to float.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="KeywordSchema"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.KeywordSchema">[ドキュメント]</a><span class="k">class</span> <span class="nc">KeywordSchema</span><span class="p">(</span><span class="n">GenericSchema</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Keyword schema for Burst service.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">KEYWORD</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span>
+  <span class="n">SCALING</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+  <span class="n">GAMMA</span> <span class="o">=</span> <span class="s1">&#39;g&#39;</span>
+
+<div class="viewcode-block" id="KeywordSchema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.KeywordSchema.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">KeywordSchema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span>
+      <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">KEYWORD</span><span class="p">,</span> <span class="s1">&#39;KEYWORD&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_scaling_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span>
+      <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALING</span><span class="p">,</span> <span class="s1">&#39;SCALING&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_gamma_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span>
+      <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">GAMMA</span><span class="p">,</span> <span class="s1">&#39;GAMMA&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KeywordSchema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.KeywordSchema.transform">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="n">keyword</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keyword_key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">scaling</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scaling_key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_gamma_key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">keyword</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Row without keyword column cannot be used.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">scaling</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">scaling</span> <span class="o">=</span> <span class="n">_try_convert_str_to_float</span><span class="p">(</span><span class="n">scaling</span><span class="p">,</span> <span class="s1">&#39;SCALING&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">scaling</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Scaling parameter must be greater than 1.0.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">gamma</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">gamma</span> <span class="o">=</span> <span class="n">_try_convert_str_to_float</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="s1">&#39;GAMMA&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">gamma</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Gamma must be greater than 1.0.&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DocumentSchema"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.DocumentSchema">[ドキュメント]</a><span class="k">class</span> <span class="nc">DocumentSchema</span><span class="p">(</span><span class="n">GenericSchema</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Document schema for Burst service.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">POSITION</span> <span class="o">=</span> <span class="s1">&#39;p&#39;</span>
+  <span class="n">TEXT</span> <span class="o">=</span> <span class="s1">&#39;t&#39;</span>
+
+<div class="viewcode-block" id="DocumentSchema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.DocumentSchema.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">DocumentSchema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_pos_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span>
+        <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">POSITION</span><span class="p">,</span> <span class="s1">&#39;POSITION&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_text_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span>
+        <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TEXT</span><span class="p">,</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DocumentSchema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.DocumentSchema.transform">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pos_key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Row without position column cannot be used.&#39;</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">_try_convert_str_to_float</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;POSITION&#39;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_text_key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="KeywordDataset"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.KeywordDataset">[ドキュメント]</a><span class="k">class</span> <span class="nc">KeywordDataset</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Keyword dataset for Burst service.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">KeywordSchema</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DocumentDataset"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.DocumentDataset">[ドキュメント]</a><span class="k">class</span> <span class="nc">DocumentDataset</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Document dataset for Burst service.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DocumentSchema</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Burst"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst">[ドキュメント]</a><span class="k">class</span> <span class="nc">Burst</span><span class="p">(</span><span class="n">BaseService</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Burst service.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="n">DEFAULT_SCALING</span> <span class="o">=</span> <span class="mf">1.1</span>
+  <span class="n">DEFAULT_GAMMA</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Burst.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.name">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;burst&#39;</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">burst</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Burst</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">embedded</span><span class="o">.</span><span class="n">Burst</span>
+
+<div class="viewcode-block" id="Burst.add_keyword"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.add_keyword">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">add_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword_dataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Registers the keyword for burst detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span> <span class="ow">in</span> <span class="n">keyword_dataset</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">scaling</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">scaling</span> <span class="o">=</span> <span class="n">Burst</span><span class="o">.</span><span class="n">DEFAULT_SCALING</span>
+      <span class="k">if</span> <span class="n">gamma</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="n">Burst</span><span class="o">.</span><span class="n">DEFAULT_GAMMA</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">add_keyword</span><span class="p">(</span>
+          <span class="n">jubatus</span><span class="o">.</span><span class="n">burst</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">KeywordWithParams</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">gamma</span><span class="p">))</span>
+      <span class="k">yield</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Burst.add_documents"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.add_documents">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">add_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_dataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Register the document for burst detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span> <span class="ow">in</span> <span class="n">document_dataset</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Document dataset without position &#39;</span> <span class="o">+</span>
+                           <span class="s1">&#39;column cannot be used.&#39;</span><span class="p">)</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">add_documents</span><span class="p">([</span><span class="n">jubatus</span><span class="o">.</span><span class="n">burst</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">text</span><span class="p">)])</span>
+      <span class="k">yield</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Burst.get_result"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.get_result">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the burst detection result of the current window</span>
+<span class="sd">    for pre-registered keyword keyword.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;get_result&#39;</span><span class="p">)</span>
+    <span class="n">keyword</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Burst.get_result_at"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.get_result_at">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_result_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the burst detection result at the specified</span>
+<span class="sd">    position for pre-registered keyword.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">_try_convert_str_to_float</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">)</span>
+    <span class="n">keyword</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">get_result_at</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Burst.get_all_bursted_results"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.get_all_bursted_results">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_all_bursted_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the burst detection result of the current window</span>
+<span class="sd">    for all pre-registered keywords.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">get_all_bursted_results</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Burst.get_all_bursted_results_at"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.get_all_bursted_results_at">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_all_bursted_results_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the burst detection result at the specified</span>
+<span class="sd">    position for all pre-registered keywords.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">_try_convert_str_to_float</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">)</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">get_all_bursted_results_at</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pos</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Burst.get_all_keywords"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.get_all_keywords">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_all_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of keywords registered for burst detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">get_all_keywords</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Burst.remove_keyword"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.remove_keyword">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">remove_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes the keyword from burst detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keyword</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">remove_keyword</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Burst.remove_all_keywords"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Burst.remove_all_keywords">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">remove_all_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes all the keywords from burst detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cli</span><span class="o">.</span><span class="n">remove_all_keywords</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Config">[ドキュメント]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">GenericConfig</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Configurations to run Burst service.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Config.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Config.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">converter</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;converter&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+      <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">]</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.burst.Config.methods">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;burst&#39;</span><span class="p">]</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;burst&#39;</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="n">cfg</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="n">method</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_method</span><span class="p">()</span>
+    <span class="n">parameter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_parameter</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">method</span>    <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
+    <span class="k">if</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">!=</span> <span class="s1">&#39;burst&#39;</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown method: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s2">&quot;window_batch_size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+      <span class="s2">&quot;batch_interval&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">&quot;max_reuse_batch_num&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+      <span class="s2">&quot;costcut_threshold&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;result_window_rotate_size&quot;</span><span class="p">:</span> <span class="mi">5</span>
+    <span class="p">}</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.6.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -15,8 +15,6 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
-  
-  
 
   
 
@@ -26,20 +24,28 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-    <link rel="next" title="Jubash Reference" href="jubash.html" />
-    <link rel="prev" title="User’s Guide" href="index.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="jubakit 0.6.0 documentation" href="../index.html"/>
+        <link rel="up" title="User’s Guide" href="index.html"/>
+        <link rel="next" title="Jubash Reference" href="jubash.html"/>
+        <link rel="prev" title="User’s Guide" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -54,7 +60,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" alt="Logo"/>
+            <img src="../_static/title.png" class="logo" />
           
           </a>
 
@@ -83,10 +89,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
@@ -118,56 +121,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">jubakit</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">jubakit</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="index.html">User&#8217;s Guide</a> &raquo;</li>
-        
-      <li>Loader Development Guide</li>
-    
-    
+      
+    <li>Loader Development Guide</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/guide/loader_develop.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -189,7 +172,7 @@ The method must return the preprocessed dict-like object or <code class="docutil
 <p>Although not mandatory, the output of <code class="docutils literal"><span class="pre">preprocess</span></code> method should be a flat dict-like object, i.e., values should not be objects.</p>
 <div class="section" id="transformation">
 <h3>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h3>
-<p>For example, if you want to process JSONL files (files that contain one JSON record per line), you can create a class that inherits from <code class="xref py py-class docutils literal"><span class="pre">LineBasedFileLoader</span></code> which loads a single text file and emits record for each line, and implement <code class="docutils literal"><span class="pre">preprocess</span></code> method as follows:</p>
+<p>For example, if you want to process JSONL files (files that contain one JSON record per line), you can create a class that inherits from <a class="reference internal" href="../api/jubakit.loader.html#jubakit.loader.core.LineBasedFileLoader" title="jubakit.loader.core.LineBasedFileLoader"><code class="xref py py-class docutils literal"><span class="pre">LineBasedFileLoader</span></code></a> which loads a single text file and emits record for each line, and implement <code class="docutils literal"><span class="pre">preprocess</span></code> method as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">jubakit.loader.core</span> <span class="kn">import</span> <span class="n">LineBasedFileLoader</span>
 
@@ -221,10 +204,10 @@ Here is an example of Loader that calculates moving average over <code class="do
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 <span class="k">class</span> <span class="nc">MovingAverageLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_window</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="n">window_size</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MovingAverageLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MovingAverageLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ent</span><span class="p">):</span>
     <span class="c1"># Window holds the last N records.</span>
@@ -250,7 +233,7 @@ Here is an example of Loader that calculates moving average over <code class="do
 <p>If none of the existing Loaders work for you, create your own Loader from scratch.
 It is quite simple &#8211; the minimum requirements for Loader classes are:</p>
 <ul class="simple">
-<li>Loaders must inherit from <code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code> class.</li>
+<li>Loaders must inherit from <a class="reference internal" href="../api/jubakit.html#jubakit.base.BaseLoader" title="jubakit.base.BaseLoader"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code></a> class.</li>
 <li>Loaders must implement <code class="docutils literal"><span class="pre">rows</span></code> method, which yields a <code class="docutils literal"><span class="pre">dict</span></code> object.</li>
 </ul>
 <p>Here is a simple example of a Loader, which emits 2-dimensional random number records for 5 times.</p>
@@ -298,7 +281,7 @@ You can use a constructor.</p>
 <span class="kn">from</span> <span class="nn">jubakit.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 <span class="k">class</span> <span class="nc">InfiniteRandomLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
 
   <span class="k">def</span> <span class="nf">is_infinite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -316,16 +299,15 @@ You can use a constructor.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="jubash.html" class="btn btn-neutral float-right" title="Jubash Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="jubash.html" class="btn btn-neutral float-right" title="Jubash Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="User’s Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="User’s Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -338,7 +320,7 @@ You can use a constructor.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -357,11 +339,9 @@ You can use a constructor.</p>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'0.6.0',
-            LANGUAGE:'en',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -370,13 +350,19 @@ You can use a constructor.</p>
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

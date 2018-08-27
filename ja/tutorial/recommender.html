@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -15,8 +15,6 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
-  
-  
 
   
 
@@ -26,20 +24,28 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-    <link rel="next" title="Recommender チュートリアル (Python)" href="recommender_python.html" />
-    <link rel="prev" title="Classifier チュートリアル (Java)" href="classifier_java.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="チュートリアル" href="index.html"/>
+        <link rel="next" title="Recommender チュートリアル (Python)" href="recommender_python.html"/>
+        <link rel="prev" title="Classifier チュートリアル (Java)" href="classifier_java.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -54,7 +60,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" alt="Logo"/>
+            <img src="../_static/title.png" class="logo" />
           
           </a>
 
@@ -79,10 +85,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">チュートリアル</a><ul class="current">
@@ -126,54 +129,34 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Jubatus</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="index.html">チュートリアル</a> &raquo;</li>
-        
-      <li>Recommender チュートリアル</li>
-    
-    
+      
+    <li>Recommender チュートリアル</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -194,35 +177,41 @@
 <div class="section" id="id2">
 <h2>処理の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus Clientを使ったコーディングは、主に以下の流れになります。</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">jubarecommender</span></code> への接続設定</dt>
-<dd><code class="docutils literal"><span class="pre">jubarecommender</span></code> のホストやポート番号を指定し、接続設定をします。</dd>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">jubarecommender</span></code> のホストやポート番号を指定し、接続設定をします。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習用データの準備</dt>
-<dd>baseball.csvの全野手の成績から学習用データを作成します。</dd>
+<dd><p class="first last">baseball.csvの全野手の成績から学習用データを作成します。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
-<dd>作成した学習用データ1行ずつを <code class="docutils literal"><span class="pre">update_row</span></code> メソッドで <code class="docutils literal"><span class="pre">jubarecommender</span></code> に与え、学習を行います。</dd>
+<dd><p class="first last">作成した学習用データ1行ずつを <code class="docutils literal"><span class="pre">update_row</span></code> メソッドで <code class="docutils literal"><span class="pre">jubarecommender</span></code> に与え、学習を行います。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>推薦用データの準備</dt>
-<dd>推薦用に <code class="docutils literal"><span class="pre">jubarecommender</span></code> に投げる、野手情報のデータを作成します。</dd>
+<dd><p class="first last">推薦用に <code class="docutils literal"><span class="pre">jubarecommender</span></code> に投げる、野手情報のデータを作成します。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推薦</dt>
-<dd>4. で作成した推薦用データを入力値とし、 <code class="docutils literal"><span class="pre">similar_row_from_id</span></code> メソッドで 3. の学習に基づいた推薦をします。</dd>
+<dd><p class="first last">4. で作成した推薦用データを入力値とし、 <code class="docutils literal"><span class="pre">similar_row_from_id</span></code> メソッドで 3. の学習に基づいた推薦をします。</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><code class="docutils literal"><span class="pre">similar_row_from_id</span></code> メソッドの戻り値である推薦結果を出力します。</dd>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">similar_row_from_id</span></code> メソッドの戻り値である推薦結果を出力します。</p>
+</dd>
 </dl>
 </li>
 </ol>
@@ -257,16 +246,15 @@
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="recommender_python.html" class="btn btn-neutral float-right" title="Recommender チュートリアル (Python)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="recommender_python.html" class="btn btn-neutral float-right" title="Recommender チュートリアル (Python)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="classifier_java.html" class="btn btn-neutral" title="Classifier チュートリアル (Java)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="classifier_java.html" class="btn btn-neutral" title="Classifier チュートリアル (Java)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -279,7 +267,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -298,11 +286,9 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.1.0',
-            LANGUAGE:'ja',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -313,13 +299,19 @@
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

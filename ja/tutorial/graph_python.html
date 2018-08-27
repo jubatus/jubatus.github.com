@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -15,8 +15,6 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
-  
-  
 
   
 
@@ -26,20 +24,28 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-    <link rel="next" title="Stat チュートリアル" href="stat.html" />
-    <link rel="prev" title="Graph チュートリアル" href="graph.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Graph チュートリアル" href="graph.html"/>
+        <link rel="next" title="Stat チュートリアル" href="stat.html"/>
+        <link rel="prev" title="Graph チュートリアル" href="graph.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -54,7 +60,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" alt="Logo"/>
+            <img src="../_static/title.png" class="logo" />
           
           </a>
 
@@ -79,10 +85,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Jubatus Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">クイックスタート</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">チュートリアル</a><ul class="current">
@@ -124,56 +127,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Jubatus</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="index.html">チュートリアル</a> &raquo;</li>
-        
+      
           <li><a href="graph.html">Graph チュートリアル</a> &raquo;</li>
-        
-      <li>Graph チュートリアル (Python)</li>
-    
-    
+      
+    <li>Graph チュートリアル (Python)</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -322,7 +305,7 @@
 <span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="k">class</span> <span class="nc">station_join</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station1</span> <span class="o">=</span> <span class="n">station1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station2</span> <span class="o">=</span> <span class="n">station2</span>
 
@@ -378,7 +361,7 @@
     <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;{0}</span><span class="se">\t</span><span class="s2">{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">station</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c1"># Create jubagraph client.</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
 
@@ -457,7 +440,7 @@
             <span class="n">station_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;  {0}</span><span class="se">\t</span><span class="s2">{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">station</span><span class="p">,</span> <span class="n">station_name</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Usage: {0} from_station_id to_station_id&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -557,17 +540,19 @@ create_graphメソッドの第1引数は 1. で作成したクライアントで
 タグ&lt;station_join&gt;の数だけstation_joinクラスのインスタンスを作成し、28行目で作成したリストに格納していきます（31-41行目）。</p>
 <p>上記で作成したリストを用いて、グラフを作成します(44-57行目)。
 create_graphメソッドでは、以下の作業を行います。</p>
-<ul class="simple">
+<ul>
 <li><dl class="first docutils">
 <dt>駅情報の追加と駅IDの取得</dt>
-<dd>グラフ内にノードを追加します。
-ここでのノードは駅に相当します。（例. 品川駅、御茶ノ水駅、東京駅など）</dd>
+<dd><p class="first last">グラフ内にノードを追加します。
+ここでのノードは駅に相当します。（例. 品川駅、御茶ノ水駅、東京駅など）</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>追加した2駅の相互にエッジを張る</dt>
-<dd>登録した駅から隣接する駅へエッジを張ります。
-ここでのエッジは線路に相当します。（例. 原宿 =&gt; 渋谷など）</dd>
+<dd><p class="first last">登録した駅から隣接する駅へエッジを張ります。
+ここでのエッジは線路に相当します。（例. 原宿 =&gt; 渋谷など）</p>
+</dd>
 </dl>
 </li>
 </ul>
@@ -693,16 +678,15 @@ Pseudo-Shortest Path (hops) from 0 to 144:
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="stat.html" class="btn btn-neutral float-right" title="Stat チュートリアル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="stat.html" class="btn btn-neutral float-right" title="Stat チュートリアル" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="graph.html" class="btn btn-neutral" title="Graph チュートリアル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="graph.html" class="btn btn-neutral" title="Graph チュートリアル" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -715,7 +699,7 @@ Pseudo-Shortest Path (hops) from 0 to 144:
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -734,11 +718,9 @@ Pseudo-Shortest Path (hops) from 0 to 144:
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.1.0',
-            LANGUAGE:'ja',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -749,13 +731,19 @@ Pseudo-Shortest Path (hops) from 0 to 144:
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

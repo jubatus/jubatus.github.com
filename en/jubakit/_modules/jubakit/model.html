@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jubakit.model &mdash; jubakit 0.6.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="jubakit 0.6.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> jubakit
+          
+
+          
+            
+            <img src="../../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>jubakit.model</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for jubakit.model</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides features to manipulate model files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">from</span> <span class="nn">binascii</span> <span class="k">import</span> <span class="n">crc32</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">optparse</span>
+
+<span class="kn">import</span> <span class="nn">msgpack</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">.compat</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">._stdio</span> <span class="k">import</span> <span class="nb">print</span><span class="p">,</span> <span class="n">printe</span><span class="p">,</span> <span class="n">get_stdio</span>
+<span class="kn">from</span> <span class="nn">._process</span> <span class="k">import</span> <span class="n">JubaProcess</span>
+
+<div class="viewcode-block" id="JubaDump"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaDump">[docs]</a><span class="k">class</span> <span class="nc">JubaDump</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  ``JubaDump`` provides a high-level dump of Jubatus models.</span>
+<span class="sd">  ``jubadump`` command must be installed.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaDump.dump_file"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaDump.dump_file">[docs]</a>  <span class="k">def</span> <span class="nf">dump_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the dumped model data structure of the model file path ``target``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">JubaProcess</span><span class="o">.</span><span class="n">get_process</span><span class="p">([</span><span class="s1">&#39;jubadump&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (exit with status </span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="n">status</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaDump.dump"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaDump.dump">[docs]</a>  <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the dumped model data structure of the raw model data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wb&#39;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;jubakit-jubadump-&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">dump_file</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="JubaModel"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel">[docs]</a><span class="k">class</span> <span class="nc">JubaModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  ``JubaModel`` provides features to perform low-level manipulation of Jubatus model data structure.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="JubaModel.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SystemContainer</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">UserContainer</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_user_raw</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.load_binary"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.load_binary">[docs]</a>  <span class="k">def</span> <span class="nf">load_binary</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads Jubatus binary model file from binary stream ``f``.</span>
+<span class="sd">    When ``validate`` is ``True``, the model file format is strictly validated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Load header</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">h</span>
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+      <span class="n">checksum</span> <span class="o">=</span> <span class="n">crc32</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="n">checksum</span><span class="p">)</span>
+
+    <span class="c1"># Load system_data</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">system_data_size</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">SystemContainer</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">system_data_size</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span>
+          <span class="s1">&#39;EOF detected while reading system_data: &#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;expected </span><span class="si">{0}</span><span class="s1"> bytes, got </span><span class="si">{1}</span><span class="s1"> bytes&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">system_data_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)))</span>
+      <span class="n">checksum</span> <span class="o">=</span> <span class="n">crc32</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">checksum</span><span class="p">)</span>
+
+    <span class="c1"># Load user_data</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">user_data_size</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">UserContainer</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">_user_raw</span> <span class="o">=</span> <span class="n">buf</span>
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">user_data_size</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span>
+          <span class="s1">&#39;EOF detected while reading user_data: &#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;expected </span><span class="si">{0}</span><span class="s1"> bytes, got </span><span class="si">{1}</span><span class="s1"> bytes&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">user_data_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)))</span>
+      <span class="n">checksum</span> <span class="o">=</span> <span class="n">crc32</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">checksum</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+      <span class="c1"># Convert the checksum into 32-bit unsigned integer (for Python 2/3 compatibility)</span>
+      <span class="n">checksum</span> <span class="o">=</span> <span class="n">checksum</span> <span class="o">&amp;</span> <span class="mh">0xffffffff</span>
+
+      <span class="c1"># Check CRC</span>
+      <span class="k">if</span> <span class="n">checksum</span> <span class="o">!=</span> <span class="n">h</span><span class="o">.</span><span class="n">crc32</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span>
+          <span class="s1">&#39;CRC32 mismatch: expected </span><span class="si">{0}</span><span class="s1">, got </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">checksum</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">crc32</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+<div class="viewcode-block" id="JubaModel.dump_binary"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.dump_binary">[docs]</a>  <span class="k">def</span> <span class="nf">dump_binary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dumps the model as Jubatus binary model file to binary stream ``f``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Dump header</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Dump system_data</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Dump user_data</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_raw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Warning: conversion from Python object to binary model format may generate corrupt model&#39;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_user_raw</span><span class="p">)</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.load_json"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.load_json">[docs]</a>  <span class="k">def</span> <span class="nf">load_json</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads model file saved as JSON file from text stream ``f``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Load header</span>
+    <span class="k">if</span> <span class="s1">&#39;header&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;header section does not exist&#39;</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;header&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Load system_data</span>
+    <span class="k">if</span> <span class="s1">&#39;system&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;system section does not exist&#39;</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Load user_data</span>
+    <span class="k">if</span> <span class="s1">&#39;user_raw&#39;</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s1">&#39;user&#39;</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+        <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Notice: using &quot;user_raw&quot; record from JSON; &quot;user&quot; record is ignored&#39;</span><span class="p">)</span>
+      <span class="n">raw</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;user_raw&#39;</span><span class="p">])</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">UserContainer</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Warning: model contains non UTF-8 strings; cannot be loaded&#39;</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">UserContainer</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">user_data</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">_user_raw</span> <span class="o">=</span> <span class="n">raw</span>
+    <span class="k">elif</span> <span class="s1">&#39;user&#39;</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;user or user_raw section does not exist&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+<div class="viewcode-block" id="JubaModel.dump_json"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.dump_json">[docs]</a>  <span class="k">def</span> <span class="nf">dump_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">without_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dumps the model as JSON file to a text stream ``f``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Dump header</span>
+    <span class="n">record</span><span class="p">[</span><span class="s1">&#39;header&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+    <span class="c1"># Dump system_data</span>
+    <span class="n">record</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+    <span class="c1"># Dump user_data</span>
+    <span class="n">record</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">without_raw</span><span class="p">:</span>
+      <span class="n">record</span><span class="p">[</span><span class="s1">&#39;user_raw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_user_raw</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JubaModel.dump_text"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.dump_text">[docs]</a>  <span class="k">def</span> <span class="nf">dump_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dumps the model as human-readable text format to a text stream ``f``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">heading</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span> <span class="p">(</span><span class="s1">&#39;Meta Data&#39;</span><span class="p">,</span>   <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">),</span>
+                            <span class="p">(</span><span class="s1">&#39;System Data&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="p">),</span>
+                            <span class="p">(</span><span class="s1">&#39;User Data&#39;</span><span class="p">,</span>   <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span> <span class="p">]:</span>
+      <span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;------------------------------------------&quot;</span><span class="p">)</span>
+      <span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+      <span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;------------------------------------------&quot;</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0:24}{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+      <span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buf</span><span class="p">))</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.predict_format"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.predict_format">[docs]</a>  <span class="k">def</span> <span class="nf">predict_format</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads the model file named ``filename``.</span>
+<span class="sd">    Returns ``binary`` or ``json``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+      <span class="n">sig</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">sig</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">_MAGIC</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s1">&#39;binary&#39;</span>
+      <span class="k">elif</span> <span class="n">sig</span> <span class="o">==</span> <span class="n">b</span><span class="s1">&#39;{&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;json&#39;</span>
+    <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;model format cannot be predicted&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JubaModel.fix_header"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.fix_header">[docs]</a>  <span class="k">def</span> <span class="nf">fix_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Repairs the header values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Update magic</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">magic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">_MAGIC</span>
+
+    <span class="c1"># Update system_data_size</span>
+    <span class="n">system_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">dumps</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">system_data_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">system_raw</span><span class="p">)</span>
+
+    <span class="c1"># Update user_data_size</span>
+    <span class="n">user_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_raw</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">user_data_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_raw</span><span class="p">)</span>
+
+    <span class="c1"># Update crc32</span>
+    <span class="n">header_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="n">crc32</span><span class="p">(</span><span class="n">header_raw</span><span class="p">,</span> <span class="n">checksum</span><span class="p">)</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="n">crc32</span><span class="p">(</span><span class="n">system_raw</span><span class="p">,</span> <span class="n">checksum</span><span class="p">)</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="n">crc32</span><span class="p">(</span><span class="n">user_raw</span><span class="p">,</span> <span class="n">checksum</span><span class="p">)</span>
+
+    <span class="c1"># Convert the checksum into 32-bit unsigned integer (for Python 2/3 compatibility)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">crc32</span> <span class="o">=</span> <span class="p">(</span><span class="n">checksum</span> <span class="o">&amp;</span> <span class="mh">0xffffffff</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JubaModel.data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.data">[docs]</a>  <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the actual model data part.</span>
+<span class="sd">    This method is a quick shortcut for ``return self.user.user_data``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">user_data</span></div>
+
+<div class="viewcode-block" id="JubaModel.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">type</span>
+    <span class="n">trans</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;classifier&#39;</span><span class="p">:</span>
+      <span class="n">trans</span> <span class="o">=</span> <span class="n">ClassifierTransformer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;regression&#39;</span><span class="p">:</span>
+      <span class="n">trans</span> <span class="o">=</span> <span class="n">RegressionTransformer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;recommender&#39;</span><span class="p">:</span>
+      <span class="n">trans</span> <span class="o">=</span> <span class="n">RecommenderTransformer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;anomaly&#39;</span><span class="p">:</span>
+      <span class="n">trans</span> <span class="o">=</span> <span class="n">AnomalyTransformer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;clustering&#39;</span><span class="p">:</span>
+      <span class="n">trans</span> <span class="o">=</span> <span class="n">ClusteringTransformer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">UnsupportedTransformationError</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">trans</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">service</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JubaModel.ModelPart"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart">[docs]</a>  <span class="k">class</span> <span class="nc">ModelPart</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="JubaModel.ModelPart.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.ModelPart.fields"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.fields">[docs]</a>    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Returns the list of (property_name, data_type, default_value).</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="JubaModel.ModelPart.get"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">record</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+        <span class="n">record</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">),))</span>
+      <span class="k">return</span> <span class="n">record</span></div>
+
+<div class="viewcode-block" id="JubaModel.ModelPart.set"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+        <span class="n">new_value</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+          <span class="n">new_value</span> <span class="o">=</span> <span class="n">new_value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.ModelPart.load"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="c1"># Must be implemented in sub classes.</span>
+      <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.ModelPart.loads"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.loads">[docs]</a>    <span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JubaModel.ModelPart.dump"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="c1"># Must be implemented in sub classes.</span>
+      <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="JubaModel.ModelPart.dumps"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.ModelPart.dumps">[docs]</a>    <span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="JubaModel.Header"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Header">[docs]</a>  <span class="k">class</span> <span class="nc">Header</span><span class="p">(</span><span class="n">ModelPart</span><span class="p">):</span>
+    <span class="c1"># Magic value for binary model files.</span>
+    <span class="n">_MAGIC</span> <span class="o">=</span> <span class="n">b</span><span class="s1">&#39;jubatus</span><span class="se">\0</span><span class="s1">&#39;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.Header.fields"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Header.fields">[docs]</a>    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+      <span class="k">return</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;format_version&#39;</span>       <span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;Q&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;jubatus_version_major&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;I&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;jubatus_version_minor&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;I&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;jubatus_version_maint&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;I&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;crc32&#39;</span>                <span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;I&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;system_data_size&#39;</span>     <span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;Q&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;user_data_size&#39;</span>       <span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&gt;Q&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+      <span class="p">]</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.Header.load"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Header.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+
+      <span class="n">magic</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">magic</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">8</span> <span class="ow">or</span> <span class="n">magic</span> <span class="o">!=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_MAGIC</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;invalid magic value: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">magic</span><span class="p">)))</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;failed to read </span><span class="si">{0}</span><span class="s1"> in header (expected </span><span class="si">{1}</span><span class="s1"> bytes, got </span><span class="si">{2}</span><span class="s1"> bytes)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)))</span>
+        <span class="k">try</span><span class="p">:</span>
+          <span class="n">value</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">raw</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="n">InvalidModelFormatError</span><span class="p">(</span><span class="s1">&#39;failed to parse </span><span class="si">{0}</span><span class="s1"> value </span><span class="si">{1}</span><span class="s1"> as </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">raw</span><span class="p">),</span> <span class="n">fmt</span><span class="p">))</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">h</span></div>
+
+<div class="viewcode-block" id="JubaModel.Header.dump"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Header.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_MAGIC</span><span class="p">))</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;crc32&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">checksum</span><span class="p">:</span> <span class="k">continue</span>  <span class="c1"># skip checksum if checksum == False</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)))</span></div></div>
+
+<div class="viewcode-block" id="JubaModel.Container"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Container">[docs]</a>  <span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="n">ModelPart</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.Container.load"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Container.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+      <span class="c1"># Assumes everything is encoded in UTF-8.</span>
+      <span class="c1"># This means that if some records (e.g., config files, feature vector</span>
+      <span class="c1"># keys) are not encoded in UTF-8, the model cannot be loaded.  However,</span>
+      <span class="c1"># such models cannot be written out to text or JSON, so we don&#39;t really</span>
+      <span class="c1"># care.  Callers are responsible for handling UnicodeDecodeError.</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">unicode_errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+      <span class="n">field_names</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cls</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+      <span class="n">c</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+      <span class="n">c</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">field_names</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+      <span class="k">return</span> <span class="n">c</span></div>
+
+<div class="viewcode-block" id="JubaModel.Container.dump"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.Container.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">()))</span>
+      <span class="n">msgpack</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="JubaModel.SystemContainer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.SystemContainer">[docs]</a>  <span class="k">class</span> <span class="nc">SystemContainer</span><span class="p">(</span><span class="n">Container</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.SystemContainer.fields"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.SystemContainer.fields">[docs]</a>    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+      <span class="k">return</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;version&#39;</span>  <span class="p">,</span> <span class="nb">int</span>  <span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="nb">int</span>  <span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;type&#39;</span>     <span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;id&#39;</span>       <span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;config&#39;</span>   <span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+      <span class="p">]</span></div></div>
+
+<div class="viewcode-block" id="JubaModel.UserContainer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.UserContainer">[docs]</a>  <span class="k">class</span> <span class="nc">UserContainer</span><span class="p">(</span><span class="n">Container</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaModel.UserContainer.fields"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModel.UserContainer.fields">[docs]</a>    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+      <span class="k">return</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span>   <span class="nb">int</span>  <span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;user_data&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="p">{}),</span>
+      <span class="p">]</span></div></div></div>
+
+<div class="viewcode-block" id="BaseTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.BaseTransformer">[docs]</a><span class="k">class</span> <span class="nc">BaseTransformer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTransformer.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.BaseTransformer.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_m</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_m</span> <span class="o">=</span> <span class="n">_m</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cfg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">_m</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseTransformer.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.BaseTransformer.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transforms the model into the specified service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># This is a fallback implementation.</span>
+    <span class="c1"># Subclasses implement actual transformation rules.</span>
+    <span class="k">raise</span> <span class="n">UnsupportedTransformationError</span><span class="p">(</span><span class="n">service</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_get_converted_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">user_version</span><span class="p">,</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="n">user_raw</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+
+    <span class="c1"># Write user container header to user_raw.</span>
+    <span class="n">pk</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">Packer</span><span class="p">()</span>
+    <span class="n">user_raw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pk</span><span class="o">.</span><span class="n">pack_array_header</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">user_raw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pk</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">user_version</span><span class="p">))</span>
+    <span class="n">user_raw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pk</span><span class="o">.</span><span class="n">pack_array_header</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">user_data</span><span class="p">)))</span>
+
+    <span class="c1"># Write user_data to user_raw.</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">user_data</span><span class="p">:</span>
+      <span class="n">user_raw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+
+    <span class="c1"># Create transformed model.</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_m</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">JubaModel</span><span class="p">()</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">system</span><span class="p">)</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">service</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">_user_raw</span> <span class="o">=</span> <span class="n">user_raw</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">JubaModel</span><span class="o">.</span><span class="n">UserContainer</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">_user_raw</span><span class="p">)</span>
+
+    <span class="c1"># Recompute CRC32 checksum and field lengths.</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">fix_header</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">m2</span></div>
+
+<div class="viewcode-block" id="GenericTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.GenericTransformer">[docs]</a><span class="k">class</span> <span class="nc">GenericTransformer</span><span class="p">(</span><span class="n">BaseTransformer</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Transformation for services having generic 2-element model data</span>
+<span class="sd">  structure (service model and weight manager model).</span>
+<span class="sd">  It can be converted to Weight model.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="GenericTransformer.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.GenericTransformer.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">service</span> <span class="o">==</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span>
+      <span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">wm</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unpack_generic</span><span class="p">()</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_converted_model</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">wm</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_weight_config</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">GenericTransformer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">service</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_unpack_generic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expected_version</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unpacks the 2-element model data structure and returns file-like objects</span>
+<span class="sd">    of raw service model and weight manager model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">wm</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">BytesIO</span><span class="p">(),</span> <span class="n">BytesIO</span><span class="p">())</span>
+    <span class="n">unp</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">Unpacker</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_m</span><span class="o">.</span><span class="n">_user_raw</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">read_array_header</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>     <span class="c1"># &lt;user_container&gt;</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span> <span class="o">==</span> <span class="n">expected_version</span> <span class="c1">#  +- &lt;version&gt;</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">read_array_header</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>     <span class="c1">#  +- &lt;user_data&gt;</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>                    <span class="c1">#      +- (service model)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">wm</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>                    <span class="c1">#      +- wm_.get_model()-&gt;pack(pk)</span>
+    <span class="n">rm</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">wm</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rm</span><span class="p">,</span> <span class="n">wm</span>
+
+  <span class="k">def</span> <span class="nf">_is_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">methods</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if the method used in the model is any of the specified methods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cfg</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">methods</span>
+
+  <span class="k">def</span> <span class="nf">_get_weight_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts and returns the weight configuration data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cfg</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s1">&#39;converter&#39;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+  <span class="k">def</span> <span class="nf">_get_backend_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts and returns the backend configuration data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cfg</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">][</span><span class="s1">&#39;method&#39;</span><span class="p">],</span>
+      <span class="s1">&#39;parameter&#39;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parameter&#39;</span><span class="p">][</span><span class="s1">&#39;parameter&#39;</span><span class="p">],</span>
+      <span class="s1">&#39;converter&#39;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;converter&#39;</span><span class="p">],</span>
+    <span class="p">}</span></div>
+
+<div class="viewcode-block" id="ClassifierTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.ClassifierTransformer">[docs]</a><span class="k">class</span> <span class="nc">ClassifierTransformer</span><span class="p">(</span><span class="n">GenericTransformer</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassifierTransformer.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.ClassifierTransformer.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">service</span> <span class="o">==</span> <span class="s1">&#39;nearest_neighbor&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_method</span><span class="p">(</span><span class="s1">&#39;nearest_neighbor&#39;</span><span class="p">,</span> <span class="s1">&#39;NN&#39;</span><span class="p">):</span>
+      <span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">wm</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unpack_generic</span><span class="p">()</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_converted_model</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_nn</span><span class="p">(</span><span class="n">rm</span><span class="p">),</span> <span class="n">wm</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_backend_config</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ClassifierTransformer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">service</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_extract_nn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rm</span><span class="p">):</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">unp</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">Unpacker</span><span class="p">(</span><span class="n">rm</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">read_array_header</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>   <span class="c1"># classifier_-&gt;pack(pk)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>                  <span class="c1">#  +- nearest_neighbor_engine_-&gt;pack(pk)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">skip</span><span class="p">()</span>                            <span class="c1">#  +- labels_.pack(pk)</span>
+    <span class="k">return</span> <span class="n">nn</span></div>
+
+<div class="viewcode-block" id="RegressionTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.RegressionTransformer">[docs]</a><span class="k">class</span> <span class="nc">RegressionTransformer</span><span class="p">(</span><span class="n">ClassifierTransformer</span><span class="p">):</span>
+  <span class="c1"># The same transformation code as Classifier can be used for Regression models.</span>
+  <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="RecommenderTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.RecommenderTransformer">[docs]</a><span class="k">class</span> <span class="nc">RecommenderTransformer</span><span class="p">(</span><span class="n">GenericTransformer</span><span class="p">):</span>
+<div class="viewcode-block" id="RecommenderTransformer.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.RecommenderTransformer.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">service</span> <span class="o">==</span> <span class="s1">&#39;nearest_neighbor&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_method</span><span class="p">(</span><span class="s1">&#39;nearest_neighbor_recommender&#39;</span><span class="p">):</span>
+      <span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">wm</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unpack_generic</span><span class="p">()</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_converted_model</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_nn</span><span class="p">(</span><span class="n">rm</span><span class="p">),</span> <span class="n">wm</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_backend_config</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">RecommenderTransformer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">service</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_extract_nn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rm</span><span class="p">):</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">unp</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">Unpacker</span><span class="p">(</span><span class="n">rm</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">read_array_header</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>   <span class="c1"># recommender_-&gt;pack(pk)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">skip</span><span class="p">()</span>                            <span class="c1">#  +- orig_.pack(packer)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>                  <span class="c1">#  +- nearest_neighbor_engine_-&gt;pack(pk)</span>
+    <span class="k">return</span> <span class="n">nn</span></div>
+
+<div class="viewcode-block" id="AnomalyTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.AnomalyTransformer">[docs]</a><span class="k">class</span> <span class="nc">AnomalyTransformer</span><span class="p">(</span><span class="n">GenericTransformer</span><span class="p">):</span>
+<div class="viewcode-block" id="AnomalyTransformer.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.AnomalyTransformer.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">service</span> <span class="o">==</span> <span class="s1">&#39;nearest_neighbor&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_method</span><span class="p">(</span><span class="s1">&#39;light_lof&#39;</span><span class="p">):</span>
+      <span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">wm</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unpack_generic</span><span class="p">()</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_converted_model</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_nn</span><span class="p">(</span><span class="n">rm</span><span class="p">),</span> <span class="n">wm</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_backend_config</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">service</span> <span class="o">==</span> <span class="s1">&#39;recommender&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_method</span><span class="p">(</span><span class="s1">&#39;lof&#39;</span><span class="p">):</span>
+      <span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">wm</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unpack_generic</span><span class="p">()</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_converted_model</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_recommender</span><span class="p">(</span><span class="n">rm</span><span class="p">),</span> <span class="n">wm</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_backend_config</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AnomalyTransformer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">service</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_extract_nn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rm</span><span class="p">):</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">unp</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">Unpacker</span><span class="p">(</span><span class="n">rm</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">read_array_header</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>   <span class="c1"># anomaly_-&gt;pack(pk)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>                  <span class="c1">#  +- nearest_neighbor_engine_-&gt;pack(pk)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">skip</span><span class="p">()</span>                            <span class="c1">#  +- mixable_scores_-&gt;get_model()-&gt;pack(packer)</span>
+    <span class="k">return</span> <span class="n">nn</span>
+
+  <span class="k">def</span> <span class="nf">_extract_recommender</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rm</span><span class="p">):</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">unp</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">Unpacker</span><span class="p">(</span><span class="n">rm</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">unp</span><span class="o">.</span><span class="n">read_array_header</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>   <span class="c1"># anomaly_-&gt;pack(pk)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">skip</span><span class="p">()</span>                            <span class="c1">#  +- mixable_storage_-&gt;get_model()-&gt;pack(packer)</span>
+    <span class="n">unp</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>                  <span class="c1">#  +- nn_engine_-&gt;pack(packer)</span>
+    <span class="k">return</span> <span class="n">nn</span></div>
+
+<div class="viewcode-block" id="ClusteringTransformer"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.ClusteringTransformer">[docs]</a><span class="k">class</span> <span class="nc">ClusteringTransformer</span><span class="p">(</span><span class="n">GenericTransformer</span><span class="p">):</span>
+  <span class="c1"># Only supports conversion to weight service.</span>
+  <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="UnsupportedTransformationError"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.UnsupportedTransformationError">[docs]</a><span class="k">class</span> <span class="nc">UnsupportedTransformationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="UnsupportedTransformationError.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.UnsupportedTransformationError.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Error: this model cannot be transformed as </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">UnsupportedTransformationError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="InvalidModelFormatError"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.InvalidModelFormatError">[docs]</a><span class="k">class</span> <span class="nc">InvalidModelFormatError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+  <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="JubaModelError"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModelError">[docs]</a><span class="k">class</span> <span class="nc">JubaModelError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="JubaModelError.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.model.JubaModelError.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">e</span><span class="p">:</span>
+      <span class="n">msg2</span> <span class="o">=</span> <span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">msg2</span> <span class="o">=</span> <span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">JubaModelError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">msg2</span><span class="p">)</span></div></div>
+
+<span class="k">class</span> <span class="nc">_JubaModelOptionParser</span><span class="p">(</span><span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">_JubaModelOptionParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">class</span> <span class="nc">_JubaModelCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Provides command line interface for ``jubamodel`` command.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">in_fmt</span><span class="p">,</span> <span class="n">out_fmt</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">fix_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">replace_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">no_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># Predict model file format</span>
+    <span class="k">if</span> <span class="n">in_fmt</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">in_fmt</span> <span class="o">=</span> <span class="n">JubaModel</span><span class="o">.</span><span class="n">predict_format</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+      <span class="k">except</span> <span class="n">InvalidModelFormatError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: invalid model file format&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to predict model format&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Load model file</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">in_fmt</span> <span class="o">==</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+          <span class="n">m</span> <span class="o">=</span> <span class="n">JubaModel</span><span class="o">.</span><span class="n">load_binary</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="ow">not</span> <span class="n">no_validate</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">in_fmt</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+          <span class="n">m</span> <span class="o">=</span> <span class="n">JubaModel</span><span class="o">.</span><span class="n">load_json</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">in_fmt</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">InvalidModelFormatError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to parse model as </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">in_fmt</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to load from model&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Transform model</span>
+    <span class="k">if</span> <span class="n">transform</span><span class="p">:</span>
+      <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+
+    <span class="c1"># Replace config file</span>
+    <span class="k">if</span> <span class="n">replace_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">replace_config</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">fix_header</span><span class="p">:</span>
+        <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Warning: replacing config without fixing header; may generate corrupt model&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Replace version</span>
+    <span class="k">if</span> <span class="n">replace_version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="p">(</span><span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">maint</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">replace_version</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">jubatus_version_major</span> <span class="o">=</span> <span class="n">major</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">jubatus_version_minor</span> <span class="o">=</span> <span class="n">minor</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">jubatus_version_maint</span> <span class="o">=</span> <span class="n">maint</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">fix_header</span><span class="p">:</span>
+        <span class="n">printe</span><span class="p">(</span><span class="s1">&#39;Warning: replacing version without fixing header; may generate corrupt model&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Repair header</span>
+    <span class="k">if</span> <span class="n">fix_header</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">fix_header</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to fix header&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Output model contents</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">out_fmt</span> <span class="o">==</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;output file must be specified for binary output&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+          <span class="n">m</span><span class="o">.</span><span class="n">dump_binary</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">out_fmt</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="p">:</span>
+          <span class="n">m</span><span class="o">.</span><span class="n">dump_json</span><span class="p">(</span><span class="n">get_stdio</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># stdout</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">dump_json</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">out_fmt</span> <span class="o">==</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="p">:</span>
+          <span class="n">m</span><span class="o">.</span><span class="n">dump_text</span><span class="p">(</span><span class="n">get_stdio</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># stdout</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">dump_text</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to write model&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Output config</span>
+    <span class="k">if</span> <span class="n">output_config</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_config</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+          <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">JubaModelError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: failed to write config&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_config</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="n">USAGE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    jubamodel [--in-format IN_FORMAT] [--out-format OUT_FORMAT]</span>
+<span class="s1">              [--output OUTPUT] [--output-config OUTPUT_CONFIG]</span>
+<span class="s1">              [--transform TRANSFORM]</span>
+<span class="s1">              [--no-validate] [--fix-header]  model_file</span>
+<span class="s1">    jubamodel --help&#39;&#39;&#39;</span>
+
+    <span class="n">EPILOG</span> <span class="o">=</span> <span class="s1">&#39;  model_file            input model file in format specified by --in-format&#39;</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">_JubaModelOptionParser</span><span class="p">(</span><span class="n">add_help_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">usage</span><span class="o">=</span><span class="n">USAGE</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">EPILOG</span><span class="p">)</span>
+
+    <span class="c1"># arguments</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--in-format&#39;</span><span class="p">,</span>       <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span><span class="s1">&#39;binary&#39;</span><span class="p">,</span><span class="s1">&#39;json&#39;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;model input format (default: </span><span class="si">%d</span><span class="s1">efault)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--out-format&#39;</span><span class="p">,</span>      <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;binary&#39;</span><span class="p">,</span><span class="s1">&#39;json&#39;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;model output format (default: </span><span class="si">%d</span><span class="s1">efault)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-O&#39;</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span>          <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;specify output file instead of stdout&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-C&#39;</span><span class="p">,</span> <span class="s1">&#39;--output-config&#39;</span><span class="p">,</span>   <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;specify output file of config extracted from model&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-T&#39;</span><span class="p">,</span> <span class="s1">&#39;--transform&#39;</span><span class="p">,</span>       <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;transform model into another service&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-R&#39;</span><span class="p">,</span> <span class="s1">&#39;--replace-config&#39;</span><span class="p">,</span>  <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;replace configuration in model with specified file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-Z&#39;</span><span class="p">,</span> <span class="s1">&#39;--replace-version&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>                       <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;replace Jubatus version in model file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--no-validate&#39;</span><span class="p">,</span>     <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>              <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;disable validation of binary model files&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-F&#39;</span><span class="p">,</span> <span class="s1">&#39;--fix-header&#39;</span><span class="p">,</span>      <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>              <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;recompute CRC32 checksum and fix corrupt header if possible&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">,</span>            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>              <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;show usage&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">print_usage</span><span class="p">():</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;JubaModel - Jubatus Low-Level Model Manipulation Tool&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">()</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">(</span><span class="n">get_stdio</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># stdout</span>
+      <span class="nb">print</span><span class="p">()</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Supported Formats:&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  IN_FORMAT:  auto | binary | json&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  OUT_FORMAT: text | binary | json&#39;</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="c1"># Failed to parse options.</span>
+    <span class="k">if</span> <span class="n">parser</span><span class="o">.</span><span class="n">_error</span><span class="p">:</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">2</span>
+
+    <span class="c1"># Help option is specified.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">help</span><span class="p">:</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># Validate parameters.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: no model file specified&#39;</span><span class="p">)</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: cannot specify multiple model files at once&#39;</span><span class="p">)</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">out_format</span> <span class="o">==</span> <span class="s1">&#39;binary&#39;</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: --output must be specified to output in binary format&#39;</span><span class="p">)</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">cls</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">target</span><span class="o">=</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">in_fmt</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">in_format</span><span class="p">,</span>
+        <span class="n">out_fmt</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_format</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+        <span class="n">output_config</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output_config</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span>
+        <span class="n">replace_config</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">replace_config</span><span class="p">,</span>
+        <span class="n">replace_version</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">replace_version</span><span class="p">,</span>
+        <span class="n">no_validate</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">no_validate</span><span class="p">,</span>
+        <span class="n">fix_header</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">fix_header</span><span class="p">,</span>
+      <span class="p">)</span>
+      <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="n">JubaModelError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">success</span> <span class="k">else</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Entry point for ``jubamodel`` command.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">_JubaModelCommand</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.6.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,668 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jubakit.shell &mdash; jubakit 0.6.0 ドキュメント</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../../index.html"/>
+        <link rel="up" title="モジュールコード" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> jubakit
+          
+
+          
+            
+            <img src="../../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">アーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">ユーザーズガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">モジュールコード</a> &raquo;</li>
+      
+    <li>jubakit.shell</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jubakit.shell のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">optparse</span>
+
+<span class="kn">import</span> <span class="nn">msgpackrpc</span>
+<span class="kn">import</span> <span class="nn">jubatus</span>
+
+<span class="kn">from</span> <span class="nn">.compat</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">._stdio</span> <span class="k">import</span> <span class="nb">print</span><span class="p">,</span> <span class="n">get_stdio</span>
+<span class="kn">from</span> <span class="nn">._cli.base</span> <span class="k">import</span> <span class="n">BaseCLI</span><span class="p">,</span> <span class="n">CLIInvalidatedException</span><span class="p">,</span> <span class="n">CLIUnknownCommandException</span>
+
+<div class="viewcode-block" id="JubaShell"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell">[ドキュメント]</a><span class="k">class</span> <span class="nc">JubaShell</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  JubaShell provides a shell environment to call Jubatus RPC API.</span>
+
+<span class="sd">  The interactive interface is provided in ``cli`` submodule.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="c1"># Default shell prompt format.</span>
+  <span class="n">_PS</span> <span class="o">=</span> <span class="s1">&#39;[Jubatus:</span><span class="si">{service}</span><span class="s1">&lt;</span><span class="si">{cluster}</span><span class="s1">&gt;@</span><span class="si">{host}</span><span class="s1">:</span><span class="si">{port}</span><span class="s1">] # &#39;</span>
+
+  <span class="c1"># Cached references for CLI classes.</span>
+  <span class="n">_cli_classes</span> <span class="o">=</span> <span class="p">{}</span>
+
+  <span class="c1"># Cached references for Jubatus Client classes.</span>
+  <span class="n">_client_classes</span> <span class="o">=</span> <span class="p">{}</span>
+
+  <span class="c1"># Error message.</span>
+  <span class="n">_INTERFACE_MISMATCH_ERROR</span> <span class="o">=</span> \
+    <span class="s1">&#39;Interface mismatch error detected.  &#39;</span> \
+    <span class="s1">&#39;This error occured because either your version of Jubatus Python &#39;</span> \
+    <span class="s1">&#39;client library is not compatible with the server you are &#39;</span> \
+    <span class="s1">&#39;connecting to, or using an incompatible shell (for example, &#39;</span> \
+    <span class="s1">&#39;using Classifier shell against Anomaly server.)</span><span class="se">\n</span><span class="s1">&#39;</span> \
+    <span class="s1">&#39;Version compatibility information can be found at:</span><span class="se">\n</span><span class="s1">&#39;</span> \
+    <span class="s1">&#39;  https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation&#39;</span>
+
+<div class="viewcode-block" id="JubaShell.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new shell environment using parameters specified.</span>
+
+<span class="sd">    If ``service`` is ``None``, it will be automatically probed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cluster</span> <span class="o">=</span> <span class="n">cluster</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_service</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keepalive</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;keepalive&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_format</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prompt&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_PS</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_input</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_output</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">get_stdio</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># stdout</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_remote</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">service</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JubaShell.interact"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.interact">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">interact</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Starts the interactive shell environment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_cli</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="n">cli</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+      <span class="k">except</span> <span class="n">CLIInvalidatedException</span><span class="p">:</span>
+        <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_cli</span><span class="p">()</span>
+      <span class="k">except</span> <span class="n">CLIUnknownCommandException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unknown command: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Type `help` for commands available.&#39;</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invalid argument: </span><span class="si">{0}</span><span class="s1">; use `help` command for details&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+      <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Socket Error (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1"> (</span><span class="si">{3}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+      <span class="k">except</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">RPCError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RPC Error (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1"> (</span><span class="si">{3}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+      <span class="k">except</span> <span class="n">JubaShellException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+      <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>  <span class="c1"># trap Ctrl-C</span>
+        <span class="nb">print</span><span class="p">()</span>
+      <span class="k">except</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">InterfaceMismatch</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RPC Interface Mismatch (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_INTERFACE_MISMATCH_ERROR</span><span class="p">)</span>
+        <span class="k">break</span>  <span class="c1"># abort interactive shell</span>
+      <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="JubaShell.run"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.run">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs one-shot command.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_cli</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&gt;&gt; </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">))</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">onecmd</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="n">CLIInvalidatedException</span><span class="p">:</span>
+      <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_cli</span><span class="p">()</span>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="n">CLIUnknownCommandException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unknown command: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invalid argument: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Socket Error (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1"> (</span><span class="si">{3}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">RPCError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RPC Error (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1"> (</span><span class="si">{3}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">JubaShellException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>  <span class="c1"># trap Ctrl-C</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Interrupted.&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">InterfaceMismatch</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RPC Interface Mismatch (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+      <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_INTERFACE_MISMATCH_ERROR</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="JubaShell.connect"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.connect">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Discard the current connection (if connected) and create new client instance.</span>
+<span class="sd">    Note that TCP connection will not be established until RPC method is called.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_client</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="JubaShell.disconnect"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.disconnect">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Disconnects from the server (if connected).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+      <span class="n">cli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">_loop</span><span class="o">.</span><span class="n">_ioloop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="JubaShell.is_connected"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.is_connected">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if the client exists.</span>
+<span class="sd">    Note that its backend TCP connection may already be closed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="JubaShell.set_remote"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.set_remote">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">set_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">service</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Switches to the new remote server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cluster</span> <span class="o">=</span> <span class="n">cluster</span>
+
+    <span class="k">if</span> <span class="n">service</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">probe_facts</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_service</span> <span class="o">=</span> <span class="n">service</span></div>
+
+<div class="viewcode-block" id="JubaShell.get_client"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.get_client">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the client instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span></div>
+
+<div class="viewcode-block" id="JubaShell.get_timeout"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.get_timeout">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the current client-side timeout value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span></div>
+
+<div class="viewcode-block" id="JubaShell.set_timeout"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.set_timeout">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sets new client-side timeout value.</span>
+<span class="sd">    Existing connection will be discarded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">timeout</span></div>
+
+  <span class="k">def</span> <span class="nf">_new_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns new Jubatus client instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_service</span>
+    <span class="n">clients</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_client_classes</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">service</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Notice: Jubatus Client for </span><span class="si">{0}</span><span class="s1"> service not found, falling back to generic client&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">service</span><span class="p">))</span>
+      <span class="n">service</span> <span class="o">=</span> <span class="s1">&#39;generic&#39;</span>
+
+    <span class="k">return</span> <span class="n">clients</span><span class="p">[</span><span class="n">service</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cluster</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_new_cli</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns new CLI instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_service</span>
+    <span class="n">clis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cli_classes</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">service</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">clis</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Notice: CLI for </span><span class="si">{0}</span><span class="s1"> service not found, falling back to generic CLI&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">service</span><span class="p">))</span>
+      <span class="n">service</span> <span class="o">=</span> <span class="s1">&#39;generic&#39;</span>
+
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">clis</span><span class="p">[</span><span class="n">service</span><span class="p">](</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="p">:</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">use_rawinput</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+      <span class="n">service</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_service</span><span class="p">,</span>
+      <span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">,</span>
+      <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">,</span>
+      <span class="n">cluster</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_cluster</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cli</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaShell.probe_facts"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.probe_facts">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">probe_facts</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Probe the service name and remote server type.</span>
+<span class="sd">    Returns tuple of (service_name, is_proxy).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get status from remote server.</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ClientBase</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">is_proxy</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>  <span class="c1"># only when cluster is non-empty string</span>
+
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">is_proxy</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+          <span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_proxy_status</span><span class="p">()</span>
+          <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">JubaShellAssertionError</span><span class="p">(</span><span class="s1">&#39;unexpected get_proxy_status response&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+          <span class="n">status</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">popitem</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">except</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">UnknownMethod</span><span class="p">:</span>
+          <span class="n">is_proxy</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">is_proxy</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="n">JubaShellAssertionError</span><span class="p">(</span><span class="s1">&#39;unexpected get_status response&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">popitem</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">except</span> <span class="n">msgpackrpc</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">RPCError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">JubaShellRPCError</span><span class="p">(</span><span class="s1">&#39;failed to auto-detect service type&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+      <span class="n">cli</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+      <span class="n">cli</span><span class="o">.</span><span class="n">_loop</span><span class="o">.</span><span class="n">_ioloop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># Extract service name from the process name.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;PROGNAME&#39;</span> <span class="ow">in</span> <span class="n">status</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="n">JubaShellAssertionError</span><span class="p">(</span><span class="s1">&#39;no program name returned from server&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">status</span><span class="p">[</span><span class="s1">&#39;PROGNAME&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;juba&#39;</span><span class="p">):</span>
+      <span class="n">service</span> <span class="o">=</span> <span class="n">service</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">is_proxy</span> <span class="ow">and</span> <span class="n">service</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_proxy&#39;</span><span class="p">):</span>
+      <span class="n">service</span> <span class="o">=</span> <span class="n">service</span><span class="p">[:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">is_proxy</span><span class="p">)</span></div>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">_get_subclasses</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">clazz</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds all subclasses of the ``clazz``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">clazz</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+      <span class="n">parent</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+          <span class="n">result</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+          <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaShell.get_client_classes"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.get_client_classes">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_client_classes</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns map of service name to Jubatus client instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Reuse cache.</span>
+    <span class="n">clients</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_client_classes</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">clients</span>
+
+    <span class="n">client_classes</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_subclasses</span><span class="p">(</span><span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ClientBase</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">clazz</span> <span class="ow">in</span> <span class="n">client_classes</span><span class="p">:</span>
+      <span class="c1"># Extract &quot;abc&quot; part from &quot;jubatus.abc.client&quot; (module name).</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">.</span><span class="n">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+      <span class="n">clients</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clazz</span>
+
+    <span class="n">clients</span><span class="p">[</span><span class="s1">&#39;generic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ClientBase</span>
+
+    <span class="n">cls</span><span class="o">.</span><span class="n">_clients</span> <span class="o">=</span> <span class="n">clients</span>
+    <span class="k">return</span> <span class="n">clients</span></div>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JubaShell.get_cli_classes"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShell.get_cli_classes">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get_cli_classes</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns map of service name to CLI implementation class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Reuse cache.</span>
+    <span class="n">clis</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_cli_classes</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">clis</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">clis</span>
+
+    <span class="n">cli_classes</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_subclasses</span><span class="p">(</span><span class="n">BaseCLI</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">clazz</span> <span class="ow">in</span> <span class="n">cli_classes</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">.</span><span class="n">_name</span><span class="p">()</span>
+        <span class="n">clis</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clazz</span>
+      <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>  <span class="c1"># it is an abstract class</span>
+        <span class="k">continue</span>
+
+    <span class="n">cls</span><span class="o">.</span><span class="n">_clis</span> <span class="o">=</span> <span class="n">clis</span>
+    <span class="k">return</span> <span class="n">clis</span></div></div>
+
+<div class="viewcode-block" id="JubaShellException"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShellException">[ドキュメント]</a><span class="k">class</span> <span class="nc">JubaShellException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+  <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="JubaShellAssertionError"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShellAssertionError">[ドキュメント]</a><span class="k">class</span> <span class="nc">JubaShellAssertionError</span><span class="p">(</span><span class="n">JubaShellException</span><span class="p">):</span>
+  <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="JubaShellRPCError"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShellRPCError">[ドキュメント]</a><span class="k">class</span> <span class="nc">JubaShellRPCError</span><span class="p">(</span><span class="n">JubaShellException</span><span class="p">):</span>
+<div class="viewcode-block" id="JubaShellRPCError.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.shell.JubaShellRPCError.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">errmsg</span> <span class="o">=</span> <span class="s1">&#39;RPC Error (</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">): </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e</span><span class="p">:</span>
+      <span class="n">errmsg</span> <span class="o">+=</span> <span class="s1">&#39; (</span><span class="si">{0}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">JubaShellRPCError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span></div></div>
+
+<span class="k">class</span> <span class="nc">_JubashOptionParser</span><span class="p">(</span><span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">_JubashOptionParser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">class</span> <span class="nc">_JubashCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Provides command line interface for ``jubash`` command.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="n">USAGE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    jubash [--host HOST] [--port PORT] [--cluster CLUSTER]</span>
+<span class="s1">           [--service SERVICE] [--command COMMAND]</span>
+<span class="s1">           [--keepalive] [--fail-fast] [--prompt PROMPT]</span>
+<span class="s1">           [--verbose] [--debug] [--help] [script ...]&#39;&#39;&#39;</span>
+    <span class="n">EPILOG</span> <span class="o">=</span> <span class="s1">&#39;  script ...            execute shell script instead of interactive shell&#39;</span>
+
+    <span class="n">services</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">JubaShell</span><span class="o">.</span><span class="n">get_cli_classes</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">_JubashOptionParser</span><span class="p">(</span><span class="n">add_help_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">usage</span><span class="o">=</span><span class="n">USAGE</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">EPILOG</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-H&#39;</span><span class="p">,</span> <span class="s1">&#39;--host&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;host name or IP address of the server / proxy (default: </span><span class="si">%d</span><span class="s1">efault)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-P&#39;</span><span class="p">,</span> <span class="s1">&#39;--port&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span>  <span class="n">default</span><span class="o">=</span><span class="mi">9199</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;port number of the server / proxy (default: </span><span class="si">%d</span><span class="s1">efault)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-C&#39;</span><span class="p">,</span> <span class="s1">&#39;--cluster&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;cluster name; only required when connecting to proxy&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--service&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;type of the server; see below for services available (default: auto-detect)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--engine&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;(deprecated) equivalent to --service&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--command&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;run one-shot command instead of interactive shell&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--timeout&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;client-side timeout in seconds (default: </span><span class="si">%d</span><span class="s1">efault)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="s1">&#39;--keepalive&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;use keep-alive connection; recommended when server-side timeout is disabled&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-F&#39;</span><span class="p">,</span> <span class="s1">&#39;--fail-fast&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;exit on error when running script&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--prompt&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">JubaShell</span><span class="o">.</span><span class="n">_PS</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;use customized shell prompt (default: </span><span class="si">%d</span><span class="s1">efault)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;turn on verbose mode&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--debug&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;turn on debug mode&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;print the usage and exit&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">print_usage</span><span class="p">():</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Jubash - Jubatus Shell&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">()</span>
+      <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">(</span><span class="n">get_stdio</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># stdout</span>
+      <span class="nb">print</span><span class="p">()</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Available Services:&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">services</span><span class="p">)))</span>
+
+    <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">scripts</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="c1"># Failed to parse options.</span>
+    <span class="k">if</span> <span class="n">parser</span><span class="o">.</span><span class="n">_error</span><span class="p">:</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">2</span>
+
+    <span class="c1"># Help option is specified.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">help</span><span class="p">:</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># Support for deprecated parameters.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">service</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">args</span><span class="o">.</span><span class="n">service</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">engine</span>
+
+    <span class="c1"># Validate parameters.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">65535</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: port number out of range: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">service</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">service</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">services</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: unknown service name: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">service</span><span class="p">))</span>
+      <span class="n">print_usage</span><span class="p">()</span>
+      <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="c1"># Create shell instance.</span>
+      <span class="n">shell</span> <span class="o">=</span> <span class="n">JubaShell</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+        <span class="n">cluster</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">cluster</span><span class="p">,</span>
+        <span class="n">service</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">service</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+        <span class="n">keepalive</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">keepalive</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">prompt</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">prompt</span><span class="p">,</span>
+      <span class="p">)</span>
+
+      <span class="c1"># Run the shell.</span>
+      <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span><span class="p">:</span>
+        <span class="c1"># One-shot command mode.</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">command</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">scripts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Batch script mode.</span>
+        <span class="k">for</span> <span class="n">script</span> <span class="ow">in</span> <span class="n">scripts</span><span class="p">:</span>
+          <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span>
+          <span class="c1"># TODO improve handling of lines and support keepalive mode</span>
+          <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+              <span class="n">success</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+              <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">fail_fast</span><span class="p">:</span> <span class="k">break</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Interactive shell mode.</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">interact</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span> <span class="k">raise</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">success</span> <span class="k">else</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Entry point for ``jubash`` command.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">_JubashCommand</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.6.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

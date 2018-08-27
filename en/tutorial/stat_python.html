@@ -15,8 +15,6 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
-  
-  
 
   
 
@@ -26,20 +24,28 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-    <link rel="next" title="Distributed Mode" href="../tutorial_distributed.html" />
-    <link rel="prev" title="Stat" href="stat.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Jubatus" href="../index.html"/>
+        <link rel="up" title="Stat" href="stat.html"/>
+        <link rel="next" title="Distributed Mode" href="../tutorial_distributed.html"/>
+        <link rel="prev" title="Stat" href="stat.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -54,7 +60,7 @@
 
           
             
-            <img src="../_static/title.png" class="logo" alt="Logo"/>
+            <img src="../_static/title.png" class="logo" />
           
           </a>
 
@@ -79,10 +85,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a><ul class="current">
@@ -123,56 +126,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Jubatus</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jubatus</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="index.html">Tutorial</a> &raquo;</li>
-        
+      
           <li><a href="stat.html">Stat</a> &raquo;</li>
-        
-      <li>Python</li>
-    
-    
+      
+    <li>Python</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -232,7 +215,7 @@
 
 <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;stat_tri&quot;</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
   <span class="c1"># 1. Jubatus Serverへの接続設定</span>
   <span class="c1"># 1. Connect to Jubatus Server</span>
@@ -263,49 +246,57 @@
 <h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
 <p><strong>stat.json</strong></p>
 <p>The configuration information is given by the JSON unit. Here is the meaning of each JSON field.</p>
-<ul class="simple">
+<ul>
 <li><dl class="first docutils">
 <dt>window_size</dt>
-<dd>Specify the amount of value to be retained. (Integer)</dd>
+<dd><p class="first last">Specify the amount of value to be retained. (Integer)</p>
+</dd>
 </dl>
 </li>
 </ul>
 <p><strong>stat.py</strong></p>
 <p>Stat.py reads the &#8216;price&#8217;, &#8216;weight&#8217;, &#8216;diameter&#8217; of fruits from the .csv file, and send the info. to Jubatus server. The methods used are listed below.</p>
-<ul class="simple">
+<ul>
 <li><dl class="first docutils">
 <dt>bool push(0: string key, 1: double val)</dt>
-<dd>Set the attribute info. &#8220;key&#8220;&#8216;s value with &#8220;val&#8221;.</dd>
+<dd><p class="first last">Set the attribute info. &#8220;key&#8220;&#8216;s value with &#8220;val&#8221;.</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double sum(0: string key)</dt>
-<dd>Return the summary value in the attribute &#8220;key&#8221;.</dd>
+<dd><p class="first last">Return the summary value in the attribute &#8220;key&#8221;.</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double stddev(0: string key)</dt>
-<dd>Return the standard deviation of values in the attribute &#8220;key&#8221;.</dd>
+<dd><p class="first last">Return the standard deviation of values in the attribute &#8220;key&#8221;.</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double max(0: string key)</dt>
-<dd>Return the maximum value of values in the attribute &#8220;key&#8221;.</dd>
+<dd><p class="first last">Return the maximum value of values in the attribute &#8220;key&#8221;.</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double min(0: string key)</dt>
-<dd>Return the minimum value of values in the attribute &#8220;key&#8221;.</dd>
+<dd><p class="first last">Return the minimum value of values in the attribute &#8220;key&#8221;.</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double entropy(0: string key)</dt>
-<dd>Return the entropy of values in the attribute &#8220;key&#8221;.</dd>
+<dd><p class="first last">Return the entropy of values in the attribute &#8220;key&#8221;.</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double moment(0: string key, 1: int degree, 2: double center)</dt>
-<dd>Return the degree-th moment about &#8216;center&#8217; of values in the attribute &#8220;key&#8221;.</dd>
+<dd><p class="first last">Return the degree-th moment about &#8216;center&#8217; of values in the attribute &#8220;key&#8221;.</p>
+</dd>
 </dl>
 </li>
 </ul>
@@ -390,16 +381,15 @@ Different methods are called (Line 26-31) in the loop above. Their contents are 
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../tutorial_distributed.html" class="btn btn-neutral float-right" title="Distributed Mode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../tutorial_distributed.html" class="btn btn-neutral float-right" title="Distributed Mode" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="stat.html" class="btn btn-neutral" title="Stat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="stat.html" class="btn btn-neutral" title="Stat" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -412,7 +402,7 @@ Different methods are called (Line 26-31) in the loop above. Their contents are 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -431,11 +421,9 @@ Different methods are called (Line 26-31) in the loop above. Their contents are 
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1.1.0',
-            LANGUAGE:'en',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -445,13 +433,19 @@ Different methods are called (Line 26-31) in the loop above. Their contents are 
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>
