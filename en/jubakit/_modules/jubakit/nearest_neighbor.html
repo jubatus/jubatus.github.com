@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.nearest_neighbor &mdash; jubakit 0.6.0 documentation</title>
+  <title>jubakit.nearest_neighbor &mdash; jubakit 0.6.1 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -91,7 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 </ul>
 
@@ -162,7 +165,7 @@
 <div class="viewcode-block" id="Schema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Schema.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_id_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span>
                                                 <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Schema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Schema.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Nearest Neighbor schema transforms the row into Datum,</span>
@@ -184,11 +187,11 @@
     <span class="sd">&quot;&quot;&quot;Dataset for Nearest Neighbor service.&quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_from_loader</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_from_loader</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">loader</span> <span class="o">=</span> <span class="n">data_loader</span>
             <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
@@ -198,8 +201,8 @@
             <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">ID</span><span class="p">},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.from_data">[docs]</a>    <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.from_data">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Converts two arrays or a sparse matrix data and its associated</span>
 <span class="sd">        id array to Dataset.</span>
 
@@ -212,12 +215,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;todense&#39;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_array"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.from_array">[docs]</a>    <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_array"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.from_array">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Converts two arrays (data and its associated targets) to Dataset.</span>
 
 <span class="sd">        Parameters</span>
@@ -228,10 +231,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">data_loader</span> <span class="o">=</span> <span class="n">ArrayLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_matrix"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.from_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_matrix"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.from_matrix">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Converts a sparse matrix data and its associated target array</span>
 <span class="sd">        to Dataset.</span>
 
@@ -244,7 +247,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">data_loader</span> <span class="o">=</span> <span class="n">SparseMatrixLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Dataset.get_ids"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Dataset.get_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -260,16 +263,16 @@
 <div class="viewcode-block" id="NearestNeighbor"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.NearestNeighbor">[docs]</a><span class="k">class</span> <span class="nc">NearestNeighbor</span><span class="p">(</span><span class="n">BaseService</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Nearest Neighbor service.&quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="NearestNeighbor.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.NearestNeighbor.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="NearestNeighbor.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.NearestNeighbor.name">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;nearest_neighbor&#39;</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">nearest_neighbor</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">NearestNeighbor</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">embedded</span><span class="o">.</span><span class="n">NearestNeighbor</span>
 
 <div class="viewcode-block" id="NearestNeighbor.set_row"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.NearestNeighbor.set_row">[docs]</a>    <span class="k">def</span> <span class="nf">set_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
@@ -337,16 +340,16 @@
 <div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">GenericConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configuration to run Nearest Neighbor service.&quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Config.methods">[docs]</a>    <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.nearest_neighbor.Config.methods">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;lsh&#39;</span><span class="p">,</span> <span class="s1">&#39;minhash&#39;</span><span class="p">,</span> <span class="s1">&#39;euclid_lsh&#39;</span><span class="p">]</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;lsh&#39;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">methods</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown method: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -386,7 +389,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

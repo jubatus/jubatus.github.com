@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jubakit.loader.postgresql &mdash; jubakit 0.6.1 ドキュメント</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="検索" href="../../../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="../../../index.html"/>
+        <link rel="up" title="モジュールコード" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jubakit
+          
+
+          
+            
+            <img src="../../../_static/title.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">jubakit: Jubatus Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture/index.html">アーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guide/index.html">ユーザーズガイド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">jubakit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">モジュールコード</a> &raquo;</li>
+      
+    <li>jubakit.loader.postgresql</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jubakit.loader.postgresql のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="k">import</span> <span class="n">BaseLoader</span>
+<span class="kn">from</span> <span class="nn">..compat</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">psycopg2</span> <span class="k">import</span> <span class="n">connect</span>
+<span class="kn">from</span> <span class="nn">psycopg2.extras</span> <span class="k">import</span> <span class="n">DictCursor</span>
+<span class="kn">from</span> <span class="nn">psycopg2</span> <span class="k">import</span> <span class="n">sql</span>
+
+<div class="viewcode-block" id="PostgreSQLoader"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.postgresql.PostgreSQLoader">[ドキュメント]</a><span class="k">class</span> <span class="nc">PostgreSQLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Loader to process columns of PostgreSQL.</span>
+
+<span class="sd">  This loader that load data from PostgreSQL&#39;s table as below.</span>
+<span class="sd">  We access the &quot;test&quot; table of the &quot;test&quot; database in the below example.</span>
+
+<span class="sd">  Example:</span>
+<span class="sd">    from jubakit.loader.postgresql import PostgreSQLoader</span>
+<span class="sd">    from jubakit.loader.postgresql import PostgreSQLAuthHandler</span>
+<span class="sd">    </span>
+<span class="sd">    auth = PostgreSQLAuthHandler(dbname=&#39;test&#39;, user=&#39;postgres&#39;, password=&#39;postgres&#39;, host=&#39;localhost&#39;, port=&#39;5432&#39;)</span>
+<span class="sd">    </span>
+<span class="sd">    loader = PostgreSQLoader(auth, table=&#39;test&#39;)</span>
+<span class="sd">    for row in loader:</span>
+<span class="sd">      print(row)</span>
+<span class="sd">    </span>
+<span class="sd">    # {&#39;id&#39;: 1, &#39;num&#39;: 100, &#39;data&#39;: &#39;abcdef&#39;}</span>
+<span class="sd">    # {&#39;id&#39;: 2, &#39;num&#39;: 200, &#39;data&#39;: &#39;ghijkl&#39;}</span>
+<span class="sd">    # {&#39;id&#39;: 3, &#39;num&#39;: 300, &#39;data&#39;: &#39;mnopqr&#39;}</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PostgreSQLoader.__init__"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.postgresql.PostgreSQLoader.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">auth</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
+
+<div class="viewcode-block" id="PostgreSQLoader.rows"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.postgresql.PostgreSQLoader.rows">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">get</span><span class="p">())</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+      <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">cursor_factory</span><span class="o">=</span><span class="n">DictCursor</span><span class="p">)</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+          <span class="n">sql</span><span class="o">.</span><span class="n">SQL</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sql</span><span class="o">.</span><span class="n">Identifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)))</span>
+        <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+          <span class="k">yield</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">column_names</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span></div></div>
+
+<div class="viewcode-block" id="PostgreSQLAuthHandler"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.postgresql.PostgreSQLAuthHandler">[ドキュメント]</a><span class="k">class</span> <span class="nc">PostgreSQLAuthHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Handles authentication required to access PostgreSQL.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PostgreSQLAuthHandler.__init__"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.postgresql.PostgreSQLAuthHandler.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Authentication information must be specified as follows:</span>
+
+<span class="sd">    &gt;&gt;&gt; PostgreSQLAuth(</span>
+<span class="sd">    ...   user=&#39;XXXXXXXXXXXXXXXXXXXX&#39;,</span>
+<span class="sd">    ...   password=&#39;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;,</span>
+<span class="sd">    ...   host=&#39;XXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;,</span>
+<span class="sd">    ...   port=&#39;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;,</span>
+<span class="sd">    ... )</span>
+
+<span class="sd">    Any other connection parameter supported by this loader can be passed as a keyword.</span>
+<span class="sd">    The complete list of the supported parameters are contained the PostgreSQL documentation.</span>
+<span class="sd">    (https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">auth_informations</span> <span class="o">=</span> <span class="p">(</span>
+      <span class="s1">&#39;host&#39;</span><span class="p">,</span> <span class="s1">&#39;hostaddr&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;port&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;dbname&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;passfile&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;connect_timeout&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;client_encoding&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;options&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;application_name&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;fallback_application_name&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;keepalives&#39;</span><span class="p">,</span> <span class="s1">&#39;keepalives_idle&#39;</span><span class="p">,</span> <span class="s1">&#39;keepalives_interval&#39;</span><span class="p">,</span> <span class="s1">&#39;keepalives_count&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;tty&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;sslmode&#39;</span><span class="p">,</span> <span class="s1">&#39;requiressl&#39;</span><span class="p">,</span> <span class="s1">&#39;sslcompression&#39;</span><span class="p">,</span> <span class="s1">&#39;sslcert&#39;</span><span class="p">,</span> <span class="s1">&#39;sslkey&#39;</span><span class="p">,</span> <span class="s1">&#39;sslrootcert&#39;</span><span class="p">,</span> <span class="s1">&#39;sslcrl&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;requirepeer&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;krbsrvname&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;gsslib&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;service&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;target_session_attrs&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">auth_key</span> <span class="ow">in</span> <span class="n">auth_informations</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">auth_key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="n">auth</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">auth_key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">auth_key</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">auth</span></div>
+
+<div class="viewcode-block" id="PostgreSQLAuthHandler.get"><a class="viewcode-back" href="../../../api/jubakit.loader.html#jubakit.loader.postgresql.PostgreSQLAuthHandler.get">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016 PFN &amp; NTT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.6.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

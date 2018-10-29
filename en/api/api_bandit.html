@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Client API" href="index.html"/>
         <link rel="next" title="Weight" href="api_weight.html"/>
@@ -115,7 +118,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -228,7 +231,7 @@ Its format differs for each <code class="docutils literal"><span class="pre">met
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">assume_unrewarded:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify whether it can be omitted to call <code class="docutils literal"><span class="pre">register_reward</span></code> when the reward is zero.
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Specify whether it can be omitted to call <code class="docutils literal"><span class="pre">register_reward</span></code> when the reward is zero.
 When it is True, calling <code class="docutils literal"><span class="pre">register_reward</span></code> can be omitted, but calling <code class="docutils literal"><span class="pre">register_reward</span></code> must be associated with the result of <code class="docutils literal"><span class="pre">select_arm</span></code>.
 When it is False, although <code class="docutils literal"><span class="pre">register_reward</span></code> must be called when the reward is zero, it can be called independently of calling <code class="docutils literal"><span class="pre">select_arm</span></code>.
 (Boolean)</td>
@@ -267,7 +270,7 @@ So you will get different result each experiment.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">decreasing_rate:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Decreasing rate for the probability of selecting arms randomly. The bigger this parameter is, the more slowly the probability decreases. (Float)</p>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">Decreasing rate for the probability of selecting arms randomly. The bigger this parameter is, the more slowly the probability decreases. (Float)</p>
 <ul class="simple">
 <li>Range: 0 &lt; <code class="docutils literal"><span class="pre">decreasing_rate</span></code> &lt; 1</li>
 </ul>
@@ -316,9 +319,9 @@ So you will get different result each experiment.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">gamma:</th><td class="field-body"><p class="first">Mixture rate of constant weight and each arm&#8217;s weight.
+<tr class="field-odd field"><th class="field-name">gamma:</th><td class="field-body"><p class="first">Mixture rate of constant weight and each arm’s weight.
 The higher <code class="docutils literal"><span class="pre">gamma</span></code> is, the higher the rate of constant weight is.
-The lower <code class="docutils literal"><span class="pre">gamma</span></code> is, the higher the rate of each arm&#8217;s weight is.
+The lower <code class="docutils literal"><span class="pre">gamma</span></code> is, the higher the rate of each arm’s weight is.
 (Float)</p>
 <ul class="simple">
 <li>Range: 0.0 &lt; <code class="docutils literal"><span class="pre">gamma</span></code> &lt;= 1.0</li>
@@ -403,7 +406,7 @@ bool <code class="descname">register_arm</code><span class="sig-paren">(</span>0
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>arm_id</strong> &#8211; ID of the new arm to be registered</li>
+<li><strong>arm_id</strong> – ID of the new arm to be registered</li>
 </ul>
 </td>
 </tr>
@@ -423,7 +426,7 @@ bool <code class="descname">delete_arm</code><span class="sig-paren">(</span>0: 
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>arm_id</strong> &#8211; ID of the arm to be deleted</li>
+<li><strong>arm_id</strong> – ID of the arm to be deleted</li>
 </ul>
 </td>
 </tr>
@@ -443,7 +446,7 @@ string <code class="descname">select_arm</code><span class="sig-paren">(</span>0
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; ID of the player whose arm is to be selected</li>
+<li><strong>player_id</strong> – ID of the player whose arm is to be selected</li>
 </ul>
 </td>
 </tr>
@@ -452,7 +455,7 @@ string <code class="descname">select_arm</code><span class="sig-paren">(</span>0
 </tr>
 </tbody>
 </table>
-<p>Select player&#8217;s arm according to current state.</p>
+<p>Select player’s arm according to current state.</p>
 </dd></dl>
 
 <dl class="method">
@@ -463,9 +466,9 @@ bool <code class="descname">register_reward</code><span class="sig-paren">(</spa
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; ID of the player whose arm gets rewards</li>
-<li><strong>arm_id</strong> &#8211; ID of the arm which rewards are registered with</li>
-<li><strong>reward</strong> &#8211; amount of rewards</li>
+<li><strong>player_id</strong> – ID of the player whose arm gets rewards</li>
+<li><strong>arm_id</strong> – ID of the arm which rewards are registered with</li>
+<li><strong>reward</strong> – amount of rewards</li>
 </ul>
 </td>
 </tr>
@@ -474,7 +477,7 @@ bool <code class="descname">register_reward</code><span class="sig-paren">(</spa
 </tr>
 </tbody>
 </table>
-<p>Register rewards with specified player&#8217;s specified arm.</p>
+<p>Register rewards with specified player’s specified arm.</p>
 </dd></dl>
 
 <dl class="method">
@@ -485,7 +488,7 @@ map&lt;string, <a class="reference internal" href="#arm_info" title="arm_info">a
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; ID of the player</li>
+<li><strong>player_id</strong> – ID of the player</li>
 </ul>
 </td>
 </tr>
@@ -505,7 +508,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; ID of the user whose arms are to be reset.</li>
+<li><strong>player_id</strong> – ID of the user whose arms are to be reset.</li>
 </ul>
 </td>
 </tr>
@@ -572,7 +575,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

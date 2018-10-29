@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="チュートリアル" href="index.html"/>
         <link rel="next" title="Classifier チュートリアル (Python)" href="classifier_python.html"/>
@@ -169,50 +172,44 @@
 <div class="section" id="id1">
 <h2>サンプルプログラムの概要<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>サンプルとして、各時代の将軍は姓（苗字）ごとに名（名前）が似ていることから、将軍の名から姓を当てるというプログラム「 <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/shogun">shogun</a> 」を用いて説明していきます。</p>
-<p>最初に、「&#8221;家康&#8221;という名は&#8221;徳川&#8221;という姓である」、「&#8221;尊氏&#8221;という名は&#8221;足利&#8221;という姓である」という、歴代将軍の名前を元に作成した一定量以上の姓と名のペアをクライアント側で用意し、 <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に学習させます。
+<p>最初に、「&quot;家康&quot;という名は&quot;徳川&quot;という姓である」、「&quot;尊氏&quot;という名は&quot;足利&quot;という姓である」という、歴代将軍の名前を元に作成した一定量以上の姓と名のペアをクライアント側で用意し、 <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に学習させます。
 これにより、姓を分類ラベル、名を特徴としたモデルが作成されます。</p>
 <p>次に、予測用の入力データとして任意の名を <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与えます。 <code class="docutils literal"><span class="pre">jubaclassifier</span></code> は先ほど学習したモデルを用い、姓を予測して返却するので、クライアント側では、受け取った結果を出力します。</p>
-<p>例えば、予測用の入力データとして&#8221;慶喜&#8221;を <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与えると、&#8221;徳川&#8221;が結果として出力されます。
-もちろん、「&#8221;慶喜&#8221;という名は&#8221;徳川&#8221;である」というデータは学習データに含まれていません。</p>
+<p>例えば、予測用の入力データとして&quot;慶喜&quot;を <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与えると、&quot;徳川&quot;が結果として出力されます。
+もちろん、「&quot;慶喜&quot;という名は&quot;徳川&quot;である」というデータは学習データに含まれていません。</p>
 </div>
 <div class="section" id="id2">
 <h2>処理の流れ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Jubatus Client を使ったコーディングは、主に以下の流れになります。</p>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">jubaclassifier</span></code> への接続設定</dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">jubaclassifier</span></code> のホストやポート番号を指定し、接続設定をします。</p>
-</dd>
+<dd><code class="docutils literal"><span class="pre">jubaclassifier</span></code> のホストやポート番号を指定し、接続設定をします。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習用データの準備</dt>
-<dd><p class="first last">一定量以上の名に姓を付与した学習データを作成します。</p>
-</dd>
+<dd>一定量以上の名に姓を付与した学習データを作成します。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
-<dd><p class="first last">2. で作成した学習データを <code class="docutils literal"><span class="pre">train</span></code> メソッドで <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与え、学習を行います。</p>
-</dd>
+<dd>2. で作成した学習データを <code class="docutils literal"><span class="pre">train</span></code> メソッドで <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に与え、学習を行います。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>予測用データの準備</dt>
-<dd><p class="first last">予測用に <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に投げる、名のデータを作成します。</p>
-</dd>
+<dd>予測用に <code class="docutils literal"><span class="pre">jubaclassifier</span></code> に投げる、名のデータを作成します。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく予測</dt>
-<dd><p class="first last">4. で作成した予測用データを入力値とし、 <code class="docutils literal"><span class="pre">classify</span></code> メソッドで 3. の学習に基づいた予測を行います。</p>
-</dd>
+<dd>4. で作成した予測用データを入力値とし、 <code class="docutils literal"><span class="pre">classify</span></code> メソッドで 3. の学習に基づいた予測を行います。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">classify</span></code> メソッドの戻り値である予測結果を出力します。</p>
-</dd>
+<dd><code class="docutils literal"><span class="pre">classify</span></code> メソッドの戻り値である予測結果を出力します。</dd>
 </dl>
 </li>
 </ol>
@@ -295,7 +292,7 @@
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

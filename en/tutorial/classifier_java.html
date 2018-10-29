@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Classifier" href="classifier.html"/>
         <link rel="next" title="Anomaly" href="anomaly.html"/>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -168,7 +171,7 @@
 <p>Here we explain the Java sample program of Classifier.</p>
 <div class="section" id="source-code">
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
-<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;gender.json&#8217;; 2) how to learn the training data and make predictions based on them, with the example file ‘GenderMain.java’. Here are the source codes of &#8216;gender.json&#8217; and &#8216;GenderMain.java&#8217;.</p>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file ‘gender.json’; 2) how to learn the training data and make predictions based on them, with the example file ‘GenderMain.java’. Here are the source codes of ‘gender.json’ and ‘GenderMain.java’.</p>
 <p><strong>gender.json</strong></p>
 <div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -355,24 +358,24 @@ Note that this part is irrelevant to the client methods in the Java code.</p>
 <li><dl class="first docutils">
 <dt>converter</dt>
 <dd><p class="first">Specify the configurations in feature converter.</p>
-<p class="last">In this sample, we will classify a person into male or female based on the features of &#8216;length of hair&#8217;, &#8216;top clothes&#8217;, &#8216;bottom clothese&#8217; and &#8216;height&#8217;. The &#8220;string_values&#8221; and &#8220;num_values&#8221; are stored in key-value pairs without using &#8220;*_filter_types&#8221; configuration.
-Note that we do not have configuration for&#8221;binary_values&#8221; since there is no binary feature.</p>
+<p class="last">In this sample, we will classify a person into male or female based on the features of ‘length of hair’, ‘top clothes’, ‘bottom clothese’ and ‘height’. The “string_values” and “num_values” are stored in key-value pairs without using “*_filter_types” configuration.
+Note that we do not have configuration for”binary_values” since there is no binary feature.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>parameter</dt>
 <dd><p class="first">Specify the parameter that is passed to the algorithm.</p>
-<p>The parameter set varies depending on the selected method. Since we use &#8216;AROW&#8217; in this example, we set [regularization_weight: 1.0].</p>
-<p class="last">Note that the parameter &#8216;regularization_weight&#8217;, which represents sensitivity to model change, plays different roles and affects differently among different algorithms. Pay attention to choose an appopriate value for each algorithm.
-In general, when the &#8216;regularization_weight&#8217; parameter is large. the model fast converges to a better model, while it is also poor at handling noise.</p>
+<p>The parameter set varies depending on the selected method. Since we use ‘AROW’ in this example, we set [regularization_weight: 1.0].</p>
+<p class="last">Note that the parameter ‘regularization_weight’, which represents sensitivity to model change, plays different roles and affects differently among different algorithms. Pay attention to choose an appopriate value for each algorithm.
+In general, when the ‘regularization_weight’ parameter is large. the model fast converges to a better model, while it is also poor at handling noise.</p>
 </dd>
 </dl>
 </li>
 </ul>
 <p><strong>GenderMain.java</strong></p>
 <p>We explain the learning and prediction processes.</p>
-<p>To write the Client program for Classifier, we can use the ClassifierClient class defined in &#8216;us.jubat.classifier&#8217; package. There are two important client methods used in this program, &#8216;train&#8217; method for learning process, and &#8216;classify&#8217; method for prediction with the trained model.</p>
+<p>To write the Client program for Classifier, we can use the ClassifierClient class defined in ‘us.jubat.classifier’ package. There are two important client methods used in this program, ‘train’ method for learning process, and ‘classify’ method for prediction with the trained model.</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>How to connect to Jubatus Server</dt>
@@ -401,12 +404,12 @@ In general, when the &#8216;regularization_weight&#8217; parameter is large. the
 <tr class="row-even"><th class="head">label(String)</th>
 <th class="head" colspan="6">Datum</th>
 </tr>
-<tr class="row-odd"><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">&#160;</th>
 <th class="head" colspan="2">List&lt;StringValue&gt;</th>
 <th class="head" colspan="2">List&lt;NumValue&gt;</th>
 <th class="head" colspan="2">List&lt;BinaryValue&gt;</th>
 </tr>
-<tr class="row-even"><th class="head">&nbsp;</th>
+<tr class="row-even"><th class="head">&#160;</th>
 <th class="head">key(String)</th>
 <th class="head">value(String)</th>
 <th class="head">key(String)</th>
@@ -416,120 +419,120 @@ In general, when the &#8216;regularization_weight&#8217; parameter is large. the
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-odd"><td>&#8220;male&#8221;</td>
+<tr class="row-odd"><td>“male”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;short&#8221;</div>
-<div class="line">&#8220;sweater&#8221;</div>
-<div class="line">&#8220;jeans&#8221;</div>
+<div class="line">“short”</div>
+<div class="line">“sweater”</div>
+<div class="line">“jeans”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.70</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>&#8220;female&#8221;</td>
+<tr class="row-even"><td>“female”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;long&#8221;</div>
-<div class="line">&#8220;shirt&#8221;</div>
-<div class="line">&#8220;skirt&#8221;</div>
+<div class="line">“long”</div>
+<div class="line">“shirt”</div>
+<div class="line">“skirt”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.56</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>&#8220;male&#8221;</td>
+<tr class="row-odd"><td>“male”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;short&#8221;</div>
-<div class="line">&#8220;jacket&#8221;</div>
-<div class="line">&#8220;chino&#8221;</div>
+<div class="line">“short”</div>
+<div class="line">“jacket”</div>
+<div class="line">“chino”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.65</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>&#8220;female&#8221;</td>
+<tr class="row-even"><td>“female”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;short&#8221;</div>
-<div class="line">&#8220;T shirt&#8221;</div>
-<div class="line">&#8220;jeans&#8221;</div>
+<div class="line">“short”</div>
+<div class="line">“T shirt”</div>
+<div class="line">“jeans”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.72</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>&#8220;male&#8221;</td>
+<tr class="row-odd"><td>“male”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;long&#8221;</div>
-<div class="line">&#8220;T shirt&#8221;</div>
-<div class="line">&#8220;jeans&#8221;</div>
+<div class="line">“long”</div>
+<div class="line">“T shirt”</div>
+<div class="line">“jeans”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.82</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>&#8220;female&#8221;</td>
+<tr class="row-even"><td>“female”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;long&#8221;</div>
-<div class="line">&#8220;jacket&#8221;</div>
-<div class="line">&#8220;skirt&#8221;</div>
+<div class="line">“long”</div>
+<div class="line">“jacket”</div>
+<div class="line">“skirt”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.43</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
-<p>trainData is an array of LabeledDatum. LabeledDatum is a pair of Datum and its class label. In this sample, the label demonstrates the class name to which each Datum belongs. Each Datum is represented as key-value pairs, which are the data format that Jubatus can read. The key can be recognized as the name of the feature, and the value is the feature value. Inside the Datum, there can be three kinds of key-value lists, string_values, num_values and binary_values. They use the StringValue class, the NumValue class, and the BinaryValue class, respectively. For example, the &#8220;hair&#8221;, &#8220;top&#8221;, and &#8220;bottom&#8221; values are StringValue, while the &#8220;height&#8221; value is NumValue. Therefore, they are stored separately inside the Datum.</p>
+<p>trainData is an array of LabeledDatum. LabeledDatum is a pair of Datum and its class label. In this sample, the label demonstrates the class name to which each Datum belongs. Each Datum is represented as key-value pairs, which are the data format that Jubatus can read. The key can be recognized as the name of the feature, and the value is the feature value. Inside the Datum, there can be three kinds of key-value lists, string_values, num_values and binary_values. They use the StringValue class, the NumValue class, and the BinaryValue class, respectively. For example, the “hair”, “top”, and “bottom” values are StringValue, while the “height” value is NumValue. Therefore, they are stored separately inside the Datum.</p>
 <p>Here is the procedure of making training data.</p>
-<p>To make training data, the private method &#8220;makeTrainDatum&#8221; is used (Line 22-25).</p>
-<p>In this example, the key-value lists for string_values have the keys of &#8220;hair&#8221;, &#8220;top&#8221;, and &#8220;bottom&#8221;. Their string values are registered in addString method. for instance, &#8220;short&#8221;, &#8220;sweater&#8221;, and &#8220;jeans&#8221;, respectively. In addition, the key-value list for num_values has the key of &#8220;height&#8221;, and its double type value is registered in addNumber method, for instance, 1.70 (Line 16-19).</p>
+<p>To make training data, the private method “makeTrainDatum” is used (Line 22-25).</p>
+<p>In this example, the key-value lists for string_values have the keys of “hair”, “top”, and “bottom”. Their string values are registered in addString method. for instance, “short”, “sweater”, and “jeans”, respectively. In addition, the key-value list for num_values has the key of “height”, and its double type value is registered in addNumber method, for instance, 1.70 (Line 16-19).</p>
 <p class="last">Based on this flow, the training dataset is generated.</p>
 </dd>
 </dl>
@@ -560,7 +563,7 @@ In general, when the &#8216;regularization_weight&#8217; parameter is large. the
 <ul>
 <li><dl class="first docutils">
 <dt>For Jubatus Server</dt>
-<dd><p class="first">start &#8220;jubaclassifier&#8221; process.</p>
+<dd><p class="first">start “jubaclassifier” process.</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span>$ jubaclassifier --configpath gender.json
 </pre></div>
 </div>
@@ -627,7 +630,7 @@ In general, when the &#8216;regularization_weight&#8217; parameter is large. the
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

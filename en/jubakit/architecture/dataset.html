@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Dataset &mdash; jubakit 0.6.0 documentation</title>
+  <title>Dataset &mdash; jubakit 0.6.1 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 documentation" href="../index.html"/>
         <link rel="up" title="Architecture" href="index.html"/>
         <link rel="next" title="Service" href="service.html"/>
         <link rel="prev" title="Schema" href="schema.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -108,7 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="shell.html">Shell</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 </ul>
 
@@ -146,7 +149,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/dataset.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/dataset.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -185,7 +188,7 @@ You cannot specify <code class="docutils literal"><span class="pre">static=True<
 </div>
 <div class="section" id="schema-prediction">
 <h2>Schema Prediction<a class="headerlink" href="#schema-prediction" title="Permalink to this headline">¶</a></h2>
-<p>If you don&#8217;t specify Schema class when constructing Dataset, the Schema will automatically be predicted from the first record of the Dataset.</p>
+<p>If you don’t specify Schema class when constructing Dataset, the Schema will automatically be predicted from the first record of the Dataset.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">get_schema</span><span class="p">())</span>
 <span class="go">{&#39;types&#39;: {&#39;k1&#39;: &#39;s&#39;, &#39;k2&#39;: &#39;n&#39;}, &#39;fallback_type&#39;: None, &#39;keys&#39;: {&#39;k1&#39;: &#39;k1&#39;, &#39;k2&#39;: &#39;k2&#39;}}</span>
@@ -202,7 +205,7 @@ In the example above <code class="docutils literal"><span class="pre">k1</span><
 </pre></div>
 </div>
 <p>You can access the transformed record (i.e., Datum) using index operator.
-You don&#8217;t need this in most cases, though.</p>
+You don’t need this in most cases, though.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">(None, None, &lt;jubatus.common.datum.Datum object at 0xdeadbeef&gt;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
@@ -286,7 +289,7 @@ Please note that pickled Dataset instances may not be able to be unpickled in ot
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

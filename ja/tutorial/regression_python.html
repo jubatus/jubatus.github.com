@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Regression チュートリアル" href="regression.html"/>
         <link rel="next" title="Graph チュートリアル" href="graph.html"/>
@@ -209,7 +212,7 @@
   <span class="p">},</span>
   <span class="s2">&quot;parameter&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;sensitivity&quot;</span><span class="o">:</span> <span class="mf">0.1</span><span class="p">,</span>
-    <span class="s2">&quot;regularization_weight&quot;</span><span class="o">:</span> <span class="mf">3.402823</span><span class="nx">e</span><span class="o">+</span><span class="mi">38</span>
+    <span class="s2">&quot;regularization_weight&quot;</span><span class="o">:</span> <span class="mf">3.402823e+38</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -388,7 +391,7 @@
 
     <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;rent ....&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -417,20 +420,20 @@ JSONの各フィールドは以下の通りです。</p>
 <li><dl class="first docutils">
 <dt>method</dt>
 <dd><p class="first last">使用するアルコリズムを指定します。
-Regressionで指定できるのは、現在&#8221;PA&#8221;のみなので&#8221;PA&#8221;（Passive Aggressive）を指定します。</p>
+Regressionで指定できるのは、現在&quot;PA&quot;のみなので&quot;PA&quot;（Passive Aggressive）を指定します。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>converter</dt>
 <dd><p class="first">特徴変換の設定を指定します。
-ここでは、&#8221;num_rules&#8221;と&#8221;string_rules&#8221;を設定しています。</p>
-<p>&#8220;num_rules&#8221;は数値特徴の抽出規則を指定します。
-&#8220;key&#8221;は&#8221;*&#8221;つまり、すべての&#8221;key&#8221;に対して、&#8221;type&#8221;は&#8221;num&#8221;なので、指定された数値をそのまま重みに利用する設定です。
-具体的には、築年数が&#8221;2&#8221;であれば&#8221;2&#8221;を、階数が&#8221;6&#8221;であれば&#8221;6&#8221;を重みとします。</p>
-<p class="last">&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
-&#8220;key&#8221;は&#8221;aspect&#8221;、&#8221;type&#8221;は&#8221;str&#8221;、&#8221;sample_weight&#8221;は&#8221;bin&#8221;、&#8221;global_weight&#8221;は&#8221;bin&#8221;としています。
-これは、&#8221;aspect&#8221;という&#8221;key&#8221;は文字列として扱い、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に&#8221;1&#8221;とする設定です。</p>
+ここでは、&quot;num_rules&quot;と&quot;string_rules&quot;を設定しています。</p>
+<p>&quot;num_rules&quot;は数値特徴の抽出規則を指定します。
+&quot;key&quot;は&quot;*&quot;つまり、すべての&quot;key&quot;に対して、&quot;type&quot;は&quot;num&quot;なので、指定された数値をそのまま重みに利用する設定です。
+具体的には、築年数が&quot;2&quot;であれば&quot;2&quot;を、階数が&quot;6&quot;であれば&quot;6&quot;を重みとします。</p>
+<p class="last">&quot;string_rules&quot;は文字列特徴の抽出規則を指定します。
+&quot;key&quot;は&quot;aspect&quot;、&quot;type&quot;は&quot;str&quot;、&quot;sample_weight&quot;は&quot;bin&quot;、&quot;global_weight&quot;は&quot;bin&quot;としています。
+これは、&quot;aspect&quot;という&quot;key&quot;は文字列として扱い、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に&quot;1&quot;とする設定です。</p>
 </dd>
 </dl>
 </li>
@@ -438,7 +441,7 @@ Regressionで指定できるのは、現在&#8221;PA&#8221;のみなので&#8221
 <dt>parameter</dt>
 <dd><p class="first">アルゴリズムに渡すパラメータを指定します。
 methodに応じて渡すパラメータは異なります。</p>
-<p>ここではmethodで“PA”を指定していますので、&#8221;sensitivity&#8221;と&#8221;regularization_weight&#8221;を設定します。</p>
+<p>ここではmethodで“PA”を指定していますので、&quot;sensitivity&quot;と&quot;regularization_weight&quot;を設定します。</p>
 <p>sensitivity：許容する誤差の幅を指定する。
 大きくするとノイズに強くなる代わりに、誤差が残りやすくなる。
 regularization_weight：学習に対する感度パラメータを指定する。
@@ -462,7 +465,7 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスク
 </li>
 <li><dl class="first docutils">
 <dt>学習用データの準備</dt>
-<dd><p class="first">このサンプルでは、オプションとして&#8221;-t&#8221;を指定しCSVファイルパスを指定した場合のみ、2.～3.の学習を行います。
+<dd><p class="first">このサンプルでは、オプションとして&quot;-t&quot;を指定しCSVファイルパスを指定した場合のみ、2.～3.の学習を行います。
 オプションが指定された場合の、学習用データ作成の手順は下記の流れで行います。</p>
 <p>Regressionでは、list&lt;tuple&lt;float, Datum&gt;のlistを学習用データとして作成し、Regressionのtrainメソッドに与えることで、学習が行われます。
 今回は賃貸情報サイトのCSVファイルを元に学習用データを作成していきます。
@@ -498,13 +501,13 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスク
 </thead>
 <tbody valign="top">
 <tr class="row-odd"><td>5.0</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;SW&#8221;</td>
+<td>&quot;aspect&quot;</td>
+<td>&quot;SW&quot;</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">&quot;distance&quot;</div>
+<div class="line">&quot;space&quot;</div>
+<div class="line">&quot;age&quot;</div>
+<div class="line">&quot;stair&quot;</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -514,17 +517,17 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスク
 <div class="line">1</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>6.3</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;N&#8221;</td>
+<td>&quot;aspect&quot;</td>
+<td>&quot;N&quot;</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">&quot;distance&quot;</div>
+<div class="line">&quot;space&quot;</div>
+<div class="line">&quot;age&quot;</div>
+<div class="line">&quot;stair&quot;</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -534,17 +537,17 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスク
 <div class="line">2</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>7.5</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;SE&#8221;</td>
+<td>&quot;aspect&quot;</td>
+<td>&quot;SE&quot;</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">&quot;distance&quot;</div>
+<div class="line">&quot;space&quot;</div>
+<div class="line">&quot;age&quot;</div>
+<div class="line">&quot;stair&quot;</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -554,17 +557,17 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスク
 <div class="line">4</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>9.23</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;S&#8221;</td>
+<td>&quot;aspect&quot;</td>
+<td>&quot;S&quot;</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">&quot;distance&quot;</div>
+<div class="line">&quot;space&quot;</div>
+<div class="line">&quot;age&quot;</div>
+<div class="line">&quot;stair&quot;</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -574,8 +577,8 @@ Jubatus ServerのIPアドレス，Jubatus ServerのRPCポート番号, タスク
 <div class="line">2</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -587,21 +590,21 @@ Datumには3つのkey-valueが存在します。
 もう1つは、キーは同様に文字列で、値は文字列のバイナリデータ(binary_values)です。</p>
 <p>Datumのコンストラクタ引数で指定したdictのvalueが文字列の場合は、string_valuesに、valueが数値の場合はnum_valuesに値がセットされます。</p>
 <div class="line-block">
-<div class="line">表の1つ目のデータを例に説明すると、向き（aspect）は文字列なのでstring_valuesとして、キーに&#8221;aspect&#8221;、バリューに&#8221;SW&#8221;を設定します。</div>
+<div class="line">表の1つ目のデータを例に説明すると、向き（aspect）は文字列なのでstring_valuesとして、キーに&quot;aspect&quot;、バリューに&quot;SW&quot;を設定します。</div>
 <div class="line">それ以外の項目は数値なので、num_valuesに</div>
 <div class="line-block">
-<div class="line">キーに&#8221;distance&#8221;、バリューに&#8216;10&#8217;、</div>
-<div class="line">キーに&#8221;space&#8221;、バリューに&#8216;20.04&#8217;、</div>
-<div class="line">キーに&#8221;age&#8221;、バリューに&#8216;15&#8217;、</div>
-<div class="line">キーに&#8221;stair&#8221;、バリューに&#8216;1&#8217;</div>
+<div class="line">キーに&quot;distance&quot;、バリューに'10'、</div>
+<div class="line">キーに&quot;space&quot;、バリューに'20.04'、</div>
+<div class="line">キーに&quot;age&quot;、バリューに'15'、</div>
+<div class="line">キーに&quot;stair&quot;、バリューに'1'</div>
 </div>
 <div class="line">と設定します。</div>
 </div>
-<p>これらの5つの情報を保持したDatumにラベルとして家賃である&#8216;5.0&#8217;を付け加え、家賃が&#8216;5.0&#8217;である賃貸の条件を保持したtuple&lt;float, Datum&gt;ができます。
+<p>これらの5つの情報を保持したDatumにラベルとして家賃である'5.0'を付け加え、家賃が'5.0'である賃貸の条件を保持したtuple&lt;float, Datum&gt;ができます。
 その家賃ごとのデータ（tuple&lt;float, Datum&gt;）をlistとしたものを学習用データとして使用します。</p>
 <p>まず、学習用データの元となるCSVファイルを読み込みます（49行目）。
 for文にて1行ずつループで読み込んで処理します（50-67行目）。
-CSVファイルなので、取得した1行を&#8217;,&#8217;で分割し要素ごとに分け、それぞれ変数に代入します（57行目）。</p>
+CSVファイルなので、取得した1行を','で分割し要素ごとに分け、それぞれ変数に代入します（57行目）。</p>
 <p class="last">文字列項目と数値項目の要素をそれぞれ、Datumのコンストラクタに辞書オブジェクトとして指定します（58-63行目）。
 そのDatumにlabelとして家賃（rent）を付与したものを学習用データの1つ（変数train_data）として使用します（64行目）。</p>
 </dd>
@@ -732,7 +735,7 @@ $ python jubahomes.py -a ../dat/myhome.yml
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

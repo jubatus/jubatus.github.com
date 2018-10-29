@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Anomaly チュートリアル" href="anomaly.html"/>
         <link rel="next" title="Anomaly チュートリアル (Java)" href="anomaly_java.html"/>
@@ -391,27 +394,27 @@
 </ul>
 <blockquote>
 <div>異常検知に使用するアルコリズムを指定します。
-Anomalyで指定できるのは、Recommenderベースの&#8221;lof&#8221;およびNearest Neighborベースの&#8221;light_lof&#8221;です。
-今回は&#8221;lof&#8221;（Local Outlier Factor）を指定します。</div></blockquote>
+Anomalyで指定できるのは、Recommenderベースの&quot;lof&quot;およびNearest Neighborベースの&quot;light_lof&quot;です。
+今回は&quot;lof&quot;（Local Outlier Factor）を指定します。</div></blockquote>
 <ul class="simple">
 <li>parameter</li>
 </ul>
 <dl class="docutils">
 <dt>　methodで設定した異常検知アルゴリズムのパラメータを設定します。</dt>
-<dd>今回は&#8221;lof&#8221;を利用するため、<a class="reference external" href="http://jubat.us/ja/api/api_recommender.html">Recommender API</a> に従ってパラメータを設定します。</dd>
+<dd>今回は&quot;lof&quot;を利用するため、<a class="reference external" href="http://jubat.us/ja/api/api_recommender.html">Recommender API</a> に従ってパラメータを設定します。</dd>
 </dl>
 <ul class="simple">
 <li>converter</li>
 </ul>
 <blockquote>
 <div><p>特徴変換の設定を指定します。
-ここでは、&#8221;num_rules&#8221;と&#8221;string_rules&#8221;を設定しています。</p>
-<p>&#8220;num_rules&#8221;は数値特徴の抽出規則を指定します。
-&#8220;key&#8221;は&#8221;*&#8221;つまり、すべての&#8221;key&#8221;に対して、&#8221;type&#8221;は&#8221;num&#8221;なので、指定された数値をそのまま重みに利用する設定です。
-具体的には、valueが&#8221;2&#8221;であれば&#8221;2&#8221;を、&#8221;6&#8221;であれば&#8221;6&#8221;を重みとします。</p>
-<p>&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
-&#8220;key&#8221;は&#8221;*&#8221;、&#8221;type&#8221;は&#8221;str&#8221;、&#8221;sample_weight&#8221;は&#8221;bin&#8221;、&#8221;global_weight&#8221;は&#8221;bin&#8221;としています。
-これは、すべての文字列に対して、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に&#8221;1&#8221;とする設定です。</p>
+ここでは、&quot;num_rules&quot;と&quot;string_rules&quot;を設定しています。</p>
+<p>&quot;num_rules&quot;は数値特徴の抽出規則を指定します。
+&quot;key&quot;は&quot;*&quot;つまり、すべての&quot;key&quot;に対して、&quot;type&quot;は&quot;num&quot;なので、指定された数値をそのまま重みに利用する設定です。
+具体的には、valueが&quot;2&quot;であれば&quot;2&quot;を、&quot;6&quot;であれば&quot;6&quot;を重みとします。</p>
+<p>&quot;string_rules&quot;は文字列特徴の抽出規則を指定します。
+&quot;key&quot;は&quot;*&quot;、&quot;type&quot;は&quot;str&quot;、&quot;sample_weight&quot;は&quot;bin&quot;、&quot;global_weight&quot;は&quot;bin&quot;としています。
+これは、すべての文字列に対して、指定された文字列をそのまま特徴として利用し、各key-value毎の重みと今までの通算データから算出される、大域的な重みを常に&quot;1&quot;とする設定です。</p>
 </div></blockquote>
 <p><strong>anomaly.rb</strong></p>
 <blockquote>
@@ -436,7 +439,7 @@ Jubatus ServerのIPアドレス、Jubatus ServerのRPCポート番号を設定�
 </ol>
 <blockquote>
 <div>AnomalyClientのaddメソッドに2. で作成したデータを渡します（69行目）。
-addメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（&#8221;&#8220;）を指定）
+addメソッドの第1引数は、タスクを識別するZookeeperクラスタ内でユニークな名前を指定します。（スタンドアロン構成の場合、空文字（&quot;&quot;）を指定）
 第2引数として、先ほど2. で作成したDatumを指定します。
 戻り値として、tuple&lt;string, float&gt;型で点IDと異常値を返却します。</div></blockquote>
 <ol class="arabic simple" start="4">
@@ -545,7 +548,7 @@ id_with_score{id: 2985, score: 1.408186435699463} normal.
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

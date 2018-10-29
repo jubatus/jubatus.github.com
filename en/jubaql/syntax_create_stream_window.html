@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="JubaQL Syntax" href="jubaql_syntax.html"/>
         <link rel="next" title="CREATE FUNCTION" href="syntax_create_function.html"/>
@@ -95,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">JubaQL</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html">JubaQL Quick Start</a></li>
@@ -204,11 +207,11 @@
 <li>The <code class="docutils literal"><span class="pre">TIME</span></code> and <code class="docutils literal"><span class="pre">TUPLES</span></code> keywords determine the mode of the window stream. In both modes, the output stream will contain one item per window, with the columns holding the aggregate function values of all items in the respective window.<ul>
 <li><code class="docutils literal"><span class="pre">TUPLES</span></code> activates count-based mode, i.e., every window will have the exact same number of items, and the first <code class="docutils literal"><span class="pre">step_size</span></code> items of a window will not appear in the next window.</li>
 <li><code class="docutils literal"><span class="pre">TIME</span></code> activates timestamp-based mode. The input stream needs to have a column with the name <code class="docutils literal"><span class="pre">jubaql_timestamp</span></code> with a string timestamp in ISO 8601 format (optionally including milli-/micro-/nanosecond precision, but without timezone information). The items in the input stream are expected to be in order of their embedded timestamps. Then every window will contain all items in the range <em>[x, x+window_length)</em>, where <em>x</em> increases by <em>step_size</em> from one window to the next. The output stream will also have a column called <code class="docutils literal"><span class="pre">jubaql_timestamp</span></code> containing the value <em>x</em> in each item.
-Note that &#8211; as opposed to the count-based version &#8211; it is totally possible to have windows with varying number of items in them, including empty windows. (There will be no item in the output stream for an empty window.)</li>
+Note that – as opposed to the count-based version – it is totally possible to have windows with varying number of items in them, including empty windows. (There will be no item in the output stream for an empty window.)</li>
 </ul>
 </li>
 <li><code class="docutils literal"><span class="pre">input_stream</span></code> is the stream to use as input. The data source that this stream is derived from must not yet be in process (or done with processing) when the statement is issued.</li>
-<li><code class="docutils literal"><span class="pre">agg_fun</span></code> is the name of an aggregate function to use. <code class="docutils literal"><span class="pre">params</span></code> is the list of input parameters for that function, where the <em>last</em> parameter is always the value/column/expression to aggregate over, the parameters before depend on the aggregate function and control that function&#8217;s behavior. See the next subsection for a list of available functions and the required/optional parameters. <code class="docutils literal"><span class="pre">alias</span></code> is the name of the column to hold the aggregated value. If it is not given, <code class="docutils literal"><span class="pre">agg_fun</span></code> will be used. The <code class="docutils literal"><span class="pre">agg_fun(params)</span> <span class="pre">[</span> <span class="pre">AS</span> <span class="pre">alias</span> <span class="pre">]</span></code> clause can be used multiple times to aggregate over different columns of the input stream.</li>
+<li><code class="docutils literal"><span class="pre">agg_fun</span></code> is the name of an aggregate function to use. <code class="docutils literal"><span class="pre">params</span></code> is the list of input parameters for that function, where the <em>last</em> parameter is always the value/column/expression to aggregate over, the parameters before depend on the aggregate function and control that function’s behavior. See the next subsection for a list of available functions and the required/optional parameters. <code class="docutils literal"><span class="pre">alias</span></code> is the name of the column to hold the aggregated value. If it is not given, <code class="docutils literal"><span class="pre">agg_fun</span></code> will be used. The <code class="docutils literal"><span class="pre">agg_fun(params)</span> <span class="pre">[</span> <span class="pre">AS</span> <span class="pre">alias</span> <span class="pre">]</span></code> clause can be used multiple times to aggregate over different columns of the input stream.</li>
 <li><code class="docutils literal"><span class="pre">pre_filter</span></code> is a filter expression just like the ones that can be used in a <code class="docutils literal"><span class="pre">WHERE</span></code> clause of a Spark SQL <code class="docutils literal"><span class="pre">SELECT</span></code> statement. If given, only the items in the input stream matching that condition will be used for window computation. This means that a count-based stream with window length 10 will still always have 10 items in each window, even if the <code class="docutils literal"><span class="pre">pre_filter</span></code> drops half of the items in the input stream.</li>
 <li><code class="docutils literal"><span class="pre">post_filter</span></code> is a filter expression just like the ones that can be used in a <code class="docutils literal"><span class="pre">WHERE</span></code> clause of a Spark SQL <code class="docutils literal"><span class="pre">SELECT</span></code> statement. If given, only aggregate value items that match this condition will be emitted into the output stream. Note that here the column names of the output stream (i.e., either the given <code class="docutils literal"><span class="pre">alias</span></code> or <code class="docutils literal"><span class="pre">agg_fun</span></code>) must be used.</li>
 </ul>
@@ -296,8 +299,8 @@ All but the last parameter (which mentions the input column/expression to aggreg
 <div class="section" id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>As opposed to all other processing statements, <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOWS</span></code> is the only one that cannot be implemented in an embarrassingly parallel manner. The reason is that if there is an overlap between two windows, then the items in that overlap must be known to the workers processing these two windows. If these workers are on different machines, then the items in the overlap must be shipped over the network (&#8220;shuffle&#8221; in Hadoop terms), i.e., there is a limit to scaling out.</li>
-<li>Also, as opposed to all other processing statements, <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOWS</span></code> is stateful across batch borders in a DStream. The reason is that we must keep track of &#8220;partial&#8221; windows, i.e., windows that are (maybe) not yet complete and where we will (maybe) receive further data in the next batch. This statefulness requires the use of <code class="docutils literal"><span class="pre">updateStateByKey()</span></code> in Spark Streaming which involves writing state to disk.</li>
+<li>As opposed to all other processing statements, <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOWS</span></code> is the only one that cannot be implemented in an embarrassingly parallel manner. The reason is that if there is an overlap between two windows, then the items in that overlap must be known to the workers processing these two windows. If these workers are on different machines, then the items in the overlap must be shipped over the network (“shuffle” in Hadoop terms), i.e., there is a limit to scaling out.</li>
+<li>Also, as opposed to all other processing statements, <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">SLIDING</span> <span class="pre">WINDOWS</span></code> is stateful across batch borders in a DStream. The reason is that we must keep track of “partial” windows, i.e., windows that are (maybe) not yet complete and where we will (maybe) receive further data in the next batch. This statefulness requires the use of <code class="docutils literal"><span class="pre">updateStateByKey()</span></code> in Spark Streaming which involves writing state to disk.</li>
 </ul>
 </div>
 </div>
@@ -352,7 +355,7 @@ All but the last parameter (which mentions the input column/expression to aggreg
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

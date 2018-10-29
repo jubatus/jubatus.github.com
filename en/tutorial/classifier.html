@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Tutorial" href="index.html"/>
         <link rel="next" title="Python" href="classifier_python.html"/>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -167,10 +170,10 @@
 <p>Classifier is a module to classify given data. For example, you can use Classifier to detect spam e-mails.</p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s use <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/gender">gender</a> as a sample program using Classifier. This program classifies a person into male or female through the features of his/her hair style, height and clothes.</p>
+<p>Let’s use <a class="reference external" href="https://github.com/jubatus/jubatus-example/tree/master/gender">gender</a> as a sample program using Classifier. This program classifies a person into male or female through the features of his/her hair style, height and clothes.</p>
 <p>As a first step, the program updates the model of <code class="docutils literal"><span class="pre">jubaclassifier</span></code> using the training data. A training data is a pair of a class (male or female) and features (hair style, height, clothes). After preparing some training data, the program makes <code class="docutils literal"><span class="pre">jubaclassifier</span></code> learn them.</p>
 <p>Next, the program analyzes the test data using model of <code class="docutils literal"><span class="pre">jubaclassifier</span></code> . It prepares test data, and then <code class="docutils literal"><span class="pre">jubaclassifier</span></code> classifies each of them into male or female using the learned model.</p>
-<p>For example, if you give the feature data as following to <code class="docutils literal"><span class="pre">jubaclassifier</span></code>, it will return &#8220;female&#8221;.</p>
+<p>For example, if you give the feature data as following to <code class="docutils literal"><span class="pre">jubaclassifier</span></code>, it will return “female”.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;hair&quot;</span> <span class="ow">is</span> <span class="s2">&quot;long&quot;</span>
 <span class="s2">&quot;top&quot;</span> <span class="ow">is</span> <span class="s2">&quot;shirt&quot;</span>
 <span class="s2">&quot;bottom&quot;</span> <span class="ow">is</span> <span class="s2">&quot;skirt&quot;</span>
@@ -181,41 +184,35 @@
 <div class="section" id="scenario">
 <h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
 <p>The following is a typical flow of development using Jubatus Client:</p>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><dl class="first docutils">
 <dt>Sets a connection configuration to <code class="docutils literal"><span class="pre">jubaclassifier</span></code></dt>
-<dd><p class="first last">Setting the HOST, RPC port and the instance name of <code class="docutils literal"><span class="pre">jubaclassifier</span></code> .</p>
-</dd>
+<dd>Setting the HOST, RPC port and the instance name of <code class="docutils literal"><span class="pre">jubaclassifier</span></code> .</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Prepare training data</dt>
-<dd><p class="first last">Make some pairs of classes and feature sets.</p>
-</dd>
+<dd>Make some pairs of classes and feature sets.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Train the model using prepared data (update the model)</dt>
-<dd><p class="first last">Send the training data to <code class="docutils literal"><span class="pre">jubaclassifier</span></code> using <code class="docutils literal"><span class="pre">train</span></code> method.</p>
-</dd>
+<dd>Send the training data to <code class="docutils literal"><span class="pre">jubaclassifier</span></code> using <code class="docutils literal"><span class="pre">train</span></code> method.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Prepare the test data</dt>
-<dd><p class="first last">Make a set of feature data.</p>
-</dd>
+<dd>Make a set of feature data.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Classify the test data</dt>
-<dd><p class="first last">Send the test data to <code class="docutils literal"><span class="pre">jubaclassifier</span></code> using <code class="docutils literal"><span class="pre">classify</span></code> method.</p>
-</dd>
+<dd>Send the test data to <code class="docutils literal"><span class="pre">jubaclassifier</span></code> using <code class="docutils literal"><span class="pre">classify</span></code> method.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Output the result</dt>
-<dd><p class="first last">Compare the score value of each class, and output the class of the highest score.</p>
-</dd>
+<dd>Compare the score value of each class, and output the class of the highest score.</dd>
 </dl>
 </li>
 </ol>
@@ -297,7 +294,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

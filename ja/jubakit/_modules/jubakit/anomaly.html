@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.anomaly &mdash; jubakit 0.6.0 ドキュメント</title>
+  <title>jubakit.anomaly &mdash; jubakit 0.6.1 ドキュメント</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../../index.html"/>
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="../../index.html"/>
         <link rel="up" title="モジュールコード" href="../index.html"/> 
 
   
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -159,7 +162,7 @@
 <div class="viewcode-block" id="Schema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Schema.__init__">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_id_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_flag_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG</span><span class="p">,</span> <span class="s1">&#39;FLAG&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Schema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Schema.transform">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -180,7 +183,7 @@
 <span class="sd">  &quot;&quot;&quot;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Schema</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Anomaly"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Anomaly">[ドキュメント]</a><span class="k">class</span> <span class="nc">Anomaly</span><span class="p">(</span><span class="n">BaseService</span><span class="p">):</span>
@@ -188,16 +191,16 @@
 <span class="sd">  Anomaly service.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Anomaly.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Anomaly.name">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Anomaly.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Anomaly.name">[ドキュメント]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;anomaly&#39;</span></div>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">anomaly</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Anomaly</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">embedded</span><span class="o">.</span><span class="n">Anomaly</span>
 
 <div class="viewcode-block" id="Anomaly.add"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Anomaly.add">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
@@ -259,16 +262,16 @@
 <span class="sd">  Configuration to run Anomaly service.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Config.methods">[ドキュメント]</a>  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.anomaly.Config.methods">[ドキュメント]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;lof&#39;</span><span class="p">,</span> <span class="s1">&#39;light_lof&#39;</span><span class="p">]</span></div>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;lof&#39;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
       <span class="s1">&#39;nearest_neighbor_num&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
       <span class="s1">&#39;reverse_nearest_neighbor_num&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
@@ -320,7 +323,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="フレームワークの利用" href="framework.html"/>
         <link rel="next" title="クライアントの入手方法" href="howtogetclients.html"/>
@@ -207,8 +210,8 @@ Jubatus に付属するコード生成器 <code class="docutils literal"><span c
 このため、同じ IDL ファイルで各種クライアントも生成できる。</p>
 <p>各メソッドに付与するアノテーションの文法は以下の通りである。</p>
 <ul class="simple">
-<li>各メソッドには <code class="docutils literal"><span class="pre">#&#64;</span></code> で始まる 3 つのアノテーションを付与する必要があり、順番に &#8220;ルーティング&#8221;, &#8220;ロック種類&#8221;, &#8220;結合方法&#8221; を指定する。</li>
-<li>&#8220;ルーティング&#8221; には、Proxy がどのようにリクエストをプロキシするかを定義する。
+<li>各メソッドには <code class="docutils literal"><span class="pre">#&#64;</span></code> で始まる 3 つのアノテーションを付与する必要があり、順番に &quot;ルーティング&quot;, &quot;ロック種類&quot;, &quot;結合方法&quot; を指定する。</li>
+<li>&quot;ルーティング&quot; には、Proxy がどのようにリクエストをプロキシするかを定義する。
 <code class="docutils literal"><span class="pre">cht</span></code>, <code class="docutils literal"><span class="pre">broadcast</span></code>, <code class="docutils literal"><span class="pre">random</span></code> の 3 種類が用意されており、これによって、典型的だと思われる機械学習の分散方式をカバーすることができる。<ul>
 <li><code class="docutils literal"><span class="pre">cht</span></code> は Consistent Hashing によるリクエストの分散を意味する。
 <code class="docutils literal"><span class="pre">cht</span></code> アノテーションがあるメソッドは、少なくとも 1 つの引数（cht のキーとなる string）を取る必要がある。
@@ -218,13 +221,13 @@ Jubatus に付属するコード生成器 <code class="docutils literal"><span c
 <li><code class="docutils literal"><span class="pre">random</span></code> はランダムに選択されたいずれか 1 台のサーバーへリクエストを送信することを表す。</li>
 </ul>
 </li>
-<li>&#8220;ロック種類&#8221; には、リクエストのread/writeを <code class="docutils literal"><span class="pre">analysis</span></code>, <code class="docutils literal"><span class="pre">update</span></code>, <code class="docutils literal"><span class="pre">nolock</span></code> のいずれかで定義する。<ul>
+<li>&quot;ロック種類&quot; には、リクエストのread/writeを <code class="docutils literal"><span class="pre">analysis</span></code>, <code class="docutils literal"><span class="pre">update</span></code>, <code class="docutils literal"><span class="pre">nolock</span></code> のいずれかで定義する。<ul>
 <li><code class="docutils literal"><span class="pre">analysis</span></code> では、サーバ側で read ロックされることになり、複数のスレッドからの同時アクセスが可能となる。</li>
 <li><code class="docutils literal"><span class="pre">update</span></code> では、サーバー側で write ロックされることになり、安全にデータを更新することができる。</li>
 <li><code class="docutils literal"><span class="pre">nolock</span></code> ではロックは行われない。</li>
 </ul>
 </li>
-<li>&#8220;結合方法&#8221; には、API 呼び出しに対する複数のサーバからの結果を結合する方法を定義する。
+<li>&quot;結合方法&quot; には、API 呼び出しに対する複数のサーバからの結果を結合する方法を定義する。
 利用可能なアグリゲータは <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/framework/aggregators.hpp">aggregators.hpp</a> に掲載されている。</li>
 </ul>
 <p>なお、メソッドの戻り値型に <code class="docutils literal"><span class="pre">void</span></code> は利用できない。
@@ -374,7 +377,7 @@ $ sudo omake install
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

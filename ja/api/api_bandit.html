@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Client API" href="index.html"/>
         <link rel="next" title="Weight" href="api_weight.html"/>
@@ -228,7 +231,7 @@ JSON の各フィールドは以下のとおりである。</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">assume_unrewarded:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">報酬がゼロの場合に <code class="docutils literal"><span class="pre">register_reward</span></code> の呼び出しを省略できるか否かを指定する。
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">報酬がゼロの場合に <code class="docutils literal"><span class="pre">register_reward</span></code> の呼び出しを省略できるか否かを指定する。
 True の場合、 <code class="docutils literal"><span class="pre">select_arm</span></code> によって選択された腕から得られた報酬がゼロの場合には <code class="docutils literal"><span class="pre">register_reward</span></code> の呼び出しを省略できる。ただし、 <code class="docutils literal"><span class="pre">register_reward</span></code> の呼び出しは <code class="docutils literal"><span class="pre">select_arm</span></code> の結果に対応していなければならない。
 False の場合、報酬がゼロであっても必ず <code class="docutils literal"><span class="pre">register_reward</span></code> を呼び出す必要があるが、 <code class="docutils literal"><span class="pre">register_reward</span></code> の呼び出しを <code class="docutils literal"><span class="pre">select_arm</span></code> の呼び出しとは無関係に行う事ができる。
 (Boolean)</td>
@@ -407,7 +410,7 @@ bool <code class="descname">register_arm</code><span class="sig-paren">(</span>0
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>arm_id</strong> &#8211; 新たに登録する腕のID</li>
+<li><strong>arm_id</strong> -- 新たに登録する腕のID</li>
 </ul>
 </td>
 </tr>
@@ -427,7 +430,7 @@ bool <code class="descname">delete_arm</code><span class="sig-paren">(</span>0: 
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>arm_id</strong> &#8211; 削除する腕のID</li>
+<li><strong>arm_id</strong> -- 削除する腕のID</li>
 </ul>
 </td>
 </tr>
@@ -447,7 +450,7 @@ string <code class="descname">select_arm</code><span class="sig-paren">(</span>0
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; 腕を選択されるプレイヤーのID</li>
+<li><strong>player_id</strong> -- 腕を選択されるプレイヤーのID</li>
 </ul>
 </td>
 </tr>
@@ -467,9 +470,9 @@ bool <code class="descname">register_reward</code><span class="sig-paren">(</spa
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; 報酬を登録するプレイヤー</li>
-<li><strong>arm_id</strong> &#8211; 報酬を登録する腕</li>
-<li><strong>reward</strong> &#8211; 報酬の値</li>
+<li><strong>player_id</strong> -- 報酬を登録するプレイヤー</li>
+<li><strong>arm_id</strong> -- 報酬を登録する腕</li>
+<li><strong>reward</strong> -- 報酬の値</li>
 </ul>
 </td>
 </tr>
@@ -489,7 +492,7 @@ map&lt;string, <a class="reference internal" href="#arm_info" title="arm_info">a
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; 腕の情報を取得するプレイヤー</li>
+<li><strong>player_id</strong> -- 腕の情報を取得するプレイヤー</li>
 </ul>
 </td>
 </tr>
@@ -509,7 +512,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
-<li><strong>player_id</strong> &#8211; 腕の情報をリセットするプレイヤー</li>
+<li><strong>player_id</strong> -- 腕の情報をリセットするプレイヤー</li>
 </ul>
 </td>
 </tr>
@@ -577,7 +580,7 @@ bool <code class="descname">reset</code><span class="sig-paren">(</span>0: strin
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

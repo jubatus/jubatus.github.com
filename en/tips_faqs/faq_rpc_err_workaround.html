@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Tips and FAQs" href="index.html"/>
         <link rel="next" title="Backup and Recovery" href="backup_and_recovery.html"/>
@@ -113,7 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQs)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -163,12 +166,12 @@
             
   <div class="section" id="rpc-error-handling">
 <h1>RPC Error Handling<a class="headerlink" href="#rpc-error-handling" title="Permalink to this headline">¶</a></h1>
-<p>Jubatus causes RPC-errors with various reasons (Among these, you&#8217;ll often encounter timeout errors caused by server-side auto session close).
+<p>Jubatus causes RPC-errors with various reasons (Among these, you’ll often encounter timeout errors caused by server-side auto session close).
 In this page, we describe how to handle RPC-errors.</p>
 <div class="section" id="common-issues">
 <h2>Common Issues<a class="headerlink" href="#common-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>If you perform RPC, exceptions may be raised. When exceptions occur, in some client language, connections aren&#8217;t closed automatically.
+<li>If you perform RPC, exceptions may be raised. When exceptions occur, in some client language, connections aren’t closed automatically.
 To avoid resource leaks, you must catch exceptions and close connections explicitly.
 It is also the same when you dispose an client object.</li>
 <li>RPC errors caused by application layer problems like RPC method or type mismatching, and also caused by transport layer problems like communication errors or timeout.
@@ -176,9 +179,9 @@ Trasport layer problems may recover by retrying RPC.</li>
 <li>You must consider the following points before retrying RPC:<ul>
 <li><strong>validity of retrying UPDATE methods</strong> :
 In general, re-performing one non-idempotent UPDATE method may make an EM model different.
-Ideally, we want to retry RPC only which isn&#8217;t performed by server actually.
-But Jubatus client can&#8217;t detect that. Thus, you need to restrict retrying UPDATE methods to idempotent ones.
-On the other hand, retrying ANALYZE methods aren&#8217;t restricted.</li>
+Ideally, we want to retry RPC only which isn’t performed by server actually.
+But Jubatus client can’t detect that. Thus, you need to restrict retrying UPDATE methods to idempotent ones.
+On the other hand, retrying ANALYZE methods aren’t restricted.</li>
 <li><strong>latency</strong> :
 Retrying RPC will increase latency. You must consider your application can allow that.</li>
 </ul>
@@ -192,7 +195,7 @@ Retrying RPC will increase latency. You must consider your application can allow
 <h3>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>RPC performing code should guarantee explicit session closing by <code class="docutils literal"><span class="pre">begin</span> <span class="pre">-</span> <span class="pre">ensure</span></code> block.
-To close sessions explicitly, you execute client object&#8217;s <code class="docutils literal"><span class="pre">get_client.close</span></code> .</li>
+To close sessions explicitly, you execute client object’s <code class="docutils literal"><span class="pre">get_client.close</span></code> .</li>
 <li>Any RPC exceptions are derived from <code class="docutils literal"><span class="pre">MessagePack::RPC::RPCError</span></code> .</li>
 <li>When transport layer error occurs by RPC,  <code class="docutils literal"><span class="pre">MessagePack::RPC::TransportError</span></code> exception will be raised.
 Timeout raises <code class="docutils literal"><span class="pre">MessagePack::RPC::TimeoutError</span></code> exception.
@@ -245,7 +248,7 @@ You can catch any RPC exceptions by <code class="docutils literal"><span class="
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>RPC performing code should guarantee explicit session closing by <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">finally</span></code> block.
-To close sessions explicitly, you execute client object&#8217;s <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
+To close sessions explicitly, you execute client object’s <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
 <li>Any RPC exceptions are derived from <code class="docutils literal"><span class="pre">msgpackrpc.error.RPCError</span></code> .</li>
 <li>When transport layer error occurs by RPC, <code class="docutils literal"><span class="pre">msgpackrpc.error.TransportError</span></code> exception will be raised.
 Timeout raises <code class="docutils literal"><span class="pre">msgpackrpc.error.TimeoutError</span></code> exception.
@@ -305,7 +308,7 @@ You can catch any RPC exceptions by <code class="docutils literal"><span class="
 <h3>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>When you dispose client objects, connections are closed automatically.
-You don&#8217;t need to close sessions explicitly. But if you want to do so, you execute client object&#8217;s <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
+You don’t need to close sessions explicitly. But if you want to do so, you execute client object’s <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
 <li>Any RPC exceptions are derived from <code class="docutils literal"><span class="pre">msgpack::rpc::rpc_error</span></code> .</li>
 <li>When client object fails to connect server ( one of the transport layer errors ) , <code class="docutils literal"><span class="pre">msgpack::rpc::connect_error</span></code> will be raised.
 Other transport layer errors will raise <code class="docutils literal"><span class="pre">msgpack::rpc::system_error</span></code> exceptions.
@@ -370,7 +373,7 @@ You can catch these exceptions as <code class="docutils literal"><span class="pr
 <h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>RPC performing code should guarantee explicit session closing by <code class="docutils literal"><span class="pre">try</span> <span class="pre">-</span> <span class="pre">finally</span></code> block.
-To close sessions explicitly, you execute client objects&#8217; <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
+To close sessions explicitly, you execute client objects’ <code class="docutils literal"><span class="pre">get_client().close()</span></code> .</li>
 <li>Any RPC errors are reported by <code class="docutils literal"><span class="pre">org.msgpack.rpc.error.RPCError</span></code> exceptions.
 You <strong>can not</strong> distinguish errors by exception classes.
 You should catch <code class="docutils literal"><span class="pre">RPCError</span></code> exceptions and close sessions explicitly.</li>
@@ -431,7 +434,7 @@ But retrying RPC is not recommended because you can not detect transport layer e
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

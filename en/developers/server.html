@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Using Framework" href="framework.html"/>
         <link rel="next" title="How to Get Clients" href="howtogetclients.html"/>
@@ -95,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer&#8217;s Guide</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="build.html">Building Jubatus from Source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugin.html">Plugin Development</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="framework.html">Using Framework</a><ul class="current">
@@ -149,7 +152,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Developer&#8217;s Guide</a> &raquo;</li>
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
       
           <li><a href="framework.html">Using Framework</a> &raquo;</li>
       
@@ -169,7 +172,7 @@
 <h1>Using Code Generators<a class="headerlink" href="#using-code-generators" title="Permalink to this headline">¶</a></h1>
 <p>Development of machine learning algorithms using Jubatus framework starts with writing an IDL (RPC interface definition).
 By using a code generator - <code class="docutils literal"><span class="pre">jenerator</span></code> (bundled tool with Jubatus)  - you can generate each component (server, proxy, client for each language) from the IDL.
-By using this generator, framework users don&#8217;t need to focus on things other than implementing algorithms.</p>
+By using this generator, framework users don’t need to focus on things other than implementing algorithms.</p>
 <div class="section" id="flow-of-development">
 <h2>Flow of Development<a class="headerlink" href="#flow-of-development" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
@@ -182,7 +185,7 @@ By using this generator, framework users don&#8217;t need to focus on things oth
 <div class="section" id="why-we-use-idl">
 <h2>Why We Use IDL<a class="headerlink" href="#why-we-use-idl" title="Permalink to this headline">¶</a></h2>
 <p>First, there must exist same definitions in six C++ source files every time we add new learning algorithm, that is, header and implementation of client, header and implementation of proxy and header and implementation of server.
-This would lead to a &#8220;hotbed&#8221; of bugs every time we had changed the API.</p>
+This would lead to a “hotbed” of bugs every time we had changed the API.</p>
 <p>By using IDL, users can create system through the flow above.
 Currenly all algorithms (recommener, classifier, regression, stat and graph) defines its interface with <code class="docutils literal"><span class="pre">jenerator</span></code>.</p>
 </div>
@@ -201,13 +204,13 @@ Currenly all algorithms (recommener, classifier, regression, stat and graph) def
 <div class="section" id="jenerator-the-code-generator">
 <h2><code class="docutils literal"><span class="pre">jenerator</span></code>: The Code Generator<a class="headerlink" href="#jenerator-the-code-generator" title="Permalink to this headline">¶</a></h2>
 <p>The RPC interface is defined with <a class="reference external" href="https://github.com/msgpack/msgpack-haskell/blob/master/msgpack-idl/Specification.md">MessagePack-IDL</a>.
-Aside from MessagePack-IDL&#8217;s original syntax, we must add annotations for each method of RPC service in order to generate Jubatus servers and proxies.</p>
+Aside from MessagePack-IDL’s original syntax, we must add annotations for each method of RPC service in order to generate Jubatus servers and proxies.</p>
 <p>Annotations are interpreted by our code generator, called <code class="docutils literal"><span class="pre">jenerator</span></code>, but they are ignored as comments by MessagePack-IDL.
 Therefore, we can generate each client with same interface by MessagePack-IDL.</p>
 <p>Syntax of annotations for each methods is as follows.</p>
 <ul class="simple">
-<li>Each method must have 3 annotations, each of them starts with <code class="docutils literal"><span class="pre">#&#64;</span></code>, that specifies &#8220;routing&#8221;, &#8220;lock type&#8221; and &#8220;aggregation method&#8221; in order.</li>
-<li>The &#8220;routing&#8221; annotation defines how Jubatus Proxy proxy requests.
+<li>Each method must have 3 annotations, each of them starts with <code class="docutils literal"><span class="pre">#&#64;</span></code>, that specifies “routing”, “lock type” and “aggregation method” in order.</li>
+<li>The “routing” annotation defines how Jubatus Proxy proxy requests.
 Three methods (<code class="docutils literal"><span class="pre">cht</span></code>, <code class="docutils literal"><span class="pre">broadcast</span></code> or <code class="docutils literal"><span class="pre">random</span></code>) are available so that we can cover distribution methods used in typical machine learning tasks.<ul>
 <li><code class="docutils literal"><span class="pre">cht</span></code> means that the request is distributed by using Consistent Hashing.
 Methods annotated with <code class="docutils literal"><span class="pre">cht</span></code> must take at least 1 argument, which is a string that is used as a key for consistent hashing.
@@ -217,13 +220,13 @@ You can change the replication level by specifying like <code class="docutils li
 <li><code class="docutils literal"><span class="pre">random</span></code> means that the request will be proxied to one randomly-chosen server in the cluster.</li>
 </ul>
 </li>
-<li>The &#8220;lock type&#8221; annotation defines read/write of request, and value must be one of <code class="docutils literal"><span class="pre">analysis</span></code>, <code class="docutils literal"><span class="pre">update</span></code> or <code class="docutils literal"><span class="pre">nolock</span></code>.<ul>
+<li>The “lock type” annotation defines read/write of request, and value must be one of <code class="docutils literal"><span class="pre">analysis</span></code>, <code class="docutils literal"><span class="pre">update</span></code> or <code class="docutils literal"><span class="pre">nolock</span></code>.<ul>
 <li>When using <code class="docutils literal"><span class="pre">analysis</span></code>, data is locked in server with read lock and is accessible by multiple thread simultaneously.</li>
 <li>When using <code class="docutils literal"><span class="pre">update</span></code>, data is locked with write lock, so that we can safely update the data.</li>
 <li>When using <code class="docutils literal"><span class="pre">nolock</span></code>, no locks are aquired in the server.</li>
 </ul>
 </li>
-<li>The &#8220;aggregation&#8221; annotation defines how to aggrate the results of API call from multiple servers.
+<li>The “aggregation” annotation defines how to aggrate the results of API call from multiple servers.
 Available aggregators are written in <a class="reference external" href="https://github.com/jubatus/jubatus/blob/master/jubatus/server/framework/aggregators.hpp">aggregators.hpp</a>.</li>
 </ul>
 <p><code class="docutils literal"><span class="pre">void</span></code> type cannot be used as the return type of methods.
@@ -299,7 +302,7 @@ If you want to install <code class="docutils literal"><span class="pre">jenerato
 <p><code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code> constructs a server instance by using class <code class="docutils literal"><span class="pre">kvs_serv</span></code>.
 You need to define the class in <code class="docutils literal"><span class="pre">kvs_serv.hpp</span></code> and <code class="docutils literal"><span class="pre">kvs_serv.cpp</span></code>.
 You can use templates (<code class="docutils literal"><span class="pre">kvs_serv.tmpl.{cpp,hpp}</span></code>) generated by <code class="docutils literal"><span class="pre">jenerator</span></code>.</p>
-<p><code class="docutils literal"><span class="pre">main</span></code> function is implemented in <code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code>, so users don&#8217;t have to implement it.
+<p><code class="docutils literal"><span class="pre">main</span></code> function is implemented in <code class="docutils literal"><span class="pre">kvs_impl.cpp</span></code>, so users don’t have to implement it.
 Command line options are the same among all servers using Jubatus framework.
 The options can be referenced with <code class="docutils literal"><span class="pre">--help</span></code> option.</p>
 <div class="section" id="mixable-class">
@@ -364,7 +367,7 @@ The options can be referenced with <code class="docutils literal"><span class="p
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

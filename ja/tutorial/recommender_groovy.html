@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Recommender チュートリアル" href="recommender.html"/>
         <link rel="next" title="Anomaly チュートリアル" href="anomaly.html"/>
@@ -314,19 +317,19 @@
 <li><dl class="first docutils">
 <dt>method</dt>
 <dd><p class="first">分類に使用するアルコリズムを指定します。</p>
-<p class="last">今回は、転置インデックスを利用したいので、&#8221;inverted_index&#8221;を指定します。
-Recommenderで指定できるアルゴリズムは上記以外に、&#8221;minhash&#8221;、&#8221;lsh&#8221;、&#8221;euclid_lsh&#8221;があります。</p>
+<p class="last">今回は、転置インデックスを利用したいので、&quot;inverted_index&quot;を指定します。
+Recommenderで指定できるアルゴリズムは上記以外に、&quot;minhash&quot;、&quot;lsh&quot;、&quot;euclid_lsh&quot;があります。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>converter</dt>
 <dd><p class="first">特徴変換の設定を指定します。</p>
-<p>ここでは、&#8221;num_rules&#8221;を設定をしています。</p>
-<p>&#8220;num_rules&#8221;は数値特徴の抽出規則を指定します。
-&#8220;key&#8221;は&#8221;*&#8221;つまり、すべての&#8221;key&#8221;に対して、&#8221;type&#8221;は&#8221;num&#8221;なので、指定された数値をそのまま重みに利用する設定です。
-具体的には、打率が&#8221;0.33&#8221;であれば&#8221;0.33&#8221;を、打点が&#8221;30&#8221;であれば&#8221;30&#8221;を重みとします。</p>
-<p class="last">&#8220;string_rules&#8221;は文字列特徴の抽出規則を指定します。
+<p>ここでは、&quot;num_rules&quot;を設定をしています。</p>
+<p>&quot;num_rules&quot;は数値特徴の抽出規則を指定します。
+&quot;key&quot;は&quot;*&quot;つまり、すべての&quot;key&quot;に対して、&quot;type&quot;は&quot;num&quot;なので、指定された数値をそのまま重みに利用する設定です。
+具体的には、打率が&quot;0.33&quot;であれば&quot;0.33&quot;を、打点が&quot;30&quot;であれば&quot;30&quot;を重みとします。</p>
+<p class="last">&quot;string_rules&quot;は文字列特徴の抽出規則を指定します。
 今回は文字列は使用しないので指定していません。</p>
 </dd>
 </dl>
@@ -365,7 +368,7 @@ JavaDocが必要なら、Mavenリポジトリ <a class="reference external" href
 <dd><p class="first">Jubatus Serverに学習させるデータDatumを作成します。</p>
 <p>RecommenderClientでは、Datumを学習用データとして作成し、RecommenderClientのupdateRow()メソッドに与えることで、学習が行われます。
 今回はプロ野球データfreakというサイトの野手データ(CSVファイル)を元に学習用データを作成していきます。
-野手データの要素として、&#8221;名前&#8221;、&#8221;チーム&#8221;、&#8221;打率&#8221;、&#8221;打数&#8221;、&#8221;安打&#8221;などがあります。
+野手データの要素として、&quot;名前&quot;、&quot;チーム&quot;、&quot;打率&quot;、&quot;打数&quot;、&quot;安打&quot;などがあります。
 下図に、今回作成する学習用データの構造を示します。</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -389,28 +392,28 @@ JavaDocが必要なら、Mavenリポジトリ <a class="reference external" href
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&#8220;大島洋平&#8221;</td>
-<td>&#8220;チーム&#8221;</td>
-<td>&#8220;中日&#8221;</td>
+<tr class="row-even"><td>&quot;大島洋平&quot;</td>
+<td>&quot;チーム&quot;</td>
+<td>&quot;中日&quot;</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;打率&#8221;</div>
-<div class="line">&#8220;試合数&#8221;</div>
-<div class="line">&#8220;打席&#8221;</div>
-<div class="line">&#8220;打数&#8221;</div>
-<div class="line">&#8220;安打&#8221;</div>
-<div class="line">&#8220;本塁打&#8221;</div>
-<div class="line">&#8220;打点&#8221;</div>
-<div class="line">&#8220;盗塁&#8221;</div>
-<div class="line">&#8220;四球&#8221;</div>
-<div class="line">&#8220;死球&#8221;</div>
-<div class="line">&#8220;三振&#8221;</div>
-<div class="line">&#8220;犠打&#8221;</div>
-<div class="line">&#8220;併殺打&#8221;</div>
-<div class="line">&#8220;長打率&#8221;</div>
-<div class="line">&#8220;出塁率&#8221;</div>
-<div class="line">&#8220;OPS&#8221;</div>
-<div class="line">&#8220;RC27&#8221;</div>
-<div class="line">&#8220;XR27&#8221;</div>
+<div class="line">&quot;打率&quot;</div>
+<div class="line">&quot;試合数&quot;</div>
+<div class="line">&quot;打席&quot;</div>
+<div class="line">&quot;打数&quot;</div>
+<div class="line">&quot;安打&quot;</div>
+<div class="line">&quot;本塁打&quot;</div>
+<div class="line">&quot;打点&quot;</div>
+<div class="line">&quot;盗塁&quot;</div>
+<div class="line">&quot;四球&quot;</div>
+<div class="line">&quot;死球&quot;</div>
+<div class="line">&quot;三振&quot;</div>
+<div class="line">&quot;犠打&quot;</div>
+<div class="line">&quot;併殺打&quot;</div>
+<div class="line">&quot;長打率&quot;</div>
+<div class="line">&quot;出塁率&quot;</div>
+<div class="line">&quot;OPS&quot;</div>
+<div class="line">&quot;RC27&quot;</div>
+<div class="line">&quot;XR27&quot;</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -435,14 +438,14 @@ JavaDocが必要なら、Mavenリポジトリ <a class="reference external" href
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>&#8220;高橋由伸&#8221;</td>
-<td>&#8220;チーム&#8221;</td>
-<td>&#8220;巨人&#8221;</td>
+<tr class="row-odd"><td>&quot;高橋由伸&quot;</td>
+<td>&quot;チーム&quot;</td>
+<td>&quot;巨人&quot;</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;打率&#8221;</div>
-<div class="line">&#8220;試合数&#8221;</div>
-<div class="line">&#8220;打席&#8221;</div>
-<div class="line">&#8220;打数&#8221;</div>
+<div class="line">&quot;打率&quot;</div>
+<div class="line">&quot;試合数&quot;</div>
+<div class="line">&quot;打席&quot;</div>
+<div class="line">&quot;打数&quot;</div>
 <div class="line">･･･</div>
 <div class="line">･･･</div>
 </div>
@@ -466,18 +469,18 @@ Datumには3つのkey-valueが存在します。</p>
 もう1つは、キーは同様に文字列で、値は文字列のバイナリデータ(binary_values)です。</p>
 <p>Datumのコンストラクタ引数で指定したvalueが文字列の場合は、string_valuesに、valueが数値の場合はnum_valuesに値がセットされます。</p>
 <div class="line-block">
-<div class="line">表の1つ目のデータを例に説明すると、&#8221;チーム&#8221;は文字列なのでstring_valuesとしてkeyに&#8221;チーム&#8221;、valueに&#8221;中日&#8221;をセットします。</div>
+<div class="line">表の1つ目のデータを例に説明すると、&quot;チーム&quot;は文字列なのでstring_valuesとしてkeyに&quot;チーム&quot;、valueに&quot;中日&quot;をセットします。</div>
 <div class="line">それ以外の項目は数値なので、num_valuesに</div>
 <div class="line-block">
-<div class="line">keyに&#8221;打率&#8221;、valueに&#8216;0.31&#8217;、</div>
-<div class="line">keyに&#8221;試合数&#8221;、valueに&#8216;144&#8217;、</div>
-<div class="line">keyに&#8221;打席&#8221;、valueに&#8216;631&#8217;、</div>
-<div class="line">keyに&#8221;打数&#8221;、valueに&#8216;555&#8217;と</div>
+<div class="line">keyに&quot;打率&quot;、valueに'0.31'、</div>
+<div class="line">keyに&quot;試合数&quot;、valueに'144'、</div>
+<div class="line">keyに&quot;打席&quot;、valueに'631'、</div>
+<div class="line">keyに&quot;打数&quot;、valueに'555'と</div>
 </div>
-<div class="line">&#8220;XR27&#8221;の項目までをセットします。</div>
+<div class="line">&quot;XR27&quot;の項目までをセットします。</div>
 </div>
 <p>これらの情報を保持したDatumをCSVの1行ずつ、つまり選手1人ずつ作成します。
-学習用データとして選手の&#8221;名前&#8221;をDatumのID使用します。</p>
+学習用データとして選手の&quot;名前&quot;をDatumのID使用します。</p>
 <p>このサンプルでの学習用データ作成の手順は下記の流れで行います。</p>
 <p>まず、学習用データの元となるCSVファイルを読み込みます(13行目)。
 eachLineにて1行ずつループで読み込んで処理します(16-25行目)。
@@ -491,7 +494,7 @@ CSVファイルなので、取得した1行を要素ごとに分け、リスト�
 <dt>データの学習(学習モデルの更新)</dt>
 <dd><p class="first">2.の工程で作成した学習用データを、updateRow()メソッドに渡すことで学習が行われます(20行目)。
 第1引数には、学習データ内でユニークな名前をIDとして指定します。
-ここでは選手の&#8221;名前&#8221;をIDとして使用します。
+ここでは選手の&quot;名前&quot;をIDとして使用します。
 第2引数として、先ほど 2. で作成したDatumを指定します。</p>
 <p class="last">これで、選手1人分のデータの学習が完了しました。
 ループ処理で 2. と 3. をCSVの行数分繰り返し実行すれば、データの学習は完了します。</p>
@@ -503,42 +506,37 @@ CSVファイルなので、取得した1行を要素ごとに分け、リスト�
 <p>推薦の手順を説明します。</p>
 <p>学習と同様にクライアントプログラムは、us.jubat.recommender.RecommenderClientを利用して作成します。
 使用するメソッドは、与えられたデータから推薦を行うsimilarRowFromId()メソッドです。</p>
-<ol class="arabic" start="0">
+<ol class="arabic simple" start="0">
 <li><dl class="first docutils">
 <dt>Jubatus Clientライブラリの準備</dt>
-<dd><p class="first last">update.groovyと同様のため省略。</p>
-</dd>
+<dd>update.groovyと同様のため省略。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Jubatus Serverへの接続設定</dt>
-<dd><p class="first last">update.groovyと同様のため省略。</p>
-</dd>
+<dd>update.groovyと同様のため省略。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>推薦用データの準備</dt>
-<dd><p class="first last">推薦で必要なデータは先ほど学習でIDに指定した選手の&#8221;名前&#8221;になります。
-学習時と同じ要領で、カラムの1番目である&#8221;名前&#8221;を取得し、RecommenderClientのsimilarRowFromId()メソッドに与えることで、推薦が行われます。</p>
-</dd>
+<dd>推薦で必要なデータは先ほど学習でIDに指定した選手の&quot;名前&quot;になります。
+学習時と同じ要領で、カラムの1番目である&quot;名前&quot;を取得し、RecommenderClientのsimilarRowFromId()メソッドに与えることで、推薦が行われます。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>学習モデルに基づく推薦</dt>
-<dd><p class="first last">2.で取得した選手の&#8221;名前&#8221;を、similarRowFromId()メソッドに渡すことで、推薦結果のリストを得ることができます(17行目)。
-第1引数に、&#8221;名前&#8221;を指定します。
+<dd>2.で取得した選手の&quot;名前&quot;を、similarRowFromId()メソッドに渡すことで、推薦結果のリストを得ることができます(17行目)。
+第1引数に、&quot;名前&quot;を指定します。
 第2引数は、似ているタイプを近傍順にいくつ出力するかを指定します。
-ここでは、トップ3まで出力するので&#8221;4&#8221;を指定します。
-なぜ&#8221;4&#8221;かというと、トップには自身が出力される為です。</p>
-</dd>
+ここでは、トップ3まで出力するので&quot;4&quot;を指定します。
+なぜ&quot;4&quot;かというと、トップには自身が出力される為です。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>結果の出力</dt>
-<dd><p class="first last">3.で取得した、推薦結果のリストはsimilarRowFromId()メソッドの第2引数に&#8221;4&#8221;を指定したので、4 つの要素を持ったリストです。
+<dd>3.で取得した、推薦結果のリストはsimilarRowFromId()メソッドの第2引数に&quot;4&quot;を指定したので、4 つの要素を持ったリストです。
 リストの1番目は自分自身なので、2番目から4番目までを結果として出力します。
-update.groovyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</p>
-</dd>
+update.groovyと同様、選手1人ずつループで処理し 2. ～ 4. を繰り返します。</dd>
 </dl>
 </li>
 </ol>
@@ -631,7 +629,7 @@ done!
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Regression" href="regression.html"/>
         <link rel="next" title="Graph" href="graph.html"/>
@@ -111,7 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -166,7 +169,7 @@
 <p>Here we explain the sample program of Regression in Python.</p>
 <div class="section" id="source-code">
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
-<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;rent.json&#8217;; 2) how to train and predict by &#8216;jubahomes.py&#8217; with the training data in &#8216;rent-data.csv&#8217; file and the estimation data in &#8216;myhome.yml&#8217; file. Here are their source codes.</p>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file ‘rent.json’; 2) how to train and predict by ‘jubahomes.py’ with the training data in ‘rent-data.csv’ file and the estimation data in ‘myhome.yml’ file. Here are their source codes.</p>
 <p><strong>rent.json</strong></p>
 <div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -206,7 +209,7 @@
   <span class="p">},</span>
   <span class="s2">&quot;parameter&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;sensitivity&quot;</span><span class="o">:</span> <span class="mf">0.1</span><span class="p">,</span>
-    <span class="s2">&quot;regularization_weight&quot;</span><span class="o">:</span> <span class="mf">3.402823</span><span class="nx">e</span><span class="o">+</span><span class="mi">38</span>
+    <span class="s2">&quot;regularization_weight&quot;</span><span class="o">:</span> <span class="mf">3.402823e+38</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -385,7 +388,7 @@
 
     <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;rent .... {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
   <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -413,39 +416,39 @@
 <li><dl class="first docutils">
 <dt>method</dt>
 <dd><p class="first last">Specify the algorithm used in regression.
-Currently, we have &#8216;PA&#8217; (Passive Aggressive) only, so we specify it with &#8216;PA&#8217;.</p>
+Currently, we have ‘PA’ (Passive Aggressive) only, so we specify it with ‘PA’.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>converter</dt>
 <dd><p class="first">Specify the configurations in feature converter.</p>
-<p>In this example, we will set the &#8216;num_rules&#8217; and &#8216;string_rules&#8217;.</p>
-<p>&#8216;num_rules&#8217; are used to specify the extraction rules of numercial features.
+<p>In this example, we will set the ‘num_rules’ and ‘string_rules’.</p>
+<p>‘num_rules’ are used to specify the extraction rules of numercial features.
 <code class="docutils literal"><span class="pre">&quot;key&quot;</span> <span class="pre">:</span> <span class="pre">&quot;*&quot;</span></code>, it means all the key are taken into consideration, <code class="docutils literal"><span class="pre">&quot;type&quot;</span> <span class="pre">:</span> <span class="pre">&quot;num&quot;</span></code>, it means the value specified will be directly used as the input for training the model.
-For example, if the &#8220;age = 2&#8221;, use 2 as the input; if the &#8220;stair = 6&#8221;, use 6 as the input.</p>
-<p class="last">&#8216;string_rules&#8217; are used to specify the extraction rules of string features.
+For example, if the “age = 2”, use 2 as the input; if the “stair = 6”, use 6 as the input.</p>
+<p class="last">‘string_rules’ are used to specify the extraction rules of string features.
 Here, <code class="docutils literal"><span class="pre">&quot;key&quot;</span> <span class="pre">:</span> <span class="pre">&quot;aspect&quot;,</span> <span class="pre">&quot;type</span> <span class="pre">:</span> <span class="pre">str&quot;,</span> <span class="pre">&quot;sample_weight</span> <span class="pre">:</span> <span class="pre">bin&quot;,</span> <span class="pre">&quot;global_weight</span> <span class="pre">:</span> <span class="pre">bin&quot;</span></code> .
-Their meaning are the &#8216;aspect&#8217; is treated as a string, and used as the input feature without reform; the weight of each key-value feature is specified to be &#8216;1&#8217;; and the global weight of each feature is specified to be &#8216;1&#8217;.</p>
+Their meaning are the ‘aspect’ is treated as a string, and used as the input feature without reform; the weight of each key-value feature is specified to be ‘1’; and the global weight of each feature is specified to be ‘1’.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>parameter</dt>
 <dd><p class="first">Specify the parameters to be passed to the algorithm.
-The method specified here is &#8216;PA&#8217;, with its configuration as &#8216;sensitivity&#8217; and &#8216;regularization_weight&#8217;.</p>
-<p>&#8216;sensitivity&#8217; specifies the tolerable range of error. When its value increases, it becomes resistant to noise, but makes errors remain easily instead.
-&#8216;regularization_weight&#8217; specifies the sensitivity parameter in the learning.
-In general, when the &#8216;regularization_weight&#8217; parameter is large. the model fast converges to a better model, while it is also poor at handling noise.</p>
-<p class="last">In addition, the &#8216;regularization_weight&#8217; above plays various roles in different algorithms, so please be careful in configuring its values in different algorithms.</p>
+The method specified here is ‘PA’, with its configuration as ‘sensitivity’ and ‘regularization_weight’.</p>
+<p>‘sensitivity’ specifies the tolerable range of error. When its value increases, it becomes resistant to noise, but makes errors remain easily instead.
+‘regularization_weight’ specifies the sensitivity parameter in the learning.
+In general, when the ‘regularization_weight’ parameter is large. the model fast converges to a better model, while it is also poor at handling noise.</p>
+<p class="last">In addition, the ‘regularization_weight’ above plays various roles in different algorithms, so please be careful in configuring its values in different algorithms.</p>
 </dd>
 </dl>
 </li>
 </ul>
 <p><strong>jubahomes.py</strong></p>
 <p>We explain the learning and prediction processes.</p>
-<p>To write the Client program for Regression, we can use the Regression class defined in &#8216;jubatus.regression&#8217;.
-There are two methods used in this program. The &#8216;train&#8217; method for learning process, and the &#8216;estimate&#8217; method for prediction with the trained model.</p>
+<p>To write the Client program for Regression, we can use the Regression class defined in ‘jubatus.regression’.
+There are two methods used in this program. The ‘train’ method for learning process, and the ‘estimate’ method for prediction with the trained model.</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Connect to Jubatus Server</dt>
@@ -456,7 +459,7 @@ There are two methods used in this program. The &#8216;train&#8217; method for l
 </li>
 <li><dl class="first docutils">
 <dt>Prepare the training data</dt>
-<dd><p class="first">In this sample program, only if the training data source (CSV file) is specified by the option &#8220;-t&#8221;, processes of step 2-3 is taken. Here we explain these processes.</p>
+<dd><p class="first">In this sample program, only if the training data source (CSV file) is specified by the option “-t”, processes of step 2-3 is taken. Here we explain these processes.</p>
 <p>Regression puts the training data into the List of list&lt;tuple&lt;float, Datum&gt;&gt;, and sends the data to train() methods for the model training.
 In this example, the training data is generated from the CSV file that privided by a housing rental website.
 Factors in the rental information includes rent, aspect, distance, space, age and stairs.
@@ -491,13 +494,13 @@ Figure below shows the training data. (The following are four examples from over
 </thead>
 <tbody valign="top">
 <tr class="row-odd"><td>5.0</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;SW&#8221;</td>
+<td>“aspect”</td>
+<td>“SW”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">“distance”</div>
+<div class="line">“space”</div>
+<div class="line">“age”</div>
+<div class="line">“stair”</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -507,17 +510,17 @@ Figure below shows the training data. (The following are four examples from over
 <div class="line">1</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>6.3</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;N&#8221;</td>
+<td>“aspect”</td>
+<td>“N”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">“distance”</div>
+<div class="line">“space”</div>
+<div class="line">“age”</div>
+<div class="line">“stair”</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -527,17 +530,17 @@ Figure below shows the training data. (The following are four examples from over
 <div class="line">2</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>7.5</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;SE&#8221;</td>
+<td>“aspect”</td>
+<td>“SE”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">“distance”</div>
+<div class="line">“space”</div>
+<div class="line">“age”</div>
+<div class="line">“stair”</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -547,17 +550,17 @@ Figure below shows the training data. (The following are four examples from over
 <div class="line">4</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>9.23</td>
-<td>&#8220;aspect&#8221;</td>
-<td>&#8220;S&#8221;</td>
+<td>“aspect”</td>
+<td>“S”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;distance&#8221;</div>
-<div class="line">&#8220;space&#8221;</div>
-<div class="line">&#8220;age&#8221;</div>
-<div class="line">&#8220;stair&#8221;</div>
+<div class="line">“distance”</div>
+<div class="line">“space”</div>
+<div class="line">“age”</div>
+<div class="line">“stair”</div>
 </div>
 </td>
 <td><div class="first last line-block">
@@ -567,31 +570,31 @@ Figure below shows the training data. (The following are four examples from over
 <div class="line">2</div>
 </div>
 </td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
-<p>tuple&lt;float, Datum&gt; contains 2 fields, &#8220;Datum&#8221; and the &#8220;label&#8221;.
-&#8220;Datum&#8221; is composed of key-value data which could be processed by Jubatus, and there are 3 types of key-value data format.
-In the first type, both the &#8220;key&#8221; and &#8220;value&#8221; are in string format (string_values); in the second one, the &#8220;key&#8221; is in string format, but the &#8220;value&#8221; is in numerical format (num_values); the last one, the &#8220;key&#8221; and &#8220;value&#8221; are in string format(biunary_values), but the &#8220;value&#8221; is stored binary data.
+<p>tuple&lt;float, Datum&gt; contains 2 fields, “Datum” and the “label”.
+“Datum” is composed of key-value data which could be processed by Jubatus, and there are 3 types of key-value data format.
+In the first type, both the “key” and “value” are in string format (string_values); in the second one, the “key” is in string format, but the “value” is in numerical format (num_values); the last one, the “key” and “value” are in string format(biunary_values), but the “value” is stored binary data.
 These three types are represented in list&lt;tuple&lt;string, string&gt;&gt;, list&lt;tuple&lt;string, double&gt;&gt; and list&lt;tuple&lt;string, string&gt;&gt;, respectively.</p>
 <div class="line-block">
-<div class="line">Please have a view of the first data in this table as an example. Because the &#8220;aspect&#8221; is in string format, it is stored in the first list of the list&lt;tuple&lt;string, string&gt;&gt;.</div>
-<div class="line">in which, the key is set as &#8220;aspect&#8221;, value is set as &#8220;SW&#8221;.</div>
+<div class="line">Please have a view of the first data in this table as an example. Because the “aspect” is in string format, it is stored in the first list of the list&lt;tuple&lt;string, string&gt;&gt;.</div>
+<div class="line">in which, the key is set as “aspect”, value is set as “SW”.</div>
 <div class="line">Because other items are numerical, they are stored in the list of the list&lt;tuple&lt;string, double&gt;&gt;, in which</div>
-<div class="line">the first list&#8217;s key is set as &#8220;distance&#8221; and value is set as &#8220;10&#8221;,</div>
-<div class="line">the second list&#8217;s key is set as &#8220;space&#8221; and value is set as &#8220;20.04&#8221;,</div>
-<div class="line">the third list&#8217;s key is set as &#8220;age&#8221; and value is set as &#8220;15&#8221;,</div>
-<div class="line">the fourth list&#8217;s key is set as &#8220;stair&#8221; and value is set as &#8220;1&#8221;.</div>
+<div class="line">the first list’s key is set as “distance” and value is set as “10”,</div>
+<div class="line">the second list’s key is set as “space” and value is set as “20.04”,</div>
+<div class="line">the third list’s key is set as “age” and value is set as “15”,</div>
+<div class="line">the fourth list’s key is set as “stair” and value is set as “1”.</div>
 </div>
-<p>The Datum of these 5 lists is appended with a label of &#8220;5.0&#8221;, as its rent, and forms an instance of tuple&lt;float, Datum&gt; which retains the rent (of 5.0 * 10,000) and its corresponding housing condition info.
+<p>The Datum of these 5 lists is appended with a label of “5.0”, as its rent, and forms an instance of tuple&lt;float, Datum&gt; which retains the rent (of 5.0 * 10,000) and its corresponding housing condition info.
 Thus, the housing rental data are generated in the format of (tuple&lt;float, Datum&gt;) list, as the training data to be used.</p>
 <p>Here is the detailed process for making the training data in this sample.</p>
 <p>Next, read the source file (CSV file) of the training data line by line (Line 49-67).
-Split the data read from each line in CSV file, by the &#8216;,&#8217; mark (Line 57).</p>
+Split the data read from each line in CSV file, by the ‘,’ mark (Line 57).</p>
 <p class="last">The string items and double items are stored into the Datum consturctor of as a dictionary object (Line 58-63), respectively.
-Finally, the Datum is appended with the rent label, so as to be used as one piece of training data (argument &#8216;train&#8217; in Line 64).</p>
+Finally, the Datum is appended with the rent label, so as to be used as one piece of training data (argument ‘train’ in Line 64).</p>
 </dd>
 </dl>
 </li>
@@ -609,7 +612,7 @@ Here, we generate the data for prediction by using the YAML file (please downloa
 YAML is one kind of data format, in which objects and structure data are serialized.</p>
 <p>Read the YAML file (myhome.yml) by yaml.load() and get the return value in dict type (Line 74).
 Generate the prediction Datum by using the simliar process as in step 2 (Line 75-81).</p>
-<p class="last">Add the Datum into the prediction data list, and send it into the estimate() method in &#8220;Regression&#8221; for prediction.</p>
+<p class="last">Add the Datum into the prediction data list, and send it into the estimate() method in “Regression” for prediction.</p>
 </dd>
 </dl>
 </li>
@@ -633,7 +636,7 @@ The result is rounded at 2nd decimal for output, because it is in Float type (Li
 <ul>
 <li><dl class="first docutils">
 <dt>For Jubatus Server</dt>
-<dd><p class="first">start &#8220;jubaregression&#8221; process.</p>
+<dd><p class="first">start “jubaregression” process.</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span>$ jubaregression --configpath rent.json
 </pre></div>
 </div>
@@ -719,7 +722,7 @@ $ python jubahomes.py -a ../dat/myhome.yml
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

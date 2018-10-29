@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Schema &mdash; jubakit 0.6.0 ドキュメント</title>
+  <title>Schema &mdash; jubakit 0.6.1 ドキュメント</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="../index.html"/>
         <link rel="up" title="アーキテクチャ" href="index.html"/>
         <link rel="next" title="Dataset" href="dataset.html"/>
         <link rel="prev" title="Loader" href="loader.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -144,7 +147,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/schema.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/schema.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -201,67 +204,53 @@
 <col width="84%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><p class="first last">データ型</p>
-</th>
-<th class="head"><p class="first last">説明</p>
-</th>
+<tr class="row-odd"><th class="head">データ型</th>
+<th class="head">説明</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">NUMBER</span></code></td>
-<td><p class="first last">数値特徴量</p>
-</td>
+<td>数値特徴量</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">STRING</span></code></td>
-<td><p class="first last">テキスト特徴量</p>
-</td>
+<td>テキスト特徴量</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">BINARY</span></code></td>
-<td><p class="first last">バイナリ特徴量</p>
-</td>
+<td>バイナリ特徴量</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">INFER</span></code></td>
-<td><p class="first last">自動推論された特徴量 <a class="footnote-reference" href="#id3" id="id1">[1]</a></p>
-</td>
+<td>自動推論された特徴量 <a class="footnote-reference" href="#id3" id="id1">[1]</a></td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">AUTO</span></code></td>
-<td><p class="first last">Loaderから渡された特徴量 <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
-</td>
+<td>Loaderから渡された特徴量 <a class="footnote-reference" href="#id4" id="id2">[2]</a></td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">LABEL</span></code></td>
-<td><p class="first last">ラベル (Classifierのみ)</p>
-</td>
+<td>ラベル (Classifierのみ)</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">TARGET</span></code></td>
-<td><p class="first last">目的変数 (Regressionのみ)</p>
-</td>
+<td>目的変数 (Regressionのみ)</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">FLAG</span></code></td>
-<td><p class="first last">異常フラグ (Anomalyのみ)</p>
-</td>
+<td>異常フラグ (Anomalyのみ)</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">ID</span></code></td>
-<td><p class="first last">レコードを特定するためのID (Anomaly、Recommenderのみ)</p>
-</td>
+<td>レコードを特定するためのID (Anomaly、Recommenderのみ)</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">IGNORE</span></code></td>
-<td><p class="first last">そのカラムを無視する</p>
-</td>
+<td>そのカラムを無視する</td>
 </tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first last"><code class="docutils literal"><span class="pre">INFER</span></code> では、各キーについて <code class="docutils literal"><span class="pre">NUMBER</span></code>、<code class="docutils literal"><span class="pre">STRING</span></code> および <code class="docutils literal"><span class="pre">BINARY</span></code> への型変換を試行し、変換が成功したデータ型が利用されます。データ型推論は各レコードに対して行われるため、同じキーでもレコード間で異なるデータ型へと推論されることがある点に注意してください。</p>
-</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><code class="docutils literal"><span class="pre">INFER</span></code> では、各キーについて <code class="docutils literal"><span class="pre">NUMBER</span></code>、<code class="docutils literal"><span class="pre">STRING</span></code> および <code class="docutils literal"><span class="pre">BINARY</span></code> への型変換を試行し、変換が成功したデータ型が利用されます。データ型推論は各レコードに対して行われるため、同じキーでもレコード間で異なるデータ型へと推論されることがある点に注意してください。</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><p class="first last"><code class="docutils literal"><span class="pre">AUTO</span></code> は、RDBMSのような型付きデータソースからデータを読み込むLoaderを利用する場合に指定することができます。CSVファイルから <a class="reference internal" href="../api/jubakit.loader.html#jubakit.loader.csv.CSVLoader" title="jubakit.loader.csv.CSVLoader"><code class="xref py py-class docutils literal"><span class="pre">CSVLoader</span></code></a> を利用して読み込んだデータは必ず ｀｀STRING`` 型になる点に注意してください。</p>
-</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><code class="docutils literal"><span class="pre">AUTO</span></code> は、RDBMSのような型付きデータソースからデータを読み込むLoaderを利用する場合に指定することができます。CSVファイルから <a class="reference internal" href="../api/jubakit.loader.html#jubakit.loader.csv.CSVLoader" title="jubakit.loader.csv.CSVLoader"><code class="xref py py-class docutils literal"><span class="pre">CSVLoader</span></code></a> を利用して読み込んだデータは必ず ｀｀STRING`` 型になる点に注意してください。</td></tr>
 </tbody>
 </table>
 </div>
@@ -308,7 +297,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

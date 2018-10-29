@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Shell &mdash; jubakit 0.6.0 ドキュメント</title>
+  <title>Shell &mdash; jubakit 0.6.1 ドキュメント</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="../index.html"/>
         <link rel="up" title="アーキテクチャ" href="index.html"/>
         <link rel="next" title="ユーザーズガイド" href="../guide/index.html"/>
         <link rel="prev" title="Config" href="config.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -148,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/shell.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/shell.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -251,7 +254,7 @@ tx<span class="o">()</span> <span class="o">{</span> ifconfig <span class="s2">&
 
 <span class="nv">RX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>rx<span class="k">)</span><span class="s2">&quot;</span> <span class="nv">TX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>tx<span class="k">)</span><span class="s2">&quot;</span>
 <span class="k">while</span> :<span class="p">;</span> <span class="k">do</span>
-  sleep 1
+  sleep <span class="m">1</span>
   <span class="nv">RX1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RX2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">TX1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TX2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">RX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>rx<span class="k">)</span><span class="s2">&quot;</span> <span class="nv">TX2</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>tx<span class="k">)</span><span class="s2">&quot;</span>
   jubash -c <span class="s2">&quot;add rx </span><span class="k">$((</span><span class="si">${</span><span class="nv">RX2</span><span class="si">}</span> <span class="o">-</span> <span class="si">${</span><span class="nv">RX1</span><span class="si">}</span><span class="k">))</span><span class="s2"> tx </span><span class="k">$((</span><span class="si">${</span><span class="nv">TX2</span><span class="si">}</span> <span class="o">-</span> <span class="si">${</span><span class="nv">TX1</span><span class="si">}</span><span class="k">))</span><span class="s2">&quot;</span>
 <span class="k">done</span>
@@ -264,16 +267,16 @@ tx<span class="o">()</span> <span class="o">{</span> ifconfig <span class="s2">&
 <div class="highlight-shell"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/jubash</span>
 
 <span class="c1"># expecting jubaclassifier is already running on localhost:9199</span>
-connect 127.0.0.1 9199
+connect <span class="m">127</span>.0.0.1 <span class="m">9199</span>
 
 get_config
 get_status
 
-train male height <span class="m">170</span> weight 60
-train male height <span class="m">185</span> weight 65
-train female height <span class="m">150</span> weight 50
-train female height <span class="m">155</span> weight 45
-classify height <span class="m">140</span> weight 40
+train male height <span class="m">170</span> weight <span class="m">60</span>
+train male height <span class="m">185</span> weight <span class="m">65</span>
+train female height <span class="m">150</span> weight <span class="m">50</span>
+train female height <span class="m">155</span> weight <span class="m">45</span>
+classify height <span class="m">140</span> weight <span class="m">40</span>
 </pre></div>
 </div>
 </div>
@@ -282,12 +285,9 @@ classify height <span class="m">140</span> weight 40
 <h2>制限事項<a class="headerlink" href="#limitations" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">jubash</span></code> のコマンドは対応するAPIに似たインタフェースに設計されています。しかし、REPL表現の制約のため、いくつかの制限事項があります。</p>
 <ul class="simple">
-<li><p class="first">それぞれのデータの型は自動的にfloatまたはstringに解釈されます。つまり、厳密なデータ型が要求されるケースを想定していません。</p>
-</li>
-<li><p class="first">バイナリ特徴量はサポートしていません。</p>
-</li>
-<li><p class="first">Classifierの <code class="docutils literal"><span class="pre">train</span></code> メソッドのように、1回のRPC実行で複数のデータを登録する一括登録の仕組みはサポートしていません。</p>
-</li>
+<li>それぞれのデータの型は自動的にfloatまたはstringに解釈されます。つまり、厳密なデータ型が要求されるケースを想定していません。</li>
+<li>バイナリ特徴量はサポートしていません。</li>
+<li>Classifierの <code class="docutils literal"><span class="pre">train</span></code> メソッドのように、1回のRPC実行で複数のデータを登録する一括登録の仕組みはサポートしていません。</li>
 </ul>
 </div>
 </div>
@@ -333,7 +333,7 @@ classify height <span class="m">140</span> weight 40
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.classifier &mdash; jubakit 0.6.0 documentation</title>
+  <title>jubakit.classifier &mdash; jubakit 0.6.1 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -91,7 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 </ul>
 
@@ -160,7 +163,7 @@
 
 <div class="viewcode-block" id="Schema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Schema.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_label_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">LABEL</span><span class="p">,</span> <span class="s1">&#39;LABEL&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Schema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Schema.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -178,11 +181,11 @@
 <span class="sd">  &quot;&quot;&quot;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Schema</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_from_loader</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_from_loader</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">loader</span> <span class="o">=</span> <span class="n">data_loader</span>
       <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
@@ -195,8 +198,8 @@
       <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({</span><span class="s1">&#39;_label&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">LABEL</span><span class="p">},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.from_data">[docs]</a>  <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.from_data">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts two arrays or a sparse matrix data and its associated label array to Dataset.</span>
 
@@ -208,12 +211,12 @@
 <span class="sd">    label_names : array of shape [n_labels], optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;todense&#39;</span><span class="p">):</span>
-      <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
+      <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+      <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_array"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.from_array">[docs]</a>  <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_array"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.from_array">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts two arrays (data and its associated labels) to Dataset.</span>
 
@@ -225,10 +228,10 @@
 <span class="sd">    label_names : array of shape [n_labels], optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data_loader</span> <span class="o">=</span> <span class="n">ArrayLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_matrix"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.from_matrix">[docs]</a>  <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_matrix"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.from_matrix">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a sparse matrix data and its associated label array to Dataset.</span>
 
@@ -241,7 +244,7 @@
 <span class="sd">    label_names : array of shape [n_labels], optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data_loader</span> <span class="o">=</span> <span class="n">SparseMatrixLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Dataset.get_labels"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Dataset.get_labels">[docs]</a>  <span class="k">def</span> <span class="nf">get_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -259,16 +262,16 @@
 <span class="sd">  Classifier service.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Classifier.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Classifier.name">[docs]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Classifier.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Classifier.name">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;classifier&#39;</span></div>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Classifier</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">embedded</span><span class="o">.</span><span class="n">Classifier</span>
 
 <div class="viewcode-block" id="Classifier.train"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Classifier.train">[docs]</a>  <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
@@ -307,14 +310,14 @@
       <span class="c1"># Note: label may become None.</span>
       <span class="k">yield</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">label_score_sorted</span><span class="p">)</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Classifier.train_and_classify"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Classifier.train_and_classify">[docs]</a>  <span class="k">def</span> <span class="nf">train_and_classify</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+<div class="viewcode-block" id="Classifier.train_and_classify"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Classifier.train_and_classify">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">train_and_classify</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is an utility method to perform bulk train-test.</span>
 <span class="sd">    Run a classifier using the given config, train the classifier, classify</span>
 <span class="sd">    using the classifier, then return the calculated metrics.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">classifier</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">):</span>
       <span class="k">pass</span>
@@ -335,16 +338,16 @@
 <span class="sd">  Configuration to run Classifier service.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Config.methods">[docs]</a>  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.classifier.Config.methods">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;perceptron&#39;</span><span class="p">,</span> <span class="s1">&#39;PA&#39;</span><span class="p">,</span> <span class="s1">&#39;PA1&#39;</span><span class="p">,</span> <span class="s1">&#39;PA2&#39;</span><span class="p">,</span> <span class="s1">&#39;CW&#39;</span><span class="p">,</span> <span class="s1">&#39;AROW&#39;</span><span class="p">,</span> <span class="s1">&#39;NHERD&#39;</span><span class="p">,</span> <span class="s1">&#39;NN&#39;</span><span class="p">,</span> <span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">]</span></div>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;AROW&#39;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;perceptron&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;PA&#39;</span><span class="p">,</span> <span class="s1">&#39;passive_aggressive&#39;</span><span class="p">):</span>
       <span class="k">return</span> <span class="kc">None</span>
@@ -404,7 +407,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

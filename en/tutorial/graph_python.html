@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Graph" href="graph.html"/>
         <link rel="next" title="Stat" href="stat.html"/>
@@ -111,7 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -166,7 +169,7 @@
 <p>Here we explain the sample program of Graph in Python.</p>
 <div class="section" id="source-code">
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
-<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;train_route.json&#8217;; 2) how to create the graph with &#8216;create_graph.py&#8217;, and how to learn the training data and calculate the shortest path with the example file ‘search_route.py’. Here are the source codes.</p>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file ‘train_route.json’; 2) how to create the graph with ‘create_graph.py’, and how to learn the training data and calculate the shortest path with the example file ‘search_route.py’. Here are the source codes.</p>
 <p><strong>train_route.json</strong></p>
 <div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
@@ -303,7 +306,7 @@
 <span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="k">class</span> <span class="nc">station_join</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">station1</span><span class="p">,</span> <span class="n">station2</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station1</span> <span class="o">=</span> <span class="n">station1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station2</span> <span class="o">=</span> <span class="n">station2</span>
 
@@ -359,7 +362,7 @@
     <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;{0}</span><span class="se">\t</span><span class="s2">{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">station</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c1"># Create jubagraph client.</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
 
@@ -438,7 +441,7 @@
             <span class="n">station_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;  {0}</span><span class="se">\t</span><span class="s2">{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">station</span><span class="p">,</span> <span class="n">station_name</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Usage: {0} from_station_id to_station_id&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -450,25 +453,23 @@
 <h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
 <p><strong>train_route.json</strong></p>
 <p>The configuration information is given by the JSON unit. Here is the meaning of each JSON field.</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>method</dt>
-<dd><p class="first last">Specify the algorithm used in graph mining. Currently, In this example, we use the graph without indexing, so we specify it &#8220;graph_wo_index&#8221;.</p>
-</dd>
+<dd>Specify the algorithm used in graph mining. Currently, In this example, we use the graph without indexing, so we specify it “graph_wo_index”.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>parameter</dt>
-<dd><p class="first last">Specify the parameters to be passed to the algorithm.
-We specify two parameter here, &#8220;damping_factor&#8221; and &#8220;landmark_num&#8221;.
-&#8220;damping_factor&#8221; is the damping factor used in PageRank calculation. It adjusts scores for nodes with differenct degrees.The bigger it is, the more sensitive to graph structure PageRank score is, but the larger biases it causes. In the original paper, 0.85 is good.
-&#8220;landmark_num&#8221; is used for shortest path calculation. The bigger it is, more accurate value you can get, but the more memory is required.</p>
-</dd>
+<dd>Specify the parameters to be passed to the algorithm.
+We specify two parameter here, “damping_factor” and “landmark_num”.
+“damping_factor” is the damping factor used in PageRank calculation. It adjusts scores for nodes with differenct degrees.The bigger it is, the more sensitive to graph structure PageRank score is, but the larger biases it causes. In the original paper, 0.85 is good.
+“landmark_num” is used for shortest path calculation. The bigger it is, more accurate value you can get, but the more memory is required.</dd>
 </dl>
 </li>
 </ul>
 <p><strong>create_graph.py</strong></p>
-<p>create_graph.py generates a graph composed of Yamanote-line and Chuou-line. The client program in Graph will use the &#8216;Graph&#8217; class defined in &#8216;jubatus.graph&#8217;. Here are the 5 methods used in the sample.</p>
+<p>create_graph.py generates a graph composed of Yamanote-line and Chuou-line. The client program in Graph will use the ‘Graph’ class defined in ‘jubatus.graph’. Here are the 5 methods used in the sample.</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Connect to Jubatus Server</dt>
@@ -479,7 +480,7 @@ We specify two parameter here, &#8220;damping_factor&#8221; and &#8220;landmark_
 </li>
 <li><dl class="first docutils">
 <dt>Regist the preset query</dt>
-<dd><p class="first last">The &#8216;add_shortest_path_query&#8217; method must be registered beforehand. Therefore, the &#8216;PresetQuery&#8217; is made (Line 77) and registed by &#8216;add_shortest_path_query&#8217; (Line 78).</p>
+<dd><p class="first last">The ‘add_shortest_path_query’ method must be registered beforehand. Therefore, the ‘PresetQuery’ is made (Line 77) and registed by ‘add_shortest_path_query’ (Line 78).</p>
 </dd>
 </dl>
 </li>
@@ -492,7 +493,7 @@ The second argument is the return value from method [get_station_join].</p>
 <p>Method [get_station_join] makes the combination list of two neighbor stations.
 The station XML file is downloaded from Web (Line 29-30).
 Contents of the XML file likes below.
-In this sample program, we ignore the factor of &#8216;distance&#8217;, and only consider the connections between stations. So, the values in &lt;station_name1&gt;, &lt;station_name2&gt; are not used in the program.</p>
+In this sample program, we ignore the factor of ‘distance’, and only consider the connections between stations. So, the values in &lt;station_name1&gt;, &lt;station_name2&gt; are not used in the program.</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;ekidata</span> <span class="na">version=</span><span class="s">&quot;ekidata.jp station_join api 1.0&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;station_join&gt;</span>
  <span class="nt">&lt;station_cd1&gt;</span>1131231<span class="nt">&lt;/station_cd1&gt;</span>
@@ -527,37 +528,35 @@ In this sample program, we ignore the factor of &#8216;distance&#8217;, and only
 -Snip-
 </pre></div>
 </div>
-<p>Now, we input the value of &lt;station_cd1&gt; in the XML file into the instance variable &#8216;station1&#8217; in [StationJoin] class, and the value of &lt;station_cd2&gt; in to &#8216;station2&#8217;.
+<p>Now, we input the value of &lt;station_cd1&gt; in the XML file into the instance variable ‘station1’ in [StationJoin] class, and the value of &lt;station_cd2&gt; in to ‘station2’.
 The number of instance created in [StationJoin] is the same as the number of &lt;station_join&gt; tags, and they are sotred in the ArrayList that created at Line 28 （Line 31-41).</p>
 <p>Next, we make the graph by using the list created above (Line 44-57).
 The method [create_graph] performs the following task.</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>Add station information and ID.</dt>
-<dd><p class="first last">Insert node into graph. Here, a node means a station. (eg. Shinagawa, Ochanomizu, Tokyo, etc.)</p>
-</dd>
+<dd>Insert node into graph. Here, a node means a station. (eg. Shinagawa, Ochanomizu, Tokyo, etc.)</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Create links between the added two neighbor stations</dt>
-<dd><p class="first last">Make the bi-link between the registed station to its neighbor stations. Here, a link means a route. (eg. Harajuku &lt;-&gt; Shibuya, etc.)</p>
-</dd>
+<dd>Make the bi-link between the registed station to its neighbor stations. Here, a link means a route. (eg. Harajuku &lt;-&gt; Shibuya, etc.)</dd>
 </dl>
 </li>
 </ul>
 <dl class="docutils">
 <dt>3-1. Add station information and ID.</dt>
 <dd><p class="first last">Method [add_station] is called (Line 47-48), to add every pair of neighboring nodes &lt;station1, station2&gt; in to the graph.
-Method [add_station] will check the map of &#8216;stations&#8217;. If the map contains the specified station, the station_id will be returned; Otherwise, a new node is created, and its ID is returned after storing the nodeID and station name into the &#8216;stations&#8217; map (Line 59-66).
+Method [add_station] will check the map of ‘stations’. If the map contains the specified station, the station_id will be returned; Otherwise, a new node is created, and its ID is returned after storing the nodeID and station name into the ‘stations’ map (Line 59-66).
 Mehods [create_node] and [update_node] in Graph regist the new node.
 first, [create_node] method is called and the returned value is the nodeId.
-After that, a node is added into the graph. Then, we regist the key-value &lt;name, &#8220;station name&#8221;&gt; into the &#8216;property&#8217; (Line 63).
-Finally, [update_node] method updates the &#8216;property&#8217; with the node created at Line 63 (Line 64).</p>
+After that, a node is added into the graph. Then, we regist the key-value &lt;name, “station name”&gt; into the ‘property’ (Line 63).
+Finally, [update_node] method updates the ‘property’ with the node created at Line 63 (Line 64).</p>
 </dd>
 <dt>3-2. Create links between the added two neighbor stations</dt>
 <dd><p class="first last">After adding the two neighbor stations by method [addStation], we create the bi-links between station1 and station2 (Line 51-54).
 Method [create_edge] is used to create the bi-links.
-The second argument means the start node&#8217;s ID. The third argument is an edge instance, which has the nodeID of both start and end nodes of the edge.</p>
+The second argument means the start node’s ID. The third argument is an edge instance, which has the nodeID of both start and end nodes of the edge.</p>
 </dd>
 </dl>
 <p class="last">The [update_index] method in Line 57 is used for locally Mix operation, do not use it in distributed environment.</p>
@@ -566,14 +565,14 @@ The second argument means the start node&#8217;s ID. The third argument is an ed
 </li>
 <li><dl class="first docutils">
 <dt>Show the stations</dt>
-<dd><p class="first last">In step 3-1, station name and station ID(nodeID) are stored into the &#8220;stations&#8221;. Here, we output the stations names by the ascending order of their IDs (Line 68-70).</p>
+<dd><p class="first last">In step 3-1, station name and station ID(nodeID) are stored into the “stations”. Here, we output the stations names by the ascending order of their IDs (Line 68-70).</p>
 </dd>
 </dl>
 </li>
 </ol>
 <p><strong>search_route.py</strong></p>
-<p>&#8216;search_route.py&#8217; finds the shortest path between every 2 stations from the graph that made by create_graph.py.
-The method it used is the &#8220;get_shortest_path&#8221;.</p>
+<p>‘search_route.py’ finds the shortest path between every 2 stations from the graph that made by create_graph.py.
+The method it used is the “get_shortest_path”.</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Connect to Jubatus Server</dt>
@@ -586,14 +585,14 @@ The method it used is the &#8220;get_shortest_path&#8221;.</p>
 <dt>Prepare the query</dt>
 <dd><p class="first last">Prepare the query for the shortest path calculation (Line 14-15).
 Create the ShortestPathQuery required by the [get_shortest_path] method (Line 15).
-Store the start node&#8217;s &amp; end node&#8217;s nodeIDs into the first &amp; second arguments in the &#8216;types.ShortestPathQuery&#8217;. The third argument is the number of &#8216;maxhop&#8217;, the search process will be truncated if it fails to find the route within the specified number of &#8216;maxhop&#8217;.
-Also note, the query should be registed by &#8220;add_shortest_path_query&#8221; beforehand.</p>
+Store the start node’s &amp; end node’s nodeIDs into the first &amp; second arguments in the ‘types.ShortestPathQuery’. The third argument is the number of ‘maxhop’, the search process will be truncated if it fails to find the route within the specified number of ‘maxhop’.
+Also note, the query should be registed by “add_shortest_path_query” beforehand.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Calculate the shortes path</dt>
-<dd><p class="first last">By specifying the &#8220;ShortestPathQuery&#8221; that created in Step.2, [get_shortest_path] method will find the shortest path (Line 16).</p>
+<dd><p class="first last">By specifying the “ShortestPathQuery” that created in Step.2, [get_shortest_path] method will find the shortest path (Line 16).</p>
 </dd>
 </dl>
 </li>
@@ -610,7 +609,7 @@ Also note, the query should be registed by &#8220;add_shortest_path_query&#8221;
 <ul>
 <li><dl class="first docutils">
 <dt>At Jubatus Server</dt>
-<dd><p class="first">start &#8220;jubagraph&#8221; process.</p>
+<dd><p class="first">start “jubagraph” process.</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span>$ jubagraph --configpath train_route.json
 </pre></div>
 </div>
@@ -715,7 +714,7 @@ Pseudo-Shortest Path (hops) from 0 to 144:
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

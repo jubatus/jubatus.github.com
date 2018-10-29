@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Jubatus" href="index.html"/>
         <link rel="next" title="Algorithms" href="method.html"/>
         <link rel="prev" title="Distributed Mode" href="tutorial_distributed.html"/> 
@@ -140,7 +143,7 @@
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about/index.html">About This Project</a></li>
@@ -189,7 +192,7 @@
   <div class="section" id="data-conversion">
 <span id="conversion"></span><h1>Data Conversion<a class="headerlink" href="#data-conversion" title="Permalink to this headline">¶</a></h1>
 <p>Generally speaking, we cannot use unstructured data such as texts directly when we use machine-learning software.
-Such data are converted to &#8220;feature vectors&#8221; by being process called feature extraction in advance to the tasks.
+Such data are converted to “feature vectors” by being process called feature extraction in advance to the tasks.
 We use key-value type as feature vector in which keys are strings and values are numeric values.
 Through this process, we can handle unstructured raw data such as natural language texts, pictures and voice in a unified way.
 The data-conversion engine in Jubatus enables us to customize this feature-extraction process flexibly only by creating an easy configuration file.</p>
@@ -221,11 +224,11 @@ It is probable that doing some tuning this configuration to obtain training mode
 </div>
 <div class="section" id="datum">
 <h2>Datum<a class="headerlink" href="#datum" title="Permalink to this headline">¶</a></h2>
-<p>It is very simple key-value called &#8220;datum&#8221; that we can use as a data type in Jubatus.
-datum has three key-value&#8217;s.
-One is &#8220;string_values&#8221;, whose key and value are both string data.
-The second is &#8220;num_values&#8221;, whose key is string data as string_values is, but value is numeric data.
-The last is &#8220;binary_values&#8221;, whose key is string data as string_values is, but value is arbitrary binary data.
+<p>It is very simple key-value called “datum” that we can use as a data type in Jubatus.
+datum has three key-value’s.
+One is “string_values”, whose key and value are both string data.
+The second is “num_values”, whose key is string data as string_values is, but value is numeric data.
+The last is “binary_values”, whose key is string data as string_values is, but value is arbitrary binary data.
 We can store in string_values arbitrary text data such as name, text, profession etc.
 We can store in num_values arbitrary numeric data such as age, income, the number of access etc. as a floating value.
 And, we can store in binary_values arbitrary binary data such as multimedia data like images and sounds.
@@ -248,7 +251,7 @@ The following is an example of a datum.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Name of keys cannot contain &#8220;$&#8221; sign.</p>
+<p>Name of keys cannot contain “$” sign.</p>
 <p>For example, a datum consists of <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></code> ,  <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></code> and <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></code> in C++.
 <code class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></code> (resp.  <code class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></code>) is to C++ what tuple (resp. vector) is to Python.</p>
 </div>
@@ -256,12 +259,12 @@ The following is an example of a datum.</p>
 <h2>Flow of Data Conversion<a class="headerlink" href="#flow-of-data-conversion" title="Permalink to this headline">¶</a></h2>
 <p>The following is the overview of data conversion.</p>
 <p>As datum consists of string data, numeric data and binary data, there are flows of processing for each type of data.</p>
-<p>For string data, first &#8220;string_filter_rules&#8221; is applied and the filtered data are added to the datum.
-Then, features are extracted from string data with &#8220;string_rules&#8221;.</p>
-<p>For numeric data, first &#8220;num_filter_rules&#8221; is applied and filtered data are added to the datum.
-Then, features are extracted from string data with &#8220;num_rules&#8221;.</p>
-<p>For binary data, features are extracted from binary data with &#8220;binary_rules&#8221;.</p>
-<p>As some filters and feature extractors requires arguments, these are available in &#8220;string_rules&#8221; and &#8220;num_rules&#8221; if we prepare them in &#8220;string_types&#8221; and &#8220;num_types&#8221;, respectively.</p>
+<p>For string data, first “string_filter_rules” is applied and the filtered data are added to the datum.
+Then, features are extracted from string data with “string_rules”.</p>
+<p>For numeric data, first “num_filter_rules” is applied and filtered data are added to the datum.
+Then, features are extracted from string data with “num_rules”.</p>
+<p>For binary data, features are extracted from binary data with “binary_rules”.</p>
+<p>As some filters and feature extractors requires arguments, these are available in “string_rules” and “num_rules” if we prepare them in “string_types” and “num_types”, respectively.</p>
 <div class="figure" id="id4">
 <a class="reference internal image-reference" href="_images/convert_flow.png"><img alt="feature vector converter" src="_images/convert_flow.png" style="width: 90%;" /></a>
 <p class="caption"><span class="caption-text">Figure : System of Conversion Engine</span></p>
@@ -272,10 +275,10 @@ Then, features are extracted from string data with &#8220;num_rules&#8221;.</p>
 <p>Jubatus has filtering system of raw data. This enables us to create additional key-value elements by converting existing key-value elements in a datum and to insert additional key-value elements by the filter.
 For example, let us suppose we have an original text as an HTML.
 Tags, such as &lt;a&gt;, in the data are in the way of training in many cases. Therefore, we want to filter and get rid of them in advance.
-In another example, we may remove quotes in e-mails (i.e. lines starts with &#8220;&gt;&#8221;).
+In another example, we may remove quotes in e-mails (i.e. lines starts with “&gt;”).
 We can make use of the filtering system in such cases.</p>
-<p>As an example of usage, we remove HTML tags from strings whose key is &#8220;message&#8221;. We do it in two steps.
-First, we define a rule which states &#8220;remove HTML tags&#8221;. Second, we apply this rule to data where <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></code>.
+<p>As an example of usage, we remove HTML tags from strings whose key is “message”. We do it in two steps.
+First, we define a rule which states “remove HTML tags”. Second, we apply this rule to data where <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></code>.
 This procedure is represented by the following configuration.</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;detag&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">}</span>
@@ -285,11 +288,11 @@ This procedure is represented by the following configuration.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>As a first step, we define a filter in &#8220;string_filter_types&#8221;. We name this filter &#8220;detag&#8221;.
-In &#8220;detag&#8221;, we define a filter which applies a method named &#8220;regexp&#8221;, which replaces &#8220;&lt;[^&gt;]*&gt;&#8221; with &#8220;&#8221;.
-Next, we define to which elements in datum and how we apply this filter. We write it in &#8220;string_filter_rules&#8221;.
-The example above indicates that we apply the &#8220;detag&#8221; filter defined earlier to the value whose key is &#8220;message&#8221;, and that we store the resultant to &#8220;message-detagged&#8221; key, that is generated from the original key &#8220;message&#8221; and a suffix &#8220;-detagged&#8221;.</p>
-<p>In another example, we can add one to &#8220;age&#8221; by the following configuration (in Japan, such a counting method is called &#8220;Kazoe Doshi&#8221;, or East Asian age reckoning).</p>
+<p>As a first step, we define a filter in “string_filter_types”. We name this filter “detag”.
+In “detag”, we define a filter which applies a method named “regexp”, which replaces “&lt;[^&gt;]*&gt;” with “”.
+Next, we define to which elements in datum and how we apply this filter. We write it in “string_filter_rules”.
+The example above indicates that we apply the “detag” filter defined earlier to the value whose key is “message”, and that we store the resultant to “message-detagged” key, that is generated from the original key “message” and a suffix “-detagged”.</p>
+<p>In another example, we can add one to “age” by the following configuration (in Japan, such a counting method is called “Kazoe Doshi”, or East Asian age reckoning).</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
@@ -298,7 +301,7 @@ The example above indicates that we apply the &#8220;detag&#8221; filter defined
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>The procedure is the same as the previous example. A value in &#8220;user/age&#8221; added by one is stored in &#8220;usr/age_kazoe&#8221;.</p>
+<p>The procedure is the same as the previous example. A value in “user/age” added by one is stored in “usr/age_kazoe”.</p>
 <p>By applying these two filters, we obtain the datum like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
@@ -315,16 +318,16 @@ The example above indicates that we apply the &#8220;detag&#8221; filter defined
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>These &#8220;types&#8221; and &#8220;rules&#8221; are optional.
-When you don&#8217;t specify these configurations, they are regarded as empty lists.
+<p>These “types” and “rules” are optional.
+When you don’t specify these configurations, they are regarded as empty lists.
 Next section is devoted to more precise explanations of each filter.</p>
 <div class="section" id="string-filter-types">
 <h3>string_filter_types<a class="headerlink" href="#string-filter-types" title="Permalink to this headline">¶</a></h3>
 <p>Specifies a dictionary that consists of &lt;filter name&gt;:&lt;argument&gt;.
 &lt;filter name&gt; is a string and &lt;argument&gt; is a dictionary whose keys and values are both strings.
-&lt;argument&gt; must contains a key named &#8220;method&#8221;.
-The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
-The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+&lt;argument&gt; must contains a key named “method”.
+The rest of keys in &lt;argument&gt; are dependent on the value of “method”.
+The followings are available values of “method” and keys that must be specified.</p>
 <dl class="describe">
 <dt>
 <code class="descname">regexp</code></dt>
@@ -376,7 +379,7 @@ The regular expression engine can be selected at compile time (oniguruma is used
 The rules are checked in order.
 If a datum is matched to a rule, the corresponding filter is applied and a converted value is stored to the datum.
 Application is called recursively, that is, rest of filters is applied to the original values and the converted values.
-Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional), &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+Each rule is represented as a dictionary whose keys are “key”, “except” (optional), “type” and “suffix”.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -386,17 +389,17 @@ Each rule is represented as a dictionary whose keys are &#8220;key&#8221;, &#822
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. We describe it in datail later.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies the name of the filter used. This filter must be defined in &#8220;string_filter_types&#8221;. No filters are available by default.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies the name of the filter used. This filter must be defined in “string_filter_types”. No filters are available by default.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of filtering is stored. For example, if “suffix” is “-detagged” and a filter is applied to “name” key in a datum, the result is stored in “name-detagged” key.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;key&#8221; and &#8220;except&#8221; can be specified in one of the following formats.
+<p>“key” and “except” can be specified in one of the following formats.
 For each key in a datum, all rules checked to be applicable.
 It means that if a single key matches n rules, every corresponding filter will be applied to the original key. Then, new n keys are added to the datum.
-Every &#8220;key&#8221; and &#8220;except&#8221; in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
+Every “key” and “except” in this document is in the same format. Similarly, it happens that multiple rules are applied to a single key.</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -409,17 +412,17 @@ Every &#8220;key&#8221; and &#8220;except&#8221; in this document is in the same
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&#8220;*&#8221; or &#8220;&#8221;</td>
+<tr class="row-even"><td>“*” or “”</td>
 <td>Matches all keys in a datum. That is, this rule is applied to every keys in the datum.</td>
 </tr>
-<tr class="row-odd"><td>&#8220;XXX*&#8221;</td>
-<td>Matches keys whose prefixes are &#8220;XXX&#8221;.</td>
+<tr class="row-odd"><td>“XXX*”</td>
+<td>Matches keys whose prefixes are “XXX”.</td>
 </tr>
-<tr class="row-even"><td>&#8220;*XXX&#8221;</td>
-<td>Matches keys whose suffixes are &#8220;XXX&#8221;.</td>
+<tr class="row-even"><td>“*XXX”</td>
+<td>Matches keys whose suffixes are “XXX”.</td>
 </tr>
-<tr class="row-odd"><td>&#8220;/XXX/&#8221;</td>
-<td>&#8220;XXX&#8221; is interpreted as a regular expression. Matches keys that the expression matches.</td>
+<tr class="row-odd"><td>“/XXX/”</td>
+<td>“XXX” is interpreted as a regular expression. Matches keys that the expression matches.</td>
 </tr>
 <tr class="row-even"><td>otherwise</td>
 <td>If the key is none of the above, it matches to keys that are identical to the given string.</td>
@@ -427,16 +430,16 @@ Every &#8220;key&#8221; and &#8220;except&#8221; in this document is in the same
 </tbody>
 </table>
 </div></blockquote>
-<p>When &#8220;except&#8221; is specified and both &#8220;key&#8221; and &#8220;except&#8221; matched, the rule will be skipped.
-For example, by using {&#8220;key&#8221;: &#8220;*&#8221;, &#8220;except&#8221;: &#8220;foo&#8221;, ... }, you can define the rule which will be applied for every keys other than &#8220;foo&#8221;.</p>
+<p>When “except” is specified and both “key” and “except” matched, the rule will be skipped.
+For example, by using {“key”: “*”, “except”: “foo”, … }, you can define the rule which will be applied for every keys other than “foo”.</p>
 </div>
 <div class="section" id="num-filter-types">
 <h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="Permalink to this headline">¶</a></h3>
-<p>Specifies a dictionary consists of &lt;filter name&gt;:&lt;argument&gt;, same as &#8220;string_filter_types&#8221;.
-We can use it almost in the same way as &#8220;string_filter_types&#8221;.
+<p>Specifies a dictionary consists of &lt;filter name&gt;:&lt;argument&gt;, same as “string_filter_types”.
+We can use it almost in the same way as “string_filter_types”.
 &lt;filter name&gt; is a string and &lt;argument&gt; is a dictionary whose keys and values are both strings.
-&lt;argument&gt; must contains a key named &#8220;method&#8221;. The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
-The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+&lt;argument&gt; must contains a key named “method”. The rest of keys in &lt;argument&gt; are dependent on the value of “method”.
+The followings are available values of “method” and keys that must be specified.</p>
 <dl class="describe">
 <dt>
 <code class="descname">add</code></dt>
@@ -446,7 +449,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">Specifies value to add. For example, if we add 3 to the original value, we use &#8220;3&#8221;. Note that it is not numeric but a string. It is treated as a doubled precision floating-point number internally.</td>
+<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">Specifies value to add. For example, if we add 3 to the original value, we use “3”. Note that it is not numeric but a string. It is treated as a doubled precision floating-point number internally.</td>
 </tr>
 </tbody>
 </table>
@@ -457,22 +460,22 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <dt>
 <code class="descname">linear_normalization</code></dt>
 <dd><p>It normalizes the input value linearly between 0 to 1.
-It requires two arguments &#8220;min&#8221; and &#8220;max&#8221;, and these values cannot be omitted.
+It requires two arguments “min” and “max”, and these values cannot be omitted.
 It transforms given value x to be between 0 to 1 with formula (x-min) / (max - min).
-If the x is smaller than &#8220;min&#8221;, it is truncated to 0.
-If the x is bigger than &#8220;max&#8221;, it is truncated to 1.
-These truncation behavior is switched by &#8220;truncate&#8221; option.
-If &#8220;min&#8221; is greater than &#8220;max&#8221;, the invalid_parameter exception will be raised and fail to create converter.</p>
+If the x is smaller than “min”, it is truncated to 0.
+If the x is bigger than “max”, it is truncated to 1.
+These truncation behavior is switched by “truncate” option.
+If “min” is greater than “max”, the invalid_parameter exception will be raised and fail to create converter.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">min:</th><td class="field-body">Input minimum value to be input. If the minimum value is 0, you have to input as &#8220;0&#8221;. Notice that it is not numeric but string type. It is treated as a floating-point number internally. You cannot omit this argument.</td>
+<tr class="field-odd field"><th class="field-name">min:</th><td class="field-body">Input minimum value to be input. If the minimum value is 0, you have to input as “0”. Notice that it is not numeric but string type. It is treated as a floating-point number internally. You cannot omit this argument.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">max:</th><td class="field-body">Input maximum value to be input. If the maximum value is 100, you have to input as &#8220;100&#8221;. Notice that it is not numeric type but string type. It is used as a double precision double type inside. You cannot omit this argument.</td>
+<tr class="field-even field"><th class="field-name">max:</th><td class="field-body">Input maximum value to be input. If the maximum value is 100, you have to input as “100”. Notice that it is not numeric type but string type. It is used as a double precision double type inside. You cannot omit this argument.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">truncate:</th><td class="field-body">Behavior of truncating value which is less than &#8220;min&#8221; or more than &#8220;max&#8221;. In case it is &#8220;True&#8221;, values less than &#8220;min&#8221; will become 0 and more than &#8220;max&#8221; will become 1. You can omit this parameter. In case you omit, this parameter is to be &#8220;True&#8221; automatically.</td>
+<tr class="field-odd field"><th class="field-name">truncate:</th><td class="field-body">Behavior of truncating value which is less than “min” or more than “max”. In case it is “True”, values less than “min” will become 0 and more than “max” will become 1. You can omit this parameter. In case you omit, this parameter is to be “True” automatically.</td>
 </tr>
 </tbody>
 </table>
@@ -492,19 +495,19 @@ If &#8220;min&#8221; is greater than &#8220;max&#8221;, the invalid_parameter ex
 <dt>
 <code class="descname">gaussian_normalization</code></dt>
 <dd><p>It normalizes values between -1 to +1, supposing values are distributed on normal distribution.
-It requires two arguments &#8220;average&#8221; and &#8220;standard_deviation&#8221;, and these values cannot be omitted.
+It requires two arguments “average” and “standard_deviation”, and these values cannot be omitted.
 It transforms given value x to be -1 to +1 with formula (x - average) / standard_deviation.
 For this reason, anomaly value can be less than -1 or more than +1.
-You cannot specify negative value for &#8220;standard_deviation&#8221;. It causes invalid_parameter exception.</p>
+You cannot specify negative value for “standard_deviation”. It causes invalid_parameter exception.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">Give average of input data. If average value is 80, you should specify like &#8220;80&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
+<tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">Give average of input data. If average value is 80, you should specify like “80”. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">standard_deviation:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Give standard deviation of input data. If standard deviation value is 2.3, you should specify like &#8220;2.3&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Give standard deviation of input data. If standard deviation value is 2.3, you should specify like “2.3”. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside.</td>
 </tr>
 </tbody>
 </table>
@@ -524,16 +527,16 @@ You cannot specify negative value for &#8220;standard_deviation&#8221;. It cause
 <dt>
 <code class="descname">sigmoid_normalization</code></dt>
 <dd><p>It normalizes values between 0 to 1, by using sigmoid function.
-It requires two parameters &#8220;gain&#8221; and &#8220;bias&#8221;. In case you omitted these values, these values will be &#8220;1.0&#8221; and &#8220;0.0&#8221; respectively.
+It requires two parameters “gain” and “bias”. In case you omitted these values, these values will be “1.0” and “0.0” respectively.
 It transforms given value x to be 0 to 1 with formula 1 / 1 + e ^ (-gain * (x - bias)).</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">gain:</th><td class="field-body">Specify the <code class="docutils literal"><span class="pre">gain</span></code> of sigmoid function. The more big value specified, sigmoid function will be more steep. If <code class="docutils literal"><span class="pre">gain</span></code> value is 0.5, you should specify like &#8220;0.5&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, &#8220;1.0&#8221; is used.</td>
+<tr class="field-odd field"><th class="field-name">gain:</th><td class="field-body">Specify the <code class="docutils literal"><span class="pre">gain</span></code> of sigmoid function. The more big value specified, sigmoid function will be more steep. If <code class="docutils literal"><span class="pre">gain</span></code> value is 0.5, you should specify like “0.5”. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, “1.0” is used.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">bias:</th><td class="field-body">Specify the <code class="docutils literal"><span class="pre">bias</span></code> of sigmoid function. if  If <code class="docutils literal"><span class="pre">bias</span></code> value is 3, you should specify like &#8220;3&#8221;. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, &#8220;0.0&#8221; is used.</td>
+<tr class="field-even field"><th class="field-name">bias:</th><td class="field-body">Specify the <code class="docutils literal"><span class="pre">bias</span></code> of sigmoid function. if  If <code class="docutils literal"><span class="pre">bias</span></code> value is 3, you should specify like “3”. Notice that it is not numeric but string type. Value is treated as doubled precision floating point value inside. In case you omit this parameter, “0.0” is used.</td>
 </tr>
 </tbody>
 </table>
@@ -570,32 +573,32 @@ It transforms given value x to be 0 to 1 with formula 1 / 1 + e ^ (-gain * (x - 
 </div>
 <div class="section" id="num-filter-rules">
 <h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="Permalink to this headline">¶</a></h3>
-<p>Like &#8220;string_filter_rules&#8221;, it specifies rules how to apply filters.
-Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional), &#8220;type&#8221; and &#8220;suffix&#8221;.</p>
+<p>Like “string_filter_rules”, it specifies rules how to apply filters.
+Each rule is a dictionary whose keys are “key”, “except” (optional), “type” and “suffix”.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in “string_filter_rules” section.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in “string_filter_rules” section.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies a name of a filter used. This filter must be defined in &#8220;string_filter_types&#8221;. No filter is available if no filter is defined in &#8220;string_filter_types&#8221;.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies a name of a filter used. This filter must be defined in “string_filter_types”. No filter is available if no filter is defined in “string_filter_types”.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of a filtering is stored. For example, if &#8220;suffix&#8221; is &#8220;-detagged&#8221; and a filter is applied to &#8220;name&#8221; key in a datum, the result is stored in &#8220;name-detagged&#8221; key.</td>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">Specifies a suffix of a key where the result of a filtering is stored. For example, if “suffix” is “-detagged” and a filter is applied to “name” key in a datum, the result is stored in “name-detagged” key.</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>Format of &#8220;key&#8221; and &#8220;except&#8221; is written in &#8220;string_filter_rules&#8221; section.</p>
+<p>Format of “key” and “except” is written in “string_filter_rules” section.</p>
 </div>
 </div>
 <div class="section" id="feature-extraction-from-strings">
 <span id="construct"></span><h2>Feature Extraction from Strings<a class="headerlink" href="#feature-extraction-from-strings" title="Permalink to this headline">¶</a></h2>
 <p>In this section, we explain mechanism of the feature extraction from strings. We also explain how to apply these extraction rules.
 The following is an example of a configuration.
-In this configuration, we use as features &#8220;user/name&#8221; itself, every 2-grams of &#8220;message&#8221;, and every word in &#8220;message-detagged&#8221; separated by spaces.</p>
+In this configuration, we use as features “user/name” itself, every 2-grams of “message”, and every word in “message-detagged” separated by spaces.</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
@@ -608,13 +611,13 @@ In this configuration, we use as features &#8220;user/name&#8221; itself, every 
 </div>
 <div class="section" id="string-types">
 <h3>string_types<a class="headerlink" href="#string-types" title="Permalink to this headline">¶</a></h3>
-<p>Feature extractors of strings are defined in &#8220;string_types&#8221;.
-Some feature extractors must be defined in &#8220;string_types&#8221;. An exapmle of such extractors is one which requires arguments such as path.
-As &#8220;string_filter_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
-Name of extractors cannot contain &#8220;&#64;&#8221; sign.
-&lt;argument&gt; is a dictionary whose key and value are both strings and it must contain a key named &#8220;method&#8221;.
-The rest of the keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
-The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<p>Feature extractors of strings are defined in “string_types”.
+Some feature extractors must be defined in “string_types”. An exapmle of such extractors is one which requires arguments such as path.
+As “string_filter_types”, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+Name of extractors cannot contain “&#64;” sign.
+&lt;argument&gt; is a dictionary whose key and value are both strings and it must contain a key named “method”.
+The rest of the keys in &lt;argument&gt; are dependent on the value of “method”.
+The followings are available values of “method” and keys that must be specified.</p>
 <dl class="describe">
 <dt>
 <code class="descname">ngram</code></dt>
@@ -624,7 +627,7 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">char_num:</th><td class="field-body">Specifies N or length of substring. N must be a positive integer. &#8220;char_num&#8221; must be specified with string type (e.g. &#8220;2&#8221;), not numeric type (e.g. 2).</td>
+<tr class="field-odd field"><th class="field-name">char_num:</th><td class="field-body">Specifies N or length of substring. N must be a positive integer. “char_num” must be specified with string type (e.g. “2”), not numeric type (e.g. 2).</td>
 </tr>
 </tbody>
 </table>
@@ -650,7 +653,7 @@ Matching is executed continuously, that is, every match is used as a feature.</p
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">pattern:</th><td class="field-body">Specifies mathing pattrn.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">group:</th><td class="field-body">Specifies group to be extracted as a keyword. If this value is 0, whole match is used as a keyword. If value is positive integer, only specified group extracted with () is used. Default value is 0. &#8220;group&#8221; must be specified with string type (e.g. &#8220;2&#8221;), not numeric type (e.g. 2).</td>
+<tr class="field-even field"><th class="field-name">group:</th><td class="field-body">Specifies group to be extracted as a keyword. If this value is 0, whole match is used as a keyword. If value is positive integer, only specified group extracted with () is used. Default value is 0. “group” must be specified with string type (e.g. “2”), not numeric type (e.g. 2).</td>
 </tr>
 </tbody>
 </table>
@@ -667,7 +670,7 @@ The regular expression engine can be selected at compile time (oniguruma is used
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If we use only a part of the matches, we make use of &#8220;group&#8221; argument. For example, representation of age may be extracted with such a configuration.</p>
+<p>If we use only a part of the matches, we make use of “group” argument. For example, representation of age may be extracted with such a configuration.</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
@@ -693,7 +696,7 @@ The regular expression engine can be selected at compile time (oniguruma is used
 </tbody>
 </table>
 </div></blockquote>
-<p>The followings are examples of configuration to split strings with comma &#8221;,&#8221; and 3 characters {&#8220;a&#8221;, &#8220;b&#8221;, &#8220;c&#8221;}.</p>
+<p>The followings are examples of configuration to split strings with comma “,” and 3 characters {“a”, “b”, “c”}.</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;comma_split&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;split&quot;</span><span class="p">,</span> <span class="s2">&quot;separators&quot;</span><span class="o">:</span> <span class="s2">&quot;,&quot;</span> <span class="p">},</span>
   <span class="s2">&quot;abc_split&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;split&quot;</span><span class="p">,</span> <span class="s2">&quot;separators&quot;</span><span class="o">:</span> <span class="s2">&quot;abc&quot;</span> <span class="p">}</span>
@@ -724,23 +727,23 @@ The regular expression engine can be selected at compile time (oniguruma is used
 <div class="section" id="string-rules">
 <h3>string_rules<a class="headerlink" href="#string-rules" title="Permalink to this headline">¶</a></h3>
 <p>Specifies how to extract string features.
-As &#8220;string_filter_rules&#8221;, it consists of multiple rules.
-Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional), &#8220;type&#8221;, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
+As “string_filter_rules”, it consists of multiple rules.
+Each rule is a dictionary whose keys are “key”, “except” (optional), “type”, “sample_weight” and “global_weight”.
 These rules specifies how we extract rules from given strings and their weights used in calculating scores.
-A weight is calculated with two parameters, &#8220;sample_weight&#8221; and &#8220;global_weight&#8221;.
+A weight is calculated with two parameters, “sample_weight” and “global_weight”.
 In concrete, the weight is the product of these two weights.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in “string_filter_rules” section.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in “string_filter_rules” section.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of an extractor in use. The extractor is either one defined in &#8220;string_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of an extractor in use. The extractor is either one defined in “string_types” or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
@@ -762,7 +765,7 @@ In concrete, the weight is the product of these two weights.</p>
 </table>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">Specifies weight of each feature. Note that as term frequency is, &#8220;sample_weight&#8221; is uniquely defined if feature and datum are specified.</p>
+<tr class="field-even field"><th class="field-name">sample_weight:</th><td class="field-body"><p class="first">Specifies weight of each feature. Note that as term frequency is, “sample_weight” is uniquely defined if feature and datum are specified.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="7%" />
@@ -778,10 +781,10 @@ In concrete, the weight is the product of these two weights.</p>
 <td>sample_weight is 1 for all features and all data.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;tf&quot;</span></code></td>
-<td>sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight for this string is 5.</td>
+<td>sample_weight is frequency of the feature in given string. It is called Term Frequency. For example, if “hello” is appeared five times, its sample_weight for this string is 5.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></code></td>
-<td>sample_weight is the logarithm of tf added by 1. For example, if &#8220;hello&#8221; is appeared five times, its sample_weight is log(5+1).</td>
+<td>sample_weight is the logarithm of tf added by 1. For example, if “hello” is appeared five times, its sample_weight is log(5+1).</td>
 </tr>
 </tbody>
 </table>
@@ -818,8 +821,8 @@ In concrete, the weight is the product of these two weights.</p>
 </tbody>
 </table>
 </div></blockquote>
-<p>In most of machine learning tasks, it works well even if we use &#8220;bin&#8221; in both sample_weight and global_weight.
-In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set &#8220;bin&#8221; in sample_weight and global_weight. Classification is an example of such a task.</p>
+<p>In most of machine learning tasks, it works well even if we use “bin” in both sample_weight and global_weight.
+In some kind of tasks, in which weight itself is trained, weight are adjusted automatically even if we set “bin” in sample_weight and global_weight. Classification is an example of such a task.</p>
 <p>By using <code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code> instead of <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> in <code class="docutils literal"><span class="pre">global_weight</span></code>, you can workaroud the problem that features in the first document or features that appear in all documents are not added to the model.
 When <code class="docutils literal"><span class="pre">&quot;idf&quot;</span></code> is used, IDF value of features of the first document (e.g., the first record registered to Recommender) or features that appear in all documents (e.g., a feature <code class="docutils literal"><span class="pre">&quot;the&quot;</span></code> appear in 1,000 out of 1,000 documents) become <code class="docutils literal"><span class="pre">0</span></code>; this makes the weight of the feature to become <code class="docutils literal"><span class="pre">0</span></code>, causing the feature not be trained to the model.
 <code class="docutils literal"><span class="pre">&quot;idf1&quot;</span></code> uses <code class="docutils literal"><span class="pre">IDF</span> <span class="pre">value</span> <span class="pre">+</span> <span class="pre">1.0</span></code> as a weight value to train features in such situations.</p>
@@ -840,11 +843,11 @@ We can make user-defined extractors for numeric types, too.</p>
 </div>
 <div class="section" id="num-types">
 <h3>num_types<a class="headerlink" href="#num-types" title="Permalink to this headline">¶</a></h3>
-<p>Feature extractors for numeric data are defined in &#8220;num_types&#8221;.
-As with &#8220;string_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
-&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named &#8220;method&#8221;.
-The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
-The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<p>Feature extractors for numeric data are defined in “num_types”.
+As with “string_types”, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named “method”.
+The rest of keys in &lt;argument&gt; are dependent on the value of “method”.
+The followings are available values of “method” and keys that must be specified.</p>
 <dl class="describe">
 <dt>
 <code class="descname">dynamic</code></dt>
@@ -867,21 +870,21 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <div class="section" id="num-rules">
 <h3>num_rules<a class="headerlink" href="#num-rules" title="Permalink to this headline">¶</a></h3>
 <p>Specifies how to extract numeric features.
-As &#8220;string_rules&#8221;, it consists of multiple rules.
-Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional) and &#8220;type&#8221;.
-It depends on &#8220;type&#8221; how to specify weight and name features.</p>
+As “string_rules”, it consists of multiple rules.
+Each rule is a dictionary whose keys are “key”, “except” (optional) and “type”.
+It depends on “type” how to specify weight and name features.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in “string_filter_rules” section.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in “string_filter_rules” section.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. The extractor is either one defined in &#8220;num_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">Specifies the name of extractor in use. The extractor is either one defined in “num_types” or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
 <table border="1" class="last docutils">
 <colgroup>
 <col width="9%" />
@@ -917,11 +920,11 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 We can make user-defined extractors for binary types, too.</p>
 <div class="section" id="binary-types">
 <h3>binary_types<a class="headerlink" href="#binary-types" title="Permalink to this headline">¶</a></h3>
-<p>Feature extractors for binary data are defined in &#8220;binary_types&#8221;.
-As with &#8220;string_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
-&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named &#8220;method&#8221;.
-The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
-The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<p>Feature extractors for binary data are defined in “binary_types”.
+As with “string_types”, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named “method”.
+The rest of keys in &lt;argument&gt; are dependent on the value of “method”.
+The followings are available values of “method” and keys that must be specified.</p>
 <dl class="describe">
 <dt>
 <code class="descname">dynamic</code></dt>
@@ -944,19 +947,19 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <div class="section" id="binary-rules">
 <h3>binary_rules<a class="headerlink" href="#binary-rules" title="Permalink to this headline">¶</a></h3>
 <p>Specifies how to extract binary features.
-As &#8220;string_rules&#8221;, it consists of multiple rules.
-Each rule is a dictionary whose keys are &#8220;key&#8221;, &#8220;except&#8221; (optional) and &#8220;type&#8221;.
-It depends on &#8220;type&#8221; how to specify weight and name features.</p>
+As “string_rules”, it consists of multiple rules.
+Each rule is a dictionary whose keys are “key”, “except” (optional) and “type”.
+It depends on “type” how to specify weight and name features.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body">Specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in “string_filter_rules” section.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</td>
+<tr class="field-even field"><th class="field-name">except:</th><td class="field-body">Specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in “string_filter_rules” section.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies the name of extractor in use. The extractor is either one defined in &#8220;binary_types&#8221;. Note that no pre-defined extractors are prepared.</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Specifies the name of extractor in use. The extractor is either one defined in “binary_types”. Note that no pre-defined extractors are prepared.</td>
 </tr>
 </tbody>
 </table>
@@ -969,10 +972,10 @@ It depends on &#8220;type&#8221; how to specify weight and name features.</p>
 As with strings and numbers, feature extraction rules are also described for combination types.
 We can make user-defined extractors for combination types, too.</p>
 <p>We show a sample configuration.
-We can make new features by summing up (&#8216;add&#8217;) or multiplying (&#8216;mul&#8217;) two numeric features or string features.</p>
-<p>In this configuration, we can combinate string features that are converted by &#8220;bin/bin&#8221; method,
-i.e. sample_weight and global weight are &#8220;bin&#8221;.
-If you want to combinate all string features, you needs to write keys like &#8220;*&#64;str*&#8221;.</p>
+We can make new features by summing up (‘add’) or multiplying (‘mul’) two numeric features or string features.</p>
+<p>In this configuration, we can combinate string features that are converted by “bin/bin” method,
+i.e. sample_weight and global weight are “bin”.
+If you want to combinate all string features, you needs to write keys like “*&#64;str*”.</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
 <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
   <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
@@ -992,11 +995,11 @@ If you want to combinate all string features, you needs to write keys like &#822
 </div>
 <div class="section" id="combination-types">
 <h3>combination_types<a class="headerlink" href="#combination-types" title="Permalink to this headline">¶</a></h3>
-<p>Feature extractors for combination data are defined in &#8220;combination_types&#8221;.
-As with &#8220;string_types&#8221;, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
-&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named &#8220;method&#8221;.
-The rest of keys in &lt;argument&gt; are dependent on the value of &#8220;method&#8221;.
-The followings are available values of &#8220;method&#8221; and keys that must be specified.</p>
+<p>Feature extractors for combination data are defined in “combination_types”.
+As with “string_types”, it specifies a dictionary which consists of &lt;extractor name&gt;:&lt;argument&gt;.
+&lt;argument&gt; is a dictionary whose keys and values are both strings and must contain a key named “method”.
+The rest of keys in &lt;argument&gt; are dependent on the value of “method”.
+The followings are available values of “method” and keys that must be specified.</p>
 <dl class="describe">
 <dt>
 <code class="descname">dynamic</code></dt>
@@ -1019,27 +1022,27 @@ The followings are available values of &#8220;method&#8221; and keys that must b
 <div class="section" id="combination-rules">
 <h3>combination_rules<a class="headerlink" href="#combination-rules" title="Permalink to this headline">¶</a></h3>
 <p>Specifies how to extract combination features.
-As &#8220;string_rules&#8221;, it consists of multiple rules.
-Each rule is a dictionary whose keys are &#8220;key_left&#8221;, &#8220;key_right&#8221;, &#8220;except_left&#8221; (optional), &#8220;except_right&#8221; (optional) and &#8220;type&#8221;.
-It depends on &#8220;type&#8221; how to specify weight and name features.</p>
+As “string_rules”, it consists of multiple rules.
+Each rule is a dictionary whose keys are “key_left”, “key_right”, “except_left” (optional), “except_right” (optional) and “type”.
+It depends on “type” how to specify weight and name features.</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key_left:</th><td class="field-body"><p class="first">The first argument. It specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+<tr class="field-odd field"><th class="field-name">key_left:</th><td class="field-body"><p class="first">The first argument. It specifies to which keys in a datum we apply the rule. For further explanation, please read counterpart in “string_filter_rules” section.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">key_right:</th><td class="field-body"><p class="first">The second argument.　Same as above.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">except_left:</th><td class="field-body"><p class="first">The exception key for &#8220;key_left&#8221;. It specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in &#8220;string_filter_rules&#8221; section.</p>
+<tr class="field-odd field"><th class="field-name">except_left:</th><td class="field-body"><p class="first">The exception key for “key_left”. It specifies which keys to exclude from the match. This is an optional parameter. For further explanation, please read counterpart in “string_filter_rules” section.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">except_right:</th><td class="field-body"><p class="first">The exception key for &#8220;key_right&#8221;. Same as above.</p>
+<tr class="field-even field"><th class="field-name">except_right:</th><td class="field-body"><p class="first">The exception key for “key_right”. Same as above.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">It specifies the name of extractor in use. The extractor is either one defined in &#8220;combination_types&#8221; or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">It specifies the name of extractor in use. The extractor is either one defined in “combination_types” or one of pre-defined extractors. The followings are the pre-defined extractors.</p>
 <table border="1" class="last docutils">
 <colgroup>
 <col width="25%" />
@@ -1096,11 +1099,11 @@ Note that <code class="docutils literal"><span class="pre">hash_max_size</span><
 A plugin is a single dynamic library file (.so file).
 We will explain how to make plugins later. In this section, we will describe how to use plugins.</p>
 <p>How to specify plugin is same in both filters and extractors.
-In CLASS_types (CLASS is either <code class="docutils literal"><span class="pre">string</span></code> or <code class="docutils literal"><span class="pre">num</span></code>), we should specify &#8220;dynamic&#8221; in &#8220;method&#8221;, a path to a .so file in &#8220;path&#8221; and the name of function defined in the plugin in &#8220;function&#8221;.
+In CLASS_types (CLASS is either <code class="docutils literal"><span class="pre">string</span></code> or <code class="docutils literal"><span class="pre">num</span></code>), we should specify “dynamic” in “method”, a path to a .so file in “path” and the name of function defined in the plugin in “function”.
 We have two methods to specify a plugin path.
-When the path contains &#8216;/&#8217; character, it is regarded as a relative or absolute path.
+When the path contains ‘/’ character, it is regarded as a relative or absolute path.
 In this case, Jubatus try to load it from the relative path from the current path, or the absolute path.
-When the path doesn&#8217;t contain &#8216;/&#8217; character, Jubatus try to load it from two load path:</p>
+When the path doesn’t contain ‘/’ character, Jubatus try to load it from two load path:</p>
 <ol class="arabic simple">
 <li>A directory specified with an environment variable <code class="docutils literal"><span class="pre">JUBATUS_PLUGIN_PATH</span></code>.</li>
 <li>The default plugin directory set in build step (<code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></code> or <code class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></code> in most cases).</li>
@@ -1115,7 +1118,7 @@ Note that some plugins are not available depending on your compile options.</p>
 <dl class="describe">
 <dt>
 <code class="descname">libmecab_splitter.so</code></dt>
-<dd><p>We can specify this plugin in &#8220;string_types&#8221;.
+<dd><p>We can specify this plugin in “string_types”.
 Separate given Japanese document into words by <a class="reference external" href="https://github.com/taku910/mecab">MeCab</a> and use each word as a feature.
 This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-mecab</span></code>.
 This plugin is available in binary package.</p>
@@ -1124,33 +1127,33 @@ This plugin is available in binary package.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify &#8220;create&#8221;.</td>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specify “create”.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). &#8220;arg&#8221; is not specified, Mecab works with default configuration.
+<tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">Specify arguments to MeCab engine (in the following example, we use -d to specify the dictionary directory). “arg” is not specified, Mecab works with default configuration.
 Refer to the <a class="reference external" href="http://taku910.github.io/mecab/mecab.html">document of MeCab</a> about how to specify arguments.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">ngram:</th><td class="field-body">Specify <cite>N</cite> of morpheme (word) N-gram that is constructed from morphemes extracted by MeCab.
-When &#8220;ngram&#8221; is not specified,  <cite>N</cite> is assumed as <cite>1</cite>, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
+When “ngram” is not specified,  <cite>N</cite> is assumed as <cite>1</cite>, i.e., do not construct morpheme N-gram and just use each morphemes as a feature.
 Note that <cite>N</cite> must be specified as string, not integer (see the example below.)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">base:</th><td class="field-body">Specify whether to use the base form of morphemes.
-Specify <cite>&#8220;true&#8221;</cite> to use the base form, or <cite>&#8220;false&#8221;</cite> to use the surface.
-Even when <cite>&#8220;true&#8221;</cite> is specified, the surface is used for morphemes that does not have the base form (e.g., proper nouns.)
-When &#8220;base&#8221; is not specified, <cite>&#8220;false&#8221;</cite> is assumed.
-Note that <cite>&#8220;true&#8221;</cite> or <cite>&#8220;false&#8221;</cite> must be specified as string (see the example below.)</td>
+Specify <cite>“true”</cite> to use the base form, or <cite>“false”</cite> to use the surface.
+Even when <cite>“true”</cite> is specified, the surface is used for morphemes that does not have the base form (e.g., proper nouns.)
+When “base” is not specified, <cite>“false”</cite> is assumed.
+Note that <cite>“true”</cite> or <cite>“false”</cite> must be specified as string (see the example below.)</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">include_features:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Specify pattern of part-of-speech to use.
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Specify pattern of part-of-speech to use.
 Patterns are expected to match with the CSV representation of MeCab output (e.g., <code class="docutils literal"><span class="pre">名詞,固有名詞,組織,*,*,*,*</span></code>.)  The format is the same as in <code class="docutils literal"><span class="pre">key</span></code> of <code class="docutils literal"><span class="pre">string_filter_rules</span></code>.
 For example, to extract nouns only, specify <code class="docutils literal"><span class="pre">&quot;名詞,*&quot;</span></code>.
 To specify multiple patterns, join the patterns with <cite>|</cite> (e.g., <code class="docutils literal"><span class="pre">&quot;名詞,*|動詞,*&quot;</span></code>.)
-When &#8220;include_features&#8221; is not specified, <cite>&#8220;*&#8221;</cite> is assumed, i.e., all morphemes are used.</td>
+When “include_features” is not specified, <cite>“*”</cite> is assumed, i.e., all morphemes are used.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">exclude_features:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify pattern of part-of-speech to exclude.
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Specify pattern of part-of-speech to exclude.
 The format is the same as <code class="docutils literal"><span class="pre">include_features</span></code>.
 When both <code class="docutils literal"><span class="pre">include_features</span></code> and <code class="docutils literal"><span class="pre">exclude_features</span></code> are specified, morphemes that matches with <code class="docutils literal"><span class="pre">include_features</span></code> and does not match with <code class="docutils literal"><span class="pre">exclude_features</span></code> are extracted.
-When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite> is assumed, i.e., nothing is excluded.</td>
+When “exclude_features” is not specified, <cite>“”</cite> is assumed, i.e., nothing is excluded.</td>
 </tr>
 </tbody>
 </table>
@@ -1174,7 +1177,7 @@ When &#8220;exclude_features&#8221; is not specified, <cite>&#8220;&#8221;</cite
 <dl class="describe">
 <dt>
 <code class="descname">libux_splitter.so</code></dt>
-<dd><p>We can specify this plugin in &#8220;string_types&#8221;.
+<dd><p>We can specify this plugin in “string_types”.
 Extract keywords from given document by way of dictionary matching with <a class="reference external" href="https://github.com/hillbig/ux-trie">ux-trie</a> and use each keyword as a feature.
 Matching is a simple longest matching. Note that it is fast but precision may be low.
 This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-ux</span></code>.
@@ -1184,7 +1187,7 @@ This plugin is available in binary package.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies &#8220;create&#8221;.</td>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">Specifies “create”.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">Specifies a full path of a dictionary file. The dictionary file is a text file that consists of keywords, one keyword per one line.</td>
 </tr>
@@ -1210,7 +1213,7 @@ This plugin is available in binary package.</p>
 <dl class="describe">
 <dt>
 <code class="descname">libimage_feature.so</code></dt>
-<dd><p>We can specify this plugin in &#8220;binary_types&#8221;.
+<dd><p>We can specify this plugin in “binary_types”.
 It extracts features from given images by <a class="reference external" href="https://github.com/opencv">OpenCV</a> .
 This plugin is available only when compiled with <code class="docutils literal"><span class="pre">--enable-opencv</span></code>.
 This plugin is available in binary package.</p>
@@ -1219,7 +1222,7 @@ This plugin is available in binary package.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body"><p class="first">Specifies &#8220;create&#8221;.</p>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body"><p class="first">Specifies “create”.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">algorithm:</th><td class="field-body"><p class="first">Specifies the feature extraction algorithm. In jubatus, we can use RGB or ORB to extact featrures from images.  It should be noted that in both algorithm, we detect keypoints by Dense Sampling (which extracts features from all pixels of the image.)</p>
@@ -1244,13 +1247,13 @@ This plugin is available in binary package.</p>
 </table>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">resize:</th><td class="field-body"><p class="first">Specifies whether to resize the image. Specify <cite>&#8220;true&#8221;</cite> to resize image, or <cite>&#8220;false&#8221;</cite> not to resize it. When <code class="docutils literal"><span class="pre">resize</span></code> is not specified, <cite>&#8220;false&#8221;</cite> is assumed.</p>
+<tr class="field-odd field"><th class="field-name">resize:</th><td class="field-body"><p class="first">Specifies whether to resize the image. Specify <cite>“true”</cite> to resize image, or <cite>“false”</cite> not to resize it. When <code class="docutils literal"><span class="pre">resize</span></code> is not specified, <cite>“false”</cite> is assumed.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">x_size:</th><td class="field-body"><p class="first">Specifies the length of resized images. We can specify it when <code class="docutils literal"><span class="pre">resize</span></code> is <cite>&#8220;true&#8221;</cite>.</p>
+<tr class="field-even field"><th class="field-name">x_size:</th><td class="field-body"><p class="first">Specifies the length of resized images. We can specify it when <code class="docutils literal"><span class="pre">resize</span></code> is <cite>“true”</cite>.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">y_size:</th><td class="field-body"><p class="first last">Specifies the height of resized images. We can specify it when <code class="docutils literal"><span class="pre">resize</span></code> is <cite>&#8220;true&#8221;</cite>.</p>
+<tr class="field-odd field"><th class="field-name">y_size:</th><td class="field-body"><p class="first last">Specifies the height of resized images. We can specify it when <code class="docutils literal"><span class="pre">resize</span></code> is <cite>“true”</cite>.</p>
 </td>
 </tr>
 </tbody>
@@ -1350,11 +1353,11 @@ Note that both keys and values of parameters must be string.</p>
 Here is an example.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFeatureExtractor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[(</span><span class="s1">u&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s1">u&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>Requirements for the Python class is as follows:</p>
@@ -1572,7 +1575,7 @@ See the source of <a class="reference external" href="https://github.com/jubatus
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

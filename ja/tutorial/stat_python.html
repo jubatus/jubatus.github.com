@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Stat チュートリアル" href="stat.html"/>
         <link rel="next" title="分散モード" href="../tutorial_distributed.html"/>
@@ -216,7 +219,7 @@
 
 <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;stat_tri&quot;</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
   <span class="c1"># 1. Jubatus Serverへの接続設定</span>
   <span class="n">stat</span> <span class="o">=</span> <span class="n">Stat</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9199</span><span class="p">,</span> <span class="n">NAME</span><span class="p">)</span>
@@ -247,58 +250,50 @@
 <p><strong>stat.json</strong></p>
 <p>設定は単体のJSONで与えられます。
 JSONの各フィールドは以下のとおりです。</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>window_size</dt>
-<dd><p class="first last">保持する値の数を指定する。 (Integer)</p>
-</dd>
+<dd>保持する値の数を指定する。 (Integer)</dd>
 </dl>
 </li>
 </ul>
 <p><strong>stat.py</strong></p>
 <p>stat.pyでは、csvから読み込んだフルーツの直径・重さ・値段の情報をJubatusサーバ与え、それぞれのフルーツごとに統計結果を出力します。
 使用するメソッドは以下になります。</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>bool push(0: string key, 1: double val)</dt>
-<dd><p class="first last">属性情報 key の値 val を与える。</p>
-</dd>
+<dd>属性情報 key の値 val を与える。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double sum(0: string key)</dt>
-<dd><p class="first last">属性情報 key を持つ値の合計値を返す。</p>
-</dd>
+<dd>属性情報 key を持つ値の合計値を返す。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double stddev(0: string key)</dt>
-<dd><p class="first last">属性情報 key を持つ値の標準偏差を返す。</p>
-</dd>
+<dd>属性情報 key を持つ値の標準偏差を返す。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double max(0: string key)</dt>
-<dd><p class="first last">属性情報 key を持つ値の最大値を返す。</p>
-</dd>
+<dd>属性情報 key を持つ値の最大値を返す。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double min(0: string key)</dt>
-<dd><p class="first last">属性情報 key を持つ値の最小値を返す。</p>
-</dd>
+<dd>属性情報 key を持つ値の最小値を返す。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double entropy(0: string key)</dt>
-<dd><p class="first last">属性情報 key を持つ値のエントロピーを返す。</p>
-</dd>
+<dd>属性情報 key を持つ値のエントロピーを返す。</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>double moment(0: string key, 1: int degree, 2: double center)</dt>
-<dd><p class="first last">属性情報 key を持つ値の center を中心とした degree 次のモーメントを返す。</p>
-</dd>
+<dd>属性情報 key を持つ値の center を中心とした degree 次のモーメントを返す。</dd>
 </dl>
 </li>
 </ul>
@@ -313,7 +308,7 @@ JSONの各フィールドは以下のとおりです。</p>
 <li><dl class="first docutils">
 <dt>学習用データの準備</dt>
 <dd><p class="first last">Statでは、項目名と値をpushメソッドに与えることで、学習が行われます。
-今回はサンプル用に作成した&#8221;フルーツの種類&#8221;・&#8221;直径&#8221;・&#8221;重さ&#8221;・&#8221;価格&#8221;の情報を持つCSVファイルを元に学習用データを作成していきます。
+今回はサンプル用に作成した&quot;フルーツの種類&quot;・&quot;直径&quot;・&quot;重さ&quot;・&quot;価格&quot;の情報を持つCSVファイルを元に学習用データを作成していきます。
 まず、学習用データの元となるCSVファイルを読み込みます。
 ここでは、CSVファイルを1行ずつループで読み込んで処理します（14-21行目）。</p>
 </dd>
@@ -322,7 +317,7 @@ JSONの各フィールドは以下のとおりです。</p>
 <li><dl class="first docutils">
 <dt>データの学習（学習モデルの更新）</dt>
 <dd><p class="first last">Statのpushメソッドに2. で作成したデータに項目名を付けて渡します（19-21行目）。
-ここでの項目名は&#8221;直径&#8221;の場合、フルーツの種類＋&#8221;dia&#8221;という形にして、&#8221;重さ&#8221;・&#8221;価格&#8221;についても同じようにpushメソッドを呼び出します。</p>
+ここでの項目名は&quot;直径&quot;の場合、フルーツの種類＋&quot;dia&quot;という形にして、&quot;重さ&quot;・&quot;価格&quot;についても同じようにpushメソッドを呼び出します。</p>
 </dd>
 </dl>
 </li>
@@ -435,7 +430,7 @@ sdv : appledia 15.412238321876663
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.clustering &mdash; jubakit 0.6.0 documentation</title>
+  <title>jubakit.clustering &mdash; jubakit 0.6.1 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -91,7 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">jubakit: Jubatus Toolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 </ul>
 
@@ -163,7 +166,7 @@
 
 <div class="viewcode-block" id="Schema.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Schema.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_id_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_unique_mapping</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Schema</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Schema.transform"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Schema.transform">[docs]</a>  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -183,11 +186,11 @@
 <span class="sd">  &quot;&quot;&quot;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Schema</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_from_loader</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_from_loader</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">loader</span> <span class="o">=</span> <span class="n">data_loader</span>
       <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
@@ -197,8 +200,8 @@
       <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">({</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="n">Schema</span><span class="o">.</span><span class="n">ID</span><span class="p">},</span> <span class="n">Schema</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.from_data">[docs]</a>  <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_data"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.from_data">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts two arrays or a sparse matrix data and its associated id array to Dataset.</span>
 
@@ -210,12 +213,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;todense&#39;</span><span class="p">):</span>
-      <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
+      <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+      <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_array"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.from_array">[docs]</a>  <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_array"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.from_array">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts two arrays (data and its associated targets) to Dataset.</span>
 
@@ -227,10 +230,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">data_loader</span> <span class="o">=</span> <span class="n">ArrayLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Dataset.from_matrix"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.from_matrix">[docs]</a>  <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Dataset.from_matrix"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.from_matrix">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a sparse matrix data and its associated target array to Dataset.</span>
 
@@ -243,7 +246,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">data_loader</span> <span class="o">=</span> <span class="n">SparseMatrixLoader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_loader</span><span class="p">(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Dataset.get_ids"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Dataset.get_ids">[docs]</a>  <span class="k">def</span> <span class="nf">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -260,16 +263,16 @@
 <span class="sd">  Clustering service.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Clustering.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Clustering.name">[docs]</a>  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Clustering.name"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Clustering.name">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;clustering&#39;</span></div>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_client_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">clustering</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Clustering</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_embedded_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">jubatus</span><span class="o">.</span><span class="n">embedded</span><span class="o">.</span><span class="n">Clustering</span>
 
 <div class="viewcode-block" id="Clustering.push"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Clustering.push">[docs]</a>  <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
@@ -364,7 +367,7 @@
 <div class="viewcode-block" id="Config.__init__"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">compressor_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compressor_parameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">converter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">converter</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">converter</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">compressor_method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;compressor_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">compressor_method</span>
       <span class="n">default_compressor_parameter</span> <span class="o">=</span> \
@@ -385,12 +388,12 @@
       <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span></div>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">_default</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">_default</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 
-    <span class="n">compressor_method</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_compressor_method</span><span class="p">()</span>
-    <span class="n">compressor_parameter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_compressor_parameter</span><span class="p">(</span><span class="n">compressor_method</span><span class="p">)</span>
-    <span class="n">distance</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_default_distance</span><span class="p">()</span>
+    <span class="n">compressor_method</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_default_compressor_method</span><span class="p">()</span>
+    <span class="n">compressor_parameter</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_default_compressor_parameter</span><span class="p">(</span><span class="n">compressor_method</span><span class="p">)</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_default_distance</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">compressor_method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;compressor_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">compressor_method</span>
@@ -402,19 +405,19 @@
     <span class="k">return</span> <span class="n">cfg</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;kmeans&#39;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_compressor_method</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_compressor_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;simple&#39;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_distance</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_distance</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;euclidean&#39;</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_parameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;kmeans&#39;</span><span class="p">,</span> <span class="s1">&#39;gmm&#39;</span><span class="p">):</span>
       <span class="k">return</span> <span class="p">{</span>
         <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
@@ -429,7 +432,7 @@
       <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown method: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
 
   <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">_default_compressor_parameter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_default_compressor_parameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;simple&#39;</span><span class="p">):</span>
       <span class="k">return</span> <span class="p">{</span>
         <span class="s1">&#39;bucket_size&#39;</span><span class="p">:</span> <span class="mi">100</span>
@@ -447,16 +450,16 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown method: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.methods">[docs]</a>  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.methods">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;kmeans&#39;</span><span class="p">,</span> <span class="s1">&#39;gmm&#39;</span><span class="p">,</span> <span class="s1">&#39;dbscan&#39;</span><span class="p">]</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.compressor_methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.compressor_methods">[docs]</a>  <span class="k">def</span> <span class="nf">compressor_methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.compressor_methods"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.compressor_methods">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">compressor_methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;simple&#39;</span><span class="p">,</span> <span class="s1">&#39;compressive&#39;</span><span class="p">]</span></div>
 
-  <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.distances"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.distances">[docs]</a>  <span class="k">def</span> <span class="nf">distances</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.distances"><a class="viewcode-back" href="../../api/jubakit.html#jubakit.clustering.Config.distances">[docs]</a>  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">distances</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="s1">&#39;cosine&#39;</span><span class="p">]</span></div></div>
 </pre></div>
 
@@ -491,7 +494,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

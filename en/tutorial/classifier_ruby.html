@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Classifier" href="classifier.html"/>
         <link rel="next" title="Java" href="classifier_java.html"/>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -168,7 +171,7 @@
 <p>Here we explain the Ruby sample program of Classifier.</p>
 <div class="section" id="source-code">
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
-<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file &#8216;gender.json&#8217;; 2) how to learn from the training data and make predictions based on them, with the example file ‘gender.rb’. Here are the source codes of &#8216;gender.json&#8217; and &#8216;gender.rb&#8217;.</p>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms that used by Jubatus, with the example file ‘gender.json’; 2) how to learn from the training data and make predictions based on them, with the example file ‘gender.rb’. Here are the source codes of ‘gender.json’ and ‘gender.rb’.</p>
 <p><strong>gender.json</strong></p>
 <div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -294,29 +297,26 @@
 <h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
 <p><strong>gender.json</strong></p>
 <p>The configuration information is given by the JSON unit. Here is the meaning of each JSON field.</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>method</dt>
-<dd><p class="first last">Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.</p>
-</dd>
+<dd>Specify the algorithm used in Classification. In this example, the AROW (Adaptive Regularization of Weight vectors) is used.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>converter</dt>
-<dd><p class="first last">Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of &#8216;length of hair&#8217;, &#8216;top clothes&#8217;, &#8216;bottom clothese&#8217; and &#8216;height&#8217;. The &#8220;string_values&#8221; and &#8220;num_values&#8221; are stored in key-value pairs without using &#8220;*_filter_types&#8221; configuration.</p>
-</dd>
+<dd>Specify the configurations in feature converter. In this sample, we will classify a person into male or female through the features of ‘length of hair’, ‘top clothes’, ‘bottom clothese’ and ‘height’. The “string_values” and “num_values” are stored in key-value pairs without using “*_filter_types” configuration.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>parameter</dt>
-<dd><p class="first last">Specify the parameter that passed to the algorithm. The parameter varies when the method is changed. In this example, the method is specified as &#8216;AROW&#8217;, with [regularization_weight: 1.0]. In addition, the parameter &#8216;regularization_weight&#8217; in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When &#8216;regularization_weight&#8217; parameter becomes bigger, the learning spead will increase, while the noice will decrease.</p>
-</dd>
+<dd>Specify the parameter that passed to the algorithm. The parameter varies when the method is changed. In this example, the method is specified as ‘AROW’, with [regularization_weight: 1.0]. In addition, the parameter ‘regularization_weight’ in different algorithms plays different roles and affects differently, so please pay attention to setting the value of it for each algorithm. When ‘regularization_weight’ parameter becomes bigger, the learning spead will increase, while the noice will decrease.</dd>
 </dl>
 </li>
 </ul>
 <p><strong>gender.rb</strong></p>
 <p>We explain the learning and prediction processes in these example codes.</p>
-<p>First of all, to write the Client program for Classifier, we can use the Classifier class defined in &#8216;Jubatus::Classifier::Client&#8217;. There are two methods used in this program. The &#8216;train&#8217; method for learning process, and the &#8216;classify&#8217; method for prediction with the data .</p>
+<p>First of all, to write the Client program for Classifier, we can use the Classifier class defined in ‘Jubatus::Classifier::Client’. There are two methods used in this program. The ‘train’ method for learning process, and the ‘classify’ method for prediction with the data .</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>How to connect to Jubatus Server</dt>
@@ -345,12 +345,12 @@
 <tr class="row-even"><th class="head">label(String)</th>
 <th class="head" colspan="6">Datum</th>
 </tr>
-<tr class="row-odd"><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">&#160;</th>
 <th class="head" colspan="2">Array&lt;Array&lt;String, String&gt;&gt;</th>
 <th class="head" colspan="2">Array&lt;Array&lt;String, Float&gt;&gt;</th>
 <th class="head" colspan="2">Array&lt;Array&lt;String, String&gt;&gt;</th>
 </tr>
-<tr class="row-even"><th class="head">&nbsp;</th>
+<tr class="row-even"><th class="head">&#160;</th>
 <th class="head">key(String)</th>
 <th class="head">value(String)</th>
 <th class="head">key(String)</th>
@@ -360,117 +360,117 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-odd"><td>&#8220;male&#8221;</td>
+<tr class="row-odd"><td>“male”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;short&#8221;</div>
-<div class="line">&#8220;sweater&#8221;</div>
-<div class="line">&#8220;jeans&#8221;</div>
+<div class="line">“short”</div>
+<div class="line">“sweater”</div>
+<div class="line">“jeans”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.70</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>&#8220;female&#8221;</td>
+<tr class="row-even"><td>“female”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;long&#8221;</div>
-<div class="line">&#8220;shirt&#8221;</div>
-<div class="line">&#8220;skirt&#8221;</div>
+<div class="line">“long”</div>
+<div class="line">“shirt”</div>
+<div class="line">“skirt”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.56</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>&#8220;male&#8221;</td>
+<tr class="row-odd"><td>“male”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;short&#8221;</div>
-<div class="line">&#8220;jacket&#8221;</div>
-<div class="line">&#8220;chino&#8221;</div>
+<div class="line">“short”</div>
+<div class="line">“jacket”</div>
+<div class="line">“chino”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.65</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>&#8220;female&#8221;</td>
+<tr class="row-even"><td>“female”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;short&#8221;</div>
-<div class="line">&#8220;T shirt&#8221;</div>
-<div class="line">&#8220;jeans&#8221;</div>
+<div class="line">“short”</div>
+<div class="line">“T shirt”</div>
+<div class="line">“jeans”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.72</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>&#8220;male&#8221;</td>
+<tr class="row-odd"><td>“male”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;long&#8221;</div>
-<div class="line">&#8220;T shirt&#8221;</div>
-<div class="line">&#8220;jeans&#8221;</div>
+<div class="line">“long”</div>
+<div class="line">“T shirt”</div>
+<div class="line">“jeans”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.82</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>&#8220;female&#8221;</td>
+<tr class="row-even"><td>“female”</td>
 <td><div class="first last line-block">
-<div class="line">&#8220;hair&#8221;</div>
-<div class="line">&#8220;top&#8221;</div>
-<div class="line">&#8220;bottom&#8221;</div>
+<div class="line">“hair”</div>
+<div class="line">“top”</div>
+<div class="line">“bottom”</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">&#8220;long&#8221;</div>
-<div class="line">&#8220;jacket&#8221;</div>
-<div class="line">&#8220;skirt&#8221;</div>
+<div class="line">“long”</div>
+<div class="line">“jacket”</div>
+<div class="line">“skirt”</div>
 </div>
 </td>
-<td>&#8220;height&#8221;</td>
+<td>“height”</td>
 <td>1.43</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
-<p class="last">Array&lt;String, Datum&gt; contains the Datum and its label. In this sample, the label means the name of class which each Datum belongs to. Each Datum stores the data in key-value pairs, which is readable format for Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are three kinds of key-value lists, string_values, num_values and binary_values. For example, the &#8220;hair&#8221;, &#8220;top&#8221; and &#8220;bottom&#8221; values are in string format, While the &#8220;height&#8221; value is in numeric format. Therefore, they are stored sepeately inside each Datum.</p>
+<p class="last">Array&lt;String, Datum&gt; contains the Datum and its label. In this sample, the label means the name of class which each Datum belongs to. Each Datum stores the data in key-value pairs, which is readable format for Jubatus. The key can be recognized as the feature vector. Inside the Datum, there are three kinds of key-value lists, string_values, num_values and binary_values. For example, the “hair”, “top” and “bottom” values are in string format, While the “height” value is in numeric format. Therefore, they are stored sepeately inside each Datum.</p>
 </dd>
 </dl>
 </li>
@@ -482,13 +482,13 @@
 </li>
 <li><dl class="first docutils">
 <dt>Prepare the prediction data</dt>
-<dd><p class="first last">Different from training data, prediction data does not contain its &#8220;lable&#8221;, and it is only stored in the Datum unit (Line 25-29).</p>
+<dd><p class="first last">Different from training data, prediction data does not contain its “lable”, and it is only stored in the Datum unit (Line 25-29).</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Data prediction</dt>
-<dd><p class="first last">By inputting test_data Array generated in step.4 into the classify() method (Line 31), the prediction result will be stored in the result Array (Line 31. The result contains &#8220;label&#8221; and &#8220;score&#8221;. &#8220;score&#8221; means the confidence of each &#8220;label&#8221; (Line 35).</p>
+<dd><p class="first last">By inputting test_data Array generated in step.4 into the classify() method (Line 31), the prediction result will be stored in the result Array (Line 31. The result contains “label” and “score”. “score” means the confidence of each “label” (Line 35).</p>
 </dd>
 </dl>
 </li>
@@ -499,7 +499,7 @@
 <ul>
 <li><dl class="first docutils">
 <dt>At Jubatus Server</dt>
-<dd><p class="first">start &#8220;jubaclassifier&#8221; process.</p>
+<dd><p class="first">start “jubaclassifier” process.</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span>$ jubaclassifier --configpath gender.json
 </pre></div>
 </div>
@@ -568,7 +568,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

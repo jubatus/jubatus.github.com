@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="JubaQL Syntax" href="jubaql_syntax.html"/>
         <link rel="next" title="CREATE STREAM FROM SLIDING WINDOW" href="syntax_create_stream_window.html"/>
@@ -95,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">JubaQL</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html">JubaQL Quick Start</a></li>
@@ -179,7 +182,7 @@
 </div>
 <p>Examples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jubaql</span><span class="o">&gt;</span> <span class="n">CREATE</span> <span class="n">STREAM</span> <span class="n">clans</span> <span class="n">FROM</span> <span class="n">ANALYZE</span> <span class="n">ds</span>
-        <span class="n">BY</span> <span class="n">MODEL</span> <span class="n">cls</span> <span class="n">USING</span> <span class="n">classify</span> <span class="n">AS</span> <span class="n">clan</span>
+        <span class="n">BY</span> <span class="n">MODEL</span> <span class="bp">cls</span> <span class="n">USING</span> <span class="n">classify</span> <span class="n">AS</span> <span class="n">clan</span>
 <span class="n">CREATE</span> <span class="n">STREAM</span>
 
 <span class="n">jubaql</span><span class="o">&gt;</span> <span class="n">CREATE</span> <span class="n">STREAM</span> <span class="n">output</span> <span class="n">FROM</span> <span class="n">ANALYZE</span> <span class="n">nbpds</span>
@@ -208,7 +211,7 @@
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>When using <code class="docutils literal"><span class="pre">complete_row_from_id</span></code> with the <code class="docutils literal"><span class="pre">ANALYZE</span></code> statement, the input value is directly taken as <code class="docutils literal"><span class="pre">id</span></code> value: <code class="docutils literal"><span class="pre">ANALYZE</span> <span class="pre">'荻野貴司'</span> <span class="pre">BY</span> <span class="pre">MODEL</span> <span class="pre">reco</span> <span class="pre">USING</span> <span class="pre">complete_row_from_id</span></code>. In contrast, when using <code class="docutils literal"><span class="pre">complete_row_from_id</span></code> with <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">STREAM</span> <span class="pre">FROM</span> <span class="pre">ANALYZE</span></code>, the value will be taken from the <code class="docutils literal"><span class="pre">id</span></code> column as specified in the <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">MODEL</span></code> statement of that recommender model.</li>
-<li>The results will be added as a structured type corresponding to each method&#8217;s return value:<ul>
+<li>The results will be added as a structured type corresponding to each method’s return value:<ul>
 <li><code class="docutils literal"><span class="pre">double</span></code> for <code class="docutils literal"><span class="pre">calc_score</span></code>,</li>
 <li><code class="docutils literal"><span class="pre">array[struct{label:</span> <span class="pre">string,</span> <span class="pre">score:</span> <span class="pre">double}]</span></code> for <code class="docutils literal"><span class="pre">classify</span></code>,</li>
 <li><code class="docutils literal"><span class="pre">struct{string_values:</span> <span class="pre">map[string,</span> <span class="pre">string],</span> <span class="pre">num_values:</span> <span class="pre">map[string,</span> <span class="pre">double]}</span></code> for <code class="docutils literal"><span class="pre">complete_row_from_*</span></code>.</li>
@@ -268,7 +271,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

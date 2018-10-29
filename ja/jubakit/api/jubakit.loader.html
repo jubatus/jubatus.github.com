@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit.loader package &mdash; jubakit 0.6.0 ドキュメント</title>
+  <title>jubakit.loader package &mdash; jubakit 0.6.1 ドキュメント</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="../index.html"/>
         <link rel="up" title="jubakit package" href="jubakit.html"/>
         <link rel="next" title="jubakit.wrapper package" href="jubakit.wrapper.html"/>
         <link rel="prev" title="jubakit package" href="jubakit.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -102,6 +105,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-jubakit.loader.core">jubakit.loader.core module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-jubakit.loader.csv">jubakit.loader.csv module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-jubakit.loader.odbc">jubakit.loader.odbc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-jubakit.loader.postgresql">jubakit.loader.postgresql module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-jubakit.loader.sparse">jubakit.loader.sparse module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-jubakit.loader.twitter">jubakit.loader.twitter module</a></li>
 </ul>
@@ -163,7 +167,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/jubakit.loader.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/jubakit.loader.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -187,11 +191,11 @@ Expected to load row-oriented data.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ArrayLoader</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span> <span class="p">[</span><span class="s1">&#39;k1&#39;</span><span class="p">,</span><span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>... will load two entries:</p>
+<p>… will load two entries:</p>
 <blockquote>
 <div><ul class="simple">
-<li>{&#8216;k1&#8217;: 1, &#8216;k2&#8217;: 2, &#8216;k3&#8217;: 3}</li>
-<li>{&#8216;k1&#8217;: 4, &#8216;k2&#8217;: 5, &#8216;k3&#8217;: 6}</li>
+<li>{『k1』: 1, 『k2』: 2, 『k3』: 3}</li>
+<li>{『k1』: 4, 『k2』: 5, 『k3』: 6}</li>
 </ul>
 </div></blockquote>
 <dl class="method">
@@ -216,15 +220,15 @@ Expected to load column-oriented data.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ZipArrayLoader</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span> <span class="p">[</span><span class="s1">&#39;k1&#39;</span><span class="p">,</span><span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>... or simply:</p>
+<p>… or simply:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ZipArrayLoader</span><span class="p">(</span><span class="n">k1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">k2</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="n">k3</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>... will load two entries:</p>
+<p>… will load two entries:</p>
 <blockquote>
 <div><ul class="simple">
-<li>{&#8216;k1&#8217;: 1, &#8216;k2&#8217;: 2, &#8216;k3&#8217;: 3}</li>
-<li>{&#8216;k1&#8217;: 4, &#8216;k2&#8217;: 5, &#8216;k3&#8217;: 6}</li>
+<li>{『k1』: 1, 『k2』: 2, 『k3』: 3}</li>
+<li>{『k1』: 4, 『k2』: 5, 『k3』: 6}</li>
 </ul>
 </div></blockquote>
 <dl class="method">
@@ -343,7 +347,7 @@ You can override <cite>preprocess</cite> method to separate the row into fields.
 If <cite>fieldnames</cite> is not specified (which is a default) or specifeid as True,
 the first line of the CSV is used for column names.  If <cite>fieldnames</cite> is
 specified as False, sequential column names are automatically generated
-like [&#8216;c0&#8217;, &#8216;c1&#8217;, ...].  If <cite>fieldnames</cite> is a list, it is used as column
+like [『c0』, 『c1』, …].  If <cite>fieldnames</cite> is a list, it is used as column
 names.</p>
 <p>Any other optional or keyword arguments are passed to the underlying
 <cite>csv.DictReader</cite>.</p>
@@ -367,6 +371,71 @@ names.</p>
 <em class="property">class </em><code class="descclassname">jubakit.loader.odbc.</code><code class="descname">ODBCLoader</code><a class="reference internal" href="../_modules/jubakit/loader/odbc.html#ODBCLoader"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.odbc.ODBCLoader" title="この定義へのパーマリンク">¶</a></dt>
 <dd><p>ベースクラス: <a class="reference internal" href="jubakit.html#jubakit.base.BaseLoader" title="jubakit.base.BaseLoader"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code></a></p>
 <p>Loader to process ODBC data sources.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jubakit.loader.postgresql">
+<span id="jubakit-loader-postgresql-module"></span><h2>jubakit.loader.postgresql module<a class="headerlink" href="#module-jubakit.loader.postgresql" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="class">
+<dt id="jubakit.loader.postgresql.PostgreSQLAuthHandler">
+<em class="property">class </em><code class="descclassname">jubakit.loader.postgresql.</code><code class="descname">PostgreSQLAuthHandler</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/loader/postgresql.html#PostgreSQLAuthHandler"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.postgresql.PostgreSQLAuthHandler" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Handles authentication required to access PostgreSQL.</p>
+<dl class="method">
+<dt id="jubakit.loader.postgresql.PostgreSQLAuthHandler.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/loader/postgresql.html#PostgreSQLAuthHandler.__init__"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.postgresql.PostgreSQLAuthHandler.__init__" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Authentication information must be specified as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PostgreSQLAuth</span><span class="p">(</span>
+<span class="gp">... </span>  <span class="n">user</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="n">password</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="n">host</span><span class="o">=</span><span class="s1">&#39;XXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="n">port</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Any other connection parameter supported by this loader can be passed as a keyword.
+The complete list of the supported parameters are contained the PostgreSQL documentation.
+(<a class="reference external" href="https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS</a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.loader.postgresql.PostgreSQLAuthHandler.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/loader/postgresql.html#PostgreSQLAuthHandler.get"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.postgresql.PostgreSQLAuthHandler.get" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jubakit.loader.postgresql.PostgreSQLoader">
+<em class="property">class </em><code class="descclassname">jubakit.loader.postgresql.</code><code class="descname">PostgreSQLoader</code><span class="sig-paren">(</span><em>auth</em>, <em>table</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/loader/postgresql.html#PostgreSQLoader"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.postgresql.PostgreSQLoader" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ベースクラス: <a class="reference internal" href="jubakit.html#jubakit.base.BaseLoader" title="jubakit.base.BaseLoader"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseLoader</span></code></a></p>
+<p>Loader to process columns of PostgreSQL.</p>
+<p>This loader that load data from PostgreSQL’s table as below.
+We access the 「test」 table of the 「test」 database in the below example.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd><p class="first">from jubakit.loader.postgresql import PostgreSQLoader
+from jubakit.loader.postgresql import PostgreSQLAuthHandler</p>
+<p>auth = PostgreSQLAuthHandler(dbname=』test』, user=』postgres』, password=』postgres』, host=』localhost』, port=『5432』)</p>
+<p>loader = PostgreSQLoader(auth, table=』test』)
+for row in loader:</p>
+<blockquote>
+<div>print(row)</div></blockquote>
+<p class="last"># {『id』: 1, 『num』: 100, 『data』: 『abcdef』}
+# {『id』: 2, 『num』: 200, 『data』: 『ghijkl』}
+# {『id』: 3, 『num』: 300, 『data』: 『mnopqr』}</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="jubakit.loader.postgresql.PostgreSQLoader.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>auth</em>, <em>table</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/loader/postgresql.html#PostgreSQLoader.__init__"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.postgresql.PostgreSQLoader.__init__" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.loader.postgresql.PostgreSQLoader.rows">
+<code class="descname">rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/loader/postgresql.html#PostgreSQLoader.rows"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#jubakit.loader.postgresql.PostgreSQLoader.rows" title="この定義へのパーマリンク">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -521,7 +590,7 @@ warnings are just ignored.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

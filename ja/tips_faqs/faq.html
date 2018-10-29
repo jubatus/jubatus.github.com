@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Tips and FAQs" href="index.html"/>
         <link rel="next" title="開発者ガイド" href="../developers/index.html"/>
@@ -257,20 +260,20 @@ $ sudo apt-get install jubatus
 <div class="section" id="rpc">
 <h2>RPC エラー<a class="headerlink" href="#rpc" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
-<li>Python クライアントの利用時に、&#8221;got socket.error: [Errno 99] Cannot assign requested address&#8221; (または <code class="docutils literal"><span class="pre">EADDRINUSE</span></code> など) が発生する</li>
+<li>Python クライアントの利用時に、&quot;got socket.error: [Errno 99] Cannot assign requested address&quot; (または <code class="docutils literal"><span class="pre">EADDRINUSE</span></code> など) が発生する</li>
 </ul>
 <blockquote>
 <div>このコマンドを試してください: <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">/sbin/sysctl</span> <span class="pre">-w</span> <span class="pre">net.ipv4.tcp_tw_recycle=1</span></code></div></blockquote>
 <ul class="simple">
-<li>Jubatus クライアントライブラリが &#8220;1&#8221; というメッセージの例外を投げる</li>
+<li>Jubatus クライアントライブラリが &quot;1&quot; というメッセージの例外を投げる</li>
 </ul>
 <blockquote>
 <div><p>インストールした Jubatus クライアントライブラリと接続しようとしている Jubatus サーバのバージョンが非互換である可能性があります。
 <a class="reference external" href="https://github.com/jubatus/jubatus/wiki/Client-Compatibility-and-Documentation">Jubatus Wiki: Client Compatibility and Documentation</a> で互換性情報を確認してください。</p>
-<p>技術的には、エラー &#8220;1&#8221; は「RPC サーバ上に指定したメソッドが存在しない」ことを意味しています。</p>
+<p>技術的には、エラー &quot;1&quot; は「RPC サーバ上に指定したメソッドが存在しない」ことを意味しています。</p>
 </div></blockquote>
 <ul class="simple">
-<li>Jubatus クライアントライブラリが &#8220;2&#8221; というメッセージの例外を投げる</li>
+<li>Jubatus クライアントライブラリが &quot;2&quot; というメッセージの例外を投げる</li>
 </ul>
 <blockquote>
 <div><p>このエラーは、クライアントとサーバで型が不一致であることを意味します。</p>
@@ -285,9 +288,9 @@ $ sudo apt-get install jubatus
 <li>クライアントライブラリが時々 RPC タイムアウトエラーを投げる (サーバからクライアントが自動切断される)</li>
 </ul>
 <blockquote>
-<div><p>Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus_server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> で設定される) が経過すると自動的に接続を切断します。
+<div><p>Jubatus サーバは、アイドルタイムアウト (コマンドラインパラメタ <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus-server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> で設定される) が経過すると自動的に接続を切断します。
 RPC呼び出しを再度実行することで接続が再確立されます。サーバによる接続自動切断に起因するタイムアウトを含むRPCエラーのハンドリングについては <a class="reference internal" href="faq_rpc_err_workaround.html"><span class="doc">RPC エラーのハンドリング</span></a> 参照してください。</p>
-<p>この自動切断機能を無効にするには、 <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus_server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> を 0 (タイムアウトなし) に設定します。
+<p>この自動切断機能を無効にするには、 <a class="reference internal" href="../commands/jubatus_server.html#cmdoption-jubatus-server-t"><code class="xref std std-option docutils literal"><span class="pre">jubatus_server</span> <span class="pre">-t</span></code></a> を 0 (タイムアウトなし) に設定します。
 この場合、クライアントは <a class="reference internal" href="../api/common_structs.html#get_client" title="get_client"><code class="xref mpidl mpidl-meth docutils literal"><span class="pre">get_client()</span></code></a> を使用して TCP 接続を明示的に切断する必要があります。
 もしくは、想定するクライアントの一接続毎の処理時間より十分長い時間を設定してください。</p>
 </div></blockquote>
@@ -405,10 +408,10 @@ anomalyのスコアが極端に大きくなる場合があります。
 <div class="section" id="id7">
 <h2>その他<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
-<li>How does &#8216;jubatus&#8217; read?</li>
+<li>How does 'jubatus' read?</li>
 </ul>
 <blockquote>
-<div>Please do not run &#8216;say&#8217; command in Mac OS.</div></blockquote>
+<div>Please do not run 'say' command in Mac OS.</div></blockquote>
 </div>
 </div>
 
@@ -463,7 +466,7 @@ anomalyのスコアが極端に大きくなる場合があります。
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

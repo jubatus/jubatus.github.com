@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>アーキテクチャ &mdash; jubakit 0.6.0 ドキュメント</title>
+  <title>アーキテクチャ &mdash; jubakit 0.6.1 ドキュメント</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 ドキュメント" href="../index.html"/>
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="../index.html"/>
         <link rel="next" title="Loader" href="loader.html"/>
         <link rel="prev" title="概要" href="../overview.html"/> 
 
@@ -67,7 +70,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -136,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/architecture/index.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/architecture/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -152,18 +155,12 @@
 <img alt="../_images/architecture.png" src="../_images/architecture.png" />
 <p>Jubakitは6つのコンポーネントから構成されています。</p>
 <ul class="simple">
-<li><p class="first"><a class="reference internal" href="loader.html"><span class="doc">Loader</span></a> はCSVファイル、RDBMS、MQ、TwitterストリームなどのKey-Value型で定義された様々な情報源からデータを取得します。</p>
-</li>
-<li><p class="first"><a class="reference internal" href="schema.html"><span class="doc">Schema</span></a> はLoaderで読み込んだデータのKeyに対して、テキスト、数値やラベルなどのデータ型を定義します。</p>
-</li>
-<li><p class="first"><a class="reference internal" href="dataset.html"><span class="doc">Dataset</span></a> はSchemaを利用して、Loaderで読み込んだデータをDatum型変換します。Datasetはレコードの配列の抽象的表現です。</p>
-</li>
-<li><p class="first"><a class="reference internal" href="service.html"><span class="doc">Service</span></a> はDatasetに含まれる各レコードを利用して、Jubatusサーバに対してupdateやanalyzeといったRPCコールを行い、結果を取得します。</p>
-</li>
-<li><p class="first"><a class="reference internal" href="config.html"><span class="doc">Config</span></a> はServiceのパラメータを定義します。</p>
-</li>
-<li><p class="first"><a class="reference internal" href="shell.html"><span class="doc">Shell</span></a> はJubatusサーバとの対話的なコマンドラインインターフェースを提供します。</p>
-</li>
+<li><a class="reference internal" href="loader.html"><span class="doc">Loader</span></a> はCSVファイル、RDBMS、MQ、TwitterストリームなどのKey-Value型で定義された様々な情報源からデータを取得します。</li>
+<li><a class="reference internal" href="schema.html"><span class="doc">Schema</span></a> はLoaderで読み込んだデータのKeyに対して、テキスト、数値やラベルなどのデータ型を定義します。</li>
+<li><a class="reference internal" href="dataset.html"><span class="doc">Dataset</span></a> はSchemaを利用して、Loaderで読み込んだデータをDatum型変換します。Datasetはレコードの配列の抽象的表現です。</li>
+<li><a class="reference internal" href="service.html"><span class="doc">Service</span></a> はDatasetに含まれる各レコードを利用して、Jubatusサーバに対してupdateやanalyzeといったRPCコールを行い、結果を取得します。</li>
+<li><a class="reference internal" href="config.html"><span class="doc">Config</span></a> はServiceのパラメータを定義します。</li>
+<li><a class="reference internal" href="shell.html"><span class="doc">Shell</span></a> はJubatusサーバとの対話的なコマンドラインインターフェースを提供します。</li>
 </ul>
 <p><em>Schema</em> 、<em>Dataset</em> および <em>Config</em> は各 <em>Service</em> に対して個別に定義されます。例えば、<a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Classifier" title="jubakit.classifier.Classifier"><code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Classifier</span></code></a> サービスを利用する場合には、<a class="reference internal" href="../api/jubakit.html#jubakit.classifier.Schema" title="jubakit.classifier.Schema"><code class="xref py py-class docutils literal"><span class="pre">jubakit.classifier.Schema</span></code></a> を利用する必要があります。py:class:<cite>jubakit.anomaly.Schema</cite> を利用することはできません。</p>
 <div class="toctree-wrapper compound">
@@ -211,7 +208,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

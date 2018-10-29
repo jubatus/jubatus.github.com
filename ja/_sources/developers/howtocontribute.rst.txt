@@ -40,7 +40,7 @@ Pull-Request ポリシー
 
 コード/ドキュメントに対する Pull-Request も歓迎しています。
 
-* Pull-Request はすべて、一人以上の Jubatus コミッタがレビューします。 `レビュアー <https://github.com/jubatus/jubatus/wiki/Policy:Reviewers-(ja)>`_ は担当領域ごとに決められています。
+* Pull-Request はすべて、一人以上の Jubatus コミッタがレビューします。レビュアーは担当領域ごとに決められています。
 
 * レビューが終わると、Pull-Request は次のいずれかの状態になります:
 

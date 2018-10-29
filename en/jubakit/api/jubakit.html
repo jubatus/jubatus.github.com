@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit package &mdash; jubakit 0.6.0 documentation</title>
+  <title>jubakit package &mdash; jubakit 0.6.1 documentation</title>
   
 
   
@@ -34,7 +34,10 @@
   
 
   
-    <link rel="top" title="jubakit 0.6.0 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="jubakit 0.6.1 documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="index.html"/>
         <link rel="next" title="jubakit.loader package" href="jubakit.loader.html"/>
         <link rel="prev" title="API Reference" href="index.html"/> 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
             
           
@@ -93,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">jubakit: Jubatus Toolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User’s Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">jubakit package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="jubakit.loader.html">jubakit.loader package</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/jubakit.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/jubakit.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,6 +175,7 @@
 <li class="toctree-l2"><a class="reference internal" href="jubakit.loader.html#module-jubakit.loader.core">jubakit.loader.core module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jubakit.loader.html#module-jubakit.loader.csv">jubakit.loader.csv module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jubakit.loader.html#module-jubakit.loader.odbc">jubakit.loader.odbc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jubakit.loader.html#module-jubakit.loader.postgresql">jubakit.loader.postgresql module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jubakit.loader.html#module-jubakit.loader.sparse">jubakit.loader.sparse module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jubakit.loader.html#module-jubakit.loader.twitter">jubakit.loader.twitter module</a></li>
 </ul>
@@ -316,7 +320,7 @@ calculate precision.</p>
 <p>When <cite>static</cite> is set to True (which is the default for non-infinite
 loaders), data will be loaded on memory immedeately; otherwise data
 will be loaded one-by-one from <cite>loader</cite>, which may be better when processing
-a large dataset.  For &#8220;infinite&#8221; loaders (like MQ and Twitter stream),
+a large dataset.  For “infinite” loaders (like MQ and Twitter stream),
 <cite>static</cite> cannot be set to True.  Note that some features
 (e.g., index access) are not available for non-static datasets, which
 may be needed for some features like cross-validation etc.</p>
@@ -391,15 +395,12 @@ in flat dict-like object.  You can yield None to skip the record.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Schema defines data types for each key of the data.</p>
 <p>BaseSchema defines the fundamental 3 data types.</p>
-<ul>
-<li><p class="first">IGNORE: ignores the key (mainly intended for fallback)</p>
-</li>
-<li><p class="first">AUTO: use the type of the key as its data type</p>
-</li>
+<ul class="simple">
+<li>IGNORE: ignores the key (mainly intended for fallback)</li>
+<li>AUTO: use the type of the key as its data type</li>
 <li><dl class="first docutils">
 <dt>INFER: guess the type of the key from its value; note that this is</dt>
-<dd><p class="first last">discouraged as it may result in unstable result.</p>
-</dd>
+<dd>discouraged as it may result in unstable result.</dd>
 </dl>
 </li>
 </ul>
@@ -476,8 +477,8 @@ file from local <cite>path</cite> to remote location.</p>
 <dl class="classmethod">
 <dt id="jubakit.base.BaseService.name">
 <em class="property">classmethod </em><code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/base.html#BaseService.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.base.BaseService.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subclasses (Classifier, NearestNeighbor, ... etc.) must override this
-method and return its service name (classifier, nearest_neighbor, ... etc.)</p>
+<dd><p>Subclasses (Classifier, NearestNeighbor, … etc.) must override this
+method and return its service name (classifier, nearest_neighbor, … etc.)</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -1029,8 +1030,8 @@ feature_names : array of shape [n_features], optional</p>
 <span id="jubakit-dumb-module"></span><h2>jubakit.dumb module<a class="headerlink" href="#module-jubakit.dumb" title="Permalink to this headline">¶</a></h2>
 <p><em>Dumb</em> Service is a kind of temporary implementations of Services.
 They are defined just for convenience.</p>
-<p>Unlike <em>Real</em> Services (Classifier, Anomaly, ...) which are defined
-in each file (classifier.py, anomaly.py, ...), Dumb Services cannot
+<p>Unlike <em>Real</em> Services (Classifier, Anomaly, …) which are defined
+in each file (classifier.py, anomaly.py, …), Dumb Services cannot
 handle Datasets and Schemas.</p>
 <p>Each service has a field called <code class="docutils literal"><span class="pre">CONFIG</span></code>, which provides a default
 config data structure for the service.  So you can use jubakit to start
@@ -1048,7 +1049,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.Bandit.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'parameter': {u'assume_unrewarded': False}, u'method': u'ucb1'}</em><a class="headerlink" href="#jubakit.dumb.Bandit.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'method': u'ucb1', u'parameter': {u'assume_unrewarded': False}}</em><a class="headerlink" href="#jubakit.dumb.Bandit.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1064,7 +1065,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.Burst.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'parameter': {u'costcut_threshold': -1, u'window_batch_size': 5, u'max_reuse_batch_num': 5, u'result_window_rotate_size': 5, u'batch_interval': 10}, u'method': u'burst'}</em><a class="headerlink" href="#jubakit.dumb.Burst.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'method': u'burst', u'parameter': {u'costcut_threshold': -1, u'window_batch_size': 5, u'max_reuse_batch_num': 5, u'result_window_rotate_size': 5, u'batch_interval': 10}}</em><a class="headerlink" href="#jubakit.dumb.Burst.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1080,7 +1081,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.Clustering.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'distance': u'euclidean', u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}, u'parameter': {u'k': 3, u'seed': 0}, u'compressor_parameter': {u'bucket_size': 1000}, u'compressor_method': u'simple', u'method': u'kmeans'}</em><a class="headerlink" href="#jubakit.dumb.Clustering.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'compressor_method': u'simple', u'compressor_parameter': {u'bucket_size': 1000}, u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}, u'distance': u'euclidean', u'method': u'kmeans', u'parameter': {u'k': 3, u'seed': 0}}</em><a class="headerlink" href="#jubakit.dumb.Clustering.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1096,7 +1097,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.Graph.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'parameter': {u'damping_factor': 0.9, u'landmark_num': 5}, u'method': u'graph_wo_index'}</em><a class="headerlink" href="#jubakit.dumb.Graph.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'method': u'graph_wo_index', u'parameter': {u'damping_factor': 0.9, u'landmark_num': 5}}</em><a class="headerlink" href="#jubakit.dumb.Graph.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1112,7 +1113,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.NearestNeighbor.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'parameter': {u'hash_num': 64}, u'method': u'lsh', u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}}</em><a class="headerlink" href="#jubakit.dumb.NearestNeighbor.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}, u'method': u'lsh', u'parameter': {u'hash_num': 64}}</em><a class="headerlink" href="#jubakit.dumb.NearestNeighbor.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1128,7 +1129,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.Recommender.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'method': u'inverted_index', u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}}</em><a class="headerlink" href="#jubakit.dumb.Recommender.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}, u'method': u'inverted_index'}</em><a class="headerlink" href="#jubakit.dumb.Recommender.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1144,7 +1145,7 @@ make RPC calls.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <dl class="attribute">
 <dt id="jubakit.dumb.Regression.CONFIG">
-<code class="descname">CONFIG</code><em class="property"> = {u'parameter': {u'sensitivity': 0.1, u'regularization_weight': 3.402823e+38}, u'method': u'PA1', u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}}</em><a class="headerlink" href="#jubakit.dumb.Regression.CONFIG" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONFIG</code><em class="property"> = {u'converter': {u'num_rules': [{u'type': u'num', u'key': u'*'}], u'string_rules': [{u'type': u'bigram', u'sample_weight': u'tf', u'global_weight': u'idf', u'key': u'*'}], u'string_filter_rules': [], u'string_filter_types': {}, u'num_filter_types': {}, u'string_types': {u'trigram': {u'method': u'ngram', u'char_num': u'3'}, u'unigram': {u'method': u'ngram', u'char_num': u'1'}, u'bigram': {u'method': u'ngram', u'char_num': u'2'}}, u'num_types': {}, u'num_filter_rules': []}, u'method': u'PA1', u'parameter': {u'sensitivity': 0.1, u'regularization_weight': 3.402823e+38}}</em><a class="headerlink" href="#jubakit.dumb.Regression.CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1301,7 +1302,7 @@ It can be converted to Weight model.</p>
 
 <dl class="class">
 <dt id="jubakit.model.JubaModel.Header">
-<em class="property">class </em><code class="descclassname">JubaModel.</code><code class="descname">Header</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.Header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.Header" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">Header</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.Header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.Header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">jubakit.model.ModelPart</span></code></p>
 <dl class="method">
 <dt id="jubakit.model.JubaModel.Header.dump">
@@ -1322,7 +1323,7 @@ It can be converted to Weight model.</p>
 
 <dl class="class">
 <dt id="jubakit.model.JubaModel.ModelPart">
-<em class="property">class </em><code class="descclassname">JubaModel.</code><code class="descname">ModelPart</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.ModelPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.ModelPart" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">ModelPart</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.ModelPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.ModelPart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="jubakit.model.JubaModel.ModelPart.__init__">
@@ -1369,7 +1370,7 @@ It can be converted to Weight model.</p>
 
 <dl class="class">
 <dt id="jubakit.model.JubaModel.SystemContainer">
-<em class="property">class </em><code class="descclassname">JubaModel.</code><code class="descname">SystemContainer</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.SystemContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.SystemContainer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">SystemContainer</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.SystemContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.SystemContainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">jubakit.model.Container</span></code></p>
 <dl class="classmethod">
 <dt id="jubakit.model.JubaModel.SystemContainer.fields">
@@ -1380,7 +1381,7 @@ It can be converted to Weight model.</p>
 
 <dl class="class">
 <dt id="jubakit.model.JubaModel.UserContainer">
-<em class="property">class </em><code class="descclassname">JubaModel.</code><code class="descname">UserContainer</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.UserContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.UserContainer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">UserContainer</code><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.UserContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.UserContainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">jubakit.model.Container</span></code></p>
 <dl class="classmethod">
 <dt id="jubakit.model.JubaModel.UserContainer.fields">
@@ -1391,63 +1392,63 @@ It can be converted to Weight model.</p>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.__init__">
-<code class="descclassname">JubaModel.</code><code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.data">
-<code class="descclassname">JubaModel.</code><code class="descname">data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the actual model data part.
 This method is a quick shortcut for <code class="docutils literal"><span class="pre">return</span> <span class="pre">self.user.user_data</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.dump_binary">
-<code class="descclassname">JubaModel.</code><code class="descname">dump_binary</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.dump_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.dump_binary" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dump_binary</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.dump_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.dump_binary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumps the model as Jubatus binary model file to binary stream <code class="docutils literal"><span class="pre">f</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.dump_json">
-<code class="descclassname">JubaModel.</code><code class="descname">dump_json</code><span class="sig-paren">(</span><em>f</em>, <em>without_raw=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.dump_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.dump_json" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dump_json</code><span class="sig-paren">(</span><em>f</em>, <em>without_raw=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.dump_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.dump_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumps the model as JSON file to a text stream <code class="docutils literal"><span class="pre">f</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.dump_text">
-<code class="descclassname">JubaModel.</code><code class="descname">dump_text</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.dump_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.dump_text" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dump_text</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.dump_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.dump_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumps the model as human-readable text format to a text stream <code class="docutils literal"><span class="pre">f</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.fix_header">
-<code class="descclassname">JubaModel.</code><code class="descname">fix_header</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.fix_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.fix_header" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fix_header</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.fix_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.fix_header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Repairs the header values.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="jubakit.model.JubaModel.load_binary">
-<em class="property">classmethod </em><code class="descclassname">JubaModel.</code><code class="descname">load_binary</code><span class="sig-paren">(</span><em>f</em>, <em>validate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.load_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.load_binary" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">load_binary</code><span class="sig-paren">(</span><em>f</em>, <em>validate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.load_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.load_binary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads Jubatus binary model file from binary stream <code class="docutils literal"><span class="pre">f</span></code>.
 When <code class="docutils literal"><span class="pre">validate</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, the model file format is strictly validated.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="jubakit.model.JubaModel.load_json">
-<em class="property">classmethod </em><code class="descclassname">JubaModel.</code><code class="descname">load_json</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.load_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.load_json" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">load_json</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.load_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.load_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads model file saved as JSON file from text stream <code class="docutils literal"><span class="pre">f</span></code>.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="jubakit.model.JubaModel.predict_format">
-<em class="property">classmethod </em><code class="descclassname">JubaModel.</code><code class="descname">predict_format</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.predict_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.predict_format" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">predict_format</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.predict_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.predict_format" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the model file named <code class="docutils literal"><span class="pre">filename</span></code>.
 Returns <code class="docutils literal"><span class="pre">binary</span></code> or <code class="docutils literal"><span class="pre">json</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="jubakit.model.JubaModel.transform">
-<code class="descclassname">JubaModel.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>service</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform</code><span class="sig-paren">(</span><em>service</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/model.html#JubaModel.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.model.JubaModel.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1526,8 +1527,8 @@ feature_names : array of shape [n_features], optional</p>
 <dd><p>Converts two arrays or a sparse matrix data and its associated
 id array to Dataset.</p>
 <dl class="docutils">
-<dt>data</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array or scipy 2-D sparse matrix of shape</span><dd>[n_samples, n_features]</dd>
+<dt>data <span class="classifier-delimiter">:</span> <span class="classifier">array or scipy 2-D sparse matrix of shape</span></dt>
+<dd>[n_samples, n_features]</dd>
 </dl>
 <p>ids : array of shape [n_samples], optional
 feature_names : array of shape [n_features], optional</p>
@@ -1671,7 +1672,7 @@ with missing value completed by predicted value.</p>
 <dl class="method">
 <dt id="jubakit.recommender.Recommender.complete_row_from_id">
 <code class="descname">complete_row_from_id</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.complete_row_from_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.complete_row_from_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns data points from the row id in the recommender model, 
+<dd><p>Returns data points from the row id in the recommender model,
 with missing value completed by predicted value.</p>
 </dd></dl>
 
@@ -1693,9 +1694,37 @@ with missing value completed by predicted value.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="jubakit.recommender.Recommender.similar_row_from_datum_and_rate">
+<code class="descname">similar_row_from_datum_and_rate</code><span class="sig-paren">(</span><em>dataset</em>, <em>rate=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.similar_row_from_datum_and_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.similar_row_from_datum_and_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the top rate of all the rows which are most similar to row.
+For example, return the top 10% of all the rows when 0.1 is specified as rate.</p>
+<p>The rate must be in (0, 1].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.recommender.Recommender.similar_row_from_datum_and_score">
+<code class="descname">similar_row_from_datum_and_score</code><span class="sig-paren">(</span><em>dataset</em>, <em>score=0.8</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.similar_row_from_datum_and_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.similar_row_from_datum_and_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns rows which are most similar to row and have a greater similarity score than score.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="jubakit.recommender.Recommender.similar_row_from_id">
 <code class="descname">similar_row_from_id</code><span class="sig-paren">(</span><em>dataset</em>, <em>size=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.similar_row_from_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.similar_row_from_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns similar data points from the row id in the recommender model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.recommender.Recommender.similar_row_from_id_and_rate">
+<code class="descname">similar_row_from_id_and_rate</code><span class="sig-paren">(</span><em>dataset</em>, <em>rate=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.similar_row_from_id_and_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.similar_row_from_id_and_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the top rate of all the rows which are most similar to the row id.
+For example, return the top 10% of all the rows when 0.1 is specified as rate.</p>
+<p>The rate must be in (0, 1].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jubakit.recommender.Recommender.similar_row_from_id_and_score">
+<code class="descname">similar_row_from_id_and_score</code><span class="sig-paren">(</span><em>dataset</em>, <em>score=0.8</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.similar_row_from_id_and_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.similar_row_from_id_and_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns rows which are most similar to the row id and have a greater similarity score than score.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2047,7 +2076,7 @@ Existing connection will be discarded.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.0',
+            VERSION:'0.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

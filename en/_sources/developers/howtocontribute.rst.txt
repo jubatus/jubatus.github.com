@@ -40,7 +40,7 @@ Pull-Request Policy
 
 We always welcome your code and/or documentation contributions! Here are some rules:
 
-* Every pull-requests will be reviewed by one (or more) of Jubatus committers. `Reviewers <https://github.com/jubatus/jubatus/wiki/Policy:Reviewers>`_ will be chosen according to the area of the code you contributed.
+* Every pull-requests will be reviewed by one (or more) of Jubatus committers. Reviewers will be chosen according to the area of the code you contributed.
 
 * After the review process, the status of your pull-request will either be:
 

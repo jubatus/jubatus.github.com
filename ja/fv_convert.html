@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
     <link rel="top" title="Jubatus" href="index.html"/>
         <link rel="next" title="Commands" href="commands/index.html"/>
         <link rel="prev" title="アルゴリズム" href="method.html"/> 
@@ -257,7 +260,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>キーの名前に &#8220;$&#8221; 記号を含めることはできない。</p>
+<p>キーの名前に &quot;$&quot; 記号を含めることはできない。</p>
 <p>例えばC++から利用する場合、datumは <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></code> 、 <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">double&gt;</span> <span class="pre">&gt;</span></code> 、 <code class="docutils literal"><span class="pre">std::vector&lt;std::pair&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">&gt;</span></code> の3つの要素からなっている。
 ここでは、 <code class="docutils literal"><span class="pre">std::pair&lt;T,U&gt;</span></code> をPython風のタプルで、 <code class="docutils literal"><span class="pre">std::vector&lt;T&gt;</span></code> をPython風のリストで表している。</p>
 </div>
@@ -283,7 +286,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 この中のタグ文字列（&lt;a&gt; など）は、学習時には邪魔になることがおおく、そのため予めフィルタリングして使いたいことがある。
 あるいは、メール本文の引用（&gt;から始まる行）を削除したいこともあるだろう。
 こうした時に利用するのが、filter機能である。</p>
-<p>例として、&#8221;message&#8221;内の文字列からHTMLタグを取り除く。
+<p>例として、&quot;message&quot;内の文字列からHTMLタグを取り除く。
 まず、「HTMLタグを取り除く」というルールを定義し、それを <code class="docutils literal"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">&quot;message&quot;</span></code> に適用する。
 これは、以下のようなconfigで表現される。</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -294,11 +297,11 @@ binary_values には画像や音声などのマルチメディアデータなど
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>まず、&#8221;string_filter_types&#8221;でフィルターを定義し、これを &#8220;detag&#8221; と命名する。
-&#8220;detag&#8221; フィルターに対して、&#8221;regexp&#8221;という手法で、&#8221;&lt;[^&gt;]*&gt;&#8221;を&#8221;&#8220;に置き換える、というフィルターを定義する。
-次に、実際にdatumのどの要素にどう適用するのか書いたのが&#8221;string_filter_rules&#8221;である。
-ここでは、&#8221;message&#8221;という名前の&#8221;key&#8221;の要素に対して、先で定義した&#8221;detag&#8221;フィルターを適用し、&#8221;message&#8221;に&#8221;-detagged&#8221;を付与したkey、すなわち&#8221;message-detagged&#8221;に結果を格納することを示している。</p>
-<p>また、&#8221;age&#8221;を数え年に変換(+1歳に)するには、</p>
+<p>まず、&quot;string_filter_types&quot;でフィルターを定義し、これを &quot;detag&quot; と命名する。
+&quot;detag&quot; フィルターに対して、&quot;regexp&quot;という手法で、&quot;&lt;[^&gt;]*&gt;&quot;を&quot;&quot;に置き換える、というフィルターを定義する。
+次に、実際にdatumのどの要素にどう適用するのか書いたのが&quot;string_filter_rules&quot;である。
+ここでは、&quot;message&quot;という名前の&quot;key&quot;の要素に対して、先で定義した&quot;detag&quot;フィルターを適用し、&quot;message&quot;に&quot;-detagged&quot;を付与したkey、すなわち&quot;message-detagged&quot;に結果を格納することを示している。</p>
+<p>また、&quot;age&quot;を数え年に変換(+1歳に)するには、</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_filter_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;add_1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
@@ -307,7 +310,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>とする。この挙動も先と同じで、&#8221;user/age&#8221;に1加えた結果が&#8221;user/age_kazoe&#8221;に格納される。</p>
+<p>とする。この挙動も先と同じで、&quot;user/age&quot;に1加えた結果が&quot;user/age_kazoe&quot;に格納される。</p>
 <p>これらのfilterを通すことにより、次の datum が得られる:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">(</span>
   <span class="p">[</span>
@@ -325,14 +328,14 @@ binary_values には画像や音声などのマルチメディアデータなど
 </pre></div>
 </div>
 <p>それぞれの要素について、詳細に説明する。
-なお、これらの各 &#8220;types&#8221; や &#8220;rules&#8221; は省略可能で、省略した場合はそれぞれ何も指定されていないものとして扱われる。</p>
+なお、これらの各 &quot;types&quot; や &quot;rules&quot; は省略可能で、省略した場合はそれぞれ何も指定されていないものとして扱われる。</p>
 <div class="section" id="string-filter-types">
 <h3>string_filter_types<a class="headerlink" href="#string-filter-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>&lt;フィルター名&gt;: &lt;引数&gt;　からなる辞書を指定する。
 フィルター名は文字列、引数は文字列から文字列への辞書である。
-引数には必ず&#8221;method&#8221;を指定する。
-残りの引数に関しては、&#8221;method&#8221;の内容に応じて必要な引数が異なる。
-指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+引数には必ず&quot;method&quot;を指定する。
+残りの引数に関しては、&quot;method&quot;の内容に応じて必要な引数が異なる。
+指定できる&quot;method&quot;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <code class="descname">regexp</code></dt>
@@ -384,7 +387,7 @@ binary_values には画像や音声などのマルチメディアデータなど
 規則は指定された順に評価される。
 datum がある規則の条件を満たした場合、そのルールが適用され、変換後の値が datum に追加される。
 規則は、元の datum と、それまでにフィルター規則で追加された値の両方に適用される。
-各規則は&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
+各規則は&quot;key&quot;, &quot;except&quot; (オプション), &quot;type&quot;, &quot;suffix&quot;の要素からなる辞書を指定する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -394,17 +397,17 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。この詳細は後述する。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">利用するフィルター名を指定する。これは &#8220;string_filter_types&#8221; の項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。</td>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">利用するフィルター名を指定する。これは &quot;string_filter_types&quot; の項で作ったフィルター名を指定する。デフォルトで利用できるフィルターはない。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">変換後の結果を格納するkeyのサフィックスを指定する。例えばsuffixに&#8221;-detagged&#8221;が指定され、&#8221;name&#8221;という名前のkeyに規則が適用された場合、結果は&#8221;name-detagged&#8221;という名前のkeyに格納される。</td>
+<tr class="field-even field"><th class="field-name">suffix:</th><td class="field-body">変換後の結果を格納するkeyのサフィックスを指定する。例えばsuffixに&quot;-detagged&quot;が指定され、&quot;name&quot;という名前のkeyに規則が適用された場合、結果は&quot;name-detagged&quot;という名前のkeyに格納される。</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;key&#8221;および&#8221;except&#8221;の要素は以下のうちのいずれかのフォーマットで指定する。
+<p>&quot;key&quot;および&quot;except&quot;の要素は以下のうちのいずれかのフォーマットで指定する。
 但し、datumの全要素に対して、すべての規則が適用されるかチェックされる。
 したがって、複数の規則がマッチした場合は両方の規則が適用されて、複数のフィルター済みの値が追加されることに注意する。
-なお、&#8221;key&#8221;および&#8221;except&#8221;に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。</p>
+なお、&quot;key&quot;および&quot;except&quot;に関しては以降でも登場するが、全て同じフォーマットであり、複数適用される可能性がある点も同様である。</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -417,16 +420,16 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&#8220;*&#8221; or &#8220;&#8221;</td>
-<td>全ての要素にマッチする。&#8221;key&#8221;にこれが指定されると必ず適用されることになる。</td>
+<tr class="row-even"><td>&quot;*&quot; or &quot;&quot;</td>
+<td>全ての要素にマッチする。&quot;key&quot;にこれが指定されると必ず適用されることになる。</td>
 </tr>
-<tr class="row-odd"><td>&#8220;XXX*&#8221;</td>
-<td>末尾に*をつけると、その前のみをプレフィックスとして使用する。つまり、&#8221;XXX&#8221;で始まるkeyのみにマッチする。</td>
+<tr class="row-odd"><td>&quot;XXX*&quot;</td>
+<td>末尾に*をつけると、その前のみをプレフィックスとして使用する。つまり、&quot;XXX&quot;で始まるkeyのみにマッチする。</td>
 </tr>
-<tr class="row-even"><td>&#8220;*XXX&#8221;</td>
-<td>先頭に*をつけると、その後のみをサフィックスとして使用する。つまり、&#8221;XXX&#8221;で終わるkeyのみにマッチする。</td>
+<tr class="row-even"><td>&quot;*XXX&quot;</td>
+<td>先頭に*をつけると、その後のみをサフィックスとして使用する。つまり、&quot;XXX&quot;で終わるkeyのみにマッチする。</td>
 </tr>
-<tr class="row-odd"><td>&#8220;/XXX/&#8221;</td>
+<tr class="row-odd"><td>&quot;/XXX/&quot;</td>
 <td>2つのスラッシュ(/)で囲うと、その間の表現を正規表現とみなして、正規表現でマッチする。</td>
 </tr>
 <tr class="row-even"><td>その他</td>
@@ -435,16 +438,16 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;except&#8221; が与えられ、かつ &#8220;key&#8221; と &#8220;except&#8221; の双方にマッチした場合は、そのルールはスキップされる。
-例えば、{&#8220;key&#8221;: &#8220;*&#8221;, &#8220;except&#8221;: &#8220;foo&#8221;, ... } のようにすれば「&#8221;foo&#8221; 以外のすべてのキーにマッチする規則」を定義することができる。</p>
+<p>&quot;except&quot; が与えられ、かつ &quot;key&quot; と &quot;except&quot; の双方にマッチした場合は、そのルールはスキップされる。
+例えば、{&quot;key&quot;: &quot;*&quot;, &quot;except&quot;: &quot;foo&quot;, ... } のようにすれば「&quot;foo&quot; 以外のすべてのキーにマッチする規則」を定義することができる。</p>
 </div>
 <div class="section" id="num-filter-types">
 <h3>num_filter_types<a class="headerlink" href="#num-filter-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>&#8220;string_filter_types&#8221; と同様、&lt;フィルター名&gt;: &lt;引数&gt; からなる辞書を指定する。
+<p>&quot;string_filter_types&quot; と同様、&lt;フィルター名&gt;: &lt;引数&gt; からなる辞書を指定する。
 利用の仕方はstring_filter_typesとほぼ同じである。
 &lt;フィルター名&gt; は文字列、引数は文字列から文字列への辞書である。
-&lt;引数&gt; には必ず&#8221;method&#8221;を指定し、残りの引数は&#8221;method&#8221;の値に応じて必要なものが異なる。
-指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+&lt;引数&gt; には必ず&quot;method&quot;を指定し、残りの引数は&quot;method&quot;の値に応じて必要なものが異なる。
+指定できる&quot;method&quot;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <code class="descname">add</code></dt>
@@ -454,7 +457,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">足す値の文字列表現を指定する。例えば3足すのであれば、&#8221;3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
+<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body">足す値の文字列表現を指定する。例えば3足すのであれば、&quot;3&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
 </tr>
 </tbody>
 </table>
@@ -465,22 +468,22 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <dt>
 <code class="descname">linear_normalization</code></dt>
 <dd><p>値を0以上から1以下の小数へと正規化する。
-&#8220;min&#8221;と&#8221;max&#8221;の2つの小数を入力として要求し、これら2つのパラメータの省略はできない。
+&quot;min&quot;と&quot;max&quot;の2つの小数を入力として要求し、これら2つのパラメータの省略はできない。
 入力された値xに対して「(x - min) / (max - min)」という計算を行う事で0以上1以下の小数へと線形に変換する。
-もしxが&#8221;min&#8221;より小さい場合には0へ切り上げられる。
-同様にxが&#8221;max&#8221;より大きい場合には1へ切り捨てられる。
-この挙動は&#8221;truncate&#8221;オプションにより変更が可能である。
-&#8220;max&#8221;が&#8221;min&#8221;より小さい場合は、invalid_parameter例外が発生し失敗する。</p>
+もしxが&quot;min&quot;より小さい場合には0へ切り上げられる。
+同様にxが&quot;max&quot;より大きい場合には1へ切り捨てられる。
+この挙動は&quot;truncate&quot;オプションにより変更が可能である。
+&quot;max&quot;が&quot;min&quot;より小さい場合は、invalid_parameter例外が発生し失敗する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">min:</th><td class="field-body">想定される最小値を指定する。例えば最小値が0であれば、&#8221;0&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。省略不可。</td>
+<tr class="field-odd field"><th class="field-name">min:</th><td class="field-body">想定される最小値を指定する。例えば最小値が0であれば、&quot;0&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。省略不可。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">max:</th><td class="field-body">想定される最小値を指定する。例えば最大値が100であれば、&#8221;100&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。&#8221;min&#8221;より小さい数や等しい値は指定できない。省略不可。</td>
+<tr class="field-even field"><th class="field-name">max:</th><td class="field-body">想定される最小値を指定する。例えば最大値が100であれば、&quot;100&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。&quot;min&quot;より小さい数や等しい値は指定できない。省略不可。</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">truncate:</th><td class="field-body">最小値未満の値や、最大値以上の値に対する動作を規定する。デフォルトでは&#8221;True&#8221;であり、最小値以下の値は0へ、最大値以上の値は1へ切り詰められる。&#8221;True&#8221;以外を指定する事で最小値以下・最大値以上の値に対する切り詰め処理を行わせない事ができる。省略可能。</td>
+<tr class="field-odd field"><th class="field-name">truncate:</th><td class="field-body">最小値未満の値や、最大値以上の値に対する動作を規定する。デフォルトでは&quot;True&quot;であり、最小値以下の値は0へ、最大値以上の値は1へ切り詰められる。&quot;True&quot;以外を指定する事で最小値以下・最大値以上の値に対する切り詰め処理を行わせない事ができる。省略可能。</td>
 </tr>
 </tbody>
 </table>
@@ -500,19 +503,19 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <dt>
 <code class="descname">gaussian_normalization</code></dt>
 <dd><p>値がガウス分布（正規分布）していると仮定し、与えられた平均値と標準偏差にそった値を-1以上+1以下の範囲の小数に正規化する。
-&#8220;average&#8221;と&#8221;standard_deviation&#8221;の2つの小数を入力として要求し、省略はできない。
+&quot;average&quot;と&quot;standard_deviation&quot;の2つの小数を入力として要求し、省略はできない。
 入力された値xに対して「(x - average) / standard_deviation」という計算を行う事で-1以上1以下の小数へと変換する。
 そのため外れ値は-1を下回る値や1を超える値になることがありうる。
-&#8220;standard_deviation&#8221;に負の値を指定した場合にはinvalid_parameter例外が発生し失敗する。</p>
+&quot;standard_deviation&quot;に負の値を指定した場合にはinvalid_parameter例外が発生し失敗する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">平均値を指定する。例えば平均値が80であれば、&#8221;80&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
+<tr class="field-odd field"><th class="field-name">average:</th><td class="field-body">平均値を指定する。例えば平均値が80であれば、&quot;80&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">standard_deviation:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">想定される標準偏差を指定する。例えば標準偏差が2.3であれば、&#8221;2.3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">想定される標準偏差を指定する。例えば標準偏差が2.3であれば、&quot;2.3&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Double として利用される。</td>
 </tr>
 </tbody>
 </table>
@@ -532,16 +535,16 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <dt>
 <code class="descname">sigmoid_normalization</code></dt>
 <dd><p>値をシグモイド関数に基づいて0から1の範囲へと切り詰める。
-&#8220;gain&#8221;と&#8221;bias&#8221;の2つを入力として要求する。省略した場合にはそれぞれ1と0になる。
+&quot;gain&quot;と&quot;bias&quot;の2つを入力として要求する。省略した場合にはそれぞれ1と0になる。
 入力された値xに対して「1 / (1 + e ^ (-gain * (x - bias)))」という計算を行う事で0〜1の小数へと変換する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">gain:</th><td class="field-body">sigmoid関数のゲイン値を指定する。大きな値を指定するほど急峻なsigmoid関数となる。例えば0.5を指定する場合は&#8221;0.5&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは1である。</td>
+<tr class="field-odd field"><th class="field-name">gain:</th><td class="field-body">sigmoid関数のゲイン値を指定する。大きな値を指定するほど急峻なsigmoid関数となる。例えば0.5を指定する場合は&quot;0.5&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは1である。</td>
 </tr>
-<tr class="field-even field"><th class="field-name">bias:</th><td class="field-body">sigmoid関数のバイアス値を指定する。sigmoid関数が0.5を出力する事を期待するxの値を指定する。例えば3を指定する場合は&#8221;3&#8221;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは0である。</td>
+<tr class="field-even field"><th class="field-name">bias:</th><td class="field-body">sigmoid関数のバイアス値を指定する。sigmoid関数が0.5を出力する事を期待するxの値を指定する。例えば3を指定する場合は&quot;3&quot;と指定する。数値型ではなく文字列として指定する点に注意すること。内部的には Float として利用される。省略可能であり、デフォルトでは0である。</td>
 </tr>
 </tbody>
 </table>
@@ -579,7 +582,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <div class="section" id="num-filter-rules">
 <h3>num_filter_rules<a class="headerlink" href="#num-filter-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>こちらも、string_filter_rules同様、フィルターの適用規則を指定する。
-規則は複数からなり、各規則は&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;, &#8220;suffix&#8221;の要素からなる辞書を指定する。</p>
+規則は複数からなり、各規則は&quot;key&quot;, &quot;except&quot; (オプション), &quot;type&quot;, &quot;suffix&quot;の要素からなる辞書を指定する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -596,14 +599,14 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </tbody>
 </table>
 </div></blockquote>
-<p>&#8220;key&#8221;と&#8221;except&#8221;の指定の仕方は、string_filter_rulesを参照のこと。</p>
+<p>&quot;key&quot;と&quot;except&quot;の指定の仕方は、string_filter_rulesを参照のこと。</p>
 </div>
 </div>
 <div class="section" id="construct">
 <span id="id5"></span><h2>文字列からの特徴抽出<a class="headerlink" href="#construct" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>文字列型に対する特徴抽出器と、その抽出規則の適用方法について解説する。</p>
 <p>以下に、設定の例を示す。
-この例では、&#8221;user/name&#8221;の値はそのまま特徴量として使用し、&#8221;message&#8221;は文字2グラムを特徴量とし、&#8221;message-detagged&#8221;はスペース文字で分割した単語を特徴量とする。</p>
+この例では、&quot;user/name&quot;の値はそのまま特徴量として使用し、&quot;message&quot;は文字2グラムを特徴量とし、&quot;message-detagged&quot;はスペース文字で分割した単語を特徴量とする。</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;bigram&quot;</span><span class="o">:</span>  <span class="p">{</span> <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ngram&quot;</span><span class="p">,</span> <span class="s2">&quot;char_num&quot;</span><span class="o">:</span> <span class="s2">&quot;2&quot;</span> <span class="p">}</span>
 <span class="p">},</span>
@@ -627,7 +630,7 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </pre></div>
 </div>
 <p>結果として得られる特徴抽出結果は、以下のようになる。
-&#8220;message&#8221; は &#8220;bigram&#8221; 設定なので2文字ずつに分割され、特徴量 &#8220;H&gt;&#8221; は文字列中に2度出てくるのでその重みは2になることがわかる。</p>
+&quot;message&quot; は &quot;bigram&quot; 設定なので2文字ずつに分割され、特徴量 &quot;H&gt;&quot; は文字列中に2度出てくるのでその重みは2になることがわかる。</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="32%" />
@@ -643,99 +646,99 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&#8220;user/name&#8221;</td>
-<td>&#8220;Loren Ipsum&#8221;</td>
-<td>&#8220;Loren Ipsum&#8221;</td>
+<tr class="row-even"><td>&quot;user/name&quot;</td>
+<td>&quot;Loren Ipsum&quot;</td>
+<td>&quot;Loren Ipsum&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&#8220;message&#8221;</td>
-<td>&#8220;&lt;H&gt;Hello World&lt;/H&gt;&#8221;</td>
-<td>&#8220;&lt;H&#8221;</td>
+<tr class="row-odd"><td>&quot;message&quot;</td>
+<td>&quot;&lt;H&gt;Hello World&lt;/H&gt;&quot;</td>
+<td>&quot;&lt;H&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;H&gt;&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;H&gt;&quot;</td>
 <td>2</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;&gt;H&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;&gt;H&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;He&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;He&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;el&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;el&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;ll&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;ll&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;lo&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;lo&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;o &#8220;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;o &quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8221; W&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot; W&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;Wo&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;Wo&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;or&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;or&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;rl&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;rl&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;ld&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;ld&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;d&lt;&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;d&lt;&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;&lt;/&#8221;</td>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;&lt;/&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;/H&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;/H&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&#8220;message-detagged&#8221;</td>
-<td>&#8220;Hello World&#8221;</td>
-<td>&#8220;Hello&#8221;</td>
+<tr class="row-odd"><td>&quot;message-detagged&quot;</td>
+<td>&quot;Hello World&quot;</td>
+<td>&quot;Hello&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&#8220;World&#8221;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&quot;World&quot;</td>
 <td>1</td>
 </tr>
 </tbody>
@@ -745,10 +748,10 @@ datum がある規則の条件を満たした場合、そのルールが適用�
 <p>string_typesで文字列特徴抽出器を定義する。
 主に、パスなどの引数を指定しなければならない特徴抽出器は、一度string_typesで指定してから利用しなければならない。
 string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; からなる辞書を指定する。
-抽出器名に &#8220;&#64;&#8221; 文字を含むことはできない。
-引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
-それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。</p>
-<p>指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+抽出器名に &quot;&#64;&quot; 文字を含むことはできない。
+引数は文字列から文字列への辞書で、必ず&quot;method&quot;を指定する必要がある。
+それ以外に必要な引数は&quot;method&quot;に応じて異なる。</p>
+<p>指定できる&quot;method&quot;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <code class="descname">ngram</code></dt>
@@ -800,7 +803,7 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>パターンの一部だけを利用するときは、 &#8220;group&#8221; 引数を利用する。たとえば、以下の様な設定で年齢が取れるだろう。</p>
+<p>パターンの一部だけを利用するときは、 &quot;group&quot; 引数を利用する。たとえば、以下の様な設定で年齢が取れるだろう。</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;string_types&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
@@ -858,16 +861,16 @@ string_filter_typesなどと同様、&lt;抽出器名&gt;:&lt;引数&gt; から�
 <h3>string_rules<a class="headerlink" href="#string-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列特徴の抽出規則を指定する。
 string_filter_rulesなどと同様、複数の規則を羅列する。
-各規則は、&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;, &#8220;sample_weight&#8221;, &#8220;global_weight&#8221;からなる辞書で指定する。
+各規則は、&quot;key&quot;, &quot;except&quot; (オプション), &quot;type&quot;, &quot;sample_weight&quot;, &quot;global_weight&quot;からなる辞書で指定する。
 文字列データの場合、与えられた文字列から特徴量を抽出し、そこに対して重みを設定する必要がある。
-重みの設定の仕方を決めるのが、&#8221;sample_weight&#8221;と&#8221;global_weight&#8221;の2つのパラメータである。
+重みの設定の仕方を決めるのが、&quot;sample_weight&quot;と&quot;global_weight&quot;の2つのパラメータである。
 実際に利用する重みは、2つの重みの積を重み付けとして利用する。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照のこと。なお、 &#8220;*&#8221; や &#8220;&#8221; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。string_filter_rulesを参照のこと。なお、 &quot;*&quot; や &quot;&quot; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
@@ -911,10 +914,10 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <td>重みを常に1とする。</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;tf&quot;</span></code></td>
-<td>与えられた文字列中で出現する回数で重み付けをする。例えば5回&#8221;hello&#8221;が出現したら、重みを5にする。</td>
+<td>与えられた文字列中で出現する回数で重み付けをする。例えば5回&quot;hello&quot;が出現したら、重みを5にする。</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;log_tf&quot;</span></code></td>
-<td>tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&#8221;hello&#8221;が出現したら、重みはlog(5 + 1)にする。</td>
+<td>tfの値に1を足してlogを取った値を重み付けに利用する。例えば5回&quot;hello&quot;が出現したら、重みはlog(5 + 1)にする。</td>
 </tr>
 </tbody>
 </table>
@@ -997,15 +1000,15 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&#8220;user/age&#8221;</td>
+<tr class="row-even"><td>&quot;user/age&quot;</td>
 <td>29</td>
 <td>29</td>
 </tr>
-<tr class="row-odd"><td>&#8220;user/income&#8221;</td>
+<tr class="row-odd"><td>&quot;user/income&quot;</td>
 <td>100000</td>
 <td>log(100000) = 11.5129...</td>
 </tr>
-<tr class="row-even"><td>&#8220;user/age_kazoe&#8221;</td>
+<tr class="row-even"><td>&quot;user/age_kazoe&quot;</td>
 <td>30</td>
 <td>30</td>
 </tr>
@@ -1015,9 +1018,9 @@ string_filter_rulesなどと同様、複数の規則を羅列する。
 <h3>num_types<a class="headerlink" href="#num-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>num_typesで数値データに対する特徴抽出器を定義する。
 string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる辞書を指定する。
-引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
-それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
-指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+引数は文字列から文字列への辞書で、必ず&quot;method&quot;を指定する必要がある。
+それ以外に必要な引数は&quot;method&quot;に応じて異なる。
+指定できる&quot;method&quot;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <code class="descname">dynamic</code></dt>
@@ -1041,14 +1044,14 @@ string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる�
 <h3>num_rules<a class="headerlink" href="#num-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>数値特徴の抽出規則を指定する。
 string_rulesなどと同様、複数の規則を羅列する。
-各規則は、&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;からなる辞書で指定する。
-重みの付け方や特徴名の指定の仕方もそれぞれの&#8221;type&#8221;ごとに異なる。</p>
+各規則は、&quot;key&quot;, &quot;except&quot; (オプション), &quot;type&quot;からなる辞書で指定する。
+重みの付け方や特徴名の指定の仕方もそれぞれの&quot;type&quot;ごとに異なる。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。なお、&#8221;*&#8221; や &#8220;&#8221; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
+<tr class="field-odd field"><th class="field-name">key:</th><td class="field-body"><p class="first">datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。なお、&quot;*&quot; や &quot;&quot; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">except:</th><td class="field-body"><p class="first">key のマッチから除外するパターンを指定する。このパラメタは省略可能である。詳細はstring_filter_rulesを参照のこと。</p>
@@ -1090,9 +1093,9 @@ string_rulesなどと同様、複数の規則を羅列する。
 <h3>binary_types<a class="headerlink" href="#binary-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>binary_typesでバイナリデータに対する特徴抽出器を定義する。
 string_typesなどと同様、 &lt;抽出器名&gt;: &lt;引数&gt; からなる辞書を指定する。
-引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
-それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
-指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+引数は文字列から文字列への辞書で、必ず&quot;method&quot;を指定する必要がある。
+それ以外に必要な引数は&quot;method&quot;に応じて異なる。
+指定できる&quot;method&quot;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <code class="descname">dynamic</code></dt>
@@ -1116,8 +1119,8 @@ string_typesなどと同様、 &lt;抽出器名&gt;: &lt;引数&gt; からなる
 <h3>binary_rules<a class="headerlink" href="#binary-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>バイナリ特徴の抽出規則を指定する。
 string_rulesなどと同様、複数の規則を羅列する。
-各規則は、&#8221;key&#8221;, &#8220;except&#8221; (オプション), &#8220;type&#8221;からなる辞書で指定する。
-重みの付け方や特徴名の指定の仕方もそれぞれの&#8221;type&#8221;ごとに異なる。</p>
+各規則は、&quot;key&quot;, &quot;except&quot; (オプション), &quot;type&quot;からなる辞書で指定する。
+重みの付け方や特徴名の指定の仕方もそれぞれの&quot;type&quot;ごとに異なる。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1138,8 +1141,8 @@ string_rulesなどと同様、複数の規則を羅列する。
 <h2>組み合わせ特徴量による特徴抽出<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>数値特徴量や文字列特徴量の組み合わせにより、新たな特徴量を抽出することができる。</p>
 <p>以下に、設定の例を示す。
-この例では、数値型の特徴量の和(&#8220;add&#8221;)と積(&#8220;mul&#8221;)を新たな特徴量とする。
-また、文字列型の特徴量を&#8221;bin/bin&#8221;で変換した特徴量の和(&#8220;add&#8221;)と積(&#8220;mul&#8221;)を新たな特徴量とする。</p>
+この例では、数値型の特徴量の和(&quot;add&quot;)と積(&quot;mul&quot;)を新たな特徴量とする。
+また、文字列型の特徴量を&quot;bin/bin&quot;で変換した特徴量の和(&quot;add&quot;)と積(&quot;mul&quot;)を新たな特徴量とする。</p>
 <div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;num_types&quot;</span><span class="o">:</span> <span class="p">{},</span>
 <span class="s2">&quot;num_rules&quot;</span><span class="o">:</span> <span class="p">[</span>
   <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;num&quot;</span><span class="p">}</span>
@@ -1170,8 +1173,8 @@ string_rulesなどと同様、複数の規則を羅列する。
 </pre></div>
 </div>
 <p>結果として得られる特徴抽出結果は、以下のようになる。
-&#8220;num_rules&#8221;, &#8220;string_rules&#8221;で抽出された特徴量に対して、
-&#8220;combination_rules&#8221;によって特徴量の和と積が計算されているのがわかる。</p>
+&quot;num_rules&quot;, &quot;string_rules&quot;で抽出された特徴量に対して、
+&quot;combination_rules&quot;によって特徴量の和と積が計算されているのがわかる。</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="89%" />
@@ -1183,28 +1186,28 @@ string_rulesなどと同様、複数の規則を羅列する。
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&#8220;user/age&#64;num&#8221;</td>
+<tr class="row-even"><td>&quot;user/age&#64;num&quot;</td>
 <td>25</td>
 </tr>
-<tr class="row-odd"><td>&#8220;user/income&#64;num&#8221;</td>
+<tr class="row-odd"><td>&quot;user/income&#64;num&quot;</td>
 <td>1000</td>
 </tr>
-<tr class="row-even"><td>&#8220;user/income&#64;num&amp;user/age&#64;num/add&#8221;</td>
+<tr class="row-even"><td>&quot;user/income&#64;num&amp;user/age&#64;num/add&quot;</td>
 <td>1025</td>
 </tr>
-<tr class="row-odd"><td>&#8220;user/income&#64;num&amp;user/age&#64;num/mul&#8221;</td>
+<tr class="row-odd"><td>&quot;user/income&#64;num&amp;user/age&#64;num/mul&quot;</td>
 <td>25000</td>
 </tr>
-<tr class="row-even"><td>&#8220;message$Hello&#64;str#bin/bin&#8221;</td>
+<tr class="row-even"><td>&quot;message$Hello&#64;str#bin/bin&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&#8220;user/name$Loren&#64;str#bin/bin&#8221;</td>
+<tr class="row-odd"><td>&quot;user/name$Loren&#64;str#bin/bin&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&#8220;message$Hello&#64;str#bin/bin&amp;user/name$Loren&#64;str#bin/bin/mul&#8221;</td>
+<tr class="row-even"><td>&quot;message$Hello&#64;str#bin/bin&amp;user/name$Loren&#64;str#bin/bin/mul&quot;</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&#8220;message$Hello&#64;str#bin/bin&amp;user/name$Loren&#64;str#bin/bin/add&#8221;</td>
+<tr class="row-odd"><td>&quot;message$Hello&#64;str#bin/bin&amp;user/name$Loren&#64;str#bin/bin/add&quot;</td>
 <td>2</td>
 </tr>
 </tbody>
@@ -1213,9 +1216,9 @@ string_rulesなどと同様、複数の規則を羅列する。
 <h3>combination_types<a class="headerlink" href="#combination-types" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>combination_types で組み合わせデータに対する特徴抽出器を定義する。
 string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる辞書を指定する。
-引数は文字列から文字列への辞書で、必ず&#8221;method&#8221;を指定する必要がある。
-それ以外に必要な引数は&#8221;method&#8221;に応じて異なる。
-指定できる&#8221;method&#8221;の値と、それぞれに対応した引数は以下のとおりである。</p>
+引数は文字列から文字列への辞書で、必ず&quot;method&quot;を指定する必要がある。
+それ以外に必要な引数は&quot;method&quot;に応じて異なる。
+指定できる&quot;method&quot;の値と、それぞれに対応した引数は以下のとおりである。</p>
 <dl class="describe">
 <dt>
 <code class="descname">dynamic</code></dt>
@@ -1239,14 +1242,14 @@ string_typesなどと同様、&lt;抽出器名&gt;: &lt;引数&gt; からなる�
 <h3>combination_rules<a class="headerlink" href="#combination-rules" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>組み合わせ特徴量の抽出規則を指定する。
 string_rulesなどと同様、複数の規則を羅列する。
-各規則は、&#8221;key_left&#8221;, &#8220;key_right&#8221;, &#8220;except_left&#8221; (オプション), &#8220;except_right&#8221; (オプション), &#8220;type&#8221;からなる辞書で指定する。
-重みの付け方や特徴量の指定の仕方もそれぞれの&#8221;type&#8221;ごとに異なる。</p>
+各規則は、&quot;key_left&quot;, &quot;key_right&quot;, &quot;except_left&quot; (オプション), &quot;except_right&quot; (オプション), &quot;type&quot;からなる辞書で指定する。
+重みの付け方や特徴量の指定の仕方もそれぞれの&quot;type&quot;ごとに異なる。</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">key_left:</th><td class="field-body"><p class="first">第一引数。datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。なお、&#8221;*&#8221; や &#8220;&#8221; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
+<tr class="field-odd field"><th class="field-name">key_left:</th><td class="field-body"><p class="first">第一引数。datumの各要素のどのkeyとマッチさせるかを指定する。詳細はstring_filter_rulesを参照のこと。なお、&quot;*&quot; や &quot;&quot; を設定した場合、フィルタ処理前の要素も特徴抽出対象となるため注意する。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">key_right:</th><td class="field-body"><p class="first">第二引数。同上。</p>
@@ -1271,10 +1274,10 @@ string_rulesなどと同様、複数の規則を羅列する。
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">&quot;add&quot;</span></code></td>
-<td>&#8220;key_left&#8221; と &#8220;key_right&#8221; で指定された特徴量の和を重みに利用する。</td>
+<td>&quot;key_left&quot; と &quot;key_right&quot; で指定された特徴量の和を重みに利用する。</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">&quot;mul&quot;</span></code></td>
-<td>&#8220;key_left&#8221; と &#8220;key_right&#8221; で指定された特徴量の積を重みに利用する。</td>
+<td>&quot;key_left&quot; と &quot;key_right&quot; で指定された特徴量の積を重みに利用する。</td>
 </tr>
 </tbody>
 </table>
@@ -1315,11 +1318,11 @@ string_rulesなどと同様、複数の規則を羅列する。
 プラグインは単体の動的ライブラリファイル（.soファイル）からなる。
 プラグインの作り方は、別の章を参照するとして、ここではプラグインの使い方について解説する。</p>
 <p>各フィルターと抽出器のいずれの場合も、プラグインの指定の仕方は同じである。
-CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</span></code> または <code class="docutils literal"><span class="pre">num</span></code>) で、フィルターや抽出器を指定する際のパラメータで、&#8221;method&#8221;に&#8221;dynamic&#8221;を、&#8221;path&#8221;に.soファイルへのパスを、&#8221;function&#8221;に各プラグイン固有の呼び出し関数名を指定する。
+CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</span></code> または <code class="docutils literal"><span class="pre">num</span></code>) で、フィルターや抽出器を指定する際のパラメータで、&quot;method&quot;に&quot;dynamic&quot;を、&quot;path&quot;に.soファイルへのパスを、&quot;function&quot;に各プラグイン固有の呼び出し関数名を指定する。
 プラグインのパスの指定方法は2種類ある。
-パス名に &#8216;/&#8217; が含まれる場合は、相対パスか絶対パスとみなされる。
+パス名に '/' が含まれる場合は、相対パスか絶対パスとみなされる。
 この場合、相対パスならカレントディレクトリからの相対パスの、絶対パスなら指定のパスのプラグインを読み込む。
-逆に &#8216;/&#8217; が含まれない場合は、以下の順で読み込みを試み、成功したほうが採用される。</p>
+逆に '/' が含まれない場合は、以下の順で読み込みを試み、成功したほうが採用される。</p>
 <ol class="arabic simple">
 <li>環境変数 <code class="docutils literal"><span class="pre">JUBATUS_PLUGIN_PATH</span></code> で指定されたディレクトリ</li>
 <li>ビルド時に指定したデフォルトのプラグインディレクトリ（多くの場合は <code class="docutils literal"><span class="pre">$PREFIX/lib/jubatus/plugin</span></code> または <code class="docutils literal"><span class="pre">$PREFIX/lib64/jubatus/plugin</span></code> ）</li>
@@ -1342,7 +1345,7 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&#8220;create&#8221;を指定する。</td>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&quot;create&quot;を指定する。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">arg:</th><td class="field-body">MeCabエンジンに渡す引数を指定する (例えば、以下の例では -d で辞書ファイルのディレクトリを指定している)。この指定がないと、MeCabのデフォルト設定で動作する。
 引数の指定の仕方は、 <a class="reference external" href="http://taku910.github.io/mecab/mecab.html">MeCab のドキュメント</a> を参照すること。</td>
@@ -1352,23 +1355,23 @@ CLASS_types (CLASS は <code class="docutils literal"><span class="pre">string</
 <cite>N</cite> は数値ではなく文字列として指定する点に注意する (以下の例を参照)。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">base:</th><td class="field-body">各形態素の原形を使用するかどうかを指定する。
-原形を使用する場合は <cite>&#8220;true&#8221;</cite> を、表層を使用する場合は <cite>&#8220;false&#8221;</cite> を指定する。
-<cite>&#8220;true&#8221;</cite> を指定した場合でも、原形がない形態素 (固有名詞など) については表層を使用する。
-この指定がないと、<cite>&#8220;false&#8221;</cite> が指定されたものと見なされる。
-<cite>&#8220;true&#8221;</cite>, <cite>&#8220;false&#8221;</cite> は文字列として指定する点に注意する (以下の例を参照)。</td>
+原形を使用する場合は <cite>&quot;true&quot;</cite> を、表層を使用する場合は <cite>&quot;false&quot;</cite> を指定する。
+<cite>&quot;true&quot;</cite> を指定した場合でも、原形がない形態素 (固有名詞など) については表層を使用する。
+この指定がないと、<cite>&quot;false&quot;</cite> が指定されたものと見なされる。
+<cite>&quot;true&quot;</cite>, <cite>&quot;false&quot;</cite> は文字列として指定する点に注意する (以下の例を参照)。</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">include_features:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">使用する形態素のパターンを指定する。
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">使用する形態素のパターンを指定する。
 MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal"><span class="pre">名詞,固有名詞,組織,*,*,*,*</span></code>) にマッチするパターンを <code class="docutils literal"><span class="pre">string_filter_rules</span></code> の <code class="docutils literal"><span class="pre">key</span></code> と同様のフォーマットで指定する。
 例えば、名詞だけを抽出する場合は <code class="docutils literal"><span class="pre">&quot;名詞,*&quot;</span></code> のように指定する。
 複数の品詞を使用したい場合は、パターンを <code class="docutils literal"><span class="pre">|</span></code> で区切って指定する (例: <code class="docutils literal"><span class="pre">&quot;名詞,*|動詞,*&quot;</span></code>)。
-この指定がないと、<cite>&#8220;*&#8221;</cite> が指定されたものと見なされる (すべての品詞が使用される)。</td>
+この指定がないと、<cite>&quot;*&quot;</cite> が指定されたものと見なされる (すべての品詞が使用される)。</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">exclude_features:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">除外する形態素のパターンを指定する。
+<tr class="field-even field"><td>&#160;</td><td class="field-body">除外する形態素のパターンを指定する。
 指定方法は <code class="docutils literal"><span class="pre">include_features</span></code> と同様である。
 <code class="docutils literal"><span class="pre">include_features</span></code> と <code class="docutils literal"><span class="pre">exclude_features</span></code> が同時に指定された場合、 <code class="docutils literal"><span class="pre">include_features</span></code> にマッチし <code class="docutils literal"><span class="pre">exclude_features</span></code> にマッチしない品詞のみが抽出される。
-この指定がないと、<cite>&#8220;&#8221;</cite> が指定されたものと見なされる (除外を行わない)。</td>
+この指定がないと、<cite>&quot;&quot;</cite> が指定されたものと見なされる (除外を行わない)。</td>
 </tr>
 </tbody>
 </table>
@@ -1402,7 +1405,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&#8220;create&#8221;を指定する。</td>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body">&quot;create&quot;を指定する。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">dict_path:</th><td class="field-body">1行1キーワードで書かれたテキスト形式の辞書ファイルを、フルパスで指定する。</td>
 </tr>
@@ -1439,7 +1442,7 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body"><p class="first">&#8220;create&#8221;を指定する。</p>
+<tr class="field-odd field"><th class="field-name">function:</th><td class="field-body"><p class="first">&quot;create&quot;を指定する。</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">algorithm:</th><td class="field-body"><p class="first">利用する特徴量記述アルゴリズムを指定する。画像特徴量抽出プラグインでは、下記の２つのアルゴリズムを提供している。なお、いずれもキーポイントの抽出はDense sampling (すべての画素について特徴量を抽出する手法) で行っている。</p>
@@ -1464,13 +1467,13 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 </table>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">resize:</th><td class="field-body"><p class="first">画像をリサイズするかどうかを決定する。リサイズする場合は <cite>&#8220;true&#8221;</cite> を指定し、しない場合は <cite>&#8220;false&#8221;</cite> を指定する。デフォルトでは <cite>&#8220;false&#8221;</cite> が指定される</p>
+<tr class="field-odd field"><th class="field-name">resize:</th><td class="field-body"><p class="first">画像をリサイズするかどうかを決定する。リサイズする場合は <cite>&quot;true&quot;</cite> を指定し、しない場合は <cite>&quot;false&quot;</cite> を指定する。デフォルトでは <cite>&quot;false&quot;</cite> が指定される</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">x_size:</th><td class="field-body"><p class="first">画像の幅を指定しリサイズする。 <code class="docutils literal"><span class="pre">resize</span></code> が <cite>&#8220;true&#8221;</cite> のときのみ有効</p>
+<tr class="field-even field"><th class="field-name">x_size:</th><td class="field-body"><p class="first">画像の幅を指定しリサイズする。 <code class="docutils literal"><span class="pre">resize</span></code> が <cite>&quot;true&quot;</cite> のときのみ有効</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">y_size:</th><td class="field-body"><p class="first last">画像の高さを指定しリサイズする。 <code class="docutils literal"><span class="pre">resize</span></code> が <cite>&#8220;true&#8221;</cite> のときのみ有効</p>
+<tr class="field-odd field"><th class="field-name">y_size:</th><td class="field-body"><p class="first last">画像の高さを指定しリサイズする。 <code class="docutils literal"><span class="pre">resize</span></code> が <cite>&quot;true&quot;</cite> のときのみ有効</p>
 </td>
 </tr>
 </tbody>
@@ -1569,11 +1572,11 @@ MeCab の形態素解析結果の CSV 表現 (例: <code class="docutils literal
 以下に例を示す。</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFeatureExtractor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[(</span><span class="s1">u&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s1">u&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;key1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;key2&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>Pythonクラスに対する要件を以下に示す。</p>
@@ -1792,7 +1795,7 @@ Python 2.x を使用している場合は、 <code class="docutils literal"><spa
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
       <script type="text/javascript" src="_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -34,6 +34,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Jubatus" href="../index.html"/>
         <link rel="up" title="Anomaly" href="anomaly.html"/>
         <link rel="next" title="Ruby" href="anomaly_ruby.html"/>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Client API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips_faqs/index.html">Tips and FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubakit/index.html">Jubakit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jubaql/index.html">JubaQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/index.html">About This Project</a></li>
@@ -168,7 +171,7 @@
 <p>Here we explain the Python sample program of anomaly detection.</p>
 <div class="section" id="source-code">
 <h2>Source_code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
-<p>In this sample program, we will explain 1) how to configure the learning-algorithms in Jubatus with the config file &#8216;config.json&#8217;; 2) how to detect the anomaly data with the example file ‘anomaly.py’. Here are the source codes of &#8216;config.json&#8217; and &#8216;anomaly.py&#8217;.</p>
+<p>In this sample program, we will explain 1) how to configure the learning-algorithms in Jubatus with the config file ‘config.json’; 2) how to detect the anomaly data with the example file ‘anomaly.py’. Here are the source codes of ‘config.json’ and ‘anomaly.py’.</p>
 <p><strong>config.json</strong></p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -323,7 +326,7 @@
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Stop running the job.&#39;</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c1"># 0. set KeyboardInterrupt handler</span>
     <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">do_exit</span><span class="p">)</span>
 
@@ -403,23 +406,23 @@
 <li>method</li>
 </ul>
 <blockquote>
-<div>Specify the algorithm used in anomaly detection. Currently, Recommender based &#8220;lof&#8221;(Local Outlier Factor) and Nearest Neighbor based &#8220;light_lof&#8221; are supported for anomaly detection. Here, we use &#8220;lof&#8221;.</div></blockquote>
+<div>Specify the algorithm used in anomaly detection. Currently, Recommender based “lof”(Local Outlier Factor) and Nearest Neighbor based “light_lof” are supported for anomaly detection. Here, we use “lof”.</div></blockquote>
 <ul class="simple">
 <li>parameter</li>
 </ul>
 <blockquote>
 <div>Specify the parameters for anomaly detection algorithm set as method.
-Here, we use &#8220;lof&#8221; algorithm and set the parameters according to <a class="reference external" href="http://jubat.us/en/api/api_recommender.html">Recommender API</a> .</div></blockquote>
+Here, we use “lof” algorithm and set the parameters according to <a class="reference external" href="http://jubat.us/en/api/api_recommender.html">Recommender API</a> .</div></blockquote>
 <ul class="simple">
 <li>converter</li>
 </ul>
 <blockquote>
-<div><p>Specify the configurations in feature converter. In this sample, we will set &#8220;num_rules&#8221; and &#8220;string_rules&#8221;.</p>
-<p>&#8220;num_rules&#8221; specifies the value extracting rules for values in numerical format.
-&#8220;key&#8221; is set as &#8220;*&#8221; here, which means all the &#8220;key&#8221; will be taken into account. &#8220;type&#8221; is set as &#8220;num&#8221;, which means each value has its weight as equal as the value itself. For example, if data&#8217;s value i &#8220;2&#8221;, its weight is set as 2; if data&#8217;s value is &#8220;6&#8221;, its weight is set as 6.</p>
-<p>&#8220;string_rules&#8221; specifies the value extracting rules for values in string format.
-Here, &#8220;key&#8221; is set as &#8220;*&#8221;, &#8220;type&#8221; is &#8220;str&#8221;, &#8220;sample_weight&#8221; is &#8220;bin&#8221;, and &#8220;global_weight&#8221; is &#8220;bin&#8221;.
-This means, all the &#8220;key&#8221; will be taken into account, the features in strings values will be used without convertion, the weight of each key-value will be calculated throughout the whole data have been used, and the global weight is a constant value of &#8220;1&#8221;.</p>
+<div><p>Specify the configurations in feature converter. In this sample, we will set “num_rules” and “string_rules”.</p>
+<p>“num_rules” specifies the value extracting rules for values in numerical format.
+“key” is set as “*” here, which means all the “key” will be taken into account. “type” is set as “num”, which means each value has its weight as equal as the value itself. For example, if data’s value i “2”, its weight is set as 2; if data’s value is “6”, its weight is set as 6.</p>
+<p>“string_rules” specifies the value extracting rules for values in string format.
+Here, “key” is set as “*”, “type” is “str”, “sample_weight” is “bin”, and “global_weight” is “bin”.
+This means, all the “key” will be taken into account, the features in strings values will be used without convertion, the weight of each key-value will be calculated throughout the whole data have been used, and the global weight is a constant value of “1”.</p>
 </div></blockquote>
 </div></blockquote>
 <p><strong>anomaly.py</strong></p>
@@ -435,7 +438,7 @@ Setting the IP addr., RPC port of Jubatus Server.</div></blockquote>
 <li>Prepare the learning data</li>
 </ol>
 <blockquote>
-<div>AnomalyClient will send the Datum to Jubatus server for data learning or anomaly detection, by using its &#8220;add&#8221; method.
+<div>AnomalyClient will send the Datum to Jubatus server for data learning or anomaly detection, by using its “add” method.
 In this example, the result-data in KDD Cup(Knowledge Discovery and Data Mining Cup) is used as the trainning data. At first, the program read the training data from the TEXT file, one line at a time (Row 25). The data in TEXT file are seperated by commas, so we split the items by ’,’ (Row 27).
 Then, we make the data items stored in datum unit for model training later (Row 29-77).</div></blockquote>
 <ol class="arabic simple" start="3">
@@ -444,7 +447,7 @@ Then, we make the data items stored in datum unit for model training later (Row 
 <blockquote>
 <div>Input the training data generated in step.2 into the add() method of AnomalyClient (Row 80).
 The first parameter in add() is the unique name for task identification in Zookeeper.
-(use null charactor &#8220;&#8221; for the stand-alone mode)
+(use null charactor “” for the stand-alone mode)
 The second parameter specifies the Datum generated in step.2.
 The returned result &lt;string, float&gt; is consisted of the data ID and its estimated anomaly value.</div></blockquote>
 <ol class="arabic simple" start="4">
@@ -467,7 +470,7 @@ $ mv kddcup.data_10_percent kddcup.data_10_percent.txt
 </div></blockquote>
 <dl class="docutils">
 <dt><strong>［At Jubatus Server］</strong></dt>
-<dd><p class="first">start &#8220;jubaanomaly&#8221; process.</p>
+<dd><p class="first">start “jubaanomaly” process.</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span>$ jubaanomaly --configpath config.json
 </pre></div>
 </div>
@@ -549,7 +552,7 @@ id_with_score{id: 2499, score: 0.7581642270088196} normal.
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
