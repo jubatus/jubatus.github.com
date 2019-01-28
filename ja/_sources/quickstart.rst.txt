@@ -23,11 +23,39 @@ Red Hat Enterprise Linux 6.2 以降 (64-bit)
   // RHEL 7 の場合
   $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/7/stable/x86_64/jubatus-release-7-2.el7.x86_64.rpm
 
-``jubatus`` と ``jubatus-client`` のパッケージをインストールします。
+最新のバージョンの ``jubatus`` と ``jubatus-client`` のパッケージをインストールします。
 
 ::
 
   $ sudo yum install jubatus jubatus-client
+
+特定のバージョンの ``jubatus`` と ``jubatus-client`` のパッケージをインストールするには、リポジトリで利用可能なバージョン一覧の中から選択してインストールします。
+
+::
+
+  $ yum list jubatus jubatus-client --showduplicates | sort -r
+  jubatus.x86_64                           1.1.0-1.el7                     jubatus
+  jubatus.x86_64                           1.0.9-1.el7                     jubatus
+  jubatus.x86_64                           1.0.8-1.el7                     jubatus
+  jubatus.x86_64                           1.0.7-1.el7                     jubatus
+  jubatus.x86_64                           1.0.6-1.el7                     jubatus
+  jubatus.x86_64                           1.0.5-1.el7                     jubatus
+  jubatus.x86_64                           1.0.4-1.el7                     jubatus
+  jubatus.x86_64                           1.0.3-1.el7                     jubatus
+  jubatus-client.x86_64                    1.1.0-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.9-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.8-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.7-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.6-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.5-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.4-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.3-1.el7                     jubatus
+
+利用可能なバージョンをインストールします。以下の場合、 ``1.0.9`` をインストールします。
+
+::
+
+  $ sudo yum install jubatus-1.0.9-1.el7 jubatus-client-1.0.9-1.el7  
 
 RHEL 6 では、依存パッケージ (``oniguruma``) のインストールに ``rhel-6-server-optional-rpms`` または ``jubatus-optional`` リポジトリを使用します。
 上記の手順を実行した際、 ``oniguruma`` パッケージが存在しないエラーが表示された場合は、以下のコマンドのいずれかを実行してください。
@@ -71,12 +99,32 @@ Ubuntu Server (64-bit)
   // Ubuntu 18.04 (Bionic) の場合
   deb [trusted=yes] http://download.jubat.us/apt/ubuntu/bionic/binary /
 
-``jubatus`` のパッケージをインストールします。
+最新のバージョンの ``jubatus`` のパッケージをインストールします。
 
 ::
 
   $ sudo apt-get update
   $ sudo apt-get install jubatus
+
+特定のバージョンの ``jubatus`` のパッケージをインストールするには、リポジトリで利用可能なバージョン一覧の中から選択してインストールします。
+
+::
+
+  $ apt-cache madison jubatus
+    jubatus |    1.1.0-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.9-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.8-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.7-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.6-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.5-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.4-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.3-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+
+利用可能なバージョンをインストールします。以下の場合、 ``1.0.9`` をインストールします。
+
+::
+
+  $ sudo apt-get install jubatus=1.0.9-1
 
 現在、パッケージには GPG 署名が行われていません。
 以下の警告メッセージが表示された場合は、 ``y`` を入力してください。

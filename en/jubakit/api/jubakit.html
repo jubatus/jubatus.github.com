@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit package &mdash; jubakit 0.6.1 documentation</title>
+  <title>jubakit package &mdash; jubakit 0.6.2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="jubakit 0.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="jubakit 0.6.2 documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="index.html"/>
         <link rel="next" title="jubakit.loader package" href="jubakit.loader.html"/>
         <link rel="prev" title="API Reference" href="index.html"/> 
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.6.2
               </div>
             
           
@@ -102,6 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="jubakit.loader.html">jubakit.loader package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jubakit.wrapper.html">jubakit.wrapper package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-jubakit.anomaly">jubakit.anomaly module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-jubakit.bandit">jubakit.bandit module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-jubakit.base">jubakit.base module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-jubakit.burst">jubakit.burst module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-jubakit.classifier">jubakit.classifier module</a></li>
@@ -282,6 +283,63 @@ returns LOF scores.</p>
 Flag can be a value of any type.  It is provided for convenience to
 calculate precision.</p>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-jubakit.bandit">
+<span id="jubakit-bandit-module"></span><h2>jubakit.bandit module<a class="headerlink" href="#module-jubakit.bandit" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="jubakit.bandit.Bandit">
+<em class="property">class </em><code class="descclassname">jubakit.bandit.</code><code class="descname">Bandit</code><span class="sig-paren">(</span><em>host=u'127.0.0.1'</em>, <em>port=9199</em>, <em>cluster=u''</em>, <em>timeout=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
+<p>Bandit service.</p>
+<dl class="method">
+<dt id="jubakit.bandit.Bandit.delete_arm">
+<code class="descname">delete_arm</code><span class="sig-paren">(</span><em>arm_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.delete_arm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.delete_arm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.bandit.Bandit.get_arm_info">
+<code class="descname">get_arm_info</code><span class="sig-paren">(</span><em>player_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.get_arm_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.get_arm_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="jubakit.bandit.Bandit.name">
+<em class="property">classmethod </em><code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.bandit.Bandit.register_arm">
+<code class="descname">register_arm</code><span class="sig-paren">(</span><em>arm_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.register_arm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.register_arm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.bandit.Bandit.register_reward">
+<code class="descname">register_reward</code><span class="sig-paren">(</span><em>player_id</em>, <em>arm_id</em>, <em>reward</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.register_reward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.register_reward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.bandit.Bandit.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>player_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jubakit.bandit.Bandit.select_arm">
+<code class="descname">select_arm</code><span class="sig-paren">(</span><em>player_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Bandit.select_arm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Bandit.select_arm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jubakit.bandit.Config">
+<em class="property">class </em><code class="descclassname">jubakit.bandit.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>method=None</em>, <em>parameter=None</em>, <em>converter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#jubakit.base.GenericConfig" title="jubakit.base.GenericConfig"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.GenericConfig</span></code></a></p>
+<p>Configuration to run Bandit service.</p>
+<dl class="classmethod">
+<dt id="jubakit.bandit.Config.methods">
+<em class="property">classmethod </em><code class="descname">methods</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/bandit.html#Config.methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.bandit.Config.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1663,6 +1721,12 @@ its associated ID.</p>
 <dd><p>Bases: <a class="reference internal" href="#jubakit.base.BaseService" title="jubakit.base.BaseService"><code class="xref py py-class docutils literal"><span class="pre">jubakit.base.BaseService</span></code></a></p>
 <p>Recommender service.</p>
 <dl class="method">
+<dt id="jubakit.recommender.Recommender.clear_row">
+<code class="descname">clear_row</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.clear_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.clear_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the given rows from the recommendation table.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="jubakit.recommender.Recommender.complete_row_from_datum">
 <code class="descname">complete_row_from_datum</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/jubakit/recommender.html#Recommender.complete_row_from_datum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#jubakit.recommender.Recommender.complete_row_from_datum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns data points from the datum in the recommender model,
@@ -2076,7 +2140,7 @@ Existing connection will be discarded.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.1',
+            VERSION:'0.6.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

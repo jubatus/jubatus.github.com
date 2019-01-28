@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>jubakit: Jubatus Toolkit &mdash; jubakit 0.6.1 ドキュメント</title>
+  <title>jubakit: Jubatus Toolkit &mdash; jubakit 0.6.2 ドキュメント</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="索引"
               href="genindex.html"/>
         <link rel="search" title="検索" href="search.html"/>
-    <link rel="top" title="jubakit 0.6.1 ドキュメント" href="index.html"/>
+    <link rel="top" title="jubakit 0.6.2 ドキュメント" href="index.html"/>
         <link rel="next" title="概要" href="overview.html"/>
         <link rel="prev" title="Table of Contents" href="index.html"/> 
 
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.6.2
               </div>
             
           
@@ -153,7 +153,16 @@
 <div class="section" id="jubakit-jubatus-toolkit">
 <h1>jubakit: Jubatus Toolkit<a class="headerlink" href="#jubakit-jubatus-toolkit" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>jubakitはJubatusの機能に容易にアクセスするためのPythonモジュールです。jubakitを <a class="reference external" href="http://scikit-learn.org/">scikit-learn</a> と併せて使用することで、交差検証やモデル評価のような、強力な機能を使用することができます。詳細については、 <a class="reference external" href="http://jubat.us/ja/jubakit">Jubakit Documentation</a> を参照してください。</p>
-<p>現在のjubakitは <a class="reference external" href="http://jubat.us/ja/api/api_classifier.html">Classifier</a>, <a class="reference external" href="http://jubat.us/ja/api/api_regression.html">Regression</a>, <a class="reference external" href="http://jubat.us/ja/api/api_anomaly.html">Anomaly</a>, <a class="reference external" href="http://jubat.us/ja/api/api_recommender.html">Recommender</a>, <a class="reference external" href="http://jubat.us/ja/api/api_nearest_neighbor.html">NearestNeighbor</a>, <a class="reference external" href="http://jubat.us/ja/api/api_clustering.html">Clustering</a> および <a class="reference external" href="http://jubat.us/ja/api/api_weight.html">Weight</a> エンジンをサポートします。</p>
+<p>Currently jubakit supports
+<a class="reference external" href="http://jubat.us/en/api/api_classifier.html">Classifier</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_regression.html">Regression</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_anomaly.html">Anomaly</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_recommender.html">Recommender</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_nearest_neighbor.html">NearestNeighbor</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_clustering.html">Clustering</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_burst.html">Burst</a>,
+<a class="reference external" href="http://jubat.us/en/api/api_bandit.html">Bandit</a> and
+<a class="reference external" href="http://jubat.us/en/api/api_weight.html">Weight</a> engines.</p>
 <div class="section" id="install">
 <h2>インストール<a class="headerlink" href="#install" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jubakit</span>
@@ -261,39 +270,51 @@
 <td>scikit-learnラッパーを使用したグリッドサーチ例。</td>
 <td>✓</td>
 </tr>
-<tr class="row-even"><td>regression_boston.py</td>
+<tr class="row-even"><td>classifier_tensorboard.py</td>
+<td>Visualize a training process using TensorBoard</td>
+<td>✓</td>
+</tr>
+<tr class="row-odd"><td>regression_boston.py</td>
 <td>toyデータセット (boston) を使用した回帰。</td>
 <td>✓</td>
 </tr>
-<tr class="row-odd"><td>regression_csv.py</td>
+<tr class="row-even"><td>regression_csv.py</td>
 <td>CSVファイルを使用した回帰。</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td>regression_sklearn_wrapper.py</td>
+<tr class="row-odd"><td>regression_sklearn_wrapper.py</td>
 <td>scikit-learnラッパーを使用した回帰。</td>
 <td>✓</td>
 </tr>
-<tr class="row-odd"><td>anomaly_auc.py</td>
+<tr class="row-even"><td>anomaly_auc.py</td>
 <td>異常検知と評価指標。</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td>recommender_npb.py</td>
+<tr class="row-odd"><td>recommender_npb.py</td>
 <td>類似アイテムの推薦。</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>nearest_neighbor_aaai.py</td>
+<tr class="row-even"><td>nearest_neighbor_aaai.py</td>
 <td>近傍アイテムの探索。</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td>clustering_2d.py</td>
+<tr class="row-odd"><td>clustering_2d.py</td>
 <td>2次元データセットのクラスタリング。</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>weight_shogun.py</td>
+<tr class="row-even"><td>burst_dummy_stream.py</td>
+<td>Burst detection with stream data</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>bandit_slot.py</td>
+<td>Multi-armed bandit with slot machine example</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>weight_shogun.py</td>
 <td>Weightを使用したfv_converterのふるまいの追跡。</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td>weight_model_extract.py</td>
+<tr class="row-odd"><td>weight_model_extract.py</td>
 <td>Weightモデルファイルの内容を抽出する。</td>
 <td>&#160;</td>
 </tr>
@@ -350,7 +371,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.1',
+            VERSION:'0.6.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

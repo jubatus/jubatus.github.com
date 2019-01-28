@@ -29,6 +29,34 @@ Now install ``jubatus`` and ``jubatus-client`` package.
 
   $ sudo yum install jubatus jubatus-client
 
+To install a specific version of ``jubatus`` and ``jubatus-client``, list the available versions.
+
+::
+
+  $ yum list jubatus jubatus-client --showduplicates | sort -r
+  jubatus.x86_64                           1.1.0-1.el7                     jubatus
+  jubatus.x86_64                           1.0.9-1.el7                     jubatus
+  jubatus.x86_64                           1.0.8-1.el7                     jubatus
+  jubatus.x86_64                           1.0.7-1.el7                     jubatus
+  jubatus.x86_64                           1.0.6-1.el7                     jubatus
+  jubatus.x86_64                           1.0.5-1.el7                     jubatus
+  jubatus.x86_64                           1.0.4-1.el7                     jubatus
+  jubatus.x86_64                           1.0.3-1.el7                     jubatus
+  jubatus-client.x86_64                    1.1.0-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.9-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.8-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.7-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.6-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.5-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.4-1.el7                     jubatus
+  jubatus-client.x86_64                    1.0.3-1.el7                     jubatus
+
+Install an available version, for example, ``1.0.9``.
+
+::
+
+  $ sudo yum install jubatus-1.0.9-1.el7 jubatus-client-1.0.9-1.el7  
+
 On RHEL 6 systems, we use ``rhel-6-server-optional-rpms`` or ``jubatus-optional`` repository to install dependency package (``oniguruma``).
 If the installation command above fails with the missing ``oniguruma`` package error, try one of the following commands:
 
@@ -75,6 +103,26 @@ Now install ``jubatus`` package.
 
   $ sudo apt-get update
   $ sudo apt-get install jubatus
+
+To install a specific version of ``jubatus``, list the available versions.
+
+::
+
+  $ apt-cache madison jubatus
+    jubatus |    1.1.0-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.9-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.8-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.7-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.6-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.5-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.4-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+    jubatus |    1.0.3-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+
+Install an available version, for example, ``1.0.9``.
+
+::
+
+  $ sudo apt-get install jubatus=1.0.9-1
 
 Currently our package is not GPG-signed.
 Bypass the warning by answering ``y`` to the prompt when asked:

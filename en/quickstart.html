@@ -183,6 +183,30 @@ $ sudo rpm -Uvh http://download.jubat.us/yum/rhel/7/stable/x86_64/jubatus-releas
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo yum install jubatus jubatus-client
 </pre></div>
 </div>
+<p>To install a specific version of <code class="docutils literal"><span class="pre">jubatus</span></code> and <code class="docutils literal"><span class="pre">jubatus-client</span></code>, list the available versions.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ yum list jubatus jubatus-client --showduplicates | sort -r
+jubatus.x86_64                           1.1.0-1.el7                     jubatus
+jubatus.x86_64                           1.0.9-1.el7                     jubatus
+jubatus.x86_64                           1.0.8-1.el7                     jubatus
+jubatus.x86_64                           1.0.7-1.el7                     jubatus
+jubatus.x86_64                           1.0.6-1.el7                     jubatus
+jubatus.x86_64                           1.0.5-1.el7                     jubatus
+jubatus.x86_64                           1.0.4-1.el7                     jubatus
+jubatus.x86_64                           1.0.3-1.el7                     jubatus
+jubatus-client.x86_64                    1.1.0-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.9-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.8-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.7-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.6-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.5-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.4-1.el7                     jubatus
+jubatus-client.x86_64                    1.0.3-1.el7                     jubatus
+</pre></div>
+</div>
+<p>Install an available version, for example, <code class="docutils literal"><span class="pre">1.0.9</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo yum install jubatus-1.0.9-1.el7 jubatus-client-1.0.9-1.el7
+</pre></div>
+</div>
 <p>On RHEL 6 systems, we use <code class="docutils literal"><span class="pre">rhel-6-server-optional-rpms</span></code> or <code class="docutils literal"><span class="pre">jubatus-optional</span></code> repository to install dependency package (<code class="docutils literal"><span class="pre">oniguruma</span></code>).
 If the installation command above fails with the missing <code class="docutils literal"><span class="pre">oniguruma</span></code> package error, try one of the following commands:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>// For RHEL 6 systems that cannot find oniguruma package
@@ -229,6 +253,22 @@ By installing plug-ins, Jubatus can perform feature extractions from Japanese na
 <p>Now install <code class="docutils literal"><span class="pre">jubatus</span></code> package.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get update
 $ sudo apt-get install jubatus
+</pre></div>
+</div>
+<p>To install a specific version of <code class="docutils literal"><span class="pre">jubatus</span></code>, list the available versions.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ apt-cache madison jubatus
+  jubatus |    1.1.0-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.9-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.8-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.7-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.6-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.5-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.4-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+  jubatus |    1.0.3-1 | http://download.jubat.us/apt/ubuntu/xenial binary/ Packages
+</pre></div>
+</div>
+<p>Install an available version, for example, <code class="docutils literal"><span class="pre">1.0.9</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install jubatus=1.0.9-1
 </pre></div>
 </div>
 <p>Currently our package is not GPG-signed.
@@ -368,7 +408,7 @@ See the <a class="reference internal" href="api/index.html"><span class="doc">Cl
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2011-2018 PFN &amp; NTT.
+        &copy; Copyright 2011-2019 PFN &amp; NTT.
 
     </p>
   </div>
@@ -390,7 +430,7 @@ See the <a class="reference internal" href="api/index.html"><span class="doc">Cl
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.0',
+            VERSION:'1.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
